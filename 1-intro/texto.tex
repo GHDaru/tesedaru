@@ -1,3 +1,150 @@
 \chapter{Introdução}
 \label{ch:intro}
-% W7 — reescrita a partir de nova_introducao.tex (ver docs/plano-mestre.md)
+
+A classificação de textos curtos é uma tarefa relevante em Processamento de Linguagem
+Natural (PLN), especialmente em contextos nos quais grandes volumes de registros
+textuais precisam ser organizados, filtrados ou categorizados automaticamente. Esse
+cenário aparece em aplicações como consultas, comentários, atendimento e descrições de
+produtos. A literatura mostra que textos curtos apresentam dificuldades específicas,
+como baixo contexto por instância, alta esparsidade, ruído e informalidade, o que
+torna sua classificação mais desafiadora do que a de documentos mais extensos
+\citep{alsmadi2019shorttext,song2014shorttext}.
+
+No contexto da língua portuguesa, essas dificuldades se intensificam. Em aplicações
+como comércio eletrônico e cadastros operacionais, descrições curtas costumam
+apresentar abreviações, variações morfológicas, ruídos ortográficos e grande
+heterogeneidade lexical. Em trabalho anterior, voltado à classificação de descrições
+curtas de produtos em português, observou-se que métodos clássicos de recuperação da
+informação, como \textit{bag-of-words}, TF e TF--IDF, podem alcançar desempenho
+relevante quando combinados com pré-processamento e parametrização adequados
+\citep{Daru2024Dissertacao}. Esse resultado confirma a relevância empírica do problema
+e fornece uma base concreta para investigações posteriores.
+
+Ao mesmo tempo, o avanço dos modelos de linguagem pré-treinados alterou
+significativamente o estado da arte em PLN. O BERT mostrou que representações
+bidirecionais profundas, obtidas por pré-treinamento em texto não rotulado e
+posterior ajuste fino em tarefas específicas, podem produzir resultados de ponta em
+diversas tarefas \citep{devlin2019bert}. Para o português, o BERTimbau evidenciou que
+modelos monolíngues pré-treinados são particularmente relevantes em cenários com
+poucos dados anotados, superando o BERT multilíngue em tarefas importantes da língua
+\citep{Souza2020BERTimbau}. Por essa razão, esta tese adota um classificador baseado
+em BERTimbau na validação principal do framework proposto, reservando modelos mais
+leves para análises exploratórias específicas.
+
+Apesar desses avanços, a limitação central permanece: dados não rotulados são
+abundantes, mas a obtenção de rótulos confiáveis continua custosa. Nesse contexto, o
+aprendizado ativo surge como alternativa promissora, ao selecionar iterativamente
+exemplos potencialmente mais informativos para anotação. No entanto, revisões
+recentes mostram que sua aplicação prática envolve dificuldades adicionais, como
+custo de anotação, critérios de parada, viabilidade computacional e reaproveitamento
+dos exemplos obtidos \citep{zhang2022surveyAL}.
+
+\section{Problema de pesquisa}
+\label{sec:intro-problema}
+
+Embora o aprendizado ativo seja conceitualmente adequado para cenários com alto custo
+de rotulagem, sua aplicação em modelos modernos de PLN enfrenta limitações
+importantes. A principal delas é o problema de \textit{cold start}: nas etapas
+iniciais, quando ainda há poucos exemplos anotados, o sistema não dispõe de
+informação suficiente para selecionar instâncias realmente informativas. Além disso,
+o treinamento iterativo do modelo ao longo do ciclo de seleção pode ser caro e pouco
+prático. Assim, o problema central desta tese não é apenas classificar textos curtos
+em português com boa acurácia, mas \textbf{como reduzir o custo de rotulagem nesse
+contexto sem comprometer o desempenho final}, superando as limitações do aprendizado
+ativo tradicional nas fases iniciais do processo \citep{zhang2022surveyAL}.
+
+\section{Lacuna de pesquisa}
+\label{sec:intro-lacuna}
+
+A literatura já consolidou os desafios da classificação de textos curtos e a força de
+modelos pré-treinados em cenários com poucos dados anotados
+\citep{alsmadi2019shorttext,song2014shorttext,devlin2019bert,Souza2020BERTimbau}. Trabalhos recentes, como o
+ActiveLLM, indicaram que modelos de linguagem de grande porte podem apoiar a seleção
+de instâncias em cenários com poucos exemplos, mitigando o \textit{cold start}
+\citep{Bayer2024ActiveLLM}, e que LLMs podem atuar como rotuladores de baixo custo em
+ciclos de aprendizado ativo \citep{Zhang2025LLMAL}. Ainda assim, permanece uma lacuna
+específica: \textbf{falta uma formulação metodológica voltada ao português e ao
+problema de textos curtos que articule, de forma explícita e com validação empírica
+em cada componente, aprendizado ativo, classificação em baixo regime de supervisão e
+uso de modelos de linguagem para apoiar a fase inicial de seleção e rotulagem}. É
+nesse espaço que esta tese se posiciona.
+
+\section{Questão de pesquisa e hipótese}
+\label{sec:intro-hipotese}
+
+Diante dessa lacuna, esta tese é guiada pela seguinte questão de pesquisa:
+
+\begin{quote}
+\textit{Como estruturar um framework de aprendizado ativo para classificação de
+textos curtos em português que reduza o esforço de rotulagem, sem perda relevante de
+desempenho, utilizando modelos de linguagem para apoiar as fases iniciais do
+processo?}
+\end{quote}
+
+A hipótese central é que \textbf{um framework de aprendizado ativo apoiado por
+modelos de linguagem nas etapas iniciais pode reduzir a necessidade de rótulos sem
+perda relevante de desempenho final}. Para torná-la falseável, adota-se o seguinte
+critério quantitativo de aceitação: o framework proposto deve atingir, com no máximo
+$30\%$ dos rótulos do \textit{pool} (fornecidos por oráculo LLM), pelo menos $95\%$
+do Macro F1-Score obtido com supervisão completa, superando com significância
+estatística as estratégias de referência de amostragem aleatória e de incerteza pura
+sob o mesmo orçamento (Capítulo~\ref{ch:metodo}).
+
+\section{Objetivos}
+\label{sec:intro-objetivos}
+
+O objetivo geral é propor e avaliar o \textbf{FALCO}, um framework de aprendizado
+ativo para classificação de textos curtos em português, com uso de modelos de
+linguagem como oráculo de rotulagem e apoio à fase inicial de seleção, visando
+reduzir o custo de anotação e manter desempenho competitivo. A investigação é
+organizada em quatro pilares empíricos, que estruturam também os capítulos de
+resultados:
+
+\begin{enumerate}
+  \item \textbf{P1 — composição do conjunto inicial}: quantificar o impacto da
+  composição e do tamanho do conjunto inicial de rotulagem ($L_0$) na generalização
+  do classificador, incluindo a estimativa de limites por otimização evolutiva;
+  \item \textbf{P2 — \textit{cold start} sem rótulos}: propor e avaliar o algoritmo
+  DRI-SL, que constrói um $L_0$ informativo sem acesso a rótulos, combinando
+  densidade semântica e variedade lexical;
+  \item \textbf{P3 — LLM como oráculo}: medir, com instrumentação validada, a
+  assertividade, o custo e o perfil de erro de LLMs como rotuladores para o domínio,
+  derivando a configuração de oráculos do framework;
+  \item \textbf{P4 — o framework integrado}: avaliar o FALCO contra métodos de
+  referência sob o mesmo orçamento, com testes de significância, verificando a
+  hipótese central.
+\end{enumerate}
+
+Transversalmente, propõe-se a métrica \textit{Learning Curve Efficiency} (LCE) para
+sumarizar a eficiência de curvas de aprendizado, e disponibiliza-se a biblioteca
+\texttt{activelearning}, que implementa todo o instrumental com reprodutibilidade
+rastreável.
+
+\section{Delimitação da contribuição}
+\label{sec:intro-delimitacao}
+
+Esta tese não propõe um novo modelo fundacional para o português nem um novo
+classificador de texto: sua contribuição está delimitada à \textbf{eficiência do
+processo de rotulagem}. Dois níveis de modelagem são usados de forma complementar —
+um classificador leve, derivado da linha investigada na dissertação de mestrado do
+autor \citep{Daru2024Dissertacao}, em análises exploratórias massivas, e um
+classificador baseado em BERTimbau na validação principal. Essa distinção isola a
+contribuição metodológica: a originalidade reside no processo de seleção e
+rotulagem, não no modelo de classificação. A tese também se distingue do trabalho
+anterior do autor, que investigou como classificar bem com dados já anotados; aqui a
+pergunta é \textbf{como obter, de forma eficiente, o conjunto anotado necessário}.
+
+\section{Organização do trabalho}
+\label{sec:intro-organizacao}
+
+Além desta introdução, o trabalho está organizado da seguinte forma. O
+Capítulo~\ref{ch:fundam} apresenta os fundamentos de classificação de textos curtos,
+aprendizado ativo e modelos de linguagem, e a revisão sistemática da literatura
+recente. O Capítulo~\ref{ch:metodo} descreve a metodologia: dados e sua auditoria, os
+quatro pilares, o programa experimental E0--E4 e o instrumental de reprodutibilidade.
+O Capítulo~\ref{ch:resultados-l0} apresenta os resultados sobre a composição e a
+construção do conjunto inicial (P1 e P2). O Capítulo~\ref{ch:resultados-falco}
+apresenta a avaliação dos oráculos LLM e do framework FALCO (P3 e P4). O
+Capítulo~\ref{ch:conclusao} discute os achados, limitações e trabalhos futuros. Os
+apêndices formalizam a métrica LCE, o algoritmo genético, o DRI-SL, a biblioteca
+\texttt{activelearning} e os \textit{prompts} utilizados.
