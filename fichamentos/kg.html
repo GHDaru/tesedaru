@@ -1,0 +1,284 @@
+<meta charset="utf-8">
+<title>Knowledge Graph — Tese FALCO</title>
+<style>
+  :root {
+    --bg: #f7f6f2; --panel: #fffdf8; --ink: #23252b; --muted: #6b6f78;
+    --line: #e3e0d8; --edge: rgba(60, 64, 72, 0.28); --edge-falco: rgba(160, 58, 82, 0.5);
+    --artigo: #35629e; --pendente: #9aa7bd; --framework: #a03a52; --pilar: #b0713a;
+    --metodo: #4a8a63; --conceito: #7a6aa0; --modelo: #737d8c; --dataset: #737d8c;
+    --tarefa: #737d8c; --halo: rgba(53, 98, 158, 0.16);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #151922; --panel: #1c212c; --ink: #e6e4dc; --muted: #98a0ad;
+      --line: #2a3040; --edge: rgba(200, 205, 214, 0.22); --edge-falco: rgba(224, 122, 148, 0.55);
+      --artigo: #6f9bd4; --pendente: #5d6b83; --framework: #d4708c; --pilar: #cf9a62;
+      --metodo: #74b58d; --conceito: #a894cf; --modelo: #8d99ac; --dataset: #8d99ac;
+      --tarefa: #8d99ac; --halo: rgba(111, 155, 212, 0.2);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #f7f6f2; --panel: #fffdf8; --ink: #23252b; --muted: #6b6f78;
+    --line: #e3e0d8; --edge: rgba(60, 64, 72, 0.28); --edge-falco: rgba(160, 58, 82, 0.5);
+    --artigo: #35629e; --pendente: #9aa7bd; --framework: #a03a52; --pilar: #b0713a;
+    --metodo: #4a8a63; --conceito: #7a6aa0; --modelo: #737d8c; --dataset: #737d8c;
+    --tarefa: #737d8c; --halo: rgba(53, 98, 158, 0.16);
+  }
+  :root[data-theme="dark"] {
+    --bg: #151922; --panel: #1c212c; --ink: #e6e4dc; --muted: #98a0ad;
+    --line: #2a3040; --edge: rgba(200, 205, 214, 0.22); --edge-falco: rgba(224, 122, 148, 0.55);
+    --artigo: #6f9bd4; --pendente: #5d6b83; --framework: #d4708c; --pilar: #cf9a62;
+    --metodo: #74b58d; --conceito: #a894cf; --modelo: #8d99ac; --dataset: #8d99ac;
+    --tarefa: #8d99ac; --halo: rgba(111, 155, 212, 0.2);
+  }
+  html, body { height: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+    overflow: hidden;
+  }
+  #wrap { display: grid; grid-template-rows: auto 1fr; height: 100vh; }
+  header {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1.25rem;
+    padding: 0.7rem 1.1rem; border-bottom: 1px solid var(--line); background: var(--panel);
+  }
+  header h1 {
+    margin: 0; font: 600 1.05rem/1.2 Georgia, "Times New Roman", serif;
+    letter-spacing: 0.01em;
+  }
+  header .sub { color: var(--muted); font-size: 0.8rem; }
+  #filters { display: flex; flex-wrap: wrap; gap: 0.25rem 0.9rem; margin-left: auto; }
+  #filters label {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-size: 0.78rem; color: var(--muted); cursor: pointer; user-select: none;
+  }
+  #filters input { accent-color: var(--artigo); }
+  .swatch { width: 0.65rem; height: 0.65rem; border-radius: 50%; display: inline-block; }
+  #stage { position: relative; }
+  canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+  canvas.dragging { cursor: grabbing; }
+  #detail {
+    position: absolute; top: 0.9rem; right: 0.9rem; width: min(340px, 85vw);
+    max-height: calc(100% - 2rem); overflow-y: auto;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 0.9rem 1rem; box-shadow: 0 6px 24px rgba(0,0,0,0.12); display: none;
+  }
+  #detail.open { display: block; }
+  #detail h2 { margin: 0 0 0.2rem; font: 600 1rem/1.3 Georgia, serif; text-wrap: balance; }
+  #detail .kind {
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  #detail .meta { color: var(--muted); font-size: 0.8rem; margin: 0.3rem 0 0.6rem; }
+  #detail ul { margin: 0.3rem 0 0; padding-left: 1.1rem; font-size: 0.82rem; }
+  #detail li { margin-bottom: 0.35rem; }
+  #detail .rel { font-weight: 600; }
+  #detail .note { color: var(--muted); }
+  #detail button {
+    position: absolute; top: 0.5rem; right: 0.6rem; border: 0; background: none;
+    color: var(--muted); font-size: 1rem; cursor: pointer;
+  }
+  #detail button:focus-visible, #filters input:focus-visible { outline: 2px solid var(--artigo); outline-offset: 2px; }
+  #hint {
+    position: absolute; left: 1rem; bottom: 0.8rem; color: var(--muted);
+    font-size: 0.72rem; pointer-events: none;
+  }
+</style>
+<div id="wrap">
+  <header>
+    <h1>Knowledge Graph — Tese FALCO</h1>
+    <span class="sub" id="stats"></span>
+    <div id="filters"></div>
+  </header>
+  <div id="stage">
+    <canvas id="cv"></canvas>
+    <aside id="detail" aria-live="polite">
+      <button id="close" aria-label="Fechar painel">×</button>
+      <div id="detail-body"></div>
+    </aside>
+    <div id="hint">arraste nós · roda do mouse = zoom · clique = detalhes · fundo = pan</div>
+  </div>
+</div>
+<script>
+const GRAPH = {"nodes": [{"id": "FALCO", "type": "framework", "label": "FALCO"}, {"id": "Angluin1988", "type": "artigo", "label": "Angluin1988", "title": "Queries and Concept Learning", "year": 1988, "venue": "Machine Learning, 2, pp. 319–342, Kluwer", "paper_type": "teoria", "status": "fichado"}, {"id": "pilar:geral", "type": "pilar", "label": "geral"}, {"id": "conceito:tipologia-de-consultas", "type": "conceito", "label": "tipologia-de-consultas"}, {"id": "conceito:membership-query", "type": "conceito", "label": "membership-query"}, {"id": "conceito:equivalence-query", "type": "conceito", "label": "equivalence-query"}, {"id": "metodo:analise-formal", "type": "metodo", "label": "analise-formal"}, {"id": "tarefa:aprendizado-de-conceito", "type": "tarefa", "label": "aprendizado-de-conceito"}, {"id": "Bayer2024ActiveLLM", "type": "artigo", "label": "Bayer2024ActiveLLM", "title": "ActiveLLM: Large Language Model-based Active Learning for Textual Few-Shot Scenarios", "year": 2026, "venue": "Transactions of the ACL", "paper_type": "metodo", "status": "fichado"}, {"id": "pilar:P2", "type": "pilar", "label": "P2"}, {"id": "pilar:P3", "type": "pilar", "label": "P3"}, {"id": "conceito:llm-como-seletor", "type": "conceito", "label": "llm-como-seletor"}, {"id": "metodo:aprendizado-ativo", "type": "metodo", "label": "aprendizado-ativo"}, {"id": "metodo:few-shot", "type": "metodo", "label": "few-shot"}, {"id": "metodo:cold-start", "type": "metodo", "label": "cold-start"}, {"id": "modelo:gpt-4", "type": "modelo", "label": "gpt-4"}, {"id": "modelo:bert", "type": "modelo", "label": "bert"}, {"id": "tarefa:classificacao-de-texto", "type": "tarefa", "label": "classificacao-de-texto"}, {"id": "Cohn1994Improving", "type": "artigo", "label": "Cohn1994Improving", "title": "Improving Generalization with Active Learning", "year": 1994, "venue": "Machine Learning, 15, pp. 201–221, Kluwer", "paper_type": "metodo", "status": "fichado"}, {"id": "conceito:selective-sampling", "type": "conceito", "label": "selective-sampling"}, {"id": "conceito:sg-network", "type": "conceito", "label": "sg-network"}, {"id": "metodo:version-space", "type": "metodo", "label": "version-space"}, {"id": "metodo:redes-neurais", "type": "metodo", "label": "redes-neurais"}, {"id": "dataset:tres-dominios-sinteticos", "type": "dataset", "label": "tres-dominios-sinteticos"}, {"id": "tarefa:aprendizado-de-conceito-binario", "type": "tarefa", "label": "aprendizado-de-conceito-binario"}, {"id": "Gilardi2023", "type": "artigo", "label": "Gilardi2023", "title": "ChatGPT outperforms crowd-workers for text-annotation tasks", "year": 2023, "venue": "Proceedings of the National Academy of Sciences (PNAS)", "paper_type": "avaliacao", "status": "fichado"}, {"id": "metodo:llm-como-oraculo", "type": "metodo", "label": "llm-como-oraculo"}, {"id": "metodo:zero-shot", "type": "metodo", "label": "zero-shot"}, {"id": "modelo:chatgpt", "type": "modelo", "label": "chatgpt"}, {"id": "tarefa:anotacao-de-texto", "type": "tarefa", "label": "anotacao-de-texto"}, {"id": "Hoi2006", "type": "artigo", "label": "Hoi2006", "title": "Large-Scale Text Categorization by Batch Mode Active Learning", "year": 2006, "venue": "WWW 2006 (15th International Conference on World Wide Web)", "paper_type": "metodo", "status": "fichado"}, {"id": "pilar:P4", "type": "pilar", "label": "P4"}, {"id": "conceito:batch-mode-active-learning", "type": "conceito", "label": "batch-mode-active-learning"}, {"id": "conceito:selecao-por-informacao-de-fisher", "type": "conceito", "label": "selecao-por-informacao-de-fisher"}, {"id": "metodo:regressao-logistica", "type": "metodo", "label": "regressao-logistica"}, {"id": "metodo:otimizacao-convexa", "type": "metodo", "label": "otimizacao-convexa"}, {"id": "dataset:tres-colecoes-de-texto", "type": "dataset", "label": "tres-colecoes-de-texto"}, {"id": "Karl2023", "type": "artigo", "label": "Karl2023", "title": "Transformers are Short-text Classifiers", "year": 2023, "venue": "Machine Learning and Knowledge Extraction (CD-MAKE 2023), LNCS", "paper_type": "avaliacao", "status": "fichado"}, {"id": "conceito:benchmark-stops", "type": "conceito", "label": "benchmark-stops"}, {"id": "conceito:benchmark-nice", "type": "conceito", "label": "benchmark-nice"}, {"id": "metodo:transformers", "type": "metodo", "label": "transformers"}, {"id": "metodo:bert", "type": "metodo", "label": "bert"}, {"id": "metodo:gnn", "type": "metodo", "label": "gnn"}, {"id": "metodo:cnn-rnn", "type": "metodo", "label": "cnn-rnn"}, {"id": "dataset:nice", "type": "dataset", "label": "nice"}, {"id": "dataset:stops", "type": "dataset", "label": "stops"}, {"id": "dataset:benchmarks-stc", "type": "dataset", "label": "benchmarks-stc"}, {"id": "tarefa:classificacao-de-texto-curto", "type": "tarefa", "label": "classificacao-de-texto-curto"}, {"id": "tarefa:classificacao-de-produtos-e-servicos", "type": "tarefa", "label": "classificacao-de-produtos-e-servicos"}, {"id": "Kowsari2019", "type": "artigo", "label": "Kowsari2019", "title": "Text Classification Algorithms: A Survey", "year": 2019, "venue": "Information, 10(4), 150 (MDPI)", "paper_type": "survey", "status": "fichado"}, {"id": "conceito:pipeline-de-4-fases-da-classificacao-de-texto", "type": "conceito", "label": "pipeline-de-4-fases-da-classificacao-de-texto"}, {"id": "metodo:extracao-de-atributos", "type": "metodo", "label": "extracao-de-atributos"}, {"id": "metodo:reducao-de-dimensionalidade", "type": "metodo", "label": "reducao-de-dimensionalidade"}, {"id": "Lewis1994", "type": "artigo", "label": "Lewis1994", "title": "A Sequential Algorithm for Training Text Classifiers", "year": 1994, "venue": "SIGIR '94, pp. 3–12, Springer-Verlag", "paper_type": "metodo", "status": "fichado"}, {"id": "conceito:amostragem-por-incerteza", "type": "conceito", "label": "amostragem-por-incerteza"}, {"id": "conceito:cenario-pool-based", "type": "conceito", "label": "cenario-pool-based"}, {"id": "metodo:classificador-probabilistico", "type": "metodo", "label": "classificador-probabilistico"}, {"id": "dataset:newswire-categorization", "type": "dataset", "label": "newswire-categorization"}, {"id": "Ren2021", "type": "artigo", "label": "Ren2021", "title": "A Survey of Deep Active Learning", "year": 2021, "venue": "ACM Computing Surveys, 54(9)", "paper_type": "survey", "status": "fichado"}, {"id": "conceito:taxonomia-deepal", "type": "conceito", "label": "taxonomia-deepal"}, {"id": "metodo:deep-active-learning", "type": "metodo", "label": "deep-active-learning"}, {"id": "tarefa:visao-computacional", "type": "tarefa", "label": "visao-computacional"}, {"id": "tarefa:pln", "type": "tarefa", "label": "pln"}, {"id": "Settles2012", "type": "artigo", "label": "Settles2012", "title": "Active Learning (Synthesis Lectures on AI and ML)", "year": 2012, "venue": "Morgan & Claypool, Synthesis Lectures on Artificial Intelligence and Machine Learning", "paper_type": "livro", "status": "fichado"}, {"id": "conceito:taxonomia-de-cenarios-de-al", "type": "conceito", "label": "taxonomia-de-cenarios-de-al"}, {"id": "conceito:frameworks-de-selecao-de-consulta", "type": "conceito", "label": "frameworks-de-selecao-de-consulta"}, {"id": "metodo:amostragem-por-incerteza", "type": "metodo", "label": "amostragem-por-incerteza"}, {"id": "metodo:query-by-committee", "type": "metodo", "label": "query-by-committee"}, {"id": "metodo:densidade", "type": "metodo", "label": "densidade"}, {"id": "alsmadi2019shorttext", "type": "artigo", "label": "alsmadi2019shorttext", "title": "Review of short-text classification", "year": 2019, "venue": "International Journal of Web Information Systems", "paper_type": "survey", "status": "fichado"}, {"id": "pilar:P1", "type": "pilar", "label": "P1"}, {"id": "conceito:revisao-por-estagios-do-pipeline", "type": "conceito", "label": "revisao-por-estagios-do-pipeline"}, {"id": "metodo:selecao-de-atributos", "type": "metodo", "label": "selecao-de-atributos"}, {"id": "metodo:algoritmos-geneticos", "type": "metodo", "label": "algoritmos-geneticos"}, {"id": "metodo:soft-computing", "type": "metodo", "label": "soft-computing"}, {"id": "devlin2019bert", "type": "artigo", "label": "devlin2019bert", "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding", "year": 2019, "venue": "Proceedings of NAACL-HLT 2019, pp. 4171–4186", "paper_type": "metodo", "status": "fichado"}, {"id": "conceito:bert", "type": "conceito", "label": "bert"}, {"id": "conceito:masked-language-model", "type": "conceito", "label": "masked-language-model"}, {"id": "conceito:fine-tuning-com-uma-camada", "type": "conceito", "label": "fine-tuning-com-uma-camada"}, {"id": "metodo:transformer", "type": "metodo", "label": "transformer"}, {"id": "metodo:pre-treinamento-nao-supervisionado", "type": "metodo", "label": "pre-treinamento-nao-supervisionado"}, {"id": "dataset:glue", "type": "dataset", "label": "glue"}, {"id": "dataset:squad", "type": "dataset", "label": "squad"}, {"id": "dataset:multinli", "type": "dataset", "label": "multinli"}, {"id": "tarefa:compreensao-de-linguagem", "type": "tarefa", "label": "compreensao-de-linguagem"}, {"id": "song2014shorttext", "type": "artigo", "label": "song2014shorttext", "title": "Short Text Classification: A Survey", "year": 2014, "venue": "Journal of Multimedia, 9(5), pp. 635–643", "paper_type": "survey", "status": "fichado"}, {"id": "conceito:caracterizacao-de-texto-curto", "type": "conceito", "label": "caracterizacao-de-texto-curto"}, {"id": "metodo:analise-semantica", "type": "metodo", "label": "analise-semantica"}, {"id": "metodo:semi-supervisao", "type": "metodo", "label": "semi-supervisao"}, {"id": "metodo:ensemble", "type": "metodo", "label": "ensemble"}, {"id": "zhang2022surveyAL", "type": "artigo", "label": "zhang2022surveyAL", "title": "A Survey of Active Learning for Natural Language Processing", "year": 2022, "venue": "Proceedings of EMNLP 2022, pp. 6166–6190", "paper_type": "survey", "status": "fichado"}, {"id": "conceito:taxonomia-de-estrategias-de-consulta", "type": "conceito", "label": "taxonomia-de-estrategias-de-consulta"}, {"id": "metodo:representatividade", "type": "metodo", "label": "representatividade"}, {"id": "metodo:criterio-de-parada", "type": "metodo", "label": "criterio-de-parada"}, {"id": "tarefa:predicao-estruturada", "type": "tarefa", "label": "predicao-estruturada"}, {"id": "Yuan2020ALPS", "type": "artigo-pendente", "label": "Yuan2020ALPS"}, {"id": "DRI-SL", "type": "artigo-pendente", "label": "DRI-SL"}], "edges": [{"source": "Angluin1988", "target": "pilar:geral", "type": "pillars"}, {"source": "Angluin1988", "target": "conceito:tipologia-de-consultas", "type": "proposes"}, {"source": "Angluin1988", "target": "conceito:membership-query", "type": "proposes"}, {"source": "Angluin1988", "target": "conceito:equivalence-query", "type": "proposes"}, {"source": "Angluin1988", "target": "metodo:analise-formal", "type": "uses_methods"}, {"source": "Angluin1988", "target": "tarefa:aprendizado-de-conceito", "type": "tasks"}, {"source": "Angluin1988", "target": "FALCO", "type": "fundamenta", "note": "Origem formal da noção de ORÁCULO em aprendizado: o aprendiz tem acesso a oráculos que respondem tipos específicos de consulta. O FALCO instancia a membership query com um LLM como oráculo falível."}, {"source": "Bayer2024ActiveLLM", "target": "Yuan2020ALPS", "type": "compares_with"}, {"source": "Bayer2024ActiveLLM", "target": "Settles2012", "type": "builds_on"}, {"source": "Bayer2024ActiveLLM", "target": "pilar:P2", "type": "pillars"}, {"source": "Bayer2024ActiveLLM", "target": "pilar:P3", "type": "pillars"}, {"source": "Bayer2024ActiveLLM", "target": "conceito:llm-como-seletor", "type": "proposes"}, {"source": "Bayer2024ActiveLLM", "target": "metodo:aprendizado-ativo", "type": "uses_methods"}, {"source": "Bayer2024ActiveLLM", "target": "metodo:few-shot", "type": "uses_methods"}, {"source": "Bayer2024ActiveLLM", "target": "metodo:cold-start", "type": "uses_methods"}, {"source": "Bayer2024ActiveLLM", "target": "modelo:gpt-4", "type": "models"}, {"source": "Bayer2024ActiveLLM", "target": "modelo:bert", "type": "models"}, {"source": "Bayer2024ActiveLLM", "target": "tarefa:classificacao-de-texto", "type": "tasks"}, {"source": "Bayer2024ActiveLLM", "target": "DRI-SL", "type": "compara", "note": "ActiveLLM usa o LLM para SELECIONAR instâncias iniciais; DRI-SL seleciona sem LLM (cluster semântico + variedade lexical) e usa LLM só para ROTULAR — separação que reduz chamadas na fase cara."}, {"source": "Bayer2024ActiveLLM", "target": "FALCO", "type": "motiva", "note": "Demonstra que o cold start é o gargalo das estratégias clássicas em few-shot."}, {"source": "Cohn1994Improving", "target": "Angluin1988", "type": "builds_on"}, {"source": "Cohn1994Improving", "target": "pilar:geral", "type": "pillars"}, {"source": "Cohn1994Improving", "target": "conceito:selective-sampling", "type": "proposes"}, {"source": "Cohn1994Improving", "target": "conceito:sg-network", "type": "proposes"}, {"source": "Cohn1994Improving", "target": "metodo:version-space", "type": "uses_methods"}, {"source": "Cohn1994Improving", "target": "metodo:redes-neurais", "type": "uses_methods"}, {"source": "Cohn1994Improving", "target": "dataset:tres-dominios-sinteticos", "type": "datasets"}, {"source": "Cohn1994Improving", "target": "tarefa:aprendizado-de-conceito-binario", "type": "tasks"}, {"source": "Cohn1994Improving", "target": "FALCO", "type": "fundamenta", "note": "Formaliza o selective sampling (consultar um oráculo apenas nas regiões 'úteis' do domínio) e prova que aprendizado ativo pode ser mais poderoso que aprendizado passivo — a garantia conceitual por trás do laço do FALCO."}, {"source": "Gilardi2023", "target": "pilar:P3", "type": "pillars"}, {"source": "Gilardi2023", "target": "metodo:llm-como-oraculo", "type": "uses_methods"}, {"source": "Gilardi2023", "target": "metodo:zero-shot", "type": "uses_methods"}, {"source": "Gilardi2023", "target": "modelo:chatgpt", "type": "models"}, {"source": "Gilardi2023", "target": "tarefa:anotacao-de-texto", "type": "tasks"}, {"source": "Gilardi2023", "target": "FALCO", "type": "fundamenta", "note": "Evidência seminal de que LLMs superam crowd-workers em custo e acurácia de anotação — premissa do oráculo LLM do FALCO. Mas avalia tarefas com poucas classes (relevância/postura/tópicos), não 621 categorias."}, {"source": "Hoi2006", "target": "Lewis1994", "type": "builds_on"}, {"source": "Hoi2006", "target": "pilar:P2", "type": "pillars"}, {"source": "Hoi2006", "target": "pilar:P4", "type": "pillars"}, {"source": "Hoi2006", "target": "conceito:batch-mode-active-learning", "type": "proposes"}, {"source": "Hoi2006", "target": "conceito:selecao-por-informacao-de-fisher", "type": "proposes"}, {"source": "Hoi2006", "target": "metodo:regressao-logistica", "type": "uses_methods"}, {"source": "Hoi2006", "target": "metodo:otimizacao-convexa", "type": "uses_methods"}, {"source": "Hoi2006", "target": "dataset:tres-colecoes-de-texto", "type": "datasets"}, {"source": "Hoi2006", "target": "tarefa:classificacao-de-texto", "type": "tasks"}, {"source": "Hoi2006", "target": "FALCO", "type": "fundamenta", "note": "Origem do batch-mode AL para texto: selecionar LOTES não-redundantes em vez de 1 instância por iteração. O QueryBatch do FALCO e a preocupação com redundância intra-lote descendem diretamente daqui."}, {"source": "Karl2023", "target": "devlin2019bert", "type": "compares_with"}, {"source": "Karl2023", "target": "pilar:geral", "type": "pillars"}, {"source": "Karl2023", "target": "pilar:P4", "type": "pillars"}, {"source": "Karl2023", "target": "conceito:benchmark-stops", "type": "proposes"}, {"source": "Karl2023", "target": "conceito:benchmark-nice", "type": "proposes"}, {"source": "Karl2023", "target": "metodo:transformers", "type": "uses_methods"}, {"source": "Karl2023", "target": "metodo:bert", "type": "uses_methods"}, {"source": "Karl2023", "target": "metodo:gnn", "type": "uses_methods"}, {"source": "Karl2023", "target": "metodo:cnn-rnn", "type": "uses_methods"}, {"source": "Karl2023", "target": "modelo:bert", "type": "models"}, {"source": "Karl2023", "target": "dataset:nice", "type": "datasets"}, {"source": "Karl2023", "target": "dataset:stops", "type": "datasets"}, {"source": "Karl2023", "target": "dataset:benchmarks-stc", "type": "datasets"}, {"source": "Karl2023", "target": "tarefa:classificacao-de-texto-curto", "type": "tasks"}, {"source": "Karl2023", "target": "tarefa:classificacao-de-produtos-e-servicos", "type": "tasks"}, {"source": "Karl2023", "target": "FALCO", "type": "fundamenta", "note": "Evidência de que transformers puros são SOTA em texto curto — valida a escolha do BERTimbau como classificador-alvo. E o caso de uso (classificar descrições de produtos/serviços, dataset STOPS de descrições da Amazon) é o mais próximo do nosso na literatura fichada."}, {"source": "Kowsari2019", "target": "pilar:geral", "type": "pillars"}, {"source": "Kowsari2019", "target": "conceito:pipeline-de-4-fases-da-classificacao-de-texto", "type": "proposes"}, {"source": "Kowsari2019", "target": "metodo:extracao-de-atributos", "type": "uses_methods"}, {"source": "Kowsari2019", "target": "metodo:reducao-de-dimensionalidade", "type": "uses_methods"}, {"source": "Kowsari2019", "target": "tarefa:classificacao-de-texto", "type": "tasks"}, {"source": "Kowsari2019", "target": "FALCO", "type": "fundamenta", "note": "Survey-guarda-chuva da classificação de texto: fornece o vocabulário do pipeline (extração de atributos → redução → classificador → avaliação) usado na fundamentação, e as métricas de avaliação padrão."}, {"source": "Lewis1994", "target": "pilar:geral", "type": "pillars"}, {"source": "Lewis1994", "target": "pilar:P2", "type": "pillars"}, {"source": "Lewis1994", "target": "conceito:amostragem-por-incerteza", "type": "proposes"}, {"source": "Lewis1994", "target": "conceito:cenario-pool-based", "type": "proposes"}, {"source": "Lewis1994", "target": "metodo:classificador-probabilistico", "type": "uses_methods"}, {"source": "Lewis1994", "target": "dataset:newswire-categorization", "type": "datasets"}, {"source": "Lewis1994", "target": "tarefa:classificacao-de-texto", "type": "tasks"}, {"source": "Lewis1994", "target": "FALCO", "type": "fundamenta", "note": "Origem do uncertainty sampling E do cenário pool-based — as duas escolhas estruturais do FALCO nasceram aqui, num problema de classificação de texto, o mesmo domínio da tese."}, {"source": "Ren2021", "target": "Settles2012", "type": "extends"}, {"source": "Ren2021", "target": "Settles2012", "type": "builds_on"}, {"source": "Ren2021", "target": "pilar:geral", "type": "pillars"}, {"source": "Ren2021", "target": "pilar:P4", "type": "pillars"}, {"source": "Ren2021", "target": "conceito:taxonomia-deepal", "type": "proposes"}, {"source": "Ren2021", "target": "metodo:deep-active-learning", "type": "uses_methods"}, {"source": "Ren2021", "target": "tarefa:visao-computacional", "type": "tasks"}, {"source": "Ren2021", "target": "tarefa:pln", "type": "tasks"}, {"source": "Ren2021", "target": "FALCO", "type": "fundamenta", "note": "Ponte AL clássico → deep learning: fundamenta o uso de AL com classificadores profundos (BERTimbau no E2/E3) e explica por que o AL 'renasceu' na era DL — modelos famintos por dados anotados caros."}, {"source": "Settles2012", "target": "Angluin1988", "type": "builds_on"}, {"source": "Settles2012", "target": "Cohn1994Improving", "type": "builds_on"}, {"source": "Settles2012", "target": "Lewis1994", "type": "builds_on"}, {"source": "Settles2012", "target": "pilar:geral", "type": "pillars"}, {"source": "Settles2012", "target": "pilar:P2", "type": "pillars"}, {"source": "Settles2012", "target": "conceito:taxonomia-de-cenarios-de-al", "type": "proposes"}, {"source": "Settles2012", "target": "conceito:frameworks-de-selecao-de-consulta", "type": "proposes"}, {"source": "Settles2012", "target": "metodo:amostragem-por-incerteza", "type": "uses_methods"}, {"source": "Settles2012", "target": "metodo:query-by-committee", "type": "uses_methods"}, {"source": "Settles2012", "target": "metodo:densidade", "type": "uses_methods"}, {"source": "Settles2012", "target": "tarefa:classificacao-de-texto", "type": "tasks"}, {"source": "Settles2012", "target": "FALCO", "type": "fundamenta", "note": "Referência canônica de AL: define o laço consulta→oráculo→treino e os frameworks de seleção que o FALCO combina por fase. É a fonte da terminologia (pool-based, uncertainty sampling) usada em toda a tese."}, {"source": "alsmadi2019shorttext", "target": "song2014shorttext", "type": "extends"}, {"source": "alsmadi2019shorttext", "target": "song2014shorttext", "type": "builds_on"}, {"source": "alsmadi2019shorttext", "target": "pilar:geral", "type": "pillars"}, {"source": "alsmadi2019shorttext", "target": "pilar:P1", "type": "pillars"}, {"source": "alsmadi2019shorttext", "target": "conceito:revisao-por-estagios-do-pipeline", "type": "proposes"}, {"source": "alsmadi2019shorttext", "target": "metodo:selecao-de-atributos", "type": "uses_methods"}, {"source": "alsmadi2019shorttext", "target": "metodo:algoritmos-geneticos", "type": "uses_methods"}, {"source": "alsmadi2019shorttext", "target": "metodo:soft-computing", "type": "uses_methods"}, {"source": "alsmadi2019shorttext", "target": "tarefa:classificacao-de-texto-curto", "type": "tasks"}, {"source": "alsmadi2019shorttext", "target": "FALCO", "type": "fundamenta", "note": "Revisão de STC organizada por estágio do pipeline; aponta algoritmos genéticos como solução promissora para otimização em texto curto — eco direto do nosso P1 (otimização do L0 via AG)."}, {"source": "devlin2019bert", "target": "pilar:P4", "type": "pillars"}, {"source": "devlin2019bert", "target": "conceito:bert", "type": "proposes"}, {"source": "devlin2019bert", "target": "conceito:masked-language-model", "type": "proposes"}, {"source": "devlin2019bert", "target": "conceito:fine-tuning-com-uma-camada", "type": "proposes"}, {"source": "devlin2019bert", "target": "metodo:transformer", "type": "uses_methods"}, {"source": "devlin2019bert", "target": "metodo:pre-treinamento-nao-supervisionado", "type": "uses_methods"}, {"source": "devlin2019bert", "target": "modelo:bert", "type": "models"}, {"source": "devlin2019bert", "target": "dataset:glue", "type": "datasets"}, {"source": "devlin2019bert", "target": "dataset:squad", "type": "datasets"}, {"source": "devlin2019bert", "target": "dataset:multinli", "type": "datasets"}, {"source": "devlin2019bert", "target": "tarefa:compreensao-de-linguagem", "type": "tasks"}, {"source": "devlin2019bert", "target": "FALCO", "type": "fundamenta", "note": "Base arquitetural do classificador-alvo: BERTimbau (usado nos E2/E3 via HuggingFace) é um BERT pré-treinado em português. O paradigma pré-treino + fine-tuning é o que torna o AL viável com poucos rótulos."}, {"source": "song2014shorttext", "target": "pilar:geral", "type": "pillars"}, {"source": "song2014shorttext", "target": "conceito:caracterizacao-de-texto-curto", "type": "proposes"}, {"source": "song2014shorttext", "target": "metodo:analise-semantica", "type": "uses_methods"}, {"source": "song2014shorttext", "target": "metodo:semi-supervisao", "type": "uses_methods"}, {"source": "song2014shorttext", "target": "metodo:ensemble", "type": "uses_methods"}, {"source": "song2014shorttext", "target": "tarefa:classificacao-de-texto-curto", "type": "tasks"}, {"source": "song2014shorttext", "target": "FALCO", "type": "fundamenta", "note": "Define as quatro dificuldades canônicas do texto curto (esparsidade, larga escala, imediatismo, não-padronização) — a caracterização do nosso objeto de estudo (descrições de produto ~20–40 caracteres)."}, {"source": "zhang2022surveyAL", "target": "Settles2012", "type": "builds_on"}, {"source": "zhang2022surveyAL", "target": "Ren2021", "type": "builds_on"}, {"source": "zhang2022surveyAL", "target": "Lewis1994", "type": "builds_on"}, {"source": "zhang2022surveyAL", "target": "Cohn1994Improving", "type": "builds_on"}, {"source": "zhang2022surveyAL", "target": "pilar:geral", "type": "pillars"}, {"source": "zhang2022surveyAL", "target": "pilar:P2", "type": "pillars"}, {"source": "zhang2022surveyAL", "target": "pilar:P4", "type": "pillars"}, {"source": "zhang2022surveyAL", "target": "conceito:taxonomia-de-estrategias-de-consulta", "type": "proposes"}, {"source": "zhang2022surveyAL", "target": "metodo:amostragem-por-incerteza", "type": "uses_methods"}, {"source": "zhang2022surveyAL", "target": "metodo:representatividade", "type": "uses_methods"}, {"source": "zhang2022surveyAL", "target": "metodo:cold-start", "type": "uses_methods"}, {"source": "zhang2022surveyAL", "target": "metodo:criterio-de-parada", "type": "uses_methods"}, {"source": "zhang2022surveyAL", "target": "tarefa:classificacao-de-texto", "type": "tasks"}, {"source": "zhang2022surveyAL", "target": "tarefa:predicao-estruturada", "type": "tasks"}, {"source": "zhang2022surveyAL", "target": "FALCO", "type": "fundamenta", "note": "Survey-espinha-dorsal do Cap.2: organiza estratégias de consulta (informatividade vs representatividade), cold-start e parada — exatamente os eixos das fases do FALCO. Anterior à era dos LLMs-como-oráculo, o que demarca a lacuna que a tese ocupa."}]};
+
+const TYPE_LABEL = {
+  "artigo": "Artigos fichados", "artigo-pendente": "A fichar", "framework": "FALCO",
+  "pilar": "Pilares", "metodo": "Métodos", "conceito": "Conceitos propostos",
+  "modelo": "Modelos", "dataset": "Datasets", "tarefa": "Tarefas"
+};
+const TYPE_VAR = {
+  "artigo": "--artigo", "artigo-pendente": "--pendente", "framework": "--framework",
+  "pilar": "--pilar", "metodo": "--metodo", "conceito": "--conceito",
+  "modelo": "--modelo", "dataset": "--dataset", "tarefa": "--tarefa"
+};
+const RADIUS = { "framework": 16, "artigo": 9, "artigo-pendente": 6, "pilar": 11 };
+const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+const nodes = GRAPH.nodes.map(n => ({ ...n,
+  x: Math.random() * 800 - 400, y: Math.random() * 600 - 300, vx: 0, vy: 0,
+  r: RADIUS[n.type] || 7 }));
+const byId = Object.fromEntries(nodes.map(n => [n.id, n]));
+const edges = GRAPH.edges.filter(e => byId[e.source] && byId[e.target])
+  .map(e => ({ ...e, s: byId[e.source], t: byId[e.target] }));
+const degree = {};
+edges.forEach(e => { degree[e.source] = (degree[e.source]||0)+1; degree[e.target] = (degree[e.target]||0)+1; });
+nodes.forEach(n => { if (n.type === "artigo") n.r = 8 + Math.min(6, (degree[n.id]||0) * 0.35); });
+
+const visible = {}; Object.keys(TYPE_LABEL).forEach(t => visible[t] = true);
+["modelo","dataset","tarefa"].forEach(t => visible[t] = false); // começa focado
+
+const filters = document.getElementById("filters");
+const present = new Set(nodes.map(n => n.type));
+for (const t of Object.keys(TYPE_LABEL)) {
+  if (!present.has(t)) continue;
+  const label = document.createElement("label");
+  const cb = Object.assign(document.createElement("input"), { type: "checkbox", checked: visible[t] });
+  cb.addEventListener("change", () => { visible[t] = cb.checked; });
+  const sw = document.createElement("span"); sw.className = "swatch";
+  sw.style.background = css(TYPE_VAR[t]);
+  label.append(cb, sw, TYPE_LABEL[t]);
+  filters.append(label);
+}
+document.getElementById("stats").textContent =
+  `${nodes.filter(n=>n.type==="artigo").length} artigos · ${edges.length} relações`;
+
+const cv = document.getElementById("cv"), ctx = cv.getContext("2d");
+let W, H, DPR = Math.min(2, window.devicePixelRatio || 1);
+let scale = 1, ox = 0, oy = 0;
+function resize() {
+  const rect = cv.parentElement.getBoundingClientRect();
+  W = rect.width; H = rect.height;
+  cv.width = W * DPR; cv.height = H * DPR;
+  ox = ox || W / 2; oy = oy || H / 2;
+}
+window.addEventListener("resize", resize); resize();
+
+function isVisible(n) { return visible[n.type]; }
+
+function step() {
+  const vs = nodes.filter(isVisible);
+  for (const n of vs) { n.vx *= 0.85; n.vy *= 0.85; }
+  for (let i = 0; i < vs.length; i++) for (let j = i + 1; j < vs.length; j++) {
+    const a = vs[i], b = vs[j];
+    let dx = b.x - a.x, dy = b.y - a.y, d2 = dx*dx + dy*dy || 1;
+    if (d2 < 90000) {
+      const f = 1400 / d2, d = Math.sqrt(d2);
+      dx /= d; dy /= d;
+      a.vx -= dx * f; a.vy -= dy * f; b.vx += dx * f; b.vy += dy * f;
+    }
+  }
+  for (const e of edges) {
+    if (!isVisible(e.s) || !isVisible(e.t)) continue;
+    let dx = e.t.x - e.s.x, dy = e.t.y - e.s.y;
+    const d = Math.sqrt(dx*dx + dy*dy) || 1, want = e.t.type === "framework" || e.s.type === "framework" ? 190 : 120;
+    const f = (d - want) * 0.004; dx /= d; dy /= d;
+    e.s.vx += dx * f * d * 0.02; e.s.vy += dy * f * d * 0.02;
+    e.t.vx -= dx * f * d * 0.02; e.t.vy -= dy * f * d * 0.02;
+  }
+  for (const n of vs) {
+    n.vx -= n.x * 0.0012; n.vy -= n.y * 0.0012; // gravidade ao centro
+    if (n !== dragNode) { n.x += n.vx; n.y += n.vy; }
+  }
+}
+
+let selected = null, hover = null;
+function draw() {
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  ctx.clearRect(0, 0, W, H);
+  ctx.translate(ox, oy); ctx.scale(scale, scale);
+  const edgeCol = css("--edge"), falcoCol = css("--edge-falco");
+  for (const e of edges) {
+    if (!isVisible(e.s) || !isVisible(e.t)) continue;
+    const toFalco = e.t.type === "framework";
+    ctx.strokeStyle = toFalco ? falcoCol : edgeCol;
+    ctx.lineWidth = (selected && (e.s === selected || e.t === selected)) ? 2.2 : (toFalco ? 1.4 : 0.8);
+    ctx.beginPath(); ctx.moveTo(e.s.x, e.s.y); ctx.lineTo(e.t.x, e.t.y); ctx.stroke();
+  }
+  for (const n of nodes) {
+    if (!isVisible(n)) continue;
+    const col = css(TYPE_VAR[n.type] || "--muted");
+    if (n === selected || n === hover) {
+      ctx.fillStyle = css("--halo");
+      ctx.beginPath(); ctx.arc(n.x, n.y, n.r + 8, 0, 7); ctx.fill();
+    }
+    ctx.fillStyle = col;
+    ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, 7); ctx.fill();
+    if (n.type === "artigo-pendente") {
+      ctx.strokeStyle = css("--bg"); ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(n.x, n.y, n.r - 2, 0, 7); ctx.stroke();
+    }
+    if (scale > 0.55 || n.r >= 11 || n === selected || n === hover) {
+      ctx.fillStyle = css("--ink");
+      ctx.font = `${n.type === "framework" ? "700 13px Georgia, serif" : "11px system-ui"}`;
+      ctx.textAlign = "center";
+      ctx.fillText(n.label, n.x, n.y - n.r - 5);
+    }
+  }
+}
+
+let raf;
+function loop() { step(); draw(); raf = requestAnimationFrame(loop); }
+loop();
+
+function pick(mx, my) {
+  const x = (mx - ox) / scale, y = (my - oy) / scale;
+  let best = null, bestD = 1e9;
+  for (const n of nodes) {
+    if (!isVisible(n)) continue;
+    const d = Math.hypot(n.x - x, n.y - y);
+    if (d < n.r + 6 && d < bestD) { best = n; bestD = d; }
+  }
+  return best;
+}
+
+let dragNode = null, panning = false, px = 0, py = 0, moved = false;
+cv.addEventListener("pointerdown", e => {
+  cv.setPointerCapture(e.pointerId); moved = false;
+  const n = pick(e.offsetX, e.offsetY);
+  if (n) { dragNode = n; cv.classList.add("dragging"); }
+  else { panning = true; px = e.offsetX; py = e.offsetY; }
+});
+cv.addEventListener("pointermove", e => {
+  if (dragNode) {
+    moved = true;
+    dragNode.x = (e.offsetX - ox) / scale; dragNode.y = (e.offsetY - oy) / scale;
+    dragNode.vx = dragNode.vy = 0;
+  } else if (panning) {
+    moved = true; ox += e.offsetX - px; oy += e.offsetY - py; px = e.offsetX; py = e.offsetY;
+  } else hover = pick(e.offsetX, e.offsetY);
+});
+cv.addEventListener("pointerup", e => {
+  if (!moved) {
+    const n = pick(e.offsetX, e.offsetY);
+    selected = n; showDetail(n);
+  }
+  dragNode = null; panning = false; cv.classList.remove("dragging");
+});
+cv.addEventListener("wheel", e => {
+  e.preventDefault();
+  const k = e.deltaY < 0 ? 1.12 : 0.89, ns = Math.min(4, Math.max(0.25, scale * k));
+  ox = e.offsetX - (e.offsetX - ox) * (ns / scale);
+  oy = e.offsetY - (e.offsetY - oy) * (ns / scale);
+  scale = ns;
+}, { passive: false });
+
+const detail = document.getElementById("detail"), body = document.getElementById("detail-body");
+document.getElementById("close").addEventListener("click", () => { detail.classList.remove("open"); selected = null; });
+function esc(s) { return String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function showDetail(n) {
+  if (!n) { detail.classList.remove("open"); return; }
+  const rels = edges.filter(e => e.s === n || e.t === n).map(e => {
+    const other = e.s === n ? e.t : e.s;
+    const dir = e.s === n ? "→" : "←";
+    const note = e.note ? `<div class="note">${esc(e.note)}</div>` : "";
+    return `<li><span class="rel">${esc(e.type)}</span> ${dir} ${esc(other.label)}${note}</li>`;
+  }).join("");
+  body.innerHTML = `
+    <div class="kind">${esc(TYPE_LABEL[n.type] || n.type)}</div>
+    <h2>${esc(n.title || n.label)}</h2>
+    <div class="meta">${[n.year, n.venue, n.paper_type].filter(Boolean).map(esc).join(" · ")}</div>
+    <ul>${rels || "<li class='note'>sem relações visíveis</li>"}</ul>`;
+  detail.classList.add("open");
+}
+</script>
