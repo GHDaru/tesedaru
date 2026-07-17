@@ -147,3 +147,17 @@ Decisões formais com racional completo: `docs/decisoes.md`.
 - E5 (E2E com LLM free) idem: agendado para depois do reset.
 - Opção nas mãos do autor: adicionar US$10 de créditos no OpenRouter libera
   1.000 req/dia free — fecharia D1+E5 imediatamente.
+
+## 17/07/2026 13:15 — D-006: NVIDIA NIM destrava o braço free; notebook Colab/TPU
+- Chave NIM do autor testada: 200 OK, temperatura 0, thinking desligável,
+  sem cota diária aparente. Docs lidas (build.nvidia.com): structured output
+  NÃO suportado (json-prompt mantido), contexto 1M, licença OpenMDW.
+- NvidiaNimOracle + ramo "nvidia" na factory; config_full_nvidia.json.
+- Braço free RESTAURADO ao desenho original: rand+strat completos rodando
+  via NIM (D-006 desfaz a redução D-005; 850 anotações OpenRouter preservadas
+  fora da análise oficial). Retomada agendada das 21:02 será cancelada se o
+  NIM terminar antes.
+- Notebook Colab/TPU criado: experiments/e2e3/bertimbau_colab_tpu.ipynb —
+  autocontido, detecta TPU (torch_xla, bf16) > GPU > CPU, instruções de dados
+  (upload/Drive), smoke 20k + base cheia, relatório JSON baixável.
+- 5ª credencial (NVIDIA) adicionada ao .env local (gitignored) e ao H5.

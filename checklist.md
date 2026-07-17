@@ -37,7 +37,7 @@ podem restar abertos.**
 - [x] C3. Relatório de convergência reexecução × originais (docs/) [17/07 09:45 → 09:55]
 
 ## D. Experimentos novos (CPU/API)
-- [~] D1. E0: finalizar oráculos (pagos OK; free reduzido a nemotron-ultra × S-rand por D-005 — 850/1000, run final em andamento)
+- [~] D1. E0: finalizar oráculos (pagos OK; free RESTAURADO completo via NVIDIA NIM — D-006; rand+strat rodando)
 - [~] D2. E0: análise consolidada final (Wilson+McNemar+gate formal+custo) — análise oficial dos pagos PRONTA e na tese; reconsolidar quando os free terminarem
 - [x] D3. E0-P: ablação de prompt no modelo fraco [17/07 00:20 → 09:40]
   - [x] D3a. Prompt v4a (regras de fronteira) e v4b (few-shot pares confundidos) [17/07 00:20 → 00:35]
@@ -78,4 +78,4 @@ podem restar abertos.**
 - [ ] H2. E3: FALCO vs RS vs US + ablações (L0 aleatório; sem troca de oráculo) com BERTimbau, ≥8 sementes (script pronto-para-rodar)
 - [ ] H3. E4-BERTimbau: repetição do E4 com classificador forte (condicional)
 - [ ] H4. F-gpu: inserir números E2/E3 nos Caps. 5-6 + fechar hipótese central
-- [ ] H5. Rotação das 4 credenciais pelo autor após conclusão dos runs de API
+- [ ] H5. Rotação das 5 credenciais pelo autor após conclusão dos runs de API (OpenAI, OpenRouter, MaaS, Neon, NVIDIA NIM)

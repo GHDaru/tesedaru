@@ -78,3 +78,29 @@ operacional zero. (iv) Liberar a cota do OpenRouter desbloqueia o E5.
 Cap.5 reporta o representante e o racional da redução; config
 `config_full_lowcost_reduced.json` versionada; S-strat sem linha free
 (declarado como limitação da linha, não do estudo).
+
+## D-006 — Braço free restaurado via NVIDIA NIM (17/07/2026 13:15)
+
+**Contexto.** D-005 reduzira o braço free a nemotron-ultra × S-rand por causa
+da cota de 50 req/dia do OpenRouter sem créditos. O autor obteve chave de
+avaliação gratuita do NVIDIA NIM (build.nvidia.com), que serve o MESMO modelo
+(nemotron-3-ultra-550b-a55b) sem a cota diária que travava o run.
+
+**Decisão.** Reexecutar o braço free COMPLETO (S-rand n=1000 + S-strat
+n=1863) do zero via provedor nvidia-nim, em arquivo de anotações próprio
+(proveniência limpa: um único provedor para as 2.863 anotações). As 850
+anotações parciais do OpenRouter ficam preservadas como artefato, mas fora
+da análise oficial (evita linha com proveniência mista).
+
+**Racional.** (i) Restaura o pareamento completo do free com os pagos nas
+duas amostras — desfaz a limitação declarada na D-005; (ii) structured output
+não é suportado no NIM (página do modelo) ⇒ mesmo modo json-prompt do plano
+original, comparável; (iii) thinking desligado via chat_template_kwargs
+(instrumento igual ao dos demais: resposta JSON direta); (iv) o episódio
+inteiro (cota do agregador → troca de provedor do mesmo modelo) reforça o
+achado operacional do RQ2: a restrição de vazão é propriedade do SERVIÇO,
+não do modelo.
+
+**Consequências.** Classe NvidiaNimOracle + ramo "nvidia" na factory;
+config_full_nvidia.json versionada; NVIDIA_API_KEY só no .env (gitignored) —
+H5 passa a listar 5 credenciais para rotação pelo autor.
