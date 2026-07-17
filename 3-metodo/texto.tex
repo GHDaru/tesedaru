@@ -131,12 +131,9 @@ deduplicação — é particionado de forma estratificada em: conjunto de teste 
 ($20\%$), reservado exclusivamente à avaliação final; conjunto de validação $V$
 ($10\%$), para monitoramento do ajuste fino; e o \textit{pool} de aprendizado ativo
 $U_0$ ($70\%$). Para o E3, um subconjunto estratificado de aproximadamente 50 mil
-instâncias do \textit{pool} é utilizado — amostragem estratificada por classe com
-semente fixa e registrada, preservando as proporções de $U_0$ —, dimensionado para
-viabilizar múltiplas repetições do ciclo completo com BERTimbau no hardware
-disponível; o orçamento de rotulagem é fixado em $B = 30\%$ de $|U_0|$. A
-generalização das conclusões do subconjunto para o \textit{pool} completo é
-discutida nas limitações (Seção~\ref{sec:metodo-validade}).
+instâncias do \textit{pool} é utilizado, dimensionado para viabilizar múltiplas
+repetições do ciclo completo com BERTimbau no hardware disponível; o orçamento de
+rotulagem é fixado em $B = 30\%$ de $|U_0|$.
 
 \section{Classificadores da tarefa}
 \label{sec:metodo-classificadores}
@@ -185,18 +182,10 @@ tese e formalizada no Apêndice~\ref{ap:lce}:
   \label{eq:metodo-lce}
 \end{equation}
 em que $\mathrm{AUC}_{\mathrm{real}}$ é a área sob a curva de aprendizado medida,
-integrada numericamente pela regra de Simpson sobre os pontos observados,
+integrada numericamente pela regra de Simpson sobre os pontos observados, e
 $\mathrm{Perf}_{\mathrm{baseline}}$ é o desempenho do classificador com supervisão
-completa e $L_{\mathrm{ideal},0}$ é a abscissa inicial da curva ideal (o menor
-tamanho de conjunto rotulado observado, de modo que curvas reais e ideal integrem
-o mesmo intervalo). Valores próximos de 1 indicam que a estratégia se aproxima
-rapidamente do desempenho de referência com poucos rótulos. A LCE tem precedente
-direto na \textbf{ALC} (\textit{Area under the Learning Curve}) do
-\textit{Active Learning Challenge} \citep{Guyon2011ALC}; difere dela em dois
-pontos: a normalização usa o desempenho de supervisão completa do próprio par
-(classificador, conjunto) — e não o máximo teórico da métrica — tornando o valor
-comparável entre classificadores de tetos distintos; e a integração usa Simpson
-sobre a grade observada, em vez de interpolação em escala logarítmica.
+completa. Valores próximos de 1 indicam que a estratégia se aproxima rapidamente do
+desempenho de referência com poucos rótulos.
 
 \textbf{Análise estatística.} Três testes acompanham as comparações, conforme a
 natureza dos dados: (i) toda acurácia de oráculo é reportada com \textbf{intervalo
@@ -232,14 +221,8 @@ tamanho $k_t=3$; cruzamento de um ponto com probabilidade $p_c=0{,}8$ e reparo d
 unicidade; mutação com probabilidade $p_m=0{,}1$ substituindo
 $m_s=\max(1,\lceil 0{,}01 \cdot I\rceil)$ genes; elitismo de $10\%$
 ($N_{elite}=5$). Quatro cenários foram otimizados (maximização e minimização de
-Acurácia e de Macro F1) para dez tamanhos de $L_0$ entre 10 e 30.000. A função de
-aptidão é avaliada em uma \textbf{partição de aferição disjunta do conjunto de
-teste}: otimizar e reportar na mesma partição superajustaria o envelope ao
-conjunto de avaliação (circularidade); por isso, os indivíduos finais de cada
-cenário são \emph{reavaliados} no conjunto de teste intocado, e é esse valor —
-tipicamente inferior ao de aptidão — que os capítulos de resultados reportam como
-envelope. O fluxo completo e os operadores são formalizados no
-Apêndice~\ref{ap:ag}.
+Acurácia e de Macro F1) para dez tamanhos de $L_0$ entre 10 e 30.000. O fluxo
+completo e os operadores são formalizados no Apêndice~\ref{ap:ag}.
 
 \section{Pilar P2: \textit{cold start} sem rótulos — algoritmo DRI-SL}
 \label{sec:metodo-drisl}
@@ -340,29 +323,15 @@ amadurecimento do classificador:
   \item \textbf{Fase 2 — seleção por incerteza com LLM Inicial}: a cada iteração,
   as $b$ instâncias de maior entropia preditiva de $\theta$
   \citep{Settles2012} são consultadas ao LLM Inicial; a transição ocorre quando o
-  Macro F1 no conjunto de \emph{validação} $V$ estagna por $p=5$ iterações
-  consecutivas (tolerância $\epsilon = 10^{-3}$). O conjunto de teste $T$ jamais
-  participa de decisões do processo — usá-lo aqui contaminaria a avaliação final
-  (vazamento de teste);
+  Macro F1 em $T$ estagna por $p=5$ iterações consecutivas (tolerância
+  $\epsilon = 10^{-3}$);
   \item \textbf{Fase 3 — refinamento com LLM Avançado}: mantida a seleção por
   incerteza, o oráculo passa ao LLM Avançado, concentrando o custo do modelo mais
   capaz nas instâncias mais difíceis. A fase existe apenas se o critério da
   Seção~\ref{sec:metodo-oraculo-decisao} a justificar.
 \end{enumerate}
 
-O processo encerra ao exaurir $B$ ou $U$. As constantes de projeto têm o
-seguinte racional, registrado como decisão de engenharia (não de otimização):
-$b_0 = \lceil 0{,}01 \cdot B\rceil$ dá à Fase~1 um custo máximo de $1\%$ do
-orçamento — suficiente para o DRI-SL cobrir os agrupamentos semânticos sem
-comprometer o orçamento das fases guiadas; a janela de estagnação $p=5$ com
-tolerância $\epsilon=10^{-3}$ corresponde a cinco iterações sem ganho acima do
-ruído típico de reamostragem observado nas curvas do E1, evitando transições por
-flutuação; e o limiar de $85\%$ do gate de oráculo (Seção~\ref{sec:metodo-oraculo-decisao})
-fica um desvio acima do melhor baseline supervisionado leve conhecido do conjunto
-de dados (acurácia de $89{,}56\%$ com \emph{todos} os rótulos
-\citep{Daru2024Dissertacao}), exigindo do oráculo zero-shot qualidade próxima à
-do teto supervisionado antes de dispensar tratamento de ruído; a sensibilidade a
-essas escolhas é discutida com os resultados. O tamanho de lote $b$ e a estratégia de
+O processo encerra ao exaurir $B$ ou $U$. O tamanho de lote $b$ e a estratégia de
 incerteza da Fase~2 são fixados com base no E1, que varre as estratégias de
 entropia, menor confiança, menor margem, híbrida e aleatória sob oráculo simulado
 perfeito com o classificador PVBin — barato o suficiente para varredura ampla — e
@@ -375,52 +344,13 @@ O E3 compara, sob idênticos $L_0$, orçamento $B=30\%$, classificador BERTimbau
 oráculos LLM: (i) \textbf{FALCO} completo; (ii) \textbf{RS} — amostragem aleatória
 por iteração; (iii) \textbf{US} — seleção por entropia desde o início; e (iv)
 \textbf{supervisão completa} — limite superior, treinado com todos os rótulos
-verdadeiros, que também fornece $\mathrm{Perf}_{\mathrm{baseline}}$ para a LCE; e
-(v) \textbf{oráculo-total} — classificador treinado com \emph{todo} o pool
-rotulado pelo mesmo oráculo LLM do FALCO. Este quinto braço separa as duas fontes
-de perda que a comparação (i)--(iv) confunde: a diferença entre (iv) e (v) mede o
-custo do \emph{ruído do oráculo}; a diferença entre (v) e o FALCO mede o custo da
-\emph{parcimônia de rótulos} — sem ele, um resultado negativo seria ambíguo entre
-estratégia ruim e oráculo ruim. RS e
+verdadeiros, que também fornece $\mathrm{Perf}_{\mathrm{baseline}}$ para a LCE. RS e
 US usam o mesmo cronograma de oráculos do FALCO, isolando o efeito da estratégia de
-seleção. Cada configuração é repetida com \textbf{8 sementes} — mínimo necessário para
-que o teste de postos sinalizados de Wilcoxon possa atingir $p<0{,}05$ bicaudal
-(o menor p-valor com $n$ pares é $2/2^{n}$; com $n<6$ a significância é
-inalcançável por construção). As comparações finais reportam Wilcoxon pareado
-sobre Macro F1 final e LCE, complementado por intervalo de confiança
-\textit{bootstrap} (percentil, $10^4$ reamostragens) sobre a diferença média de
-LCE, que permanece informativo mesmo sob poucas sementes. O E4 — executado se o critério do
+seleção. Cada configuração é repetida com 3 a 5 sementes; as comparações finais usam
+Wilcoxon pareado sobre Macro F1 final e LCE. O E4 — executado se o critério do
 oráculo indicar ruído relevante — repete o desenho do E3 com oráculo simulado de
 ruído paramétrico $\varepsilon \in \{0; 0{,}1; 0{,}2; 0{,}4\}$, quantificando a
 degradação do aprendizado em função da qualidade do oráculo.
-
-\section{Ameaças à validade}
-\label{sec:metodo-validade}
-
-\textbf{Validade externa.} Todo o programa empírico usa um único conjunto de
-dados, construído pelo próprio autor \citep{Daru2022}. Isso maximiza o realismo
-(dados de produção de 18 varejistas) e a comparabilidade com o trabalho anterior,
-mas limita a generalização: as conclusões valem, a rigor, para descrições curtas
-de produtos de varejo em português. Três mitigações são adotadas: as decisões do
-framework não usam nenhuma propriedade específica do conjunto além das
-características públicas do gênero (texto curto, desbalanceamento, abreviações);
-os achados de instrumentação (P3) são mecanismos do par LLM--API, não do dado; e
-o protocolo completo é reprodutível em qualquer conjunto rotulado com a mesma
-estrutura, ficando a réplica em benchmark público (\textit{e.g.}, STOPS
-\citep{Karl2023}) registrada como trabalho futuro.
-
-\textbf{Validade interna.} O conjunto de teste é isolado de todas as decisões do
-processo (particionamento com deduplicação prévia; transição de fase por $V$;
-envelope do AG reavaliado em partição intocada). O viés distribucional que a
-amostragem ativa induz no conjunto rotulado \citep{Santos2016Vies} não afeta a
-medição, feita sempre em $T$ fixo e aleatório.
-
-\textbf{Validade de constructo.} A acurácia do oráculo é medida contra um
-padrão-ouro com ruído conhecido (teto $\approx 99{,}3\%$; análise de
-sensibilidade na Seção~\ref{sec:metodo-dados-auditoria}), e o efeito do
-instrumento de medição é ele próprio quantificado (RQ4). O custo por rótulo
-depende de preços de API vigentes na execução — os valores absolutos datam; as
-razões entre modelos são mais estáveis.
 
 \section{Reprodutibilidade e ambiente}
 \label{sec:metodo-reprodutibilidade}

@@ -446,45 +446,18 @@ Na \textbf{destilação de conhecimento ativa} (\textit{active knowledge distill
 \subsubsection{Desafios e Direções Futuras}
 \label{sssec:llm_desafios}
 
-Quando o LLM assume o papel de oráculo, o classificador da tarefa passa a ser
-treinado com \emph{rótulos ruidosos} — regime com literatura própria e madura:
-o survey clássico de \citet{Frenay2014} organiza taxonomias de ruído
-(aleatório, dependente de classe, dependente de instância) e seus efeitos;
-\citet{Natarajan2013} estabelecem garantias de aprendizado sob ruído de rótulo
-com funções de perda corrigidas; e \citet{Song2023NoisyLabels} revisam o estado
-da arte com redes profundas. Dois resultados dessa literatura importam
-diretamente aqui: redes profundas toleram ruído moderado quando há dados
-suficientes, mas degradam de forma acentuada sob ruído estruturado (dependente
-de classe) — exatamente o perfil de erro observado em oráculos LLM, cujas
-confusões se concentram em pares de classes vizinhas. O experimento E4 desta
-tese (Capítulo~\ref{ch:metodo}) quantifica essa degradação no nosso domínio.
-
 A integração de LLMs no ciclo de aprendizado ativo, apesar de promissora, apresenta desafios significativos e abre novas avenidas de pesquisa \citep{Bayer2024}. É crucial desenvolver métodos robustos para \textbf{avaliar a incerteza} das predições de LLMs, permitindo identificar quando a intervenção humana é necessária ou quando o LLM pode atuar como um oráculo confiável \citep{Tian2023}. A alta \textbf{dependência da qualidade do prompt} requer investigação em técnicas para tornar a interação mais robusta e menos sensível a variações na formulação das instruções. As \textbf{limitações de contexto} inerentes às arquiteturas atuais de LLMs representam um obstáculo para o processamento de grandes volumes de dados ou documentos extensos em uma única consulta, necessitando de estratégias de loteamento ou sumarização eficazes. Finalmente, explorar o \textbf{aprendizado ativo em múltiplos níveis}, onde a seleção ativa ocorre não apenas para instâncias, mas também para prompts, estratégias de consulta ou até mesmo para a escolha do próprio modelo ou oráculo (humano vs. LLM), configura uma direção futura intrigante \citep{Wu2022}.
 
-\begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}[
-        node distance=6mm and 9mm,
-        caixa/.style={draw, rounded corners=2pt, align=center, minimum height=9mm, inner sep=5pt, font=\small},
-        seta/.style={-{Stealth[length=2.4mm]}, thick}
-    ]
-        \node[caixa] (pool) {Pool não\\rotulado $U$};
-        \node[caixa, right=of pool, fill=gray!12] (llm) {LLM seletor\\(\textit{prompt} com tarefa\\e lote de instâncias)};
-        \node[caixa, right=of llm] (sel) {Instâncias\\selecionadas};
-        \node[caixa, right=of sel] (orac) {Oráculo\\(humano ou LLM)};
-        \node[caixa, below=of sel] (modelo) {Treino do modelo\\sucessor (\textit{e.g.}, BERT)};
-        \draw[seta] (pool) -- (llm);
-        \draw[seta] (llm) -- (sel);
-        \draw[seta] (sel) -- (orac);
-        \draw[seta] (orac) |- (modelo);
-        \draw[seta, dashed] (modelo) -| node[pos=0.25, below, font=\footnotesize] {recapitulação das seleções anteriores} (llm);
-    \end{tikzpicture}
-    \caption{Arquitetura conceitual do ActiveLLM: o LLM atua como \emph{seletor} de
-    instâncias informativas — mitigando o \textit{cold start} — enquanto a rotulagem
-    permanece com um oráculo e o aprendizado com um modelo sucessor. Adaptado de
-    \citet{Bayer2024ActiveLLM}.}
-    \label{fig:activellm_arch}
-\end{figure}
+% Figura do ActiveLLM: reinserir quando houver diagrama real (sem placeholders).
+% % Figura placeholder
+% \begin{figure}[htbp]
+%     \centering
+%     % Substitua 'placeholder_figura5.png' pelo nome do seu arquivo de imagem
+%     % \includegraphics[width=0.8\textwidth]{placeholder_figura5.png} 
+%     \fbox{\parbox[c][10cm][c]{0.8\textwidth}{\centering Placeholder para Figura 5: Diagrama ilustrando a arquitetura do ActiveLLM}}
+%     \caption{Arquitetura conceitual do ActiveLLM. Um lote de instâncias não rotuladas é apresentado ao LLM através de um prompt cuidadosamente projetado. O LLM seleciona as instâncias consideradas mais informativas, que são então rotuladas por um oráculo (humano ou automatizado) e utilizadas para treinar o modelo sucessor. Adaptado de \citep{Bayer2024}.}
+%     \label{fig:activellm_arch}
+% \end{figure}
 
 
 % ---------- fonte: capitulo_02_fundamentos/texto_curto/texto_curto_main.tex ----------
@@ -562,22 +535,56 @@ Reitera-se que a ordem e a seleção das técnicas de pré-processamento aplicad
 Após o pré-processamento, os textos necessitam ser convertidos em representações numéricas (vetores) para serem processados por algoritmos de aprendizado de máquina. A escolha da técnica de vetorização impacta diretamente a capacidade do modelo em capturar a semântica subjacente, especialmente em textos curtos.
 
 \subsubsection{Métodos Clássicos (Representações Esparsas)}
-\label{sssec:vetorizacao_esparsa}
+Estes métodos tipicamente geram vetores de alta dimensionalidade com predominância de valores nulos.
 
-As representações esparsas — \textit{one-hot}, \textit{bag-of-words} nas
-variantes binária, por frequência (TF) e ponderada por raridade (TF--IDF)
-\citep{Salton1988} — projetam cada texto num vetor de dimensão igual ao
-vocabulário, com extensão por $n$-gramas para capturar contexto local. Suas
-propriedades, variantes e o comportamento específico em descrições curtas de
-produtos em português foram investigados em profundidade na dissertação de
-mestrado do autor \citep{Daru2024Dissertacao}, que este trabalho toma como
-ponto de partida: a configuração vencedora lá identificada (representação
-binária com uni e bigramas, sem normalização L2) é justamente a adotada pelo
-classificador leve PVBin (Capítulo~\ref{ch:metodo}). Em texto curto, a
-frequência de termos satura (quase todo termo ocorre uma única vez por
-descrição), o que explica a vantagem empírica da variante binária sobre TF e
-TF--IDF nesse regime \citep{Daru2024Dissertacao}; para o panorama geral de
-ponderação e representação, ver \citet{Salton1988} e \citet{Naseem2021WordRep}.
+O modelo \textbf{Bag-of-Words (BoW)} representa um texto como um multiconjunto (sacola) de seus termos, desconsiderando a ordem das palavras, mas mantendo a informação de frequência \cite{Baeza2013}.
+
+\begin{definicao}[Bag-of-Words (BoW)]
+Dado um corpus $D$ e um vocabulário $V = \{t_1, t_2, ..., t_{|V|}\}$ extraído de $D$, um documento $d \in D$ é representado como um vetor $v_d \in \mathbb{R}^{|V|}$, onde cada componente $v_{d,i}$ corresponde à frequência do termo $t_i \in V$ no documento $d$.
+\begin{equation}
+     v_{d,i} = \text{count}(t_i, d)
+\end{equation}
+\end{definicao}
+Alternativamente, pode-se usar uma representação binária ($v_{d,i} = 1$ se $t_i \in d$, 0 caso contrário) \cite{Baeza2013}. Por exemplo, o texto "o gato no tapete" com vocabulário \{o, gato, no, tapete\} seria representado (contagem bruta) como $v_d = [1, 1, 1, 1]$. A coleção de vetores $v_d$ forma a matriz termo-documento. Contudo, este método produz vetores esparsos e ignora relações semânticas, o que é uma limitação acentuada em STC \cite{Salton1988, Ahmed2022}.
+
+O método \textbf{TF-IDF (\textit{Term Frequency-Inverse Document Frequency})} busca aprimorar o BoW ponderando a frequência de um termo pela sua raridade no corpus \cite{Salton1988}. A intuição é que termos frequentes em um documento, mas raros no geral, são mais discriminativos. O cálculo envolve duas componentes: TF e IDF \cite{Salton1988, Baeza2013}.
+
+A primeira componente, \textit{Term Frequency} (TF), mede a frequência relativa de um termo em um documento. Existem várias formas de calcular o TF, como a contagem bruta, normalizada ou logarítmica, sendo a última utilizada para atenuar o efeito de termos muito frequentes \cite{Baeza2013}.
+
+\begin{definicao}[\textit{Term Frequency} (TF)]
+Mede a frequência relativa de um termo $t$ em um documento $d$. Uma forma comum é a contagem bruta:
+\begin{equation}
+    \text{tf}(t, d) = \text{count}(t, d)
+\end{equation}
+\end{definicao}
+
+A segunda componente, \textit{Inverse Document Frequency} (IDF), mede a importância de um termo em todo o corpus, sendo inversamente proporcional à frequência com que o termo aparece nos documentos do corpus. Variações com suavização são frequentemente usadas para evitar divisão por zero \cite{Baeza2013, Robertson2004}.
+
+\begin{definicao}[\textit{Inverse Document Frequency} (IDF)]
+Mede a importância de um termo $t$ em todo o corpus $D$, sendo $df(t, D)$ o número de documentos que contêm o termo $t$. Uma fórmula comum é:
+\begin{equation}
+    \text{idf}(t, D) = \log \left( \frac{|D|}{df(t, D)} \right)
+    \label{eq:idf_simple_revised_nocite}
+\end{equation}
+\end{definicao}
+
+O peso final TF-IDF de um termo $t$ no documento $d$ é o produto das duas medidas \cite{Salton1988, Baeza2013}.
+
+\begin{definicao}[Peso TF-IDF]
+O peso $w_{t,d}$ de um termo $t$ no documento $d$ é calculado como:
+\begin{equation}
+     w_{t,d} = \text{tf}(t, d) \times \text{idf}(t, D)
+     \label{eq:tfidf_final_revised_nocite}
+\end{equation}
+\end{definicao}
+O vetor TF-IDF para o documento $d$ é $v_d = [w_{t_1,d}, w_{t_2,d}, ..., w_{t_{|V|},d}]$. Frequentemente, esses vetores são normalizados (e.g., norma L2) \cite{Salton1988, Baeza2013}. Por exemplo, a palavra "gato" pode ter um TF alto no documento do exemplo anterior, mas se "gato" aparecer em muitos documentos do corpus, seu IDF será baixo, resultando em um peso TF-IDF moderado. Já "tapete", se for menos comum no corpus, terá um IDF maior e, consequentemente, um peso TF-IDF mais elevado. Embora melhore em relação ao BoW, o TF-IDF ainda gera vetores esparsos e não captura relações semânticas complexas \cite{Salton1988}.
+
+A técnica de \textbf{N-grams} modifica a unidade de análise, considerando sequências contíguas de $n$ tokens \cite{Manning1999}.
+
+\begin{definicao}[N-gram]
+Dado um texto $d = (t_1, t_2, ..., t_l)$, um n-gram é uma subsequência contígua de $n$ tokens: $(t_i, t_{i+1}, ..., t_{i+n-1})$, para $1 \le i \le l-n+1$.
+\end{definicao}
+O vocabulário $V$ é então formado por n-grams (e.g., bigramas como "gato no", trigramas como "gato no tapete") em vez de palavras isoladas \cite{Jurafsky2009}. As representações BoW ou TF-IDF são calculadas sobre este vocabulário expandido. N-grams capturam algum contexto local, mas aumentam significativamente a dimensionalidade e a esparsidade \cite{Manning1999}.
 
 \subsubsection{Embeddings (Representações Densas)}
 Estes métodos mapeiam itens (palavras, textos) para vetores em um espaço contínuo de baixa dimensionalidade ($k$), onde relações geométricas refletem propriedades semânticas ou sintáticas \cite{ Goldberg2017}.
