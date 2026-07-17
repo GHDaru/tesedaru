@@ -38,3 +38,14 @@ Decisões formais com racional completo: `docs/decisoes.md`.
 - A10: seção esparsa condensada citando a dissertação; figura ActiveLLM em TikZ real.
 - Verificação estática: 0 citações órfãs, 0 refs quebradas.
 - Próximo: Bloco B (portar PVBin do legado).
+
+## 16/07/2026 23:40 — Bloco B em andamento; MaaS completo
+- B1 PVBin portado: escores IDÊNTICOS ao legado (dif 0,0); divergências = 100%
+  empates; decisão D-001 (desempate determinístico). 8 testes.
+- B3 laço RunActiveLearning: 5 estratégias, L0 injetável, teste fora do laço.
+  9 testes.
+- B2 DRI-SL portado com porta de encoder (SBERT baixado e validado; TF-IDF+SVD
+  p/ testes). 6 testes. Suíte: 58 verdes.
+- E0: MaaS terminou — glm-5.2 (77,3% rand / 80,9% strat) e v4-pro completo
+  (82,1% / 82,6%). Falta só OpenRouter free (rodando).
+- Próximo: B4 runner FALCO; depois C (replays P1/AG).
