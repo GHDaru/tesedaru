@@ -19,3 +19,8 @@ Decisões formais com racional completo: `docs/decisoes.md`.
 ## 16/07/2026 23:22 — Checklist criado
 - checklist.md com 8 blocos (A-H), ~45 tarefas; blocos A-G devem fechar na
   jornada; bloco H (GPU/BERTimbau + rotação de chaves) fica aberto por design.
+
+## 16/07/2026 23:24 — OK recebido. Jornada iniciada.
+- Ordem de ataque: A (correções R1) → B (biblioteca) → C (replays) → D
+  (experimentos) → E (FlowBuilder) → F (escrita) → G (revisão R2).
+- Runs em 2º plano herdados: MaaS (glm-5.2) e OpenRouter free — monitorados.
