@@ -161,3 +161,14 @@ Decisões formais com racional completo: `docs/decisoes.md`.
   autocontido, detecta TPU (torch_xla, bf16) > GPU > CPU, instruções de dados
   (upload/Drive), smoke 20k + base cheia, relatório JSON baixável.
 - 5ª credencial (NVIDIA) adicionada ao .env local (gitignored) e ao H5.
+
+## 17/07/2026 13:50 — Documentação completa da biblioteca/FlowBuilder + figuras
+- 4 guias novos em activelearning/docs: biblioteca.md (uso com exemplos
+  executáveis), flowbuilder.md (front+back+API curl), experimentos.md
+  (execução/parametrização de tudo), avaliacao-e-graficos.md (rotinas de
+  análise + convenções estatísticas). README com índice e estado real.
+- Rotina nova experiments/plots/make_figures.py: curvas E1, degradação E4
+  (com faixa dos LLMs reais) e custo×acurácia E0 — paleta categórica validada
+  (colorblind-safe), rótulos diretos, PDF+PNG; inspeção visual feita e duas
+  colisões de rótulo corrigidas.
+- Run NVIDIA: 925/1000 na S-rand ao commitar.
