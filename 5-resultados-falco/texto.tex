@@ -28,8 +28,8 @@ rotulagem em lote calibrada.
 \begin{table}[htb]
 \centering
 \caption{E0 — desempenho dos oráculos LLM. Modo enum para OpenAI;
-json-prompt para MaaS/agregador (sem suporte a saída estruturada).
-IC = intervalo de Wilson 95\%.}
+json-prompt para MaaS, agregador e NVIDIA NIM (sem suporte a saída
+estruturada). IC = intervalo de Wilson 95\%.}
 \label{tab:e0-principal}
 \footnotesize
 \begin{tabular}{l l rr r r}
@@ -40,6 +40,7 @@ IC = intervalo de Wilson 95\%.}
 deepseek-v4-pro   & S-rand  & 82,1\% & [79,6; 84,4] & 0,785 & 0,1\% \\
 gpt-4o            & S-rand  & 80,9\% & [78,4; 83,2] & 0,788 & 0,0\% \\
 deepseek-v4-flash & S-rand  & 78,3\% & [75,6; 80,8] & 0,750 & 0,7\% \\
+nemotron-3-ultra (grátis) & S-rand & 77,9\% & [75,2; 80,4] & 0,752 & 1,2\% \\
 glm-5.2           & S-rand  & 77,3\% & [74,6; 79,8] & 0,742 & 0,0\% \\
 gpt-4o-mini       & S-rand  & 61,3\% & [58,2; 64,3] & 0,518 & 0,0\% \\
 \hline
@@ -47,6 +48,7 @@ deepseek-v4-pro   & S-strat & 82,6\% & [80,8; 84,2] & 0,793 & 0,0\% \\
 gpt-4o            & S-strat & 82,1\% & [80,3; 83,8] & 0,797 & 0,0\% \\
 deepseek-v4-flash & S-strat & 81,6\% & [79,7; 83,3] & 0,781 & 0,9\% \\
 glm-5.2           & S-strat & 80,9\% & [79,1; 82,6] & 0,782 & 0,0\% \\
+nemotron-3-ultra (grátis) & S-strat & 79,6\% & [77,7; 81,4] & 0,770 & 2,6\% \\
 gpt-4o-mini       & S-strat & 45,7\% & [43,4; 48,0] & 0,427 & 0,0\% \\
 \hline
 \end{tabular}
@@ -82,6 +84,7 @@ de prefixo (S-rand; preços vigentes na execução, jul/2026).}
 \hline
 \textbf{Oráculo} & \textbf{US\$/1k rótulos} & \textbf{Cache} & \textbf{Acurácia} \\
 \hline
+nemotron-3-ultra (grátis) & 0,000 & — & 77,9\% \\
 deepseek-v4-flash & 0,035 & —      & 78,3\% \\
 gpt-4o-mini       & 0,051 & 91\%   & 61,3\% \\
 glm-5.2           & 0,249 & —      & 77,3\% \\
@@ -105,6 +108,19 @@ no MaaS, 18/min no plano gratuito do OpenRouter, nos artefatos de latência do
 E0) moldaram o próprio desenho experimental e, em produção, definem o tempo de
 parede de um ciclo de rotulagem tanto quanto o preço — um oráculo barato e
 lento pode ser dominado por um caro e paralelo quando o gargalo é o prazo.
+
+O \textbf{regime de custo monetário zero} confirmou-se competitivo: o
+nemotron-3-ultra servido pela API de avaliação da NVIDIA empata
+estatisticamente com o deepseek-v4-flash na S-rand (McNemar, $p=0{,}76$) e
+com o glm-5.2 na S-strat ($p=0{,}078$), ficando abaixo apenas do v4-pro
+($p<0{,}001$). Duas ressalvas operacionais, ambas achados: (i) grátis não é
+custo operacional zero — a primeira tentativa, via agregador com cota de 50
+requisições/dia, projetava seis dias de execução (decisões D-005/D-006); e
+(ii) \emph{o provedor de \textit{serving} é parte do instrumento}: o MESMO
+modelo servido pelo agregador diverge significativamente de si mesmo servido
+pela NVIDIA nas mesmas instâncias ($p<0{,}001$ no subconjunto pareado de 850
+itens) — medições de oráculo LLM devem registrar não só o modelo, mas quem o
+serve e como.
 
 \subsection{RQ3 --- perfil de erro}
 \label{sec:res-e0-rq3}
@@ -324,4 +340,8 @@ Avançado} = deepseek-v4-pro (maior acurácia; significativamente superior ao
 flash na S-strat, $p<0{,}001$ — o critério de superioridade significativa é
 atendido e a Fase~3 do FALCO se justifica). O gpt-4o não se qualifica em
 nenhum papel: empata com o v4-pro em acurácia e custa o dobro; o gpt-4o-mini
-é eliminado ($p \approx 0$ contra todos na S-strat).
+é eliminado ($p \approx 0$ contra todos na S-strat). O nemotron-3-ultra
+gratuito é a \emph{alternativa de custo zero} para o papel de LLM Inicial —
+empata com o flash na S-rand ($p=0{,}76$) — condicionada a um provedor de
+\textit{serving} com vazão e termos de produção; o flash permanece a escolha
+padrão pela confiabilidade operacional.

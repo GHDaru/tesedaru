@@ -119,7 +119,14 @@ uma rodada anterior; \textbf{(iii)} usar os racionais do oráculo
 (\texttt{expanded\_description}) como atributo auxiliar do classificador
 \citep{Sharma2015}; \textbf{(iv)} réplica em benchmark público de produtos
 (STOPS, \citealp{Karl2023}) e extensão a taxonomias hierárquicas
-\citep{Sun2003,Tan2020}.
+\citep{Sun2003,Tan2020}; e \textbf{(v)} o ciclo de vida pós-treinamento — o
+critério de parada do laço (estagnação em validação) já está implementado e
+formalizado, mas a decisão de \emph{liberação} do modelo e o monitoramento de
+\textit{drift} em produção merecem tratamento próprio: o oráculo LLM barato
+da Fase Inicial vira instrumento de auditoria contínua (verificação amostral
+periódica a custo desprezível), e sinais sem rótulo (taxa de vocabulário
+novo, deriva da confiança predita) antecipam o gatilho de retreino — desenho
+detalhado na documentação operacional da biblioteca.
 
 \section{Conclusão}
 \label{sec:conc-conclusao}
