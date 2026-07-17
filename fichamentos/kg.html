@@ -217,9 +217,8 @@ function draw() {
   }
 }
 
-let raf;
-function loop() { step(); draw(); raf = requestAnimationFrame(loop); }
-loop();
+function loop() { step(); draw(); requestAnimationFrame(loop); }
+// (iniciado no fim do script, após TODAS as declarações — step() lê dragNode)
 
 function pick(mx, my) {
   const x = (mx - ox) / scale, y = (my - oy) / scale;
@@ -281,4 +280,6 @@ function showDetail(n) {
     <ul>${rels || "<li class='note'>sem relações visíveis</li>"}</ul>`;
   detail.classList.add("open");
 }
+
+loop();
 </script>
