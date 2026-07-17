@@ -49,3 +49,14 @@ Decisões formais com racional completo: `docs/decisoes.md`.
 - E0: MaaS terminou — glm-5.2 (77,3% rand / 80,9% strat) e v4-pro completo
   (82,1% / 82,6%). Falta só OpenRouter free (rodando).
 - Próximo: B4 runner FALCO; depois C (replays P1/AG).
+
+## 17/07/2026 00:16 — Cap. 4 escrito (F1+F2); replays C1/C2 concluídos
+- P1-replay: convergência com o original ≤0,7 p.p. em TODOS os tamanhos —
+  validação independente forte (tabela no Cap.4).
+- AG-replay: mecanismo reproduzido; QUANTIFICADA a inflação de circularidade
+  (max_f1 I=500: aptidão 19,4% vs teste 13,1% = −6,3 p.p.) — vira achado
+  metodológico da tese (Seção 4.4).
+- Cap.4 completo: sensibilidade (com figuras do draft), AG (tabela original
+  condensada 575→~30 linhas), DRI-SL vs envelope (resultado central P2:
+  DRI-SL supera o MELHOR indivíduo do AG em 100..5000), reexecução+circularidade.
+- E1/E4 sweeps rodando; E0 free rodando (nemotron 675/1000).

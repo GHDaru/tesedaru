@@ -1,3 +1,198 @@
 \chapter{Resultados: Composição e Construção do Conjunto Inicial}
 \label{ch:resultados-l0}
-% W2/W3 — ver docs/plano-mestre.md
+
+Este capítulo apresenta os resultados dos pilares P1 e P2: a sensibilidade da
+generalização à composição do conjunto inicial $L_0$ (Seção~\ref{sec:res-l0-sens}),
+os limites estimados por otimização evolutiva (Seção~\ref{sec:res-l0-ag}) e a
+avaliação do DRI-SL como estratégia de \textit{cold start}
+(Seção~\ref{sec:res-l0-drisl}). Todos os experimentos usam o classificador leve
+PVBin (Capítulo~\ref{ch:metodo}); os resultados originais foram obtidos no
+programa experimental da pesquisa e, como verificação de robustez, o estudo de
+sensibilidade e o mecanismo do AG foram \textbf{reexecutados de forma
+independente} na biblioteca \texttt{activelearning}, com protocolo mais
+rigoroso (deduplicação antes do particionamento e reavaliação em teste
+intocado); as duas séries são apresentadas lado a lado
+(Seção~\ref{sec:res-l0-replay}).
+
+\section{Sensibilidade à composição e ao tamanho de \texorpdfstring{$L_0$}{L0}}
+\label{sec:res-l0-sens}
+
+O experimento avaliou 47 tamanhos de $L_0$ (10 a 200.000), com 30 repetições
+aleatórias por tamanho, medindo Acurácia Global e Macro F1 no conjunto de teste
+$T$. As estatísticas completas constam do Apêndice~\ref{ap:tabelas}; a
+Figura~\ref{fig:tendencia-l0-log} resume a tendência.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{4-resultados-l0/imagens/L0tendenciagerallog.png}
+\caption{Tendência da performance média (Acurácia e Macro F1) e intervalo
+mín--máx por tamanho de $L_0$ no teste $T$, escala logarítmica.
+Classificador PVBin.}
+\label{fig:tendencia-l0-log}
+\end{figure}
+
+Três padrões estruturam a leitura:
+
+\begin{enumerate}
+  \item \textbf{Crescimento com saturação}: a acurácia média sobe de $6{,}7\%$
+  ($I=10$) para $24{,}7\%$ ($I=100$), $55{,}9\%$ ($I=1.000$), $76{,}9\%$
+  ($I=10.000$) e satura em torno de $89{,}1\%$ ($I=200.000$); o Macro F1
+  acompanha com atraso ($0{,}4\% \rightarrow 3{,}4\% \rightarrow 17{,}8\%
+  \rightarrow 43{,}3\% \rightarrow 70{,}4\%$), refletindo o custo de cobrir
+  classes minoritárias.
+  \item \textbf{Variabilidade decrescente}: o desvio-padrão da acurácia cai de
+  $0{,}024$ ($I=10$) para menos de $0{,}001$ ($I=200.000$); para $I=100$, a
+  acurácia entre repetições variou de $21{,}7\%$ a $28{,}1\%$ — uma amplitude
+  de $6{,}4$ pontos percentuais causada exclusivamente pela composição do
+  sorteio. É a evidência direta da hipótese de variabilidade: \emph{existem}
+  $L_0$ bons e ruins de mesmo tamanho.
+  \item \textbf{Cobertura de classes como mecanismo}: em $I=10$ o $L_0$ típico
+  cobre 9 das 621 classes; em $I=1.000$, cerca de 255; a curva de Macro F1
+  segue de perto a curva de cobertura, indicando que, no regime pequeno, o
+  fator dominante é \emph{quais classes} entram no sorteio.
+\end{enumerate}
+
+Esses resultados fundamentam o P2: se a composição importa tanto no regime
+pequeno — exatamente o regime do \textit{cold start} do aprendizado ativo —,
+então construir $L_0$ deliberadamente (em vez de sorteá-lo) é a alavanca
+disponível antes de existir qualquer rótulo.
+
+\section{Limites por otimização evolutiva}
+\label{sec:res-l0-ag}
+
+Para estimar o quanto a composição pode render além do sorteio, um algoritmo
+genético (Seção~\ref{sec:metodo-l0-ag}) otimizou a composição de $L_0$ em
+quatro cenários (maximização e minimização de Acurácia e Macro F1) para dez
+tamanhos. A Tabela~\ref{tab:ag-evolucao} resume a evolução do melhor (pior)
+indivíduo entre a 1\textsuperscript{a} e a 100\textsuperscript{a} geração nos
+cenários de acurácia.
+
+\begin{table}[htb]
+\centering
+\caption{Evolução do AG (1\textsuperscript{a} vs.\ 100\textsuperscript{a}
+geração) — cenários de Acurácia. Envelope entre minimização e maximização.}
+\label{tab:ag-evolucao}
+\small
+\begin{tabular}{r rrr rrr}
+\hline
+ & \multicolumn{3}{c}{\textbf{Maximização}} & \multicolumn{3}{c}{\textbf{Minimização}} \\
+\textbf{$|L_0|$} & 1\textsuperscript{a} & 100\textsuperscript{a} & $\Delta$ &
+1\textsuperscript{a} & 100\textsuperscript{a} & $\Delta$ \\
+\hline
+10     & 13,06\% & 18,82\% & $+5{,}76$ & —       & —       & — \\
+50     & 22,12\% & 33,83\% & $+11{,}71$ & 16,17\% & 7,13\%  & $-9{,}04$ \\
+100    & 26,65\% & 36,71\% & $+10{,}06$ & 22,17\% & 10,86\% & $-11{,}31$ \\
+500    & 48,55\% & 56,00\% & $+7{,}46$  & 45,23\% & 36,17\% & $-9{,}06$ \\
+1.000  & 57,76\% & 62,20\% & $+4{,}44$  & 55,76\% & 49,33\% & $-6{,}43$ \\
+5.000  & 73,48\% & 74,13\% & $+0{,}64$  & 72,00\% & 70,82\% & $-1{,}18$ \\
+20.000 & 82,10\% & 83,23\% & $+1{,}13$  & 81,58\% & 79,55\% & $-2{,}03$ \\
+30.000 & 85,07\% & 85,88\% & $+0{,}81$  & 84,39\% & 83,03\% & $-1{,}36$ \\
+\hline
+\end{tabular}
+\end{table}
+
+Duas leituras: o envelope é \textbf{largo no regime pequeno} (em $I=100$, a
+distância entre pior e melhor indivíduo da última geração chega a
+$25{,}9$ pontos percentuais de acurácia) e \textbf{estreita com o tamanho} —
+coerente com a Seção~\ref{sec:res-l0-sens}: quanto maior o $L_0$, menos a
+composição importa. O ganho evolutivo sobre a 1\textsuperscript{a} geração
+(coluna $\Delta$) confirma que o AG explora estrutura real, não flutuação.
+
+\section{DRI-SL \textit{versus} aleatório e envelope do AG}
+\label{sec:res-l0-drisl}
+
+A Tabela~\ref{tab:drisl-vs-ag} compara o DRI-SL (heurística determinística sem
+rótulos, Seção~\ref{sec:metodo-drisl}) com o envelope do AG.
+
+\begin{table}[htb]
+\centering
+\caption{\textit{Cold start}: DRI-SL vs.\ envelope do AG (última geração),
+até $|L_0|=5.000$. Classificador PVBin.}
+\label{tab:drisl-vs-ag}
+\small
+\begin{tabular}{r rr rr rr}
+\hline
+ & \multicolumn{2}{c}{\textbf{DRI-SL}} & \multicolumn{2}{c}{\textbf{AG (melhor)}} & \multicolumn{2}{c}{\textbf{AG (pior)}} \\
+\textbf{$|L_0|$} & Acc & Macro F1 & Acc & Macro F1 & Acc & Macro F1 \\
+\hline
+100   & 41,23\% & 6,85\%  & 38,76\% & 6,51\%  & 5,75\%  & 1,81\% \\
+500   & 59,22\% & 18,45\% & 56,00\% & 18,01\% & 36,17\% & 6,52\% \\
+1.000 & 67,39\% & 25,83\% & 62,20\% & 24,69\% & 49,33\% & 12,60\% \\
+2.500 & 73,36\% & 36,53\% & 69,28\% & 32,58\% & 63,92\% & 24,11\% \\
+5.000 & 76,87\% & 44,09\% & 74,13\% & 40,07\% & 70,82\% & 31,87\% \\
+\hline
+\end{tabular}
+\end{table}
+
+O resultado central do P2: \textbf{o DRI-SL supera não só a amostragem
+aleatória média, mas o próprio melhor indivíduo encontrado pelo AG} em todos os
+tamanhos de 100 a 5.000 (ex.: $I=1.000$: $67{,}4\%$ vs.\ $62{,}2\%$ de
+acurácia). Uma heurística construtiva de custo linear e sem acesso a rótulos
+supera um otimizador evolutivo com 5.000 avaliações supervisionadas — forte
+indício de que densidade semântica + variedade lexical capturam exatamente a
+estrutura que torna um $L_0$ informativo. Há uma ressalva metodológica: os
+valores do AG aqui reportados herdam o protocolo original (aptidão e relato na
+mesma partição), inflacionado por construção — a quantificação está na seção
+seguinte, e reforça a conclusão.
+
+\section{Reexecução independente e efeito da circularidade}
+\label{sec:res-l0-replay}
+
+A reexecução na biblioteca \texttt{activelearning} (grade reduzida com racional
+registrado: 15 tamanhos $\times$ 10 repetições; artefatos em
+\texttt{experiments/p1/results/}) reproduz a estrutura completa do estudo
+original, com protocolo mais rigoroso — deduplicação por texto normalizado
+\emph{antes} do particionamento e teste fixo de 20.000 instâncias.
+
+\begin{table}[htb]
+\centering
+\caption{Estudo de sensibilidade: original (30 rep.) vs.\ reexecução
+independente (10 rep., protocolo com deduplicação). Acurácia média.}
+\label{tab:replay-vs-original}
+\small
+\begin{tabular}{r rr r}
+\hline
+\textbf{$|L_0|$} & \textbf{Original} & \textbf{Reexecução} & \textbf{Diferença} \\
+\hline
+10      & 6,7\%  & 6,6\%  & $-0{,}1$ \\
+100     & 24,7\% & 24,0\% & $-0{,}7$ \\
+1.000   & 55,9\% & 55,5\% & $-0{,}4$ \\
+10.000  & 76,9\% & 76,4\% & $-0{,}5$ \\
+100.000 & 87,1\% & 86,7\% & $-0{,}4$ \\
+200.000 & 89,1\% & 88,8\% & $-0{,}3$ \\
+\hline
+\end{tabular}
+\end{table}
+
+A concordância (diferença $\le 0{,}7$ p.p.\ em todos os tamanhos, sempre no
+sentido esperado — o protocolo com deduplicação é ligeiramente mais difícil)
+valida de forma independente tanto o estudo original quanto o porte do
+classificador para a biblioteca nova, cuja fidelidade foi adicionalmente
+verificada por igualdade exata das matrizes de escore entre implementações.
+
+A reexecução do AG (2 tamanhos $\times$ 2 cenários, $N_{pop}=30$, 40 gerações)
+aplicou o protocolo anticircularidade da Seção~\ref{sec:metodo-l0-ag}: aptidão
+medida em partição de aferição, indivíduo final \emph{reavaliado} no teste
+intocado. O mecanismo se reproduz (melhor indivíduo evolui $+5{,}2$ p.p.\ de
+acurácia em $I=50$; envelope acima da média aleatória em todos os casos), mas a
+reavaliação honesta revela a inflação da circularidade: para maximização de
+Macro F1 com $I=500$, a aptidão final é $19{,}4\%$, mas o mesmo indivíduo mede
+$13{,}1\%$ no teste intocado — $6{,}3$ pontos percentuais de superajuste ao
+conjunto de aferição. Para acurácia a inflação é menor ($\approx 1$ p.p.).
+Conclusão metodológica incorporada à tese: \textbf{envelopes evolutivos devem
+ser reportados exclusivamente em partição não usada como aptidão}; os valores
+de AG das Tabelas~\ref{tab:ag-evolucao} e \ref{tab:drisl-vs-ag} devem ser lidos
+como limites otimistas, e a superioridade do DRI-SL sobre eles é, portanto,
+conservadora.
+
+\section{Síntese do capítulo}
+\label{sec:res-l0-sintese}
+
+(i) A composição de $L_0$ tem efeito grande e mensurável no regime pequeno
+(amplitude de $6{,}4$ p.p.\ em $I=100$ só por sorteio), decaindo com o tamanho;
+(ii) o envelope evolutivo confirma espaço explorável de dezenas de pontos
+percentuais entre composições boas e ruins; (iii) o DRI-SL captura esse espaço
+sem usar rótulos, superando o melhor indivíduo do AG até $I=5.000$ — e é por
+isso a estratégia da Fase~1 do FALCO; (iv) a reexecução independente reproduz
+os três achados e quantifica o viés de circularidade do protocolo original de
+AG, corrigido nesta tese.
