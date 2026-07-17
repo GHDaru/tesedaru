@@ -112,3 +112,19 @@ Decisões formais com racional completo: `docs/decisoes.md`.
 - PENDENTE (aguardando o run free do OpenRouter, retomado e rodando):
   D1 (anotações free), D2 (reconsolidação analyze_e0), E5 (E2E com LLM free,
   D-003), G5 final e G6 (push final). Check-in agendado.
+
+## 17/07/2026 11:35 — BERTimbau em CPU: smoke test executado (pedido do autor)
+- Escrito o adapter BertimbauClassifier (porta TaskClassifier, lazy imports,
+  determinismo por semente) + experiments/e2e3/run_smoke_cpu.py.
+- torch 2.13 CPU + transformers 5.14 instalados; modelo neuralmind (440MB) baixado.
+- SEM erros bloqueantes na cadeia download→tokenização→fine-tune→predição.
+- Resultados (CPU, max_len=32, b=16): 100 docs/10cls/1ép: acc 10% (subtreinado,
+  como esperado); 3ép: 34%; 900 docs/30cls/3ép: acc 86,3% / Macro-F1 0,859 em
+  235s de treino. Aprendizado converge corretamente.
+- Custo medido: ~0,087 s/doc/época em CPU (competindo com o run free).
+  Extrapolação honesta: E3 completo (150 retreinos/braço × 7 braços × 8
+  sementes) é INVIÁVEL em CPU (ordem de anos); um único treino de 15k docs
+  (~65 min) é viável — GPU segue necessária para E2/E3 (bloco H confirmado).
+- Avisos não bloqueantes: cabeçalho de classificação inicializado do zero
+  (esperado em fine-tune) e relatório verboso de carga do transformers v5.
+- Run free OpenRouter: vivo, 775 anotações (~100/h — fortemente estrangulado).

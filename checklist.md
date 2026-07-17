@@ -74,7 +74,7 @@ podem restar abertos.**
 - [ ] G6. Diário e decisões atualizados; push final de tudo
 
 ## H. Dependentes de GPU (ficam abertos para a estação RTX 3090)
-- [ ] H1. E2: épocas de fine-tuning BERTimbau por |L| (script pronto-para-rodar)
+- [ ] H1. E2: épocas de fine-tuning BERTimbau por |L| (adapter + smoke CPU validados 17/07 11:35 — 86,3% acc em 900 docs/30cls/3ép; cadeia sem erros; falta só a grade completa na GPU)
 - [ ] H2. E3: FALCO vs RS vs US + ablações (L0 aleatório; sem troca de oráculo) com BERTimbau, ≥8 sementes (script pronto-para-rodar)
 - [ ] H3. E4-BERTimbau: repetição do E4 com classificador forte (condicional)
 - [ ] H4. F-gpu: inserir números E2/E3 nos Caps. 5-6 + fechar hipótese central
