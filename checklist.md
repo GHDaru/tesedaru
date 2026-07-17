@@ -37,8 +37,8 @@ podem restar abertos.**
 - [x] C3. Relatório de convergência reexecução × originais (docs/) [17/07 09:45 → 09:55]
 
 ## D. Experimentos novos (CPU/API)
-- [~] D1. E0: finalizar oráculos (pagos OK; free RESTAURADO completo via NVIDIA NIM — D-006; rand+strat rodando)
-- [~] D2. E0: análise consolidada final (Wilson+McNemar+gate formal+custo) — análise oficial dos pagos PRONTA e na tese; reconsolidar quando os free terminarem
+- [x] D1. E0: todos os oráculos completos (free via NVIDIA NIM — D-006) [… → 17/07 13:55]
+- [x] D2. E0: análise consolidada final (Wilson+McNemar 43 pares+gate+custo, braço free incluído) [17/07 14:00 → 14:20]
 - [x] D3. E0-P: ablação de prompt no modelo fraco [17/07 00:20 → 09:40]
   - [x] D3a. Prompt v4a (regras de fronteira) e v4b (few-shot pares confundidos) [17/07 00:20 → 00:35]
   - [x] D3b. Execução pareada (mini + 1 free; n=500 rand + 500 strat) [17/07 00:35 → 02:10]
@@ -52,7 +52,7 @@ podem restar abertos.**
 - [x] E2. Saneamento automático (inativo/conflitos/duplicatas) + relatório + download da base saneada [17/07 01:00 → 02:30]
 - [x] E3. Execução parametrizada pela UI (semente, lote, estratégia, oráculo, orçamento, amostras) [17/07 01:00 → 02:30]
 - [x] E4. Fluxo de AL completo pela UI (curva de aprendizado visível) [17/07 01:00 → 02:30]
-- [~] E5. Teste E2E com LLM free como oráculo + SimulatedOracle offline (SimulatedOracle OK; free adiado por contenção de cota — D-003; retomar após D1)
+- [x] E5. Teste E2E com LLM free como oráculo + SimulatedOracle offline [17/07 15:30 → 16:45] (ciclo FALCO completo real: nemotron NIM × {PVBin, SGD}, curvas interna/externa)
 - [x] E6. Testes de API para upload/saneamento/parâmetros [17/07 01:00 → 02:30]
 
 ## F. Escrita da tese (com dados reais das seções C/D)
@@ -70,8 +70,8 @@ podem restar abertos.**
 - [x] G2. Aplicar correções da R2; iterar até sem bloqueantes solucionáveis [17/07 10:20 → 10:45] (ablação E3, gate→hipótese no Cap.1, N=250.365, entropia pré-registrada, vazão/latência)
 - [x] G3. Poda de citações fracas (14/14 candidatos não citados; Bhavani2021 removida) [17/07 10:40 → 10:45]
 - [x] G4. KG e fichamentos atualizados (356 nós, 720 arestas) [17/07 10:45 → 10:47]
-- [~] G5. Verificação por amostragem OK (E0-P/E1/E4 conferidos contra analysis.json; N corrigido no resumo); re-verificar consolidado do E0 após D2
-- [ ] G6. Diário e decisões atualizados; push final de tudo
+- [x] G5. Rastreabilidade verificada: E0-P/E1/E4/E0-free/ciclo conferidos contra os artefatos JSON [17/07 16:50]
+- [x] G6. Diário e decisões atualizados; push final de tudo [17/07 16:55]
 
 ## H. Dependentes de GPU (ficam abertos para a estação RTX 3090)
 - [ ] H1. E2: épocas de fine-tuning BERTimbau por |L| (adapter + smoke CPU validados 17/07 11:35 — 86,3% acc em 900 docs/30cls/3ép; cadeia sem erros; falta só a grade completa na GPU)

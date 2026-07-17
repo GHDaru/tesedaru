@@ -172,3 +172,19 @@ Decisões formais com racional completo: `docs/decisoes.md`.
   (colorblind-safe), rótulos diretos, PDF+PNG; inspeção visual feita e duas
   colisões de rótulo corrigidas.
 - Run NVIDIA: 925/1000 na S-rand ao commitar.
+
+## 17/07/2026 16:55 — Ciclo E2E real concluído; blocos A-G FECHADOS
+- Ciclo FALCO completo com oráculo REAL e gratuito (nemotron/NIM), pedido do
+  autor: PVBin (F1 teste 0,283; LCE 0,622; 991 rótulos; 23 min) e SGD
+  logístico novo adapter (F1 0,358; LCE 0,605; 982 rótulos; 31 min).
+  Curvas interna (validação) × externa (teste) registradas e plotadas
+  (fig_ciclo_curvas) — coladas, sem superajuste à validação; SGD > PVBin
+  neste regime de poucos rótulos com ruído de oráculo.
+- Inválidos do oráculo: 1,9-2,9% — tratados pelo laço (instância pulada).
+- E5 fechado (E2E com LLM free real); D1/D2 fechados; G5/G6 fechados.
+- Contêiner reiniciou mais uma vez no meio do primeiro ciclo — sem perda
+  (tudo commitado antes); run relançado e concluído.
+- PERGUNTA DA JORNADA — "está tudo pronto?": SIM para os blocos A-G
+  (meta de encerramento atingida). Aberto por design: bloco H — E2/E3/E4
+  com BERTimbau na GPU do autor (adapter, scripts, notebook Colab e guia
+  prontos) e H5 (rotação das 5 credenciais pelo autor).
