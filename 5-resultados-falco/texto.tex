@@ -99,7 +99,12 @@ precedendo o item variável, Seção~\ref{sec:metodo-oraculo-instrumentacao})
 atinge 88--95\% de acerto nos provedores que o suportam, reduzindo pela metade
 o custo efetivo do tokens de entrada. Para referência externa, o custo fica
 duas a três ordens de grandeza abaixo do custo típico de anotação humana por
-item relatado na literatura \citep{Gilardi2023}.
+item relatado na literatura \citep{Gilardi2023}. Custo, porém, não é a única
+restrição operacional: os limites de vazão dos provedores (3 requisições/min
+no MaaS, 18/min no plano gratuito do OpenRouter, nos artefatos de latência do
+E0) moldaram o próprio desenho experimental e, em produção, definem o tempo de
+parede de um ciclo de rotulagem tanto quanto o preço — um oráculo barato e
+lento pode ser dominado por um caro e paralelo quando o gargalo é o prazo.
 
 \subsection{RQ3 --- perfil de erro}
 \label{sec:res-e0-rq3}
@@ -209,8 +214,8 @@ futuro de gerar regras automaticamente a partir da matriz de confusão
 O E1 varre as cinco estratégias de seleção (entropia, menor confiança, menor
 margem, híbrida, aleatória) com o PVBin e oráculo simulado sem ruído, em pool
 deduplicado de 20.000 instâncias, orçamento de 3.000 rótulos, lote 100 e
-8 sementes por célula; a ablação de lote repete a melhor estratégia com
-$b \in \{50, 200\}$.
+8 sementes por célula; a ablação de lote repete a entropia — a estratégia
+pré-registrada da Fase~2 do FALCO e do E4 — com $b \in \{50, 200\}$.
 O teto supervisionado do \textit{pool} completo (20.000 rótulos) é Macro F1
 $= 0{,}540$. A Tabela~\ref{tab:e1} apresenta as células
 (artefato: \texttt{experiments/e1e4/results/analysis.json}).

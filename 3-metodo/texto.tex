@@ -383,7 +383,12 @@ custo do \emph{ruído do oráculo}; a diferença entre (v) e o FALCO mede o cust
 \emph{parcimônia de rótulos} — sem ele, um resultado negativo seria ambíguo entre
 estratégia ruim e oráculo ruim. RS e
 US usam o mesmo cronograma de oráculos do FALCO, isolando o efeito da estratégia de
-seleção. Cada configuração é repetida com \textbf{8 sementes} — mínimo necessário para
+seleção. Para atribuir o ganho a cada componente do framework — e não ao conjunto
+indissociável — o desenho inclui ainda duas \textbf{ablações}: (a) FALCO com $L_0$
+aleatório no lugar do DRI-SL (isola a contribuição do \textit{cold start}
+informado) e (b) FALCO sem troca de oráculo, usando apenas o LLM Inicial em todas
+as fases (isola a contribuição da progressão de oráculos). Cada configuração é
+repetida com \textbf{8 sementes} — mínimo necessário para
 que o teste de postos sinalizados de Wilcoxon possa atingir $p<0{,}05$ bicaudal
 (o menor p-valor com $n$ pares é $2/2^{n}$; com $n<6$ a significância é
 inalcançável por construção). As comparações finais reportam Wilcoxon pareado
