@@ -90,6 +90,14 @@ desenho experimental e a interpretação dos resultados:
   acurácia mensurável de qualquer classificador ou oráculo na distribuição de
   produção. As instâncias foram mantidas por representarem o ruído real do domínio;
   o teto é considerado na interpretação (Capítulo~\ref{ch:resultados-falco}).
+  Uma análise de sensibilidade quantifica o efeito dessa decisão: reavaliando
+  as anotações dos oráculos do E0 (i) com as instâncias conflitantes excluídas
+  e (ii) sob pontuação \emph{multi-gold} (acerto quando o rótulo predito
+  coincide com \emph{qualquer} dos rótulos observados para a mesma descrição
+  na base), a acurácia de todos os oráculos varia no máximo $+0{,}7$ ponto
+  percentual, sem alteração de nenhum ordenamento ou decisão. O ruído de
+  gabarito, portanto, limita a medição, mas não a contamina de forma
+  relevante — o que justifica manter as instâncias.
   \item \textbf{Rótulo operacional}: a categoria \texttt{inativo} (144 linhas)
   registra um status de cadastro, não um tipo de produto (\textit{e.g.},
   \texttt{UVA PASSA ESCURA 150G} $\rightarrow$ \texttt{inativo}). As linhas foram
