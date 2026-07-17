@@ -8,16 +8,16 @@ podem restar abertos.**
 ---
 
 ## A. Correções da Revisão R1 (bloqueantes primeiro)
-- [ ] A1. Trocar T→V no critério de transição de fase (Cap.3 §3.8.1)
-- [ ] A2. Corrigir inferência do E3: ≥8 sementes + IC bootstrap sobre ΔLCE (texto Cap.3)
-- [ ] A3. Declarar fitness do AG e protocolo anticircularidade do envelope (Cap.3 P1)
-- [ ] A4. Citar ALC (Guyon 2011) e demarcar o delta da LCE (Cap.3 + Apêndice LCE)
-- [ ] A5. Seção de ameaças à validade (dataset único, autor-criador, instrumento)
-- [ ] A6. Literatura de noisy labels no Cap.2 (fonte via web + bib + fichamento)
-- [ ] A7. Justificar constantes (85%, p=5, ε=1e-3, b0=1%B) com racional/decisão
-- [ ] A8. Definir L_ideal,0 inline; procedimento da subamostra 50k do E3
-- [ ] A9. Baseline extra no desenho E3: "100% rotulado pelo oráculo" (ataque DA-2)
-- [ ] A10. Pendências Cap.2: redundância STC vs dissertação; figura ActiveLLM
+- [x] A1. Trocar T→V no critério de transição de fase (Cap.3 §3.8.1) [23:20 → 23:27]
+- [x] A2. Corrigir inferência do E3: ≥8 sementes + IC bootstrap sobre ΔLCE (texto Cap.3) [23:20 → 23:27]
+- [x] A3. Declarar fitness do AG e protocolo anticircularidade do envelope (Cap.3 P1) [23:20 → 23:27]
+- [x] A4. Citar ALC (Guyon 2011) e demarcar o delta da LCE (Cap.3 + Apêndice LCE) [23:20 → 23:27]
+- [x] A5. Seção de ameaças à validade (dataset único, autor-criador, instrumento) [23:20 → 23:27]
+- [x] A6. Literatura de noisy labels no Cap.2 (fonte via web + bib + fichamento) [23:20 → 23:27]
+- [x] A7. Justificar constantes (85%, p=5, ε=1e-3, b0=1%B) com racional/decisão [23:20 → 23:27]
+- [x] A8. Definir L_ideal,0 inline; procedimento da subamostra 50k do E3 [23:20 → 23:27]
+- [x] A9. Baseline extra no desenho E3: "100% rotulado pelo oráculo" (ataque DA-2) [23:20 → 23:27]
+- [x] A10. Pendências Cap.2: redundância STC vs dissertação; figura ActiveLLM [23:20 → 23:27]
 
 ## B. Biblioteca activelearning (código + testes)
 - [ ] B1. D4: portar PVBin do legado (ProductVectorizerClassifier → adapter)
