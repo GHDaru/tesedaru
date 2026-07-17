@@ -6,6 +6,51 @@
       "label": "FALCO"
     },
     {
+      "id": "Amir2023ColdStart",
+      "type": "artigo",
+      "label": "Amir2023ColdStart",
+      "title": "Cold-start Active Learning for Text Classification of Business Documents",
+      "year": 2023,
+      "venue": "Dissertação de mestrado (MSc Interaction Technology), University of Twente",
+      "paper_type": "dissertacao",
+      "status": "fichado"
+    },
+    {
+      "id": "pilar:P1",
+      "type": "pilar",
+      "label": "P1"
+    },
+    {
+      "id": "conceito:construcao-de-pool-inicial",
+      "type": "conceito",
+      "label": "construcao-de-pool-inicial"
+    },
+    {
+      "id": "metodo:cold-start",
+      "type": "metodo",
+      "label": "cold-start"
+    },
+    {
+      "id": "metodo:selecao-de-seed",
+      "type": "metodo",
+      "label": "selecao-de-seed"
+    },
+    {
+      "id": "metodo:aprendizado-ativo",
+      "type": "metodo",
+      "label": "aprendizado-ativo"
+    },
+    {
+      "id": "dataset:documentos-de-negocio",
+      "type": "dataset",
+      "label": "documentos-de-negocio"
+    },
+    {
+      "id": "tarefa:classificacao-de-texto",
+      "type": "tarefa",
+      "label": "classificacao-de-texto"
+    },
+    {
       "id": "Angluin1988",
       "type": "artigo",
       "label": "Angluin1988",
@@ -71,19 +116,9 @@
       "label": "llm-como-seletor"
     },
     {
-      "id": "metodo:aprendizado-ativo",
-      "type": "metodo",
-      "label": "aprendizado-ativo"
-    },
-    {
       "id": "metodo:few-shot",
       "type": "metodo",
       "label": "few-shot"
-    },
-    {
-      "id": "metodo:cold-start",
-      "type": "metodo",
-      "label": "cold-start"
     },
     {
       "id": "modelo:gpt-4",
@@ -94,11 +129,6 @@
       "id": "modelo:bert",
       "type": "modelo",
       "label": "bert"
-    },
-    {
-      "id": "tarefa:classificacao-de-texto",
-      "type": "tarefa",
-      "label": "classificacao-de-texto"
     },
     {
       "id": "Cohn1994Improving",
@@ -141,6 +171,106 @@
       "label": "aprendizado-de-conceito-binario"
     },
     {
+      "id": "Daru2022",
+      "type": "artigo",
+      "label": "Daru2022",
+      "title": "Short text classification applied to item description: Some methods evaluation",
+      "year": 2022,
+      "venue": "Semina: Ciências Exatas e Tecnológicas, 43(2), pp. 189–198",
+      "paper_type": "avaliacao",
+      "status": "fichado"
+    },
+    {
+      "id": "pilar:P4",
+      "type": "pilar",
+      "label": "P4"
+    },
+    {
+      "id": "conceito:argmaxtf",
+      "type": "conceito",
+      "label": "argmaxtf"
+    },
+    {
+      "id": "conceito:argmaxtfnorm",
+      "type": "conceito",
+      "label": "argmaxtfnorm"
+    },
+    {
+      "id": "conceito:argmaxtfidf",
+      "type": "conceito",
+      "label": "argmaxtfidf"
+    },
+    {
+      "id": "metodo:bag-of-words",
+      "type": "metodo",
+      "label": "bag-of-words"
+    },
+    {
+      "id": "metodo:regressao-logistica",
+      "type": "metodo",
+      "label": "regressao-logistica"
+    },
+    {
+      "id": "metodo:svm",
+      "type": "metodo",
+      "label": "svm"
+    },
+    {
+      "id": "metodo:validacao-cruzada-30-fold",
+      "type": "metodo",
+      "label": "validacao-cruzada-30-fold"
+    },
+    {
+      "id": "dataset:retail-product-description-ptbr",
+      "type": "dataset",
+      "label": "retail-product-description-ptbr"
+    },
+    {
+      "id": "tarefa:classificacao-de-texto-curto",
+      "type": "tarefa",
+      "label": "classificacao-de-texto-curto"
+    },
+    {
+      "id": "tarefa:classificacao-de-produtos-e-servicos",
+      "type": "tarefa",
+      "label": "classificacao-de-produtos-e-servicos"
+    },
+    {
+      "id": "Daru2024Dissertacao",
+      "type": "artigo",
+      "label": "Daru2024Dissertacao",
+      "title": "Categorização de produtos em e-commerce: avaliação do método Argmax para classificação de descrições curtas em português",
+      "year": 2024,
+      "venue": "Dissertação de Mestrado (MECAI), ICMC-USP, São Carlos. Orientador: Antonio Castelo Filho",
+      "paper_type": "dissertacao",
+      "status": "fichado"
+    },
+    {
+      "id": "conceito:argmax-binary",
+      "type": "conceito",
+      "label": "argmax-binary"
+    },
+    {
+      "id": "conceito:metrica-unificada-acc-macrof1",
+      "type": "conceito",
+      "label": "metrica-unificada-acc-macrof1"
+    },
+    {
+      "id": "metodo:n-gramas",
+      "type": "metodo",
+      "label": "n-gramas"
+    },
+    {
+      "id": "metodo:normalizacao-l2",
+      "type": "metodo",
+      "label": "normalizacao-l2"
+    },
+    {
+      "id": "metodo:validacao-cruzada",
+      "type": "metodo",
+      "label": "validacao-cruzada"
+    },
+    {
       "id": "Gilardi2023",
       "type": "artigo",
       "label": "Gilardi2023",
@@ -181,11 +311,6 @@
       "status": "fichado"
     },
     {
-      "id": "pilar:P4",
-      "type": "pilar",
-      "label": "P4"
-    },
-    {
       "id": "conceito:batch-mode-active-learning",
       "type": "conceito",
       "label": "batch-mode-active-learning"
@@ -194,11 +319,6 @@
       "id": "conceito:selecao-por-informacao-de-fisher",
       "type": "conceito",
       "label": "selecao-por-informacao-de-fisher"
-    },
-    {
-      "id": "metodo:regressao-logistica",
-      "type": "metodo",
-      "label": "regressao-logistica"
     },
     {
       "id": "metodo:otimizacao-convexa",
@@ -264,16 +384,6 @@
       "id": "dataset:benchmarks-stc",
       "type": "dataset",
       "label": "benchmarks-stc"
-    },
-    {
-      "id": "tarefa:classificacao-de-texto-curto",
-      "type": "tarefa",
-      "label": "classificacao-de-texto-curto"
-    },
-    {
-      "id": "tarefa:classificacao-de-produtos-e-servicos",
-      "type": "tarefa",
-      "label": "classificacao-de-produtos-e-servicos"
     },
     {
       "id": "Kowsari2019",
@@ -361,6 +471,81 @@
       "label": "pln"
     },
     {
+      "id": "Rouzegar2024Thesis",
+      "type": "artigo",
+      "label": "Rouzegar2024Thesis",
+      "title": "LLM-Powered Active Learning for Cost-Effective Text Classification",
+      "year": 2024,
+      "venue": "Dissertação de mestrado, Ontario Tech University (expande arXiv:2406.12114 com Makrehchi)",
+      "paper_type": "dissertacao",
+      "status": "fichado"
+    },
+    {
+      "id": "conceito:picr-criterio-de-parada",
+      "type": "conceito",
+      "label": "picr-criterio-de-parada"
+    },
+    {
+      "id": "conceito:anotacao-hibrida-humano-llm",
+      "type": "conceito",
+      "label": "anotacao-hibrida-humano-llm"
+    },
+    {
+      "id": "conceito:role-based-prompting",
+      "type": "conceito",
+      "label": "role-based-prompting"
+    },
+    {
+      "id": "metodo:amostragem-por-incerteza",
+      "type": "metodo",
+      "label": "amostragem-por-incerteza"
+    },
+    {
+      "id": "metodo:confidence-scoring",
+      "type": "metodo",
+      "label": "confidence-scoring"
+    },
+    {
+      "id": "modelo:gpt-3.5",
+      "type": "modelo",
+      "label": "gpt-3.5"
+    },
+    {
+      "id": "Schroder2021SmallText",
+      "type": "artigo",
+      "label": "Schroder2021SmallText",
+      "title": "Small-Text: Active Learning for Text Classification in Python",
+      "year": 2021,
+      "venue": "arXiv:2107.10314 (posteriormente EACL 2023 System Demonstrations)",
+      "paper_type": "ferramenta",
+      "status": "fichado"
+    },
+    {
+      "id": "conceito:biblioteca-small-text",
+      "type": "conceito",
+      "label": "biblioteca-small-text"
+    },
+    {
+      "id": "metodo:pool-based",
+      "type": "metodo",
+      "label": "pool-based"
+    },
+    {
+      "id": "metodo:estrategias-de-consulta",
+      "type": "metodo",
+      "label": "estrategias-de-consulta"
+    },
+    {
+      "id": "metodo:criterio-de-parada",
+      "type": "metodo",
+      "label": "criterio-de-parada"
+    },
+    {
+      "id": "modelo:transformers",
+      "type": "modelo",
+      "label": "transformers"
+    },
+    {
       "id": "Settles2012",
       "type": "artigo",
       "label": "Settles2012",
@@ -381,11 +566,6 @@
       "label": "frameworks-de-selecao-de-consulta"
     },
     {
-      "id": "metodo:amostragem-por-incerteza",
-      "type": "metodo",
-      "label": "amostragem-por-incerteza"
-    },
-    {
       "id": "metodo:query-by-committee",
       "type": "metodo",
       "label": "query-by-committee"
@@ -396,6 +576,71 @@
       "label": "densidade"
     },
     {
+      "id": "Souza2020BERTimbau",
+      "type": "artigo",
+      "label": "Souza2020BERTimbau",
+      "title": "BERTimbau: Pretrained BERT Models for Brazilian Portuguese",
+      "year": 2020,
+      "venue": "BRACIS 2020, pp. 403–417, Springer (PDF arquivado: dissertação de mestrado Unicamp, versão expandida)",
+      "paper_type": "metodo",
+      "status": "fichado"
+    },
+    {
+      "id": "conceito:bertimbau",
+      "type": "conceito",
+      "label": "bertimbau"
+    },
+    {
+      "id": "metodo:pre-treinamento",
+      "type": "metodo",
+      "label": "pre-treinamento"
+    },
+    {
+      "id": "metodo:fine-tuning",
+      "type": "metodo",
+      "label": "fine-tuning"
+    },
+    {
+      "id": "modelo:bertimbau",
+      "type": "modelo",
+      "label": "bertimbau"
+    },
+    {
+      "id": "modelo:mbert",
+      "type": "modelo",
+      "label": "mbert"
+    },
+    {
+      "id": "dataset:brwac",
+      "type": "dataset",
+      "label": "brwac"
+    },
+    {
+      "id": "dataset:assin2",
+      "type": "dataset",
+      "label": "assin2"
+    },
+    {
+      "id": "dataset:harem",
+      "type": "dataset",
+      "label": "harem"
+    },
+    {
+      "id": "tarefa:similaridade-textual",
+      "type": "tarefa",
+      "label": "similaridade-textual"
+    },
+    {
+      "id": "tarefa:inferencia-textual",
+      "type": "tarefa",
+      "label": "inferencia-textual"
+    },
+    {
+      "id": "tarefa:ner",
+      "type": "tarefa",
+      "label": "ner"
+    },
+    {
       "id": "alsmadi2019shorttext",
       "type": "artigo",
       "label": "alsmadi2019shorttext",
@@ -404,11 +649,6 @@
       "venue": "International Journal of Web Information Systems",
       "paper_type": "survey",
       "status": "fichado"
-    },
-    {
-      "id": "pilar:P1",
-      "type": "pilar",
-      "label": "P1"
     },
     {
       "id": "conceito:revisao-por-estagios-do-pipeline",
@@ -536,11 +776,6 @@
       "label": "representatividade"
     },
     {
-      "id": "metodo:criterio-de-parada",
-      "type": "metodo",
-      "label": "criterio-de-parada"
-    },
-    {
       "id": "tarefa:predicao-estruturada",
       "type": "tarefa",
       "label": "predicao-estruturada"
@@ -557,6 +792,52 @@
     }
   ],
   "edges": [
+    {
+      "source": "Amir2023ColdStart",
+      "target": "zhang2022surveyAL",
+      "type": "builds_on"
+    },
+    {
+      "source": "Amir2023ColdStart",
+      "target": "pilar:P1",
+      "type": "pillars"
+    },
+    {
+      "source": "Amir2023ColdStart",
+      "target": "conceito:construcao-de-pool-inicial",
+      "type": "proposes"
+    },
+    {
+      "source": "Amir2023ColdStart",
+      "target": "metodo:cold-start",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Amir2023ColdStart",
+      "target": "metodo:selecao-de-seed",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Amir2023ColdStart",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Amir2023ColdStart",
+      "target": "dataset:documentos-de-negocio",
+      "type": "datasets"
+    },
+    {
+      "source": "Amir2023ColdStart",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Amir2023ColdStart",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Confirma, em contexto industrial de 2023, que o cold start segue subexplorado em classificação de texto — exatamente a lacuna que o P1 (otimização do L0 via AG) e a fase 0 do FALCO atacam. Uso principal: evidência de atualidade da lacuna no Cap.1/Cap.2."
+    },
     {
       "source": "Angluin1988",
       "target": "pilar:geral",
@@ -705,6 +986,153 @@
       "target": "FALCO",
       "type": "fundamenta",
       "note": "Formaliza o selective sampling (consultar um oráculo apenas nas regiões 'úteis' do domínio) e prova que aprendizado ativo pode ser mais poderoso que aprendizado passivo — a garantia conceitual por trás do laço do FALCO."
+    },
+    {
+      "source": "Daru2022",
+      "target": "song2014shorttext",
+      "type": "builds_on"
+    },
+    {
+      "source": "Daru2022",
+      "target": "alsmadi2019shorttext",
+      "type": "builds_on"
+    },
+    {
+      "source": "Daru2022",
+      "target": "pilar:geral",
+      "type": "pillars"
+    },
+    {
+      "source": "Daru2022",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Daru2022",
+      "target": "conceito:argmaxtf",
+      "type": "proposes"
+    },
+    {
+      "source": "Daru2022",
+      "target": "conceito:argmaxtfnorm",
+      "type": "proposes"
+    },
+    {
+      "source": "Daru2022",
+      "target": "conceito:argmaxtfidf",
+      "type": "proposes"
+    },
+    {
+      "source": "Daru2022",
+      "target": "metodo:bag-of-words",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Daru2022",
+      "target": "metodo:regressao-logistica",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Daru2022",
+      "target": "metodo:svm",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Daru2022",
+      "target": "metodo:validacao-cruzada-30-fold",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Daru2022",
+      "target": "dataset:retail-product-description-ptbr",
+      "type": "datasets"
+    },
+    {
+      "source": "Daru2022",
+      "target": "tarefa:classificacao-de-texto-curto",
+      "type": "tasks"
+    },
+    {
+      "source": "Daru2022",
+      "target": "tarefa:classificacao-de-produtos-e-servicos",
+      "type": "tasks"
+    },
+    {
+      "source": "Daru2022",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Trabalho anterior do próprio autor sobre O MESMO problema e dados: estabelece os baselines supervisionados clássicos (argmax*, LR, SVM) sobre descrições de produto em português. O FALCO parte de onde este artigo para: a pergunta deixa de ser 'qual classificador' e passa a ser 'como obter os rótulos com custo mínimo'."
+    },
+    {
+      "source": "Daru2024Dissertacao",
+      "target": "Daru2022",
+      "type": "extends"
+    },
+    {
+      "source": "Daru2024Dissertacao",
+      "target": "Daru2022",
+      "type": "builds_on"
+    },
+    {
+      "source": "Daru2024Dissertacao",
+      "target": "pilar:geral",
+      "type": "pillars"
+    },
+    {
+      "source": "Daru2024Dissertacao",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Daru2024Dissertacao",
+      "target": "conceito:argmax-binary",
+      "type": "proposes"
+    },
+    {
+      "source": "Daru2024Dissertacao",
+      "target": "conceito:metrica-unificada-acc-macrof1",
+      "type": "proposes"
+    },
+    {
+      "source": "Daru2024Dissertacao",
+      "target": "metodo:bag-of-words",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Daru2024Dissertacao",
+      "target": "metodo:n-gramas",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Daru2024Dissertacao",
+      "target": "metodo:normalizacao-l2",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Daru2024Dissertacao",
+      "target": "metodo:validacao-cruzada",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Daru2024Dissertacao",
+      "target": "dataset:retail-product-description-ptbr",
+      "type": "datasets"
+    },
+    {
+      "source": "Daru2024Dissertacao",
+      "target": "tarefa:classificacao-de-texto-curto",
+      "type": "tasks"
+    },
+    {
+      "source": "Daru2024Dissertacao",
+      "target": "tarefa:classificacao-de-produtos-e-servicos",
+      "type": "tasks"
+    },
+    {
+      "source": "Daru2024Dissertacao",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Antecedente direto da tese (mestrado do autor, mesmos dados): otimiza a família Argmax e estabelece o melhor baseline leve conhecido do dataset (Binary [1,2] sem L2: acc 89,56%, Macro-F1 70,09%). O gap acc↔Macro-F1 de ~19 p.p. quantifica o problema das classes raras que o FALCO enfrenta."
     },
     {
       "source": "Gilardi2023",
@@ -988,6 +1416,138 @@
       "note": "Ponte AL clássico → deep learning: fundamenta o uso de AL com classificadores profundos (BERTimbau no E2/E3) e explica por que o AL 'renasceu' na era DL — modelos famintos por dados anotados caros."
     },
     {
+      "source": "Rouzegar2024Thesis",
+      "target": "Gilardi2023",
+      "type": "compares_with"
+    },
+    {
+      "source": "Rouzegar2024Thesis",
+      "target": "Lewis1994",
+      "type": "builds_on"
+    },
+    {
+      "source": "Rouzegar2024Thesis",
+      "target": "Gilardi2023",
+      "type": "builds_on"
+    },
+    {
+      "source": "Rouzegar2024Thesis",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Rouzegar2024Thesis",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Rouzegar2024Thesis",
+      "target": "conceito:picr-criterio-de-parada",
+      "type": "proposes"
+    },
+    {
+      "source": "Rouzegar2024Thesis",
+      "target": "conceito:anotacao-hibrida-humano-llm",
+      "type": "proposes"
+    },
+    {
+      "source": "Rouzegar2024Thesis",
+      "target": "conceito:role-based-prompting",
+      "type": "proposes"
+    },
+    {
+      "source": "Rouzegar2024Thesis",
+      "target": "metodo:llm-como-oraculo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Rouzegar2024Thesis",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Rouzegar2024Thesis",
+      "target": "metodo:confidence-scoring",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Rouzegar2024Thesis",
+      "target": "modelo:gpt-3.5",
+      "type": "models"
+    },
+    {
+      "source": "Rouzegar2024Thesis",
+      "target": "modelo:gpt-4",
+      "type": "models"
+    },
+    {
+      "source": "Rouzegar2024Thesis",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Rouzegar2024Thesis",
+      "target": "FALCO",
+      "type": "compete",
+      "note": "Trabalho mais próximo do FALCO na literatura fichada: AL + oráculo LLM + foco explícito em custo. Diferenças-chave: roteia por CONFIANÇA entre humano e LLM no mesmo estágio (FALCO faz o oráculo EVOLUIR entre fases); tarefas com poucas classes vs nossas 621; sem saída estruturada instrumentada nem análise de efeito do instrumento."
+    },
+    {
+      "source": "Schroder2021SmallText",
+      "target": "Lewis1994",
+      "type": "builds_on"
+    },
+    {
+      "source": "Schroder2021SmallText",
+      "target": "zhang2022surveyAL",
+      "type": "builds_on"
+    },
+    {
+      "source": "Schroder2021SmallText",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Schroder2021SmallText",
+      "target": "pilar:geral",
+      "type": "pillars"
+    },
+    {
+      "source": "Schroder2021SmallText",
+      "target": "conceito:biblioteca-small-text",
+      "type": "proposes"
+    },
+    {
+      "source": "Schroder2021SmallText",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Schroder2021SmallText",
+      "target": "metodo:estrategias-de-consulta",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Schroder2021SmallText",
+      "target": "metodo:criterio-de-parada",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Schroder2021SmallText",
+      "target": "modelo:transformers",
+      "type": "models"
+    },
+    {
+      "source": "Schroder2021SmallText",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Schroder2021SmallText",
+      "target": "FALCO",
+      "type": "compara-ferramenta",
+      "note": "Referência de engenharia para a biblioteca activelearning da tese: mesma decomposição (classificador × estratégia × critério de parada com interfaces padronizadas). Nossa biblioteca difere ao elevar o ORÁCULO a porta de primeira classe (custo, cache, modos de saída) — ausente no small-text, que assume rótulos dados."
+    },
+    {
       "source": "Settles2012",
       "target": "Angluin1988",
       "type": "builds_on"
@@ -1047,6 +1607,87 @@
       "target": "FALCO",
       "type": "fundamenta",
       "note": "Referência canônica de AL: define o laço consulta→oráculo→treino e os frameworks de seleção que o FALCO combina por fase. É a fonte da terminologia (pool-based, uncertainty sampling) usada em toda a tese."
+    },
+    {
+      "source": "Souza2020BERTimbau",
+      "target": "devlin2019bert",
+      "type": "extends"
+    },
+    {
+      "source": "Souza2020BERTimbau",
+      "target": "devlin2019bert",
+      "type": "builds_on"
+    },
+    {
+      "source": "Souza2020BERTimbau",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Souza2020BERTimbau",
+      "target": "conceito:bertimbau",
+      "type": "proposes"
+    },
+    {
+      "source": "Souza2020BERTimbau",
+      "target": "metodo:pre-treinamento",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Souza2020BERTimbau",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Souza2020BERTimbau",
+      "target": "modelo:bertimbau",
+      "type": "models"
+    },
+    {
+      "source": "Souza2020BERTimbau",
+      "target": "modelo:bert",
+      "type": "models"
+    },
+    {
+      "source": "Souza2020BERTimbau",
+      "target": "modelo:mbert",
+      "type": "models"
+    },
+    {
+      "source": "Souza2020BERTimbau",
+      "target": "dataset:brwac",
+      "type": "datasets"
+    },
+    {
+      "source": "Souza2020BERTimbau",
+      "target": "dataset:assin2",
+      "type": "datasets"
+    },
+    {
+      "source": "Souza2020BERTimbau",
+      "target": "dataset:harem",
+      "type": "datasets"
+    },
+    {
+      "source": "Souza2020BERTimbau",
+      "target": "tarefa:similaridade-textual",
+      "type": "tasks"
+    },
+    {
+      "source": "Souza2020BERTimbau",
+      "target": "tarefa:inferencia-textual",
+      "type": "tasks"
+    },
+    {
+      "source": "Souza2020BERTimbau",
+      "target": "tarefa:ner",
+      "type": "tasks"
+    },
+    {
+      "source": "Souza2020BERTimbau",
+      "target": "FALCO",
+      "type": "usa",
+      "note": "É o classificador-alvo dos experimentos E2/E3 da tese (via HuggingFace, sem fork, conforme decisão de projeto). Estado da arte para português nas três tarefas avaliadas, superando o BERT multilíngue."
     },
     {
       "source": "alsmadi2019shorttext",
