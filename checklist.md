@@ -20,16 +20,16 @@ podem restar abertos.**
 - [x] A10. Pendências Cap.2: redundância STC vs dissertação; figura ActiveLLM [23:20 → 23:27]
 
 ## B. Biblioteca activelearning (código + testes)
-- [ ] B1. D4: portar PVBin do legado (ProductVectorizerClassifier → adapter)
-  - [ ] B1a. Adapter + porta TaskClassifier no domínio
-  - [ ] B1b. Testes unitários (treino mínimo, predict_proba, reprodutibilidade por semente)
-  - [ ] B1c. Validação contra legado (mesmos dados → mesmas predições)
-- [ ] B2. D3: portar DRI-SL (SBERT + k-means + novidade lexical)
-  - [ ] B2a. Implementação com embeddings CPU (sentence-transformers)
-  - [ ] B2b. Testes unitários (determinismo por semente, cobertura de clusters)
-- [ ] B3. Laço RunActiveLearning (iterações, curvas, LCE, retomável)
-- [ ] B4. Runner FALCO (fases, transição por V, troca de oráculo)
-- [ ] B5. Suíte completa verde + lint
+- [x] B1. D4: portar PVBin do legado (ProductVectorizerClassifier → adapter) [23:45 → 23:42]
+  - [x] B1a. Adapter + porta TaskClassifier no domínio [23:45 → 23:42]
+  - [x] B1b. Testes unitários (treino mínimo, predict_proba, reprodutibilidade por semente) [23:45 → 23:42]
+  - [x] B1c. Validação contra legado (mesmos dados → mesmas predições) [23:45 → 23:42]
+- [x] B2. D3: portar DRI-SL (SBERT + k-means + novidade lexical) [23:45 → 23:42]
+  - [x] B2a. Implementação com embeddings CPU (sentence-transformers) [23:45 → 23:42]
+  - [x] B2b. Testes unitários (determinismo por semente, cobertura de clusters) [23:45 → 23:42]
+- [x] B3. Laço RunActiveLearning (iterações, curvas, LCE, retomável) [23:45 → 23:42]
+- [x] B4. Runner FALCO (fases, transição por V, troca de oráculo) [23:45 → 23:42]
+- [x] B5. Suíte completa verde + lint [23:45 → 23:42]
 
 ## C. Reexecução dos experimentos do autor (validação independente)
 - [ ] C1. P1-replay: sensibilidade de L0 (grade reduzida com racional; comparar com originais)

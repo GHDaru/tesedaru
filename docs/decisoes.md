@@ -17,3 +17,19 @@ predição só difere onde o legado era, ele próprio, arbitrário; (ii) desempa
 por prior melhoraria acurácia mas confundiria a reexecução C1 (comparação com
 os números originais da dissertação); (iii) determinismo é requisito de
 reprodutibilidade da constituição.
+
+## D-002 · 17/07 · Escala dos replays P1/AG (Bloco C)
+**Contexto**: o P1 original usou 47 tamanhos × 30 repetições (~1.410 execuções)
+e o AG usou N_pop=50 × 100 gerações × 10 tamanhos × 4 cenários. Reexecutar na
+íntegra neste ambiente (CPU compartilhada) levaria dias e não é necessário para
+o objetivo da reexecução: verificar se a FORMA da curva e as CONCLUSÕES se
+reproduzem de forma independente.
+**Decisão**: P1-replay com 15 tamanhos log-espaçados (10→200.000) × 10
+repetições; AG-replay com 2 tamanhos (50, 500) × 2 cenários (max Acc, max
+MacroF1), N_pop=30, 40 gerações, aptidão em partição de aferição (5k) e
+reavaliação final em teste intocado (protocolo anticircularidade A3).
+**Racional**: 10 repetições dão desvio-padrão estável para comparar com as 30
+originais; a grade log-espaçada preserva a resolução onde a curva muda (baixos
+tamanhos); o AG reduzido verifica o MECANISMO (envelope acima do aleatório) sem
+pretender reproduzir os valores extremos, que dependem do orçamento evolutivo.
+Divergências serão reportadas como tais no relatório C3.
