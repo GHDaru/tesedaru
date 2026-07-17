@@ -137,3 +137,13 @@ Decisões formais com racional completo: `docs/decisoes.md`.
   Gemini 2.0 Flash, que nunca rodou; braço free com a redução declarada).
 - Run reduzido relançado rastreado; ao concluir: D2 (analyze_e0), linha free
   no Cap.5, E5 (cota liberada), G5/G6.
+
+## 17/07/2026 12:45 — D1 pausado: cota diária do free esgotada (diagnóstico)
+- Sonda direta na API confirmou: 429 "free-models-per-day", limite de 50
+  requisições/dia sem créditos; reset à 00:00 UTC (21:00 GMT-3).
+- Isso explica a vazão de ~75 rótulos/h e as "mortes" aparentes: o run ficava
+  em backoff longo. Run pausado; retomada agendada para 21:02 (faltam 150
+  itens = 15 requisições — fecha em minutos após o reset).
+- E5 (E2E com LLM free) idem: agendado para depois do reset.
+- Opção nas mãos do autor: adicionar US$10 de créditos no OpenRouter libera
+  1.000 req/dia free — fecharia D1+E5 imediatamente.
