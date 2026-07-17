@@ -15,3 +15,7 @@ Decisões formais com racional completo: `docs/decisoes.md`.
 - Estado herdado: E0 oficial parcial commitado (OpenAI completo; v4-pro completo;
   glm-5.2 e 4 free do OpenRouter retomados em 2º plano). Revisão R1 da banca
   simulada com 4 bloqueantes mapeados. 122 fichamentos. FlowBuilder v0 no ar.
+
+## 16/07/2026 23:22 — Checklist criado
+- checklist.md com 8 blocos (A-H), ~45 tarefas; blocos A-G devem fechar na
+  jornada; bloco H (GPU/BERTimbau + rotação de chaves) fica aberto por design.
