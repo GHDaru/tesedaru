@@ -1,3 +1,207 @@
 \chapter{Resultados: Oráculos LLM e o Framework FALCO}
 \label{ch:resultados-falco}
-% W4/W5 — ver docs/plano-mestre.md
+
+Este capítulo apresenta os resultados do pilar P3 — a avaliação instrumentada de
+LLMs como oráculos de rotulagem (E0, Seção~\ref{sec:res-e0}), a ablação de
+prompt no modelo de menor custo (E0-P, Seção~\ref{sec:res-e0p}) — e a parte do
+pilar P4 executável sem GPU: a varredura de estratégias com oráculo simulado
+(E1, Seção~\ref{sec:res-e1}) e a robustez do aprendizado a ruído controlado de
+oráculo (E4, Seção~\ref{sec:res-e4}). A avaliação integrada do FALCO com
+BERTimbau (E3) requer a estação com GPU e está com o instrumental pronto para
+execução; seu desenho e critérios permanecem os do
+Capítulo~\ref{ch:metodo}, e os resultados serão incorporados na versão final
+deste capítulo. Todos os números reportados são rastreáveis a artefatos
+versionados no repositório \texttt{activelearning}
+(\texttt{experiments/e0}, \texttt{e0p}, \texttt{e1e4}).
+
+\section{E0: avaliação fatorial de oráculos LLM}
+\label{sec:res-e0}
+
+\subsection{RQ1 — assertividade}
+\label{sec:res-e0-rq1}
+
+A Tabela~\ref{tab:e0-principal} apresenta acurácia (com IC de Wilson a 95\%),
+Macro F1 e taxa de rótulos inválidos dos oráculos avaliados nas duas amostras
+pareadas oficiais (S-rand $n=1.000$; S-strat $n=1.863$), com temperatura 0 e
+rotulagem em lote calibrada.
+
+\begin{table}[htb]
+\centering
+\caption{E0 — desempenho dos oráculos LLM. Modo enum para OpenAI;
+json-prompt para MaaS/agregador (sem suporte a saída estruturada).
+IC = intervalo de Wilson 95\%.}
+\label{tab:e0-principal}
+\footnotesize
+\begin{tabular}{l l rr r r}
+\hline
+\textbf{Oráculo} & \textbf{Amostra} & \textbf{Acurácia} & \textbf{IC 95\%} &
+\textbf{Macro F1} & \textbf{Inválidos} \\
+\hline
+deepseek-v4-pro   & S-rand  & 82,1\% & [79,6; 84,4] & 0,785 & 0,1\% \\
+gpt-4o            & S-rand  & 80,9\% & [78,4; 83,2] & 0,788 & 0,0\% \\
+deepseek-v4-flash & S-rand  & 78,3\% & [75,6; 80,8] & 0,750 & 0,7\% \\
+glm-5.2           & S-rand  & 77,3\% & [74,6; 79,8] & 0,742 & 0,0\% \\
+gpt-4o-mini       & S-rand  & 61,3\% & [58,2; 64,3] & 0,518 & 0,0\% \\
+\hline
+deepseek-v4-pro   & S-strat & 82,6\% & [80,8; 84,2] & 0,793 & 0,0\% \\
+gpt-4o            & S-strat & 82,1\% & [80,3; 83,8] & 0,797 & 0,0\% \\
+deepseek-v4-flash & S-strat & 81,6\% & [79,7; 83,3] & 0,781 & 0,9\% \\
+glm-5.2           & S-strat & 80,9\% & [79,1; 82,6] & 0,782 & 0,0\% \\
+gpt-4o-mini       & S-strat & 45,7\% & [43,4; 48,0] & 0,427 & 0,0\% \\
+\hline
+\end{tabular}
+\end{table}
+
+Quatro leituras principais. \textbf{(i)} Os quatro melhores oráculos formam um
+platô entre 77\% e 83\% nas duas amostras — as diferenças internas ao platô
+são pequenas; o teste pareado (RQ1, McNemar) na S-strat mostra
+deepseek-v4-pro significativamente superior ao v4-flash
+($b=43$, $c=16$, $p<0{,}001$) e estatisticamente empatado com o gpt-4o
+($p=0{,}061$). \textbf{(ii)} O gpt-4o-mini colapsa na amostra estratificada
+(45,7\%): o modelo pequeno erra sistematicamente nas classes raras, que a
+S-strat expõe por construção. \textbf{(iii)} Nenhum oráculo atinge o limiar de
+$85\%$ do gate (Seção~\ref{sec:metodo-oraculo-decisao}) na S-rand — o melhor
+zero-shot fica a $\approx 7$ p.p.\ do teto supervisionado com 250 mil rótulos
+($89{,}6\%$, \citealp{Daru2024Dissertacao}). A consequência de desenho está na
+Seção~\ref{sec:res-gate}. \textbf{(iv)} Em compensação, o Macro F1 zero-shot
+dos oráculos do platô ($\approx 0{,}78$--$0{,}80$ na S-strat) \emph{supera} o
+Macro F1 do PVBin treinado com supervisão completa ($0{,}70$): o conhecimento
+de mundo do LLM compensa exatamente onde o supervisionado leve sofre — classes
+com pouquíssimos exemplos.
+
+\subsection{RQ2 — custo e o efeito do \textit{cache}}
+\label{sec:res-e0-rq2}
+
+\begin{table}[htb]
+\centering
+\caption{E0 — custo por mil rótulos (US\$) e taxa de acerto de \textit{cache}
+de prefixo (S-rand; preços vigentes na execução, jul/2026).}
+\label{tab:e0-custo}
+\small
+\begin{tabular}{l rr r}
+\hline
+\textbf{Oráculo} & \textbf{US\$/1k rótulos} & \textbf{Cache} & \textbf{Acurácia} \\
+\hline
+deepseek-v4-flash & 0,035 & —      & 78,3\% \\
+gpt-4o-mini       & 0,051 & 91\%   & 61,3\% \\
+glm-5.2           & 0,249 & —      & 77,3\% \\
+deepseek-v4-pro   & 0,410 & —      & 82,1\% \\
+gpt-4o            & 0,923 & 88\%   & 80,9\% \\
+\hline
+\end{tabular}
+\end{table}
+
+O intervalo de custo entre oráculos do mesmo platô de acurácia é de mais de
+uma ordem de grandeza: o deepseek-v4-flash entrega 78--82\% por
+US\$~0,035/1k — \textbf{26 vezes mais barato} que o gpt-4o (80--82\%). O
+\textit{cache} de prefixo (prefixo estático do \textit{prompt} + schema
+precedendo o item variável, Seção~\ref{sec:metodo-oraculo-instrumentacao})
+atinge 88--95\% de acerto nos provedores que o suportam, reduzindo pela metade
+o custo efetivo do tokens de entrada. Para referência externa, o custo fica
+duas a três ordens de grandeza abaixo do custo típico de anotação humana por
+item relatado na literatura \citep{Gilardi2023}.
+
+\subsection{RQ3 — perfil de erro}
+\label{sec:res-e0-rq3}
+
+A anatomia dos 324 erros do melhor oráculo (v4-pro, S-strat) revela estrutura,
+não ruído difuso: \textbf{31\%} são confusões entre \emph{categorias-irmãs}
+que compartilham palavra (\textit{antisseptico bucal} $\to$ \textit{enxaguante
+bucal}; \textit{ervilha} $\to$ \textit{ervilha em conserva});
+\textbf{17\%} têm como gabarito uma classe guarda-chuva \textit{outro~\ldots}
+(o modelo escolhe a específica; o catálogo arquiva na agregadora) e 7\% o
+inverso; $\approx 2\%$ envolvem \texttt{\_rare\_} ou rótulo inválido; o
+restante são erros semânticos genuínos. Ou seja: quase metade do erro do
+oráculo não é ignorância sobre o produto, e sim desconhecimento das
+\emph{convenções deste catálogo} — fronteiras entre classes vizinhas e
+política de agregação que só se aprendem com exemplos rotulados. Esse
+diagnóstico tem duas consequências: motiva a ablação de prompt do E0-P
+(regras de fronteira explícitas) e prevê que o ruído do oráculo é
+\emph{estruturado} (concentrado em pares vizinhos), cenário menos danoso ao
+classificador treinado que ruído uniforme \citep{Frenay2014,Song2023NoisyLabels}
+— hipótese testada no E4.
+
+\subsection{RQ4 — efeito do instrumento de medição}
+\label{sec:res-e0-rq4}
+
+Com o mesmo modelo (gpt-4o-mini), as mesmas 1.000 instâncias da S-rand e o
+mesmo \textit{prompt}, a troca do instrumento — saída estruturada com
+\texttt{enum} \textit{versus} saída livre (réplica do instrumento do
+legado) — produz: acurácia $61{,}3\%$ (enum) contra $60{,}5\%$ (free), mas
+taxa de rótulos inválidos de \textbf{0,0\% contra 6,8\%}. O efeito do
+instrumento aparece menos na acurácia pontual e mais na
+\emph{contabilidade do erro}: sem restrição de saída, quase 7\% das respostas
+são variações de fraseado fora do espaço de rótulos, que um protocolo ingênuo
+computa como erro do modelo — deflacionando a medição e contaminando qualquer
+comparação entre modelos com propensões diferentes a parafrasear. A restrição
+por \texttt{enum} com validação estrita elimina essa classe de artefato por
+construção, e é por isso o modo de produção do FALCO
+(Princípio~III da constituição do projeto).
+
+\subsection{Sensibilidade ao ruído do gabarito e calibração do lote}
+\label{sec:res-e0-ruido-gabarito}
+
+Duas verificações de instrumentação completam o E0. \textbf{Gabarito}:
+reavaliando todos os oráculos (a) sem as instâncias de rótulo conflitante e
+(b) sob pontuação \emph{multi-gold}, a acurácia varia no máximo $+0{,}7$
+p.p., sem alterar nenhum ordenamento — o ruído conhecido do gabarito limita o
+teto de medição ($\approx 99{,}3\%$), mas não contamina as comparações
+(Seção~\ref{sec:metodo-dados-auditoria}). \textbf{Lote}: na calibração
+pareada (lotes de 1, 10 e 25 itens nas mesmas instâncias), o McNemar não
+detecta degradação ($b=1$ vs.\ $b=10$: $p=0{,}58$), e o lote reduz o custo por
+rótulo em até 10 vezes ao amortizar o prefixo — adotou-se $b=10$ (OpenAI) e
+$b=25$ (MaaS), registrado por anotação.
+
+\section{E0-P: o prompt como variável do instrumento}
+\label{sec:res-e0p}
+
+A anatomia de erros (RQ3) indica que $\approx 48\%$ dos erros do oráculo são
+de convenção de catálogo — atacáveis por \textit{prompt}. O E0-P mede esse
+potencial no modelo de MENOR custo com cache (gpt-4o-mini): variantes
+\textbf{v4a} (dez regras de fronteira explícitas derivadas do perfil de erro
+da S-strat) e \textbf{v4b} (v4a + dez exemplos \emph{inventados} de fronteiras
+difíceis — nunca instâncias das amostras, desenho anti-vazamento D-004),
+pareadas com o v3 oficial nos mesmos 500 primeiros itens de cada amostra.
+% RESULTADOS E0-P: preencher da execução em andamento (experiments/e0p/results)
+% — tabela v3 × v4a × v4b com McNemar, e leitura de custo-benefício.
+
+\section{E1: estratégias de seleção com oráculo perfeito}
+\label{sec:res-e1}
+
+O E1 varre as cinco estratégias de seleção (entropia, menor confiança, menor
+margem, híbrida, aleatória) com o PVBin e oráculo simulado sem ruído, em pool
+deduplicado de 20.000 instâncias, orçamento de 3.000 rótulos, lote 100 e
+8 sementes por célula; a ablação de lote repete a melhor estratégia com
+$b \in \{50, 200\}$.
+% RESULTADOS E1: preencher da execução em andamento (experiments/e1e4/results)
+% — tabela LCE/F1 final por estratégia (média±dp, Wilcoxon vs aleatória) e
+% leitura da ablação de lote.
+
+\section{E4: robustez do aprendizado ao ruído do oráculo}
+\label{sec:res-e4}
+
+O E4 injeta ruído uniforme $\varepsilon \in \{0{,}1;\, 0{,}2;\, 0{,}4\}$ no
+oráculo simulado e repete o desenho do E1 para entropia e aleatória — a
+pergunta é quanto do valor do aprendizado ativo sobrevive quando o oráculo
+erra na taxa observada nos LLMs reais ($\varepsilon \approx 0{,}17$--$0{,}23$
+no platô do E0).
+% RESULTADOS E4: preencher da execução em andamento (experiments/e1e4/results)
+% — degradação de F1 final e LCE por ε; comparação com a previsão de ruído
+% estruturado do RQ3.
+
+\section{Decisão do gate e configuração do FALCO}
+\label{sec:res-gate}
+
+Aplicando o critério pré-registrado da Seção~\ref{sec:metodo-oraculo-decisao}
+aos resultados do E0: nenhum oráculo atinge acurácia $\ge 85\%$ na S-rand;
+portanto, (i) o \textbf{E4 torna-se obrigatório} — executado nesta tese com o
+classificador leve (Seção~\ref{sec:res-e4}) e pronto para reexecução com
+BERTimbau —, e (ii) a discussão passa a tratar o aprendizado com oráculo
+ruidoso como cenário central, não excepcional. Para a configuração de
+oráculos do FALCO derivada do E0: \textbf{LLM Inicial} = deepseek-v4-flash
+(melhor razão acurácia/custo: 78--82\% a US\$~0,035/1k); \textbf{LLM
+Avançado} = deepseek-v4-pro (maior acurácia; significativamente superior ao
+flash na S-strat, $p<0{,}001$ — o critério de superioridade significativa é
+atendido e a Fase~3 do FALCO se justifica). O gpt-4o não se qualifica em
+nenhum papel: empata com o v4-pro em acurácia e custa o dobro; o gpt-4o-mini
+é eliminado ($p \approx 0$ contra todos na S-strat).
