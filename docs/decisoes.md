@@ -43,3 +43,14 @@ quando ele terminar. O caminho E2E completo JÁ está validado com oráculo
 simulado sobre dados reais; o adapter OpenRouter JÁ está validado no próprio
 E0 (nemotron 675/1000 anotações em andamento). Guarda de erro clara adicionada
 ao runner (L0 sem rótulo válido → mensagem acionável).
+
+## D-004 · 17/07 · Desenho do E0-P (ablação de prompt)
+**Contexto**: as regras de fronteira do prompt v4 derivam da ANÁLISE DE ERROS
+feita sobre as amostras oficiais (S-rand/S-strat) — usar as mesmas instâncias
+como few-shot ou avaliar só nelas contaminaria a medição.
+**Decisão**: (i) exemplos few-shot do v4b são descrições INVENTADAS análogas
+(nunca strings das amostras); (ii) as regras v4a derivam majoritariamente dos
+erros da S-strat e o efeito é medido nas DUAS amostras, com a S-rand (instâncias
+disjuntas) como leitura primária; (iii) v3 reutiliza as anotações oficiais já
+existentes do gpt-4o-mini (mesmo instrumento), pareando nos mesmos 500+500 itens.
+**Racional**: mede-se generalização das regras, não memorização; custo ~US$0,10.
