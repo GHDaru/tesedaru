@@ -94,3 +94,21 @@ Decisões formais com racional completo: `docs/decisoes.md`.
   agradecimentos como placeholders explícitos do autor (não invento texto
   pessoal). Compilação: 89 páginas, 0 erros, 0 refs não definidas.
 - Próximo: commit+push, depois Bloco G (revisão R2 com academic-paper-reviewer).
+
+## 17/07/2026 10:50 — Bloco G: revisão R2 concluída (Minor Revision, 83,3)
+- Re-review com matriz R&R: 10/10 itens do roteiro R1 verificados no texto;
+  4/4 ataques do Advogado do Diabo endereçados. docs/revisao-pares-simulada-r2.md.
+- Dois residuais achados e corrigidos NA RODADA: (1) ablações do FALCO
+  adicionadas ao desenho do E3 (sem DRI-SL / sem troca de oráculo — responde
+  DA-4); (2) Cap.1 agora conecta o gate ao destino da hipótese (refutação
+  honesta condicional ao cardápio de oráculos — responde DA-1).
+- Varredura dos capítulos novos: resumo/abstract diziam 259.464; N real é
+  250.365 (Cap.3) — corrigido. Ablação de lote agora declara entropia
+  (pré-registro) em vez de "melhor estratégia". Frase de vazão/latência no RQ2.
+- G3: poda — 14/14 candidatos sem citação (Bhavani2021 removida do cluster).
+- G4: KG regenerado (356 nós, 720 arestas).
+- Suíte reinstalada pós-reinício do contêiner: 67 testes verdes.
+- Compilação final da rodada: 89 páginas, 0 erros, 0 refs não definidas.
+- PENDENTE (aguardando o run free do OpenRouter, retomado e rodando):
+  D1 (anotações free), D2 (reconsolidação analyze_e0), E5 (E2E com LLM free,
+  D-003), G5 final e G6 (push final). Check-in agendado.

@@ -66,16 +66,16 @@ podem restar abertos.**
 - [x] F8. Compilação LaTeX limpa (instalar TeX ou validação estática rigorosa + CI) [17/07 05:30 → 09:15]
 
 ## G. Revisão e refinamento final
-- [ ] G1. Re-rodar academic-paper-reviewer (R2) na tese completa
-- [ ] G2. Aplicar correções da R2; iterar até sem bloqueantes solucionáveis
-- [ ] G3. Poda de citações fracas (candidatos marcados nos fichamentos)
-- [ ] G4. KG e fichamentos atualizados com novas fontes
-- [ ] G5. Verificação final: números da tese ⇄ artefatos (rastreabilidade 100%)
+- [x] G1. Re-rodar academic-paper-reviewer (R2) na tese completa [17/07 10:05 → 10:40]
+- [x] G2. Aplicar correções da R2; iterar até sem bloqueantes solucionáveis [17/07 10:20 → 10:45] (ablação E3, gate→hipótese no Cap.1, N=250.365, entropia pré-registrada, vazão/latência)
+- [x] G3. Poda de citações fracas (14/14 candidatos não citados; Bhavani2021 removida) [17/07 10:40 → 10:45]
+- [x] G4. KG e fichamentos atualizados (356 nós, 720 arestas) [17/07 10:45 → 10:47]
+- [~] G5. Verificação por amostragem OK (E0-P/E1/E4 conferidos contra analysis.json; N corrigido no resumo); re-verificar consolidado do E0 após D2
 - [ ] G6. Diário e decisões atualizados; push final de tudo
 
 ## H. Dependentes de GPU (ficam abertos para a estação RTX 3090)
 - [ ] H1. E2: épocas de fine-tuning BERTimbau por |L| (script pronto-para-rodar)
-- [ ] H2. E3: FALCO vs RS vs US com BERTimbau, ≥8 sementes (script pronto-para-rodar)
+- [ ] H2. E3: FALCO vs RS vs US + ablações (L0 aleatório; sem troca de oráculo) com BERTimbau, ≥8 sementes (script pronto-para-rodar)
 - [ ] H3. E4-BERTimbau: repetição do E4 com classificador forte (condicional)
 - [ ] H4. F-gpu: inserir números E2/E3 nos Caps. 5-6 + fechar hipótese central
 - [ ] H5. Rotação das 4 credenciais pelo autor após conclusão dos runs de API
