@@ -441,6 +441,56 @@
       "label": "newswire-categorization"
     },
     {
+      "id": "Olsson2009",
+      "type": "artigo",
+      "label": "Olsson2009",
+      "title": "A literature survey of active machine learning in the context of natural language processing",
+      "year": 2009,
+      "venue": "SICS Technical Report T2009:06, Swedish Institute of Computer Science",
+      "paper_type": "survey",
+      "status": "fichado"
+    },
+    {
+      "id": "tarefa:ner",
+      "type": "tarefa",
+      "label": "ner"
+    },
+    {
+      "id": "tarefa:extracao-de-informacao",
+      "type": "tarefa",
+      "label": "extracao-de-informacao"
+    },
+    {
+      "id": "tarefa:pos-tagging",
+      "type": "tarefa",
+      "label": "pos-tagging"
+    },
+    {
+      "id": "Paulucio2020",
+      "type": "artigo",
+      "label": "Paulucio2020",
+      "title": "Product Categorization by Title Using Deep Neural Networks as Feature Extractor",
+      "year": 2020,
+      "venue": "IJCNN 2020, IEEE",
+      "paper_type": "avaliacao",
+      "status": "fichado"
+    },
+    {
+      "id": "conceito:dnn-como-extrator-de-atributos",
+      "type": "conceito",
+      "label": "dnn-como-extrator-de-atributos"
+    },
+    {
+      "id": "metodo:deep-learning",
+      "type": "metodo",
+      "label": "deep-learning"
+    },
+    {
+      "id": "dataset:mercado-libre-20m",
+      "type": "dataset",
+      "label": "mercado-libre-20m"
+    },
+    {
       "id": "Ren2021",
       "type": "artigo",
       "label": "Ren2021",
@@ -509,6 +559,31 @@
       "id": "modelo:gpt-3.5",
       "type": "modelo",
       "label": "gpt-3.5"
+    },
+    {
+      "id": "Schroder2020DNNSurvey",
+      "type": "artigo",
+      "label": "Schroder2020DNNSurvey",
+      "title": "A Survey of Active Learning for Text Classification using Deep Neural Networks",
+      "year": 2020,
+      "venue": "arXiv:2008.07267",
+      "paper_type": "survey",
+      "status": "fichado"
+    },
+    {
+      "id": "conceito:taxonomia-data-model-prediction-based",
+      "type": "conceito",
+      "label": "taxonomia-data-model-prediction-based"
+    },
+    {
+      "id": "metodo:embeddings",
+      "type": "metodo",
+      "label": "embeddings"
+    },
+    {
+      "id": "metodo:modelos-de-linguagem",
+      "type": "metodo",
+      "label": "modelos-de-linguagem"
     },
     {
       "id": "Schroder2021SmallText",
@@ -636,9 +711,19 @@
       "label": "inferencia-textual"
     },
     {
-      "id": "tarefa:ner",
-      "type": "tarefa",
-      "label": "ner"
+      "id": "Zhao2017DeepALShortText",
+      "type": "artigo",
+      "label": "Zhao2017DeepALShortText",
+      "title": "Deep Active Learning for Short-Text Classification",
+      "year": 2017,
+      "venue": "Dissertação de mestrado, KTH Royal Institute of Technology, Estocolmo",
+      "paper_type": "dissertacao",
+      "status": "fichado"
+    },
+    {
+      "id": "metodo:cnn",
+      "type": "metodo",
+      "label": "cnn"
     },
     {
       "id": "alsmadi2019shorttext",
@@ -1370,6 +1455,108 @@
       "note": "Origem do uncertainty sampling E do cenário pool-based — as duas escolhas estruturais do FALCO nasceram aqui, num problema de classificação de texto, o mesmo domínio da tese."
     },
     {
+      "source": "Olsson2009",
+      "target": "Settles2012",
+      "type": "compares_with"
+    },
+    {
+      "source": "Olsson2009",
+      "target": "Lewis1994",
+      "type": "builds_on"
+    },
+    {
+      "source": "Olsson2009",
+      "target": "Cohn1994Improving",
+      "type": "builds_on"
+    },
+    {
+      "source": "Olsson2009",
+      "target": "pilar:geral",
+      "type": "pillars"
+    },
+    {
+      "source": "Olsson2009",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Olsson2009",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Olsson2009",
+      "target": "tarefa:ner",
+      "type": "tasks"
+    },
+    {
+      "source": "Olsson2009",
+      "target": "tarefa:extracao-de-informacao",
+      "type": "tasks"
+    },
+    {
+      "source": "Olsson2009",
+      "target": "tarefa:pos-tagging",
+      "type": "tasks"
+    },
+    {
+      "source": "Olsson2009",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Um dos dois surveys clássicos de AL para PLN (com Settles 2009/2012). Define o oráculo como 'tipicamente um humano com conhecimento extenso do domínio' — a formulação que a era LLM (e o FALCO) revisita."
+    },
+    {
+      "source": "Paulucio2020",
+      "target": "Karl2023",
+      "type": "compares_with"
+    },
+    {
+      "source": "Paulucio2020",
+      "target": "pilar:geral",
+      "type": "pillars"
+    },
+    {
+      "source": "Paulucio2020",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Paulucio2020",
+      "target": "conceito:dnn-como-extrator-de-atributos",
+      "type": "proposes"
+    },
+    {
+      "source": "Paulucio2020",
+      "target": "metodo:deep-learning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Paulucio2020",
+      "target": "metodo:extracao-de-atributos",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Paulucio2020",
+      "target": "dataset:mercado-libre-20m",
+      "type": "datasets"
+    },
+    {
+      "source": "Paulucio2020",
+      "target": "tarefa:classificacao-de-produtos-e-servicos",
+      "type": "tasks"
+    },
+    {
+      "source": "Paulucio2020",
+      "target": "tarefa:classificacao-de-texto-curto",
+      "type": "tasks"
+    },
+    {
+      "source": "Paulucio2020",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Grupo brasileiro (UFES) no MESMO problema — categorizar produtos pelo título — em escala Mercado Libre (20M, espanhol/português). Confirma as características do domínio (desbalanceamento, rótulos não confiáveis) e dá um número de referência: 86,57% de acurácia balanceada com supervisão total em massa."
+    },
+    {
       "source": "Ren2021",
       "target": "Settles2012",
       "type": "extends"
@@ -1490,6 +1677,77 @@
       "target": "FALCO",
       "type": "compete",
       "note": "Trabalho mais próximo do FALCO na literatura fichada: AL + oráculo LLM + foco explícito em custo. Diferenças-chave: roteia por CONFIANÇA entre humano e LLM no mesmo estágio (FALCO faz o oráculo EVOLUIR entre fases); tarefas com poucas classes vs nossas 621; sem saída estruturada instrumentada nem análise de efeito do instrumento."
+    },
+    {
+      "source": "Schroder2020DNNSurvey",
+      "target": "Olsson2009",
+      "type": "extends"
+    },
+    {
+      "source": "Schroder2020DNNSurvey",
+      "target": "Ren2021",
+      "type": "compares_with"
+    },
+    {
+      "source": "Schroder2020DNNSurvey",
+      "target": "zhang2022surveyAL",
+      "type": "compares_with"
+    },
+    {
+      "source": "Schroder2020DNNSurvey",
+      "target": "Olsson2009",
+      "type": "builds_on"
+    },
+    {
+      "source": "Schroder2020DNNSurvey",
+      "target": "Lewis1994",
+      "type": "builds_on"
+    },
+    {
+      "source": "Schroder2020DNNSurvey",
+      "target": "pilar:geral",
+      "type": "pillars"
+    },
+    {
+      "source": "Schroder2020DNNSurvey",
+      "target": "pilar:P2",
+      "type": "pillars"
+    },
+    {
+      "source": "Schroder2020DNNSurvey",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Schroder2020DNNSurvey",
+      "target": "conceito:taxonomia-data-model-prediction-based",
+      "type": "proposes"
+    },
+    {
+      "source": "Schroder2020DNNSurvey",
+      "target": "metodo:deep-active-learning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Schroder2020DNNSurvey",
+      "target": "metodo:embeddings",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Schroder2020DNNSurvey",
+      "target": "metodo:modelos-de-linguagem",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Schroder2020DNNSurvey",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Schroder2020DNNSurvey",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Survey específico da NOSSA interseção (AL × classificação de texto × DNNs). Nomeia os dois bloqueios históricos — incerteza mal calibrada de NNs e treino com poucos dados — que o FALCO contorna com pré-treinados (BERTimbau) e fases guiadas por estratégia."
     },
     {
       "source": "Schroder2021SmallText",
@@ -1688,6 +1946,47 @@
       "target": "FALCO",
       "type": "usa",
       "note": "É o classificador-alvo dos experimentos E2/E3 da tese (via HuggingFace, sem fork, conforme decisão de projeto). Estado da arte para português nas três tarefas avaliadas, superando o BERT multilíngue."
+    },
+    {
+      "source": "Zhao2017DeepALShortText",
+      "target": "Lewis1994",
+      "type": "builds_on"
+    },
+    {
+      "source": "Zhao2017DeepALShortText",
+      "target": "pilar:geral",
+      "type": "pillars"
+    },
+    {
+      "source": "Zhao2017DeepALShortText",
+      "target": "pilar:P2",
+      "type": "pillars"
+    },
+    {
+      "source": "Zhao2017DeepALShortText",
+      "target": "metodo:deep-active-learning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhao2017DeepALShortText",
+      "target": "metodo:cnn",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhao2017DeepALShortText",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhao2017DeepALShortText",
+      "target": "tarefa:classificacao-de-texto-curto",
+      "type": "tasks"
+    },
+    {
+      "source": "Zhao2017DeepALShortText",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Precedente direto da COMBINAÇÃO da tese: deep AL aplicado especificamente a texto curto (2017, era CNN). Mostra que a interseção já era reconhecida como problema próprio antes dos transformers — o FALCO a revisita com BERTimbau e oráculo LLM."
     },
     {
       "source": "alsmadi2019shorttext",
