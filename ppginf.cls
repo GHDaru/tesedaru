@@ -649,8 +649,10 @@
   \fi
 
   % PRIMEIRA CAPA (SÓ NA VERSÃO APROVADA)
+  % [ajuste do autor, 17/07/2026: capa também na versão de defesa,
+  %  preservando a imagem de fundo herdada do draft]
 
-  \iffinalmode
+  \iftrue
 
     % imagem de fundo da capa, se estiver definida em main.tex
     \ifx\@coverimg\@empty
