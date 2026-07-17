@@ -1,3 +1,137 @@
 \chapter{Discussão e Conclusão}
 \label{ch:conclusao}
-% W6 — ver docs/plano-mestre.md
+
+\section{Síntese dos achados}
+\label{sec:conc-sintese}
+
+Esta tese perguntou como reduzir o custo de rotulagem na classificação de
+textos curtos em português sem perda relevante de desempenho, usando modelos de
+linguagem nas fases em que o aprendizado ativo tradicional é mais frágil. Os
+quatro pilares produziram um quadro coerente:
+
+\textbf{P1 — a composição do conjunto inicial importa, e importa mais quanto
+menor o orçamento.} A sensibilidade medida (47 tamanhos $\times$ 30
+repetições, reproduzida de forma independente com divergência $\le 0{,}7$
+p.p.) mostra amplitude de $6{,}4$ p.p.\ de acurácia em $|L_0|=100$ causada só
+pelo sorteio, decaindo até a irrelevância em $|L_0| \ge 10^5$. O envelope
+evolutivo confirma dezenas de pontos percentuais entre composições boas e
+ruins no regime pequeno — o regime do \textit{cold start}.
+
+\textbf{P2 — é possível capturar esse espaço sem nenhum rótulo.} O DRI-SL,
+heurística determinística de densidade semântica + variedade lexical, superou
+o \emph{melhor indivíduo} encontrado pelo algoritmo genético supervisionado em
+todos os tamanhos de 100 a 5.000 — e a reexecução com protocolo
+anticircularidade mostrou que essa comparação é conservadora, pois o envelope
+do AG estava inflacionado em até $6{,}3$ p.p.\ pela avaliação na própria
+partição de aptidão.
+
+\textbf{P3 — oráculos LLM são viáveis, baratos e erram de forma estruturada.}
+No espaço fechado de 621 categorias, os melhores oráculos zero-shot atingem
+77--83\% de acurácia (v4-pro: $82{,}6\%$ na S-strat) — a $\approx 7$ p.p.\ do
+teto supervisionado com 250 mil rótulos — a custos entre US\$~0,035 e
+US\$~0,92 por mil rótulos, ordens de grandeza abaixo da anotação humana
+\citep{Gilardi2023}. O Macro F1 zero-shot ($\approx 0{,}79$) supera o do
+baseline supervisionado leve ($0{,}70$): o LLM é \emph{melhor nas classes
+raras} e pior nas convenções do catálogo — quase metade dos seus erros são
+fronteiras entre categorias-irmãs e política de classes guarda-chuva,
+aprendíveis apenas com exemplos. O efeito do instrumento de medição (RQ4)
+confirmou-se: sem restrição de saída, 6,8\% das respostas viram falsos erros
+de fraseado.
+
+\textbf{P4 — parcial nesta versão.} O gate pré-registrado decidiu: sem oráculo
+$\ge 85\%$, o aprendizado com oráculo ruidoso é o cenário central (E4), e a
+configuração derivada do FALCO é deepseek-v4-flash (Inicial) +
+deepseek-v4-pro (Avançado, superioridade significativa comprovada). A
+validação integrada com BERTimbau (E3) tem instrumental completo e testado —
+laço de AL, runner de fases com transição por validação, cinco braços
+incluindo o oráculo-total — e aguarda execução na estação com GPU.
+
+\section{Discussão}
+\label{sec:conc-discussao}
+
+\textbf{O que muda quando o oráculo é um LLM.} A literatura clássica de AL
+minimiza \emph{contagem de rótulos} assumindo oráculo correto
+\citep{Settles2012,Olsson2009}; a com custos reais mostra que contagem não é
+custo \citep{SettlesCravenFriedland2008}. Com oráculo LLM, a moeda muda duas
+vezes: o custo vira função de tokens (e do \textit{cache}, e do lote — nossa
+instrumentação mede os três) e a qualidade vira parâmetro escolhível num
+cardápio com uma ordem de grandeza de variação de preço. A decisão
+``qual oráculo em qual fase'' — o coração do FALCO — só faz sentido nesse
+regime novo, e os dados do E0 mostram que ela não é trivial: o modelo mais
+caro (gpt-4o) não é o mais acurado, e o segundo mais barato entrega 96\% da
+acurácia do melhor por 8,5\% do custo.
+
+\textbf{Erro estruturado é menos grave que erro uniforme — e é o que temos.}
+O perfil de erro do RQ3 (confusões concentradas em pares vizinhos e classes
+guarda-chuva) é o cenário benigno da literatura de rótulos ruidosos
+\citep{Frenay2014,Natarajan2013,Song2023NoisyLabels}: parte do ``erro'' do
+oráculo é inclusive defensável semanticamente (a análise multi-gold mostrou
+que o gabarito também erra). Isso sugere que o E4 com ruído \emph{uniforme} —
+nosso desenho — é um teste \emph{mais duro} que a realidade, o que fortalece
+qualquer resultado positivo obtido nele.
+
+\textbf{A medição é parte do método.} Três achados desta tese são sobre
+instrumentos, não sobre modelos: o efeito do enum (RQ4), a inflação de
+circularidade no envelope evolutivo ($-6{,}3$ p.p.\ ao reavaliar em teste
+intocado) e o teto imposto pelo ruído do gabarito (limitado a $+0{,}7$ p.p.\
+nas comparações). Em conjunto, eles justificam a posição metodológica central
+do trabalho: nenhum número sem artefato rastreável, e nenhum instrumento sem
+quantificação do seu próprio erro.
+
+\section{Contribuições}
+\label{sec:conc-contribuicoes}
+
+(i) O framework FALCO — fases com oráculo LLM progressivo e \textit{cold
+start} informado — com implementação aberta, testada e reprodutível;
+(ii) o algoritmo DRI-SL e a evidência de que supera o envelope evolutivo
+supervisionado no regime de interesse; (iii) a avaliação instrumentada de
+oráculos LLM para português com 621 classes — granularidade muito acima da
+usual na literatura de LLM-como-anotador — incluindo custo real com
+\textit{cache} e lote; (iv) a métrica LCE (com posicionamento explícito frente
+à ALC); (v) o conjunto de dados público auditado, com censo de conflitos e
+análise de sensibilidade; e (vi) a biblioteca \texttt{activelearning} e o
+FlowBuilder (ingestão com saneamento, execução parametrizada e curvas), que
+tornam o protocolo reutilizável fora desta tese.
+
+\section{Limitações}
+\label{sec:conc-limitacoes}
+
+As ameaças à validade estão detalhadas na Seção~\ref{sec:metodo-validade};
+as principais: um único conjunto de dados, criado pelo autor (mitigado por
+protocolo replicável e achados de mecanismo); resultados de P4 com
+classificador leve nesta versão (BERTimbau pendente de GPU); custos de API
+datados (as \emph{razões} entre modelos são mais estáveis que os valores);
+e regras de fronteira do E0-P derivadas do perfil de erro do próprio domínio
+— generalizam o método, não as regras.
+
+\section{Trabalhos futuros}
+\label{sec:conc-futuro}
+
+Quatro direções saem diretamente dos dados: \textbf{(i)} composição de
+oráculos — comparar a progressão sequencial do FALCO com
+\textit{mixture-of-LLMs} paralelo \citep{Qi2026MixtureLLMs} e com roteamento
+por confiança \citep{Rouzegar2024}, idealmente formulando a escolha de oráculo
+por fase como problema de \textit{bandit} com custo
+\citep{BlumMansour2007,Baykal2021}; \textbf{(ii)} \textit{prompt} como
+componente otimizável — o E0-P abre a porta; a versão natural seguinte é
+gerar regras de fronteira automaticamente a partir da matriz de confusão de
+uma rodada anterior; \textbf{(iii)} usar os racionais do oráculo
+(\texttt{expanded\_description}) como atributo auxiliar do classificador
+\citep{Sharma2015}; \textbf{(iv)} réplica em benchmark público de produtos
+(STOPS, \citealp{Karl2023}) e extensão a taxonomias hierárquicas
+\citep{Sun2003,Tan2020}.
+
+\section{Conclusão}
+\label{sec:conc-conclusao}
+
+No estado atual da evidência: o custo de rotulagem em classificação de textos
+curtos em português pode ser atacado nas três frentes que o FALCO integra —
+começar bem (DRI-SL supera até o envelope evolutivo), perguntar bem
+(estratégias de incerteza sobre classificador barato) e pagar bem (oráculos
+LLM com 78--83\% de acurácia por centavos de dólar o milhar, com erro
+majoritariamente estruturado). A hipótese quantitativa central — $\ge 95\%$
+do Macro F1 de supervisão completa com $\le 30\%$ dos rótulos via oráculo
+LLM — permanece formalmente aberta até o E3 com BERTimbau, cujo instrumental
+esta tese deixa pronto, testado e com critérios de decisão pré-registrados;
+os resultados dos experimentos executados (E0, E0-P, E1, E4 e os replays de
+P1/P2) delimitam com precisão as condições em que ela pode se sustentar.
