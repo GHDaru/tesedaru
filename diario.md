@@ -128,3 +128,12 @@ Decisões formais com racional completo: `docs/decisoes.md`.
 - Avisos não bloqueantes: cabeçalho de classificação inicializado do zero
   (esperado em fine-tune) e relatório verboso de carga do transformers v5.
 - Run free OpenRouter: vivo, 775 anotações (~100/h — fortemente estrangulado).
+
+## 17/07/2026 12:20 — D-005: escopo do braço free reduzido
+- Vazão real do plano gratuito: ~75 rótulos/h (429s) → plano completo ≈ 6 dias.
+- Decisão registrada (docs/decisoes.md): free = só nemotron-ultra × S-rand
+  (150 itens restantes, ~2h); demais 3 modelos free abandonados no E0.
+- Cap.3 corrigido: lista de candidatos agora reflete o executado (sai o
+  Gemini 2.0 Flash, que nunca rodou; braço free com a redução declarada).
+- Run reduzido relançado rastreado; ao concluir: D2 (analyze_e0), linha free
+  no Cap.5, E5 (cota liberada), G5/G6.

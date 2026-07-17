@@ -37,7 +37,7 @@ podem restar abertos.**
 - [x] C3. Relatório de convergência reexecução × originais (docs/) [17/07 09:45 → 09:55]
 
 ## D. Experimentos novos (CPU/API)
-- [~] D1. E0: finalizar glm-5.2 + 4 free OpenRouter (glm-5.2 e flash OK; free retomado 17/07 09:48 após reinício do contêiner — nemotron-ultra rand 725/1000)
+- [~] D1. E0: finalizar oráculos (pagos OK; free reduzido a nemotron-ultra × S-rand por D-005 — 850/1000, run final em andamento)
 - [~] D2. E0: análise consolidada final (Wilson+McNemar+gate formal+custo) — análise oficial dos pagos PRONTA e na tese; reconsolidar quando os free terminarem
 - [x] D3. E0-P: ablação de prompt no modelo fraco [17/07 00:20 → 09:40]
   - [x] D3a. Prompt v4a (regras de fronteira) e v4b (few-shot pares confundidos) [17/07 00:20 → 00:35]

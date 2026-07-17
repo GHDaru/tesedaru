@@ -302,9 +302,11 @@ candidato, com intervalos de confiança e comparações pareadas; (RQ2) o custo 
 rótulos e a latência; (RQ3) o perfil de erro por classe (matriz de confusão, taxa de
 rótulos inválidos); e (RQ4) o efeito do instrumento de medição (enum \textit{versus}
 free, mesmas instâncias). Os modelos candidatos abrangem três regimes de custo:
-APIs comerciais (GPT-4o mini e GPT-4o; Gemini 2.0 Flash), modelos servidos por
-plataforma \textit{MaaS} (DeepSeek-V4-Flash, DeepSeek-V4-Pro e GLM-5.2) e modelos de
-custo zero via agregador (variantes \textit{free} de Nemotron, Qwen3 e Gemma).
+APIs comerciais (gpt-4o-mini e gpt-4o), modelos servidos por
+plataforma \textit{MaaS} (DeepSeek-V4-Flash, DeepSeek-V4-Pro e GLM-5.2) e o regime de
+custo zero via agregador (representado pela variante \textit{free} do
+Nemotron-3-Ultra; a redução de escopo deste braço, imposta pela vazão do plano
+gratuito, é registrada na decisão D-005 e discutida nos resultados).
 
 Duas amostras pareadas — todos os modelos rotulam \emph{as mesmas} instâncias — são
 usadas: \textbf{S-rand} ($n=1.000$, amostragem aleatória simples), que preserva a

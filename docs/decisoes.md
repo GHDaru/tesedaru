@@ -54,3 +54,27 @@ erros da S-strat e o efeito é medido nas DUAS amostras, com a S-rand (instânci
 disjuntas) como leitura primária; (iii) v3 reutiliza as anotações oficiais já
 existentes do gpt-4o-mini (mesmo instrumento), pareando nos mesmos 500+500 itens.
 **Racional**: mede-se generalização das regras, não memorização; custo ~US$0,10.
+
+## D-005 — Redução de escopo do braço free do E0 (17/07/2026 12:15)
+
+**Contexto.** O plano lowcost previa 4 modelos free do OpenRouter × 2 amostras
+(≈11,4k anotações). A vazão real do plano gratuito, sob 429s, ficou em ~75
+rótulos/h (nemotron-ultra), o que projetaria ~6 dias de execução — bloqueando
+E5 (contenção de cota, D-003) e a conclusão de D1/D2.
+
+**Decisão.** Reduzir o braço free a UM representante — nemotron-3-ultra ×
+S-rand (n=1.000, ~150 itens restantes) — e abandonar nemotron-super, qwen3 e
+gemma-4 no E0.
+
+**Racional.** (i) O gate e todas as tabelas oficiais repousam nos oráculos
+pagos, já completos; o braço free é linha da tabela de custo, não decisão.
+(ii) Um representante free na amostra primária (S-rand), com IC de Wilson e
+pareamento com os demais, cumpre o papel de cobrir o regime de custo zero.
+(iii) A própria inviabilidade operacional (vazão ~75/h) é um ACHADO — reforça
+a frase de vazão/latência do RQ2: custo monetário zero não é custo
+operacional zero. (iv) Liberar a cota do OpenRouter desbloqueia o E5.
+
+**Consequências.** Cap.3 segue citando o regime de custo zero (desenho);
+Cap.5 reporta o representante e o racional da redução; config
+`config_full_lowcost_reduced.json` versionada; S-strat sem linha free
+(declarado como limitação da linha, não do estudo).
