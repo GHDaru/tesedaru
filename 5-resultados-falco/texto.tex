@@ -17,7 +17,7 @@ versionados no repositório \texttt{activelearning}
 \section{E0: avaliação fatorial de oráculos LLM}
 \label{sec:res-e0}
 
-\subsection{RQ1 — assertividade}
+\subsection{RQ1 --- assertividade}
 \label{sec:res-e0-rq1}
 
 A Tabela~\ref{tab:e0-principal} apresenta acurácia (com IC de Wilson a 95\%),
@@ -69,7 +69,7 @@ Macro F1 do PVBin treinado com supervisão completa ($0{,}70$): o conhecimento
 de mundo do LLM compensa exatamente onde o supervisionado leve sofre — classes
 com pouquíssimos exemplos.
 
-\subsection{RQ2 — custo e o efeito do \textit{cache}}
+\subsection{RQ2 --- custo e o efeito do \textit{cache}}
 \label{sec:res-e0-rq2}
 
 \begin{table}[htb]
@@ -101,7 +101,7 @@ o custo efetivo do tokens de entrada. Para referência externa, o custo fica
 duas a três ordens de grandeza abaixo do custo típico de anotação humana por
 item relatado na literatura \citep{Gilardi2023}.
 
-\subsection{RQ3 — perfil de erro}
+\subsection{RQ3 --- perfil de erro}
 \label{sec:res-e0-rq3}
 
 A anatomia dos 324 erros do melhor oráculo (v4-pro, S-strat) revela estrutura,
@@ -121,7 +121,7 @@ diagnóstico tem duas consequências: motiva a ablação de prompt do E0-P
 classificador treinado que ruído uniforme \citep{Frenay2014,Song2023NoisyLabels}
 — hipótese testada no E4.
 
-\subsection{RQ4 — efeito do instrumento de medição}
+\subsection{RQ4 --- efeito do instrumento de medição}
 \label{sec:res-e0-rq4}
 
 Com o mesmo modelo (gpt-4o-mini), as mesmas 1.000 instâncias da S-rand e o
@@ -162,8 +162,46 @@ potencial no modelo de MENOR custo com cache (gpt-4o-mini): variantes
 da S-strat) e \textbf{v4b} (v4a + dez exemplos \emph{inventados} de fronteiras
 difíceis — nunca instâncias das amostras, desenho anti-vazamento D-004),
 pareadas com o v3 oficial nos mesmos 500 primeiros itens de cada amostra.
-% RESULTADOS E0-P: preencher da execução em andamento (experiments/e0p/results)
-% — tabela v3 × v4a × v4b com McNemar, e leitura de custo-benefício.
+A Tabela~\ref{tab:e0p} resume o resultado
+(artefato: \texttt{experiments/e0p/results/analysis.json}).
+
+\begin{table}[htb]
+\centering
+\caption{E0-P --- ablação de \textit{prompt} no gpt-4o-mini (enum, $b=10$,
+$n=500$ pareado por amostra). $p$: McNemar exato contra o v3.}
+\label{tab:e0p}
+\begin{tabular}{llccc}
+\toprule
+Amostra & Variante & Acurácia & Discordantes ($+/-$) & $p$ vs.\ v3 \\
+\midrule
+S-rand  & v3 (base)          & $60{,}4\%$ & ---     & --- \\
+S-rand  & v4a (regras)       & $64{,}2\%$ & $50/31$ & $0{,}045$ \\
+S-rand  & v4b (regras+ex.)   & $65{,}0\%$ & $50/27$ & $0{,}012$ \\
+\midrule
+S-strat & v3 (base)          & $51{,}8\%$ & ---     & --- \\
+S-strat & v4a (regras)       & $44{,}8\%$ & $20/55$ & $<0{,}001$ \\
+S-strat & v4b (regras+ex.)   & $41{,}0\%$ & $14/68$ & $<0{,}001$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+O resultado é uma faca de dois gumes — e por isso mesmo informativo. Na
+S-rand, que espelha a distribuição de produção, as regras de fronteira
+recuperam parte do erro de convenção: $+3{,}8$ p.p.\ com v4a ($p=0{,}045$) e
+$+4{,}6$ p.p.\ com v4b ($p=0{,}012$), confirmando que uma fração do déficit
+do modelo fraco é atacável por \textit{prompt} sem nenhum rótulo adicional.
+Na S-strat, porém, as mesmas regras \emph{destroem} desempenho: $-7{,}0$ e
+$-10{,}8$ p.p.\ ($p<0{,}001$), com os exemplos inventados piorando
+significativamente sobre as regras puras ($p=0{,}0013$). A leitura é direta:
+regras derivadas do perfil de erro agregado empurram o modelo para as
+convenções das classes \emph{frequentes}, exatamente o comportamento que
+penaliza a amostra estratificada, dominada por classes raras. Duas
+implicações para o FALCO: (i) otimização de \textit{prompt} deve ser validada
+nas \emph{duas} distribuições antes de adoção, pois um ganho medido só na
+amostra natural pode mascarar regressão severa nas caudas; e (ii) o ganho
+barato na distribuição de produção existe e justifica a direção de trabalho
+futuro de gerar regras automaticamente a partir da matriz de confusão
+(Seção~\ref{sec:conc-futuro}) — desde que com salvaguarda estratificada.
 
 \section{E1: estratégias de seleção com oráculo perfeito}
 \label{sec:res-e1}
@@ -173,9 +211,44 @@ margem, híbrida, aleatória) com o PVBin e oráculo simulado sem ruído, em poo
 deduplicado de 20.000 instâncias, orçamento de 3.000 rótulos, lote 100 e
 8 sementes por célula; a ablação de lote repete a melhor estratégia com
 $b \in \{50, 200\}$.
-% RESULTADOS E1: preencher da execução em andamento (experiments/e1e4/results)
-% — tabela LCE/F1 final por estratégia (média±dp, Wilcoxon vs aleatória) e
-% leitura da ablação de lote.
+O teto supervisionado do \textit{pool} completo (20.000 rótulos) é Macro F1
+$= 0{,}540$. A Tabela~\ref{tab:e1} apresenta as células
+(artefato: \texttt{experiments/e1e4/results/analysis.json}).
+
+\begin{table}[htb]
+\centering
+\caption{E1 --- estratégias com oráculo perfeito (média $\pm$ dp sobre 8
+sementes; orçamento 3.000, lote 100). $p$: Wilcoxon pareado por semente
+contra a aleatória; com $n=8$, o menor $p$ atingível é $0{,}0078$.}
+\label{tab:e1}
+\begin{tabular}{lccc}
+\toprule
+Estratégia & LCE & Macro F1 final & $p$ vs.\ aleatória \\
+\midrule
+Menor margem     & $\mathbf{0{,}528 \pm 0{,}013}$ & $0{,}418 \pm 0{,}013$ & $0{,}0078$ \\
+Menor confiança  & $0{,}518 \pm 0{,}010$ & $\mathbf{0{,}421 \pm 0{,}009}$ & $0{,}0078$ \\
+Entropia         & $0{,}493 \pm 0{,}006$ & $0{,}398 \pm 0{,}008$ & $0{,}0078$ \\
+Híbrida          & $0{,}476 \pm 0{,}014$ & $0{,}379 \pm 0{,}008$ & $0{,}0078$ \\
+Aleatória        & $0{,}444 \pm 0{,}011$ & $0{,}339 \pm 0{,}006$ & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Três leituras. \textbf{(i)~Toda estratégia de incerteza supera a aleatória},
+e o faz no máximo de significância que 8 sementes permitem ($p=0{,}0078$ em
+LCE e em F1 final, todas as comparações): com 15\% do orçamento de rótulos, a
+melhor célula recupera $78\%$ do Macro F1 do teto supervisionado.
+\textbf{(ii)~As margens vencem a entropia} no regime de 621 classes: menor
+margem lidera em LCE ($0{,}528$) e menor confiança em F1 final ($0{,}421$),
+enquanto a entropia — diluída pela cauda longa de probabilidades em espaços
+de classe muito grandes — fica $\approx 2$--$3$ p.p.\ atrás; a híbrida herda
+o pior dos dois mundos. \textbf{(iii)~O lote é barato até certo ponto}: na
+ablação com entropia, $b=50$ (LCE $0{,}492 \pm 0{,}009$) e $b=100$
+($0{,}493 \pm 0{,}006$) são indistinguíveis, mas $b=200$ degrada para
+$0{,}481 \pm 0{,}012$ — com lotes grandes a seleção repete redundância dentro
+do próprio lote antes de o modelo se atualizar. Para o FALCO, isso fixa o
+lote operacional em $b \le 100$ e recomenda menor margem/menor confiança como
+estratégias da Fase~2.
 
 \section{E4: robustez do aprendizado ao ruído do oráculo}
 \label{sec:res-e4}
@@ -185,9 +258,51 @@ oráculo simulado e repete o desenho do E1 para entropia e aleatória — a
 pergunta é quanto do valor do aprendizado ativo sobrevive quando o oráculo
 erra na taxa observada nos LLMs reais ($\varepsilon \approx 0{,}17$--$0{,}23$
 no platô do E0).
-% RESULTADOS E4: preencher da execução em andamento (experiments/e1e4/results)
-% — degradação de F1 final e LCE por ε; comparação com a previsão de ruído
-% estruturado do RQ3.
+A Tabela~\ref{tab:e4} apresenta o resultado
+(mesmo artefato do E1).
+
+\begin{table}[htb]
+\centering
+\caption{E4 --- robustez ao ruído uniforme do oráculo (média $\pm$ dp, 8
+sementes). Retenção: fração do Macro F1 final da mesma estratégia em
+$\varepsilon=0$. $p$: Wilcoxon pareado entropia vs.\ aleatória no mesmo
+$\varepsilon$.}
+\label{tab:e4}
+\begin{tabular}{clccc}
+\toprule
+$\varepsilon$ & Estratégia & Macro F1 final & Retenção & $p$ \\
+\midrule
+$0{,}1$ & Entropia  & $0{,}347 \pm 0{,}008$ & $87{,}2\%$ & \multirow{2}{*}{$0{,}0078$} \\
+        & Aleatória & $0{,}294 \pm 0{,}006$ & $86{,}7\%$ & \\
+\midrule
+$0{,}2$ & Entropia  & $0{,}294 \pm 0{,}006$ & $74{,}0\%$ & \multirow{2}{*}{$0{,}0078$} \\
+        & Aleatória & $0{,}252 \pm 0{,}006$ & $74{,}4\%$ & \\
+\midrule
+$0{,}4$ & Entropia  & $0{,}215 \pm 0{,}010$ & $54{,}1\%$ & \multirow{2}{*}{$0{,}0078$} \\
+        & Aleatória & $0{,}186 \pm 0{,}006$ & $54{,}8\%$ & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Dois achados. \textbf{Primeiro, o ruído custa caro, mas não destrói o
+aprendizado ativo}: a vantagem da entropia sobre a aleatória sobrevive
+\emph{intacta e no teto de significância} em todos os níveis de ruído
+($p=0{,}0078$ em LCE e F1 final para todo $\varepsilon$), e a retenção
+relativa das duas estratégias é praticamente idêntica ($87\%$, $74\%$ e
+$54\%$ em $\varepsilon=0{,}1$, $0{,}2$ e $0{,}4$) — ou seja, o ruído
+uniforme deprime a curva inteira sem corroer o \emph{valor da seleção}. Não
+há, neste regime, o colapso descrito na literatura em que a incerteza
+persegue os rótulos errados. \textbf{Segundo, a taxa de erro dos oráculos
+reais está na faixa tolerável}: os LLMs do E0 erram
+$\varepsilon \approx 0{,}17$--$0{,}23$ no espaço fechado, região em que o E4
+mede retenção de $\approx 74$--$87\%$ do F1 final. E o E4 é deliberadamente
+pessimista: injeta ruído \emph{uniforme}, enquanto a anatomia do RQ3 mostrou
+que quase metade do erro real dos oráculos é estruturado (categorias-irmãs e
+guarda-chuva semanticamente próximas), cujo dano esperado ao classificador é
+menor que o do erro aleatório de mesma taxa
+\citep{Frenay2014,Song2023NoisyLabels}. O resultado positivo aqui obtido é,
+portanto, um limite inferior do desempenho esperável com os oráculos reais do
+E0.
 
 \section{Decisão do gate e configuração do FALCO}
 \label{sec:res-gate}

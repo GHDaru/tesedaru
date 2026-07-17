@@ -32,38 +32,38 @@ podem restar abertos.**
 - [x] B5. Suíte completa verde + lint [23:45 → 23:42]
 
 ## C. Reexecução dos experimentos do autor (validação independente)
-- [ ] C1. P1-replay: sensibilidade de L0 (grade reduzida com racional; comparar com originais)
-- [ ] C2. AG-replay: 2-3 tamanhos de L0, fitness em validação (anticircularidade)
-- [ ] C3. Relatório de convergência reexecução × originais (docs/)
+- [x] C1. P1-replay: sensibilidade de L0 (grade reduzida com racional; comparar com originais) [16/07 23:50 → 17/07 00:16]
+- [x] C2. AG-replay: 2-3 tamanhos de L0, fitness em validação (anticircularidade) [16/07 23:50 → 17/07 00:16]
+- [x] C3. Relatório de convergência reexecução × originais (docs/) [17/07 09:45 → 09:55]
 
 ## D. Experimentos novos (CPU/API)
-- [ ] D1. E0: finalizar glm-5.2 + 4 free OpenRouter (runs em andamento)
-- [ ] D2. E0: análise consolidada final (Wilson+McNemar+gate formal+custo)
-- [ ] D3. E0-P: ablação de prompt no modelo fraco
-  - [ ] D3a. Prompt v4a (regras de fronteira) e v4b (few-shot pares confundidos)
-  - [ ] D3b. Execução pareada (mini + 1 free; n=500 rand + 500 strat)
-  - [ ] D3c. Análise McNemar v3×v4a×v4b + recomendação
-- [ ] D4. E1: estratégias × lote (PVBin + oráculo simulado, multi-semente)
-- [ ] D5. E4: robustez a ruído ε∈{0, .1, .2, .4} (PVBin; BERTimbau fica p/ H)
-- [ ] D6. Artefatos e análises commitados (results/ + tabelas prontas p/ tese)
+- [~] D1. E0: finalizar glm-5.2 + 4 free OpenRouter (glm-5.2 e flash OK; free retomado 17/07 09:48 após reinício do contêiner — nemotron-ultra rand 725/1000)
+- [~] D2. E0: análise consolidada final (Wilson+McNemar+gate formal+custo) — análise oficial dos pagos PRONTA e na tese; reconsolidar quando os free terminarem
+- [x] D3. E0-P: ablação de prompt no modelo fraco [17/07 00:20 → 09:40]
+  - [x] D3a. Prompt v4a (regras de fronteira) e v4b (few-shot pares confundidos) [17/07 00:20 → 00:35]
+  - [x] D3b. Execução pareada (mini + 1 free; n=500 rand + 500 strat) [17/07 00:35 → 02:10]
+  - [x] D3c. Análise McNemar v3×v4a×v4b + recomendação [17/07 09:20 → 09:40]
+- [x] D4. E1: estratégias × lote (PVBin + oráculo simulado, multi-semente) [17/07 00:10 → 09:40]
+- [x] D5. E4: robustez a ruído ε∈{0, .1, .2, .4} (PVBin; BERTimbau fica p/ H) [17/07 00:10 → 09:40]
+- [x] D6. Artefatos e análises commitados (results/ + tabelas prontas p/ tese) [17/07 09:40 → 10:00]
 
 ## E. FlowBuilder ponta a ponta
-- [ ] E1. Upload de CSV pela UI → persistido na base (SQLite/Neon)
-- [ ] E2. Saneamento automático (inativo/conflitos/duplicatas) + relatório + download da base saneada
-- [ ] E3. Execução parametrizada pela UI (semente, lote, estratégia, oráculo, orçamento, amostras)
-- [ ] E4. Fluxo de AL completo pela UI (curva de aprendizado visível)
-- [ ] E5. Teste E2E com LLM free como oráculo + SimulatedOracle offline
-- [ ] E6. Testes de API para upload/saneamento/parâmetros
+- [x] E1. Upload de CSV pela UI → persistido na base (SQLite/Neon) [17/07 01:00 → 02:30]
+- [x] E2. Saneamento automático (inativo/conflitos/duplicatas) + relatório + download da base saneada [17/07 01:00 → 02:30]
+- [x] E3. Execução parametrizada pela UI (semente, lote, estratégia, oráculo, orçamento, amostras) [17/07 01:00 → 02:30]
+- [x] E4. Fluxo de AL completo pela UI (curva de aprendizado visível) [17/07 01:00 → 02:30]
+- [~] E5. Teste E2E com LLM free como oráculo + SimulatedOracle offline (SimulatedOracle OK; free adiado por contenção de cota — D-003; retomar após D1)
+- [x] E6. Testes de API para upload/saneamento/parâmetros [17/07 01:00 → 02:30]
 
 ## F. Escrita da tese (com dados reais das seções C/D)
-- [ ] F1. Cap.4: resultados P1 (sensibilidade + AG) — original + replay
-- [ ] F2. Cap.4: resultados P2 (DRI-SL vs aleatório vs envelope AG)
-- [ ] F3. Cap.5: resultados E0 completos (RQ1-4, gate, custo, anatomia de erros, sensibilidade a ruído de gabarito)
-- [ ] F4. Cap.5: E0-P (prompt como instrumento) + E1 + E4
-- [ ] F5. Cap.6: discussão e conclusão (sem placeholders; lacunas GPU explícitas)
-- [ ] F6. Apêndices a1-a6 (LCE+ALC, AG, DRI-SL, biblioteca, prompts v3/v4, tabelas)
-- [ ] F7. Pré-textuais: resumo/abstract com números reais, siglas, listas
-- [ ] F8. Compilação LaTeX limpa (instalar TeX ou validação estática rigorosa + CI)
+- [x] F1. Cap.4: resultados P1 (sensibilidade + AG) — original + replay [17/07 00:00 → 00:16]
+- [x] F2. Cap.4: resultados P2 (DRI-SL vs aleatório vs envelope AG) [17/07 00:00 → 00:16]
+- [x] F3. Cap.5: resultados E0 completos (RQ1-4, gate, custo, anatomia de erros, sensibilidade a ruído de gabarito) [17/07 02:30 → 04:00]
+- [x] F4. Cap.5: E0-P (prompt como instrumento) + E1 + E4 [17/07 09:20 → 09:50]
+- [x] F5. Cap.6: discussão e conclusão (sem placeholders; lacunas GPU explícitas) [17/07 04:00 → 04:30]
+- [x] F6. Apêndices a1-a6 (LCE+ALC, AG, DRI-SL, biblioteca, prompts v3/v4, tabelas) [17/07 04:30 → 05:30]
+- [x] F7. Pré-textuais: resumo/abstract com números reais, siglas, listas [17/07 09:50 → 10:00]
+- [x] F8. Compilação LaTeX limpa (instalar TeX ou validação estática rigorosa + CI) [17/07 05:30 → 09:15]
 
 ## G. Revisão e refinamento final
 - [ ] G1. Re-rodar academic-paper-reviewer (R2) na tese completa

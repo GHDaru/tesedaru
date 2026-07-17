@@ -60,3 +60,37 @@ Decisões formais com racional completo: `docs/decisoes.md`.
   condensada 575→~30 linhas), DRI-SL vs envelope (resultado central P2:
   DRI-SL supera o MELHOR indivíduo do AG em 100..5000), reexecução+circularidade.
 - E1/E4 sweeps rodando; E0 free rodando (nemotron 675/1000).
+
+## 17/07/2026 02:30 — FlowBuilder E2E; Caps. 5 e 6; apêndices
+- Bloco E: upload CSV → saneamento censitário (relatório + download da base
+  saneada) → execução parametrizada (semente, lote, estratégia, oráculo,
+  orçamento) → curva SVG na UI. 67 testes verdes (8 de API).
+- E5 parcial: E2E com SimulatedOracle OK; oráculo LLM free adiado (D-003,
+  contenção de cota com o E0 em 2º plano).
+- Cap.5 núcleo E0 (RQ1-4 + gate), Cap.6 completo, apêndices a1-a6 escritos.
+
+## 17/07/2026 09:15 — Compilação LaTeX limpa (F8)
+- Cadeia pdflatex+bibtex funcionando após 8 iterações de correção (pacotes
+  texlive, algorithm/algpseudocode, travessões corrompendo o .toc, \& no bib).
+- principal.pdf: 0 erros. Restava 1 ref quebrada (sssec:consideracoes_praticas).
+
+## 17/07/2026 09:55 — E0-P/E1/E4 analisados, persistidos e NA TESE (F4)
+- Contêiner reiniciou durante a pausa: scipy/openai reinstalados; run free do
+  OpenRouter retomado (resumível; nemotron-ultra rand 725/1000).
+- Análises agora são artefatos: experiments/e0p/results/analysis.json e
+  experiments/e1e4/results/analysis.json (antes só impressas).
+- E0-P (n=500 pareado, McNemar exato): S-rand 60,4%→64,2% (v4a, p=0,045) →
+  65,0% (v4b, p=0,012); S-strat 51,8%→44,8%/41,0% (p<0,001). Regras de
+  fronteira ajudam a distribuição de produção e DESTROEM as classes raras —
+  "faca de dois gumes" escrita na Seção E0-P do Cap.5.
+- E1 (8 sementes, teto supervisionado 0,540): menor margem lidera LCE
+  (0,528±0,013), menor confiança lidera F1 final (0,421±0,009); todas as
+  incertezas > aleatória com p=0,0078 (máximo com n=8). Lote: 50≈100 > 200.
+- E4: vantagem da entropia sobrevive a TODO ε (p=0,0078); retenção 87/74/54%
+  em ε=0,1/0,2/0,4 — faixa dos LLMs reais (0,17-0,23) é tolerável; ruído
+  uniforme = limite inferior vs erro estruturado do RQ3.
+- Ref quebrada corrigida (seção comentada na condensação → citação inline).
+- F7: resumo/abstract com números reais; siglas e símbolos reais; dedicatória/
+  agradecimentos como placeholders explícitos do autor (não invento texto
+  pessoal). Compilação: 89 páginas, 0 erros, 0 refs não definidas.
+- Próximo: commit+push, depois Bloco G (revisão R2 com academic-paper-reviewer).
