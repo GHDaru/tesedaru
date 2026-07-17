@@ -30,8 +30,7 @@ falco_relation:
 # Short Text Classification: A Survey
 
 ## Resumo
-Survey dedicado à classificação de texto curto (o PDF arquivado é a edição
-completa do periódico; o artigo ocupa as páginas 635–643, p. 19+ do arquivo).
+Survey dedicado à classificação de texto curto (PDF: versão avulsa do artigo, substituída no saneamento de 17/07/2026).
 Caracteriza o gênero "texto curto" (mensagens instantâneas, títulos de BBS,
 comentários, SMS, tweets) e suas dificuldades intrínsecas: **esparsidade**
 (palavras de menos para representar o espaço de atributos), **larga escala**,
