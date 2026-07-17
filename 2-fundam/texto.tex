@@ -116,9 +116,9 @@ Esse esquema unifica tanto o modo \textit{batch} (\(b_t>1\))
 quanto o modo \textit{stream} (\(b_t=1\); \(S\) degenera para uma escolha
 binária em cada amostra observada).
 
-Entre as muitas formulações existentes — por exemplo, \cite{Settles2012}, \cite{Roy2001} e \textit{et al.} \cite{Goudjil2016} — adapta-se aqui o arcabouço proposto por
+Entre as muitas formulações existentes — por exemplo, \cite{Settles2012}, \cite{Roy2001} e \textit{et al.} \cite{Goudjil2018} — adapta-se aqui o arcabouço proposto por
 Cohn, Ghahramani e Jordan, posteriormente ampliado por Hanneke
-\cite{Cohn1996,Hanneke2015}, com o fundamento de \cite{Goudjil2016} e \cite{Settles2012}, para incorporar um modelo mais abrangente.
+\cite{Cohn1996,Hanneke2015}, com o fundamento de \cite{Goudjil2018} e \cite{Settles2012}, para incorporar um modelo mais abrangente.
 
 
 % No corpo do texto:
@@ -165,7 +165,7 @@ Um resumo de cada componente é fornecido pela Tabela~\ref{tab:active-learning-c
 
 \FloatBarrier
 
-Os elementos apresentados na Tabela~\ref{tab:active-learning-components} interagem de forma estruturada para compor o ciclo do aprendizado ativo, conforme discutido em \cite{Settles2012} e \cite{Goudjil2016} e é apresentado no Algoritmo~\ref{alg:active_learning} a seguir.
+Os elementos apresentados na Tabela~\ref{tab:active-learning-components} interagem de forma estruturada para compor o ciclo do aprendizado ativo, conforme discutido em \cite{Settles2012} e \cite{Goudjil2018} e é apresentado no Algoritmo~\ref{alg:active_learning} a seguir.
 
 
 
@@ -404,7 +404,7 @@ Exploração Estrutura Dados  & Mitiga outliers, equilibra exploração/explota�
 } % <--- Termina o escopo de fonte menor
 \end{table}
 
-% Em conclusão, a seleção de uma estratégia de consulta em aprendizado ativo não possui uma resposta única ou universalmente ótima. A escolha deve ser guiada por uma análise cuidadosa das características específicas do problema, incluindo a natureza dos dados, a classe de modelo utilizada (com avanços recentes integrando AL com LLMs, por exemplo \citep{Bayer2024}), as restrições computacionais, a presença de desafios como desbalanceamento de classes ou ruído no oráculo, e os objetivos finais da aplicação, como em cenários de aprendizado federado \citep{Cao2022, Deng2023}. Estratégias simples como a Amostragem por Incerteza oferecem um ponto de partida acessível \citep{Lewis1994}, mas podem necessitar de refinamentos (como Ponderação por Densidade) ou abordagens alternativas (como QBC \citep{Dagan1995} ou Redução de Erro/Variância \citep{Roy2001}, se o custo permitir) para alcançar desempenho ótimo em cenários complexos \citep{Goudjil2016}. A consideração explícita de fatores práticos e a potencial combinação de diferentes princípios (e.g., ativo + semi-supervisionado, incerteza + representatividade, modo batch \citep{Hoi2006}) são caminhos promissores para o desenvolvimento de sistemas de aprendizado ativo mais robustos e eficazes no mundo real \citep{Settles2012, Aggarwal2014, Ren2021}.
+% Em conclusão, a seleção de uma estratégia de consulta em aprendizado ativo não possui uma resposta única ou universalmente ótima. A escolha deve ser guiada por uma análise cuidadosa das características específicas do problema, incluindo a natureza dos dados, a classe de modelo utilizada (com avanços recentes integrando AL com LLMs, por exemplo \citep{Bayer2024}), as restrições computacionais, a presença de desafios como desbalanceamento de classes ou ruído no oráculo, e os objetivos finais da aplicação, como em cenários de aprendizado federado \citep{Cao2022, Deng2023}. Estratégias simples como a Amostragem por Incerteza oferecem um ponto de partida acessível \citep{Lewis1994}, mas podem necessitar de refinamentos (como Ponderação por Densidade) ou abordagens alternativas (como QBC \citep{Dagan1995} ou Redução de Erro/Variância \citep{Roy2001}, se o custo permitir) para alcançar desempenho ótimo em cenários complexos \citep{Goudjil2018}. A consideração explícita de fatores práticos e a potencial combinação de diferentes princípios (e.g., ativo + semi-supervisionado, incerteza + representatividade, modo batch \citep{Hoi2006}) são caminhos promissores para o desenvolvimento de sistemas de aprendizado ativo mais robustos e eficazes no mundo real \citep{Settles2012, Aggarwal2014, Ren2021}.
 
 % --- Fim da Subseção ---
 % ---------- fonte: capitulo_02_fundamentos/aprendizado_ativo/_4_llm_como_oraculo.tex ----------
