@@ -40,7 +40,7 @@ A tarefa-alvo desta tese é a \textbf{classificação}: aprender $f: X \to Y$ co
 p_i = \frac{\exp(z_i)}{\sum_{j=1}^{K} \exp(z_j)}, \quad i = 1, \dots, K,
 \label{eq:softmax_ml}
 \end{equation}
-treinados com perda de entropia cruzada \cite{Bishop2006, Murphy2012}. Essa distribuição $p$ é duplamente essencial no aprendizado ativo: além de fornecer a predição ($\arg\max_i p_i$), é dela que as estratégias de seleção por incerteza (Seção~\ref{sssec:incerteza}) derivam seus escores. Os dois classificadores empregados nos experimentos — um modelo probabilístico vetorial leve e o BERTimbau ajustado com uma camada de classificação \cite{Souza2020} — são detalhados no Capítulo~\ref{ch:metodo}.
+treinados com perda de entropia cruzada \cite{Bishop2006, Murphy2012}. Essa distribuição $p$ é duplamente essencial no aprendizado ativo: além de fornecer a predição ($\arg\max_i p_i$), é dela que as estratégias de seleção por incerteza (Seção~\ref{sssec:incerteza}) derivam seus escores. Os dois classificadores empregados nos experimentos — um modelo probabilístico vetorial leve e o BERTimbau ajustado com uma camada de classificação \cite{Souza2020BERTimbau} — são detalhados no Capítulo~\ref{ch:metodo}.
 
 \subsection{Avaliação de Modelos de Classificação Multiclasse}
 \label{subsec:ml_evaluation}
@@ -484,7 +484,7 @@ A tarefa apresenta complexidades adicionais quando aplicada a textos curtos. Tex
 Um texto curto pode ser representado como uma sequência textual $s = (t_1, t_2, ..., t_l)$ onde $t_i$ representa um caractere e o comprimento total $l$ é limitado (e.g., $l \le 200$).
 \end{definicao}
 
-Exemplos típicos incluem tweets, títulos de notícias, consultas de busca e descrições de produtos em e-commerce \cite{Daru2024}. A Classificação de Texto Curto (STC) especializa, portanto, a tarefa geral de classificação para este tipo de dado, buscando construir uma função $f_{\text{curto}}: S \rightarrow C$, onde $S$ é o conjunto dos textos curtos a serem classificados. O objetivo técnico é desenvolver modelos capazes de extrair informação relevante e classificar precisamente esses textos, considerando as características discutidas na Seção~\ref{subsec:stc_desafios}.
+Exemplos típicos incluem tweets, títulos de notícias, consultas de busca e descrições de produtos em e-commerce \cite{Daru2024Dissertacao}. A Classificação de Texto Curto (STC) especializa, portanto, a tarefa geral de classificação para este tipo de dado, buscando construir uma função $f_{\text{curto}}: S \rightarrow C$, onde $S$ é o conjunto dos textos curtos a serem classificados. O objetivo técnico é desenvolver modelos capazes de extrair informação relevante e classificar precisamente esses textos, considerando as características discutidas na Seção~\ref{subsec:stc_desafios}.
 
 % --- Fim do arquivo 0_introducao_definicao.tex ---
 % --- Arquivo: capitulo_02_fundamentos/texto_curto/1_desafios.tex ---
