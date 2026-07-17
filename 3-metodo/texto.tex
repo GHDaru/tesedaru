@@ -427,7 +427,13 @@ padrão-ouro com ruído conhecido (teto $\approx 99{,}3\%$; análise de
 sensibilidade na Seção~\ref{sec:metodo-dados-auditoria}), e o efeito do
 instrumento de medição é ele próprio quantificado (RQ4). O custo por rótulo
 depende de preços de API vigentes na execução — os valores absolutos datam; as
-razões entre modelos são mais estáveis.
+razões entre modelos são mais estáveis. Mais amplamente, \textbf{toda medição
+de oráculo LLM nesta tese é uma fotografia da tripla (modelo, provedor,
+data)}: temperatura zero não garante determinismo entre versões de modelo nem
+entre serviços de \textit{serving} — o próprio E0 demonstra o mesmo modelo
+divergindo significativamente de si mesmo entre dois provedores
+(Seção~\ref{sec:res-e0-rq2}) — e por isso cada anotação é arquivada com
+proveniência completa, permitindo re-medição futura contra a mesma referência.
 
 \section{Reprodutibilidade e ambiente}
 \label{sec:metodo-reprodutibilidade}

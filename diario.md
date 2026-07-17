@@ -188,3 +188,19 @@ Decisões formais com racional completo: `docs/decisoes.md`.
   (meta de encerramento atingida). Aberto por design: bloco H — E2/E3/E4
   com BERTimbau na GPU do autor (adapter, scripts, notebook Colab e guia
   prontos) e H5 (rotação das 5 credenciais pelo autor).
+
+## 17/07/2026 17:40 — R3 + parecer orientador/banca; ciclo 30k em execução
+- Pedido do autor: orçamento 30.000 → CachedOracle novo (anotação nunca é
+  re-consultada; 2º ciclo reaproveita interseções — validado: 1.920 hits,
+  0 chamadas no smoke), runner parametrizado por CLI, execução lançada
+  (pool 50k, val/test 2k, lote 100, nemotron/NIM; estimativa 8-12h + reuso).
+- R3 (full, 5 personas): 84,5/100, Minor Revision inalterada — gap é o bloco
+  H. Novos apontamentos aplicados NA HORA: fotografia (modelo, provedor,
+  data) nas ameaças à validade; contingência do ranking E1→BERTimbau; achado
+  de serving no resumo/abstract; APÊNDICE A7 novo (parada/liberação/drift).
+- docs/parecer-orientador-banca.md: crítica franca nos dois papéis — tese de
+  MÉTODO vestida de tese de resultado (reposicionar 1 frase); data de corte
+  p/ bloco H; leitura correta do ciclo 30k (saturação, não comparação no fim
+  da curva); ensaio da pergunta incômoda "por que não rotular tudo com o LLM
+  grátis?" (resposta: braço oráculo-total + latência + E4).
+- Compilação: 93 páginas, 0 erros, 0 refs não definidas.

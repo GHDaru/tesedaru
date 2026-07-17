@@ -269,7 +269,10 @@ ablação com entropia, $b=50$ (LCE $0{,}492 \pm 0{,}009$) e $b=100$
 $0{,}481 \pm 0{,}012$ — com lotes grandes a seleção repete redundância dentro
 do próprio lote antes de o modelo se atualizar. Para o FALCO, isso fixa o
 lote operacional em $b \le 100$ e recomenda menor margem/menor confiança como
-estratégias da Fase~2.
+estratégias da Fase~2 — com a ressalva explícita de que o ordenamento foi
+medido com o classificador leve e deve ser revalidado com BERTimbau no E3:
+probabilidades mais calibradas do \textit{transformer} podem reordenar
+entropia e margens.
 
 \section{E4: robustez do aprendizado ao ruído do oráculo}
 \label{sec:res-e4}

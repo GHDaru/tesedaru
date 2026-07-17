@@ -1,0 +1,72 @@
+\chapter{Critério de parada, liberação do modelo e monitoramento de deriva}
+\label{ap:parada-drift}
+
+Este apêndice consolida a política operacional do ciclo de vida do
+classificador treinado pelo FALCO — da decisão de parar de rotular à decisão
+de retreinar em produção. As duas primeiras seções descrevem mecanismos
+implementados na biblioteca \texttt{activelearning}; a terceira é o desenho
+recomendado para operação contínua (FlowBuilder), com gatilhos numéricos.
+
+\section{Parada do laço de aprendizado ativo}
+\label{ap:parada-laco}
+
+O laço encerra a aquisição de rótulos pelo primeiro de três gatilhos:
+\textbf{(i) estagnação na validação} — o Macro F1 em $V$ não melhora mais que
+$\varepsilon_{\max}=10^{-3}$ por $p=5$ iterações consecutivas
+(Capítulo~\ref{ch:metodo} para o racional das constantes); o conjunto
+de teste jamais participa; \textbf{(ii) orçamento} — teto absoluto de rótulos
+$B$; \textbf{(iii) exaustão do pool}. O racional do gatilho (i) é
+estatístico: o ganho marginal por lote decai ao longo da curva de
+aprendizado, enquanto o custo marginal do rótulo é constante; quando o ganho
+observável cai abaixo da resolução do próprio conjunto de validação
+($\approx 1/\sqrt{n_V}$), rotular mais é pagar para medir ruído. Na execução
+ponta a ponta da biblioteca (oráculo simulado com ruído realista), o gatilho
+(i) encerrou o ciclo em 910 de 1.000 rótulos orçados — o artefato está no
+repositório (\texttt{experiments/e5cycle}).
+
+\section{Critério de liberação do modelo}
+\label{ap:liberacao}
+
+Recomenda-se liberar o modelo para produção quando três condições valem
+simultaneamente: \textbf{(a)} a estagnação foi atingida (o modelo parou de
+melhorar com o oráculo disponível); \textbf{(b)} o desempenho de validação
+alcança o alvo externo de negócio — na ausência de alvo, o teto empírico do
+braço \emph{oráculo-total} (treinar com todo o pool rotulado pelo mesmo
+oráculo, ao custo de inferência apenas) indica o máximo que \emph{este}
+oráculo permite: estagnar perto dele significa que mais rótulos não ajudam,
+apenas um oráculo melhor; \textbf{(c)} o intervalo de confiança de Wilson do
+desempenho de validação está inteiro acima do piso aceitável (com
+$n_V = 1.000$, a meia-largura é de 2--3 pontos percentuais). Só então o
+modelo é avaliado \emph{uma única vez} no conjunto de teste intocado — e esse
+é o número reportado.
+
+\section{Monitoramento de deriva e política de retreinamento}
+\label{ap:drift}
+
+Textos curtos de varejo derivam continuamente (novos produtos, marcas e
+grafias). Três camadas de monitoramento, em ordem de custo:
+
+\begin{enumerate}
+  \item \textbf{Deriva de entrada} (sem rótulo, custo zero): fração de tokens
+  fora do vocabulário de treino e divergência da distribuição de
+  representações (PSI sobre projeções). Gatilho sugerido: taxa de vocabulário
+  novo em dobro da taxa do treino, ou PSI $> 0{,}2$.
+  \item \textbf{Deriva de confiança} (sem rótulo, custo zero): queda da
+  confiança média (ou aumento da entropia média) das predições em produção.
+  Gatilho: média móvel de 7 dias abaixo de $\mu - 2\sigma$ do período de
+  referência.
+  \item \textbf{Verificação amostral com oráculo} (custo quase nulo): acurácia
+  numa amostra pequena rotulada pelo LLM Inicial — com os custos medidos no
+  E0, 200 itens semanais custam da ordem de US\$~0,01. Gatilho: acurácia
+  amostral abaixo do limite inferior do IC de validação da liberação.
+\end{enumerate}
+
+Política: camadas 1--2 disparando antecipam a camada 3; a camada 3
+confirmando, retreina-se. O retreino reaproveita todos os rótulos históricos
+e roda um ciclo \emph{incremental} de aprendizado ativo apenas sobre o fluxo
+recente (o classificador atual seleciona o que não entende; o oráculo LLM
+rotula; treina-se do zero com $L_{\text{antigo}} \cup L_{\text{novo}}$ —
+retreinar do zero, e não continuar do modelo anterior, preserva
+comparabilidade e evita a degradação associada a \textit{warm-starting}).
+Mesmo sem gatilho, recomenda-se a verificação amostral em cadência mensal:
+deriva de catálogo pode ser gradual demais para as camadas 1--2.
