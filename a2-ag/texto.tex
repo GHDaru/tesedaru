@@ -1,3 +1,41 @@
 \chapter{Algoritmo Genético para Otimização de L0}
 \label{ap:ag}
-% Migrar de Tese-Vers-o-Draft/apendices/algoritmos_geneticos.tex
+
+\section{Formulação}
+
+Indivíduo: conjunto de $I$ índices únicos do pool ($L_0$ candidato).
+Aptidão: desempenho (Acurácia ou Macro F1) do classificador PVBin treinado no
+indivíduo e avaliado em partição de \textbf{aferição} disjunta do conjunto de
+teste (protocolo anticircularidade; ver Seção~\ref{sec:res-l0-replay} para a
+quantificação do viés do protocolo ingênuo). Quatro cenários: maximização e
+minimização de cada métrica — o par (max, min) delimita o envelope empírico
+de desempenho alcançável pela composição.
+
+\section{Operadores e parâmetros}
+
+\begin{itemize}
+  \item \textbf{População} $N_{pop}=50$; \textbf{gerações} 100 (reexecução
+  reduzida: $30 \times 40$; decisão D-002 do registro de decisões);
+  \item \textbf{seleção}: torneio de tamanho $k_t=3$;
+  \item \textbf{cruzamento}: um ponto sobre a lista de índices, com
+  probabilidade $p_c=0{,}8$, seguido de \emph{reparo de unicidade}
+  (índices repetidos são substituídos por sorteio até restaurar $|L_0|=I$);
+  \item \textbf{mutação}: com probabilidade $p_m=0{,}1$, substituição de
+  $m_s=\max(1,\lceil 0{,}01 \cdot I\rceil)$ genes por índices inéditos;
+  \item \textbf{elitismo}: $10\%$ ($N_{elite}=5$ na configuração original).
+\end{itemize}
+
+\section{Pseudocódigo}
+
+\begin{enumerate}
+  \item Inicializar $N_{pop}$ indivíduos por amostragem uniforme sem reposição.
+  \item Avaliar aptidão de todos na partição de aferição.
+  \item Por geração: copiar elite; completar a população por
+  torneio $\to$ cruzamento $\to$ reparo $\to$ mutação; reavaliar.
+  \item Ao final, \textbf{reavaliar o melhor indivíduo no conjunto de teste
+  intocado} — o valor reportado como envelope é este, não a aptidão.
+\end{enumerate}
+
+Implementação de referência da reexecução:
+\texttt{experiments/p1/replay\_ga.py}; resultados em
+\texttt{experiments/p1/results/replay\_ga.jsonl}.

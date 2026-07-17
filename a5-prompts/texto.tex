@@ -1,3 +1,50 @@
 \chapter{Prompts e Esquemas do Oráculo LLM}
 \label{ap:prompts}
-% Escrever após E0: prompt v3, schemas enum/json-prompt/free, exemplos
+
+\section{Prompt v3 (produção)}
+
+Contexto de tarefa comum a todos os modos (o texto integral e versionado está
+em \texttt{src/activelearning/adapters/oracles/prompt.py}):
+
+\begin{quote}\small
+``Você é um especialista em catalogação de produtos do varejo brasileiro. As
+descrições vêm de cupons fiscais e cadastros de e-commerce: são curtas,
+geralmente em caixa alta e cheias de abreviações (ex.: CERV=cerveja,
+REFR=refrigerante, BISC=biscoito, CHOC=chocolate, RECH=recheado, PCT=pacote,
+LT=lata, CX=caixa, UN=unidade). Expanda mentalmente as abreviações e
+classifique o TIPO do produto, ignorando marca, tamanho e embalagem. Escolha
+sempre a categoria mais específica aplicável; na dúvida entre uma categoria
+plausível e `\_rare\_', prefira a categoria plausível — use `\_rare\_' SOMENTE
+se nenhuma categoria da lista descrever o tipo do produto. Exemplos:
+`CERV BRAHMA LT 350ML' $\to$ cerveja; `BISC RECH CHOC 130G' $\to$ biscoito;
+`REQUEIJAO LIGHT CP 200G' $\to$ requeijao.''
+\end{quote}
+
+O prefixo estático (contexto + esquema) precede o item variável, habilitando o
+\textit{cache} de prefixo dos provedores (88--95\% de acerto medido no E0).
+
+\section{Modos de instrumentação}
+
+\textbf{enum}: saída estruturada com \texttt{strict:true}; o campo
+\texttt{predicted\_category} é restrito por \texttt{enum} às 621 categorias do
+\textit{CategorySchema}; campos \texttt{expanded\_description} e
+\texttt{rationale} completam o objeto (todos obrigatórios — exigência do modo
+estrito). \textbf{json-prompt} (provedores sem saída estruturada): a lista de
+categorias e o formato JSON são instruídos no texto; a resposta passa por
+extração tolerante e validação exata contra o esquema, com rótulos fora do
+espaço contabilizados como inválidos. \textbf{free} (somente RQ4): saída
+estruturada sem \texttt{enum} — réplica controlada do instrumento defeituoso
+do trabalho anterior. Na rotulagem em lote, os itens são numerados e a
+resposta é um vetor indexado; o esquema do lote não fixa
+\texttt{minItems}/\texttt{maxItems} para preservar a cacheabilidade do
+prefixo; o uso (tokens/custo) é rateado igualmente entre os itens da chamada.
+
+\section{Variantes do E0-P}
+
+\textbf{v4a} acrescenta dez regras de fronteira do catálogo derivadas da
+anatomia de erros (ex.: medicamentos $\to$ \textit{outro farma}; produto
+bucal líquido $\to$ \textit{antisseptico bucal}; pó para suco $\to$
+\textit{preparo para suco}; fones com fio $\to$ \textit{acessorio de audio});
+\textbf{v4b} soma dez exemplos \emph{inventados} de fronteiras difíceis
+(nunca instâncias das amostras de avaliação — decisão D-004). Texto integral
+das variantes no mesmo módulo versionado.

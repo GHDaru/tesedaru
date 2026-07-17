@@ -1,3 +1,46 @@
 \chapter{Métrica Learning Curve Efficiency (LCE)}
 \label{ap:lce}
-% Migrar de Tese-Vers-o-Draft/apendices/learning_curve.tex (v5, já deduplicado)
+
+\section{Definição}
+
+Seja uma execução de aprendizado ativo que produz a curva
+$\{(n_k, m_k)\}_{k=1}^{K}$, em que $n_k$ é o número de instâncias rotuladas na
+iteração $k$ (estritamente crescente) e $m_k$ a métrica de interesse (nesta
+tese, Macro F1 no conjunto de teste fixo $T$). Define-se:
+\begin{equation}
+\mathrm{LCE} \;=\;
+\frac{\displaystyle \int_{n_1}^{n_K} m(n)\, dn}
+     {\mathrm{Perf}_{\mathrm{baseline}} \cdot (n_K - n_1)},
+\label{eq:ap-lce}
+\end{equation}
+em que a integral do numerador ($\mathrm{AUC}_{\mathrm{real}}$) é calculada
+numericamente pela regra composta de Simpson sobre os pontos observados (com
+recuo para a regra do trapézio quando $K=2$) e
+$\mathrm{Perf}_{\mathrm{baseline}}$ é o desempenho do MESMO classificador
+treinado com supervisão completa do pool. O denominador é a área da curva
+ideal: desempenho de referência atingido instantaneamente no início do
+processo ($L_{\mathrm{ideal},0} = n_1$).
+
+\section{Propriedades}
+
+(i) $\mathrm{LCE} \in (0, 1]$ quando $m_k \le \mathrm{Perf}_{\mathrm{baseline}}$
+para todo $k$; valores maiores indicam aproximação mais rápida do teto.
+(ii) É invariante a transformações afins do eixo $n$ (mudança de unidade de
+orçamento). (iii) Ao normalizar pelo teto do próprio par (classificador,
+conjunto) — e não pelo máximo teórico da métrica — permite comparar
+estratégias entre classificadores de tetos distintos: um classificador fraco
+bem servido pela estratégia pode ter LCE maior que um classificador forte mal
+servido. (iv) Depende do intervalo $[n_1, n_K]$: comparações exigem execuções
+com o mesmo orçamento e o mesmo $L_0$ — condição imposta em todos os desenhos
+desta tese.
+
+\section{Relação com a ALC}
+
+A \textit{Area under the Learning Curve} do \textit{Active Learning
+Challenge} \citep{Guyon2011ALC} também sumariza a curva por área normalizada.
+As diferenças da LCE: normalização pelo baseline de supervisão completa do
+próprio par (a ALC normaliza pelo máximo global da métrica) e integração de
+Simpson na grade observada (a ALC interpola em escala logarítmica de
+consultas). A implementação de referência está em
+\texttt{src/activelearning/domain/metrics.py} (função \texttt{lce}), com
+testes unitários de propriedades.

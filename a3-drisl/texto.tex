@@ -1,3 +1,45 @@
 \chapter{Algoritmo DRI-SL}
 \label{ap:drisl}
-% Migrar de Tese-Vers-o-Draft/apendices/cold_start.tex (formalização única)
+
+\section{Objetivo e entradas}
+
+Construir $L_0$ de tamanho alvo $I$ a partir do pool não rotulado $U$, sem
+acesso a rótulos. Entradas: textos de $U$; codificador de sentenças $\phi$
+(SBERT multilíngue \citep{Reimers2019SBERT} na configuração da tese); número
+de grupos $N_c$ (padrão $\max(2, \lfloor\sqrt{I}\rfloor)$); semente.
+
+\section{Etapas}
+
+\begin{enumerate}
+  \item \textbf{Densidade semântica}: projetar $U$ por $\phi$; agrupar por
+  $k$-médias em $N_c$ grupos; alocar a cota $q_c$ de cada grupo
+  proporcionalmente ao seu tamanho (cota mínima de 1 para grupo não vazio;
+  ajuste do resto pelas maiores frações).
+  \item \textbf{Variedade lexical intragrupo}: para cada grupo $c$, computar o
+  perfil TF--IDF médio; selecionar iterativamente, entre os membros ainda não
+  escolhidos, o texto que maximiza o \emph{escore de novidade} — a soma dos
+  pesos, no perfil do grupo, dos termos que o texto introduz e que ainda não
+  estão cobertos pelos já selecionados; atualizar o conjunto de termos
+  cobertos; repetir até preencher $q_c$.
+\end{enumerate}
+
+A seleção é determinística dada a semente (inicialização do $k$-médias). O
+custo é dominado pela codificação ($O(|U|)$ passagens do codificador) e pelo
+$k$-médias; a etapa lexical é $O(q_c \cdot |c|)$ por grupo, com operações
+esparsas.
+
+\section{Intuição}
+
+A etapa 1 garante \emph{representatividade}: cada região semântica do pool
+contribui proporcionalmente — nenhum agrupamento relevante fica de fora do
+$L_0$. A etapa 2 garante \emph{não redundância}: dentro da região, evita
+quase-duplicatas (frequentes no domínio: 7,7\% de duplicatas exatas) e força
+cobertura de vocabulário — que, para um classificador por protótipo como o
+PVBin, é exatamente o recurso que constrói fronteiras. A combinação explica o
+resultado do Capítulo~\ref{ch:resultados-l0}: cobertura semântica dá o
+esqueleto de classes; cobertura lexical dá o poder discriminativo por classe.
+
+Implementação de referência:
+\texttt{src/activelearning/adapters/strategies/drisl.py} (com codificador
+alternativo TF--IDF+SVD para ambientes leves), testes em
+\texttt{tests/unit/test\_drisl.py}.
