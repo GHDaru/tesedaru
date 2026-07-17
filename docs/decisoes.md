@@ -33,3 +33,13 @@ originais; a grade log-espaçada preserva a resolução onde a curva muda (baixo
 tamanhos); o AG reduzido verifica o MECANISMO (envelope acima do aleatório) sem
 pretender reproduzir os valores extremos, que dependem do orçamento evolutivo.
 Divergências serão reportadas como tais no relatório C3.
+
+## D-003 · 17/07 · E5 (E2E com LLM free) adiado para após o E0 de fundo
+**Contexto**: o teste E2E do FlowBuilder com gemma-4 :free falhou com 100% de
+rótulos inválidos no L0 e chamada direta ao modelo pendurou em retries de 429 —
+o run E0 de fundo consome a cota livre por conta do OpenRouter simultaneamente.
+**Decisão**: manter o run E0 (prioridade: dados da tese), reexecutar o E5
+quando ele terminar. O caminho E2E completo JÁ está validado com oráculo
+simulado sobre dados reais; o adapter OpenRouter JÁ está validado no próprio
+E0 (nemotron 675/1000 anotações em andamento). Guarda de erro clara adicionada
+ao runner (L0 sem rótulo válido → mensagem acionável).
