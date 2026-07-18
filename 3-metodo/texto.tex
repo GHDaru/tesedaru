@@ -41,17 +41,17 @@ Seção~\ref{sec:metodo-oraculo-decisao}.
 \label{tab:metodo-experimentos}
 \small
 \begin{tabular}{llll}
-\hline
+\toprule
 \textbf{Id} & \textbf{Objetivo} & \textbf{Pilar} & \textbf{Recursos} \\
-\hline
+\midrule
 E0 & Avaliação fatorial de LLMs como oráculo & P3 & APIs de LLM \\
 E1 & Estratégias de seleção $\times$ tamanho de lote (oráculo simulado) & apoio a P4 & CPU \\
 E2 & Épocas de ajuste fino do BERTimbau por iteração & apoio a P4 & GPU \\
 E3 & FALCO \textit{versus} RS e US sob mesmo orçamento & P4 & GPU + APIs \\
 E4 & Robustez do aprendizado a ruído controlado do oráculo & P4 (condicional) & GPU \\
-\hline
+\midrule
 \multicolumn{4}{l}{\footnotesize P1 (sensibilidade de $L_0$) e P2 (DRI-SL) reutilizam execuções já realizadas e auditadas.}\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 

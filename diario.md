@@ -244,3 +244,21 @@ Decisões formais com racional completo: `docs/decisoes.md`.
 - DRI-SL como seletor CONTÍNUO é o mais fraco dos três — coerente com a
   tese: DRI-SL é instrumento de cold start (Fase 1), não substituto da
   incerteza no laço.
+
+## 18/07/2026 05:40 — Passe de rigor: apresentação (tabela×figura) + estilo
+- Avaliação com a skill acadêmica (APA cap.7 + writing_quality_check):
+  preferência do autor por tabelas CONFIRMADA como correta — figuras só
+  quando a forma da curva é o achado. Tese mantém 2 figuras (conceitual
+  ActiveLLM; tendência L0 em escala log — a única cujo objeto É a forma) e
+  12+ tabelas. As 8 figuras geradas ficam no repositório de código para
+  slides de defesa, fora da tese.
+- Correções de coerência aplicadas: (1) ESTILO DE TABELA unificado — 20
+  \hline convertidos para booktabs em Caps. 3/4/5 (2-fundam e a6 já usavam);
+  (2) nomenclatura Macro F1 padronizada (4 "Macro-F1" no Cap.2); (3)
+  impessoalidade — 4 ocorrências de nosso/nossa reescritas; (4) termos vagos
+  — 3 "crucial" e 2 "abrangente" vazios substituídos por palavras precisas;
+  (5) figura ActiveLLM agora CITADA no texto (violação "toda figura deve ser
+  citada" corrigida).
+- Travessões: densidade alta (~40/cap.) porém consistente — registrado como
+  voz do texto, não corrigido em massa (norma da skill é anglófona).
+- Compilação: 0 erros, 0 refs, 0 warnings de BibTeX.

@@ -53,8 +53,8 @@ incluindo o oráculo-total — e aguarda execução na estação com GPU.
 minimiza \emph{contagem de rótulos} assumindo oráculo correto
 \citep{Settles2012,Olsson2009}; a com custos reais mostra que contagem não é
 custo \citep{SettlesCravenFriedland2008}. Com oráculo LLM, a moeda muda duas
-vezes: o custo vira função de tokens (e do \textit{cache}, e do lote — nossa
-instrumentação mede os três) e a qualidade vira parâmetro escolhível num
+vezes: o custo vira função de tokens (e do \textit{cache}, e do lote — a
+instrumentação desta tese mede os três) e a qualidade vira parâmetro escolhível num
 cardápio com uma ordem de grandeza de variação de preço. A decisão
 ``qual oráculo em qual fase'' — o coração do FALCO — só faz sentido nesse
 regime novo, e os dados do E0 mostram que ela não é trivial: o modelo mais
@@ -67,7 +67,7 @@ guarda-chuva) é o cenário benigno da literatura de rótulos ruidosos
 \citep{Frenay2014,Natarajan2013,Song2023NoisyLabels}: parte do ``erro'' do
 oráculo é inclusive defensável semanticamente (a análise multi-gold mostrou
 que o gabarito também erra). Isso sugere que o E4 com ruído \emph{uniforme} —
-nosso desenho — é um teste \emph{mais duro} que a realidade, o que fortalece
+o desenho adotado — é um teste \emph{mais duro} que a realidade, o que fortalece
 qualquer resultado positivo obtido nele.
 
 \textbf{A medição é parte do método.} Três achados desta tese são sobre
