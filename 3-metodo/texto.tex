@@ -58,6 +58,11 @@ E4 & Robustez do aprendizado a ruído controlado do oráculo & P4 (condicional) 
 \section{Conjunto de dados}
 \label{sec:metodo-dados}
 
+Esta seção documenta o material empírico da tese em quatro decisões
+encadeadas: de onde vêm os dados e o que os caracteriza, quanto se pode
+confiar nos rótulos de referência, como textos e espaço de classes foram
+normalizados e como o conjunto foi particionado para os experimentos.
+
 \subsection{Fonte e características}
 \label{sec:metodo-dados-fonte}
 
@@ -211,6 +216,11 @@ sementes usam o \textbf{teste de postos sinalizados de Wilcoxon}
 \section{Pilar P1: composição do conjunto inicial \texorpdfstring{$L_0$}{L0}}
 \label{sec:metodo-l0}
 
+O primeiro pilar responde a duas perguntas em sequência: quanto a composição
+do conjunto inicial importa (medição de sensibilidade) e qual o teto de
+desempenho que uma composição otimizada alcança (busca evolutiva). A segunda
+só faz sentido se a primeira acusar efeito relevante.
+
 \subsection{Sensibilidade à amostragem aleatória}
 \label{sec:metodo-l0-sensibilidade}
 
@@ -260,6 +270,12 @@ como limite empírico de referência.
 
 \section{Pilar P3: LLMs como oráculo de rotulagem (experimento E0)}
 \label{sec:metodo-oraculo}
+
+A avaliação de oráculos exige, antes de qualquer comparação, um instrumento
+de medição confiável. Por isso esta seção define primeiro a instrumentação
+(contrato de saída, custo e proveniência), depois o desenho fatorial do E0
+e, por fim, o critério pré-registrado que converte as medições em decisão
+de arquitetura para o FALCO.
 
 \subsection{Instrumentação da medição}
 \label{sec:metodo-oraculo-instrumentacao}
@@ -337,6 +353,11 @@ tratar o aprendizado com oráculo ruidoso como cenário central.
 
 \section{Pilar P4: o framework FALCO e sua avaliação (experimentos E1--E4)}
 \label{sec:metodo-falco}
+
+O quarto pilar integra os anteriores no framework proposto. A seção descreve
+primeiro os componentes e a máquina de fases do FALCO — o objeto em
+avaliação — e, em seguida, os métodos de referência e o desenho experimental
+que o colocam à prova (E1--E4).
 
 \subsection{Componentes e fases}
 \label{sec:metodo-falco-fases}
