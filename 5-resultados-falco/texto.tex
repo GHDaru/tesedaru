@@ -182,7 +182,11 @@ potencial no modelo de MENOR custo com cache (gpt-4o-mini): variantes
 \textbf{v4a} (dez regras de fronteira explícitas derivadas do perfil de erro
 da S-strat) e \textbf{v4b} (v4a + dez exemplos \emph{inventados} de fronteiras
 difíceis — nunca instâncias das amostras, desenho anti-vazamento D-004),
-pareadas com o v3 oficial nos mesmos 500 primeiros itens de cada amostra.
+pareadas com o v3 oficial nos mesmos 500 primeiros itens de cada amostra —
+subconjunto-prefixo (aleatório por construção, pois as amostras já são
+embaralhadas) dimensionado para detectar, via McNemar, deslocamentos da ordem
+de 4--5 p.p.\ com o volume de discordâncias esperado ($\approx 60$--$80$
+pares), a um quinto do custo da amostra completa por variante.
 A Tabela~\ref{tab:e0p} resume o resultado
 (artefato: \texttt{experiments/e0p/results/analysis.json}).
 
@@ -231,7 +235,15 @@ O E1 varre as cinco estratégias de seleção (entropia, menor confiança, menor
 margem, híbrida, aleatória) com o PVBin e oráculo simulado sem ruído, em pool
 deduplicado de 20.000 instâncias, orçamento de 3.000 rótulos, lote 100 e
 8 sementes por célula; a ablação de lote repete a entropia — a estratégia
-pré-registrada da Fase~2 do FALCO e do E4 — com $b \in \{50, 200\}$.
+pré-registrada da Fase~2 do FALCO e do E4 — com $b \in \{50, 200\}$. O
+dimensionamento é deliberado: 20.000 é o maior pool que mantém as 104 células
+(5 estratégias + ablações + E4, $\times$ 8 sementes) computáveis em CPU
+preservando representação de todas as classes; o orçamento de 3.000 (15\% do
+pool) cobre exatamente o regime de poucos rótulos em que as estratégias
+diferem — para além dele as curvas convergem e a comparação perde poder; o
+lote 100 é o valor operacional do FALCO, e a própria ablação testa sua
+vizinhança; e 8 sementes é o mínimo que permite $p<0{,}05$ no Wilcoxon
+pareado (Seção~\ref{sec:metodo-falco-baselines}).
 O teto supervisionado do \textit{pool} completo (20.000 rótulos) é Macro F1
 $= 0{,}540$. A Tabela~\ref{tab:e1} apresenta as células
 (artefato: \texttt{experiments/e1e4/results/analysis.json}).
@@ -281,7 +293,10 @@ O E4 injeta ruído uniforme $\varepsilon \in \{0{,}1;\, 0{,}2;\, 0{,}4\}$ no
 oráculo simulado e repete o desenho do E1 para entropia e aleatória — a
 pergunta é quanto do valor do aprendizado ativo sobrevive quando o oráculo
 erra na taxa observada nos LLMs reais ($\varepsilon \approx 0{,}17$--$0{,}23$
-no platô do E0).
+no platô do E0). Os três níveis são escolhidos para \emph{cercar} essa faixa:
+$0{,}1$ abaixo dela (oráculo melhor que os disponíveis), $0{,}2$ dentro dela
+(cenário central) e $0{,}4$ como teste de estresse — o dobro do erro real,
+região do gpt-4o-mini na S-strat.
 A Tabela~\ref{tab:e4} apresenta o resultado
 (mesmo artefato do E1).
 

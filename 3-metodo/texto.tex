@@ -310,10 +310,19 @@ gratuito, é registrada na decisão D-005 e discutida nos resultados).
 
 Duas amostras pareadas — todos os modelos rotulam \emph{as mesmas} instâncias — são
 usadas: \textbf{S-rand} ($n=1.000$, amostragem aleatória simples), que preserva a
-distribuição de produção e serve a RQ1/RQ2/RQ4; e \textbf{S-strat} (3 por classe,
+distribuição de produção e serve a RQ1/RQ2/RQ4 — o tamanho é dimensionado pela
+precisão exigida da medição: com $n=1.000$, a meia-largura do IC de Wilson é de
+no máximo $\approx 3$ p.p.\ (pior caso $p=0{,}5$; $\approx 2{,}5$ p.p.\ no platô
+observado), suficiente para separar os oráculos do limiar de 85\% do gate e
+entre regimes de custo, com custo pareado de anotação linear no número de
+modelos; e \textbf{S-strat} (3 por classe,
 $n \approx 1.863$), que dá suporte por classe ao Macro F1 e à matriz de confusão
 (RQ3) — necessária porque, com 621 classes, a amostra aleatória deixa a maioria das
-classes sem representação. A temperatura é fixada em 0 em todos os modelos.
+classes sem representação; três instâncias por classe é o mínimo que distingue
+erro sistemático de classe (0/3, 3/3) de erro esporádico (1/3, 2/3), e valores
+maiores dobrariam ou triplicariam o custo pareado de \emph{todos} os oráculos
+sem alterar as decisões (a sensibilidade do gabarito, Seção~\ref{sec:metodo-dados-auditoria},
+limita o ganho de precisão adicional). A temperatura é fixada em 0 em todos os modelos.
 
 \subsection{Critério de decisão para o FALCO}
 \label{sec:metodo-oraculo-decisao}

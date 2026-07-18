@@ -215,3 +215,15 @@ Decisões formais com racional completo: `docs/decisoes.md`.
 - Curvas interna×externa coladas nos dois (figura atualizada); SGD segue
   dominante sobre PVBin sob rótulos ruidosos (+14 p.p. de F1 final).
 - Cache: 70% de reaproveitamento no ciclo SGD (3.313 hits / 1.637 chamadas).
+
+## 18/07/2026 01:10 — Auditoria de justificativas (pedido do autor)
+- Varredura Caps. 3-5: métricas OK (Macro-F1/desbalanceamento, Wilson/McNemar/
+  Wilcoxon por natureza do dado, LCE+ALC), constantes OK (A7), 50k OK, lote OK
+  (calibração), 3/classe OK, 8 sementes OK.
+- CINCO lacunas achadas e corrigidas: (1) n=1.000 da S-rand (meia-largura de
+  Wilson ≤3 p.p. separa oráculos do gate); (2) n=500 do E0-P (poder do McNemar
+  p/ 4-5 p.p. a 1/5 do custo); (3) desenho do E1 (20k/3.000/lote 100 — regime
+  de interesse + 104 células em CPU); (4) níveis de ε do E4 (cercam a faixa
+  real: abaixo/dentro/estresse 2×); (5) grades dos replays P1 (log-espaçada,
+  forma da curva, 1/9 do custo) e AG (menor config que reproduz o mecanismo).
+- Compilação: 0 erros, 0 refs não definidas.
