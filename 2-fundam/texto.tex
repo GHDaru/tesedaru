@@ -788,13 +788,41 @@ além do classificador em treinamento, a confiança e o custo do oráculo LLM;
 (iii) seja otimizado para as características do texto curto; e (iv) balanceie
 explicitamente o custo financeiro das consultas com o ganho de informação —
 com avaliação rigorosa desse \textit{trade-off}, ainda rara mesmo nos
-trabalhos que tocam o custo \cite{Zhang2025, EinDor2020}. A atualização
-2025--2026 confirma que a lacuna permanece: DEUCE cobre a partida a frio sem
-oráculo LLM; a mistura de LLMs cobre a robustez do anotador sem progressão de
-custo; os estudos de produto cobrem o domínio sem aprendizado ativo. A
-ausência combinada — partida a frio informada + oráculo LLM progressivo +
-texto curto em português + custo instrumentado — é a lacuna que o
-Capítulo~\ref{ch:metodo} ataca.
+trabalhos que tocam o custo \cite{Zhang2025, EinDor2020}. A
+Tabela~\ref{tab:lacunas} cruza os trabalhos mais próximos com as cinco
+dimensões cuja combinação define a lacuna.
+
+\begin{table}[htbp]
+\centering
+\caption{Cobertura das dimensões da lacuna pelos trabalhos mais próximos
+(2020--2026). \cmark~= tratado; \xmark~= ausente; $\sim$ = parcial.}
+\label{tab:lacunas}
+\small
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{Trabalho} & \textbf{\textit{Cold start}} & \textbf{Oráculo} & \textbf{Custo} & \textbf{Texto curto} & \textbf{AA} \\
+ & \textbf{informado} & \textbf{LLM} & \textbf{instrum.} & \textbf{em PT} & \textbf{formal} \\
+\midrule
+DEUCE \cite{Guo2025Deuce} & \cmark & \xmark & \xmark & $\sim$ & \cmark \\
+ActiveLLM \cite{Bayer2024} & \cmark & \xmark & \xmark & \xmark & \cmark \\
+\citet{Zhang2025} & \xmark & \cmark & $\sim$ & \xmark & \cmark \\
+\citet{Rouzegar2024} & \xmark & \cmark & $\sim$ & \xmark & \cmark \\
+\citet{Kholodna2024} & \xmark & \cmark & \cmark & \xmark & \cmark \\
+CanDist \cite{Xia2025CanDist} & \xmark & \cmark & \xmark & $\sim$ & $\sim$ \\
+MoLLIA \cite{Qi2026MixtureLLMs} & \xmark & \cmark & $\sim$ & \xmark & \cmark \\
+Dual-expert \cite{Cheng2024DualExpert} & \xmark & \cmark & \xmark & $\sim$ & \xmark \\
+\citet{Machado2026RetailPt} & \xmark & \xmark & \xmark & \cmark & \xmark \\
+\textbf{FALCO (esta tese)} & \cmark & \cmark & \cmark & \cmark & \cmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A leitura da tabela confirma que a lacuna permanece após a atualização
+2025--2026: DEUCE cobre a partida a frio sem oráculo LLM; a mistura de LLMs
+cobre a robustez do anotador sem progressão de custo; os estudos de produto
+cobrem o domínio sem aprendizado ativo. A ausência combinada — partida a
+frio informada + oráculo LLM progressivo + texto curto em português + custo
+instrumentado — é a lacuna que o Capítulo~\ref{ch:metodo} ataca.
 
 \subsection{Conclusão do capítulo}
 \label{sec:fund-conclusao}
