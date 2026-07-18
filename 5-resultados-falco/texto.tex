@@ -324,9 +324,16 @@ pessimista: injeta ruído \emph{uniforme}, enquanto a anatomia do RQ3 mostrou
 que quase metade do erro real dos oráculos é estruturado (categorias-irmãs e
 guarda-chuva semanticamente próximas), cujo dano esperado ao classificador é
 menor que o do erro aleatório de mesma taxa
-\citep{Frenay2014,Song2023NoisyLabels}. O resultado positivo aqui obtido é,
-portanto, um limite inferior do desempenho esperável com os oráculos reais do
-E0.
+\citep{Frenay2014,Song2023NoisyLabels}. Registre-se a nuance: essa leitura
+não é unânime — em reconhecimento de entidades, ruído \emph{real} de anotação
+mostrou-se mais nocivo que corrupção artificial de mesma taxa
+\citep{Merdjanovska2024NoiseBench}; a extrapolação aqui é condicionada à
+anatomia específica medida no RQ3 (confusões semanticamente adjacentes e
+parcialmente defensáveis), não a uma superioridade geral do ruído
+estruturado. Sob essa condição, o resultado positivo do E4 é um limite
+inferior do desempenho esperável com os oráculos reais do E0; e a extensão
+natural do desenho é a correção colaborativa de rótulos ruidosos com apoio
+de LLM \citep{Yuan2025NoiseAL}.
 
 \section{Decisão do gate e configuração do FALCO}
 \label{sec:res-gate}
