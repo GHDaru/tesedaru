@@ -421,6 +421,21 @@
       "label": "pln-portugues"
     },
     {
+      "id": "Brown2001",
+      "type": "artigo",
+      "label": "Brown2001",
+      "title": "Interval Estimation for a Binomial Proportion",
+      "year": 2001,
+      "venue": "Statistical Science 16(2):101-133",
+      "paper_type": "periodico",
+      "status": "fichado"
+    },
+    {
+      "id": "pilar:transversal",
+      "type": "pilar",
+      "label": "transversal"
+    },
+    {
       "id": "Cai2018",
       "type": "artigo",
       "label": "Cai2018",
@@ -671,11 +686,6 @@
       "status": "fichado"
     },
     {
-      "id": "pilar:transversal",
-      "type": "pilar",
-      "label": "transversal"
-    },
-    {
       "id": "conceito:protocolo-de-comparacao-estatistica-de-classificadores",
       "type": "conceito",
       "label": "protocolo-de-comparacao-estatistica-de-classificadores"
@@ -689,6 +699,26 @@
       "venue": "Multimedia Tools and Applications, 78",
       "paper_type": "survey",
       "status": "fichado"
+    },
+    {
+      "id": "Dietterich1998",
+      "type": "artigo",
+      "label": "Dietterich1998",
+      "title": "Approximate Statistical Tests for Comparing Supervised Classification Learning Algorithms",
+      "year": 1998,
+      "venue": "Neural Computation 10(7):1895-1923",
+      "paper_type": "periodico",
+      "status": "fichado"
+    },
+    {
+      "id": "conceito:taxonomia-de-testes-para-classificadores",
+      "type": "conceito",
+      "label": "taxonomia-de-testes-para-classificadores"
+    },
+    {
+      "id": "conceito:5x2cv",
+      "type": "conceito",
+      "label": "5x2cv"
     },
     {
       "id": "Dogra2022",
@@ -1881,6 +1911,41 @@
       "status": "fichado"
     },
     {
+      "id": "Roumeliotis2025",
+      "type": "artigo",
+      "label": "Roumeliotis2025",
+      "title": "LLMs for product classification in e-commerce: A zero-shot comparative study of GPT and Claude models",
+      "year": 2025,
+      "venue": "Natural Language Processing Journal 11:100142",
+      "paper_type": "periodico",
+      "status": "fichado"
+    },
+    {
+      "id": "modelo:gpt-4o",
+      "type": "modelo",
+      "label": "gpt-4o"
+    },
+    {
+      "id": "modelo:gpt-4o-mini",
+      "type": "modelo",
+      "label": "gpt-4o-mini"
+    },
+    {
+      "id": "modelo:claude-3.5-sonnet",
+      "type": "modelo",
+      "label": "claude-3.5-sonnet"
+    },
+    {
+      "id": "modelo:claude-3.5-haiku",
+      "type": "modelo",
+      "label": "claude-3.5-haiku"
+    },
+    {
+      "id": "dataset:8-subconjuntos-248-categorias",
+      "type": "dataset",
+      "label": "8-subconjuntos-248-categorias"
+    },
+    {
       "id": "Rouzegar2024Thesis",
       "type": "artigo",
       "label": "Rouzegar2024Thesis",
@@ -2551,6 +2616,21 @@
       "label": "enriquecimento-com-corpus-externo"
     },
     {
+      "id": "Zhang2025",
+      "type": "artigo",
+      "label": "Zhang2025",
+      "title": "Applying LLMs to Active Learning: Towards Cost-Efficient Cross-Task Text Classification without Manually Labeled Data",
+      "year": 2025,
+      "venue": "International Journal of Intelligent Systems (Wiley)",
+      "paper_type": "periodico",
+      "status": "fichado"
+    },
+    {
+      "id": "metodo:diversidade",
+      "type": "metodo",
+      "label": "diversidade"
+    },
+    {
       "id": "Zhao2017DeepALShortText",
       "type": "artigo",
       "label": "Zhao2017DeepALShortText",
@@ -2721,14 +2801,14 @@
       "label": "DRI-SL"
     },
     {
-      "id": "FALCO-futuros",
-      "type": "artigo-pendente",
-      "label": "FALCO-futuros"
-    },
-    {
       "id": "instrumentacao-estatistica",
       "type": "artigo-pendente",
       "label": "instrumentacao-estatistica"
+    },
+    {
+      "id": "FALCO-futuros",
+      "type": "artigo-pendente",
+      "label": "FALCO-futuros"
     },
     {
       "id": "claim-granularidade",
@@ -2759,6 +2839,11 @@
       "id": "E4",
       "type": "artigo-pendente",
       "label": "E4"
+    },
+    {
+      "id": "claim-granularidade-e-E0",
+      "type": "artigo-pendente",
+      "label": "claim-granularidade-e-E0"
     },
     {
       "id": "E0P-inv-alidos-futuros",
@@ -3334,6 +3419,17 @@
       "note": "White paper META-NET sobre o suporte tecnológico ao português: a referência clássica para afirmar a escassez de recursos de PLN em português — motivação de fundo da tese (Cap.1)."
     },
     {
+      "source": "Brown2001",
+      "target": "pilar:transversal",
+      "type": "pillars"
+    },
+    {
+      "source": "Brown2001",
+      "target": "instrumentacao-estatistica",
+      "type": "fundamenta",
+      "note": "O artigo-referência sobre ICs para proporção binomial: demonstra o comportamento errático do intervalo de Wald (normal-aproximado) mesmo com n grande e p moderado, e recomenda Wilson (ou Agresti-Coull/Jeffreys). Fundamenta o uso do IC de Wilson em TODAS as acurácias de oráculo do E0 (subseção 2.1.4 do plano)."
+    },
+    {
       "source": "Cai2018",
       "target": "pilar:geral",
       "type": "pillars"
@@ -3677,6 +3773,27 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Review específico de texto — preferível ao genérico Cai2018 quando o assunto é texto."
+    },
+    {
+      "source": "Dietterich1998",
+      "target": "pilar:transversal",
+      "type": "pillars"
+    },
+    {
+      "source": "Dietterich1998",
+      "target": "conceito:taxonomia-de-testes-para-classificadores",
+      "type": "proposes"
+    },
+    {
+      "source": "Dietterich1998",
+      "target": "conceito:5x2cv",
+      "type": "proposes"
+    },
+    {
+      "source": "Dietterich1998",
+      "target": "instrumentacao-estatistica",
+      "type": "fundamenta",
+      "note": "Clássico que examina 5 testes para comparar classificadores e mede erro tipo I/poder: recomenda McNEMAR quando só há UMA execução de treino (nosso caso E0: oráculos fixos sobre a mesma amostra) e o 5x2cv quando re-treino é viável. Fundamenta a escolha do McNemar na subseção 2.1.4 do plano."
     },
     {
       "source": "Dogra2022",
@@ -5499,6 +5616,47 @@
       "note": "SLR periférica herdada; foco em datasets pode apoiar a valorização do nosso dataset público."
     },
     {
+      "source": "Roumeliotis2025",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Roumeliotis2025",
+      "target": "modelo:gpt-4o",
+      "type": "models"
+    },
+    {
+      "source": "Roumeliotis2025",
+      "target": "modelo:gpt-4o-mini",
+      "type": "models"
+    },
+    {
+      "source": "Roumeliotis2025",
+      "target": "modelo:claude-3.5-sonnet",
+      "type": "models"
+    },
+    {
+      "source": "Roumeliotis2025",
+      "target": "modelo:claude-3.5-haiku",
+      "type": "models"
+    },
+    {
+      "source": "Roumeliotis2025",
+      "target": "dataset:8-subconjuntos-248-categorias",
+      "type": "datasets"
+    },
+    {
+      "source": "Roumeliotis2025",
+      "target": "tarefa:classificacao-de-produtos",
+      "type": "tasks"
+    },
+    {
+      "source": "Roumeliotis2025",
+      "target": "claim-granularidade-e-E0",
+      "type": "suporta",
+      "note": "Zero-shot puro em taxonomia fechada de produtos: 248 categorias em 8 subconjuntos (~31 cada), 20 amostras/categoria, 4 LLMs comerciais. Achado central: desempenho varia bastante ENTRE modelos mesmo em espaço fechado — reforça a necessidade do benchmarking por catálogo que o E0 instrumenta. Sem AL, sem custo instrumentado, sem PT-BR."
+    },
+    {
       "source": "Rouzegar2024Thesis",
       "target": "Gilardi2023",
       "type": "compares_with"
@@ -6629,6 +6787,37 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Linha de enriquecimento para texto curto (vetores de palavras + tópicos ocultos aprendidos com coleção externa): a resposta pré-LLM à esparsidade. O expanded_description do nosso prompt é o herdeiro dessa linha com conhecimento paramétrico."
+    },
+    {
+      "source": "Zhang2025",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "metodo:llm-como-oraculo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "metodo:diversidade",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "FALCO",
+      "type": "compete",
+      "note": "Linha direta 'LLM rotula o que o AL seleciona': GPT como oráculo das instâncias escolhidas por incerteza/diversidade, treinando modelo pequeno cross-task com custo muito menor que rotular tudo com o LLM. FALCO difere: fases com PROGRESSÃO de oráculos, espaço fechado de 621 classes, gate pré-registrado e instrumentação de custo/medição."
     },
     {
       "source": "Zhao2017DeepALShortText",
