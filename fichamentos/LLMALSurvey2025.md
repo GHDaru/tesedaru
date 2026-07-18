@@ -1,0 +1,30 @@
+---
+id: LLMALSurvey2025
+title: "From Selection to Generation: A Survey of LLM-based Active Learning"
+authors: ["(equipe do survey; ver PDF)", "arXiv:2502.11767"]
+year: 2025
+venue: "ACL 2025 (arXiv:2502.11767)"
+doi: "10.48550/arXiv.2502.11767"
+pdf: referencias-pdf/LLMALSurvey2025.pdf
+paper_type: survey
+pillars: [P3]
+status: fichado
+falco_relation:
+  - type: contextualiza
+    target: Cap2-revisao
+    note: "Survey canônico da área AL+LLM: organiza papéis do LLM no laço
+           (seletor, anotador, gerador). Confirma que os subproblemas (custo,
+           cold start, ruído, parada) seguem tratados separadamente — a
+           INTEGRAÇÃO instrumentada é a lacuna que o FALCO ocupa."
+---
+
+# Survey de AL baseado em LLM (ACL 2025)
+
+## Resumo
+Sistematiza a literatura de aprendizado ativo com LLMs em três papéis —
+seleção, anotação e GERAÇÃO de dados — com taxonomia de arquiteturas e agenda
+de problemas abertos (custo operacional, confiabilidade do anotador, avaliação).
+
+## Relação com a tese
+Âncora da seção 2.5 (estado da arte): estabelece o vocabulário e evidencia a
+lacuna integradora. Não cobre PT-BR nem espaços fechados de centenas de classes.

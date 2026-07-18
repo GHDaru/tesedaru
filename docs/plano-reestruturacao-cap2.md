@@ -30,6 +30,22 @@ palavras; alvo ~9,5–10 mil palavras (corte líquido ≈25%).
   específica da tese: deduplicação por texto normalizado ANTES do
   particionamento (vazamento por duplicatas em dados de varejo). *(funde 2.2.4
   com 2.6.6.2; ~350 palavras)*
+- **2.1.4 Inferência estatística para comparação de classificadores e
+  oráculos.** [ADIÇÃO v3, pedido do autor] A instrumentação usada na tese,
+  apresentada como conhecimento e não só como escolha: (i) **intervalo de
+  Wilson** para proporções — por que o intervalo normal-aproximado falha
+  perto de 0/1 e em n moderado, e por que Wilson é a recomendação prática
+  (Wilson 1927; Brown, Cai & DasGupta 2001); (ii) **McNemar** para
+  comparações PAREADAS na mesma amostra — a tabela 2×2 de discordâncias, a
+  variante binomial exata para poucas discordâncias, e por que é o teste
+  indicado para comparar classificadores/oráculos sobre os mesmos itens
+  (McNemar 1947; Dietterich 1998); (iii) **Wilcoxon de postos sinalizados**
+  para comparações pareadas por semente/dataset — por que não-paramétrico em
+  vez de t-teste, e o teto de significância 2/2^n com poucas repetições
+  (Wilcoxon 1945; Demšar 2006); (iv) **IC bootstrap** para funcionais sem
+  distribuição conhecida, como a diferença de LCE (Efron & Tibshirani 1993).
+  Fecho: tabela-síntese "situação → teste → referência" mapeando cada uso nos
+  Caps. 4–5. *(novo; ~500 palavras — a seção 2.1 vai a ~1.900)*
 - Fecho-ponte (~100 palavras): estas escolhas reaparecem como decisões
   auditáveis no Cap. 3.
 

@@ -441,6 +441,31 @@
       "status": "fichado"
     },
     {
+      "id": "Cheng2024DualExpert",
+      "type": "artigo",
+      "label": "Cheng2024DualExpert",
+      "title": "E-Commerce Product Categorization with LLM-based Dual-Expert Classification Paradigm",
+      "year": 2024,
+      "venue": "CustomNLP4U @ EMNLP 2024",
+      "paper_type": "workshop",
+      "status": "fichado"
+    },
+    {
+      "id": "conceito:dual-expert",
+      "type": "conceito",
+      "label": "dual-expert"
+    },
+    {
+      "id": "conceito:contracao-top-k",
+      "type": "conceito",
+      "label": "contracao-top-k"
+    },
+    {
+      "id": "tarefa:classificacao-de-produtos",
+      "type": "tarefa",
+      "label": "classificacao-de-produtos"
+    },
+    {
       "id": "Cherman2013",
       "type": "artigo",
       "label": "Cherman2013",
@@ -636,6 +661,26 @@
       "label": "recuperacao-de-informacao"
     },
     {
+      "id": "Demsar2006",
+      "type": "artigo",
+      "label": "Demsar2006",
+      "title": "Statistical Comparisons of Classifiers over Multiple Data Sets",
+      "year": 2006,
+      "venue": "Journal of Machine Learning Research 7:1-30",
+      "paper_type": "periodico",
+      "status": "fichado"
+    },
+    {
+      "id": "pilar:transversal",
+      "type": "pilar",
+      "label": "transversal"
+    },
+    {
+      "id": "conceito:protocolo-de-comparacao-estatistica-de-classificadores",
+      "type": "conceito",
+      "label": "protocolo-de-comparacao-estatistica-de-classificadores"
+    },
+    {
       "id": "Deng2019",
       "type": "artigo",
       "label": "Deng2019",
@@ -726,6 +771,26 @@
       "status": "fichado"
     },
     {
+      "id": "Gholamian2024",
+      "type": "artigo",
+      "label": "Gholamian2024",
+      "title": "LLM-Based Robust Product Classification in Commerce and Compliance",
+      "year": 2024,
+      "venue": "CustomNLP4U @ EMNLP 2024 (arXiv:2408.05874)",
+      "paper_type": "workshop",
+      "status": "fichado"
+    },
+    {
+      "id": "dataset:Icecat-370",
+      "type": "dataset",
+      "label": "Icecat-370"
+    },
+    {
+      "id": "dataset:WDC-222",
+      "type": "dataset",
+      "label": "WDC-222"
+    },
+    {
       "id": "Gilardi2023",
       "type": "artigo",
       "label": "Gilardi2023",
@@ -794,6 +859,61 @@
       "venue": "ALW2 Workshop (EMNLP 2018)",
       "paper_type": "survey",
       "status": "fichado"
+    },
+    {
+      "id": "Guo2025Deuce",
+      "type": "artigo",
+      "label": "Guo2025Deuce",
+      "title": "DEUCE: Dual-diversity Enhancement and Uncertainty-awareness for Cold-start Active Learning",
+      "year": 2024,
+      "venue": "TACL 12:1736-1754",
+      "paper_type": "periodico",
+      "status": "fichado"
+    },
+    {
+      "id": "conceito:dual-neighbor-graph",
+      "type": "conceito",
+      "label": "dual-neighbor-graph"
+    },
+    {
+      "id": "conceito:diversidade-textual+de-classe",
+      "type": "conceito",
+      "label": "diversidade-textual+de-classe"
+    },
+    {
+      "id": "conceito:propagacao-de-incerteza",
+      "type": "conceito",
+      "label": "propagacao-de-incerteza"
+    },
+    {
+      "id": "dataset:IMDb",
+      "type": "dataset",
+      "label": "IMDb"
+    },
+    {
+      "id": "dataset:Yelp",
+      "type": "dataset",
+      "label": "Yelp"
+    },
+    {
+      "id": "dataset:AGNews",
+      "type": "dataset",
+      "label": "AGNews"
+    },
+    {
+      "id": "dataset:Yahoo",
+      "type": "dataset",
+      "label": "Yahoo"
+    },
+    {
+      "id": "dataset:DBpedia",
+      "type": "dataset",
+      "label": "DBpedia"
+    },
+    {
+      "id": "dataset:TREC",
+      "type": "dataset",
+      "label": "TREC"
     },
     {
       "id": "Guzella2009",
@@ -1101,6 +1221,46 @@
       "status": "fichado"
     },
     {
+      "id": "Kholodna2024",
+      "type": "artigo",
+      "label": "Kholodna2024",
+      "title": "LLMs in the Loop: Leveraging Large Language Model Annotations for Active Learning in Low-Resource Languages",
+      "year": 2024,
+      "venue": "arXiv:2404.02261",
+      "paper_type": "preprint",
+      "status": "fichado"
+    },
+    {
+      "id": "conceito:selecao-de-anotador-llm",
+      "type": "conceito",
+      "label": "selecao-de-anotador-llm"
+    },
+    {
+      "id": "conceito:anotacao-em-lote",
+      "type": "conceito",
+      "label": "anotacao-em-lote"
+    },
+    {
+      "id": "metodo:amostragem-por-incerteza",
+      "type": "metodo",
+      "label": "amostragem-por-incerteza"
+    },
+    {
+      "id": "modelo:gpt-4-turbo",
+      "type": "modelo",
+      "label": "gpt-4-turbo"
+    },
+    {
+      "id": "modelo:afroxlmr-mini",
+      "type": "modelo",
+      "label": "afroxlmr-mini"
+    },
+    {
+      "id": "dataset:MasakhaNER-2.0",
+      "type": "dataset",
+      "label": "MasakhaNER-2.0"
+    },
+    {
       "id": "Kowsari2019",
       "type": "artigo",
       "label": "Kowsari2019",
@@ -1132,6 +1292,16 @@
       "title": "A Survey on Feature Selection Techniques and Classification Algorithms",
       "year": 2016,
       "venue": "IJSR, 5(5)",
+      "paper_type": "survey",
+      "status": "fichado"
+    },
+    {
+      "id": "LLMALSurvey2025",
+      "type": "artigo",
+      "label": "LLMALSurvey2025",
+      "title": "From Selection to Generation: A Survey of LLM-based Active Learning",
+      "year": 2025,
+      "venue": "ACL 2025 (arXiv:2502.11767)",
       "paper_type": "survey",
       "status": "fichado"
     },
@@ -1251,11 +1421,6 @@
       "status": "fichado"
     },
     {
-      "id": "metodo:amostragem-por-incerteza",
-      "type": "metodo",
-      "label": "amostragem-por-incerteza"
-    },
-    {
       "id": "metodo:least-confident",
       "type": "metodo",
       "label": "least-confident"
@@ -1279,6 +1444,21 @@
       "venue": "Malaysian Journal of Computer Science, 32(2)",
       "paper_type": "survey",
       "status": "fichado"
+    },
+    {
+      "id": "Merdjanovska2024NoiseBench",
+      "type": "artigo",
+      "label": "Merdjanovska2024NoiseBench",
+      "title": "NoiseBench: Benchmarking the Impact of Real Label Noise on Named Entity Recognition",
+      "year": 2024,
+      "venue": "EMNLP 2024",
+      "paper_type": "conferencia",
+      "status": "fichado"
+    },
+    {
+      "id": "conceito:benchmark-6-tipos-ruido-real",
+      "type": "conceito",
+      "label": "benchmark-6-tipos-ruido-real"
     },
     {
       "id": "Mikolov2013",
@@ -1574,6 +1754,86 @@
       "venue": "ISNN 2006, LNCS 3972, pp. 265–270",
       "paper_type": "metodo",
       "status": "fichado"
+    },
+    {
+      "id": "Qi2026MixtureLLMs",
+      "type": "artigo",
+      "label": "Qi2026MixtureLLMs",
+      "title": "Next Generation Active Learning: Mixture of LLMs in the Loop",
+      "year": 2026,
+      "venue": "AAAI 40(29):24909-24917",
+      "paper_type": "conferencia",
+      "status": "fichado"
+    },
+    {
+      "id": "conceito:mixture-of-llms-anotador",
+      "type": "conceito",
+      "label": "mixture-of-llms-anotador"
+    },
+    {
+      "id": "conceito:discrepancia-de-anotacao",
+      "type": "conceito",
+      "label": "discrepancia-de-anotacao"
+    },
+    {
+      "id": "conceito:negative-learning",
+      "type": "conceito",
+      "label": "negative-learning"
+    },
+    {
+      "id": "modelo:gemma-2-9b",
+      "type": "modelo",
+      "label": "gemma-2-9b"
+    },
+    {
+      "id": "modelo:llama-3.1-8b",
+      "type": "modelo",
+      "label": "llama-3.1-8b"
+    },
+    {
+      "id": "modelo:mistral-7b",
+      "type": "modelo",
+      "label": "mistral-7b"
+    },
+    {
+      "id": "modelo:qwen2.5-7b",
+      "type": "modelo",
+      "label": "qwen2.5-7b"
+    },
+    {
+      "id": "modelo:yi-1.5-9b",
+      "type": "modelo",
+      "label": "yi-1.5-9b"
+    },
+    {
+      "id": "dataset:IMDB",
+      "type": "dataset",
+      "label": "IMDB"
+    },
+    {
+      "id": "dataset:PubMed",
+      "type": "dataset",
+      "label": "PubMed"
+    },
+    {
+      "id": "Raczkowska2024AlleNoise",
+      "type": "artigo",
+      "label": "Raczkowska2024AlleNoise",
+      "title": "AlleNoise: large-scale text classification benchmark dataset with real-world label noise",
+      "year": 2024,
+      "venue": "arXiv:2407.10992",
+      "paper_type": "preprint-benchmark",
+      "status": "fichado"
+    },
+    {
+      "id": "conceito:benchmark-ruido-real",
+      "type": "conceito",
+      "label": "benchmark-ruido-real"
+    },
+    {
+      "id": "dataset:AlleNoise",
+      "type": "dataset",
+      "label": "AlleNoise"
     },
     {
       "id": "Raschka2018",
@@ -2186,6 +2446,46 @@
       "status": "fichado"
     },
     {
+      "id": "Xia2025CanDist",
+      "type": "artigo",
+      "label": "Xia2025CanDist",
+      "title": "Prompt Candidates, then Distill: A Teacher-Student Framework for LLM-driven Data Annotation",
+      "year": 2025,
+      "venue": "ACL 2025, pp. 2750-2770",
+      "paper_type": "conferencia",
+      "status": "fichado"
+    },
+    {
+      "id": "conceito:rotulos-candidatos",
+      "type": "conceito",
+      "label": "rotulos-candidatos"
+    },
+    {
+      "id": "conceito:destilacao-teacher-student",
+      "type": "conceito",
+      "label": "destilacao-teacher-student"
+    },
+    {
+      "id": "modelo:roberta",
+      "type": "modelo",
+      "label": "roberta"
+    },
+    {
+      "id": "dataset:MedicalAbstract",
+      "type": "dataset",
+      "label": "MedicalAbstract"
+    },
+    {
+      "id": "dataset:RCT",
+      "type": "dataset",
+      "label": "RCT"
+    },
+    {
+      "id": "dataset:Banking77",
+      "type": "dataset",
+      "label": "Banking77"
+    },
+    {
       "id": "Xu2020",
       "type": "artigo",
       "label": "Xu2020",
@@ -2194,6 +2494,36 @@
       "venue": "Multimedia Tools and Applications, 79",
       "paper_type": "metodo",
       "status": "fichado"
+    },
+    {
+      "id": "Yuan2025NoiseAL",
+      "type": "artigo",
+      "label": "Yuan2025NoiseAL",
+      "title": "Hide and Seek in Noise Labels: Noise-Robust Collaborative Active Learning with LLM-Powered Assistance",
+      "year": 2025,
+      "venue": "arXiv:2504.02901",
+      "paper_type": "preprint",
+      "status": "fichado"
+    },
+    {
+      "id": "conceito:filtragem-colaborativa-de-ruido",
+      "type": "conceito",
+      "label": "filtragem-colaborativa-de-ruido"
+    },
+    {
+      "id": "conceito:llm-sob-demanda",
+      "type": "conceito",
+      "label": "llm-sob-demanda"
+    },
+    {
+      "id": "metodo:dois-modelos-pequenos-como-filtro",
+      "type": "metodo",
+      "label": "dois-modelos-pequenos-como-filtro"
+    },
+    {
+      "id": "metodo:separacao-dinamica-limpo-ruidoso",
+      "type": "metodo",
+      "label": "separacao-dinamica-limpo-ruidoso"
     },
     {
       "id": "Zhang2016ShortText",
@@ -2389,6 +2719,56 @@
       "id": "DRI-SL",
       "type": "artigo-pendente",
       "label": "DRI-SL"
+    },
+    {
+      "id": "FALCO-futuros",
+      "type": "artigo-pendente",
+      "label": "FALCO-futuros"
+    },
+    {
+      "id": "instrumentacao-estatistica",
+      "type": "artigo-pendente",
+      "label": "instrumentacao-estatistica"
+    },
+    {
+      "id": "claim-granularidade",
+      "type": "artigo-pendente",
+      "label": "claim-granularidade"
+    },
+    {
+      "id": "RQ2-lote",
+      "type": "artigo-pendente",
+      "label": "RQ2-lote"
+    },
+    {
+      "id": "Cap2-revisao",
+      "type": "artigo-pendente",
+      "label": "Cap2-revisao"
+    },
+    {
+      "id": "E4-leitura",
+      "type": "artigo-pendente",
+      "label": "E4-leitura"
+    },
+    {
+      "id": "FALCO-fases",
+      "type": "artigo-pendente",
+      "label": "FALCO-fases"
+    },
+    {
+      "id": "E4",
+      "type": "artigo-pendente",
+      "label": "E4"
+    },
+    {
+      "id": "E0P-inv-alidos-futuros",
+      "type": "artigo-pendente",
+      "label": "E0P-inv-alidos-futuros"
+    },
+    {
+      "id": "E4-futuros",
+      "type": "artigo-pendente",
+      "label": "E4-futuros"
     }
   ],
   "edges": [
@@ -2976,6 +3356,32 @@
       "note": "Aplicação vizinha (sentimento); uso ilustrativo."
     },
     {
+      "source": "Cheng2024DualExpert",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Cheng2024DualExpert",
+      "target": "conceito:dual-expert",
+      "type": "proposes"
+    },
+    {
+      "source": "Cheng2024DualExpert",
+      "target": "conceito:contracao-top-k",
+      "type": "proposes"
+    },
+    {
+      "source": "Cheng2024DualExpert",
+      "target": "tarefa:classificacao-de-produtos",
+      "type": "tasks"
+    },
+    {
+      "source": "Cheng2024DualExpert",
+      "target": "FALCO-futuros",
+      "type": "estende",
+      "note": "Arquitetura de dois especialistas p/ taxonomias amplas: especialista de domínio fine-tuned reduz o espaço a top-K candidatos; LLM generalista decide entre eles. Citado nos futuros como desenho complementar para as 621 classes (contração antes do oráculo forte)."
+    },
+    {
       "source": "Cherman2013",
       "target": "Settles2012",
       "type": "builds_on"
@@ -3246,6 +3652,22 @@
       "note": "Primeiro passo esparso→denso (SVD sobre termo-documento): ancestral conceitual dos embeddings; na linha do Cap.2 fica entre TF-IDF e word2vec. Ataca sinonímia/polissemia — os problemas centrais do texto curto de varejo (CERV vs cerveja)."
     },
     {
+      "source": "Demsar2006",
+      "target": "pilar:transversal",
+      "type": "pillars"
+    },
+    {
+      "source": "Demsar2006",
+      "target": "conceito:protocolo-de-comparacao-estatistica-de-classificadores",
+      "type": "proposes"
+    },
+    {
+      "source": "Demsar2006",
+      "target": "instrumentacao-estatistica",
+      "type": "fundamenta",
+      "note": "A referência APLICADA canônica para comparação estatística de classificadores em ML: recomenda testes NÃO-paramétricos (Wilcoxon signed-ranks para 2 classificadores; Friedman+post-hoc para vários) sobre t-testes, por violação de normalidade e comensurabilidade. Fundamenta nossa escolha do Wilcoxon pareado por semente (E1/E4) na subseção de inferência do Cap. 2 (plano 2.1.4)."
+    },
+    {
       "source": "Deng2019",
       "target": "pilar:geral",
       "type": "pillars"
@@ -3369,6 +3791,32 @@
       "note": "Survey 2022 ponta-a-ponta (texto→predição); redundante com Minaee/Kowsari — manter como citação alternativa apenas."
     },
     {
+      "source": "Gholamian2024",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Gholamian2024",
+      "target": "dataset:Icecat-370",
+      "type": "datasets"
+    },
+    {
+      "source": "Gholamian2024",
+      "target": "dataset:WDC-222",
+      "type": "datasets"
+    },
+    {
+      "source": "Gholamian2024",
+      "target": "tarefa:classificacao-de-produtos",
+      "type": "tasks"
+    },
+    {
+      "source": "Gholamian2024",
+      "target": "claim-granularidade",
+      "type": "suporta",
+      "note": "Maior espaço fechado da linha LLM-produto que encontramos: 370 folhas (Icecat, 490k treino). LLMs com ICL superam supervisionados sob ABREVIAÇÃO e truncamento — exatamente a degradação do nosso domínio (cupom fiscal). Ancora o claim de que 621 classes excede a literatura."
+    },
+    {
       "source": "Gilardi2023",
       "target": "pilar:P3",
       "type": "pillars"
@@ -3471,6 +3919,62 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Periférico (toxicidade multirrótulo)."
+    },
+    {
+      "source": "Guo2025Deuce",
+      "target": "pilar:P2",
+      "type": "pillars"
+    },
+    {
+      "source": "Guo2025Deuce",
+      "target": "conceito:dual-neighbor-graph",
+      "type": "proposes"
+    },
+    {
+      "source": "Guo2025Deuce",
+      "target": "conceito:diversidade-textual+de-classe",
+      "type": "proposes"
+    },
+    {
+      "source": "Guo2025Deuce",
+      "target": "conceito:propagacao-de-incerteza",
+      "type": "proposes"
+    },
+    {
+      "source": "Guo2025Deuce",
+      "target": "dataset:IMDb",
+      "type": "datasets"
+    },
+    {
+      "source": "Guo2025Deuce",
+      "target": "dataset:Yelp",
+      "type": "datasets"
+    },
+    {
+      "source": "Guo2025Deuce",
+      "target": "dataset:AGNews",
+      "type": "datasets"
+    },
+    {
+      "source": "Guo2025Deuce",
+      "target": "dataset:Yahoo",
+      "type": "datasets"
+    },
+    {
+      "source": "Guo2025Deuce",
+      "target": "dataset:DBpedia",
+      "type": "datasets"
+    },
+    {
+      "source": "Guo2025Deuce",
+      "target": "dataset:TREC",
+      "type": "datasets"
+    },
+    {
+      "source": "Guo2025Deuce",
+      "target": "DRI-SL",
+      "type": "compete",
+      "note": "Referência mais forte de cold start em classificação textual: combina diversidade TEXTUAL e diversidade de CLASSE PREVISTA num grafo dual, contra o 'missed cluster effect'. Seeds de 32/64/128. O DRI-SL difere: sem PLM, custo linear, novidade LEXICAL explícita, e validado contra envelope evolutivo em 100..5000. A DRI-SL-C (grupos = classes previstas) aproxima-se do espírito class-aware do DEUCE."
     },
     {
       "source": "Guzella2009",
@@ -3980,6 +4484,57 @@
       "note": "Uso pontual: domínio biomédico como exemplo de rotulagem cara por especialista."
     },
     {
+      "source": "Kholodna2024",
+      "target": "Rouzegar2024Thesis",
+      "type": "compares_with"
+    },
+    {
+      "source": "Kholodna2024",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Kholodna2024",
+      "target": "conceito:selecao-de-anotador-llm",
+      "type": "proposes"
+    },
+    {
+      "source": "Kholodna2024",
+      "target": "conceito:anotacao-em-lote",
+      "type": "proposes"
+    },
+    {
+      "source": "Kholodna2024",
+      "target": "metodo:llm-como-oraculo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Kholodna2024",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Kholodna2024",
+      "target": "modelo:gpt-4-turbo",
+      "type": "models"
+    },
+    {
+      "source": "Kholodna2024",
+      "target": "modelo:afroxlmr-mini",
+      "type": "models"
+    },
+    {
+      "source": "Kholodna2024",
+      "target": "dataset:MasakhaNER-2.0",
+      "type": "datasets"
+    },
+    {
+      "source": "Kholodna2024",
+      "target": "RQ2-lote",
+      "type": "suporta",
+      "note": "Precedente direto da anotação em LOTE no laço de AL com LLM: mostra a amortização do prompt como componente central da economia (>=42x vs humano). Também mede 'output format correctness' — antecipa nosso achado de que erro de formato != erro semântico (taxa de inválidos)."
+    },
+    {
       "source": "Kowsari2019",
       "target": "pilar:geral",
       "type": "pillars"
@@ -4020,6 +4575,17 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Periférico."
+    },
+    {
+      "source": "LLMALSurvey2025",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "LLMALSurvey2025",
+      "target": "Cap2-revisao",
+      "type": "contextualiza",
+      "note": "Survey canônico da área AL+LLM: organiza papéis do LLM no laço (seletor, anotador, gerador). Confirma que os subproblemas (custo, cold start, ruído, parada) seguem tratados separadamente — a INTEGRAÇÃO instrumentada é a lacuna que o FALCO ocupa."
     },
     {
       "source": "Lewis1994",
@@ -4224,6 +4790,27 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Mapping study herdado; nota: metadado de ano corrigido no saneamento (2019, não 2020)."
+    },
+    {
+      "source": "Merdjanovska2024NoiseBench",
+      "target": "Raczkowska2024AlleNoise",
+      "type": "compares_with"
+    },
+    {
+      "source": "Merdjanovska2024NoiseBench",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Merdjanovska2024NoiseBench",
+      "target": "conceito:benchmark-6-tipos-ruido-real",
+      "type": "proposes"
+    },
+    {
+      "source": "Merdjanovska2024NoiseBench",
+      "target": "E4-leitura",
+      "type": "contradiz-parcial",
+      "note": "Braço explícito de RUÍDO DE LLM entre 6 variantes reais (especialista, crowd, weak supervision...). Real >> sintético em dificuldade. Motivou a nuance honesta no Cap. 5: nossa extrapolação 'estruturado é mais benigno' fica condicionada à anatomia do RQ3, não é lei geral."
     },
     {
       "source": "Mikolov2013",
@@ -4730,6 +5317,113 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Pioneiro de STC (2006): útil para datar o início da subárea no Cap.2."
+    },
+    {
+      "source": "Qi2026MixtureLLMs",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Qi2026MixtureLLMs",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Qi2026MixtureLLMs",
+      "target": "conceito:mixture-of-llms-anotador",
+      "type": "proposes"
+    },
+    {
+      "source": "Qi2026MixtureLLMs",
+      "target": "conceito:discrepancia-de-anotacao",
+      "type": "proposes"
+    },
+    {
+      "source": "Qi2026MixtureLLMs",
+      "target": "conceito:negative-learning",
+      "type": "proposes"
+    },
+    {
+      "source": "Qi2026MixtureLLMs",
+      "target": "modelo:gemma-2-9b",
+      "type": "models"
+    },
+    {
+      "source": "Qi2026MixtureLLMs",
+      "target": "modelo:llama-3.1-8b",
+      "type": "models"
+    },
+    {
+      "source": "Qi2026MixtureLLMs",
+      "target": "modelo:mistral-7b",
+      "type": "models"
+    },
+    {
+      "source": "Qi2026MixtureLLMs",
+      "target": "modelo:qwen2.5-7b",
+      "type": "models"
+    },
+    {
+      "source": "Qi2026MixtureLLMs",
+      "target": "modelo:yi-1.5-9b",
+      "type": "models"
+    },
+    {
+      "source": "Qi2026MixtureLLMs",
+      "target": "dataset:AGNews",
+      "type": "datasets"
+    },
+    {
+      "source": "Qi2026MixtureLLMs",
+      "target": "dataset:IMDB",
+      "type": "datasets"
+    },
+    {
+      "source": "Qi2026MixtureLLMs",
+      "target": "dataset:TREC",
+      "type": "datasets"
+    },
+    {
+      "source": "Qi2026MixtureLLMs",
+      "target": "dataset:PubMed",
+      "type": "datasets"
+    },
+    {
+      "source": "Qi2026MixtureLLMs",
+      "target": "FALCO-fases",
+      "type": "compete",
+      "note": "O mais próximo de 'oráculo progressivo' na literatura 2026: troca o anotador único por MISTURA de 5 LLMs leves LOCAIS (human-free, sem rate limit de API), com discrepância e negative learning como robustez. FALCO difere: progressão SEQUENCIAL por fases com gate de custo, espaço de 621 classes, instrumentação de medição."
+    },
+    {
+      "source": "Raczkowska2024AlleNoise",
+      "target": "Merdjanovska2024NoiseBench",
+      "type": "compares_with"
+    },
+    {
+      "source": "Raczkowska2024AlleNoise",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Raczkowska2024AlleNoise",
+      "target": "conceito:benchmark-ruido-real",
+      "type": "proposes"
+    },
+    {
+      "source": "Raczkowska2024AlleNoise",
+      "target": "dataset:AlleNoise",
+      "type": "datasets"
+    },
+    {
+      "source": "Raczkowska2024AlleNoise",
+      "target": "tarefa:classificacao-de-produtos",
+      "type": "tasks"
+    },
+    {
+      "source": "Raczkowska2024AlleNoise",
+      "target": "E4",
+      "type": "suporta",
+      "note": "502.310 títulos CURTOS de produtos, 5.692 categorias, 15% de ruído REAL instance-dependent de marketplace com rótulos limpos verificados. Mostra que métodos de learning-with-noisy-labels que funcionam com ruído sintético falham no real — nuance incorporada à leitura do E4. É o benchmark de réplica ideal para o FALCO (Cap. 6, futuros)."
     },
     {
       "source": "Raschka2018",
@@ -5773,6 +6467,67 @@
       "note": "Review menor de DL para classificação de texto; nomeia as fraquezas do ML tradicional (explosão de dimensão, esparsidade, generalização limitada) — frase útil para a transição do Cap.2."
     },
     {
+      "source": "Xia2025CanDist",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Xia2025CanDist",
+      "target": "conceito:rotulos-candidatos",
+      "type": "proposes"
+    },
+    {
+      "source": "Xia2025CanDist",
+      "target": "conceito:destilacao-teacher-student",
+      "type": "proposes"
+    },
+    {
+      "source": "Xia2025CanDist",
+      "target": "modelo:gpt-3.5",
+      "type": "models"
+    },
+    {
+      "source": "Xia2025CanDist",
+      "target": "modelo:roberta",
+      "type": "models"
+    },
+    {
+      "source": "Xia2025CanDist",
+      "target": "dataset:TREC",
+      "type": "datasets"
+    },
+    {
+      "source": "Xia2025CanDist",
+      "target": "dataset:MedicalAbstract",
+      "type": "datasets"
+    },
+    {
+      "source": "Xia2025CanDist",
+      "target": "dataset:DBpedia",
+      "type": "datasets"
+    },
+    {
+      "source": "Xia2025CanDist",
+      "target": "dataset:AGNews",
+      "type": "datasets"
+    },
+    {
+      "source": "Xia2025CanDist",
+      "target": "dataset:RCT",
+      "type": "datasets"
+    },
+    {
+      "source": "Xia2025CanDist",
+      "target": "dataset:Banking77",
+      "type": "datasets"
+    },
+    {
+      "source": "Xia2025CanDist",
+      "target": "E0P-inv-alidos-futuros",
+      "type": "estende",
+      "note": "Correção conceitual importante: quando incerto, o LLM emite CONJUNTO de rótulos candidatos (não um único 'ouro'); um SLM destila. A incerteza do oráculo vira informação em vez de erro duro. Citado nos futuros como resposta aos nossos 2-4% de inválidos e ao erro de fronteira do RQ3. CanDist sem humanos supera baselines com 10% de anotação humana em TREC."
+    },
+    {
       "source": "Xu2020",
       "target": "pilar:geral",
       "type": "pillars"
@@ -5782,6 +6537,47 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Relações entre rótulos: direção futura para o espaço de 621 categorias."
+    },
+    {
+      "source": "Yuan2025NoiseAL",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Yuan2025NoiseAL",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Yuan2025NoiseAL",
+      "target": "conceito:filtragem-colaborativa-de-ruido",
+      "type": "proposes"
+    },
+    {
+      "source": "Yuan2025NoiseAL",
+      "target": "conceito:llm-sob-demanda",
+      "type": "proposes"
+    },
+    {
+      "source": "Yuan2025NoiseAL",
+      "target": "metodo:dois-modelos-pequenos-como-filtro",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yuan2025NoiseAL",
+      "target": "metodo:separacao-dinamica-limpo-ruidoso",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yuan2025NoiseAL",
+      "target": "dataset:TREC",
+      "type": "datasets"
+    },
+    {
+      "source": "Yuan2025NoiseAL",
+      "target": "E4-futuros",
+      "type": "estende",
+      "note": "Aciona o LLM anotador SÓ onde a probabilidade de ruído é alta (small models filtram) — contabilidade rara de tokens/custo (25.990 tokens, US$0,39 em TREC 20% simétrico). Citado nos trabalhos futuros como extensão natural do E4: correção colaborativa em vez de descarte."
     },
     {
       "source": "Zhang2016ShortText",
