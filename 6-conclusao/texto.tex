@@ -88,7 +88,9 @@ supervisionado no regime de interesse; (iii) a avaliação instrumentada de
 oráculos LLM para português com 621 classes — granularidade muito acima da
 usual na literatura de LLM-como-anotador, cujos estudos zero-shot recentes de
 classificação de produtos operam com dezenas a $\approx 250$ categorias
-\citep{Roumeliotis2025} — incluindo custo real com \textit{cache} e lote; (iv) a métrica LCE (com posicionamento explícito frente
+\citep{Roumeliotis2025}, chegando a 370 folhas nos testes de robustez com
+catálogos públicos \citep{Gholamian2024} — incluindo custo real com
+\textit{cache} e lote; (iv) a métrica LCE (com posicionamento explícito frente
 à ALC); (v) o conjunto de dados público auditado, com censo de conflitos e
 análise de sensibilidade; e (vi) a biblioteca \texttt{activelearning} e o
 FlowBuilder (ingestão com saneamento, execução parametrizada e curvas), que
@@ -114,12 +116,19 @@ oráculos — comparar a progressão sequencial do FALCO com
 por confiança \citep{Rouzegar2024}, idealmente formulando a escolha de oráculo
 por fase como problema de \textit{bandit} com custo
 \citep{BlumMansour2007,Baykal2021}; \textbf{(ii)} \textit{prompt} como
-componente otimizável — o E0-P abre a porta; a versão natural seguinte é
-gerar regras de fronteira automaticamente a partir da matriz de confusão de
-uma rodada anterior; \textbf{(iii)} usar os racionais do oráculo
+componente otimizável — o E0-P abre a porta; as extensões naturais são gerar
+regras de fronteira automaticamente a partir da matriz de confusão de uma
+rodada anterior e permitir que o oráculo emita \emph{rótulos candidatos}
+quando incerto, destilados pelo classificador leve \citep{Xia2025CanDist} —
+o que também endereça os 2--4\% de respostas inválidas observadas; a
+contração prévia do espaço de classes por top-$K$ do classificador de domínio
+\citep{Cheng2024DualExpert} é o desenho complementar para as 621 categorias;
+\textbf{(iii)} usar os racionais do oráculo
 (\texttt{expanded\_description}) como atributo auxiliar do classificador
 \citep{Sharma2015}; \textbf{(iv)} réplica em benchmark público de produtos
-(STOPS, \citealp{Karl2023}) e extensão a taxonomias hierárquicas
+(STOPS, \citealp{Karl2023}; e \textbf{AlleNoise}, 500 mil títulos em 5.692
+categorias com ruído \emph{real} de marketplace, \citealp{Raczkowska2024AlleNoise}
+— o teste externo ideal para o E4) e extensão a taxonomias hierárquicas
 \citep{Sun2003,Tan2020}; e \textbf{(v)} o ciclo de vida pós-treinamento — o
 critério de parada do laço (estagnação em validação) já está implementado e
 formalizado, mas a decisão de \emph{liberação} do modelo e o monitoramento de
