@@ -227,3 +227,20 @@ Decisões formais com racional completo: `docs/decisoes.md`.
   real: abaixo/dentro/estresse 2×); (5) grades dos replays P1 (log-espaçada,
   forma da curva, 1/9 do custo) e AG (menor config que reproduz o mecanismo).
 - Compilação: 0 erros, 0 refs não definidas.
+
+## 18/07/2026 04:30 — E6 fechado (3 seletores × 2 classificadores × 50k)
+- Entropia domina os dois classificadores na região útil; saturação a 95% do
+  teto: SGD 8.000 / PVBin 19.000 rótulos, vs 16.500 / 40.000 da aleatória —
+  a seleção por incerteza corta o custo de rótulo pela metade ou mais.
+- ACHADO INESPERADO ("menos é mais"): o SGD treinado nos ~15k selecionados
+  por entropia atinge Macro-F1 0,59 na população; treinado no pool INTEIRO
+  (50k) cai para 0,44 — a amostra ativa é mais balanceada por classe que a
+  distribuição natural; rotular tudo não é só desperdício, PIORA o macro.
+  (PVBin é imune: protótipo por classe já normaliza.)
+- Viés de autoavaliação (desenho do autor): controle validado — na aleatória
+  o viés de acurácia é ~0; na entropia a acc interna SUBESTIMA (−14 p.p. no
+  início); o Macro-F1 interno SUPERESTIMA em todos (pior no DRI-SL, +34 p.p.
+  no início) — autoavaliação em amostra ativa não estima implantação.
+- DRI-SL como seletor CONTÍNUO é o mais fraco dos três — coerente com a
+  tese: DRI-SL é instrumento de cold start (Fase 1), não substituto da
+  incerteza no laço.
