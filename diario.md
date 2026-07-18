@@ -262,3 +262,15 @@ Decisões formais com racional completo: `docs/decisoes.md`.
 - Travessões: densidade alta (~40/cap.) porém consistente — registrado como
   voz do texto, não corrigido em massa (norma da skill é anglófona).
 - Compilação: 0 erros, 0 refs, 0 warnings de BibTeX.
+
+## 18/07/2026 06:20 — DRI-SL-C validada (proposta do autor)
+- Variante guiada pelo classificador (grupos = classes previstas, mesma
+  alocação proporcional + novidade lexical) corrige a fraqueza do DRI-SL
+  como seletor contínuo: no SGD, teto 0,491 vs 0,441 (+5 p.p.), saturação a
+  95% em 15.500 vs 41.500 rótulos (2,7×), F1@10k +10 p.p.; supera a
+  aleatória em toda a curva média. PVBin: +10 p.p. em F1@20k.
+- Entropia permanece dominante (teto 0,591, saturação 8.000) — a leitura
+  final: DRI-SL para a Fase 1 (cold start), DRI-SL-C como alternativa
+  representativa de meio de curva, entropia como padrão da Fase 2.
+- Viés de autoavaliação da variante segue alto (+0,10/+0,18) — amostragem
+  representativa de raras infla o F1 interno; validação reservada obrigatória.
