@@ -204,3 +204,14 @@ Decisões formais com racional completo: `docs/decisoes.md`.
   da curva); ensaio da pergunta incômoda "por que não rotular tudo com o LLM
   grátis?" (resposta: braço oráculo-total + latência + E4).
 - Compilação: 93 páginas, 0 erros, 0 refs não definidas.
+
+## 18/07/2026 00:25 — Ciclo 15k (oráculo real) concluído: a parada trabalhou
+- Pedido de 30k recalibrado p/ 15k (calibração b20×b50: p=0,58, 2,14× mais
+  rápido → b=50). Resultado: o critério de estagnação em validação parou
+  AMBOS os ciclos muito antes do orçamento — PVBin em 6.009 rótulos
+  (F1 0,457) e SGD em 4.742 (F1 0,600; LCE 0,731). Com o oráculo a ~78%,
+  gastar os 15k (quanto mais 30k) seria pagar por ruído — demonstração
+  empírica do racional do apêndice A7.
+- Curvas interna×externa coladas nos dois (figura atualizada); SGD segue
+  dominante sobre PVBin sob rótulos ruidosos (+14 p.p. de F1 final).
+- Cache: 70% de reaproveitamento no ciclo SGD (3.313 hits / 1.637 chamadas).
