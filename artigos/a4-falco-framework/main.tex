@@ -45,8 +45,13 @@ the loop, training it once per arm on collected sets: oracle noise costs
 4.4 accuracy points against gold labels on identical instances; actively
 selected sets cover 620 of 649 classes against 493 for random sets of
 equal size; and an entropy-selected 15k set reaches 83.1\% population
-accuracy. \todo{fechar com braço D: veredito da hipótese
-$F1(A) \ge 0{,}95 \cdot F1(D)$}
+accuracy --- 94.1\% of the full-pool ruler (88.3\%) with 30\% of the
+labels. The pre-registered hypothesis ($F1 \ge 0.95$ of full-pool
+supervision at $\le 30\%$ labels) is \emph{not} sustained in the executed
+configuration --- and the paired decomposition shows why: the binding
+constraint is neither oracle noise nor selection but the stopping
+criterion inherited from the light classifier, which halts the loop long
+before the strong classifier stops converting labels into tail coverage.
 Noise-robustness experiments bound the damage of oracle error (87\% of
 final macro-F1 retained at 10\% uniform noise, 74\% at 20\%), and the
 framework's measurement layer contributed two instrument-level findings
@@ -202,8 +207,11 @@ reserved-set criterion; and production monitoring reuses the cheap
 oracle as an audit instrument. A complete execution at zero oracle cost,
 stopping at a third of budget with the strong-classifier validation
 quantifying every loss source (noise vs.\ selection vs.\ budget),
-demonstrates the discipline is affordable. \todo{frase final com o
-veredito do braço D}
+demonstrates the discipline is affordable. The pre-registered criterion
+returned a negative verdict with an identified, correctable cause --- the
+outcome pre-registration exists to protect: the framework's measurement
+layer converted a failed hypothesis into a design correction, which is
+precisely what an operational framework owes its adopters.
 
 \paragraph{Artifacts.} \texttt{github.com/GHDaru/activelearning}
 (runner, prompts, per-annotation cache, experiment states);

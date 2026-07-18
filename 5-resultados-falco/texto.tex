@@ -3,16 +3,16 @@
 
 Este capítulo apresenta os resultados do pilar P3 — a avaliação instrumentada de
 LLMs como oráculos de rotulagem (E0, Seção~\ref{sec:res-e0}), a ablação de
-prompt no modelo de menor custo (E0-P, Seção~\ref{sec:res-e0p}) — e a parte do
-pilar P4 executável sem GPU: a varredura de estratégias com oráculo simulado
-(E1, Seção~\ref{sec:res-e1}) e a robustez do aprendizado a ruído controlado de
-oráculo (E4, Seção~\ref{sec:res-e4}). A avaliação integrada do FALCO com
-BERTimbau (E3) requer a estação com GPU e está com o instrumental pronto para
-execução; seu desenho e critérios permanecem os do
-Capítulo~\ref{ch:metodo}, e os resultados serão incorporados na versão final
-deste capítulo. Todos os números reportados são rastreáveis a artefatos
+prompt no modelo de menor custo (E0-P, Seção~\ref{sec:res-e0p}) — e o pilar
+P4: a varredura de estratégias com oráculo simulado
+(E1, Seção~\ref{sec:res-e1}), a robustez do aprendizado a ruído controlado de
+oráculo (E4, Seção~\ref{sec:res-e4}), os seletores em escala populacional
+(E6, Seção~\ref{sec:res-e6}) e a validação com o classificador forte fora do
+laço (E3$'$, Seção~\ref{sec:res-e3p}), que responde a hipótese central.
+Todos os números reportados são rastreáveis a artefatos
 versionados no repositório \texttt{activelearning}
-(\texttt{experiments/e0}, \texttt{e0p}, \texttt{e1e4}).
+(\texttt{experiments/e0}, \texttt{e0p}, \texttt{e1e4}, \texttt{e6population},
+\texttt{e2e3}).
 
 \section{E0: avaliação fatorial de oráculos LLM}
 \label{sec:res-e0}
@@ -444,6 +444,81 @@ DRI-SL no início da curva), porque a amostra ativa sobre-representa classes
 raras. Nenhuma das duas direções é utilizável como estimativa de implantação
 — a justificativa empírica direta para o conjunto de validação reservado que
 o FALCO exige e para o critério de liberação do Apêndice~\ref{ap:liberacao}.
+
+\section{E3': o classificador forte julga o pipeline e a hipótese central}
+\label{sec:res-e3p}
+
+O E3$'$ (desenho na Seção~\ref{sec:metodo-falco-baselines}) treina o
+BERTimbau uma vez por braço, sobre conjuntos já coletados, e avalia todos os
+braços na população reservada ($n=20.092$, amostra estratificada fixa,
+excluídos pool e os conjuntos de decisão do ciclo real). Configuração
+uniforme entre braços: 3 épocas, lote 16, comprimento máximo de 32
+\textit{tokens}, semente única — números descritivos, comparações amparadas
+pelos IC de Wilson e pelo pareamento na mesma amostra de avaliação. A
+Tabela~\ref{tab:e3p} consolida.
+
+\begin{table}[htb]
+\centering
+\caption{E3$'$ --- BERTimbau treinado por braço e avaliado na população
+reservada. IC = Wilson 95\%.}
+\label{tab:e3p}
+\small
+\begin{tabular}{l l r r r}
+\toprule
+\textbf{Braço} & \textbf{Conjunto de treino} & $n$ & \textbf{Acurácia [IC]} & \textbf{Macro F1} \\
+\midrule
+A & pipeline real, rótulos do oráculo & 8.937 & 65,9\% [65,2; 66,5] & 0,242 \\
+B & mesmos itens, gabarito & 8.937 & 70,2\% [69,6; 70,9] & 0,209 \\
+C & aleatório, gabarito & 8.937 & 73,2\% [72,6; 73,8] & 0,189 \\
+E & 15k por entropia (E6), gabarito & 15.000 & 83,1\% [82,6; 83,7] & 0,380 \\
+D & \emph{pool} inteiro, gabarito (régua) & 50.000 & \textbf{88,3\%} [87,9; 88,8] & \textbf{0,451} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{O veredito da hipótese central é negativo na configuração
+executada}: $F1(A) = 0{,}242 < 0{,}95 \cdot F1(D) = 0{,}428$, com $17{,}9\%$
+dos rótulos do \textit{pool}. O valor do resultado está na decomposição, que
+o desenho pareado permite:
+
+\textbf{(i) O ruído do oráculo não é o gargalo.} Nos mesmos 8.937 itens, os
+rótulos do oráculo custam $4{,}4$ p.p.\ de acurácia frente ao gabarito
+(A~vs.~B, ICs disjuntos) — coerente com a concordância oráculo--gabarito de
+$71{,}6\%$ nesses itens, selecionados por incerteza e portanto mais difíceis
+que a média. Em Macro F1, porém, A \emph{supera} B ($0{,}242$ vs.\
+$0{,}209$): o erro estruturado do oráculo espalha rótulos por mais classes
+(635 vs.\ 620) e atua como regularizador involuntário das caudas —
+corroborando, agora no classificador forte, a previsão do E4 de que ruído
+estruturado é o regime benigno.
+
+\textbf{(ii) A seleção ativa compra cobertura, não acurácia.} Com o mesmo
+orçamento e gabarito, o braço aleatório vence em acurácia (C~vs.~B:
+$+3{,}0$ p.p.) mas perde em Macro F1 ($0{,}189$ vs.\ $0{,}209$) e em
+cobertura (493 vs.\ 620 classes presentes no treino) — o mesmo padrão do
+E6, reproduzido no transformer.
+
+\textbf{(iii) O fator dominante é orçamento, e o critério de parada do laço
+leve subserve o modelo forte.} O braço E — 15 mil rótulos perfeitos
+selecionados por entropia, o dobro do ponto em que o ciclo real parou —
+salta para $83{,}1\%$ de acurácia ($94{,}1\%$ da régua, a $0{,}75$ p.p.\ do
+critério de $95\%$) e $0{,}380$ de Macro F1 ($84{,}3\%$ da régua). A
+estagnação da validação do classificador \emph{leve} (que encerrou o ciclo
+real em 4,7--6 mil rótulos) é, portanto, um \textit{proxy} inadequado para o
+ponto de parada do classificador \emph{forte} em métrica macro: o BERTimbau
+segue convertendo rótulos em cobertura de cauda muito além do ponto em que o
+PVBin/SGD saturam. Como o braço B usa gabarito (oráculo perfeito), essa
+conclusão independe da qualidade do oráculo — nenhum oráculo sustentaria o
+critério sob a política de parada executada.
+
+Em síntese: a hipótese, como pré-registrada, é \textbf{refutada para a
+configuração executada} (oráculo gratuito + parada por estagnação do
+classificador leve + 3 épocas), \emph{quase} se sustenta em acurácia com
+orçamento de $30\%$ ($94{,}1\%$ da régua) e não se sustenta em Macro F1 —
+com o diagnóstico apontando a correção de desenho (parar pelo
+\textit{proxy} do modelo forte, ou por piso de orçamento) como a extensão
+prioritária. O resultado negativo é o que o pré-registro existe para
+proteger: o critério foi fixado antes, o instrumento decompõe a perda em
+suas fontes, e a resposta é acionável.
 
 \section{Decisão do gate e configuração do FALCO}
 \label{sec:res-gate}

@@ -152,8 +152,10 @@ no personal, transactional or merchant-identifying data is present.
 \section{Baseline summary}
 \label{sec:baselines}
 
-Full supervision: PVBin 89.6\% / 0.70 macro-F1; BERTimbau
-\todo{números do braço D do E3'}. Zero-shot LLM plateau: 77--83\%
+Full supervision: PVBin 89.6\% / 0.70 macro-F1 (250k labels); BERTimbau
+88.3\% / 0.451 macro-F1 fine-tuned on a 50k pool (3 epochs, 32-token
+context, reserved-population evaluation --- a deliberately economical
+uniform configuration; see the library for the exact recipe). Zero-shot LLM plateau: 77--83\%
 accuracy, macro-F1 up to 0.80 (exceeding the light supervised baseline
 on the tail). Label-efficient reference points: entropy-based selection
 reaches 95\% of its ceiling with 16--38\% of pool labels depending on

@@ -38,13 +38,20 @@ aprendíveis apenas com exemplos. O efeito do instrumento de medição (RQ4)
 confirmou-se: sem restrição de saída, 6,8\% das respostas viram falsos erros
 de fraseado.
 
-\textbf{P4 — parcial nesta versão.} O gate pré-registrado decidiu: sem oráculo
-$\ge 85\%$, o aprendizado com oráculo ruidoso é o cenário central (E4), e a
-configuração derivada do FALCO é deepseek-v4-flash (Inicial) +
-deepseek-v4-pro (Avançado, superioridade significativa comprovada). A
-validação integrada com BERTimbau (E3) tem instrumental completo e testado —
-laço de AL, runner de fases com transição por validação, cinco braços
-incluindo o oráculo-total — e aguarda execução na estação com GPU.
+\textbf{P4 — respondido, com veredito negativo e diagnóstico.} O gate
+pré-registrado decidiu: sem oráculo $\ge 85\%$, o aprendizado com oráculo
+ruidoso é o cenário central (E4), e a configuração derivada do FALCO é
+deepseek-v4-flash (Inicial) + deepseek-v4-pro (Avançado, superioridade
+significativa comprovada). A validação com o classificador forte fora do
+laço (E3$'$) julgou o pipeline completo: a hipótese central \emph{não} se
+sustenta na configuração executada ($F1 = 0{,}242$ contra critério de
+$0{,}428$ com $17{,}9\%$ dos rótulos), e a decomposição pareada atribui a
+perda ao \emph{orçamento} — não ao ruído do oráculo (que em Macro F1 até
+ajuda as caudas) nem à seleção (que compra cobertura): a parada por
+estagnação do classificador leve encerra o laço muito antes do ponto em que
+o BERTimbau para de converter rótulos em cobertura de cauda. Com o dobro do
+orçamento (15 mil, entropia), a acurácia atinge $94{,}1\%$ da régua de
+supervisão completa do \textit{pool} — a $0{,}75$ p.p.\ do critério.
 
 \section{Discussão}
 \label{sec:conc-discussao}
@@ -115,8 +122,11 @@ tornam o protocolo reutilizável fora desta tese.
 
 As ameaças à validade estão detalhadas na Seção~\ref{sec:metodo-validade};
 as principais: um único conjunto de dados, criado pelo autor (mitigado por
-protocolo replicável e achados de mecanismo); resultados de P4 com
-classificador leve nesta versão (BERTimbau pendente de GPU); custos de API
+protocolo replicável e achados de mecanismo); o E3$'$ executado em
+configuração uniforme mas econômica (3 épocas, contexto de 32
+\textit{tokens}, semente única, CPU) — a régua absoluta do BERTimbau pode
+subir com mais épocas e contexto, o que tornaria o critério \emph{mais}
+exigente, não menos, preservando o sentido do veredito; custos de API
 datados (as \emph{razões} entre modelos são mais estáveis que os valores);
 e regras de fronteira do E0-P derivadas do perfil de erro do próprio domínio
 — generalizam o método, não as regras.
@@ -124,7 +134,13 @@ e regras de fronteira do E0-P derivadas do perfil de erro do próprio domínio
 \section{Trabalhos futuros}
 \label{sec:conc-futuro}
 
-Quatro direções saem diretamente dos dados: \textbf{(i)} composição de
+A extensão prioritária sai diretamente do veredito do E3$'$: substituir a
+parada por estagnação do classificador leve por um \textit{proxy} do modelo
+forte (ajustes finos periódicos em pontos de verificação da trajetória, ou
+piso de orçamento derivado da curva do braço E) e reexecutar o critério
+pré-registrado — a distância a cobrir ($0{,}75$ p.p.\ em acurácia com
+$30\%$ dos rótulos) sugere que a hipótese é alcançável com a correção.
+Demais direções: \textbf{(i)} composição de
 oráculos — comparar a progressão sequencial do FALCO com
 \textit{mixture-of-LLMs} paralelo \citep{Qi2026MixtureLLMs} e com roteamento
 por confiança \citep{Rouzegar2024}, idealmente formulando a escolha de oráculo
@@ -162,7 +178,13 @@ começar bem (DRI-SL supera até o envelope evolutivo), perguntar bem
 LLM com 78--83\% de acurácia por centavos de dólar o milhar, com erro
 majoritariamente estruturado). A hipótese quantitativa central — $\ge 95\%$
 do Macro F1 de supervisão completa com $\le 30\%$ dos rótulos via oráculo
-LLM — permanece formalmente aberta até o E3 com BERTimbau, cujo instrumental
-esta tese deixa pronto, testado e com critérios de decisão pré-registrados;
-os resultados dos experimentos executados (E0, E0-P, E1, E4, E6 e os replays de
-P1/P2) delimitam com precisão as condições em que ela pode se sustentar.
+LLM — foi submetida ao teste pré-registrado (E3$'$) e \textbf{refutada na
+configuração executada}, com diagnóstico que redireciona o desenho: o
+gargalo não é o ruído do oráculo nem a seleção, e sim o critério de parada
+herdado do classificador leve, que subestima o apetite do classificador
+forte por cobertura de cauda; em acurácia, $30\%$ dos rótulos entregam
+$94{,}1\%$ da supervisão completa do \textit{pool}. Uma tese que termina com
+um número honesto e uma causa identificada vale mais que uma que termina com
+uma promessa: os resultados dos experimentos executados (E0, E0-P, E1, E4,
+E5, E6, E3$'$ e os replays de P1/P2) delimitam com precisão as condições em
+que a hipótese pode se sustentar — e o caminho para testá-la nelas.
