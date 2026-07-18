@@ -24,35 +24,29 @@ classification in Portuguese:\\ an instrumented evaluation of quality and cost}
 \maketitle
 
 \begin{abstract}
-Large language models (LLMs) are increasingly used as labeling oracles in
-place of human annotators, but the evidence base concentrates on tasks with
-tens to a few hundred classes and rarely treats cost or the measurement
-instrument itself as objects of study. We evaluate six LLM oracles on
-zero-shot classification of short retail product descriptions in Portuguese
-into a closed space of 621 categories --- a granularity three to ten times
+Large language models (LLMs) are increasingly used as labeling oracles, but
+the evidence base concentrates on tasks with tens to a few hundred classes
+and rarely treats cost or the measurement instrument as objects of study.
+We evaluate six LLM oracles on zero-shot classification of short Portuguese
+retail product descriptions into a closed space of 621 categories --- well
 beyond prior product-classification studies --- under a fully instrumented
-protocol: structured output constrained to the label space, batch annotation
-with paired calibration, prefix-cache cost accounting, provenance recording
-of the (model, provider, date) triple, and statistics designed for paired
-comparisons (Wilson intervals, exact McNemar tests). Four top oracles form a
-plateau at 77--83\% accuracy, within $\approx 7$ points of a fully
-supervised ceiling trained on 250{,}000 labels, at costs of
-US\$~0.000--0.92 per thousand labels --- with the second-cheapest paid model
-delivering 96\% of the best accuracy at 8.5\% of its cost, and a zero-cost
-oracle statistically tied with it. Macro-F1 of the plateau oracles
-\emph{exceeds} that of a light supervised baseline trained on the full
-label budget, because LLMs are strongest precisely in rare classes. Error
-anatomy shows nearly half of oracle errors reflect catalog conventions
-rather than product misunderstanding. Two findings concern the instrument
-itself: without output constraints, 6.8\% of responses become spurious
-phrasing errors that a naive protocol counts against the model; and the
-same model served by two providers disagrees significantly with itself
-($p<0.001$) on identical instances, making serving provenance part of any
-credible measurement. A prompt ablation with explicit boundary rules
-improves the production distribution ($+4.6$ points, $p=0.012$) while
-severely degrading the stratified tail ($-10.8$ points, $p<0.001$),
-a cautionary double-edged result for prompt optimization. All code, prompts
-and per-instance artifacts are public.
+protocol: output constrained to the label space, batch annotation with
+paired calibration, cache-aware cost accounting, serving provenance, and
+paired statistics (Wilson intervals, exact McNemar). Four oracles plateau
+at 77--83\% accuracy, $\approx 7$ points under a supervised ceiling trained
+on 250{,}000 labels, at US\$~0.00--0.92 per thousand labels; the
+best-value model delivers 95\% of the top accuracy at 8.5\% of its cost,
+and a zero-cost oracle is statistically tied with it. Plateau Macro-F1
+\emph{exceeds} a fully supervised light baseline, because LLMs are
+strongest precisely in rare classes. Nearly half of oracle error reflects
+catalog conventions rather than product misunderstanding. Two findings
+concern the instrument itself: without output constraints, 6.8\% of
+responses become spurious phrasing errors charged against the model; and
+the same model served by two providers disagrees with itself ($p<0.001$)
+on identical instances. A prompt ablation with boundary rules improves the
+production distribution ($+4.6$ points, $p=0.012$) while severely
+degrading the stratified tail ($-10.8$ points, $p<0.001$). Code, prompts
+and per-instance annotation artifacts are released.
 \end{abstract}
 
 \noindent\textbf{Keywords:} large language models; data annotation; text
@@ -113,7 +107,10 @@ subsequent work integrated LLM annotation into active learning loops
 \citep{Zhang2025}, routed hard cases to humans by confidence
 \citep{Rouzegar2024}, and demonstrated batch annotation economics in
 low-resource languages \citep{Kholodna2024}. This line inherits the older
-noisy-annotator tradition \citep{Snow2008,Sheng2008}. Evaluations at
+noisy-annotator tradition \citep{Snow2008,Sheng2008}; a known caveat is
+that LLM self-reported confidence tends toward overconfidence and requires
+calibration \citep{Tian2023}, which is why our protocol relies on external
+measurement rather than model-reported certainty. Evaluations at
 product-catalog scale are rarer: \citet{Roumeliotis2025} compare zero-shot
 LLMs on 248 categories; \citet{Gholamian2024} test robustness on up to 370
 leaf categories. Our 621-way closed space extends this frontier while
@@ -190,13 +187,32 @@ prefix amortization --- consistent with the batch-annotation economics of
 \citet{Kholodna2024}. We adopt $b=10$ (OpenAI) and $b=25$ (MaaS), recorded
 per annotation.
 
+\paragraph{Instrument-mode assignment and scoring convention.} The output
+contract is dictated by provider capability: enum for providers with
+structured-output support (OpenAI), json-prompt elsewhere. This is a
+potential confound between provider families, which the protocol handles by
+(a) reporting invalid-label rates separately in every table, (b) scoring
+invalid outputs as errors --- so json-prompt oracles are penalized, not
+shielded, by the weaker contract --- and (c) quantifying the maximal size of
+the contract effect directly in RQ4 with the same model under both
+contracts. Cost is computed from provider-metered token counts per call
+multiplied by the provider price sheet at execution date, with cached
+prefix tokens billed at the provider's cached rate; all per-call token
+counts are in the released artifacts.
+
 \paragraph{Provenance and statistics.} Every annotation records the
 (model, provider, mode, batch, temperature, date) tuple; temperature is 0
-throughout. Accuracies carry Wilson 95\% intervals
+throughout, which reduces but does not eliminate serving nondeterminism ---
+each cell is a single annotation run, a limitation stated in
+Section~\ref{sec:discussion}. Accuracies carry Wilson 95\% intervals
 \citep{Wilson1927,Brown2001}; model pairs are compared with McNemar's test
 on discordant pairs (exact binomial when $b+c<25$)
 \citep{McNemar1947,Dietterich1998}, the recommended regime for classifiers
-evaluated once on a common sample.
+evaluated once on a common sample. Two comparisons were pre-registered as
+decision-relevant (best vs.\ runner-up for the advanced-oracle role;
+zero-cost vs.\ cheapest-paid for the initial-oracle role); remaining
+pairwise tests are reported as exploratory, and no result in this paper
+depends on a marginal $p$-value surviving multiplicity correction.
 
 \section{Results}
 \label{sec:results}
@@ -293,7 +309,11 @@ model, but who serves it and when --- each number is a photograph of a
 
 \subsection{RQ3: anatomy of oracle error}
 
-Among the 324 errors of the best oracle (v4-pro, S-strat): \textbf{31\%}
+Errors of the best oracle (v4-pro, S-strat; $n=324$) were categorized by
+scripted lexical rules (shared head-word between predicted and gold label;
+umbrella-class markers; sentinel/invalid detection) with manual
+spot-checking; the categorization script and the labeled error list are in
+the released artifacts. The result: \textbf{31\%}
 are confusions between \emph{sibling categories} sharing a head word
 (\textit{antisseptico bucal} $\to$ \textit{enxaguante bucal});
 \textbf{17\%} have an umbrella class (``other \ldots'') as gold while the
@@ -328,7 +348,10 @@ prompt engineering can recover them in the cheapest cached model
 derived from the aggregate error profile; \textbf{v4b} adds ten
 \emph{invented} boundary examples (never sampled from evaluation data);
 both are paired against the base prompt on the first 500 items of each
-sample. On S-rand, rules recover part of the convention error: $+3.8$
+sample --- a prefix subset (random by construction, as samples are
+pre-shuffled) sized to detect shifts of 4--5 points via McNemar given the
+expected 60--80 discordant pairs, at one fifth of the full-sample cost per
+variant. On S-rand, rules recover part of the convention error: $+3.8$
 points (v4a, $p=0.045$) and $+4.6$ points (v4b, $p=0.012$). On S-strat the
 same rules \emph{destroy} performance: $-7.0$ and $-10.8$ points
 ($p<0.001$), with invented examples significantly worse than rules alone
@@ -361,11 +384,14 @@ this metadata are fragile.
 
 \paragraph{Threats to validity.} Single dataset and language pair
 (mitigated by public artifacts and a replication design on AlleNoise
-\citep{Raczkowska2024AlleNoise} as future work); API prices dated at
-execution (ratios are more stable than absolute values); boundary rules in
-the ablation derive from this catalog's error profile (the method
-generalizes; the rules do not); gold-standard noise bounds all accuracies
-at $\approx 99.3\%$, audited and propagated.
+\citep{Raczkowska2024AlleNoise} as future work); a single annotation run
+per cell --- temperature 0 reduces but does not eliminate serving
+nondeterminism, and the RQ2 provider-divergence finding quantifies exactly
+why this matters; API prices dated at execution (ratios are more stable
+than absolute values); boundary rules in the ablation derive from this
+catalog's error profile (the method generalizes; the rules do not);
+gold-standard noise bounds all accuracies at $\approx 99.3\%$, audited and
+propagated.
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -383,10 +409,12 @@ model-to-model differences. The protocol and artifacts are public and
 directly reusable for oracle selection in any closed-taxonomy annotation
 pipeline.
 
-\paragraph{Artifacts.} Code, prompts, per-instance annotations and
-analysis notebooks: \texttt{github.com/GHDaru/activelearning}
-(\texttt{experiments/e0}, \texttt{e0p}).
-\todo{DOI/Zenodo release + decisão sobre publicação integral da base}
+\paragraph{Artifacts.} Code, prompts, per-instance annotations, token
+counts and analysis scripts: \texttt{github.com/GHDaru/activelearning}
+(\texttt{experiments/e0}, \texttt{e0p}). Release of the full underlying
+dataset is subject to a separate licensing decision; the paired evaluation
+samples and all annotation artifacts are released regardless.
+\todo{DOI/Zenodo release antes da submissão}
 
 \bibliographystyle{plainnat}
 \bibliography{refs}

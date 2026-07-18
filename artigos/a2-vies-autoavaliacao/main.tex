@@ -1,0 +1,285 @@
+% A2 — draft v0.1 (18/07/2026). Target: ECML-PKDD (alt.: IPM / Machine Learning j.)
+% Estado: semente única (descritivo); campanha de 8 sementes NA FILA — converter
+% achados 1-3 em inferenciais antes da submissão.
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage[round]{natbib}
+\usepackage[margin=2.8cm]{geometry}
+\usepackage{microtype}
+\usepackage{xcolor}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+
+\title{The direction of self-evaluation bias in active learning depends on
+the metric:\\ accuracy underestimates, macro-F1 overestimates}
+
+\author{Gilsiley Henrique Darú$^{1}$ \and Gustavo Valentim Loch$^{1}$\\[2pt]
+\normalsize $^{1}$Graduate Program in Numerical Methods in Engineering (PPGMNE),\\
+\normalsize Federal University of Paraná (UFPR), Curitiba, Brazil}
+\date{Draft v0.1 --- \today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Practitioners of pool-based active learning routinely evaluate their model
+on a held-out split of the labels they have collected --- because that is
+all they have. It is folklore that this self-evaluation is biased, since
+actively sampled data are not i.i.d.; but the direction and size of the
+bias are rarely measured. We measure both, at scale, with a perfect-oracle
+protocol that separates a labelable \emph{pool} (50{,}000 short product
+descriptions, 621 classes, severe long tail) from a \emph{reserved
+population} (177{,}000+ instances) never touched by selection. At each step
+the collected labels are split 80/20; the same model is scored on the
+internal test split and on the population. Across five selection policies
+and two classifiers we find the bias is large, systematic and
+\emph{metric-dependent}: under uncertainty sampling, internal accuracy
+\emph{underestimates} deployment accuracy by up to 14 points (the internal
+test inherits the hard cases), while internal macro-F1 \emph{overestimates}
+it by up to 34 points (the active sample over-represents rare classes). A
+random-sampling control shows near-zero gap, validating the instrument.
+Two corollaries follow. First, \emph{more labels can hurt}: for a
+logistic-loss classifier, training on the $\approx$15k actively selected
+labels beats training on the full 50k pool by 15 macro-F1 points, because
+the active sample acts as a balanced curriculum --- while a
+per-class-normalized prototype classifier is immune. Second, an ablation
+of a semantic-diversity selection policy shows its entire continuous-regime
+gain comes from stratifying by predicted class, yielding a trivial,
+strong, model-agnostic baseline. Self-evaluated metrics from active
+learning runs should not be used for deployment decisions in either
+direction; we quantify why, and what to do instead.
+\end{abstract}
+
+\noindent\textbf{Keywords:} active learning; sampling bias; evaluation;
+class imbalance; macro-F1; text classification.
+
+\section{Introduction}
+\label{sec:intro}
+
+Pool-based active learning (AL) buys labels selectively
+\citep{Settles2012,Lewis1994}. Its success metric --- performance per label
+--- is usually reported on a benchmark with abundant held-out gold data.
+Deployed AL has no such luxury: the only labeled data available for
+evaluation are the labels the loop itself collected, and the standard
+practice is to hold out a fraction of them. The resulting sample is not
+i.i.d.\ by construction: uncertainty sampling over-represents boundary
+cases and rare classes \citep{Attenberg2010,Santos2016Vies}. That this
+biases evaluation is known in principle; \emph{how much}, \emph{in which
+direction}, and \emph{how the direction interacts with the metric} is
+rarely quantified --- yet these are exactly the questions a practitioner
+needs answered before trusting an internally computed number for a release
+decision.
+
+We answer them with a deliberately simple protocol (Section~\ref{sec:protocol}):
+a perfect oracle (gold labels), a fixed labelable pool, and a large
+reserved population that selection can never touch. The gap between
+internal and population scores, tracked along the full labeling
+trajectory, \emph{is} the self-evaluation bias --- and a random-sampling
+control arm certifies that the gap is caused by selection, not by the
+instrument.
+
+Contributions: (i) the first (to our knowledge) large-scale, controlled
+quantification of AL self-evaluation bias with 621 classes, showing it is
+\textbf{bidirectional and metric-dependent} --- internal accuracy
+underestimates deployment performance while internal macro-F1
+overestimates it; (ii) a mechanistic account and empirical demonstration
+of the \emph{less-is-more} effect --- full-pool labeling can be worse than
+stopping at 30\% for loss functions dominated by the natural class
+distribution --- including a classifier (per-class prototype) immune by
+construction; (iii) an ablation showing a semantic-diversity continuous
+policy owes its gain entirely to prediction-stratification, exposing a
+trivial strong baseline; (iv) operational guidance: what internal metrics
+can and cannot support, and a reserved-set release criterion.
+
+\section{Related work}
+\label{sec:related}
+
+Sampling bias in AL is acknowledged since the field's foundations
+\citep{Settles2012}; failure modes of uncertainty sampling under imbalance
+are documented \citep{Attenberg2010}, and bias-aware AL has been studied
+theoretically \citep{Santos2016Vies}. Density and cluster-based policies
+\citep{Settles2008,Nguyen2004,Dasgupta2008} motivate the diversity
+component we ablate. Metric behavior under imbalance (micro vs.\ macro
+aggregation) is classical \citep{Sokolova2009}. What is missing in this
+literature --- and what we contribute --- is a controlled, trajectory-level
+measurement of the \emph{evaluation} bias (not the training bias) with its
+metric dependence, at a class cardinality where the two metrics dissociate
+dramatically. The renewed practical interest comes from LLM-oracle
+pipelines \citep{Gilardi2023,Bayer2024}, where cheap labels make
+full-trajectory experiments affordable and self-evaluation is the default
+telemetry.
+
+\section{Protocol: internal vs.\ population evaluation}
+\label{sec:protocol}
+
+Let $D$ be a deduplicated corpus, shuffled once with a fixed seed and split
+into a \textbf{pool} $P$ ($|P|=50{,}000$), from which the learner may
+request labels, and a \textbf{population} $Q$ ($|Q|=181{,}490$), reserved
+in full. The oracle is perfect (gold labels), removing annotation noise as
+a confounder. The loop starts from a random batch and iterates: train on
+the collected set $L_t$, select the next batch of 500 from $P \setminus
+L_t$, until the pool is exhausted. At every step, $L_t$ is split 80/20
+(stratified when feasible, fixed seed); the model is trained on the 80\%
+and scored twice with identical weights: on the \textbf{internal test}
+(the 20\% --- what a practitioner without reserved data can measure) and on
+the \textbf{population} $Q$ (deployment performance). The signed gap
+$\Delta_m(t) = m_{\text{int}}(t) - m_{\text{ext}}(t)$ for metric $m$ is the
+self-evaluation bias.
+
+\paragraph{Control arm.} Under random selection, $L_t$ is an i.i.d.\ sample
+of $P$ (and $P$ of $D$), so $\Delta$ should vanish up to noise. A non-zero
+$\Delta$ under random selection would indicate an instrument artifact
+(split leakage, size effects); observing $\Delta \approx 0$ validates the
+protocol, and every deviation under a non-random policy is then
+attributable to selection.
+
+\section{Experimental setup}
+\label{sec:setup}
+
+\textbf{Data and task.} 231{,}490 deduplicated short product descriptions
+from Brazilian fiscal receipts (4--50 characters, uppercase,
+abbreviations), 649 classes with at least 2 instances, severe long tail.
+\textbf{Classifiers}, chosen as extremes of loss geometry: \emph{SGD} ---
+logistic regression on binary TF--IDF via stochastic gradient descent,
+loss dominated by the empirical class distribution; \emph{PVBin} --- a
+per-class prototype model over binary term vectors
+\citep{Daru2024Dissertacao}, normalized per class by construction.
+\textbf{Policies}: uncertainty (entropy); random (control); a
+semantic-diversity policy (density-representative selection over SBERT
+embeddings with lexical-novelty tie-breaking, DRI-SL); the same policy
+with groups given by the classifier's \emph{predicted classes} (DRI-SL-C);
+and the ablation of the latter without lexical novelty --- equivalent to
+\emph{stratified sampling by predicted class}. Batch 500, budget to pool
+exhaustion, seed fixed. \todo{campanha de 8 sementes em fila --- converter
+achados em inferenciais (IC entre sementes + Wilcoxon pareado)}
+
+\section{Results}
+\label{sec:results}
+
+\subsection{Selector comparison on the population}
+
+\begin{table}[htb]
+\centering
+\caption{Population macro-F1 by policy and classifier (single seed,
+descriptive). Saturation: smallest $|L|$ reaching 95\% of the arm's own
+ceiling.}
+\label{tab:selectors}
+\small
+\begin{tabular}{llrrrr}
+\toprule
+\textbf{Clf.} & \textbf{Policy} & \textbf{Ceiling} & \textbf{Saturation} &
+\textbf{F1@10k} & \textbf{F1@20k} \\
+\midrule
+SGD & Entropy      & \textbf{0.591} & \textbf{8{,}000} & 0.565 & 0.574 \\
+SGD & Stratif.\ by prediction & 0.555 & 10{,}000 & 0.533 & 0.543 \\
+SGD & DRI-SL-C     & 0.491 & 15{,}500 & 0.412 & 0.486 \\
+SGD & Random       & 0.459 & 16{,}500 & 0.391 & 0.449 \\
+SGD & DRI-SL       & 0.441 & 41{,}500 & 0.310 & 0.365 \\
+\midrule
+PVBin & Entropy    & 0.529 & 19{,}000 & 0.438 & 0.509 \\
+PVBin & Stratif.\ by prediction & 0.528 & 18{,}000 & 0.444 & 0.498 \\
+PVBin & DRI-SL-C   & 0.525 & 39{,}500 & 0.349 & 0.453 \\
+PVBin & Random     & 0.530 & 40{,}000 & 0.348 & 0.423 \\
+PVBin & DRI-SL     & 0.527 & 45{,}500 & 0.284 & 0.356 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Entropy dominates at scale (Table~\ref{tab:selectors}): it saturates at
+95\% of its ceiling with 8{,}000 labels for SGD (19{,}000 for PVBin), half
+to a quarter of the random requirement. The semantic-diversity policy
+(DRI-SL), designed for the zero-label cold start, is \emph{worse than
+random} as a continuous policy; guiding its groups by predicted classes
+(DRI-SL-C) repairs it (ceiling $0.441 \to 0.491$ for SGD, saturation
+$2.7\times$ earlier).
+
+\subsection{The ablation: stratification is the active ingredient}
+
+Removing the lexical-novelty term from DRI-SL-C --- leaving plain
+stratified sampling by predicted class --- \emph{improves} it on both
+classifiers (SGD: ceiling 0.555 vs.\ 0.491, saturation 10k vs.\ 15.5k;
+PVBin: saturation 18k vs.\ 39.5k, tying entropy). The diversity heuristic,
+valuable at cold start where no model exists, is counterproductive in the
+continuous regime: it privileges lexically atypical exemplars when the
+macro metric pays for balanced class coverage. The practical corollary is
+a baseline: \emph{predict, stratify, sample} --- model-agnostic, no
+embeddings, no tuning --- that captures most of the uncertainty-sampling
+gain and nearly all of the diversity-policy gain.
+
+\subsection{The bias is bidirectional and metric-dependent}
+
+The control behaves: under random selection the internal--external
+accuracy gap is $\Delta \approx 0$ along the whole trajectory. Under
+entropy selection, internal \textbf{accuracy underestimates} the
+population value by up to \textbf{14 points}: the internal test inherits
+the boundary-heavy, hard-case distribution that uncertainty sampling
+selects. Internal \textbf{macro-F1 overestimates} the population value for
+\emph{every} non-random policy --- by up to \textbf{$+34$ points} early in
+the DRI-SL trajectory: the active sample gives rare classes internal test
+support far above their population share, so per-class scores are computed
+on flattering supports. Neither direction is usable as a deployment
+estimate, and the two errors do not cancel: a practitioner reading
+internal accuracy will under-deploy (the model is better than it looks);
+one reading internal macro-F1 will over-promise tail quality (it is worse
+than it looks).
+
+\subsection{More labels can hurt: the active sample as curriculum}
+
+For SGD under entropy selection, population macro-F1 peaks at
+$0.59$ around 15k labels and \emph{falls} to $0.44$ when the entire pool
+is labeled: the final 35k labels, drawn increasingly from the natural
+(imbalanced) distribution, drag the logistic loss toward the head classes.
+The actively selected subset acts as a balanced curriculum --- and
+labeling everything undoes it. PVBin, whose per-class prototypes normalize
+away the class distribution, is immune (ceiling $\approx$ flat across
+policies). Beyond waste, additional labels can be \emph{harmful} to macro
+metrics for distribution-sensitive losses; remedies are early stopping by
+stagnation, reweighting, or per-class-normalized models.
+
+\section{Operational guidance}
+\label{sec:guidance}
+
+(i) Maintain a reserved evaluation set from day one --- the bias cannot be
+corrected post hoc from internal data alone, since its size and sign
+depend on the (policy, metric, model) triple. (ii) Use internal metrics
+only for \emph{relative} decisions inside one run (stagnation-based
+stopping), never for absolute release decisions. (iii) If a reserved set
+is impossible, prefer internal accuracy over internal macro-F1 for
+go/no-go: it errs conservative. (iv) For macro objectives with
+distribution-sensitive losses, treat the labeled-set composition as part
+of the model: stopping earlier, subsampling or reweighting may beat
+labeling more.
+
+\section{Limitations}
+\label{sec:limits}
+
+Single dataset and domain (short retail text; the mechanism --- support
+inflation of rare classes --- is general, but effect sizes are not);
+single seed per cell in this draft (a multi-seed campaign with
+between-seed intervals and paired Wilcoxon tests is queued
+\todo{atualizar com 8 sementes}); perfect oracle by design (noisy oracles
+would add a second bias source; our companion work on LLM oracles
+addresses it separately, keeping this paper's question clean).
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+Self-evaluation on actively collected data is not merely noisy --- it is
+systematically wrong in a direction that depends on the metric: accuracy
+reads low, macro-F1 reads high, by double-digit margins at 621-class
+granularity. A random control certifies the effect is caused by selection.
+The same experiments yield a practical bonus (stratified-by-prediction as
+a trivial strong policy) and a warning (labeling the full pool can damage
+macro performance for distribution-sensitive losses). All trajectories,
+code and per-step artifacts are released.
+
+\paragraph{Artifacts.} \texttt{github.com/GHDaru/activelearning}
+(\texttt{experiments/e6population}).
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\end{document}
