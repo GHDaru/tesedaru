@@ -1,113 +1,156 @@
-# Plano de reestruturação do Capítulo 2 — para aprovação do autor
+# Plano de reestruturação do Capítulo 2 — v2 detalhada (para aprovação)
 
-Motivação (diagnóstico de 18/07/2026): o Cap. 2 foi escrito antes de sabermos
-onde a tese chegaria. Hoje ele tem **70 blocos de título para ~12,9 mil
-palavras** (média 185 palavras/bloco), **4 níveis de numeração** (ex.:
-2.5.3.2) mais 28 `\paragraph`, **13 blocos com menos de um parágrafo**, três
-seções top-level fragmentadas para o mesmo assunto (AA), e **avaliação/validação
-duplicadas** (uma vez na seção de ML, outra dentro de texto curto). Falta
-fluidez; sobra taxonomia.
+Revisão de 18/07/2026 após feedback do autor: títulos sóbrios (sem retórica)
+e conteúdo detalhado por subseção. Diagnóstico que motiva o plano: 70 blocos
+de título para ~12,9 mil palavras, 4 níveis de numeração, 13 blocos com menos
+de um parágrafo, três seções top-level para o mesmo assunto e
+avaliação/validação duplicada em dois lugares.
 
-Princípio do redesenho: **cada seção existe para responder UMA pergunta e
-deixar UMA mensagem que algum capítulo posterior usa**. O que não ancora
-decisão dos Caps. 3–5 sai ou vira remissão (dissertação/legado).
+Regras de fluidez: máximo 2 níveis numerados; `\paragraph` apenas no catálogo
+de estratégias; todo título abre com texto-ponte; nenhum bloco menor que ~60
+palavras; alvo ~9,5–10 mil palavras (corte líquido ≈25%).
 
-## Regras de fluidez (valem também para o Cap. 3)
+---
 
-1. **Máximo 2 níveis numerados** (seção + subseção). `\subsubsection` extinto.
-2. `\paragraph{}` só onde enumerar É o conteúdo (o catálogo de estratégias);
-   nos demais, prosa corrida com os termos em destaque.
-3. **Nenhum título seguido imediatamente de outro título** — todo título abre
-   com texto-ponte que diz ao leitor por que a seção existe e o que vai
-   encontrar.
-4. Bloco com menos de ~60 palavras: funde-se ao vizinho ou vira meia frase.
-5. Alvo de extensão: **~9,5–10 mil palavras** (corte líquido de ~25%).
+## 2.1 Aprendizado supervisionado: conceitos, métricas e validação (~1.400 palavras)
 
-## Estrutura proposta (5 seções) — pergunta · mensagem · contribuição
+*Função: dar ao leitor exatamente o instrumental usado nos Caps. 3–5 — nada além.*
 
-### 2.1 Fundamentos de aprendizado supervisionado para esta tese
-- **Pergunta**: que instrumental mínimo o leitor precisa para auditar as
-  decisões metodológicas dos Caps. 3–5?
-- **Mensagem**: métrica e validação não são burocracia — Macro F1 (sob 621
-  classes desbalanceadas) e deduplicação antes do particionamento decidem
-  interpretações inteiras desta tese.
-- **Muda**: FUNDE "Avaliação de Modelos" + "Estratégias de Validação" (hoje
-  2.2.3/2.2.4) com a duplicata "Avaliação e Validação" que vive dentro de
-  texto curto (2.6.6) — uma única passagem, dita uma vez.
+- **2.1.1 Regimes de supervisão e a tarefa de classificação multiclasse.**
+  Definição formal breve (Mitchell); supervisionado/não/semi como contexto do
+  AA; a tarefa multiclasse com $K=621$ e desbalanceamento severo como caso da
+  tese. *(condensa as atuais 2.2.1+2.2.2; ~350 palavras)*
+- **2.1.2 Métricas para classes desbalanceadas.** Acurácia global; precisão/
+  revocação/F1 por classe; agregações micro×macro e por que o Macro F1 é a
+  métrica primária sob cauda longa (Sokolova); matriz de confusão como
+  instrumento de diagnóstico (usada no perfil de erro do E0). *(funde 2.2.3 com
+  a duplicata 2.6.6.1; ~450 palavras)*
+- **2.1.3 Validação e particionamento.** Hold-out, validação cruzada
+  estratificada, conjunto de validação separado do teste; a exigência
+  específica da tese: deduplicação por texto normalizado ANTES do
+  particionamento (vazamento por duplicatas em dados de varejo). *(funde 2.2.4
+  com 2.6.6.2; ~350 palavras)*
+- Fecho-ponte (~100 palavras): estas escolhas reaparecem como decisões
+  auditáveis no Cap. 3.
 
-### 2.2 Aprendizado ativo: o laço que compra informação
-- **Pergunta**: por que selecionar bem economiza rótulos — e onde o laço
-  clássico quebra?
-- **Mensagem**: incerteza é o motor comprovado; as duas fraturas do laço
-  clássico — *cold start* e oráculo imperfeito — são exatamente os pontos que
-  o FALCO ataca.
-- **Muda**: FUNDE as três seções top-level atuais (2.3 "Aprendizado Ativo" +
-  2.4 "Formalização" + 2.5 "Cenários"); as estratégias de seleção sobem de
-  altitude (hoje enterradas em 2.5.3) e são apresentadas como catálogo
-  compacto: incerteza com fórmulas (é o que a tese usa), espaço de
-  versão/EER/desacordo reduzidos a um parágrafo-síntese cada (hoje
-  subsubseções de um parágrafo); densidade/representatividade ganham
-  destaque (ancoram o DRI-SL). Entram DUAS adições novas exigidas pelos
-  achados: parada do laço (ponte para o Apêndice A7) e **viés de amostragem
-  ativa na avaliação** (Santos2016 + o achado do E6) — hoje o capítulo não
-  prepara o leitor para nenhum dos dois.
+**Sai:** algoritmos clássicos em catálogo (SVM/NB/KNN/árvores) — reduzidos a
+uma frase com citações-síntese; descrição enciclopédica de conceitos que
+nenhum capítulo posterior usa.
 
-### 2.3 O LLM no laço: de anotador a oráculo progressivo
-- **Pergunta**: o que muda quando o oráculo é um modelo pago por token, com
-  erro estruturado e servido por terceiros?
-- **Mensagem**: o oráculo deixa de ser premissa (perfeito, humano) e vira
-  **variável de projeto** — qualidade × custo × instrumento de medição; a
-  tese inteira vive nessa mudança de regime.
-- **Muda**: PROMOVE a atual subseção 2.5.4 a seção própria; absorve
-  rótulos ruidosos (Frénay/NoiseBench/AlleNoise — ponte para E4), custo
-  operacional (lote/cache/vazão — ponte para RQ2, com Kholodna) e a linha
-  2025–2026 (DEUCE, CanDist, MoLLIA, Rouzegar) hoje espalhada entre 2.5.4 e a
-  revisão. "Desafios e Direções" deixa de ser subsubseção e vira o fecho.
+## 2.2 Aprendizado ativo (~2.600 palavras)
 
-### 2.4 Classificação de texto curto em português: o domínio que aperta as condições
-- **Pergunta**: por que descrições de varejo com 621 classes são o teste duro
-  para tudo que foi dito acima?
-- **Mensagem**: esparsidade + cauda longa tornam o Macro F1 implacável e o
-  *cold start* crítico — e é por isso que o domínio é o laboratório certo.
-- **Muda**: CORTA a vetorização enciclopédica (2.6.4, três subsubseções) para
-  um resumo de meia página com remissão à dissertação \citep{Daru2024Dissertacao}
-  (o próprio texto já declara essa dívida no cabeçalho W7); corta a duplicata
-  de avaliação (vai para 2.1); mantém definições, desafios e algoritmos no
-  essencial que o PVBin/BERTimbau exigem.
+*Função: formalizar o laço, apresentar as estratégias que a tese usa e
+estabelecer as duas limitações que motivam o FALCO.*
 
-### 2.5 Estado da arte e a lacuna
-- **Pergunta**: o que já foi feito nas três frentes — e o que ninguém juntou?
-- **Mensagem**: as peças existem separadas (cold start informado; oráculo
-  LLM; robustez a ruído; produto/e-commerce); **a integração em fases com
-  instrumentação de custo é a lacuna** que o Cap. 3 ocupa.
-- **Muda**: a revisão sistemática SOBE de subseção de texto curto (2.6.7)
-  para seção própria de fechamento — ela cobre as três frentes, não só STC;
-  termina na tabela de lacunas e na ponte explícita para o FALCO.
+- **2.2.1 Formalização e cenários.** Origens (Angluin; Cohn; Lewis & Gale;
+  Settles); o laço pool-based formal (U, L, θ, S, O, B) com a notação que o
+  Cap. 3 reutiliza; cenários stream-based e por síntese em um parágrafo de
+  panorama. *(funde as atuais seções 2.3+2.4+2.5.1, com 2.5.2 reduzida;
+  ~600 palavras)*
+- **2.2.2 Estratégias de seleção de instâncias.** Catálogo compacto em
+  `\paragraph`: incerteza (menor confiança, menor margem, entropia — COM as
+  fórmulas, pois o Cap. 5 as referencia); comitê/desacordo, redução de erro
+  esperado e densidade/representatividade em um parágrafo-síntese cada (hoje
+  são subsubseções de um parágrafo); densidade/cluster com meia página a mais
+  por ancorar o DRI-SL (Nguyen & Smeulders; Dasgupta; Settles 2008). Fecho:
+  tabela comparativa custo×hipóteses das famílias. *(reorganiza 2.5.3;
+  ~1.000 palavras)*
+- **2.2.3 Limitações do laço clássico.** As duas fraturas: (i) *cold start* —
+  estratégias dependem de um modelo que ainda não existe (Bayer & Reuter;
+  Yuan et al.); (ii) suposição de oráculo perfeito — anotadores reais erram
+  (Snow; Sheng; Donmez) e viés de amostragem ativa: o conjunto rotulado deixa
+  de ser i.i.d., afetando o treino e a própria avaliação (Settles;
+  Santos & Carvalho) — preparando E6. Inclui critérios de parada do laço em
+  um parágrafo (literatura + remissão ao Apêndice A7). *(novo, absorvendo
+  material disperso; ~800 palavras)*
+- Fecho-ponte (~200 palavras): as duas fraturas definem as Fases 1 e 3 do
+  FALCO.
 
-## O que sai do capítulo (com destino)
+**Sai:** subsubseções de um parágrafo (espaço de versão, variância);
+"cenários emergentes" pouco usados; o sumário comparativo redundante.
 
-| Conteúdo atual | Destino |
-|---|---|
-| Subsubseções de 1 parágrafo (espaço de versão, EER, variância…) | síntese em prosa dentro de 2.2 |
-| Vetorização enciclopédica (esparsas/densas/similaridade) | resumo + remissão à dissertação |
-| "Avaliação e Validação" dentro de STC | fundido em 2.1 |
-| 28 `\paragraph` | ~8 sobrevivem (catálogo de estratégias); resto vira prosa |
-| Cenários emergentes de AA pouco usados | 1 parágrafo de panorama |
+## 2.3 Modelos de linguagem como oráculos de rotulagem (~2.300 palavras)
 
-## Cap. 3 — correção de fluidez (mesma regra 3)
+*Função: estabelecer o estado do conhecimento sobre LLM-como-anotador — o
+terreno do E0/E0-P — incluindo custo, ruído e instrumentação.*
 
-Diagnóstico: 5 pontos de "título seguido de título" (seção que abre direto em
-subseção). Correção mínima e cirúrgica: um parágrafo-ponte de 2–4 linhas em
-cada abertura de seção, dizendo o que a seção decide e como as subseções se
-dividem. Sem mudança de estrutura ou numeração.
+- **2.3.1 Capacidades e evidência empírica.** Gilardi (LLM supera crowdworkers);
+  zero/few-shot em classificação; granularidade típica dos estudos (dezenas a
+  ~370 classes: Roumeliotis; Gholamian) — o contraste com 621 fica para o
+  Cap. 5. *(~500 palavras)*
+- **2.3.2 Arquiteturas de integração no laço.** LLM como anotador único
+  (Zhang; Rouzegar com roteamento por confiança); como seletor (ActiveLLM);
+  em lote com modelos menores (Kholodna — anotação em lote; CanDist — rótulos
+  candidatos destilados; MoLLIA — mistura de LLMs leves); dual-expert para
+  produto. Figura ActiveLLM permanece aqui. *(reorganiza 2.5.4.1–2.5.4.4 +
+  material da revisão; ~700 palavras)*
+- **2.3.3 Rótulos ruidosos e seu efeito no treinamento.** Taxonomia de ruído
+  (Frénay & Verleysen; Natarajan; Song); ruído real × sintético (NoiseBench;
+  AlleNoise) e a implicação para avaliação de robustez — base do E4.
+  *(reloca o parágrafo A6 e expande ~1 parágrafo; ~450 palavras)*
+- **2.3.4 Custo, instrumentação e reprodutibilidade da medição.** Estruturas
+  de custo por token, lote e cache; restrição de saída ao espaço de classes
+  (formato consumível ≠ semântica correta — Kholodna mede correção de
+  formato); variabilidade entre provedores e versões (a medição como
+  fotografia modelo-provedor-data) — base do RQ2/RQ4. *(novo — hoje a tese
+  descobre isso no Cap. 5 sem preparo; ~450 palavras)*
+- Fecho-ponte (~200 palavras): o oráculo passa de premissa a variável de
+  projeto com três dimensões (qualidade, custo, instrumento) — é o espaço de
+  decisão do FALCO.
+
+## 2.4 Classificação de texto curto (~1.700 palavras)
+
+*Função: caracterizar o domínio de aplicação e justificar por que ele
+tensiona tudo que foi dito em 2.1–2.3.*
+
+- **2.4.1 Definições e desafios.** O que conta como texto curto; esparsidade
+  lexical, baixo contexto, informalidade/abreviação; especificidades do
+  português de varejo (caixa alta, abreviações de cupom fiscal).
+  *(condensa 2.6.1+2.6.2; ~600 palavras)*
+- **2.4.2 Representação e classificadores.** Resumo de meia página:
+  representações esparsas (TF-IDF binário — a família do PVBin) × densas
+  (embeddings, SBERT — a família do DRI-SL e do BERTimbau), com remissão
+  explícita à dissertação do autor para o tratamento extensivo
+  (Daru 2024); classificadores usados na tese (protótipos, lineares,
+  transformers) em um parágrafo cada. *(corta as 3 subsubseções de 2.6.4 e
+  condensa 2.6.5; ~700 palavras)*
+- **2.4.3 Implicações para aprendizado ativo no domínio.** Por que cauda
+  longa torna Macro F1 implacável e cold start crítico; classes
+  desbalanceadas em AL (Attenberg; Ertekin). *(novo fecho analítico;
+  ~400 palavras)*
+
+**Sai:** pré-processamento passo a passo (vira 2 frases); métricas de
+similaridade; a subseção duplicada de avaliação.
+
+## 2.5 Estado da arte na interseção e lacuna de pesquisa (~1.600 palavras)
+
+*Função: revisão focada 2020–2026 nas três frentes combinadas; terminar na
+lacuna que o Cap. 3 ocupa.*
+
+- **2.5.1 Escopo e método da revisão.** Mantém a subseção atual (bases,
+  período, termos, critérios). *(~250 palavras)*
+- **2.5.2 Síntese por frente.** Cold start informado (DEUCE; ALPS/TypiClust
+  em uma frase); LLM no laço (consolida referências de 2.3 sem repetir —
+  aqui entra a LEITURA comparativa, não a descrição); robustez a ruído;
+  produto/e-commerce (AlleNoise; dual-expert; zero-shot). *(reescreve
+  2.6.7.2–2.6.7.4; ~700 palavras)*
+- **2.5.3 Lacuna de pesquisa.** A tabela de lacunas (AL × STC × LLM × PT ×
+  custo instrumentado) — preservada integralmente — e o parágrafo-ponte para
+  o Cap. 3. *(~400 palavras + tabela)*
+- **2.5.4 Conclusão do capítulo.** Meia página amarrando 2.1→2.5 na cadeia:
+  métricas → laço → oráculo → domínio → lacuna. *(~250 palavras)*
+
+---
+
+## Correção de fluidez no Cap. 3 (sem mudança estrutural)
+
+Parágrafo-ponte de 2–4 linhas nos 5 pontos onde uma seção abre diretamente
+em subseção, declarando o que a seção decide e como se divide.
 
 ## Execução (após o OK)
 
-1. Reescrita seção a seção na ordem 2.1→2.5, preservando TODAS as citações
-   vivas (349 entradas; poda já feita) e as figuras (ActiveLLM permanece em 2.3).
-2. Cada seção nova é validada contra a pergunta/mensagem declarada acima —
-   se um parágrafo não serve à pergunta, sai.
-3. Compilação + verificação de refs/citações a cada seção; commit por seção.
-4. Pontes do Cap. 3 ao final.
-5. Estimativa: uma sessão de trabalho; risco baixo (conteúdo preservado no
-   histórico git; legado intocado como fonte).
+Reescrita seção a seção (2.1→2.5) preservando todas as citações vivas e a
+figura ActiveLLM; validação de cada seção contra a função declarada;
+compilação + verificação de refs a cada seção; commit por seção; pontes do
+Cap. 3 ao final. Conteúdo cortado permanece recuperável no histórico git e
+no repositório legado.
