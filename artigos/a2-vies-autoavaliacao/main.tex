@@ -31,8 +31,8 @@ all they have. It is folklore that this self-evaluation is biased, since
 actively sampled data are not i.i.d.; but the direction and size of the
 bias are rarely measured. We measure both, at scale, with a perfect-oracle
 protocol that separates a labelable \emph{pool} (50{,}000 short product
-descriptions, 621 classes, severe long tail) from a \emph{reserved
-population} (177{,}000+ instances) never touched by selection. At each step
+descriptions, 649 classes, severe long tail) from a \emph{reserved
+population} (181{,}490 instances) never touched by selection. At each step
 the collected labels are split 80/20; the same model is scored on the
 internal test split and on the population. Across five selection policies
 and two classifiers we find the bias is large, systematic and
@@ -82,7 +82,7 @@ control arm certifies that the gap is caused by selection, not by the
 instrument.
 
 Contributions: (i) the first (to our knowledge) large-scale, controlled
-quantification of AL self-evaluation bias with 621 classes, showing it is
+quantification of AL self-evaluation bias with 649 classes, showing it is
 \textbf{bidirectional and metric-dependent} --- internal accuracy
 underestimates deployment performance while internal macro-F1
 overestimates it; (ii) a mechanistic account and empirical demonstration
@@ -127,7 +127,14 @@ and scored twice with identical weights: on the \textbf{internal test}
 (the 20\% --- what a practitioner without reserved data can measure) and on
 the \textbf{population} $Q$ (deployment performance). The signed gap
 $\Delta_m(t) = m_{\text{int}}(t) - m_{\text{ext}}(t)$ for metric $m$ is the
-self-evaluation bias.
+self-evaluation bias. Both scores use the same computation convention:
+macro-F1 averages over the classes present in the respective reference
+set, which is precisely the support asymmetry a practitioner faces ---
+the internal test can only contain collected classes. Because the
+internal test is small early in the trajectory (20\% of $|L_t|$),
+single-step gaps are noisy; all reported biases are trajectory-level
+patterns sustained over many consecutive steps, not single-point
+readings.
 
 \paragraph{Control arm.} Under random selection, $L_t$ is an i.i.d.\ sample
 of $P$ (and $P$ of $D$), so $\Delta$ should vanish up to noise. A non-zero
@@ -269,7 +276,7 @@ addresses it separately, keeping this paper's question clean).
 
 Self-evaluation on actively collected data is not merely noisy --- it is
 systematically wrong in a direction that depends on the metric: accuracy
-reads low, macro-F1 reads high, by double-digit margins at 621-class
+reads low, macro-F1 reads high, by double-digit margins at 649-class
 granularity. A random control certifies the effect is caused by selection.
 The same experiments yield a practical bonus (stratified-by-prediction as
 a trivial strong policy) and a warning (labeling the full pool can damage

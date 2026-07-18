@@ -1,0 +1,215 @@
+% A4 — draft v0.1 (18/07/2026). Target: ESWA ou ACM TIST (alt.: ECIR industry).
+% Depende do E3' (braço D em execução) — \todo marcados. Submeter POR ÚLTIMO.
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage[round]{natbib}
+\usepackage[margin=2.8cm]{geometry}
+\usepackage{microtype}
+\usepackage{xcolor}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+
+\title{FALCO: an operational active-learning framework with progressive
+LLM oracles\\ for long-tailed short-text classification --- design,
+zero-cost execution, and honest validation}
+
+\author{Gilsiley Henrique Darú$^{1}$ \and Gustavo Valentim Loch$^{1}$\\[2pt]
+\normalsize $^{1}$Graduate Program in Numerical Methods in Engineering (PPGMNE),\\
+\normalsize Federal University of Paraná (UFPR), Curitiba, Brazil}
+\date{Draft v0.1 --- \today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Surveys of practitioners report that the barriers to adopting active
+learning (AL) with large language models are operational --- deployment
+complexity, uncertain cost reduction, inadequate tooling --- rather than
+accuracy. FALCO answers with a framework whose every decision is an
+audited, pre-registered instrument: a label-free cold start (DRI-SL);
+uncertainty-driven selection with a cheap classifier in the loop;
+a \emph{progressive oracle} policy where a budget-quality menu of LLM
+annotators is measured first (accuracy with confidence intervals, cost
+per thousand labels with cache and batch accounting) and a pre-registered
+gate decides which oracle serves each phase; stagnation-based stopping;
+and a release-plus-drift policy that reuses the cheap oracle as a
+continuous audit instrument. We report a complete end-to-end execution at
+\emph{zero oracle cost} on a 621-class Portuguese retail task: with a
+free-tier LLM oracle ($\approx$78--80\% accuracy), the loop stopped
+itself by validation stagnation at 32--40\% of a 15{,}000-label budget.
+Validation deliberately keeps the strong classifier (BERTimbau) out of
+the loop, training it once per arm on collected sets: oracle noise costs
+4.4 accuracy points against gold labels on identical instances; actively
+selected sets cover 620 of 649 classes against 493 for random sets of
+equal size; and an entropy-selected 15k set reaches 83.1\% population
+accuracy. \todo{fechar com braço D: veredito da hipótese
+$F1(A) \ge 0{,}95 \cdot F1(D)$}
+Noise-robustness experiments bound the damage of oracle error (87\% of
+final macro-F1 retained at 10\% uniform noise, 74\% at 20\%), and the
+framework's measurement layer contributed two instrument-level findings
+(output-contract artifact; serving-provider divergence) reported in
+companion work. Code, prompts, per-annotation artifacts and a
+reproducible runner are released.
+\end{abstract}
+
+\noindent\textbf{Keywords:} active learning; large language models; data
+annotation; annotation cost; text classification; MLOps.
+
+\section{Introduction}
+\label{sec:intro}
+
+Two decades of active learning research minimized \emph{label counts}
+under an assumed-correct oracle \citep{Settles2012,Olsson2009}; cost-aware
+work showed counts are not costs \citep{SettlesCravenFriedland2008}; and
+the LLM-as-annotator turn \citep{Gilardi2023,Zhang2025,Rouzegar2024,
+Kholodna2024} changed the currency twice: cost became a function of
+tokens (and caching, and batching), and oracle quality became a
+\emph{purchasable parameter} on a menu spanning an order of magnitude in
+price. Yet community surveys \citep{Romberg2025Reassessing} find adoption
+blocked by the same barriers as fifteen years ago: deployment complexity,
+uncertain real savings, inadequate tooling.
+
+FALCO (\emph{Framework de Aprendizado Ativo com LLM para texto CurtO})
+is our answer: an AL framework for long-tailed short-text classification
+whose distinguishing property is not a new selection strategy but an
+\emph{operational discipline} --- every component decision (which oracle,
+which phase, when to stop, when to release, when to retrain) is derived
+from a measured, pre-registered, artifact-backed criterion. This paper
+presents the framework and its complete execution and validation on a
+hard industrial task: 621 imbalanced product categories, Portuguese
+fiscal-receipt descriptions of 4--50 characters.
+
+\section{The framework}
+\label{sec:framework}
+
+FALCO composes four components, each validated separately in companion
+work and integrated here. \todo{figura da arquitetura (fases + gate +
+ciclo de vida) --- obrigatória para ESWA}
+
+\paragraph{Phase 1 --- label-free cold start.} The initial set is built by
+DRI-SL, a deterministic heuristic (semantic-density clustering plus
+lexical-variety filling) that outperforms even a supervised evolutionary
+optimizer of $L_0$ composition in the 100--5{,}000 range. Phase 1 spends
+at most 1\% of the label budget.
+
+\paragraph{Phase 2 --- uncertainty selection with a cheap learner.} The
+loop retrains a light classifier per batch (per-class prototype PVBin or
+logistic SGD \citep{Daru2024Dissertacao}); entropy selection dominates at
+scale (saturating at 95\% of its ceiling with 16--38\% of the pool,
+versus 80\%+ for random). The strong classifier stays \emph{out} of the
+loop by design --- it is trained once, at the end, on the collected set;
+this is both the cost model and, as Section~\ref{sec:validation} shows,
+the correct validation design.
+
+\paragraph{Progressive oracle with a pre-registered gate.} Candidate LLM
+oracles are measured first on paired samples (Wilson intervals; McNemar
+comparisons; cost per thousand labels with provider-metered tokens,
+cache and batch amortization). A gate fixed \emph{before} measurement
+maps results to architecture: the Initial oracle is the best
+accuracy/cost ratio; an Advanced oracle exists only if statistically
+superior to the Initial ($\alpha=0.05$); if no candidate clears an 85\%
+accuracy bar, noisy-oracle training becomes the central scenario and
+robustness (below) is mandatory. On our task the gate selected
+deepseek-v4-flash (78--82\% at US\$0.035/1k) as Initial and
+deepseek-v4-pro as Advanced ($p<0.001$), with a zero-cost free-tier
+oracle (nemotron-3-ultra, statistically tied with the Initial,
+$p=0.76$) as the no-budget alternative.
+
+\paragraph{Stopping, release, drift.} The loop stops on the first of:
+validation-macro-F1 stagnation ($<10^{-3}$ gain over 5 iterations),
+budget exhaustion, or pool exhaustion. Release requires stagnation
+\emph{plus} the validation Wilson interval clearing a floor; the
+untouched test set is consumed exactly once. In production, three
+monitoring layers (input drift at zero label cost; confidence drift;
+weekly oracle spot-audit at $\approx$US\$0.01 per 200 items) trigger
+incremental re-runs of the loop over recent data.
+
+\section{Zero-cost end-to-end execution}
+\label{sec:execution}
+
+The full loop ran twice (PVBin and SGD in the loop) with the free oracle
+and a 15{,}000-label budget over a 50{,}000-instance pool. Both runs
+\textbf{stopped themselves} by validation stagnation --- at 6{,}009
+labels (PVBin) and 4{,}742 (SGD), i.e., 32--40\% of budget --- with
+validation and test curves flat at the stop point, and 241 invalid oracle
+responses out of 6{,}250 oracle calls in the first run (3.9\%) handled
+by the framework's strict validation layer.
+Monetary oracle cost: zero; the binding constraint was provider
+throughput, which the framework's batch calibration (paired McNemar
+across batch sizes) and caching layer are designed to manage.
+
+\section{Validation with the strong classifier out of the loop}
+\label{sec:validation}
+
+BERTimbau \citep{Souza2020BERTimbau} is fine-tuned once per arm on
+already-collected sets and evaluated on a reserved population
+($\approx$177k instances) never touched by selection, with a fixed
+stratified evaluation sample and Wilson intervals. Arms: (A) the 8{,}937
+items annotated by the real pipeline, with the \emph{oracle's} labels;
+(B) the same items with gold labels; (C) equal-size random sets with
+gold; (D) the full 50k pool with gold --- the ruler; (E) a 15k
+entropy-selected prefix with gold.
+
+Findings so far: oracle noise costs \textbf{4.4 accuracy points}
+(A: 65.9\% [65.2, 66.5] vs.\ B: 70.2\% [69.6, 70.9]) --- the price of
+71.6\% oracle-gold agreement on \emph{actively selected} (hence harder)
+instances; random selection wins raw accuracy at equal size (C: 73.2\%)
+while active selection wins class coverage (620 vs.\ 493 classes) and
+macro-F1 (A: 0.242, B: 0.209, C: 0.189); and 15k entropy-selected gold
+labels reach \textbf{83.1\%} population accuracy (E), showing the strong
+classifier converts well-chosen additional labels efficiently.
+\todo{braço D + veredito da hipótese central ($F1(A)/F1(D)$, fração de
+rótulos) + tabela final consolidada}
+
+\paragraph{Robustness to oracle noise.} Controlled uniform-noise
+experiments with the light classifier bound the damage: 87\% of final
+macro-F1 retained at $\varepsilon=0.1$, 74\% at $\varepsilon=0.2$, 54\%
+at $\varepsilon=0.4$. Since real oracle error is \emph{structured}
+(concentrated in sibling categories), and structured noise of equal rate
+is more benign than uniform \citep{Frenay2014,Song2023NoisyLabels} ---
+with the caveat that real-noise benchmarks warn against overclaiming
+\citep{Merdjanovska2024NoiseBench,Raczkowska2024AlleNoise} --- the
+uniform design is a deliberately pessimistic test.
+
+\section{Related work}
+\label{sec:related}
+
+LLM-in-the-loop AL spans annotator \citep{Zhang2025}, selector
+\citep{Bayer2024}, confidence routing \citep{Rouzegar2024}, batch
+annotation \citep{Kholodna2024}, candidate-label distillation
+\citep{Xia2025CanDist}, LLM mixtures \citep{Qi2026MixtureLLMs} and
+dual-expert taxonomy contraction \citep{Cheng2024DualExpert}; cold-start
+seeding is addressed by DEUCE \citep{Guo2025Deuce} among others. Applied
+Portuguese retail classification at scale exists without AL or oracle
+automation \citep{Machado2026RetailPt}. FALCO's contribution is not any
+single mechanism but the integration under measurement discipline ---
+the combination of informed cold start + progressive measured oracle +
+instrumented cost + pre-registered decisions, which, to our knowledge,
+no prior framework offers end to end.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+FALCO shows that the practical barriers to LLM-assisted active learning
+--- cost uncertainty, deployment opacity, unverifiable claims --- are
+addressable by treating measurement as part of the framework: oracles
+are purchased off a measured menu through a pre-registered gate; the
+loop stops itself; the strong model trains once; release requires a
+reserved-set criterion; and production monitoring reuses the cheap
+oracle as an audit instrument. A complete execution at zero oracle cost,
+stopping at a third of budget with the strong-classifier validation
+quantifying every loss source (noise vs.\ selection vs.\ budget),
+demonstrates the discipline is affordable. \todo{frase final com o
+veredito do braço D}
+
+\paragraph{Artifacts.} \texttt{github.com/GHDaru/activelearning}
+(runner, prompts, per-annotation cache, experiment states);
+\texttt{github.com/GHDaru/tesedaru} (pre-registered criteria).
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\end{document}
