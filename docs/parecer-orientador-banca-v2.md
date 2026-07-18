@@ -60,9 +60,14 @@ primeira extensão natural — está declarado como descritivo.)*
 **AL**: "A DRI-SL-C com alocação mínima de 1 por classe prevista, com 621
 classes e lote 500, força ~500 grupos distintos por lote — não é isso um
 estratificador disfarçado? O ganho vem da 'novidade lexical' ou só do
-balanceamento?" *(Boa pergunta para ablação: DRI-SL-C sem novidade lexical =
-amostragem estratificada pela predição. Vale uma célula de controle antes da
-defesa.)*
+balanceamento?" *(RESPONDIDA em 18/07 — ablação executada (braço drisl-cs,
+2 classificadores × 100 lotes): a banca tinha razão. A versão SEM novidade
+lexical supera a DRI-SL-C completa nos dois classificadores (SGD: teto
+0,555/sat. 10k vs 0,491/15,5k; PVBin: sat. 18k vs 39,5k) — o ganho vem
+integralmente do agrupamento por predição; a novidade lexical é
+contraproducente no regime contínuo, embora essencial no cold start (P2).
+Incorporado como achado (iv) do E6 no Cap. 5, com a contribuição (ii) do
+Cap. 6 reformulada em conformidade.)*
 
 **Aplicações**: "O senhor mostra que rotular tudo piora o macro do SGD. Numa
 empresa que JÁ rotulou tudo, o que fazer?" *(Resposta que a tese suporta:

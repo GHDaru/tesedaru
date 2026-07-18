@@ -366,12 +366,16 @@ próprio gabarito) e uma \textbf{população reservada} com todo o restante
 modelo treinado é medido em dois lugares: no \emph{teste interno} (os 20\% do
 que o processo rotulou — o que um praticante sem conjunto reservado
 conseguiria medir) e na \emph{população} (o desempenho real de implantação).
-Quatro seletores são comparados com PVBin e SGD logístico: entropia,
-aleatório, DRI-SL como política contínua e a variante \textbf{DRI-SL-C},
+Cinco seletores são comparados com PVBin e SGD logístico: entropia,
+aleatório, DRI-SL como política contínua, a variante \textbf{DRI-SL-C} —
 em que, após o \textit{cold start}, os grupos do DRI-SL deixam de vir de
 $k$-means e passam a ser as \emph{classes previstas pelo próprio
-classificador} — a alocação proporcional e a novidade lexical intra-grupo
-permanecem idênticas. Execução com semente única e orçamento até o
+classificador}, mantidas a alocação proporcional e a novidade lexical
+intra-grupo — e um braço de \textbf{ablação} da própria DRI-SL-C, que
+remove o termo de novidade lexical e equivale, portanto, a
+\emph{amostragem estratificada pelas classes previstas}. A ablação isola a
+origem do ganho da variante: agrupamento por predição ou seleção lexical
+dentro dos grupos. Execução com semente única e orçamento até o
 \textit{pool} completo (artefatos em \texttt{experiments/e6population}); por
 ser braço único por célula, os números são descritivos, sem inferência.
 
@@ -387,11 +391,13 @@ Saturação: menor $|L|$ que atinge 95\% do teto do próprio braço.}
 \textbf{F1@10k} & \textbf{F1@20k} \\
 \midrule
 SGD & Entropia   & \textbf{0,591} & \textbf{8.000} & 0,565 & 0,574 \\
+SGD & Estratif.\ por predição & 0,555 & 10.000 & 0,533 & 0,543 \\
 SGD & DRI-SL-C   & 0,491 & 15.500 & 0,412 & 0,486 \\
 SGD & Aleatório  & 0,459 & 16.500 & 0,391 & 0,449 \\
 SGD & DRI-SL     & 0,441 & 41.500 & 0,310 & 0,365 \\
 \midrule
 PVBin & Entropia  & 0,529 & 19.000 & 0,438 & 0,509 \\
+PVBin & Estratif.\ por predição & 0,528 & 18.000 & 0,444 & 0,498 \\
 PVBin & DRI-SL-C  & 0,525 & 39.500 & 0,349 & 0,453 \\
 PVBin & Aleatório & 0,530 & 40.000 & 0,348 & 0,423 \\
 PVBin & DRI-SL    & 0,527 & 45.500 & 0,284 & 0,356 \\
@@ -399,7 +405,7 @@ PVBin & DRI-SL    & 0,527 & 45.500 & 0,284 & 0,356 \\
 \end{tabular}
 \end{table}
 
-Quatro achados (Tabela~\ref{tab:e6}). \textbf{(i)~A entropia domina em
+Cinco achados (Tabela~\ref{tab:e6}). \textbf{(i)~A entropia domina em
 escala}: satura a 95\% do teto com 8.000 rótulos no SGD (19.000 no PVBin),
 metade ou um quarto do que a seleção aleatória exige — confirmando o E1 fora
 do regime de orçamento pequeno. \textbf{(ii)~Rotular tudo pode piorar}: no
@@ -414,10 +420,21 @@ contínuo se corrige quando guiado pelo classificador}: a variante DRI-SL-C
 eleva o teto do SGD de $0{,}441$ para $0{,}491$, adianta a saturação em
 $2{,}7\times$ (de 41.500 para 15.500) e supera o aleatório em toda a região
 útil — enquanto o DRI-SL clássico, cego ao classificador, fica abaixo do
-aleatório como política contínua. A leitura consolidada da tese passa a ser:
-DRI-SL para o \textit{cold start} (Fase~1, onde venceu o envelope evolutivo),
-entropia como padrão da Fase~2, e DRI-SL-C como alternativa representativa
-intermediária. \textbf{(iv)~A autoavaliação em dados coletados ativamente é
+aleatório como política contínua. \textbf{(iv)~A ablação atribui o ganho ao
+agrupamento, não à novidade lexical}: o braço estratificado por predição —
+DRI-SL-C \emph{sem} o termo de novidade — supera a DRI-SL-C completa nos
+dois classificadores (SGD: teto $0{,}555$ e saturação em 10.000 contra
+$0{,}491$ e 15.500; PVBin: saturação em 18.000 contra 39.500, empatando com
+a entropia) e em toda a região média da curva. A seleção lexical
+intra-grupo, valiosa na partida a frio sem nenhum rótulo (P2), é
+\emph{contraproducente} no regime contínuo: privilegia exemplares
+lexicalmente atípicos quando o que a métrica macro paga é cobertura
+balanceada de classes. A leitura consolidada da tese passa a ser: DRI-SL
+para o \textit{cold start} (Fase~1, onde venceu o envelope evolutivo);
+na Fase~2, entropia como padrão, tendo a estratificação pelas classes
+previstas — política trivial de implementar — como alternativa
+representativa que captura quase todo o ganho.
+\textbf{(v)~A autoavaliação em dados coletados ativamente é
 enviesada — com sinal dependente da métrica}: no braço aleatório (controle),
 acurácia interna e externa coincidem ($\Delta \approx 0$), validando o
 instrumento; na entropia, a acurácia interna \emph{subestima} a real em até
