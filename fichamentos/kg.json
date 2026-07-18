@@ -731,6 +731,36 @@
       "status": "fichado"
     },
     {
+      "id": "Donmez2009",
+      "type": "artigo",
+      "label": "Donmez2009",
+      "title": "Efficiently Learning the Accuracy of Labeling Sources for Selective Sampling",
+      "year": 2009,
+      "venue": "KDD 2009, pp. 259-268",
+      "paper_type": "conferencia",
+      "status": "fichado"
+    },
+    {
+      "id": "pilar:p3-oraculo",
+      "type": "pilar",
+      "label": "p3-oraculo"
+    },
+    {
+      "id": "conceito:iethresh",
+      "type": "conceito",
+      "label": "iethresh"
+    },
+    {
+      "id": "conceito:estimacao-de-acuracia-de-anotadores",
+      "type": "conceito",
+      "label": "estimacao-de-acuracia-de-anotadores"
+    },
+    {
+      "id": "conceito:selecao-de-anotador",
+      "type": "conceito",
+      "label": "selecao-de-anotador"
+    },
+    {
       "id": "Du2019",
       "type": "artigo",
       "label": "Du2019",
@@ -2236,6 +2266,26 @@
       "label": "ontonotes"
     },
     {
+      "id": "Sheng2008",
+      "type": "artigo",
+      "label": "Sheng2008",
+      "title": "Get Another Label? Improving Data Quality and Data Mining Using Multiple, Noisy Labelers",
+      "year": 2008,
+      "venue": "KDD 2008, pp. 614-622",
+      "paper_type": "conferencia",
+      "status": "fichado"
+    },
+    {
+      "id": "conceito:rotulagem-repetida",
+      "type": "conceito",
+      "label": "rotulagem-repetida"
+    },
+    {
+      "id": "conceito:selective-repeated-labeling",
+      "type": "conceito",
+      "label": "selective-repeated-labeling"
+    },
+    {
       "id": "Silva2020",
       "type": "artigo",
       "label": "Silva2020",
@@ -2259,6 +2309,26 @@
       "id": "tarefa:deteccao-de-fake-news",
       "type": "tarefa",
       "label": "deteccao-de-fake-news"
+    },
+    {
+      "id": "Snow2008",
+      "type": "artigo",
+      "label": "Snow2008",
+      "title": "Cheap and Fast -- But is it Good? Evaluating Non-Expert Annotations for Natural Language Tasks",
+      "year": 2008,
+      "venue": "EMNLP 2008, pp. 254-263",
+      "paper_type": "conferencia",
+      "status": "fichado"
+    },
+    {
+      "id": "conceito:avaliacao-de-anotadores-nao-especialistas",
+      "type": "conceito",
+      "label": "avaliacao-de-anotadores-nao-especialistas"
+    },
+    {
+      "id": "conceito:correcao-por-vies-do-anotador",
+      "type": "conceito",
+      "label": "correcao-por-vies-do-anotador"
     },
     {
       "id": "Sokolova2009",
@@ -2811,6 +2881,11 @@
       "label": "FALCO-futuros"
     },
     {
+      "id": "multiplos-oraculos",
+      "type": "artigo-pendente",
+      "label": "multiplos-oraculos"
+    },
+    {
       "id": "claim-granularidade",
       "type": "artigo-pendente",
       "label": "claim-granularidade"
@@ -2844,6 +2919,11 @@
       "id": "claim-granularidade-e-E0",
       "type": "artigo-pendente",
       "label": "claim-granularidade-e-E0"
+    },
+    {
+      "id": "oraculo-imperfeito",
+      "type": "artigo-pendente",
+      "label": "oraculo-imperfeito"
     },
     {
       "id": "E0P-inv-alidos-futuros",
@@ -3810,6 +3890,32 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Review de processo; sobreposto a Minaee2022/Gasparetto2022."
+    },
+    {
+      "source": "Donmez2009",
+      "target": "pilar:p3-oraculo",
+      "type": "pillars"
+    },
+    {
+      "source": "Donmez2009",
+      "target": "conceito:iethresh",
+      "type": "proposes"
+    },
+    {
+      "source": "Donmez2009",
+      "target": "conceito:estimacao-de-acuracia-de-anotadores",
+      "type": "proposes"
+    },
+    {
+      "source": "Donmez2009",
+      "target": "conceito:selecao-de-anotador",
+      "type": "proposes"
+    },
+    {
+      "source": "Donmez2009",
+      "target": "multiplos-oraculos",
+      "type": "fundamenta",
+      "note": "Aprende a acurácia de múltiplas fontes de rotulagem DURANTE o laço (IEThresh: intervalos de confiança sobre a taxa de acerto estimada de cada anotador) e roteia consultas para as fontes confiáveis. Citado na Seção 2.2.3; é o antecedente formal da seleção de oráculo do FALCO — que substitui a estimação online pela medição pré-registrada do E0 (acurácia + custo por oráculo candidato)."
     },
     {
       "source": "Du2019",
@@ -6207,6 +6313,27 @@
       "note": "Demonstração canônica de que deep AL reduz drasticamente os rótulos em PLN (NER): frequentemente citada como prova de viabilidade do AL com redes profundas — apoio quantitativo à premissa da tese."
     },
     {
+      "source": "Sheng2008",
+      "target": "pilar:p3-oraculo",
+      "type": "pillars"
+    },
+    {
+      "source": "Sheng2008",
+      "target": "conceito:rotulagem-repetida",
+      "type": "proposes"
+    },
+    {
+      "source": "Sheng2008",
+      "target": "conceito:selective-repeated-labeling",
+      "type": "proposes"
+    },
+    {
+      "source": "Sheng2008",
+      "target": "oraculo-imperfeito",
+      "type": "fundamenta",
+      "note": "Formaliza QUANDO vale a pena pagar por rótulos repetidos de anotadores ruidosos em vez de rotular itens novos: depende da qualidade do anotador e do custo relativo. A rotulagem repetida seletiva (nos itens de rótulo mais incerto) domina as demais políticas. Citado na Seção 2.2.3; o dilema qualidade×custo do rótulo é exatamente o eixo que o FALCO transforma em decisão de cardápio de oráculos LLM (fase Inicial × Avançada)."
+    },
+    {
       "source": "Silva2020",
       "target": "pilar:geral",
       "type": "pillars"
@@ -6246,6 +6373,27 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Classificação de texto EM PORTUGUÊS com construção de corpus (UFSCar/ NILC-USP): exemplo de referência nacional de pipeline completo corpus→classificação — espelho do par dataset (Daru2022) + tese."
+    },
+    {
+      "source": "Snow2008",
+      "target": "pilar:p3-oraculo",
+      "type": "pillars"
+    },
+    {
+      "source": "Snow2008",
+      "target": "conceito:avaliacao-de-anotadores-nao-especialistas",
+      "type": "proposes"
+    },
+    {
+      "source": "Snow2008",
+      "target": "conceito:correcao-por-vies-do-anotador",
+      "type": "proposes"
+    },
+    {
+      "source": "Snow2008",
+      "target": "oraculo-imperfeito",
+      "type": "fundamenta",
+      "note": "Trabalho seminal da linha 'anotador barato e imperfeito': mede a qualidade de anotadores de crowdsourcing (AMT) em 5 tarefas de PLN contra especialistas, mostra que poucas anotações não-especialistas agregadas igualam o especialista, e propõe correção de viés por anotador. É o antecessor conceitual direto do LLM-como-oráculo: citado na Seção 2.2.3 (limitações do laço clássico, suposição de oráculo perfeito)."
     },
     {
       "source": "Sokolova2009",
