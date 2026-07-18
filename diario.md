@@ -274,3 +274,17 @@ Decisões formais com racional completo: `docs/decisoes.md`.
   representativa de meio de curva, entropia como padrão da Fase 2.
 - Viés de autoavaliação da variante segue alto (+0,10/+0,18) — amostragem
   representativa de raras infla o F1 interno; validação reservada obrigatória.
+
+## 18/07/2026 07:10 — E6 na tese; parecer v2 + R4; plano do Cap. 2 aguardando OK
+- Seção E6 escrita no Cap. 5 (tabela dos 8 braços; 4 achados: dominância da
+  entropia, menos-é-mais, DRI-SL-C, viés de autoavaliação com controle);
+  Cap. 6 atualizado (contribuição DRI-SL-C; parágrafo "mais rótulo não é
+  sempre melhor"); A7 com a parada dos ciclos real (4,7k/6k de 15k) e simulado.
+- Auditoria de achados: NENHUM achado científico fora do texto (tabela no
+  parecer v2); calibração b50 e smoke BERTimbau ficam no repo por decisão.
+- R4: 85,7 (apresentação 88 após o passe de estilo); Minor Revision mantida;
+  novo apontamento principal = fragmentação do Cap. 2.
+- docs/plano-reestruturacao-cap2.md: 5 seções com pergunta/mensagem/
+  contribuição declaradas, regras de fluidez (máx. 2 níveis, texto-ponte,
+  sem blocos de 1 parágrafo), corte de ~25%, pontes do Cap. 3 — AGUARDANDO
+  OK DO AUTOR para implementar.

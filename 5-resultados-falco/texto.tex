@@ -353,6 +353,81 @@ inferior do desempenho esperável com os oráculos reais do E0; e a extensão
 natural do desenho é a correção colaborativa de rótulos ruidosos com apoio
 de LLM \citep{Yuan2025NoiseAL}.
 
+\section{E6: seletores em escala populacional e o viés da autoavaliação}
+\label{sec:res-e6}
+
+O E6 estende a comparação de seletores para a escala completa da base e
+introduz um instrumento novo, proposto durante a pesquisa: a distinção entre
+avaliação \emph{interna} e \emph{externa}. A base deduplicada é dividida em um
+\textit{pool} rotulável de 50.000 instâncias (oráculo perfeito, isto é, o
+próprio gabarito) e uma \textbf{população reservada} com todo o restante
+($\approx 140$ mil instâncias), jamais tocada pela seleção. A cada lote de
+500, o conjunto rotulado acumulado sofre uma divisão convencional 80/20 e o
+modelo treinado é medido em dois lugares: no \emph{teste interno} (os 20\% do
+que o processo rotulou — o que um praticante sem conjunto reservado
+conseguiria medir) e na \emph{população} (o desempenho real de implantação).
+Quatro seletores são comparados com PVBin e SGD logístico: entropia,
+aleatório, DRI-SL como política contínua e a variante \textbf{DRI-SL-C},
+em que, após o \textit{cold start}, os grupos do DRI-SL deixam de vir de
+$k$-means e passam a ser as \emph{classes previstas pelo próprio
+classificador} — a alocação proporcional e a novidade lexical intra-grupo
+permanecem idênticas. Execução com semente única e orçamento até o
+\textit{pool} completo (artefatos em \texttt{experiments/e6population}); por
+ser braço único por célula, os números são descritivos, sem inferência.
+
+\begin{table}[htb]
+\centering
+\caption{E6 --- Macro F1 na população por seletor e classificador.
+Saturação: menor $|L|$ que atinge 95\% do teto do próprio braço.}
+\label{tab:e6}
+\small
+\begin{tabular}{ll rrrr}
+\toprule
+\textbf{Classif.} & \textbf{Seletor} & \textbf{Teto F1} & \textbf{Saturação} &
+\textbf{F1@10k} & \textbf{F1@20k} \\
+\midrule
+SGD & Entropia   & \textbf{0,591} & \textbf{8.000} & 0,565 & 0,574 \\
+SGD & DRI-SL-C   & 0,491 & 15.500 & 0,412 & 0,486 \\
+SGD & Aleatório  & 0,459 & 16.500 & 0,391 & 0,449 \\
+SGD & DRI-SL     & 0,441 & 41.500 & 0,310 & 0,365 \\
+\midrule
+PVBin & Entropia  & 0,529 & 19.000 & 0,438 & 0,509 \\
+PVBin & DRI-SL-C  & 0,525 & 39.500 & 0,349 & 0,453 \\
+PVBin & Aleatório & 0,530 & 40.000 & 0,348 & 0,423 \\
+PVBin & DRI-SL    & 0,527 & 45.500 & 0,284 & 0,356 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Quatro achados (Tabela~\ref{tab:e6}). \textbf{(i)~A entropia domina em
+escala}: satura a 95\% do teto com 8.000 rótulos no SGD (19.000 no PVBin),
+metade ou um quarto do que a seleção aleatória exige — confirmando o E1 fora
+do regime de orçamento pequeno. \textbf{(ii)~Rotular tudo pode piorar}: no
+SGD, o Macro F1 populacional atinge $0{,}59$ com $\approx 15$ mil rótulos
+selecionados por entropia e \emph{cai} para $0{,}44$ quando o \textit{pool}
+inteiro é rotulado — a amostra ativa é mais balanceada por classe que a
+distribuição natural, que domina o treino do modelo de perda logística quando
+tudo entra; o PVBin, que constrói um protótipo por classe, é imune. Para o
+custo de rotulagem, a implicação é forte: além do desperdício, o rótulo
+adicional pode ser \emph{nocivo} à métrica macro. \textbf{(iii)~O DRI-SL
+contínuo se corrige quando guiado pelo classificador}: a variante DRI-SL-C
+eleva o teto do SGD de $0{,}441$ para $0{,}491$, adianta a saturação em
+$2{,}7\times$ (de 41.500 para 15.500) e supera o aleatório em toda a região
+útil — enquanto o DRI-SL clássico, cego ao classificador, fica abaixo do
+aleatório como política contínua. A leitura consolidada da tese passa a ser:
+DRI-SL para o \textit{cold start} (Fase~1, onde venceu o envelope evolutivo),
+entropia como padrão da Fase~2, e DRI-SL-C como alternativa representativa
+intermediária. \textbf{(iv)~A autoavaliação em dados coletados ativamente é
+enviesada — com sinal dependente da métrica}: no braço aleatório (controle),
+acurácia interna e externa coincidem ($\Delta \approx 0$), validando o
+instrumento; na entropia, a acurácia interna \emph{subestima} a real em até
+14 p.p.\ (o teste interno herda os casos difíceis); e o Macro F1 interno
+\emph{superestima} o populacional em todos os seletores (até $+34$ p.p.\ no
+DRI-SL no início da curva), porque a amostra ativa sobre-representa classes
+raras. Nenhuma das duas direções é utilizável como estimativa de implantação
+— a justificativa empírica direta para o conjunto de validação reservado que
+o FALCO exige e para o critério de liberação do Apêndice~\ref{ap:liberacao}.
+
 \section{Decisão do gate e configuração do FALCO}
 \label{sec:res-gate}
 

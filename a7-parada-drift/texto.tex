@@ -19,10 +19,14 @@ $B$; \textbf{(iii) exaustão do pool}. O racional do gatilho (i) é
 estatístico: o ganho marginal por lote decai ao longo da curva de
 aprendizado, enquanto o custo marginal do rótulo é constante; quando o ganho
 observável cai abaixo da resolução do próprio conjunto de validação
-($\approx 1/\sqrt{n_V}$), rotular mais é pagar para medir ruído. Na execução
-ponta a ponta da biblioteca (oráculo simulado com ruído realista), o gatilho
-(i) encerrou o ciclo em 910 de 1.000 rótulos orçados — o artefato está no
-repositório (\texttt{experiments/e5cycle}).
+($\approx 1/\sqrt{n_V}$), rotular mais é pagar para medir ruído. O gatilho
+foi exercitado em duas execuções ponta a ponta da biblioteca: com oráculo
+simulado (ruído 0,2), encerrou o ciclo em 910 de 1.000 rótulos orçados; com
+\textbf{oráculo LLM real e gratuito} (nemotron via NIM, acurácia
+$\approx 78\%$) e orçamento de 15.000, encerrou em \textbf{6.009} rótulos
+(PVBin) e \textbf{4.742} (SGD) — 32--40\% do orçamento —, com as curvas de
+validação e teste estagnadas em conjunto. Os artefatos estão no repositório
+(\texttt{experiments/e5cycle}).
 
 \section{Critério de liberação do modelo}
 \label{ap:liberacao}
