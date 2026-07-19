@@ -124,9 +124,10 @@ verified by exact equality of score matrices.
 \section{RQ2: the evolutionary envelope}
 \label{sec:ga}
 
-A genetic algorithm over subset membership (100 generations; the full
-configuration ships in the released artifacts) optimizes $L_0$
-composition for four objectives (max/min $\times$ accuracy/macro-F1) at ten sizes.
+A genetic algorithm over subset membership (population 50, 100
+generations, elitism; full configuration and per-cell checkpoints in the
+released legacy artifacts) optimizes $L_0$ composition for four
+objectives (max/min $\times$ accuracy/macro-F1) at ten sizes.
 The envelope is wide where it matters: at $|L_0|=100$, best-minus-worst
 final individuals span \textbf{25.9 accuracy points}; evolutionary gain
 over the first generation (e.g., $+10.1$ points at 100, $+11.7$ at 50)
