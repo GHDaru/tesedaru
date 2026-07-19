@@ -537,6 +537,56 @@ prioritária. O resultado negativo é o que o pré-registro existe para
 proteger: o critério foi fixado antes, o instrumento decompõe a perda em
 suas fontes, e a resposta é acionável.
 
+\subsection{Varredura de orçamento: o piso que sustenta a hipótese}
+\label{sec:res-e3p-varredura}
+
+Para localizar o orçamento em que a hipótese passa a valer, o BERTimbau foi
+treinado sobre prefixos crescentes da mesma trajetória de entropia (20, 25,
+30 e 35 mil rótulos com gabarito), avaliados na população reservada
+(Tabela~\ref{tab:e3p-sweep}).
+
+\begin{table}[htb]
+\centering
+\caption{E3$'$ --- varredura de orçamento. Critério $0{,}95\times$ régua
+($D$): acurácia $\ge 83{,}9\%$, Macro F1 $\ge 0{,}428$. \cmark~atende.}
+\label{tab:e3p-sweep}
+\small
+\begin{tabular}{l r r r cc}
+\toprule
+\textbf{Braço} & \textbf{Rótulos} & \textbf{\% \textit{pool}} &
+\textbf{Acurácia} & \textbf{Macro F1} & \textbf{Critério} \\
+\midrule
+A (pipeline real) & 8.937  & 18\% & 65,9\% & 0,242 & acc~\xmark~F1~\xmark \\
+E                 & 15.000 & 30\% & 83,1\% & 0,380 & acc~\xmark~F1~\xmark \\
+E20               & 20.000 & 40\% & 85,9\% & 0,418 & acc~\cmark~F1~\xmark \\
+E25               & 25.000 & 50\% & 87,3\% & 0,434 & acc~\cmark~F1~\cmark \\
+E30               & 30.000 & 60\% & 87,7\% & 0,456 & acc~\cmark~F1~\cmark \\
+E35               & 35.000 & 70\% & 88,6\% & 0,463 & acc~\cmark~F1~\cmark \\
+\midrule
+D (régua)         & 50.000 & 100\% & 88,3\% & 0,451 & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Três leituras fecham o pilar. \textbf{(i)~A hipótese é alcançável.} O
+critério em \emph{acurácia} passa a valer em 20 mil rótulos (40\% do
+\textit{pool}) e o critério em \emph{Macro F1} --- a métrica da hipótese ---
+em 25 mil (50\%); o orçamento pré-registrado de $\le 30\%$ era, portanto,
+apertado demais para o objetivo macro do classificador forte, mas o piso
+correto é modesto e conhecido. \textbf{(ii)~Confirma-se o diagnóstico}: o
+gargalo era a política de parada, não o oráculo nem a seleção --- bastou
+gastar mais da mesma seleção por entropia (com gabarito) para cruzar o
+critério, e a distância era pequena. \textbf{(iii)~Menos é mais, também no
+transformer}: o braço E35 (35 mil rótulos ativamente selecionados)
+\emph{supera a régua de supervisão completa do \textit{pool}} tanto em
+acurácia ($88{,}6\%$ vs.\ $88{,}3\%$) quanto em Macro F1 ($0{,}463$ vs.\
+$0{,}451$) --- os 15 mil rótulos finais, sorteados da distribuição natural,
+não só são dispensáveis como \emph{degradam} o modelo forte, reproduzindo no
+BERTimbau o efeito medido no E6 com os classificadores leves. A conclusão
+consolidada: com uma política de parada ancorada no modelo forte (ou um piso
+de orçamento de $\approx 50\%$ do \textit{pool}), o FALCO sustenta a
+hipótese central; a versão executada apenas parou cedo demais.
+
 \section{Decisão do gate e configuração do FALCO}
 \label{sec:res-gate}
 

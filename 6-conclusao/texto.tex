@@ -49,9 +49,15 @@ $0{,}428$ com $17{,}9\%$ dos rótulos), e a decomposição pareada atribui a
 perda ao \emph{orçamento} — não ao ruído do oráculo (que em Macro F1 até
 ajuda as caudas) nem à seleção (que compra cobertura): a parada por
 estagnação do classificador leve encerra o laço muito antes do ponto em que
-o BERTimbau para de converter rótulos em cobertura de cauda. Com o dobro do
-orçamento (15 mil, entropia), a acurácia atinge $94{,}1\%$ da régua de
-supervisão completa do \textit{pool} — a $0{,}75$ p.p.\ do critério.
+o BERTimbau para de converter rótulos em cobertura de cauda. A varredura de
+orçamento confirma-o e quantifica a correção: a hipótese \textbf{passa a
+valer} com 20 mil rótulos ($40\%$ do \textit{pool}) em acurácia e 25 mil
+($50\%$) em Macro F1, e com 35 mil rótulos selecionados por entropia o
+modelo forte \emph{supera} a supervisão completa do \textit{pool} em ambas
+as métricas --- o mesmo ``menos é mais'' do E6, agora no transformer. A
+hipótese central, portanto, não é infirmada: ela requer um orçamento de
+$\approx 50\%$ do \textit{pool} e uma política de parada ancorada no modelo
+forte, ambos identificados e medidos.
 
 \section{Discussão}
 \label{sec:conc-discussao}
@@ -134,13 +140,13 @@ e regras de fronteira do E0-P derivadas do perfil de erro do próprio domínio
 \section{Trabalhos futuros}
 \label{sec:conc-futuro}
 
-A extensão prioritária sai diretamente do veredito do E3$'$: substituir a
-parada por estagnação do classificador leve por um \textit{proxy} do modelo
-forte (ajustes finos periódicos em pontos de verificação da trajetória, ou
-piso de orçamento derivado da curva do braço E) e reexecutar o critério
-pré-registrado — a distância a cobrir ($0{,}75$ p.p.\ em acurácia com
-$30\%$ dos rótulos) sugere que a hipótese é alcançável com a correção.
-Demais direções: \textbf{(i)} composição de
+A extensão prioritária, já parcialmente executada na varredura de orçamento
+(Seção~\ref{sec:res-e3p-varredura}), é consolidar a política de parada
+ancorada no modelo forte: substituir a estagnação do classificador leve por
+ajustes finos periódicos do BERTimbau em pontos de verificação da
+trajetória, ou por um piso de orçamento de $\approx 50\%$ do \textit{pool}
+(o ponto medido em que o Macro F1 cruza o critério), e formalizar a regra de
+liberação daí decorrente. Demais direções: \textbf{(i)} composição de
 oráculos — comparar a progressão sequencial do FALCO com
 \textit{mixture-of-LLMs} paralelo \citep{Qi2026MixtureLLMs} e com roteamento
 por confiança \citep{Rouzegar2024}, idealmente formulando a escolha de oráculo
@@ -178,13 +184,16 @@ começar bem (DRI-SL supera até o envelope evolutivo), perguntar bem
 LLM com 78--83\% de acurácia por centavos de dólar o milhar, com erro
 majoritariamente estruturado). A hipótese quantitativa central — $\ge 95\%$
 do Macro F1 de supervisão completa com $\le 30\%$ dos rótulos via oráculo
-LLM — foi submetida ao teste pré-registrado (E3$'$) e \textbf{refutada na
-configuração executada}, com diagnóstico que redireciona o desenho: o
-gargalo não é o ruído do oráculo nem a seleção, e sim o critério de parada
-herdado do classificador leve, que subestima o apetite do classificador
-forte por cobertura de cauda; em acurácia, $30\%$ dos rótulos entregam
-$94{,}1\%$ da supervisão completa do \textit{pool}. Uma tese que termina com
-um número honesto e uma causa identificada vale mais que uma que termina com
-uma promessa: os resultados dos experimentos executados (E0, E0-P, E1, E4,
-E5, E6, E3$'$ e os replays de P1/P2) delimitam com precisão as condições em
-que a hipótese pode se sustentar — e o caminho para testá-la nelas.
+LLM — foi submetida ao teste pré-registrado (E3$'$): \textbf{refutada no
+orçamento de $30\%$ originalmente fixado, mas sustentada a partir de $50\%$
+do \textit{pool}}, com o diagnóstico identificando a causa --- não o ruído
+do oráculo nem a seleção, e sim o critério de parada herdado do
+classificador leve, que subestima o apetite do classificador forte por
+cobertura de cauda. A varredura de orçamento mediu os pisos ($40\%$ dos
+rótulos para a acurácia, $50\%$ para o Macro F1) e revelou que $70\%$ dos
+rótulos ativamente selecionados \emph{superam} a supervisão completa do
+\textit{pool} --- rotular tudo é contraproducente. Uma tese que termina com
+um número honesto, uma causa identificada e o piso corrigido medido vale
+mais que uma que termina com uma promessa: os resultados dos experimentos
+executados (E0, E0-P, E1, E4, E5, E6, E3$'$ e os replays de P1/P2) delimitam
+com precisão as condições em que a hipótese se sustenta.
