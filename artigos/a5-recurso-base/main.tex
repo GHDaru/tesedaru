@@ -28,12 +28,14 @@ annotations, and a reproducible active-learning library}
 \begin{abstract}
 Public benchmarks for product-title classification are scarce, rarely in
 Portuguese, and almost never ship with an audit of their own label
-noise. We release \todo{condicional à decisão de licenciamento} a corpus
-of $\approx$250{,}000 short retail product descriptions from Brazilian
+noise. We consolidate, audit and instrument a corpus of
+$\approx$250{,}000 short retail product descriptions from Brazilian
 fiscal receipts (4--50 characters, uppercase, aggressive abbreviation),
 labeled over a closed catalog of 621 product-type categories with severe
-long-tail imbalance --- together with the three artifacts that make it a
-\emph{measurement-grade} resource rather than a raw dump: (i) a
+long-tail imbalance. The raw corpus has been publicly available on Kaggle
+since 2022 (DOI \texttt{10.34740/kaggle/dsv/4265348}); this paper adds
+the three artifacts that turn it into a \emph{measurement-grade}
+resource rather than a raw dump: (i) a
 \textbf{label-noise audit}: a census of conflicting labels (identical
 normalized text, divergent gold), a multi-gold re-scoring protocol, and
 the resulting measurement ceiling ($\approx$99.3\%), shown to shift
@@ -141,13 +143,17 @@ Colab notebook reproduce the GPU-dependent baselines.
 \label{sec:availability}
 
 Code and library: MIT license (public). Evaluation samples with LLM
-annotations and all per-annotation artifacts: released. Full corpus:
-\todo{DECISÃO DO AUTOR PENDENTE --- licença dos dados de origem
-(cupons fiscais agregados, sem dados pessoais) e canal de distribuição
-(Zenodo DOI vs.\ acesso mediante termo). Este artigo NÃO pode ser
-submetido antes desta decisão.} Texts are product descriptions only;
-no personal, transactional or merchant-identifying data is present.
-\todo{verificação final de anonimização antes da liberação}
+annotations and all per-annotation artifacts: released with this paper.
+Full corpus: publicly available on Kaggle since 2022 under a persistent
+identifier (DOI \texttt{10.34740/kaggle/dsv/4265348}
+\citep{Daru2022Dataset}), under the license declared on the dataset page
+\todo{transcrever o nome exato da licença da página do Kaggle}. The
+audit artifacts released here reference the published version;
+\todo{registrar hash/versão do CSV usado na tese vs.\ versão publicada
+(diferença esperada: correção 250.365 -> 250.221 itens --- documentar
+como changelog ou nova versão no Kaggle)}. Texts are product
+descriptions only; no personal, transactional or merchant-identifying
+data is present.
 
 \section{Baseline summary}
 \label{sec:baselines}
