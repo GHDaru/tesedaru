@@ -377,7 +377,24 @@ remove o termo de novidade lexical e equivale, portanto, a
 origem do ganho da variante: agrupamento por predição ou seleção lexical
 dentro dos grupos. Execução com semente única e orçamento até o
 \textit{pool} completo (artefatos em \texttt{experiments/e6population}); por
-ser braço único por célula, os números são descritivos, sem inferência.
+ser braço único por célula, os números da Tabela~\ref{tab:e6} são
+descritivos. Os dois braços centrais (entropia e aleatório, ambos
+classificadores) foram, contudo, reexecutados em \textbf{oito sementes}
+que variam o sorteio inicial, os desempates e a divisão interna mantendo o
+\textit{pool} fixo, permitindo inferência sobre a comparação principal
+(artefato \texttt{analysis\_multiseed.json}). A robustez confirma o quadro:
+a saturação da entropia no SGD é $9{,}1\text{k}\pm0{,}6\text{k}$ rótulos
+(faixa 8,5--10k) contra $15{,}5\text{k}\pm1{,}1\text{k}$ do aleatório, e o
+teto da entropia supera o do aleatório em \textbf{8 das 8 sementes}
+(Wilcoxon pareado, $p=0{,}0078$ --- a significância máxima alcançável com
+oito pares); no PVBin a vantagem de teto é pequena e não significativa
+(6/8), mas a saturação ($19{,}3\text{k}\pm0{,}7\text{k}$) permanece menos
+da metade da do aleatório ($40{,}6\text{k}\pm1{,}4\text{k}$). O viés de
+autoavaliação da acurácia é igualmente estável: em $|L|=10\text{k}$ o
+teste interno subestima a população em $17{,}1\pm1{,}0$ p.p.\ entre as
+sementes. O valor de saturação de 8.000 reportado na
+Tabela~\ref{tab:e6} (semente original) situa-se na borda otimista da faixa
+multi-semente, sem alterar nenhuma conclusão.
 
 \begin{table}[htb]
 \centering

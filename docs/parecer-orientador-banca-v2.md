@@ -53,9 +53,18 @@ sobreviver a 8 sementes (barato: oráculo perfeito), aí sim sobe de status.
 ## 3. Na voz da banca (arguições novas)
 
 **Metodologia**: "O E6 usa semente única e o senhor reporta 'saturação em
-8.000'. Qual a sensibilidade desse número ao sorteio inicial?" *(Resposta
-honesta: não medida; o custo de repetir com 8 sementes é ~1 dia de CPU e é a
-primeira extensão natural — está declarado como descritivo.)*
+8.000'. Qual a sensibilidade desse número ao sorteio inicial?"
+*(RESPONDIDA 19/07/2026 — campanha de 8 sementes executada nos braços
+centrais (entropia e aleatório × PVBin/SGD; artefato
+`analysis_multiseed.json`). A saturação da entropia no SGD é
+$9{.}060\pm560$ rótulos (faixa 8.500--10.000): a estimativa original de
+8.000 fica na borda otimista, mas o número é ESTÁVEL e a dominância sobre o
+aleatório ($15.500\pm1.100$) é robusta — o teto da entropia vence em 8/8
+sementes, Wilcoxon pareado $p=0{,}0078$, a significância máxima com 8 pares.
+O viés de autoavaliação da acurácia também é estável: $-17{,}1\pm1{,}0$ p.p.
+em $|L|=10$k. Incorporado ao Cap. 5 (nota multi-semente após a
+Tabela~\ref{tab:e6}) e ao artigo A2, que passa de descritivo a inferencial
+na comparação central.)*
 
 **AL**: "A DRI-SL-C com alocação mínima de 1 por classe prevista, com 621
 classes e lote 500, força ~500 grupos distintos por lote — não é isso um

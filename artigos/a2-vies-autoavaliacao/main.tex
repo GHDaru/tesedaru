@@ -37,10 +37,12 @@ the collected labels are split 80/20; the same model is scored on the
 internal test split and on the population. Across five selection policies
 and two classifiers we find the bias is large, systematic and
 \emph{metric-dependent}: under uncertainty sampling, internal accuracy
-\emph{underestimates} deployment accuracy by up to 14 points (the internal
-test inherits the hard cases), while internal macro-F1 \emph{overestimates}
-it by up to 34 points (the active sample over-represents rare classes). A
-random-sampling control shows near-zero gap, validating the instrument.
+\emph{underestimates} deployment accuracy by $17\pm1$ points across eight
+seeds (the internal test inherits the hard cases), while internal macro-F1
+\emph{overestimates} it by up to 34 points (the active sample
+over-represents rare classes). A random-sampling control shows near-zero
+gap, validating the instrument; entropy beats random in ceiling on 8 of 8
+seeds (paired Wilcoxon, $p=0{,}0078$).
 Two corollaries follow. First, \emph{more labels can hurt}: for a
 logistic-loss classifier, training on the $\approx$15k actively selected
 labels beats training on the full 50k pool by 15 macro-F1 points, because
@@ -160,8 +162,12 @@ embeddings with lexical-novelty tie-breaking, DRI-SL); the same policy
 with groups given by the classifier's \emph{predicted classes} (DRI-SL-C);
 and the ablation of the latter without lexical novelty --- equivalent to
 \emph{stratified sampling by predicted class}. Batch 500, budget to pool
-exhaustion, seed fixed. \todo{campanha de 8 sementes em fila --- converter
-achados em inferenciais (IC entre sementes + Wilcoxon pareado)}
+exhaustion. The entropy and random arms (the paper's central comparison)
+were run over \textbf{eight seeds} that vary the initial draw, tie-breaks
+and internal split while holding the pool fixed; results for these arms are
+reported as mean$\pm$SD with a paired Wilcoxon test across seeds. The
+diversity variants (DRI-SL, DRI-SL-C and its ablation) were run single-seed
+and are reported descriptively.
 
 \section{Results}
 \label{sec:results}
@@ -170,9 +176,9 @@ achados em inferenciais (IC entre sementes + Wilcoxon pareado)}
 
 \begin{table}[htb]
 \centering
-\caption{Population macro-F1 by policy and classifier (single seed,
-descriptive). Saturation: smallest $|L|$ reaching 95\% of the arm's own
-ceiling.}
+\caption{Population macro-F1 by policy and classifier. Entropy and random
+over 8 seeds (mean$\pm$SD); diversity variants single-seed (descriptive).
+Saturation: smallest $|L|$ reaching 95\% of the arm's own ceiling.}
 \label{tab:selectors}
 \small
 \begin{tabular}{llrrrr}
@@ -180,28 +186,33 @@ ceiling.}
 \textbf{Clf.} & \textbf{Policy} & \textbf{Ceiling} & \textbf{Saturation} &
 \textbf{F1@10k} & \textbf{F1@20k} \\
 \midrule
-SGD & Entropy      & \textbf{0.591} & \textbf{8{,}000} & 0.565 & 0.574 \\
+SGD & Entropy      & \textbf{0.592$\pm$0.004} & \textbf{9{,}060$\pm$560} & 0.565 & 0.574 \\
 SGD & Stratif.\ by prediction & 0.555 & 10{,}000 & 0.533 & 0.543 \\
 SGD & DRI-SL-C     & 0.491 & 15{,}500 & 0.412 & 0.486 \\
-SGD & Random       & 0.459 & 16{,}500 & 0.391 & 0.449 \\
+SGD & Random       & 0.455$\pm$0.004 & 15{,}500$\pm$1{,}100 & 0.391 & 0.449 \\
 SGD & DRI-SL       & 0.441 & 41{,}500 & 0.310 & 0.365 \\
 \midrule
-PVBin & Entropy    & 0.529 & 19{,}000 & 0.438 & 0.509 \\
+PVBin & Entropy    & 0.531$\pm$0.002 & 19{,}310$\pm$700 & 0.438 & 0.509 \\
 PVBin & Stratif.\ by prediction & 0.528 & 18{,}000 & 0.444 & 0.498 \\
 PVBin & DRI-SL-C   & 0.525 & 39{,}500 & 0.349 & 0.453 \\
-PVBin & Random     & 0.530 & 40{,}000 & 0.348 & 0.423 \\
+PVBin & Random     & 0.528$\pm$0.004 & 40{,}630$\pm$1{,}410 & 0.348 & 0.423 \\
 PVBin & DRI-SL     & 0.527 & 45{,}500 & 0.284 & 0.356 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Entropy dominates at scale (Table~\ref{tab:selectors}): it saturates at
-95\% of its ceiling with 8{,}000 labels for SGD (19{,}000 for PVBin), half
-to a quarter of the random requirement. The semantic-diversity policy
-(DRI-SL), designed for the zero-label cold start, is \emph{worse than
-random} as a continuous policy; guiding its groups by predicted classes
-(DRI-SL-C) repairs it (ceiling $0.441 \to 0.491$ for SGD, saturation
-$2.7\times$ earlier).
+Entropy dominates at scale (Table~\ref{tab:selectors}), and the eight-seed
+campaign shows the dominance is not a lucky draw: for SGD it saturates at
+$9{,}060\pm560$ labels (range 8{,}500--10{,}000) against $15{,}500\pm1{,}100$
+for random, and the entropy ceiling exceeds random's in \textbf{8 of 8
+seeds} (paired Wilcoxon, the maximum significance reachable with eight
+pairs, $p=0{,}0078$); for PVBin the entropy edge in ceiling is small and
+not significant (6/8 seeds), but its saturation ($19{,}310\pm700$) is
+still less than half of random's ($40{,}630\pm1{,}410$). The
+semantic-diversity policy (DRI-SL), designed for the zero-label cold
+start, is \emph{worse than random} as a continuous policy; guiding its
+groups by predicted classes (DRI-SL-C) repairs it (ceiling
+$0.441 \to 0.491$ for SGD, saturation $2.7\times$ earlier).
 
 \subsection{The ablation: stratification is the active ingredient}
 
@@ -221,13 +232,15 @@ gain and nearly all of the diversity-policy gain.
 The control behaves: under random selection the internal--external
 accuracy gap is $\Delta \approx 0$ along the whole trajectory. Under
 entropy selection, internal \textbf{accuracy underestimates} the
-population value by up to \textbf{14 points}: the internal test inherits
-the boundary-heavy, hard-case distribution that uncertainty sampling
-selects. Internal \textbf{macro-F1 overestimates} the population value for
-\emph{every} non-random policy --- by up to \textbf{$+34$ points} early in
-the DRI-SL trajectory: the active sample gives rare classes internal test
-support far above their population share, so per-class scores are computed
-on flattering supports. Neither direction is usable as a deployment
+population value substantially and \emph{robustly across seeds} --- at
+$|L|=10{,}000$ the gap is $-17{,}1\pm1{,}0$ points over the eight seeds
+(tight SD): the internal test inherits the boundary-heavy, hard-case
+distribution that uncertainty sampling selects. Internal \textbf{macro-F1
+overestimates} the population value for \emph{every} non-random policy ---
+by up to \textbf{$+34$ points} early in the DRI-SL trajectory (single
+seed): the active sample gives rare classes internal test support far
+above their population share, so per-class scores are computed on
+flattering supports. Neither direction is usable as a deployment
 estimate, and the two errors do not cancel: a practitioner reading
 internal accuracy will under-deploy (the model is better than it looks);
 one reading internal macro-F1 will over-promise tail quality (it is worse
@@ -264,12 +277,13 @@ labeling more.
 \label{sec:limits}
 
 Single dataset and domain (short retail text; the mechanism --- support
-inflation of rare classes --- is general, but effect sizes are not);
-single seed per cell in this draft (a multi-seed campaign with
-between-seed intervals and paired Wilcoxon tests is queued
-\todo{atualizar com 8 sementes}); perfect oracle by design (noisy oracles
-would add a second bias source; our companion work on LLM oracles
-addresses it separately, keeping this paper's question clean).
+inflation of rare classes --- is general, but effect sizes are not); the
+central entropy-vs-random comparison is inferential over eight seeds, but
+the diversity-variant arms (DRI-SL, DRI-SL-C, ablation) remain single-seed
+and descriptive, so their between-arm orderings should be read as
+indicative pending a seed campaign of their own; perfect oracle by design
+(noisy oracles would add a second bias source; our companion work on LLM
+oracles addresses it separately, keeping this paper's question clean).
 
 \section{Conclusion}
 \label{sec:conclusion}
