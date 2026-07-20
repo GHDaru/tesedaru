@@ -79,15 +79,15 @@ o Macro F1 é implacável e a partida a frio é crítica.
 
 \begin{frame}{O gargalo real não é o modelo --- é o rótulo}
 \begin{itemize}
-  \item Classificadores modernos são bons; \textbf{obter rótulos} é o custo dominante
-  \item \textbf{Aprendizado ativo (AA)}: o modelo escolhe o que vale a pena rotular
+  \item Classificadores modernos são bons; \emph{obter rótulos} é o custo dominante
+  \item \emph{Aprendizado ativo (AA)}: o modelo escolhe o que vale a pena rotular
   \item Mas o laço clássico tem \textbf{duas fraturas}:
   \begin{enumerate}
     \item \emph{Partida a frio}: as estratégias dependem de um modelo que
           ainda não existe
     \item \emph{Oráculo perfeito}: assume-se anotador correto e de custo unitário
   \end{enumerate}
-  \item \textbf{LLMs} mudam o jogo nas duas frentes --- podem \emph{selecionar}
+  \item As \emph{LLMs} mudam o jogo nas duas frentes --- podem \emph{selecionar}
         e podem \emph{rotular} --- mas trazem ruído estruturado e um novo
         modelo de custo (por token)
 \end{itemize}
@@ -109,8 +109,8 @@ Atingir \textbf{$\ge 95\%$} do Macro F1 da supervisão completa com
 aleatória e incerteza pura com significância estatística.
 \end{block}
 \footnotesize
-Definido de antemão o que conta como \textbf{refutação}; \emph{gate}
-pré-registrado de qualidade do oráculo. Postura: \textbf{nenhum número sem
+Definido de antemão o que conta como \emph{refutação}; \emph{gate}
+pré-registrado de qualidade do oráculo. Postura: \emph{nenhum número sem
 artefato rastreável}.
 \end{frame}
 \note{[2:30] Este é o slide mais importante do início. Enfatize PRÉ-REGISTRO: o critério (95\%/30\%) e a definição de refutação foram fixados ANTES. Diga a frase-assinatura: \"nenhum número sem artefato rastreável\". A banca vai gostar disso.}
@@ -147,12 +147,12 @@ progressivos para texto curto em português.
 \section{Fundamentação}
 \begin{frame}{Onde a tese se situa}
 \begin{itemize}
-  \item \textbf{Aprendizado ativo}: seleção por incerteza, comitê, densidade;
+  \item \emph{Aprendizado ativo}: seleção por incerteza, comitê, densidade;
         limitações do laço (cold start, oráculo imperfeito, viés de amostragem)
-  \item \textbf{LLM como oráculo}: Gilardi (2023) --- supera \textit{crowd};
+  \item \emph{LLM como oráculo}: Gilardi (2023) --- supera \textit{crowd};
         estudos de produto param em dezenas a $\approx$370 classes
-  \item \textbf{Texto curto}: esparsidade, cauda longa, português de varejo
-  \item \textbf{Instrumentação estatística}: Wilson, McNemar, Wilcoxon, bootstrap
+  \item \emph{Texto curto}: esparsidade, cauda longa, português de varejo
+  \item \emph{Instrumentação estatística}: Wilson, McNemar, Wilcoxon, bootstrap
 \end{itemize}
 \vspace{0.3em}
 \begin{block}{Lacuna}
@@ -280,7 +280,7 @@ $|L_0|$ & Acc & Macro F1 & Acc & Macro F1 \\
   \item Heurística determinística (densidade semântica + variedade lexical), \textbf{sem rótulos}
   \item Supera o \emph{melhor indivíduo} de um algoritmo genético supervisionado até $|L_0|=5.000$
   \item Auditoria de circularidade: envelope do AG estava inflado em $6{,}3$ p.p.\ ---
-        a comparação é \textbf{conservadora}
+        a comparação é \emph{conservadora}
 \end{itemize}
 \end{frame}
 \note{[3:00] Slide forte. DRI-SL não usa NENHUM rótulo e supera o MELHOR indivíduo de um AG supervisionado. Deixe isso pousar. Depois a honestidade que impressiona banca: a auditoria de circularidade mostrou que o AG estava inflado 6,3 p.p. --- então a comparação é conservadora, o DRI-SL vence por mais.}
@@ -301,7 +301,7 @@ gpt-4o-mini & 61,3\% & 0,518 & 0,051 \\
 \end{tabular}
 \vspace{0.6em}
 \begin{itemize}\footnotesize
-  \item Platô 77--83\% em 621 classes; Macro F1 zero-shot \textbf{supera} o supervisionado leve
+  \item Platô 77--83\% em 621 classes; Macro F1 zero-shot \emph{supera} o supervisionado leve
   \item Spread de custo de \textbf{26$\times$} dentro de empate estatístico
   \item $\approx$48\% do erro é \emph{convenção de catálogo}, não ignorância do produto
 \end{itemize}
@@ -311,11 +311,11 @@ gpt-4o-mini & 61,3\% & 0,518 & 0,051 \\
 
 \begin{frame}{P3 --- A medição é parte do método (RQ4)}
 \begin{itemize}
-  \item \textbf{Contrato de saída importa}: sem restrição ao espaço de
+  \item \emph{Contrato de saída importa}: sem restrição ao espaço de
         classes, \textbf{6,8\%} das respostas viram falsos erros de fraseado
-  \item \textbf{O provedor de \textit{serving} importa}: o mesmo modelo
+  \item \emph{O provedor de \textit{serving} importa}: o mesmo modelo
         gratuito diverge \emph{de si mesmo} entre dois serviços ($p<0{,}001$)
-  \item \textbf{E0-P (prompt)}: regras de fronteira ajudam na distribuição de
+  \item \emph{E0-P (prompt)}: regras de fronteira ajudam na distribuição de
         produção ($+4{,}6$ p.p., $p=0{,}012$) mas \emph{degradam} as classes
         raras ($-10{,}8$ p.p.) --- faca de dois gumes
 \end{itemize}
@@ -335,7 +335,7 @@ maiores que várias diferenças entre modelos.
   \item E4: injeta ruído uniforme $\varepsilon \in \{0; 0{,}1; 0{,}2; 0{,}4\}$
   \item Retenção do Macro F1 final: \textbf{87\% / 74\% / 54\%} em
         $\varepsilon = 0{,}1 / 0{,}2 / 0{,}4$
-  \item Desenho \emph{pessimista}: ruído real do oráculo é \textbf{estruturado}
+  \item Desenho \emph{pessimista}: ruído real do oráculo é \emph{estruturado}
         (categorias-irmãs), menos danoso que uniforme de mesma taxa
 \end{itemize}
 \vspace{0.3em}
@@ -374,8 +374,8 @@ Consequência de projeto: conjunto reservado é obrigatório para decidir libera
 
 \begin{frame}{E6 --- Entropia domina, e ``menos é mais''}
 \begin{itemize}\footnotesize
-  \item Entropia satura com \textbf{9,1k$\pm$0,6k} rótulos; aleatório precisa de 15,5k$\pm$1,1k
-  \item Vence o aleatório em teto \textbf{8/8 sementes} (Wilcoxon $p=0{,}0078$)
+  \item Entropia satura com \emph{9,1k$\pm$0,6k} rótulos; aleatório precisa de 15,5k$\pm$1,1k
+  \item Vence o aleatório em teto \emph{8/8 sementes} (Wilcoxon $p=0{,}0078$)
   \item \textbf{Menos é mais}: treinar com a amostra ativa \emph{supera} treinar
         com o pool completo (a amostra ativa é mais balanceada)
   \item Ablação: o ganho da DRI-SL-C vem do \emph{agrupamento por predição},
@@ -404,9 +404,9 @@ D (100\%)  & 50.000 & 88,3\% & 0,451 & --- \\
 \vspace{0.5em}
 \begin{itemize}\footnotesize
   \item BERTimbau treinado \emph{fora do laço}, 1× no fim, avaliado na população reservada
-  \item Hipótese \textbf{refutada em 30\%}, mas \textbf{sustentada a partir de 50\%}
-  \item Gargalo é a \textbf{parada} --- não o oráculo nem a seleção
-  \item Com 70\%, o modelo forte \textbf{supera a supervisão completa} do pool
+  \item Hipótese \textbf{refutada em 30\%, mas sustentada a partir de 50\%}
+  \item Gargalo é a \emph{parada} --- não o oráculo nem a seleção
+  \item Com 70\%, o modelo forte \emph{supera a supervisão completa} do pool
 \end{itemize}
 \end{frame}
 \note{[3:00] O clímax. BERTimbau treinado fora do laço julga a hipótese. Leia a tabela: refutada em 30\%, sustentada a partir de 50\%. Aponte E35 (70\%) SUPERANDO a régua completa --- menos é mais de novo, agora no transformer. Frase: \"o gargalo era a parada, não o oráculo\".}
@@ -414,9 +414,9 @@ D (100\%)  & 50.000 & 88,3\% & 0,451 & --- \\
 
 \begin{frame}{Decomposição da perda (por que 30\% não bastou)}
 \begin{itemize}
-  \item \textbf{Ruído do oráculo} (A vs.\ B, mesmos itens): custa 4,4 p.p.\ de
+  \item \emph{Ruído do oráculo} (A vs.\ B, mesmos itens): custa 4,4 p.p.\ de
         acurácia, mas em Macro F1 \emph{ajuda} --- erro estruturado regulariza caudas
-  \item \textbf{Seleção} (B vs.\ C): compra cobertura (620 vs.\ 493 classes), não acurácia bruta
+  \item \emph{Seleção} (B vs.\ C): compra cobertura (620 vs.\ 493 classes), não acurácia bruta
   \item \textbf{Orçamento}: é o fator dominante --- a parada por estagnação do
         classificador leve encerra o laço cedo demais para o objetivo macro do forte
 \end{itemize}
@@ -486,9 +486,9 @@ frentes que o FALCO integra: \textbf{começar bem} (DRI-SL), \textbf{perguntar
 bem} (incerteza) e \textbf{pagar bem} (oráculos LLM por centavos).
 \end{block}
 \begin{itemize}\footnotesize
-  \item A hipótese central se sustenta com \textbf{$\approx$50\% dos rótulos} e
+  \item A hipótese central se sustenta com \emph{$\approx$50\% dos rótulos} e
         parada ancorada no modelo forte --- refutação em 30\% e piso corrigido, ambos medidos
-  \item Três achados são sobre \textbf{instrumentos}, não modelos (enum, serving, circularidade)
+  \item Três achados são sobre \emph{instrumentos}, não modelos (enum, serving, circularidade)
   \item Postura: \textbf{nenhum número sem artefato rastreável}
 \end{itemize}
 \vspace{0.6em}
@@ -504,7 +504,7 @@ bem} (incerteza) e \textbf{pagar bem} (oráculos LLM por centavos).
 \begin{itemize}
   \item \textbf{Régua = pool de 50k}: o AA só enxerga o pool; comparar com a
         base inteira confundiria seleção com volume de dados
-  \item Classificador forte \textbf{fora do laço}, 1× no fim --- como o FALCO opera em produção
+  \item Classificador forte \emph{fora do laço}, 1× no fim --- como o FALCO opera em produção
   \item Braços pareados A/B isolam ruído; C isola seleção; E$k$ varrem orçamento
   \item Proveniência: P1/P2 originais no repo \texttt{activetextclassification};
         P3/P4 e reexecuções na \texttt{activelearning} --- portes verificados
