@@ -10,6 +10,8 @@
 \usepackage[margin=2.8cm]{geometry}
 \usepackage{microtype}
 \usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, fit, backgrounds}
 \newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
 
 \title{FALCO: an operational active-learning framework with progressive
@@ -93,8 +95,47 @@ fiscal-receipt descriptions of 4--50 characters.
 \label{sec:framework}
 
 FALCO composes four components, each validated separately in companion
-work and integrated here. \todo{figura da arquitetura (fases + gate +
-ciclo de vida) --- obrigatória para ESWA}
+work and integrated here (Figure~\ref{fig:falco-arch}).
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  box/.style={draw, rounded corners=2pt, align=center, inner sep=4pt,
+              minimum height=8mm, text width=24mm},
+  db/.style={draw, align=center, inner sep=3pt, fill=black!4, text width=20mm},
+  arr/.style={-{Stealth[length=2mm]}, thick},
+  every node/.style={font=\footnotesize},
+]
+  \node[db] (pool) {Unlabeled pool $U$};
+  \node[box, right=7mm of pool, fill=blue!6] (p1) {\textbf{Phase 1}\\ label-free cold start (DRI-SL)};
+  \node[box, right=6mm of p1, fill=blue!10] (p2) {\textbf{Phase 2}\\ uncertainty selection\\ + light classifier};
+  \node[box, right=6mm of p2, fill=blue!6] (stop) {\textbf{Stop}\\ validation stagnation / budget};
+  \node[box, below=8mm of p2, fill=orange!12] (gate) {\textbf{Pre-registered gate}\\ measured oracle menu\\ (acc, cost, CI)};
+  \node[db, below=7mm of p1] (init) {LLM Initial\\ (cheap)};
+  \node[db, below=7mm of stop] (adv) {LLM Advanced\\ (accurate)};
+  \node[box, right=6mm of stop, fill=green!10] (strong) {\textbf{Strong classifier}\\ trained once\\ (BERTimbau)};
+  \node[box, below=8mm of strong, fill=green!6] (rel) {\textbf{Release + drift}\\ reserved-set criterion,\\ oracle spot-audit};
+
+  \draw[arr] (pool) -- (p1);
+  \draw[arr] (p1) -- (p2);
+  \draw[arr] (p2) -- (stop);
+  \draw[arr] (stop) -- (strong);
+  \draw[arr] (strong) -- (rel);
+  \draw[arr] (gate) -- (init);
+  \draw[arr] (gate) -- (adv);
+  \draw[arr] (init) -- (p2);
+  \draw[arr] (adv) -- (p2);
+  \draw[arr] (p2.north) to[out=150,in=30] node[above, font=\scriptsize]{retrain per batch} (p1.north);
+\end{tikzpicture}
+\caption{FALCO architecture. A label-free cold start (Phase~1) seeds an
+uncertainty loop with a cheap classifier (Phase~2); a pre-registered gate
+assigns measured LLM oracles to phases by budget/quality; the loop stops by
+validation stagnation; the strong classifier is trained once on the
+collected set; release and drift monitoring reuse the cheap oracle as an
+audit instrument.}
+\label{fig:falco-arch}
+\end{figure}
 
 \paragraph{Phase 1 --- label-free cold start.} The initial set is built by
 DRI-SL, a deterministic heuristic (semantic-density clustering plus

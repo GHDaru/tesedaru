@@ -495,3 +495,17 @@ oráculos registram tokens, tokens em \textit{cache}, latência e custo estimado
 insumos da análise de custo do Capítulo~\ref{ch:resultados-falco}. O ambiente de
 treinamento é uma estação com GPU NVIDIA RTX 3090 (24~GB), 64~GB de RAM e Linux;
 as versões das dependências são fixadas pelo gerenciador de pacotes do repositório.
+
+\textbf{Proveniência dupla dos resultados.} Por razões históricas, o programa
+experimental distribui-se em dois repositórios versionados, e a distinção é
+mantida explícita em toda a tese. Os resultados \emph{originais} dos pilares
+P1 e P2 (estudo de sensibilidade de $L_0$, envelope do algoritmo genético e
+DRI-SL no \textit{cold start}) foram produzidos no repositório
+\texttt{activetextclassification}; os pilares P3 e P4 (E0, E0-P, E1, E4, E5,
+E6 e E3$'$) e as \emph{reexecuções} de verificação de P1/P2 foram produzidos
+na biblioteca \texttt{activelearning}, reescrita sob a arquitetura acima.
+Onde a tese reporta um número originado no repositório legado, o porte para a
+biblioteca nova foi verificado — por igualdade de matrizes de escore (PVBin),
+por reexecução independente com protocolo mais rigoroso (sensibilidade de
+$L_0$, divergência $\le 0{,}7$ p.p.) ou por conferência direta contra o
+artefato de origem (DRI-SL); o registro dessa auditoria acompanha o código.
