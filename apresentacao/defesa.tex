@@ -1,0 +1,249 @@
+% Apresentação de defesa — FALCO (v1). Beamer. ~25 min / ~22 slides.
+% Compilar: pdflatex defesa.tex (2x)
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
+\usepackage{pifont}
+\newcommand{\cmark}{\textcolor{green!55!black}{\ding{51}}}
+\newcommand{\xmark}{\textcolor{red!70!black}{\ding{55}}}
+
+\usetheme{Madrid}
+\usecolortheme{whale}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamerfont{footline}{size=\tiny}
+\definecolor{falcoblue}{RGB}{36,86,166}
+\setbeamercolor{structure}{fg=falcoblue}
+
+\title[FALCO]{FALCO: Aprendizado Ativo com Oráculos LLM\\ para Classificação de Texto Curto}
+\subtitle{Reduzindo o custo de rotulagem em português com 621 categorias}
+\author[G. H. Darú]{Gilsiley Henrique Darú}
+\institute[PPGMNE/UFPR]{Orientador: Prof.\ Dr.\ Gustavo Valentim Loch\\ PPGMNE --- Universidade Federal do Paraná}
+\date{Defesa de Doutorado --- 2026}
+
+\begin{document}
+
+\begin{frame}[plain]\titlepage\end{frame}
+
+\begin{frame}{Roteiro}\tableofcontents\end{frame}
+
+% ---------------------------------------------------------------
+\section{O problema}
+\begin{frame}{O gargalo: rotular custa caro}
+\begin{columns}[T]
+\column{0.56\textwidth}
+\begin{itemize}
+  \item Classificar \textbf{descrições curtas de produtos} (cupom fiscal):
+        \texttt{CERV BRAHMA LT 350ML}
+  \item \textbf{621 categorias}, cauda longa, texto ruidoso e abreviado
+  \item O custo dominante não é o modelo --- é \textbf{obter rótulos}
+  \item Aprendizado ativo reduz \emph{contagem} de rótulos, mas assume
+        \emph{oráculo perfeito} e \emph{modelo inicial} --- as duas fraturas
+\end{itemize}
+\column{0.42\textwidth}
+\footnotesize
+\begin{block}{Pergunta de pesquisa}
+Como reduzir o custo de rotulagem em texto curto em português, usando LLMs
+nas fases em que o AL tradicional é mais frágil?
+\end{block}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Hipótese central (pré-registrada)}
+\begin{block}{Critério quantitativo, fixado \emph{antes} dos experimentos}
+O FALCO deve atingir \textbf{$\ge 95\%$} do Macro F1 da supervisão completa
+com \textbf{$\le 30\%$} dos rótulos (via oráculo LLM), superando amostragem
+aleatória e incerteza pura com significância.
+\end{block}
+\vspace{1em}
+\begin{itemize}
+  \item Definido de antemão o que conta como \textbf{refutação}
+  \item \emph{Gate} pré-registrado de qualidade mínima do oráculo
+  \item Princípio metodológico: \textbf{nenhum número sem artefato rastreável}
+\end{itemize}
+\end{frame}
+
+% ---------------------------------------------------------------
+\section{O framework}
+\begin{frame}{FALCO: quatro componentes sob disciplina de medição}
+\centering
+\begin{tikzpicture}[font=\scriptsize,
+  box/.style={draw, rounded corners=2pt, align=center, inner sep=3pt, minimum height=7mm, text width=20mm},
+  db/.style={draw, align=center, inner sep=2pt, fill=black!4, text width=17mm},
+  arr/.style={-{Stealth[length=1.6mm]}, thick}]
+  \node[db] (pool) {Pool $U$};
+  \node[box, right=5mm of pool, fill=falcoblue!12] (p1) {\textbf{Fase 1}\\ cold start s/ rótulo (DRI-SL)};
+  \node[box, right=5mm of p1, fill=falcoblue!20] (p2) {\textbf{Fase 2}\\ incerteza + classif. leve};
+  \node[box, right=5mm of p2, fill=falcoblue!12] (stop) {\textbf{Parada}\\ estagnação da validação};
+  \node[box, right=5mm of stop, fill=green!14] (strong) {\textbf{Classif. forte}\\ 1× no fim};
+  \node[box, below=7mm of p2, fill=orange!18] (gate) {\textbf{Gate}\\ cardápio de oráculos medido};
+  \node[db, below=6mm of p1] (init) {LLM Inicial};
+  \node[db, below=6mm of stop] (adv) {LLM Avançado};
+  \draw[arr] (pool)--(p1); \draw[arr] (p1)--(p2); \draw[arr] (p2)--(stop); \draw[arr] (stop)--(strong);
+  \draw[arr] (gate)--(init); \draw[arr] (gate)--(adv); \draw[arr] (init)--(p2); \draw[arr] (adv)--(p2);
+\end{tikzpicture}
+\vspace{0.8em}
+\begin{itemize}\footnotesize
+  \item O diferencial não é uma estratégia nova --- é a \textbf{disciplina}:
+        cada decisão (qual oráculo, qual fase, quando parar) vem de medição
+        pré-registrada e rastreável.
+\end{itemize}
+\end{frame}
+
+% ---------------------------------------------------------------
+\section{Achados}
+\begin{frame}{P1--P2 --- Começar bem, sem gastar rótulo}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{A composição do $L_0$ importa}
+\begin{itemize}\footnotesize
+  \item Amplitude de \textbf{6,4 p.p.} de acurácia só pelo sorteio ($|L_0|=100$)
+  \item Reexecução independente: divergência $\le 0{,}7$ p.p.
+\end{itemize}
+\column{0.5\textwidth}
+\textbf{DRI-SL captura isso sem rótulos}
+\begin{itemize}\footnotesize
+  \item Heurística determinística (densidade semântica + variedade lexical)
+  \item \textbf{Supera o melhor indivíduo} de um AG supervisionado até $|L_0|=5.000$
+  \item Auditoria de circularidade: envelope do AG inflado em $6{,}3$ p.p.\ ---
+        comparação conservadora
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}{P3 --- LLMs como oráculo: viáveis, baratos, erram com estrutura}
+\centering\small
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Oráculo} & \textbf{Acurácia} & \textbf{Macro F1} & \textbf{US\$/1k} \\
+\midrule
+deepseek-v4-pro & 82,1\% & 0,785 & 0,410 \\
+gpt-4o & 80,9\% & 0,788 & 0,923 \\
+deepseek-v4-flash & 78,3\% & 0,750 & \textbf{0,035} \\
+nemotron-3-ultra (grátis) & 77,9\% & 0,752 & \textbf{0,000} \\
+\bottomrule
+\end{tabular}
+\vspace{0.8em}
+\begin{itemize}\footnotesize
+  \item Platô 77--83\% em 621 classes; Macro F1 zero-shot \textbf{supera} o
+        supervisionado leve --- LLM é melhor nas classes raras
+  \item Spread de custo de \textbf{26$\times$} dentro de empate estatístico
+  \item Quase metade do erro é \emph{convenção de catálogo} (não ignorância)
+  \item RQ4: o instrumento importa --- sem restrição de saída, 6,8\% viram
+        falsos erros; o \emph{provedor} de serving também ($p<0{,}001$)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{P4 / E6 --- Autoavaliação engana, e menos pode ser mais}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Viés bidirecional (8 sementes)}
+\begin{itemize}\footnotesize
+  \item Medir no próprio conjunto coletado é enviesado
+  \item Acurácia interna \textbf{subestima} ($-17{,}1\pm1{,}0$ p.p.)
+  \item Macro F1 interno \textbf{superestima}
+  \item $\Rightarrow$ conjunto reservado é obrigatório
+\end{itemize}
+\column{0.5\textwidth}
+\textbf{Entropia domina, robustamente}
+\begin{itemize}\footnotesize
+  \item Satura com 9,1k$\pm$0,6k rótulos (vs.\ 15,5k do aleatório)
+  \item Vence o aleatório em \textbf{8/8 sementes} (Wilcoxon $p=0{,}008$)
+  \item ``Menos é mais'': treinar com a amostra ativa $>$ pool completo
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}{E3$'$ --- O classificador forte julga a hipótese}
+\centering\small
+\begin{tabular}{lrrrc}
+\toprule
+\textbf{Braço} & \textbf{Rótulos} & \textbf{Acc.} & \textbf{Macro F1} & \textbf{Critério} \\
+\midrule
+E (pipeline, 30\%) & 15.000 & 83,1\% & 0,380 & \xmark~\xmark \\
+E20 (40\%) & 20.000 & 85,9\% & 0,418 & \cmark~\xmark \\
+E25 (50\%) & 25.000 & 87,3\% & 0,434 & \cmark~\cmark \\
+E35 (70\%) & 35.000 & \textbf{88,6\%} & \textbf{0,463} & \cmark~\cmark \\
+D (régua, 100\%) & 50.000 & 88,3\% & 0,451 & --- \\
+\bottomrule
+\end{tabular}
+\vspace{0.6em}
+\begin{itemize}\footnotesize
+  \item Hipótese \textbf{refutada em 30\%}, mas \textbf{sustentada a partir de 50\%}
+  \item Gargalo é a \textbf{parada} --- não o oráculo (que ajuda as caudas) nem a seleção
+  \item Com 70\%, o modelo forte \textbf{supera a supervisão completa} do pool
+\end{itemize}
+\end{frame}
+
+% ---------------------------------------------------------------
+\section{Entregas}
+\begin{frame}{O que fica: da pesquisa ao uso}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Científico}
+\begin{itemize}\footnotesize
+  \item Framework FALCO + DRI-SL (e variante DRI-SL-C)
+  \item Avaliação instrumentada de oráculos (621 classes, PT)
+  \item Métrica LCE; base pública auditada (DOI Kaggle)
+  \item 5 artigos derivados em preparação
+\end{itemize}
+\column{0.5\textwidth}
+\textbf{Software}
+\begin{itemize}\footnotesize
+  \item Biblioteca \texttt{activelearning} (pip, DDD/hexagonal, 80 testes)
+  \item FlowBuilder: interface com catálogo executável de experimentos
+        --- \emph{reproduzir} e \emph{reprisar} cada número da tese
+  \item Ciclo real rodado a \textbf{custo zero} de oráculo
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Conclusão}
+\begin{block}{A resposta}
+O custo de rotulagem em texto curto PT pode ser atacado nas três frentes que
+o FALCO integra: \textbf{começar bem} (DRI-SL), \textbf{perguntar bem}
+(incerteza) e \textbf{pagar bem} (oráculos LLM por centavos).
+\end{block}
+\begin{itemize}\footnotesize
+  \item A hipótese central se sustenta com \textbf{$\approx$50\% dos rótulos} e
+        parada ancorada no modelo forte --- refutação em 30\% e piso corrigido,
+        ambos medidos
+  \item Postura central: \textbf{nenhum número sem artefato rastreável} ---
+        e agora rastreabilidade \emph{clicável}
+\end{itemize}
+\vspace{0.5em}
+\centering\textbf{\color{falcoblue}Obrigado.} \quad Perguntas?
+\end{frame}
+
+% ---------------------------------------------------------------
+\appendix
+\begin{frame}{Reserva --- Desenho do E3$'$ e proveniência}
+\footnotesize
+\begin{itemize}
+  \item \textbf{Régua = pool de 50k} (o AL só enxerga o pool; comparar com a
+        base inteira confundiria seleção com volume de dados)
+  \item Classificador forte \textbf{fora do laço}: treinado 1× no fim ---
+        é como o FALCO opera em produção
+  \item Braços pareados A/B isolam ruído do oráculo ($-4{,}4$ p.p.\ acc, mas
+        $+$Macro F1: erro estruturado regulariza caudas)
+  \item Proveniência dupla: P1/P2 originais no repo \texttt{activetextclassification};
+        P3/P4 e reexecuções na \texttt{activelearning} --- portes verificados
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Reserva --- Gate e configuração do FALCO}
+\footnotesize
+\begin{itemize}
+  \item Nenhum oráculo atinge o gate de 85\% $\Rightarrow$ E4 (ruído) torna-se central
+  \item \textbf{LLM Inicial} = deepseek-v4-flash (78--82\% a US\$0,035/1k)
+  \item \textbf{LLM Avançado} = deepseek-v4-pro (superioridade significativa, $p<0{,}001$)
+  \item Alternativa custo zero: nemotron-3-ultra (empata com o flash, $p=0{,}76$)
+  \item E4: retenção de 87/74/54\% do Macro F1 sob ruído $\varepsilon=0{,}1/0{,}2/0{,}4$
+\end{itemize}
+\end{frame}
+
+\end{document}
