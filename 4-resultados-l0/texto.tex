@@ -74,11 +74,11 @@ geração) — cenários de Acurácia. Envelope entre minimização e maximizaç
 \label{tab:ag-evolucao}
 \small
 \begin{tabular}{r rrr rrr}
-\hline
+\toprule
  & \multicolumn{3}{c}{\textbf{Maximização}} & \multicolumn{3}{c}{\textbf{Minimização}} \\
 \textbf{$|L_0|$} & 1\textsuperscript{a} & 100\textsuperscript{a} & $\Delta$ &
 1\textsuperscript{a} & 100\textsuperscript{a} & $\Delta$ \\
-\hline
+\midrule
 10     & 13,06\% & 18,82\% & $+5{,}76$ & —       & —       & — \\
 50     & 22,12\% & 33,83\% & $+11{,}71$ & 16,17\% & 7,13\%  & $-9{,}04$ \\
 100    & 26,65\% & 36,71\% & $+10{,}06$ & 22,17\% & 10,86\% & $-11{,}31$ \\
@@ -87,7 +87,7 @@ geração) — cenários de Acurácia. Envelope entre minimização e maximizaç
 5.000  & 73,48\% & 74,13\% & $+0{,}64$  & 72,00\% & 70,82\% & $-1{,}18$ \\
 20.000 & 82,10\% & 83,23\% & $+1{,}13$  & 81,58\% & 79,55\% & $-2{,}03$ \\
 30.000 & 85,07\% & 85,88\% & $+0{,}81$  & 84,39\% & 83,03\% & $-1{,}36$ \\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -111,16 +111,16 @@ até $|L_0|=5.000$. Classificador PVBin.}
 \label{tab:drisl-vs-ag}
 \small
 \begin{tabular}{r rr rr rr}
-\hline
+\toprule
  & \multicolumn{2}{c}{\textbf{DRI-SL}} & \multicolumn{2}{c}{\textbf{AG (melhor)}} & \multicolumn{2}{c}{\textbf{AG (pior)}} \\
 \textbf{$|L_0|$} & Acc & Macro F1 & Acc & Macro F1 & Acc & Macro F1 \\
-\hline
+\midrule
 100   & 41,23\% & 6,85\%  & 38,76\% & 6,51\%  & 5,75\%  & 1,81\% \\
 500   & 59,22\% & 18,45\% & 56,00\% & 18,01\% & 36,17\% & 6,52\% \\
 1.000 & 67,39\% & 25,83\% & 62,20\% & 24,69\% & 49,33\% & 12,60\% \\
 2.500 & 73,36\% & 36,53\% & 69,28\% & 32,58\% & 63,92\% & 24,11\% \\
 5.000 & 76,87\% & 44,09\% & 74,13\% & 40,07\% & 70,82\% & 31,87\% \\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -156,16 +156,16 @@ independente (10 rep., protocolo com deduplicação). Acurácia média.}
 \label{tab:replay-vs-original}
 \small
 \begin{tabular}{r rr r}
-\hline
+\toprule
 \textbf{$|L_0|$} & \textbf{Original} & \textbf{Reexecução} & \textbf{Diferença} \\
-\hline
+\midrule
 10      & 6,7\%  & 6,6\%  & $-0{,}1$ \\
 100     & 24,7\% & 24,0\% & $-0{,}7$ \\
 1.000   & 55,9\% & 55,5\% & $-0{,}4$ \\
 10.000  & 76,9\% & 76,4\% & $-0{,}5$ \\
 100.000 & 87,1\% & 86,7\% & $-0{,}4$ \\
 200.000 & 89,1\% & 88,8\% & $-0{,}3$ \\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 

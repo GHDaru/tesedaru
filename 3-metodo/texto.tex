@@ -41,22 +41,27 @@ Seção~\ref{sec:metodo-oraculo-decisao}.
 \label{tab:metodo-experimentos}
 \small
 \begin{tabular}{llll}
-\hline
+\toprule
 \textbf{Id} & \textbf{Objetivo} & \textbf{Pilar} & \textbf{Recursos} \\
-\hline
+\midrule
 E0 & Avaliação fatorial de LLMs como oráculo & P3 & APIs de LLM \\
 E1 & Estratégias de seleção $\times$ tamanho de lote (oráculo simulado) & apoio a P4 & CPU \\
 E2 & Épocas de ajuste fino do BERTimbau por iteração & apoio a P4 & GPU \\
 E3 & FALCO \textit{versus} RS e US sob mesmo orçamento & P4 & GPU + APIs \\
 E4 & Robustez do aprendizado a ruído controlado do oráculo & P4 (condicional) & GPU \\
-\hline
+\midrule
 \multicolumn{4}{l}{\footnotesize P1 (sensibilidade de $L_0$) e P2 (DRI-SL) reutilizam execuções já realizadas e auditadas.}\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
 \section{Conjunto de dados}
 \label{sec:metodo-dados}
+
+Esta seção documenta o material empírico da tese em quatro decisões
+encadeadas: de onde vêm os dados e o que os caracteriza, quanto se pode
+confiar nos rótulos de referência, como textos e espaço de classes foram
+normalizados e como o conjunto foi particionado para os experimentos.
 
 \subsection{Fonte e características}
 \label{sec:metodo-dados-fonte}
@@ -211,6 +216,11 @@ sementes usam o \textbf{teste de postos sinalizados de Wilcoxon}
 \section{Pilar P1: composição do conjunto inicial \texorpdfstring{$L_0$}{L0}}
 \label{sec:metodo-l0}
 
+O primeiro pilar responde a duas perguntas em sequência: quanto a composição
+do conjunto inicial importa (medição de sensibilidade) e qual o teto de
+desempenho que uma composição otimizada alcança (busca evolutiva). A segunda
+só faz sentido se a primeira acusar efeito relevante.
+
 \subsection{Sensibilidade à amostragem aleatória}
 \label{sec:metodo-l0-sensibilidade}
 
@@ -260,6 +270,12 @@ como limite empírico de referência.
 
 \section{Pilar P3: LLMs como oráculo de rotulagem (experimento E0)}
 \label{sec:metodo-oraculo}
+
+A avaliação de oráculos exige, antes de qualquer comparação, um instrumento
+de medição confiável. Por isso esta seção define primeiro a instrumentação
+(contrato de saída, custo e proveniência), depois o desenho fatorial do E0
+e, por fim, o critério pré-registrado que converte as medições em decisão
+de arquitetura para o FALCO.
 
 \subsection{Instrumentação da medição}
 \label{sec:metodo-oraculo-instrumentacao}
@@ -338,6 +354,11 @@ tratar o aprendizado com oráculo ruidoso como cenário central.
 \section{Pilar P4: o framework FALCO e sua avaliação (experimentos E1--E4)}
 \label{sec:metodo-falco}
 
+O quarto pilar integra os anteriores no framework proposto. A seção descreve
+primeiro os componentes e a máquina de fases do FALCO — o objeto em
+avaliação — e, em seguida, os métodos de referência e o desenho experimental
+que o colocam à prova (E1--E4).
+
 \subsection{Componentes e fases}
 \label{sec:metodo-falco-fases}
 
@@ -382,33 +403,47 @@ justifica a escolha por LCE.
 \subsection{Métodos de referência e desenho do E3}
 \label{sec:metodo-falco-baselines}
 
-O E3 compara, sob idênticos $L_0$, orçamento $B=30\%$, classificador BERTimbau e
-oráculos LLM: (i) \textbf{FALCO} completo; (ii) \textbf{RS} — amostragem aleatória
-por iteração; (iii) \textbf{US} — seleção por entropia desde o início; e (iv)
-\textbf{supervisão completa} — limite superior, treinado com todos os rótulos
-verdadeiros, que também fornece $\mathrm{Perf}_{\mathrm{baseline}}$ para a LCE; e
-(v) \textbf{oráculo-total} — classificador treinado com \emph{todo} o pool
-rotulado pelo mesmo oráculo LLM do FALCO. Este quinto braço separa as duas fontes
-de perda que a comparação (i)--(iv) confunde: a diferença entre (iv) e (v) mede o
-custo do \emph{ruído do oráculo}; a diferença entre (v) e o FALCO mede o custo da
-\emph{parcimônia de rótulos} — sem ele, um resultado negativo seria ambíguo entre
-estratégia ruim e oráculo ruim. RS e
-US usam o mesmo cronograma de oráculos do FALCO, isolando o efeito da estratégia de
-seleção. Para atribuir o ganho a cada componente do framework — e não ao conjunto
-indissociável — o desenho inclui ainda duas \textbf{ablações}: (a) FALCO com $L_0$
-aleatório no lugar do DRI-SL (isola a contribuição do \textit{cold start}
-informado) e (b) FALCO sem troca de oráculo, usando apenas o LLM Inicial em todas
-as fases (isola a contribuição da progressão de oráculos). Cada configuração é
-repetida com \textbf{8 sementes} — mínimo necessário para
-que o teste de postos sinalizados de Wilcoxon possa atingir $p<0{,}05$ bicaudal
-(o menor p-valor com $n$ pares é $2/2^{n}$; com $n<6$ a significância é
-inalcançável por construção). As comparações finais reportam Wilcoxon pareado
-sobre Macro F1 final e LCE, complementado por intervalo de confiança
-\textit{bootstrap} (percentil, $10^4$ reamostragens) sobre a diferença média de
-LCE, que permanece informativo mesmo sob poucas sementes. O E4 — executado se o critério do
-oráculo indicar ruído relevante — repete o desenho do E3 com oráculo simulado de
-ruído paramétrico $\varepsilon \in \{0; 0{,}1; 0{,}2; 0{,}4\}$, quantificando a
-degradação do aprendizado em função da qualidade do oráculo.
+A validação com o classificador forte segue o próprio desenho do FALCO: quem
+executa o laço é o classificador leve, re-treinado a cada lote; o BERTimbau é
+treinado \emph{uma única vez por braço}, sobre o conjunto que o processo
+coletou. Essa decisão — o classificador forte \emph{fora do laço} — reduz o
+custo computacional em ordens de grandeza sem alterar o objeto medido, pois é
+exatamente assim que o framework opera em produção. Duas escolhas de régua
+completam o desenho, ambas registradas como decisão metodológica:
+\textbf{(a)} a ``supervisão completa'' de referência é o \emph{pool} de
+50.000 instâncias (o mesmo do E6 e do ciclo real, com semente e
+embaralhamento idênticos), e não a base inteira — o aprendizado ativo só
+enxerga o pool, e compará-lo com um braço treinado em $5\times$ mais dados
+confundiria o valor da \emph{seleção} com o valor de \emph{ter mais dados};
+\textbf{(b)} a avaliação de todos os braços ocorre na \textbf{população
+reservada} ($\approx 177$ mil instâncias fora do pool e fora dos conjuntos de
+validação/teste usados pelo ciclo real nas decisões de parada), com amostra
+estratificada fixa entre braços, acurácia com IC de Wilson e Macro F1, e
+predições persistidas por braço para os pareamentos de McNemar.
+
+O experimento executado (denotado E3$'$) compara cinco braços, cada qual um
+ajuste fino do BERTimbau: \textbf{(A)} os itens selecionados e anotados pelo
+\emph{pipeline real} — os ciclos ponta a ponta com oráculo LLM gratuito
+(Apêndice~\ref{ap:parada-laco}), cujo cache de anotações define o conjunto —
+com os rótulos \emph{do oráculo}; \textbf{(B)} os mesmos itens de (A) com
+rótulos do gabarito — a diferença $A{-}B$ isola o custo do \emph{ruído do
+oráculo} no modelo forte; \textbf{(C)} igual cardinalidade de itens sorteados
+uniformemente do pool, com gabarito — a diferença $B{-}C$ isola o valor da
+\emph{seleção}; \textbf{(D)} o pool inteiro com gabarito — a régua; e
+\textbf{(E)} o prefixo de 15 mil da trajetória de entropia do E6 — mede se
+orçamento adicional ajudaria. O critério de aceitação da hipótese central
+torna-se direto: $F1(A) \ge 0{,}95 \cdot F1(D)$, com $|A|/|D| \approx 18\%$
+dos rótulos. Os braços pareados $A$/$B$ cumprem o papel do braço
+\emph{oráculo-total} do desenho original — separar ruído de parcimônia — a
+custo de anotação zero, pois reutilizam as anotações reais já pagas. O
+desenho completo original (FALCO, RS e US com re-treino do BERTimbau no laço,
+ablações de $L_0$ e de progressão de oráculo, 8 sementes com Wilcoxon pareado
+e \textit{bootstrap} sobre LCE) permanece pré-registrado como extensão para
+hardware dedicado; o E3$'$ executa-se com semente única e estatuto
+descritivo, como o E6. O E4 — executado se o critério do
+oráculo indicar ruído relevante — repete o desenho de comparação com oráculo
+simulado de ruído paramétrico $\varepsilon \in \{0; 0{,}1; 0{,}2; 0{,}4\}$,
+quantificando a degradação do aprendizado em função da qualidade do oráculo.
 
 \section{Ameaças à validade}
 \label{sec:metodo-validade}

@@ -1,0 +1,216 @@
+% A3 — draft v0.1 (18/07/2026). Target: BRACIS (LNCS) → versão estendida em
+% Applied Soft Computing / Neurocomputing. Class: article (converter depois).
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage[round]{natbib}
+\usepackage[margin=2.8cm]{geometry}
+\usepackage{microtype}
+\usepackage{xcolor}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+
+\title{Label-free cold start for active learning beats a supervised
+evolutionary envelope\\ --- if the envelope is honest: a circularity audit}
+
+\author{Gilsiley Henrique Darú$^{1}$ \and Gustavo Valentim Loch$^{1}$\\[2pt]
+\normalsize $^{1}$Graduate Program in Numerical Methods in Engineering (PPGMNE),\\
+\normalsize Federal University of Paraná (UFPR), Curitiba, Brazil}
+\date{Draft v0.1 --- \today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The first labeled set $L_0$ decides how an active learning loop starts ---
+and in short-text classification with hundreds of imbalanced classes, it
+decides a lot: we measure a 6.4-point accuracy spread at $|L_0|=100$
+caused by the random draw alone (47 sizes $\times$ 30 repetitions,
+independently re-executed with $\le 0.7$-point divergence). To estimate
+how much deliberate composition can yield, a genetic algorithm optimizes
+$L_0$ composition under four objectives, revealing a wide envelope
+(up to 25.9 points between best and worst individuals at $|L_0|=100$)
+that narrows with size. We then show that DRI-SL --- a deterministic,
+label-free, linear-cost heuristic combining semantic density
+(embedding-cluster representativeness) with lexical variety ---
+\emph{outperforms the best individual found by the supervised optimizer}
+at every size from 100 to 5{,}000 (e.g., 67.4\% vs.\ 62.2\% accuracy at
+$|L_0|=1{,}000$). Finally, a methodological audit shows the standard
+protocol of reporting evolutionary envelopes on the same partition used as
+fitness inflates them --- by 6.3 points of macro-F1 at $|L_0|=500$ in our
+re-execution with an anti-circularity protocol --- which means published
+evolutionary bounds for subset selection are optimistic and our
+comparison is conservative. Composition, not just quantity, governs the
+cold-start regime; it can be captured without any labels; and envelopes
+must be reported on untouched partitions.
+\end{abstract}
+
+\noindent\textbf{Keywords:} active learning; cold start; instance
+selection; genetic algorithms; evaluation methodology; short text.
+
+\section{Introduction}
+\label{sec:intro}
+
+Pool-based active learning assumes a model good enough to guide selection
+--- which presupposes an initial labeled set $L_0$. In the cold-start
+regime the loop's later efficiency is hostage to this first draw
+\citep{Bayer2024,Attenberg2010}. Three questions structure this paper:
+(RQ1) how much does the \emph{composition} of $L_0$ matter, at fixed size?
+(RQ2) how much headroom does deliberate composition have over random
+draws --- an envelope we estimate with a supervised evolutionary
+optimizer? (RQ3) can a label-free constructive heuristic capture that
+headroom? A fourth, methodological question emerged from answering the
+second: (RQ4) are evolutionary envelopes, as usually reported, even
+honest?
+
+We answer on a hard instance of the problem: 250k short product
+descriptions (4--50 characters, abbreviations) in Portuguese, 621
+imbalanced classes, where class coverage --- not instance count ---
+dominates early performance.
+
+\section{Related work}
+\label{sec:related}
+
+Cold-start-aware AL uses pretrained representations to pick informative
+seeds: ALPS exploits language-model surprisal \citep{Yuan2020}; BERT-era
+studies adapt AL to fine-tuning \citep{EinDor2020,Griesshaber2020}; DEUCE
+combines textual and class-prediction diversity \citep{Guo2025Deuce};
+LLM-based selectors push the idea further \citep{Bayer2024}.
+Density/cluster-based selection is classical
+\citep{Settles2008,Nguyen2004,Dasgupta2008}, as are batch-diversity
+concerns \citep{Hoi2006}. Evolutionary algorithms
+\citep{Holland1975,Goldberg1989} are widely used for instance and subset
+selection; we are not aware of prior work auditing the \emph{evaluation
+circularity} of their reported envelopes in this setting --- fitness
+measured and reported on the same partition --- although the underlying
+overfitting-to-selection phenomenon is well known in model selection.
+
+\section{Setting}
+\label{sec:setting}
+
+Classifier: PVBin, a per-class prototype model over binary term vectors,
+cheap enough for tens of thousands of retrainings
+\citep{Daru2024Dissertacao}. Data: deduplicated short product
+descriptions, 621 classes, heavy long tail; evaluation on a fixed
+untouched test set (20{,}000 instances in the re-execution protocol).
+Metrics: global accuracy and macro-F1, the latter primary under
+imbalance \citep{Sokolova2009}.
+
+\section{RQ1: sensitivity to the draw}
+\label{sec:sens}
+
+Across 47 sizes (10 to 200{,}000) with 30 random repetitions each:
+mean accuracy grows from 6.7\% ($|L_0|=10$) through 24.7\% (100), 55.9\%
+(1{,}000) and 76.9\% (10{,}000), saturating near 89.1\% (200{,}000);
+macro-F1 lags (0.4\% $\to$ 3.4\% $\to$ 17.8\% $\to$ 43.3\% $\to$ 70.4\%),
+reflecting the cost of covering minority classes. At $|L_0|=100$,
+accuracy across repetitions spans \textbf{21.7--28.1\%} --- a
+\textbf{6.4-point} spread caused exclusively by the draw. The mechanism
+is coverage: at $|L_0|=10$ a typical draw covers 9 of 621 classes; at
+1{,}000, about 255; macro-F1 tracks the coverage curve closely. Good and
+bad $L_0$ of the same size \emph{exist}; the question becomes whether
+they can be found without labels.
+
+\paragraph{Independent re-execution.} The full study was re-executed in a
+clean-room reimplementation with a stricter protocol (deduplication
+\emph{before} partitioning; fixed test set), on a reduced grid (15
+log-spaced sizes $\times$ 10 repetitions). Agreement is within 0.7 points
+at every size, always in the expected direction (the deduplicated
+protocol is slightly harder), with implementation fidelity additionally
+verified by exact equality of score matrices.
+
+\section{RQ2: the evolutionary envelope}
+\label{sec:ga}
+
+A genetic algorithm over subset membership (100 generations; the full
+configuration ships in the released artifacts) optimizes $L_0$
+composition for four objectives (max/min $\times$ accuracy/macro-F1) at ten sizes.
+The envelope is wide where it matters: at $|L_0|=100$, best-minus-worst
+final individuals span \textbf{25.9 accuracy points}; evolutionary gain
+over the first generation (e.g., $+10.1$ points at 100, $+11.7$ at 50)
+confirms the optimizer exploits real structure, not noise. The envelope
+narrows monotonically with size (at 30{,}000: $+0.8$), consistent with
+RQ1: composition is a small-regime lever.
+
+\section{RQ3: a label-free heuristic vs.\ the supervised optimizer}
+\label{sec:drisl}
+
+DRI-SL (Density-Representative Instance Selection with Lexical variety)
+is deterministic given the embedding model and uses no labels: embed
+the pool with dense text embeddings, cluster ($k$-means), allocate the budget proportionally to
+cluster mass, and fill each cluster's quota greedily preferring
+instances that add unseen lexical tokens --- linear cost after
+clustering. Table~\ref{tab:drisl} compares it with the GA envelope.
+
+\begin{table}[htb]
+\centering
+\caption{Cold start: DRI-SL vs.\ GA envelope (final generation), PVBin.
+GA values inherit the original protocol (fitness partition = report
+partition) and are therefore optimistic --- see
+Section~\ref{sec:audit}.}
+\label{tab:drisl}
+\small
+\begin{tabular}{r rr rr rr}
+\toprule
+ & \multicolumn{2}{c}{\textbf{DRI-SL}} & \multicolumn{2}{c}{\textbf{GA (best)}}
+ & \multicolumn{2}{c}{\textbf{GA (worst)}} \\
+$|L_0|$ & Acc & M-F1 & Acc & M-F1 & Acc & M-F1 \\
+\midrule
+100    & \textbf{41.2} & \textbf{6.9}  & 38.8 & 6.5  & 5.8  & 1.8 \\
+500    & \textbf{59.2} & \textbf{18.5} & 56.0 & 18.0 & 36.2 & 6.5 \\
+1{,}000 & \textbf{67.4} & \textbf{25.8} & 62.2 & 24.7 & 49.3 & 12.6 \\
+2{,}500 & \textbf{73.4} & \textbf{36.5} & 69.3 & 32.6 & 63.9 & 24.1 \\
+5{,}000 & \textbf{76.9} & \textbf{44.1} & 74.1 & 40.1 & 70.8 & 31.9 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A constructive heuristic with zero label access beats an optimizer that
+consumed thousands of supervised evaluations, at every size --- strong
+evidence that semantic density plus lexical variety capture precisely the
+structure that makes an $L_0$ informative (class coverage through cluster
+coverage; feature coverage through lexical novelty). At 100 the margin
+over the GA's best is 2.5 points; over the GA's \emph{worst}, 35 points
+--- the cost of a bad draw that DRI-SL eliminates deterministically.
+
+\section{RQ4: the circularity audit}
+\label{sec:audit}
+
+The GA numbers above inherit the field's standard protocol: fitness
+evaluated on a partition, and the \emph{same} partition reported as the
+result. Our re-execution applies an anti-circularity protocol --- fitness
+on a selection partition, final individuals \emph{re-evaluated once} on
+the untouched test set. The mechanism reproduces (best individual gains
+$+5.2$ accuracy points at $|L_0|=50$), but the honest re-evaluation
+reveals the inflation: for macro-F1 maximization at $|L_0|=500$, final
+fitness reads 19.4\% while the same individual measures \textbf{13.1\%}
+on untouched data --- \textbf{6.3 points of overfitting to the fitness
+partition} (for accuracy, $\approx 1$ point). Two consequences: (i)
+published evolutionary envelopes for subset selection should be read as
+optimistic bounds unless the protocol states otherwise; (ii) our central
+comparison is \emph{conservative} --- DRI-SL beats an inflated opponent.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+Composition of the initial labeled set is a first-order factor in
+cold-start active learning for long-tailed short text (6.4-point spread
+from the draw alone at $|L_0|=100$); a supervised evolutionary optimizer
+confirms wide headroom; a deterministic label-free heuristic captures
+that headroom, beating the optimizer's best individual up to
+$|L_0|=5{,}000$; and evolutionary envelopes must be reported on untouched
+partitions --- ours was inflated by up to 6.3 macro-F1 points before
+correction. In the continuous (post-cold-start) regime, companion work
+shows the lexical-variety component should be dropped in favor of plain
+prediction-stratified sampling; the two results together delimit where
+each ingredient earns its keep. All artifacts are released.
+
+\paragraph{Artifacts.} \texttt{github.com/GHDaru/activelearning}
+(\texttt{experiments/p1}, \texttt{p2}).
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\end{document}

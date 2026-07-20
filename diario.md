@@ -244,3 +244,47 @@ Decisões formais com racional completo: `docs/decisoes.md`.
 - DRI-SL como seletor CONTÍNUO é o mais fraco dos três — coerente com a
   tese: DRI-SL é instrumento de cold start (Fase 1), não substituto da
   incerteza no laço.
+
+## 18/07/2026 05:40 — Passe de rigor: apresentação (tabela×figura) + estilo
+- Avaliação com a skill acadêmica (APA cap.7 + writing_quality_check):
+  preferência do autor por tabelas CONFIRMADA como correta — figuras só
+  quando a forma da curva é o achado. Tese mantém 2 figuras (conceitual
+  ActiveLLM; tendência L0 em escala log — a única cujo objeto É a forma) e
+  12+ tabelas. As 8 figuras geradas ficam no repositório de código para
+  slides de defesa, fora da tese.
+- Correções de coerência aplicadas: (1) ESTILO DE TABELA unificado — 20
+  \hline convertidos para booktabs em Caps. 3/4/5 (2-fundam e a6 já usavam);
+  (2) nomenclatura Macro F1 padronizada (4 "Macro-F1" no Cap.2); (3)
+  impessoalidade — 4 ocorrências de nosso/nossa reescritas; (4) termos vagos
+  — 3 "crucial" e 2 "abrangente" vazios substituídos por palavras precisas;
+  (5) figura ActiveLLM agora CITADA no texto (violação "toda figura deve ser
+  citada" corrigida).
+- Travessões: densidade alta (~40/cap.) porém consistente — registrado como
+  voz do texto, não corrigido em massa (norma da skill é anglófona).
+- Compilação: 0 erros, 0 refs, 0 warnings de BibTeX.
+
+## 18/07/2026 06:20 — DRI-SL-C validada (proposta do autor)
+- Variante guiada pelo classificador (grupos = classes previstas, mesma
+  alocação proporcional + novidade lexical) corrige a fraqueza do DRI-SL
+  como seletor contínuo: no SGD, teto 0,491 vs 0,441 (+5 p.p.), saturação a
+  95% em 15.500 vs 41.500 rótulos (2,7×), F1@10k +10 p.p.; supera a
+  aleatória em toda a curva média. PVBin: +10 p.p. em F1@20k.
+- Entropia permanece dominante (teto 0,591, saturação 8.000) — a leitura
+  final: DRI-SL para a Fase 1 (cold start), DRI-SL-C como alternativa
+  representativa de meio de curva, entropia como padrão da Fase 2.
+- Viés de autoavaliação da variante segue alto (+0,10/+0,18) — amostragem
+  representativa de raras infla o F1 interno; validação reservada obrigatória.
+
+## 18/07/2026 07:10 — E6 na tese; parecer v2 + R4; plano do Cap. 2 aguardando OK
+- Seção E6 escrita no Cap. 5 (tabela dos 8 braços; 4 achados: dominância da
+  entropia, menos-é-mais, DRI-SL-C, viés de autoavaliação com controle);
+  Cap. 6 atualizado (contribuição DRI-SL-C; parágrafo "mais rótulo não é
+  sempre melhor"); A7 com a parada dos ciclos real (4,7k/6k de 15k) e simulado.
+- Auditoria de achados: NENHUM achado científico fora do texto (tabela no
+  parecer v2); calibração b50 e smoke BERTimbau ficam no repo por decisão.
+- R4: 85,7 (apresentação 88 após o passe de estilo); Minor Revision mantida;
+  novo apontamento principal = fragmentação do Cap. 2.
+- docs/plano-reestruturacao-cap2.md: 5 seções com pergunta/mensagem/
+  contribuição declaradas, regras de fluidez (máx. 2 níveis, texto-ponte,
+  sem blocos de 1 parágrafo), corte de ~25%, pontes do Cap. 3 — AGUARDANDO
+  OK DO AUTOR para implementar.

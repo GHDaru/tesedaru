@@ -1,0 +1,166 @@
+% A5 — draft v0.1 (18/07/2026). Target: PROPOR (trilha de recursos) ou
+% Data in Brief. CONDICIONAL: decisão do autor sobre licenciamento da base
+% ANTES de qualquer submissão — ver \todo no abstract e em §6.
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage[round]{natbib}
+\usepackage[margin=2.8cm]{geometry}
+\usepackage{microtype}
+\usepackage{xcolor}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+
+\title{An audited benchmark for long-tailed short-text classification in
+Portuguese:\\ 250k retail product descriptions, 621 categories, LLM
+annotations, and a reproducible active-learning library}
+
+\author{Gilsiley Henrique Darú$^{1}$ \and Gustavo Valentim Loch$^{1}$\\[2pt]
+\normalsize $^{1}$Graduate Program in Numerical Methods in Engineering (PPGMNE),\\
+\normalsize Federal University of Paraná (UFPR), Curitiba, Brazil}
+\date{Draft v0.1 --- \today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Public benchmarks for product-title classification are scarce, rarely in
+Portuguese, and almost never ship with an audit of their own label
+noise. We release \todo{condicional à decisão de licenciamento} a corpus
+of $\approx$250{,}000 short retail product descriptions from Brazilian
+fiscal receipts (4--50 characters, uppercase, aggressive abbreviation),
+labeled over a closed catalog of 621 product-type categories with severe
+long-tail imbalance --- together with the three artifacts that make it a
+\emph{measurement-grade} resource rather than a raw dump: (i) a
+\textbf{label-noise audit}: a census of conflicting labels (identical
+normalized text, divergent gold), a multi-gold re-scoring protocol, and
+the resulting measurement ceiling ($\approx$99.3\%), shown to shift
+oracle accuracies by at most 0.7 points without reordering any
+comparison; (ii) \textbf{paired evaluation samples} (random $n=1{,}000$;
+stratified 3-per-class $n=1{,}863$) with zero-shot annotations from six
+LLM oracles under a recorded (model, provider, contract, batch,
+temperature, date) provenance tuple --- enabling instrument-level
+replication studies; and (iii) an open \textbf{active-learning library}
+(hexagonal architecture; prototype, linear and transformer classifiers;
+uncertainty, density and stratified selection policies; LLM oracle
+adapters with strict output validation, annotation caching and cost
+metering) plus a visual pipeline builder, with which every published
+number is reproducible from versioned experiment states. Baselines span
+a per-class prototype model (89.6\% accuracy at full supervision),
+fine-tuned BERTimbau, and the LLM-oracle plateau (77--83\% zero-shot).
+The resource targets research on label-efficient learning, LLM
+annotation, and evaluation methodology in lower-resourced languages.
+\end{abstract}
+
+\noindent\textbf{Keywords:} language resources; Portuguese; short text;
+product classification; label noise; active learning; reproducibility.
+
+\section{Motivation}
+\label{sec:motivation}
+
+Three research communities need this resource and currently improvise.
+Work on \emph{LLM annotation} needs closed-taxonomy tasks at realistic
+granularity with audited gold --- published product studies stop at
+tens to $\approx$370 categories \citep{Roumeliotis2025,Gholamian2024},
+and public product corpora with real noise exist mainly in English or
+multilingual marketplace settings \citep{Raczkowska2024AlleNoise,
+Karl2023}. Work on \emph{label-efficient learning} (active learning,
+semi-supervision) needs pools large enough for full-trajectory
+experiments with a reserved population. Work on \emph{Portuguese} NLP
+for commerce exists at scale only behind institutional walls
+\citep{Machado2026RetailPt}. This resource serves the three at once,
+and adds what none of the cited resources provides: an audit of its own
+gold standard and per-annotation LLM provenance.
+
+\section{Corpus}
+\label{sec:corpus}
+
+$\approx$250k product descriptions as typed into Brazilian point-of-sale
+systems and printed on fiscal receipts: uppercase, 4--50 characters,
+domain abbreviations (\texttt{CERV} for beer, \texttt{LT} for can),
+brand and packaging tokens interleaved with type information. Labels:
+621 product-type categories (e.g., \emph{cerveja}, \emph{enxaguante
+bucal}), assigned by a human back-office process over years of
+operation \citep{Daru2022,Daru2024Dissertacao}. After per-class
+filtering ($\ge 2$ instances) and text-normalized deduplication the
+experimental view has 231{,}490 unique texts across 649 raw classes.
+The distribution is heavily long-tailed --- the property that makes the
+benchmark hard: macro metrics are governed by hundreds of small classes.
+
+\section{The label-noise audit}
+\label{sec:audit}
+
+Real gold standards err; a resource that hides it exports silent bias.
+We ship: (i) the \textbf{conflict census} --- groups of identical
+normalized texts carrying divergent labels, with counts and examples
+\todo{inserir estatísticas exatas do censo (nº de grupos, \% de
+instâncias afetadas) a partir do artefato da auditoria};
+(ii) a \textbf{multi-gold protocol} --- re-scoring any system accepting
+any of the conflicting labels as correct; (iii) the \textbf{sensitivity
+result}: across six LLM oracles, excluding conflicts or applying
+multi-gold shifts accuracy by at most $+0.7$ points and never reorders
+systems --- so the corpus supports comparative research despite its
+measured $\approx$0.7\% gold-noise floor, and the measurement ceiling
+($\approx$99.3\%) should accompany any absolute claim.
+
+\section{Paired LLM annotation samples}
+\label{sec:samples}
+
+Two evaluation samples, annotated by six oracles (three cost regimes:
+commercial APIs, MaaS platforms, free tier) at temperature 0 with
+per-annotation provenance: \textbf{S-rand} ($n=1{,}000$, production
+distribution) and \textbf{S-strat} (3 per class, $n=1{,}863$, tail
+support). Every annotation records model, serving provider, output
+contract (enum / json-prompt / free), batch size, token counts and
+date --- the metadata that companion work shows can move results more
+than model choice. These samples support replication of
+instrument-effect studies (output-contract artifact; serving-provider
+divergence) without any API spending.
+
+\section{Library and pipeline builder}
+\label{sec:library}
+
+The \texttt{activelearning} library (Python, hexagonal architecture ---
+domain core isolated from adapters) provides: classifiers (per-class
+prototype PVBin, whose full-supervision baseline is 89.6\% accuracy /
+0.70 macro-F1; logistic SGD; BERTimbau fine-tuning
+\citep{Souza2020BERTimbau}); selection policies (entropy, margin, least
+confidence, random, density-representative DRI-SL, prediction-guided and
+prediction-stratified variants); oracle adapters (OpenAI-compatible
+providers, structured-output and prompted-JSON contracts, strict label
+validation, persistent annotation cache, cost metering); loop
+orchestration with stagnation-based stopping and state-file resumption;
+and a web pipeline builder (FlowBuilder) for no-code experiment
+assembly. Every experiment in the companion papers resolves to a
+versioned state under \texttt{experiments/}, and a Docker image plus a
+Colab notebook reproduce the GPU-dependent baselines.
+
+\section{Availability, licensing and ethics}
+\label{sec:availability}
+
+Code and library: MIT license (public). Evaluation samples with LLM
+annotations and all per-annotation artifacts: released. Full corpus:
+\todo{DECISÃO DO AUTOR PENDENTE --- licença dos dados de origem
+(cupons fiscais agregados, sem dados pessoais) e canal de distribuição
+(Zenodo DOI vs.\ acesso mediante termo). Este artigo NÃO pode ser
+submetido antes desta decisão.} Texts are product descriptions only;
+no personal, transactional or merchant-identifying data is present.
+\todo{verificação final de anonimização antes da liberação}
+
+\section{Baseline summary}
+\label{sec:baselines}
+
+Full supervision: PVBin 89.6\% / 0.70 macro-F1; BERTimbau
+\todo{números do braço D do E3'}. Zero-shot LLM plateau: 77--83\%
+accuracy, macro-F1 up to 0.80 (exceeding the light supervised baseline
+on the tail). Label-efficient reference points: entropy-based selection
+reaches 95\% of its ceiling with 16--38\% of pool labels depending on
+the classifier. These anchors let new methods report gains against
+published, artifact-backed numbers.
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\end{document}

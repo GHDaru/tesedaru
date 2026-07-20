@@ -53,8 +53,8 @@ incluindo o oráculo-total — e aguarda execução na estação com GPU.
 minimiza \emph{contagem de rótulos} assumindo oráculo correto
 \citep{Settles2012,Olsson2009}; a com custos reais mostra que contagem não é
 custo \citep{SettlesCravenFriedland2008}. Com oráculo LLM, a moeda muda duas
-vezes: o custo vira função de tokens (e do \textit{cache}, e do lote — nossa
-instrumentação mede os três) e a qualidade vira parâmetro escolhível num
+vezes: o custo vira função de tokens (e do \textit{cache}, e do lote — a
+instrumentação desta tese mede os três) e a qualidade vira parâmetro escolhível num
 cardápio com uma ordem de grandeza de variação de preço. A decisão
 ``qual oráculo em qual fase'' — o coração do FALCO — só faz sentido nesse
 regime novo, e os dados do E0 mostram que ela não é trivial: o modelo mais
@@ -67,8 +67,17 @@ guarda-chuva) é o cenário benigno da literatura de rótulos ruidosos
 \citep{Frenay2014,Natarajan2013,Song2023NoisyLabels}: parte do ``erro'' do
 oráculo é inclusive defensável semanticamente (a análise multi-gold mostrou
 que o gabarito também erra). Isso sugere que o E4 com ruído \emph{uniforme} —
-nosso desenho — é um teste \emph{mais duro} que a realidade, o que fortalece
+o desenho adotado — é um teste \emph{mais duro} que a realidade, o que fortalece
 qualquer resultado positivo obtido nele.
+
+\textbf{Mais rótulo não é sempre melhor — e a autoavaliação engana.} O E6
+acrescenta dois avisos operacionais ao quadro: treinar com o subconjunto
+ativamente selecionado pode superar o treino com \emph{todos} os rótulos em
+métrica macro (a amostra ativa é mais balanceada que a distribuição natural),
+e a avaliação feita sobre os próprios dados coletados é enviesada em direções
+opostas conforme a métrica — subestima a acurácia, superestima o Macro F1.
+Ambos reforçam o mesmo princípio de desenho do FALCO: parar cedo pelo
+critério de estagnação e medir sempre em conjunto reservado.
 
 \textbf{A medição é parte do método.} Três achados desta tese são sobre
 instrumentos, não sobre modelos: o efeito do enum (RQ4), a inflação de
@@ -83,8 +92,13 @@ quantificação do seu próprio erro.
 
 (i) O framework FALCO — fases com oráculo LLM progressivo e \textit{cold
 start} informado — com implementação aberta, testada e reprodutível;
-(ii) o algoritmo DRI-SL e a evidência de que supera o envelope evolutivo
-supervisionado no regime de interesse; (iii) a avaliação instrumentada de
+(ii) o algoritmo DRI-SL — e a evidência de que supera o envelope evolutivo
+supervisionado no regime de interesse — acompanhado da análise honesta do
+seu limite: no regime contínuo, a ablação da variante guiada pelo
+classificador (DRI-SL-C) mostrou que o ganho vem do agrupamento pelas
+classes previstas, não da novidade lexical, apontando a estratificação por
+predição como política representativa de referência;
+(iii) a avaliação instrumentada de
 oráculos LLM para português com 621 classes — granularidade muito acima da
 usual na literatura de LLM-como-anotador, cujos estudos zero-shot recentes de
 classificação de produtos operam com dezenas a $\approx 250$ categorias
@@ -150,5 +164,5 @@ majoritariamente estruturado). A hipótese quantitativa central — $\ge 95\%$
 do Macro F1 de supervisão completa com $\le 30\%$ dos rótulos via oráculo
 LLM — permanece formalmente aberta até o E3 com BERTimbau, cujo instrumental
 esta tese deixa pronto, testado e com critérios de decisão pré-registrados;
-os resultados dos experimentos executados (E0, E0-P, E1, E4 e os replays de
+os resultados dos experimentos executados (E0, E0-P, E1, E4, E6 e os replays de
 P1/P2) delimitam com precisão as condições em que ela pode se sustentar.

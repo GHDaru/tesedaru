@@ -2,47 +2,79 @@
 \label{ch:fundam}
 
 % =====================================================================
-% W7 (parcial): seção de ML condensada ao essencial metodológico (16/07/2026);
-% versão enciclopédica preservada no repositório legado. Pendências:
-% revisar redundâncias STC vs dissertação de mestrado; figura do ActiveLLM.
+% Reestruturação 18/07/2026 (plano aprovado: docs/plano-reestruturacao-cap2.md)
+% 5 seções, máx. 2 níveis; versão anterior no histórico git; conteúdo
+% enciclopédico integral no repositório legado (Tese-Vers-o-Draft).
 % =====================================================================
 
-% ---------- fonte: capitulo_02_fundamentos/introducao.tex ----------
-\section{Introdução}
+Este capítulo estabelece a base teórica sobre a qual o framework FALCO,
+proposto no Capítulo~\ref{ch:metodo}, é construído, e o faz na ordem em que os
+conceitos se encadeiam no argumento da tese. A Seção~\ref{sec:fund-super}
+apresenta o instrumental de aprendizado supervisionado do qual todos os
+capítulos seguintes dependem — a tarefa multiclasse, as métricas sob
+desbalanceamento, as estratégias de validação e os testes estatísticos usados
+nas comparações. A Seção~\ref{sec:fund-al} formaliza o aprendizado ativo, o
+laço que compra rótulos seletivamente, e identifica as duas limitações do laço
+clássico que o FALCO ataca: a partida a frio e a suposição de oráculo
+perfeito. A Seção~\ref{sec:fund-llm} examina o que muda quando o oráculo é um
+modelo de linguagem de grande porte — capacidades, arquiteturas de integração,
+ruído de rótulo e a estrutura de custo e medição que passa a existir. A
+Seção~\ref{sec:fund-stc} caracteriza o domínio de aplicação, a classificação
+de texto curto em português, e mostra por que ele tensiona simultaneamente as
+métricas, o \textit{cold start} e o oráculo. A Seção~\ref{sec:fund-soa}
+fecha o capítulo com a revisão sistemática da interseção dessas frentes e a
+lacuna de pesquisa que o Capítulo~\ref{ch:metodo} ocupa.
 
-Este capítulo estabelece a base teórica sobre a qual o framework FALCO, proposto no Capítulo~\ref{ch:metodo}, é construído. Como discutido no Capítulo~\ref{ch:intro}, a proposta articula três eixos que raramente aparecem combinados na literatura: aprendizado de máquina supervisionado em cenários de baixa disponibilidade de rótulos, aprendizado ativo como estratégia para reduzir o custo de rotulagem e classificação de textos curtos em português como domínio de aplicação desafiador. A revisão a seguir percorre esses três eixos na ordem em que se articulam na proposta, para então situar o estado da arte específico que motiva o FALCO.
+\section{Aprendizado supervisionado: conceitos, métricas e validação}
+\label{sec:fund-super}
 
-A Seção~\ref{sec:ml_concepts} revisa, de forma deliberadamente enxuta, os conceitos de aprendizado de máquina dos quais esta tese depende — regimes de supervisão, classificação multiclasse, métricas e validação — necessários para interpretar as decisões metodológicas dos capítulos seguintes, em especial a escolha das métricas de avaliação (Acurácia Global e Macro F1-Score) usadas para comparar o FALCO com os métodos de referência. A Seção~\ref{sec:aprendizado_ativo_intro} aprofunda o formalismo do aprendizado ativo, os cenários de consulta (\textit{pool-based}, \textit{stream-based} e \textit{query synthesis}), as principais estratégias de seleção de instâncias e, por fim, o papel emergente de modelos de linguagem de grande porte (LLMs) como oráculo e como agente de seleção — tema diretamente relacionado à estratégia adaptativa de oráculo progressivo adotada pelo FALCO. A Seção~\ref{sec:classificacao_texto_curto} caracteriza os desafios específicos da classificação de textos curtos, incluindo esparsidade lexical, baixo contexto por instância e informalidade, e discute etapas de pré-processamento, vetorização e algoritmos usados nesse domínio, com atenção particular ao português e ao contexto de descrições de produtos de e-commerce que motiva esta tese.
+O aprendizado de máquina desenvolve algoritmos que melhoram seu desempenho em
+uma tarefa $T$, segundo uma métrica $P$, por meio da experiência $E$ adquirida
+dos dados \cite{Mitchell1997}. Esta seção limita-se ao que os capítulos
+seguintes usam diretamente: a tarefa de classificação multiclasse, as métricas
+adotadas, as estratégias de validação e a inferência estatística das
+comparações. Um panorama geral de algoritmos e representações para
+classificação de texto pode ser encontrado em \citet{Kowsari2019}.
 
-Por fim, a Seção~\ref{sec:revisao_sistematica_focada} apresenta uma revisão sistemática focada nos avanços recentes que combinam aprendizado ativo, oráculos baseados em LLM e classificação de texto, delimitando a lacuna de pesquisa (Seção~\ref{sec:intro-lacuna}) que o FALCO busca preencher. A combinação dessas três frentes teóricas — aprendizado de máquina, aprendizado ativo e texto curto — não é meramente enciclopédica: cada uma delas informa diretamente uma decisão de projeto do framework, seja a escolha do classificador da tarefa (\(\theta\)), a estratégia de seleção adaptativa entre fases, ou o uso de um oráculo LLM progressivo para mitigar o problema de \textit{cold start}.
-
-
-% ---------- Seção de ML condensada (W7): catálogo enciclopédico do draft
-% reduzido ao que ancora decisões metodológicas dos Caps. 3-5. A versão
-% integral permanece no repositório legado (Tese-Vers-o-Draft).
-\section{Conceitos e Definições de Aprendizado de Máquina}
-\label{sec:ml_concepts}
-
-O aprendizado de máquina desenvolve algoritmos que melhoram seu desempenho em uma tarefa $T$, segundo uma métrica $P$, por meio da experiência $E$ adquirida dos dados \cite{Mitchell1997}. Esta seção limita-se aos conceitos dos quais os capítulos seguintes dependem diretamente: os regimes de supervisão (que situam o aprendizado ativo), a tarefa de classificação multiclasse (a tarefa-alvo da tese), as métricas de avaliação adotadas e as estratégias de validação. Um panorama abrangente de algoritmos e representações para classificação de texto pode ser encontrado em \citet{Kowsari2019}.
-
-\subsection{Regimes de Supervisão}
+\subsection{Regimes de supervisão e a tarefa de classificação multiclasse}
 \label{subsec:ml_types}
 
-No \textbf{aprendizado supervisionado}, o algoritmo recebe exemplos de entrada com os rótulos desejados e induz uma função que generalize para dados não vistos \cite{Russell2010, Mitchell1997}. No \textbf{não supervisionado}, não há rótulos: o algoritmo identifica estruturas latentes, como agrupamentos ou direções de maior variância \cite{Murphy2012}. O \textbf{semi-supervisionado} combina uma pequena parcela rotulada com muitos exemplos não rotulados, explorando a estrutura destes para melhorar a generalização \cite{Chapelle2006}.
+No \textbf{aprendizado supervisionado}, o algoritmo recebe exemplos de entrada
+com os rótulos desejados e induz uma função que generalize para dados não
+vistos \cite{Russell2010, Mitchell1997}. No \textbf{não supervisionado}, não
+há rótulos: o algoritmo identifica estruturas latentes, como agrupamentos ou
+direções de maior variância \cite{Murphy2012}. O \textbf{semi-supervisionado}
+combina uma pequena parcela rotulada com muitos exemplos não rotulados,
+explorando a estrutura destes para melhorar a generalização
+\cite{Chapelle2006}. O \textbf{aprendizado ativo} — objeto desta tese,
+formalizado na Seção~\ref{sec:fund-al} — ataca o mesmo gargalo do
+semi-supervisionado (o custo do rótulo) por via oposta: o próprio algoritmo
+escolhe, de forma interativa, quais instâncias submeter a um oráculo,
+priorizando as de maior benefício esperado \cite{Settles2009}. A distinção
+importa porque o desempenho passa a depender de duas políticas acopladas — a
+de seleção de instâncias e a de obtenção de rótulos — exatamente os dois
+eixos que o FALCO instrumenta.
 
-O \textbf{aprendizado ativo} — objeto desta tese e formalizado na Seção~\ref{sec:formalismo} — ataca o mesmo gargalo do semi-supervisionado (o custo do rótulo) por via oposta: em vez de usar passivamente os dados não rotulados, o próprio algoritmo escolhe, de forma interativa, quais instâncias submeter a um oráculo para rotulagem, priorizando as de maior benefício esperado para o modelo \cite{Settles2009}. A distinção importa porque o desempenho passa a depender de duas políticas acopladas: a de seleção de instâncias e a de obtenção de rótulos — exatamente os dois eixos que o FALCO instrumenta.
-
-\subsection{Classificação Multiclasse}
-\label{subsec:ml_multiclass}
-
-A tarefa-alvo desta tese é a \textbf{classificação}: aprender $f: X \to Y$ com $Y$ discreto \cite{Duda2001} — aqui, atribuir a cada descrição de produto uma dentre centenas de categorias. Com $K>2$ classes, classificadores binários podem ser combinados (um-contra-todos, um-contra-um) \cite{Rifkin2004}, mas os modelos usados nesta tese são multiclasse diretos: produzem um vetor de escores $(z_1,\dots,z_K)$ convertido em distribuição de probabilidade pela função \textit{softmax},
+A tarefa-alvo é a \textbf{classificação}: aprender $f: X \to Y$ com $Y$
+discreto \cite{Duda2001} — aqui, atribuir a cada descrição de produto uma
+dentre centenas de categorias. Com $K>2$ classes, classificadores binários
+podem ser combinados (um-contra-todos, um-contra-um) \cite{Rifkin2004}, mas os
+modelos usados nesta tese são multiclasse diretos: produzem um vetor de
+escores $(z_1,\dots,z_K)$ convertido em distribuição de probabilidade pela
+função \textit{softmax},
 \begin{equation}
 p_i = \frac{\exp(z_i)}{\sum_{j=1}^{K} \exp(z_j)}, \quad i = 1, \dots, K,
 \label{eq:softmax_ml}
 \end{equation}
-treinados com perda de entropia cruzada \cite{Bishop2006, Murphy2012}. Essa distribuição $p$ é duplamente essencial no aprendizado ativo: além de fornecer a predição ($\arg\max_i p_i$), é dela que as estratégias de seleção por incerteza (Seção~\ref{sssec:incerteza}) derivam seus escores. Os dois classificadores empregados nos experimentos — um modelo probabilístico vetorial leve e o BERTimbau ajustado com uma camada de classificação \cite{Souza2020BERTimbau} — são detalhados no Capítulo~\ref{ch:metodo}.
+treinados com perda de entropia cruzada \cite{Bishop2006, Murphy2012}. Essa
+distribuição $p$ é duplamente essencial no aprendizado ativo: além de fornecer
+a predição ($\arg\max_i p_i$), é dela que as estratégias de seleção por
+incerteza (Seção~\ref{sec:estrategias_selecao}) derivam seus escores. Os dois
+classificadores empregados nos experimentos — um modelo probabilístico
+vetorial leve e o BERTimbau ajustado com uma camada de classificação
+\cite{Souza2020BERTimbau} — são detalhados no Capítulo~\ref{ch:metodo}.
 
-\subsection{Avaliação de Modelos de Classificação Multiclasse}
+\subsection{Métricas para classes desbalanceadas}
 \label{subsec:ml_evaluation}
 
 A \textbf{acurácia} é a proporção de predições corretas,
@@ -50,7 +82,11 @@ A \textbf{acurácia} é a proporção de predições corretas,
 A = \frac{n_{\text{corretas}}}{N},
 \label{eq:accuracy_ml}
 \end{equation}
-mas é inadequada como métrica única sob desbalanceamento de classes: um classificador que prediz sempre a classe majoritária obtém acurácia alta ignorando as minoritárias \cite{Sokolova2009}. Por isso usam-se métricas por classe. Para uma classe tomada como positiva, com $TP$, $FP$ e $FN$ denotando verdadeiros positivos, falsos positivos e falsos negativos,
+mas é inadequada como métrica única sob desbalanceamento: um classificador que
+prediz sempre a classe majoritária obtém acurácia alta ignorando as
+minoritárias \cite{Sokolova2009, Grandini2020, Barros2014}. Por isso usam-se
+métricas por classe. Para uma classe tomada como positiva, com $TP$, $FP$ e
+$FN$ denotando verdadeiros positivos, falsos positivos e falsos negativos,
 \begin{equation}
 \text{Precisão} = \frac{TP}{TP + FP}, \qquad
 \text{Revocação} = \frac{TP}{TP + FN},
@@ -62,76 +98,164 @@ F_{1} = 2 \cdot \frac{\text{Precisão} \cdot \text{Revocação}}{\text{Precisão
 \label{eq:f1_ml}
 \end{equation}
 
-No cenário multiclasse, a agregação \textbf{macro} calcula a métrica por classe e tira a média aritmética, dando peso igual a todas as classes independentemente da frequência; a agregação \textbf{micro} soma $TP$, $FP$ e $FN$ globais antes de aplicar a fórmula, refletindo sobretudo as classes majoritárias \cite{Sokolova2009}. Em bases com forte desbalanceamento — caso do conjunto de dados desta tese — o \textbf{Macro F1-Score} é a métrica principal, por expor o desempenho nas classes raras. A \textbf{matriz de confusão} $K \times K$, cuja entrada $[i,j]$ conta exemplos da classe real $i$ preditos como $j$, complementa as métricas agregadas ao revelar confusões sistemáticas entre pares de classes \cite{Han2012} — instrumento usado no Capítulo~\ref{ch:metodo} para caracterizar o perfil de erro dos oráculos LLM.
+No cenário multiclasse, a agregação \textbf{macro} calcula a métrica por
+classe e tira a média aritmética, dando peso igual a todas as classes; a
+agregação \textbf{micro} soma $TP$, $FP$ e $FN$ globais antes de aplicar a
+fórmula, refletindo sobretudo as classes majoritárias \cite{Sokolova2009}. Em
+bases com forte desbalanceamento — caso do conjunto de dados desta tese — o
+\textbf{Macro F1-Score} é a métrica principal, por expor o desempenho nas
+classes raras. Alternativas com propósito semelhante — acurácia balanceada,
+coeficiente de correlação de Matthews e Kappa de Cohen — são discutidas por
+\citet{Grandini2020} e \citet{Riyanto2023Comparative}; esta tese as dispensa
+porque o par Macro F1 + acurácia global já separa os dois fenômenos de
+interesse (desempenho nas caudas \textit{versus} desempenho agregado). A
+\textbf{matriz de confusão} $K \times K$, cuja entrada $[i,j]$ conta exemplos
+da classe real $i$ preditos como $j$, complementa as métricas agregadas ao
+revelar confusões sistemáticas entre pares de classes \cite{Han2012} —
+instrumento usado no Capítulo~\ref{ch:metodo} para caracterizar o perfil de
+erro dos oráculos LLM.
 
-\subsection{Estratégias de Validação de Modelos}
+\subsection{Validação e particionamento}
 \label{subsec:ml_validation}
 
-Avaliar um modelo nos mesmos dados de treino superestima seu desempenho (\textit{overfitting}); a validação exige dados independentes \cite{Kohavi1995}. As práticas empregadas nesta tese são: (i) \textbf{hold-out}, separação treino/teste, adequada a bases grandes como a nossa; (ii) \textbf{validação cruzada $k$-fold estratificada}, que particiona os dados em $k$ dobras preservando as proporções de classe — essencial sob desbalanceamento — e média o desempenho das $k$ rodadas \cite{Kohavi1995}; e (iii) um conjunto de \textbf{validação} separado do teste para ajuste de hiperparâmetros, mantendo o teste intocado até a avaliação final \cite{Bishop2006}. Uma exigência adicional específica desta tese, motivada pela auditoria da base (Capítulo~\ref{ch:metodo}): como descrições de produto se repetem, o particionamento deduplica por texto normalizado \emph{antes} do sorteio, prevenindo vazamento treino$\to$teste por duplicatas exatas.
+Avaliar um modelo nos mesmos dados de treino superestima seu desempenho
+(\textit{overfitting}); a validação exige dados independentes
+\cite{Kohavi1995}. As práticas empregadas nesta tese são: (i)
+\textbf{hold-out}, separação treino/teste, adequada a bases grandes como a
+desta tese; (ii) \textbf{validação cruzada $k$-fold estratificada}, que
+particiona os dados em $k$ dobras preservando as proporções de classe —
+essencial sob desbalanceamento \cite{Kohavi1995, Forman2010, James2013,
+Widodo2022} — com $k$ tipicamente 5 ou 10, equilíbrio entre viés, variância e
+custo \cite{Nti2021, Reusens2024}; (iii) um conjunto de \textbf{validação}
+separado do teste para ajuste de hiperparâmetros, mantendo o teste intocado
+até a avaliação final \cite{Bishop2006}; e (iv) para modelos de aprendizado
+profundo, a \textbf{parada antecipada} (\textit{early stopping}), que
+interrompe o treinamento quando o desempenho em validação cessa de melhorar
+\cite{Prechelt2012, Goodfellow2016}. Uma exigência adicional específica desta
+tese, motivada pela auditoria da base (Capítulo~\ref{ch:metodo}): como
+descrições de produto se repetem, o particionamento deduplica por texto
+normalizado \emph{antes} do sorteio, prevenindo vazamento treino$\to$teste por
+duplicatas exatas.
 
-% ---------- fonte: capitulo_02_fundamentos/aprendizado_ativo/_0_introducao.tex ----------
-\section{Aprendizado Ativo}
-\label{sec:aprendizado_ativo_intro}
+\subsection{Inferência estatística para comparação de classificadores e oráculos}
+\label{subsec:ml_inferencia}
 
-O \textit{Aprendizado Ativo} (AA) constitui um paradigma de aprendizado de máquina que maximiza a eficiência de rotulagem ao permitir que o sistema selecione, de forma interativa, as amostras mais informativas para anotação \cite{Settles2012}. Enquanto métodos supervisionados tradicionais requerem grandes volumes de dados rotulados, o AA explora o fato de que instâncias não rotuladas costumam estar disponíveis em abundância e a baixo custo \cite{Zhu2009}.
+Medir não basta: as comparações desta tese — entre oráculos, entre estratégias
+de seleção, entre configurações — exigem afirmar se uma diferença observada
+excede a flutuação amostral. Quatro instrumentos cobrem as situações que
+aparecem nos Capítulos~\ref{ch:resultados-l0} e~\ref{ch:resultados-falco},
+cada qual com a referência original e a referência aplicada ao aprendizado de
+máquina.
 
-As origens do AA remontam a trabalhos seminais, como o de \citet{Angluin1988} sobre aprendizado via consultas de associação e o de \citet{Cohn1994Improving} acerca da redução de incerteza em aprendizado supervisionado. Contudo, foi o estudo abrangente de \citet{Settles2012} que consolidou os fundamentos teóricos e práticos do campo, estabelecendo uma taxonomia clara para cenários e estratégias de consulta.
+\textbf{Intervalo de confiança para proporções (Wilson).} Toda acurácia é uma
+proporção estimada em $n$ instâncias. O intervalo usual de Wald
+($\hat{p} \pm z\sqrt{\hat{p}(1-\hat{p})/n}$) tem cobertura errática — oscila
+severamente abaixo do nível nominal mesmo com $n$ grande e $p$ moderado —,
+enquanto o intervalo de \citet{Wilson1927}, que resolve a desigualdade no
+parâmetro em vez de na estimativa, mantém cobertura próxima da nominal em
+toda a faixa de $p$; a análise sistemática de \citet{Brown2001} recomenda-o
+como escolha padrão. Por isso toda acurácia de oráculo do E0 é reportada com
+IC de Wilson a 95\%.
 
-Em muitos contextos, a anotação de dados incorre em custos elevados, seja pela necessidade de especialistas ou pelo tempo humanamente dispendioso. Por exemplo, a rotulagem de imagens médicas exige avaliação de radiologistas, e a anotação de transcrições de fala pode demandar até dez vezes a duração da gravação original \cite{Settles2012}. Nesses casos, o AA emerge como alternativa quando a rotulagem se torna o principal gargalo para o desenvolvimento de modelos robustos.
+\textbf{Comparação pareada na mesma amostra (McNemar).} Quando dois oráculos
+rotulam \emph{as mesmas} instâncias, os erros são dependentes e o teste
+correto opera sobre os pares discordantes: o teste de \citet{McNemar1947}
+examina a assimetria entre os $b$ casos em que só o primeiro acerta e os $c$
+em que só o segundo acerta; quando $b+c<25$, usa-se a versão binomial exata.
+\citet{Dietterich1998}, avaliando empiricamente cinco testes para comparar
+classificadores, recomenda o McNemar precisamente no regime desta tese —
+modelos avaliados uma única vez sobre um conjunto comum — por controlar o
+erro tipo~I onde os testes $t$ re-amostrados falham.
 
-Com a popularização do \textit{deep learning}, o AA adquiriu novas dimensões, originando a área de \textit{Deep Active Learning} (DAL), investigada intensamente na última década \cite{Ren2021}. Mais recentemente, o surgimento dos \textit{Large Language Models} (LLMs) abriu oportunidades adicionais: esses modelos podem atuar como oráculos de rotulagem ou como agentes na seleção de instâncias \cite{Bayer2024}.
+\textbf{Comparação pareada por semente (Wilcoxon).} Quando duas estratégias
+são executadas com as mesmas sementes, cada semente gera um par de resultados.
+O teste de postos sinalizados de \citet{Wilcoxon1945} compara os pares sem
+supor normalidade — suposição indefensável para métricas limitadas como o
+Macro F1 —, e é a recomendação canônica de \citet{Demsar2006} para comparar
+dois algoritmos sobre múltiplas condições. Sua limitação estrutural importa ao
+desenho: com $n$ pares, o menor $p$-valor bicaudal atingível é $2/2^{n}$ — com
+menos de seis sementes a significância a 5\% é inalcançável por construção, o
+que fundamenta o mínimo de oito sementes adotado no Capítulo~\ref{ch:metodo}.
 
-Este capítulo apresenta uma análise abrangente do AA, cobrindo desde seus fundamentos teóricos até aplicações recentes envolvendo \textit{deep learning} e LLMs. Primeiramente, são discutidas as definições formais e os cenários clássicos do paradigma. Em seguida, apresentam‑se as principais estratégias de seleção de instâncias e os componentes de um sistema de AA. A integração com \textit{deep learning} e o emprego de LLMs como oráculos são examinados em detalhe. Por fim, uma revisão sistemática da literatura de 2015 até o presente fornece um panorama atualizado do estado da arte.
+\textbf{Intervalos por reamostragem (\textit{bootstrap}).} Para funcionais sem
+distribuição amostral conhecida — como a diferença de LCE entre estratégias —,
+o \textit{bootstrap} \citep{EfronTibshirani1993} estima o intervalo de
+confiança reamostrando os pares observados com reposição (método do
+percentil), permanecendo informativo mesmo com poucas repetições.
 
-% ---------- fonte: capitulo_02_fundamentos/aprendizado_ativo/_1_formalismo_aprendizado_ativo.tex ----------
+A Tabela~\ref{tab:inferencia-mapa} resume o mapeamento situação--teste--uso.
 
-%---------------------------------------------------------------------
-% 2 Formalização do Aprendizado Ativo
-%---------------------------------------------------------------------
-\section{Formalização do Aprendizado Ativo}
+\begin{table}[htb]
+\centering
+\caption{Instrumentos de inferência estatística e seu emprego nesta tese.}
+\label{tab:inferencia-mapa}
+\small
+\begin{tabular}{p{0.34\textwidth} p{0.24\textwidth} p{0.32\textwidth}}
+\toprule
+\textbf{Situação} & \textbf{Instrumento} & \textbf{Uso na tese} \\
+\midrule
+Precisão de uma proporção estimada & IC de Wilson 95\% \cite{Wilson1927, Brown2001} & toda acurácia de oráculo (E0) \\
+Dois oráculos, mesmas instâncias & McNemar; binomial exato se $b{+}c{<}25$ \cite{McNemar1947, Dietterich1998} & pareamentos do E0/E0-P \\
+Duas estratégias, mesmas sementes & Wilcoxon de postos sinalizados \cite{Wilcoxon1945, Demsar2006} & E1/E4 (8 sementes) \\
+Funcional sem distribuição conhecida & IC \textit{bootstrap} percentil \cite{EfronTibshirani1993} & diferença de LCE (E3) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Com o instrumental de medição estabelecido, a próxima seção formaliza o
+processo cuja eficiência ele mede: o laço de aprendizado ativo.
+
+\section{Aprendizado ativo}
+\label{sec:fund-al}
+
+O aprendizado ativo (AA) maximiza a eficiência de rotulagem ao permitir que o
+sistema selecione, de forma interativa, as amostras mais informativas para
+anotação \cite{Settles2012}, explorando o fato de que instâncias não rotuladas
+costumam estar disponíveis em abundância e a baixo custo \cite{Zhu2009}. Suas
+origens remontam aos trabalhos de \citet{Angluin1988}, sobre aprendizado via
+consultas, e de \citet{Cohn1994Improving}, sobre redução de incerteza; a
+consolidação teórica e a taxonomia de cenários e estratégias devem-se a
+\citet{Settles2012}. O paradigma é a resposta natural aos domínios em que a
+anotação é o gargalo — de imagens médicas que exigem radiologistas a
+transcrições cuja anotação custa dez vezes a duração do áudio
+\cite{Settles2012} —, e ganhou novas camadas com o aprendizado profundo
+\cite{Ren2021} e, mais recentemente, com os LLMs no papel de oráculo ou de
+seletor \cite{Bayer2024}. Esta seção formaliza o laço, apresenta o catálogo de
+estratégias de seleção e encerra nas duas limitações estruturais que motivam o
+desenho do FALCO.
+
+\subsection{Formalização e cenários}
 \label{sec:formalismo}
 
-No aprendizado supervisionado tradicional parte‑se de um conjunto fixo de pares
-rotulados \(L = \{(x_i,y_i)\}_{i=1}^{n}\), em que \(x_i \in \mathcal{X}\) e
-\(y_i \in \mathcal{Y}\).  A meta é ajustar uma função
-\(f : \mathcal{X} \rightarrow \mathcal{Y}\) que minimize o risco esperado sobre
-novos dados provenientes da mesma distribuição.
+No aprendizado supervisionado tradicional parte-se de um conjunto fixo de
+pares rotulados $L = \{(x_i,y_i)\}_{i=1}^{n}$. O aprendizado ativo acrescenta
+um componente interativo: além de $L$, dispõe-se de um conjunto não rotulado
+$U=\{x_j\}_{j=1}^{m}$ com $L\cap U=\varnothing$, e a cada iteração uma
+\textbf{regra de seleção} $S:(U_t,\theta_t,L_t)\mapsto Q_t\subseteq U_t$
+escolhe um lote $Q_t$ a ser consultado; o oráculo rotula $Q_t$, os pares
+entram em $L_t$, e o processo segue até esgotar o orçamento $B$ ou satisfazer
+um critério de parada. Entre as formulações existentes
+\cite{Settles2012, Roy2001, Goudjil2018}, adapta-se aqui o arcabouço de Cohn,
+Ghahramani e Jordan, ampliado por Hanneke \cite{Cohn1996, Hanneke2015}.
 
-O \emph{aprendizado ativo} acrescenta um componente interativo: além do
-lote inicial rotulado \(L\), dispõe‑se de um conjunto de instâncias não
-rotuladas \(U=\{x_j\}_{j=1}^{m}\subseteq\mathcal X\) com
-\(L\cap U=\varnothing\).
-Em cada iteração aplica-se uma \textbf{regra de seleção}
-\(
-      S:\bigl(U_t,\theta_t,L_t\bigr)\;\longrightarrow\;Q_t\subseteq U_t,
-\)
-a qual, a partir do lote corrente, do modelo
-\(\theta_t\) e da história de rótulos \(L_t\), escolhe um
-\textbf{lote} \(Q_t\) de instâncias a serem consultadas
-(\(|Q_t|=b_t\ge1\)).
-O oráculo rotula todas as instâncias de \(Q_t\); os novos pares são
-acrescentados a \(L_t\); o processo prossegue até que o orçamento
-\(B\) se esgote ou algum critério de parada seja satisfeito.
-Esse esquema unifica tanto o modo \textit{batch} (\(b_t>1\))
-quanto o modo \textit{stream} (\(b_t=1\); \(S\) degenera para uma escolha
-binária em cada amostra observada).
-
-Entre as muitas formulações existentes — por exemplo, \cite{Settles2012}, \cite{Roy2001} e \textit{et al.} \cite{Goudjil2018} — adapta-se aqui o arcabouço proposto por
-Cohn, Ghahramani e Jordan, posteriormente ampliado por Hanneke
-\cite{Cohn1996,Hanneke2015}, com o fundamento de \cite{Goudjil2018} e \cite{Settles2012}, para incorporar um modelo mais abrangente.
-
-
-% No corpo do texto:
 \begin{definicao}[Aprendizado Ativo]
 Aprendizado ativo é representado, neste trabalho, pela sêxtupla
 \[
-   \mathcal{A} = \langle L,\, U,\, \theta,\,\, S,\, O,\, B \rangle,
+   \mathcal{A} = \langle L,\, U,\, \theta,\, S,\, O,\, B \rangle,
 \]
-em que $L$ é um conjunto de exemplos rotulados, $U$ um conjunto de exemplos não rotulados, $\theta$ denota o estado do modelo supervisionado atualizado a partir de $L$, $S$ é uma regra de seleção que indica os exemplos de $U$ a serem consultados, $O$ é o oráculo que fornece o rótulo correto para cada instância, e $B$ corresponde ao orçamento, eventualmente infinito, de consultas possíveis ao oráculo.
+em que $L$ é um conjunto de exemplos rotulados, $U$ um conjunto de exemplos
+não rotulados, $\theta$ denota o estado do modelo supervisionado atualizado a
+partir de $L$, $S$ é uma regra de seleção que indica os exemplos de $U$ a
+serem consultados, $O$ é o oráculo que fornece o rótulo correto para cada
+instância, e $B$ corresponde ao orçamento, eventualmente infinito, de
+consultas possíveis ao oráculo.
 \end{definicao}
 
-Um resumo de cada componente é fornecido pela Tabela~\ref{tab:active-learning-components}.
-
+A Tabela~\ref{tab:active-learning-components} resume os componentes; o
+Algoritmo~\ref{alg:active_learning} apresenta o laço \cite{Settles2012,
+Goudjil2018}. Essa notação — $L_0$ para o conjunto inicial, $U$ para o
+\textit{pool}, $S$ para a estratégia, $O$ para o oráculo, $B$ para o
+orçamento — é a mesma usada em todo o Capítulo~\ref{ch:metodo}.
 
 \begin{table}[ht]
   \centering
@@ -153,7 +277,7 @@ Um resumo de cada componente é fornecido pela Tabela~\ref{tab:active-learning-c
     \(\theta \in \Theta\) &
     Modelo treinado em \(L\) \\[0.25em]
     \(S\) & \( S : (U_t,\theta_t,L_t)\mapsto Q_t\subseteq U_t\) &
-    Regra que determina o lote \( Q_t \) enviar para o oráculo \\[0.25em]
+    Regra que determina o lote \( Q_t \) a enviar ao oráculo \\[0.25em]
     \(O\) &
     \(O : \mathcal{X} \rightarrow \mathcal{Y}\) &
     Oráculo que devolve o rótulo verdadeiro \(y = O(x)\) \\[0.25em]
@@ -165,301 +289,247 @@ Um resumo de cada componente é fornecido pela Tabela~\ref{tab:active-learning-c
 
 \FloatBarrier
 
-Os elementos apresentados na Tabela~\ref{tab:active-learning-components} interagem de forma estruturada para compor o ciclo do aprendizado ativo, conforme discutido em \cite{Settles2012} e \cite{Goudjil2018} e é apresentado no Algoritmo~\ref{alg:active_learning} a seguir.
-
-
-
 \begin{algorithm}[H]
   \caption{Esquema geral de aprendizado ativo}
   \label{alg:active_learning}
   \begin{algorithmic}[1]
-  
     \State \textbf{1. Inicialização:} definir os conjuntos iniciais e orçamento.
     \State \quad \(L_0 \leftarrow \text{conjunto de exemplos rotulados iniciais}\)
     \State \quad \(U_0 \leftarrow \text{conjunto de exemplos não rotulados}\)
     \State \quad \(B_0 \leftarrow \text{orçamento inicial de consultas}\)
-    
     \State \textbf{2. Laço principal:} enquanto houver orçamento e instâncias não rotuladas, repetir:
-    
-    \State \quad Atualiza-se o modelo com base no conjunto rotulado atual:
     \State \quad \(\theta_t \leftarrow \mathrm{Learn}(L_t)\)
-    
-    \State \quad Seleciona-se um lote de exemplos a serem rotulados:
     \State \quad \(Q_t \leftarrow S(U_t, \theta_t, L_t)\)
-    
-    \State \quad Consulta-se o oráculo para obter os rótulos correspondentes:
     \State \quad \(\forall x \in Q_t, \quad y \leftarrow O(x)\)
-    
-    \State \quad Atualizam-se os conjuntos e o orçamento:
-    \State \quad \(L_{t+1} \leftarrow L_t \cup \{(x, y) : x \in Q_t\}\)
-    \State \quad \(U_{t+1} \leftarrow U_t \setminus Q_t\)
-    \State \quad \(B_{t+1} \leftarrow B_t - |Q_t|\)
-    
-    \State \quad Incrementa-se a iteração:
+    \State \quad \(L_{t+1} \leftarrow L_t \cup \{(x, y) : x \in Q_t\}\); \(U_{t+1} \leftarrow U_t \setminus Q_t\); \(B_{t+1} \leftarrow B_t - |Q_t|\)
     \State \quad \(t \leftarrow t + 1\)
-    
-    \State \textbf{3. Finalização:} ao fim do laço, retorna-se o modelo final.
-    \State \quad \(\theta_{\mathrm{final}} \leftarrow \text{modelo treinado em } L_T\)
-    
+    \State \textbf{3. Finalização:} retornar \(\theta_{\mathrm{final}}\) treinado em \(L_T\).
   \end{algorithmic}
 \end{algorithm}
 
+O laço admite três cenários clássicos, que diferem em como as instâncias
+chegam ao seletor \cite{Settles2012}: na \textbf{síntese de consultas}, o
+algoritmo gera instâncias artificiais — poderoso em espaços bem definidos, mas
+sujeito a produzir exemplos ininteligíveis para anotadores \cite{Baum1992}; na
+\textbf{amostragem seletiva em fluxo}, instâncias chegam uma a uma de uma
+distribuição natural e o algoritmo decide, por um limiar de utilidade, se
+consulta cada uma \cite{Dagan1995}; e no \textbf{aprendizado ativo com acervo
+fixo} (\textit{pool-based}), o cenário desta tese e o mais comum na prática,
+um conjunto finito $U$ está disponível desde o início e o algoritmo seleciona
+dele as instâncias de maior utilidade \cite{Lewis1994}. Três extensões do
+cenário básico são relevantes aqui: o modo em \textbf{lote}
+(\textit{batch-mode}), que seleciona múltiplas instâncias por iteração —
+inevitável quando o re-treinamento é caro, mas exigindo diversidade dentro do
+lote \cite{Hoi2006}; o aprendizado ativo \textbf{federado}, que executa a
+seleção localmente em múltiplos clientes preservando privacidade
+\cite{Deng2023fedal}; e o cenário com \textbf{múltiplos oráculos} de custos e
+competências distintos \cite{Yan2011} — historicamente motivado por
+\textit{crowdsourcing} e hoje reencarnado no cardápio de LLMs com preços e
+acurácias diferentes, que é precisamente o cenário do FALCO.
 
-
-O desempenho do aprendizado ativo depende principalmente do cenário em que é
-aplicado e da estratégia de seleção definida pela função de utilidade
-\(\mathcal{U}\).  As seções seguintes examinam esses cenários e apresenta as
-principais famílias de critérios de seleção discutidas na literatura.
-
-% ---------- fonte: capitulo_02_fundamentos/aprendizado_ativo/_2_cenarios.tex ----------
-
-\section{Cenários de Aprendizado Ativo}
-Os cenários de aprendizado ativo referem-se aos diferentes contextos e configurações nos quais o aprendizado ativo pode ser aplicado. Estes cenários diferem principalmente em como as instâncias não rotuladas são obtidas e apresentadas ao modelo, e nas restrições impostas ao processo de consulta. Nesta seção, exploramos os cenários clássicos bem estabelecidos na literatura, bem como cenários emergentes que têm ganhado relevância recentemente.
-
-\subsection{Cenários Clássicos}
-
-Tradicionalmente, três cenários principais têm sido estudados na literatura de aprendizado ativo~\cite{Settles2012}: 
-
-\paragraph{Síntese de Consultas (Membership Query Synthesis)}
-No cenário de síntese de consultas, o algoritmo de aprendizado pode gerar instâncias sintéticas para rotulação. Não há restrições quanto ao espaço de instâncias possíveis, permitindo que o algoritmo explore livremente este espaço.
-
-Formalmente, a cada iteração $t$, o algoritmo sintetiza uma instância $x_t^*$ e solicita seu rótulo $y_t^*$ a um oráculo. Este cenário é particularmente útil em domínios onde a geração de instâncias é viável e significativa, como em ambientes simulados ou domínios com espaços de instâncias bem definidos.
-
-Uma limitação importante deste cenário é que as instâncias sintéticas podem não ter significado prático ou podem ser difíceis de interpretar para anotadores humanos. Por exemplo, em processamento de imagens, o algoritmo pode gerar padrões visuais irreconhecíveis; em processamento de linguagem natural, pode gerar sequências de texto sem sentido semântico~\cite{Baum1992}.
-
-\paragraph{Amostragem Seletiva em Fluxo (Stream-Based Selective Sampling)} : Na amostragem seletiva em fluxo, as instâncias não rotuladas são apresentadas ao algoritmo sequencialmente, uma por vez, advindas de uma distribuição natural. Para cada instância $x_t$, o algoritmo decide se deve ou não solicitar seu rótulo ao oráculo.
-
-Esta decisão pode ser baseada em alguma medida de ``informatividade'' da instância, ou na determinação de uma ``região de incerteza'' no espaço de instâncias. Instâncias que caem dentro desta região são consideradas informativas e são selecionadas para rotulação.
-
-Formalmente, a cada iteração $t$, dada uma instância $x_t$ advinda de uma distribuição $D$, o algoritmo decide solicitar seu rótulo se $\mathcal{U}(x_t) > \tau$, onde $\mathcal{U}$ é uma função de utilidade e $\tau$ é um limiar predefinido.
-
-Este cenário é particularmente relevante em aplicações onde os dados chegam naturalmente em fluxo, como em sensoriamento contínuo, processamento de fluxos de mídia social, ou sistemas de monitoramento em tempo real~\cite{Dagan1995}.
-
-\paragraph{Aprendizado Ativo com Acervo Fixo (Pool-Based Active Learning)}
-\label{subsec:pool_based_al}
-No cenário baseado em acervo fixo, assume-se que existe um conjunto finito de instâncias não rotuladas $U$ disponível desde o início. A cada iteração, o algoritmo seleciona a instância mais informativa deste conjunto para rotulação.
-
-Formalmente, a cada iteração $t$, o algoritmo seleciona $x_t^* = \underset{x \in U_t}{\operatorname{arg\,max}}\, \mathcal{U}(x)$, onde $U_t$ é o conjunto de instâncias não rotuladas disponíveis na iteração $t$.
-
-Este é o cenário mais comum na prática, pois em muitas aplicações reais é possível coletar um grande conjunto de dados não rotulados antes de iniciar o processo de rotulação. Exemplos incluem classificação de textos, reconhecimento de imagens, e muitas outras tarefas de aprendizado supervisionado~\cite{Lewis1994}.
-
-% \begin{figure}[h]
-%     \centering
-%     % Coloque aqui a ilustração mencionada, caso disponível.
-%     \fbox{\parbox{0.8\textwidth}{FIGURA 1: Ilustração dos três cenários clássicos de aprendizado ativo: síntese de consultas, amostragem seletiva em fluxo e aprendizado ativo baseado em pool.}}
-%     \caption{Os três cenários clássicos de aprendizado ativo, diferindo em como as instâncias são obtidas e apresentadas ao modelo.}
-%     \label{fig:cenarios-classicos}
-% \end{figure}
-
-\subsection{Cenários Emergentes}
-Além dos cenários clássicos, novos cenários têm emergido para abordar desafios específicos ou explorar novas capacidades em aprendizado ativo, a lista abaixo, não extensiva, apresenta alguns julgado importantes para este trabalho:
-
-
-\paragraph{Aprendizado Ativo em Lote (Batch-Mode Active Learning)}
-No aprendizado ativo em lote, o algoritmo seleciona múltiplas instâncias simultaneamente para rotulação a cada iteração~\cite{Hoi2006}. Este cenário é particularmente relevante quando há paralelismo disponível no processo de rotulação (por exemplo, múltiplos anotadores) ou quando o retreinamento do modelo após cada única instância rotulada é computacionalmente custoso.
-
-Formalmente, a cada iteração $t$, o algoritmo seleciona um conjunto de instâncias $B_t = \{x_{t,1}^*, x_{t,2}^*, ..., x_{t,b}^*\} \subset U_t$ de tamanho $b$ para rotulação. A seleção deve considerar não apenas a informatividade individual de cada instância, mas também a diversidade e complementaridade entre as instâncias selecionadas.
-
-\paragraph{Aprendizado Ativo Federado.}
-O \textit{aprendizado ativo federado} (Federated Active Learning – FAL) é um paradigma que combina os princípios do aprendizado federado com técnicas de aprendizado ativo, permitindo que múltiplos clientes (como dispositivos ou instituições) selecionem, de forma local e autônoma, os exemplos mais informativos a serem rotulados, sem a necessidade de compartilhar dados brutos com um servidor central. Essa abordagem visa preservar a privacidade dos dados distribuídos, reduzir os custos de anotação e melhorar a eficiência do treinamento em cenários com dados não-IID. Enquanto o aprendizado federado tradicional já possibilita o treinamento colaborativo de modelos sem centralização dos dados \cite{Deng2023fedal}, o aprendizado ativo federado estende essa capacidade ao introduzir mecanismos de seleção ativa de amostras nos clientes locais, como demonstrado em \cite{Deng2023fedal} com a proposta do framework KAFAL .
-
-\paragraph{Aprendizado Ativo com Múltiplos Oráculos}
-Em cenários reais, pode haver múltiplos oráculos (anotadores) disponíveis, com diferentes níveis de expertise, custos e disponibilidade~\cite{Yan2011}. O algoritmo deve decidir não apenas quais instâncias rotular, mas também qual oráculo consultar para cada instância.
-
-Este cenário é particularmente relevante em plataformas de \textit{crowdsourcing}, onde múltiplos anotadores com diferentes habilidades estão disponíveis para tarefas de rotulação.  E em cenários atuais tem-se diversos grandes modelos de linguagem com capacidades e custos distintos, atendendo a este cenário.
-
-
-
-
-
-\
-
-
-% ---------- fonte: capitulo_02_fundamentos/aprendizado_ativo/_3_estrategias_selecao.tex ----------
-\subsection{Estratégias de Seleção de Consultas}
+\subsection{Estratégias de seleção de instâncias}
 \label{sec:estrategias_selecao}
 
-O componente central que define um algoritmo de aprendizado ativo é a sua \textbf{estratégia de seleção de consultas} (\textit{query selection strategy}). Este mecanismo determina qual instância, dentre um conjunto de dados não rotulados, deve ser selecionada para apresentação ao oráculo (tipicamente um especialista humano, um experimento ou um modelo de linguagem) a fim de obter seu rótulo verdadeiro. O objetivo principal é maximizar a utilidade informacional de cada consulta, de forma a otimizar o processo de aprendizado e reduzir significativamente o esforço de rotulagem necessário para atingir um nível de desempenho pré-definido para o modelo preditivo \citep{Settles2012}. Conforme postulado por \citet{Shannon1948}, informação representa a resolução da incerteza, e as diversas estratégias de aprendizado ativo podem ser entendidas como diferentes métodos para buscar ativamente a informação que mais eficientemente reduz a incerteza do modelo ou aprimora sua capacidade de generalização.
+A estratégia de seleção é o componente que define um algoritmo de aprendizado
+ativo: ela determina quais instâncias valem o custo do oráculo, buscando
+maximizar a informação obtida por consulta \citep{Settles2012} — no espírito
+de \citet{Shannon1948}, buscar ativamente a informação que mais reduz a
+incerteza. As famílias de estratégias diferem no princípio heurístico e no
+custo computacional; as que esta tese emprega diretamente recebem tratamento
+completo, e as demais, uma síntese com as referências de aprofundamento.
 
-As metodologias propostas na literatura podem ser agrupadas em famílias distintas, baseadas nos princípios heurísticos que as norteiam. As principais linhas incluem a amostragem baseada na incerteza do modelo, a exploração da estrutura do espaço de hipóteses através do desacordo entre modelos, a otimização direta da redução do erro esperado ou da variância, e o aproveitamento da estrutura intrínseca da distribuição dos dados. Cada uma dessas vertentes apresenta um conjunto particular de benefícios e limitações, tornando a escolha da estratégia mais adequada uma decisão dependente do contexto, como discutido por \citet{Settles2012}.
-
-\subsubsection{Amostragem por Incerteza (\textit{Uncertainty Sampling})}
-\label{sssec:incerteza}
-
-Esta família de estratégias é, possivelmente, a mais intuitiva e uma das mais frequentemente empregadas na prática \citep{Lewis1994heterogeneous, Settles2012}. O princípio fundamental é que as instâncias não rotuladas sobre as quais o modelo preditivo atual demonstra maior grau de incerteza são as mais prováveis de fornecer informação para o refinamento do modelo. O algoritmo seleciona, a cada iteração, a instância $x^*$ do conjunto não rotulado $U$ que maximiza alguma medida quantitativa de incerteza $\phi_A(x)$. O princípio norteador é, portanto, selecionar a instância que induz a maior ambiguidade ou "confusão" nas predições do modelo corrente.
-
-Esta abordagem oferece como benefícios a simplicidade conceitual e de implementação, juntamente com um baixo custo computacional na maioria dos casos, pois requer apenas a avaliação das saídas (probabilidades ou confianças) do modelo já treinado. Sua aplicabilidade é geral a qualquer modelo capaz de produzir tais saídas, e possui justificativa teórica em conjunto com classificadores de margem máxima, como Máquinas de Vetores de Suporte (SVMs), onde se relaciona com a bissecção do espaço de versão \citep{Tong2000, Settles2012}. Continua sendo uma linha de base forte e frequentemente utilizada, inclusive em contextos modernos de \textit{deep learning} \citep{Gal2017}.
-
-Contudo, a amostragem por incerteza possui limitações significativas. É uma estratégia inerentemente \textbf{míope}, baseando-se exclusivamente na perspectiva de um único modelo, que pode ser impreciso ou enviesado, especialmente nas fases iniciais do aprendizado. Além disso, apresenta suscetibilidade à seleção de \textbf{outliers} ou instâncias ruidosas, que podem exibir alta incerteza por serem atípicas e pouco informativas sobre a distribuição geral dos dados \citep{Settles2012}. Seu desempenho também pode ser subótimo em cenários com distribuições de classes desbalanceadas, nos quais o foco na fronteira da classe majoritária tende a negligenciar as classes raras \citep{Settles2012, Attenberg2010}.
-
-As medidas de incerteza mais comuns incluem:
-
-\paragraph{Menor Confiança (\textit{Least Confident} - LC):} Seleciona a instância $x$ para a qual a classe predita com maior probabilidade, $\hat{y} = \arg\max_y P_\theta(y|x)$, possui o menor valor de probabilidade $P_\theta(\hat{y}|x)$. Esta medida foca na confiança da "melhor" predição do modelo e pode ser interpretada como a maximização da perda 0/1 esperada, conforme percebida pelo modelo. Sua principal limitação reside em ignorar a informação contida nas probabilidades das classes alternativas.
+\paragraph{Amostragem por incerteza (\textit{uncertainty sampling}).}
+A família mais usada na prática \citep{Lewis1994heterogeneous, Settles2012}:
+seleciona as instâncias sobre as quais o modelo corrente está mais incerto,
+requerendo apenas as probabilidades preditas — custo baixo, aplicabilidade
+geral, e relação teórica com a bissecção do espaço de versão em
+classificadores de margem \citep{Tong2000}; permanece linha de base forte em
+\textit{deep learning} \citep{Gal2017}. Suas três medidas canônicas são
+usadas nos experimentos desta tese:
 \begin{equation}
 x^*_{LC} = \arg\max_x \left[ 1 - P_\theta(\hat{y}|x) \right]
 \label{eq:lc}
 \end{equation}
-
-\paragraph{Margem (\textit{Margin Sampling} - M):} Seleciona a instância $x$ onde a diferença (margem) entre a probabilidade da classe mais provável, $\hat{y}_1$, e a segunda classe mais provável, $\hat{y}_2$, é mínima. Esta abordagem concentra-se na dificuldade do modelo em discriminar entre as duas alternativas mais plausíveis. Contudo, ainda ignora grande parte da distribuição de probabilidade, o que pode ser relevante em problemas com muitas classes.
+seleciona pela \textbf{menor confiança} na classe mais provável;
 \begin{equation}
 x^*_{M} = \arg\min_x \left[ P_\theta(\hat{y}_1|x) - P_\theta(\hat{y}_2|x) \right]
 \label{eq:margin}
 \end{equation}
-
-\paragraph{Entropia (\textit{Entropy Sampling} - H):} Utiliza a entropia de Shannon da distribuição de probabilidade preditiva $P_\theta(Y|x)$ como medida de incerteza. Seleciona a instância $x$ que maximiza essa entropia, indicando uma distribuição mais uniforme e, portanto, maior incerteza geral sobre o rótulo. Pode ser interpretada como a maximização do log-loss esperado e é frequentemente considerada a medida mais abrangente, pois considera toda a distribuição de probabilidade.
+seleciona pela \textbf{menor margem} entre as duas classes mais prováveis; e
 \begin{equation}
-x^*_{H} = \arg\max_x H_\theta(Y|x) = \arg\max_x \left[ -\sum_y P_\theta(y|x) \log P_\theta(y|x) \right]
+x^*_{H} = \arg\max_x \left[ -\sum_y P_\theta(y|x) \log P_\theta(y|x) \right]
 \label{eq:entropy}
 \end{equation}
+seleciona pela \textbf{entropia} da distribuição completa. As limitações da
+família são conhecidas: é míope (confia num modelo possivelmente ruim, em
+especial no início), suscetível a \textit{outliers}, e pode negligenciar
+classes raras ao concentrar-se na fronteira das majoritárias
+\citep{Settles2012, Attenberg2010}.
 
-\subsubsection{Busca pelo Espaço de Versão e Baseado em Desacordo}
-\label{sssec:desacordo}
+\paragraph{Comitês e espaço de versão.} A segunda família seleciona pela
+divergência entre hipóteses plausíveis: o espaço de versão é o subconjunto de
+hipóteses consistentes com $L$ \citep{Mitchell1982}, e consultas que maximizam
+o desacordo entre seus membros eliminam hipóteses mais rapidamente — com
+garantias teóricas de melhoria exponencial em certos regimes
+\citep{Cohn1994Improving, Hanneke2015}. A implementação prática é a
+\textbf{consulta por comitê} (QBC): um \textit{ensemble} construído por
+amostragem bayesiana, \textit{bagging}, \textit{boosting} ou múltiplas visões
+\citep{Seung1992, Freund1997, McCallum1998, Abe1998, Muslea2000, Blum1998}
+vota, e as instâncias de maior desacordo (medido por entropia de votos ou
+divergência de Kullback--Leibler) são consultadas; a diversidade do comitê é
+determinante \citep{Melville2004}. O custo de manter múltiplos modelos torna a
+família menos atraente quando o classificador é re-treinado a cada lote.
 
-Esta família de estratégias parte da noção de \textbf{espaço de versão} ($V$), definido como o subconjunto de todas as hipóteses possíveis ($H$) que são consistentes com o conjunto de dados rotulados ($L$) disponível \citep{Mitchell1982}. O objetivo é selecionar consultas que reduzam o tamanho ou volume de $V$ o mais eficientemente possível, eliminando hipóteses inconsistentes e convergindo para a hipótese alvo verdadeira (assumindo que ela exista em $H$ e os dados não sejam ruidosos). O princípio norteador é selecionar a instância que causa o maior \textbf{desacordo} (\textit{disagreement}) entre as hipóteses candidatas ainda consideradas plausíveis (membros de $V$ ou de um comitê que o aproxima), de modo que seu rótulo permita eliminar o maior número possível dessas hipóteses.
+\paragraph{Redução de erro ou variância esperados.} A terceira família adota a
+perspectiva de teoria da decisão: escolher a consulta que, em expectativa,
+mais reduz o erro de generalização ou a variância preditiva do modelo
+resultante \citep{Roy2001, MacKay1992, Cohn1996}, com tratamento natural de
+lotes via otimização submodular \citep{Guestrin2005, Golovin2011, Krause2014}.
+É a única família que otimiza diretamente o objetivo final — e a de custo
+computacional proibitivo no nosso regime: re-treinamento por par
+candidato-rótulo ou álgebra matricial que escala mal com a dimensionalidade.
 
-Esta abordagem oferece a vantagem de abordar explicitamente a ambiguidade no espaço de modelos, sendo potencialmente menos míope que a amostragem por incerteza pura. Possui fundamentação teórica robusta em certos cenários, como o algoritmo \textit{Query by Disagreement}(QBD) que pode oferecer melhorias exponenciais na complexidade de amostragem \citep{Cohn1994Improving, Hanneke2015}, e pode ser interpretada em termos de maximização da informação mútua \citep{Settles2012}.
-
-
-As principais implementações incluem:
-
-\paragraph{Consulta por Desacordo (\textit{Query by Disagreement} - QBD):} O algoritmo canônico \citep{Cohn1994Improving} propõe manter o espaço de versão $V$ e consultar qualquer instância $x$ para a qual existam pelo menos duas hipóteses $h_1, h_2 \in V$ que discordem em sua predição ($h_1(x) \neq h_2(x)$). Na prática, aproximações são usadas.
-
-\paragraph{Consulta por Comitê (\textit{Query by Committee} - QBC):} Esta é a abordagem mais prática e difundida desta família \citep{Seung1992, Freund1997}. Utiliza-se um \textbf{comitê} (ou \textit{ensemble}) $C$ de hipóteses $\{h_1, ..., h_{|C|}\}$ como uma amostra representativa ou uma aproximação de $V$. A consulta é direcionada para as instâncias onde os membros do comitê apresentam o maior grau de desacordo. A formação do comitê pode usar técnicas como amostragem Bayesiana \citep{McCallum1998}, \textit{Bagging} \citep{Abe1998}, \textit{Boosting}, ou exploração de múltiplas visões \citep{Muslea2000, Blum1998}. A diversidade entre os membros é um fator relevante \citep{Melville2004}. As medidas de desacordo incluem Entropia de Votos (VE, Eq.~\ref{eq:ve}), Entropia de Votos Suave (SVE, Eq.~\ref{eq:sve}) e Divergência Kullback-Leibler (KL, Eq.~\ref{eq:kl}).
-
+\paragraph{Exploração da estrutura dos dados.} A quarta família incorpora a
+distribuição $P(X)$ das próprias instâncias: seleciona pontos que sejam, além
+de informativos, \textbf{representativos} — em regiões densas ou centrais a
+agrupamentos — mitigando a seleção de \textit{outliers}. A ponderação por
+densidade multiplica a utilidade-base por um termo de representatividade,
 \begin{equation}
-x^*_{VE} = \arg\max_x \left[ -\sum_y \frac{\text{vote}_C(y,x)}{|C|} \log \frac{\text{vote}_C(y,x)}{|C|} \right]
-\label{eq:ve}
-\end{equation}
-\begin{equation}
-x^*_{SVE} = \arg\max_x \left[ -\sum_y P_C(y|x) \log P_C(y|x) \right]
-\label{eq:sve}
-\end{equation}
-\begin{equation}
-x^*_{KL} = \arg\max_x \frac{1}{|C|} \sum_{h \in C} \text{KL}[P_h(Y|x) \,||\, P_C(Y|x)]
-\label{eq:kl}
-\end{equation}
-
-
-\subsubsection{Redução do Erro Esperado ou Variância}
-\label{sssec:reducao_erro}
-
-Esta classe de estratégias adota uma perspectiva explícita de \textbf{teoria da decisão} \citep{Roy2001, Settles2012}. O objetivo é selecionar a consulta $x$ que, em expectativa sobre seu rótulo verdadeiro $y$, levará a um novo modelo $\theta^+$ que minimize o erro de generalização esperado ou a variância de saída sobre as instâncias não rotuladas restantes $U$. O princípio subjacente é escolher a instância cuja rotulagem esperada proporcione a maior redução no erro ou na variância preditiva do modelo sobre a distribuição de dados futura.
-
-Um benefício chave é a otimização direta do objetivo final do aprendizado (ou uma proxy fortemente relacionada como a variância), o que levou a um forte desempenho empírico em diversas tarefas quando a computação é viável \citep{Roy2001}. A Redução de Variância, em particular, possui fundamentação na teoria estatística de Desenho Ótimo de Experimentos \citep{MacKay1992, Cohn1996} e permite tratamento natural de consultas em lote via otimização submodular \citep{Guestrin2005, Golovin2011, Krause2014}.
-
-A principal barreira, no entanto, é o \textbf{custo computacional extremamente elevado}. A Redução de Erro tipicamente exige re-treinamento do modelo para cada par candidato $(x, y)$ e avaliação em todo o $U$. A Redução de Variância, embora com forma fechada em alguns casos, envolve cálculos matriciais (como inversão da matriz de informação de Fisher) que escalam pobremente com a dimensionalidade do problema ($O(UK^3)$ ou pior), limitando sua aplicabilidade prática. Sua aplicação também é mais natural para certas classes de modelos.
-
-\subsubsection{Exploração da Estrutura dos Dados}
-\label{sssec:estrutura_dados}
-
-Reconhecendo que as metodologias anteriores podem ignorar informações importantes contidas na distribuição das próprias instâncias de entrada $P(X)$, esta família de abordagens busca incorporar explicitamente informações sobre a estrutura dos dados não rotulados no processo de seleção de consultas. O princípio é selecionar instâncias que sejam não apenas informativas (do ponto de vista do modelo ou do espaço de hipóteses), mas também \textbf{representativas} da distribuição de entrada subjacente, por exemplo, localizando-se em regiões de alta densidade ou sendo centrais a agrupamentos (clusters) de dados.
-
-Esta abordagem pode mitigar o problema de seleção de outliers, buscando um equilíbrio entre explorar regiões incertas e explotar regiões representativas. Algumas variantes, como a ponderação por densidade, podem ter baixo custo computacional adicional, enquanto outras, como a Amostragem Hierárquica, oferecem garantias teóricas e robustez \citep{Dasgupta2008}.
-
-Entretanto, a eficácia destas técnicas depende da hipótese (nem sempre válida) de que a estrutura dos dados está correlacionada com a distribuição dos rótulos. Adicionalmente, o custo computacional para determinar a própria estrutura dos dados (e.g., calcular similaridades, realizar clusterização) pode ser significativo.
-
-As principais abordagens incluem:
-
-\paragraph{Ponderação pela Densidade (\textit{Density Weighting}):} Combina uma medida de utilidade base $\phi_A(x)$ (e.g., incerteza) com um termo que quantifica a densidade ou representatividade de $x$. A estratégia de \textbf{Densidade de Informação (ID)} é um exemplo:
-\begin{equation}
-x^*_{ID} = \arg\max_x \phi_A(x) \times \left( \text{Representatividade}(x) \right)^\beta
+x^*_{ID} = \arg\max_x \phi_A(x) \times \left( \text{Representatividade}(x) \right)^\beta ,
 \label{eq:id}
 \end{equation}
-onde $\text{Representatividade}(x)$ pode ser a similaridade média de $x$ com outras instâncias em $U$, e $\beta$ controla o peso da densidade \citep{Settles2008}.
+com $\beta$ controlando o peso da densidade \citep{Settles2008}; as variantes
+por agrupamento consultam centróides ou amostram hierarquicamente com
+garantias de robustez \citep{Nguyen2004, Dasgupta2008}. Esta família é a base
+conceitual do DRI-SL (Capítulo~\ref{ch:metodo}): densidade semântica e
+variedade lexical como critérios de representatividade computáveis sem nenhum
+rótulo. Sua hipótese de trabalho — estrutura dos dados correlacionada com a
+distribuição dos rótulos — nem sempre vale, e o custo de computar a estrutura
+não é desprezível.
 
-\paragraph{Aprendizado Ativo Baseado em Cluster (\textit{Cluster-Based}):} Utiliza técnicas de clusterização para agrupar $U$. As consultas podem ser direcionadas aos centróides dos clusters \citep{Nguyen2004}, a instâncias representativas de clusters informativos, ou através de métodos como a \textbf{Amostragem Hierárquica} \citep{Dasgupta2008}. Esta última mantém uma estrutura hierárquica e seleciona clusters para amostragem com base em tamanho e impureza estimada, consultando instâncias aleatórias dentro deles.
-
-% \subsubsection{Distinção entre Aprendizado Ativo e Semi-Supervisionado}
-% \label{sssec:al_vs_ssl}
-
-% Embora ambos os paradigmas utilizem dados não rotulados, seus objetivos e mecanismos são distintos \citep{Settles2012, VanEngelen2020}. O \textbf{Aprendizado Ativo (AL)} foca em \textit{reduzir o custo de rotulagem} através da seleção inteligente de consultas a um oráculo, usando dados não rotulados como candidatos. O \textbf{Aprendizado Semi-Supervisionado (SSL)} foca em \textit{melhorar a precisão do modelo} utilizando a informação intrínseca dos dados não rotulados diretamente no treinamento (e.g., pressupostos de suavidade, cluster), geralmente sem interação adicional com o oráculo \citep{Zhu2009}. As abordagens são complementares e podem ser combinadas \citep{Zhu2003}.
-
-% \subsubsection{Considerações Adicionais}
-% \label{sssec:consideracoes_praticas}
-
-% A aplicação eficaz de estratégias de seleção no mundo real exige atenção a desafios práticos.
-
-% \paragraph{Classes Desbalanceadas (\textit{Imbalanced Data}):} Em muitos problemas, uma classe é muito mais rara. Estratégias padrão de AL podem falhar em identificá-la \citep{Settles2012}. O problema reside no foco excessivo na fronteira da classe majoritária. Soluções possíveis incluem o \textbf{Aprendizado Guiado}, onde o humano busca ativamente exemplos raros \citep{Attenberg2010}, a adaptação da estratégia para otimizar métricas como AUC, o uso de \textbf{Supervisão Dual} \citep{Wallace2010} ou a integração com técnicas de rebalanceamento \citep{Ertekin2012, Zhan2021}. A pesquisa nesta área continua ativa para encontrar estratégias robustas \citep{Krawczyk2016, Li2021}.
-
-% \paragraph{Oráculos Não Confiáveis (\textit{Unreliable Oracles}):} A suposição de um oráculo perfeito é irrealista \citep{Settles2012}. Humanos e experimentos introduzem ruído. O crowdsourcing aumenta a variabilidade \citep{Snow2008}. O problema é que rótulos incorretos degradam o modelo e confundem a seleção. Soluções possíveis envolvem decidir ativamente por \textbf{rotulagem repetida} \citep{Sheng2008}, \textbf{modelar a qualidade do anotador} (priorizando os melhores ou ponderando rótulos) \citep{Donmez2009, Donmez2010, Zheng2017}, usar a \textbf{confiança auto-reportada} pelo anotador \citep{Wallace2011, Yan2011}, ou desenvolver algoritmos inerentemente mais \textbf{robustos a ruído} \citep{Karkar2021}. Lidar com múltiplos anotadores de qualidade variável e disponibilidade incerta continua sendo um desafio \citep{Fang2021}.
-
-\subsubsection{Sumário Comparativo e Conclusões}
-\label{sssec:sumario_conclusoes}
-
-A Tabela~\ref{tab:estrategias_comparacao_rev} resume as principais características das famílias de estratégias de seleção discutidas.
+A Tabela~\ref{tab:estrategias_comparacao_rev} resume o quadro comparativo.
 
 \begin{table}[htbp]
 \centering
-\caption{Comparação de alto nível das famílias de estratégias de seleção de consultas (Revisada).}
+\caption{Comparação de alto nível das famílias de estratégias de seleção.}
 \label{tab:estrategias_comparacao_rev}
-{\small % <--- Inicia o escopo de fonte menor
+{\small
 \begin{tabular}{@{}p{0.25\textwidth}p{0.35\textwidth}p{0.35\textwidth}@{}}
 \toprule
-\textbf{Estratégia de Consulta}        & \textbf{Vantagens Principais}                                           & \textbf{Desvantagens Principais}                                             \\ \midrule
-Amostragem por Incerteza      & Simples, rápida, fácil implementação, aplicabilidade geral.  & Míope, suscetível a outliers, pode falhar com desbalanceamento.   \\
-Baseado em Desacordo / QBC  & Menos míope, explora espaço de hipóteses, garantias teóricas. & Custo do comitê, sensível a ruído (V puro), depende da qualidade do comitê. \\
-Redução de Erro / Variância & Otimiza objetivo final (erro/variância), base teórica sólida.   & \textbf{Muito caro computacionalmente}, aplicabilidade restrita (RV). \\
-Exploração Estrutura Dados  & Mitiga outliers, equilibra exploração/explotação.          & Depende da correlação estrutura-rótulo, custo de calcular estrutura. \\ \bottomrule
+\textbf{Estratégia}        & \textbf{Vantagens principais}                                           & \textbf{Desvantagens principais}                                             \\ \midrule
+Amostragem por incerteza      & Simples, rápida, aplicabilidade geral.  & Míope, suscetível a \textit{outliers}, pode falhar com desbalanceamento.   \\
+Comitês / espaço de versão  & Menos míope, garantias teóricas. & Custo do comitê; depende da sua qualidade e diversidade. \\
+Redução de erro / variância & Otimiza o objetivo final; base teórica sólida.   & Custo computacional proibitivo em escala. \\
+Exploração da estrutura  & Mitiga \textit{outliers}; funciona sem rótulos.          & Depende da correlação estrutura--rótulo; custo de computar a estrutura. \\ \bottomrule
 \end{tabular}
-} % <--- Termina o escopo de fonte menor
+}
 \end{table}
 
-% Em conclusão, a seleção de uma estratégia de consulta em aprendizado ativo não possui uma resposta única ou universalmente ótima. A escolha deve ser guiada por uma análise cuidadosa das características específicas do problema, incluindo a natureza dos dados, a classe de modelo utilizada (com avanços recentes integrando AL com LLMs, por exemplo \citep{Bayer2024}), as restrições computacionais, a presença de desafios como desbalanceamento de classes ou ruído no oráculo, e os objetivos finais da aplicação, como em cenários de aprendizado federado \citep{Cao2022, Deng2023}. Estratégias simples como a Amostragem por Incerteza oferecem um ponto de partida acessível \citep{Lewis1994}, mas podem necessitar de refinamentos (como Ponderação por Densidade) ou abordagens alternativas (como QBC \citep{Dagan1995} ou Redução de Erro/Variância \citep{Roy2001}, se o custo permitir) para alcançar desempenho ótimo em cenários complexos \citep{Goudjil2018}. A consideração explícita de fatores práticos e a potencial combinação de diferentes princípios (e.g., ativo + semi-supervisionado, incerteza + representatividade, modo batch \citep{Hoi2006}) são caminhos promissores para o desenvolvimento de sistemas de aprendizado ativo mais robustos e eficazes no mundo real \citep{Settles2012, Aggarwal2014, Ren2021}.
+\subsection{Limitações do laço clássico}
+\label{sec:limitacoes_laco}
 
-% --- Fim da Subseção ---
-% ---------- fonte: capitulo_02_fundamentos/aprendizado_ativo/_4_llm_como_oraculo.tex ----------
-\subsection{Large Language Models como Oráculo no Aprendizado Ativo}
-\label{ssec:llm_oracle}
+Duas suposições sustentam o laço da Seção~\ref{sec:formalismo} — e ambas
+falham exatamente nos regimes que interessam a esta tese.
 
-O surgimento de \textit{Large Language Models} (LLMs) como GPT-4, Claude, Llama e outros trouxe novas possibilidades para o campo de aprendizado ativo. Estes modelos possuem capacidades impressionantes de compreensão e geração de texto, e têm demonstrado desempenho notável em diversas tarefas de processamento de linguagem natural, mesmo em cenários de poucos exemplos (\textit{few-shot}) ou zero-shot. Nesta seção, exploramos como os LLMs podem ser utilizados como oráculos no processo de aprendizado ativo e as implicações desta abordagem \citep{Bayer2024}.
+A primeira é a existência de um modelo inicial capaz de guiar a seleção. As
+estratégias de incerteza e desacordo pressupõem $\theta_0$ treinado em algum
+$L_0$; com $L_0$ minúsculo ou inexistente — a \textbf{partida a frio}
+(\textit{cold start}) — o modelo não sustenta seleções melhores que o acaso
+\cite{Bayer2024}, e o problema se agrava em texto curto, onde cada instância
+carrega pouca informação, e com classificadores profundos, cujo re-treinamento
+frequente é caro \cite{Fromme2022}. As respostas da literatura passam pela
+exploração da estrutura dos dados antes de existir modelo — a família da
+Eq.~\eqref{eq:id} — e, mais recentemente, por seletores externos com
+conhecimento pré-treinado (Seção~\ref{sec:fund-llm}).
 
-\subsubsection{LLMs como Substitutos de Anotadores Humanos}
+A segunda é a suposição de \textbf{oráculo perfeito}: $O$ devolve sempre o
+rótulo verdadeiro, a custo unitário constante. Anotadores reais erram, variam
+entre si e cansam; a resposta clássica inclui rotulagem repetida, modelagem da
+qualidade do anotador e roteamento entre anotadores de custos distintos
+\cite{Sheng2008, Snow2008, Donmez2009, Yan2011}. Quando o oráculo passa a ser
+um LLM, essa fratura muda de natureza — o erro torna-se sistemático e
+estruturado, e o custo, uma função de tokens — e é tratada em profundidade na
+Seção~\ref{sec:fund-llm}.
+
+Duas consequências operacionais do laço merecem registro porque reaparecem nos
+experimentos. Primeiro, o \textbf{critério de parada}: o ganho marginal por
+lote decresce ao longo da curva de aprendizado, e critérios baseados na
+estagnação do desempenho em um conjunto de validação — como o adotado pelo
+FALCO e formalizado no Apêndice~\ref{ap:parada-drift} — ou em razões de
+custo-benefício \cite{Rouzegar2024} evitam pagar rótulos que só compram ruído.
+Segundo, o \textbf{viés de amostragem ativa}: o conjunto rotulado resultante
+não é uma amostra i.i.d.\ da população — a seleção por incerteza
+sobre-representa casos difíceis e classes raras \cite{Santos2016Vies,
+Settles2012} —, o que afeta tanto o treinamento (às vezes a favor: o
+conjunto fica mais balanceado que a distribuição natural) quanto,
+criticamente, a \emph{avaliação}: métricas calculadas sobre os próprios dados
+coletados não estimam o desempenho populacional, exigindo conjuntos reservados
+— fenômeno quantificado no experimento E6 desta tese
+(Capítulo~\ref{ch:resultados-falco}).
+
+\section{Modelos de linguagem como oráculos de rotulagem}
+\label{sec:fund-llm}
+
+O surgimento dos \textit{Large Language Models} (LLMs) altera os dois lados do
+laço de aprendizado ativo: eles podem selecionar instâncias e podem
+rotulá-las. Esta seção examina a evidência empírica dessas capacidades, as
+arquiteturas de integração propostas na literatura, o regime de treinamento
+com rótulos ruidosos que o oráculo LLM inaugura e — dimensão raramente tratada
+de forma sistemática — a estrutura de custo e de medição que passa a existir
+quando o oráculo é um serviço pago por token.
+
+\subsection{Capacidades e evidência empírica}
 \label{sssec:llm_substituto}
 
-Tradicionalmente, o oráculo no aprendizado ativo é um especialista humano que fornece rótulos para as instâncias selecionadas pelo algoritmo. No entanto, a anotação humana pode ser cara, demorada e sujeita a inconsistências \citep{Settles2012}. LLMs surgem como uma alternativa promissora, podendo atuar como pseudo-oráculos para fornecer rótulos em determinados contextos \citep{zhang-etal-2022-survey}. A evidência seminal nessa direção é o estudo de \citet{Gilardi2023}, que comparou o ChatGPT em modo \textit{zero-shot} com anotadores da plataforma MTurk e anotadores treinados em 6.183 textos: o LLM superou os \textit{crowd-workers} em cerca de 25 pontos percentuais de acurácia média, com maior concordância intercodificador e custo por anotação aproximadamente 30 vezes menor. Cabe a ressalva, central para esta tese, de que tais resultados foram obtidos em tarefas com poucas classes (relevância, postura, tópicos); a transferência desse desempenho para espaços de rótulos com centenas de categorias — o regime dos experimentos do Capítulo~\ref{ch:metodo} — não é automática e constitui precisamente uma das perguntas experimentais deste trabalho.
+A anotação humana é cara, lenta e sujeita a inconsistências
+\cite{Settles2012}; LLMs surgem como pseudo-oráculos capazes de rotular em
+escala \citep{zhang-etal-2022-survey}. A evidência seminal é o estudo de
+\citet{Gilardi2023}: o ChatGPT em modo \textit{zero-shot} superou anotadores
+de \textit{crowdsourcing} em cerca de 25 pontos percentuais de acurácia média,
+com maior concordância intercodificador e custo por anotação aproximadamente
+30 vezes menor. As vantagens estruturais — escalabilidade sem fadiga,
+consistência entre anotações, velocidade — convivem com limitações
+conhecidas: qualidade inferior à de especialistas em domínios de nuance,
+vieses herdados do pré-treinamento, alucinação e conhecimento datado. Cabe a
+ressalva central para esta tese: os resultados positivos concentram-se em
+tarefas com poucas classes; os estudos recentes de classificação de produtos
+operam com dezenas a algumas centenas de categorias — 248 no comparativo
+zero-shot de \citet{Roumeliotis2025}, 370 folhas nos testes de robustez de
+\citet{Gholamian2024}, que também mostram LLMs mais resilientes que modelos
+supervisionados sob abreviação e truncamento de títulos. A transferência
+desse desempenho para espaços fechados com centenas de categorias em
+português não é automática e constitui uma das perguntas experimentais do
+Capítulo~\ref{ch:metodo}.
 
-Esta abordagem apresenta diversas vantagens potenciais. A \textbf{escalabilidade} é um fator chave, pois LLMs podem processar grandes volumes de instâncias sem as limitações de disponibilidade e fadiga inerentes aos anotadores humanos. Adicionalmente, tendem a oferecer maior \textbf{consistência} nas anotações, evitando variações entre diferentes indivíduos. Em termos de \textbf{custo}, embora o acesso a APIs de LLMs possa ter um valor associado, este pode ser significativamente menor que o custo de contratar especialistas humanos, especialmente para domínios complexos. Finalmente, a \textbf{velocidade} de anotação via LLM pode acelerar consideravelmente o ciclo iterativo do aprendizado ativo.
-
-Contudo, a utilização de LLMs como oráculos também enfrenta desafios e limitações importantes. A \textbf{qualidade das anotações} pode não atingir o nível de precisão de especialistas humanos, particularmente em domínios altamente especializados ou que exigem nuances contextuais profundas. LLMs são suscetíveis a perpetuar ou amplificar \textbf{vieses} presentes em seus dados de treinamento e podem gerar informações factualmente incorretas, fenômeno conhecido como \textbf{alucinação}. Seu \textbf{conhecimento é limitado} aos dados com os quais foram treinados, podendo estar desatualizados. Além disso, embora modelos multimodais estejam evoluindo, muitos LLMs ainda possuem capacidade limitada para processar informações não textuais, representando uma \textbf{dificuldade com tarefas visuais ou multimodais}.
-
-\subsubsection{LLMs como Seletores de Instâncias}
+\subsection{Arquiteturas de integração no laço}
 \label{sssec:llm_seletor}
 
-Além de atuarem como fontes de rótulos, LLMs também demonstram potencial como agentes ativos na \textbf{seleção de instâncias} informativas dentro do ciclo de aprendizado ativo \citep{Bayer2024}.
+A literatura organiza-se em torno de papéis e composições distintas para o
+LLM no laço.
 
-\paragraph{ActiveLLM:} \citet{Bayer2024} propuseram a abordagem "ActiveLLM", que emprega LLMs como GPT-4 para identificar e selecionar instâncias para rotulagem em cenários de aprendizado com poucos exemplos (\textit{few-shot learning}). Esta metodologia visa superar o problema de "partida a frio" (\textit{cold start}), comum em estratégias de AL tradicionais que frequentemente necessitam de um conjunto inicial de dados rotulados para estimar a incerteza ou o desacordo de forma eficaz. A ideia central é alavancar as capacidades intrínsecas de compreensão e raciocínio dos LLMs para discernir quais instâncias não rotuladas seriam mais benéficas para treinar um modelo subsequente (e.g., um modelo baseado em BERT). O processo envolve apresentar um lote de instâncias não rotuladas ao LLM, junto com a descrição da tarefa, solicitar a seleção das mais informativas (considerando critérios como diversidade, representatividade e utilidade), rotular as instâncias selecionadas (por um humano ou outro método) e, finalmente, treinar o modelo alvo com os novos dados. Experimentos indicaram que o ActiveLLM pode superar abordagens tradicionais de AL e técnicas específicas de \textit{few-shot} como SetFit \citep{Bayer2024}.
+Como \textbf{anotador}, o LLM substitui o oráculo humano: \citet{Zhang2025}
+rotulam com GPT as instâncias selecionadas por estratégias clássicas de
+incerteza e diversidade, treinando um modelo compacto \textit{cross-task} a
+custo muito inferior ao de classificar todo o conjunto com o LLM;
+\citet{Rouzegar2024} introduzem roteamento por limiar de confiança — o LLM
+anota quando confia, casos difíceis vão ao humano — aproximando o F1 da
+anotação inteiramente humana a custo reduzido. Em línguas de baixo recurso,
+\citet{Kholodna2024} acrescentam duas práticas operacionais que esta tese
+incorpora: a \emph{seleção prévia do anotador} entre LLMs candidatos e a
+\emph{anotação em lote}, que amortiza o prefixo do \textit{prompt} entre
+várias instâncias, com economia estimada superior a 42 vezes frente à
+anotação humana.
 
-\paragraph{Prompting Efetivo para Seleção:} O desempenho de um LLM como seletor depende da engenharia do \textit{prompt}. \citet{Bayer2024} investigaram diferentes estratégias, destacando a importância de \textit{instruções claras} sobre o papel do LLM como componente de AL, o uso de \textit{encadeamento de pensamento (Chain-of-Thought)} para solicitar raciocínio explícito, o controle do \textit{tamanho do lote} de instâncias apresentado, e a inclusão de \textit{recapitulação} sobre seleções anteriores para evitar redundância em processos iterativos.
-
-\subsubsection{Prompting e Engenharia de Contexto}
-\label{sssec:llm_prompting}
-
-A utilização eficaz de LLMs, seja como oráculos ou seletores, demanda estratégias sofisticadas de \textit{prompting} e engenharia de contexto \citep{Bayer2024, Schick2023}. O \textit{Few-Shot Prompting}, que inclui alguns exemplos rotulados diretamente no prompt, pode melhorar significativamente o desempenho ao fornecer contexto específico da tarefa \citep{zhang-etal-2022-survey}. Similarmente, o \textit{Chain-of-Thought} (CoT) e o raciocínio passo a passo, elicitados por prompts como "pense passo a passo", demonstraram melhorar a qualidade das decisões, permitindo ao LLM considerar múltiplos fatores de forma estruturada \citep{Wei2022}. Uma direção emergente é o \textit{Active Prompting}, que integra AL à engenharia de prompts, selecionando iterativamente não apenas instâncias, mas também os formatos de prompt mais eficazes para uma tarefa \citep{Diao2023}.
-
-\subsubsection{Integração com Modelos Menores e Especializados}
-\label{sssec:llm_hibrido}
-
-Um paradigma promissor envolve a utilização de LLMs como componentes em um ciclo de AL maior, cujo objetivo final é treinar modelos menores, mais eficientes e especializados \citep{Bayer2024}. Esta abordagem busca combinar o conhecimento abrangente e as capacidades de raciocínio dos LLMs com a eficiência computacional e a especialização de modelos menores.
-
-Na \textbf{destilação de conhecimento ativa} (\textit{active knowledge distillation}), por exemplo, um LLM atua como "professor", fornecendo rótulos (possivelmente "soft labels" ou representações intermediárias) para instâncias selecionadas ativamente, que são subsequentemente utilizadas para treinar um modelo "estudante" menor \citep{Su2023}. Outra possibilidade reside na criação de \textbf{sistemas híbridos humano-LLM}, onde o LLM lida com tarefas rotineiras ou de baixa incerteza, enquanto casos difíceis, ambíguos ou críticos são direcionados para anotadores humanos, otimizando o uso de ambos os recursos \citep{Margatina2023}.
-
-\subsubsection{Desafios e Direções Futuras}
-\label{sssec:llm_desafios}
-
-Quando o LLM assume o papel de oráculo, o classificador da tarefa passa a ser
-treinado com \emph{rótulos ruidosos} — regime com literatura própria e madura:
-o survey clássico de \citet{Frenay2014} organiza taxonomias de ruído
-(aleatório, dependente de classe, dependente de instância) e seus efeitos;
-\citet{Natarajan2013} estabelecem garantias de aprendizado sob ruído de rótulo
-com funções de perda corrigidas; e \citet{Song2023NoisyLabels} revisam o estado
-da arte com redes profundas. Dois resultados dessa literatura importam
-diretamente aqui: redes profundas toleram ruído moderado quando há dados
-suficientes, mas degradam de forma acentuada sob ruído estruturado (dependente
-de classe) — exatamente o perfil de erro observado em oráculos LLM, cujas
-confusões se concentram em pares de classes vizinhas. O experimento E4 desta
-tese (Capítulo~\ref{ch:metodo}) quantifica essa degradação no nosso domínio.
-
-A integração de LLMs no ciclo de aprendizado ativo, apesar de promissora, apresenta desafios significativos e abre novas avenidas de pesquisa \citep{Bayer2024}. É crucial desenvolver métodos robustos para \textbf{avaliar a incerteza} das predições de LLMs, permitindo identificar quando a intervenção humana é necessária ou quando o LLM pode atuar como um oráculo confiável \citep{Tian2023}. A alta \textbf{dependência da qualidade do prompt} requer investigação em técnicas para tornar a interação mais robusta e menos sensível a variações na formulação das instruções. As \textbf{limitações de contexto} inerentes às arquiteturas atuais de LLMs representam um obstáculo para o processamento de grandes volumes de dados ou documentos extensos em uma única consulta, necessitando de estratégias de loteamento ou sumarização eficazes. Finalmente, explorar o \textbf{aprendizado ativo em múltiplos níveis}, onde a seleção ativa ocorre não apenas para instâncias, mas também para prompts, estratégias de consulta ou até mesmo para a escolha do próprio modelo ou oráculo (humano vs. LLM), configura uma direção futura intrigante \citep{Wu2022}.
+Como \textbf{seletor}, o LLM ataca a partida a frio: o ActiveLLM
+\citep{Bayer2024} usa o conhecimento pré-treinado de modelos como o GPT-4 para
+escolher instâncias informativas em regime \textit{few-shot}, sem depender de
+um classificador inicial, superando estratégias tradicionais e técnicas
+específicas de poucos exemplos; a arquitetura conceitual está na
+Figura~\ref{fig:activellm_arch}. O desempenho do seletor depende da engenharia
+do \textit{prompt} — instruções claras de papel, encadeamento de pensamento
+\citep{Wei2022}, controle do tamanho do lote e recapitulação das seleções
+anteriores \citep{Bayer2024} —, e a própria escolha de \textit{prompts} pode
+ser ativa \citep{Diao2023, Schick2023}.
 
 \begin{figure}[htbp]
     \centering
@@ -486,306 +556,284 @@ A integração de LLMs no ciclo de aprendizado ativo, apesar de promissora, apre
     \label{fig:activellm_arch}
 \end{figure}
 
+Como \textbf{componente de sistemas compostos}, quatro desenhos recentes
+importam ao posicionamento desta tese: a \emph{destilação ativa de
+conhecimento}, em que o LLM-professor rotula para um estudante compacto
+\citep{Su2023}, com a variante de \emph{rótulos candidatos} de
+\citet{Xia2025CanDist} — quando incerto, o LLM emite um conjunto de hipóteses
+que o estudante destila, convertendo incerteza em informação; os
+\emph{sistemas híbridos humano--LLM}, que roteiam casos difíceis ao humano
+\citep{Margatina2023}; a \emph{mistura de LLMs} de \citet{Qi2026MixtureLLMs},
+que substitui o anotador único por um comitê de modelos leves locais com
+mecanismos de discrepância e aprendizado negativo; e o paradigma
+\emph{dual-expert} para taxonomias amplas de produtos
+\citep{Cheng2024DualExpert}, em que um especialista de domínio contrai o
+espaço a $K$ candidatos e o LLM generalista decide entre eles.
 
-% ---------- fonte: capitulo_02_fundamentos/texto_curto/texto_curto_main.tex ----------
-\section{Classificação de Texto Curto}
-\label{sec:classificacao_texto_curto}
-% --- Arquivo: capitulo_02_fundamentos/texto_curto/0_introducao_definicao.tex ---
+\subsection{Rótulos ruidosos e seu efeito no treinamento}
+\label{sssec:llm_desafios}
 
-Esta seção aborda a fundamentação teórica específica para a tarefa de Classificação de Texto Curto (\textit{Short Text Classification} - STC), um subcampo do Processamento de Linguagem Natural (PLN) e Aprendizado de Máquina. Dada a crescente geração de dados textuais de tamanho reduzido em plataformas digitais como redes sociais, microblogs, chats e sistemas de busca, a STC possui aplicabilidade em diversas áreas, como análise de sentimentos, categorização de mensagens, classificação de consultas de busca e identificação de intenções \cite{Ahmed2022, Song2014}.
+Quando o LLM assume o papel de oráculo, o classificador da tarefa passa a ser
+treinado com \emph{rótulos ruidosos} — regime com literatura própria e madura:
+o survey clássico de \citet{Frenay2014} organiza taxonomias de ruído
+(aleatório, dependente de classe, dependente de instância) e seus efeitos;
+\citet{Natarajan2013} estabelecem garantias de aprendizado sob ruído com
+funções de perda corrigidas; e \citet{Song2023NoisyLabels} revisam o estado da
+arte com redes profundas. Dois resultados importam diretamente: redes
+profundas toleram ruído moderado quando há dados suficientes, mas degradam de
+forma acentuada sob ruído estruturado (dependente de classe) — exatamente o
+perfil de erro observado em oráculos LLM, cujas confusões se concentram em
+pares de classes vizinhas. A evidência mais recente acrescenta uma cautela
+metodológica: ruído \emph{real} de anotação é substancialmente mais nocivo que
+as corrupções sintéticas usadas em avaliação — demonstrado em reconhecimento
+de entidades pelo NoiseBench \citep{Merdjanovska2024NoiseBench}, que inclui um
+braço explícito de ruído gerado por LLM, e em classificação de produtos em
+larga escala pelo AlleNoise \citep{Raczkowska2024AlleNoise}, meio milhão de
+títulos em 5.692 categorias com 15\% de ruído real de \textit{marketplace}.
+Estratégias que combinam filtragem por modelos pequenos com consulta seletiva
+ao LLM apenas nos casos suspeitos \citep{Yuan2025NoiseAL} apontam o caminho de
+integração. O experimento E4 desta tese (Capítulo~\ref{ch:metodo}) quantifica
+a degradação sob ruído controlado no domínio de interesse.
 
-\subsection{Definições}
-\label{subsec:stc_definicoes}
+\subsection{Custo, instrumentação e reprodutibilidade da medição}
+\label{sssec:llm_custo}
 
-A classificação de texto é uma área estabelecida em PLN. Sua definição formal, conforme apresentada na literatura \cite{Aggarwal2012, Kowsari2019}, é descrita a seguir.
+O oráculo LLM introduz uma economia e uma metrologia próprias, raramente
+instrumentadas na literatura. O \textbf{custo} deixa de ser por item e passa a
+ser por \emph{token}, com três alavancas operacionais: o tamanho do lote de
+anotação, que amortiza o prefixo comum do \textit{prompt} entre instâncias
+\citep{Kholodna2024}; o \textit{cache} de prefixo oferecido por provedores,
+que reduz o preço da porção repetida; e os limites de vazão (requisições por
+minuto, cotas diárias), que definem o tempo de parede independentemente do
+preço. A \textbf{medição} também muda: parte do erro aparente de um LLM
+anotador é erro de \emph{formato} — resposta fora do espaço de classes ou
+inconsumível automaticamente — e não de semântica \citep{Kholodna2024}, o que
+torna a restrição da saída ao espaço fechado de rótulos parte do instrumento;
+a confiança auto-reportada dos LLMs tende ao excesso, exigindo calibração
+\citep{Tian2023}; as janelas de contexto limitam o lote \citep{Bayer2024}; e a
+resposta do mesmo modelo pode variar entre versões e provedores de
+\textit{serving}, fazendo de cada medição uma fotografia da tripla (modelo,
+provedor, data). A seleção ativa em múltiplos níveis — de instâncias, de
+\textit{prompts} e do próprio oráculo \citep{Wu2022} — é a generalização
+natural desse cenário. O Capítulo~\ref{ch:metodo} instrumenta cada um desses
+componentes; os experimentos E0 e E0-P os quantificam.
 
-\begin{definicao}[Classificação de Texto]
-Dado um conjunto de documentos $D = \{d_1, d_2, ..., d_n\}$ e um conjunto pré-definido de classes $C = \{c_1, c_2, ..., c_m\}$, a classificação de texto consiste em aprender uma função (ou modelo) de classificação $f: D \rightarrow C$ que mapeia cada documento $d_i \in D$ a uma classe $y_i \in C$.
-\end{definicao}
+Em síntese: com um oráculo LLM, qualidade, custo e instrumento de medição
+tornam-se três dimensões \emph{escolhíveis} de projeto — e é nesse espaço de
+decisão que o FALCO opera.
 
-A função $f$ é geralmente aprendida a partir de um conjunto de treinamento rotulado $T = \{(d_1, y_1), ..., (d_t, y_t)\}$, com o objetivo de generalizar para novos documentos não vistos.
+\section{Classificação de texto curto}
+\label{sec:fund-stc}
 
-A tarefa apresenta complexidades adicionais quando aplicada a textos curtos. Textos curtos são frequentemente caracterizados por limites no número de caracteres, por exemplo, até 200 caracteres \cite{Song2014, Alsmadi2019}.
+O domínio de aplicação desta tese — descrições de produtos de varejo em
+português — pertence à classificação de texto curto (\textit{short text
+classification}, STC), subcampo com desafios próprios que tensionam tanto as
+métricas da Seção~\ref{sec:fund-super} quanto o laço da
+Seção~\ref{sec:fund-al}. Textos curtos abundam em plataformas digitais —
+consultas de busca, mensagens, títulos — e sua classificação sustenta
+aplicações de análise de sentimento a categorização de catálogos
+\cite{Ahmed2022, Song2014}.
 
-\begin{definicao}[Texto Curto (por Comprimento)]
-Um texto curto pode ser representado como uma sequência textual $s = (t_1, t_2, ..., t_l)$ onde $t_i$ representa um caractere e o comprimento total $l$ é limitado (e.g., $l \le 200$).
-\end{definicao}
-
-Exemplos típicos incluem tweets, títulos de notícias, consultas de busca e descrições de produtos em e-commerce \cite{Daru2024Dissertacao}. A Classificação de Texto Curto (STC) especializa, portanto, a tarefa geral de classificação para este tipo de dado, buscando construir uma função $f_{\text{curto}}: S \rightarrow C$, onde $S$ é o conjunto dos textos curtos a serem classificados. O objetivo técnico é desenvolver modelos capazes de extrair informação relevante e classificar precisamente esses textos, considerando as características discutidas na Seção~\ref{subsec:stc_desafios}.
-
-% --- Fim do arquivo 0_introducao_definicao.tex ---
-% --- Arquivo: capitulo_02_fundamentos/texto_curto/1_desafios.tex ---
-
-\subsection{Desafios da Classificação de Texto Curto}
+\subsection{Definições e desafios}
 \label{subsec:stc_desafios}
 
-A classificação de textos curtos apresenta desafios particulares, menos acentuados em documentos longos, devido à sua natureza concisa e, por vezes, informal \cite{Ahmed2022, Song2014}.
+A classificação de texto aprende $f: D \rightarrow C$ de documentos para um
+conjunto pré-definido de classes a partir de exemplos rotulados
+\cite{Aggarwal2012, Kowsari2019}; o texto \emph{curto} especializa a tarefa
+para sequências de comprimento limitado — tipicamente até 200 caracteres
+\cite{Song2014, Alsmadi2019} —, como \textit{tweets}, títulos de notícias,
+consultas e descrições de produtos \cite{Daru2024Dissertacao}. Quatro
+características tornam o regime difícil \cite{Ahmed2022, Ahmed2023,
+Song2014}: a \textbf{escassez de contexto}, que limita a desambiguação; a
+\textbf{esparsidade lexical} em alta dimensionalidade, que enfraquece métricas
+de similaridade e agrava a maldição da dimensionalidade; o \textbf{ruído e a
+informalidade} — erros, abreviações, gírias — que exigem normalização
+\cite{Aliero2023}; e a \textbf{ambiguidade} semântica acentuada pela falta de
+contexto. O pré-processamento usual (tokenização, minúsculas, remoção de
+pontuação e \textit{stopwords}, lematização ou \textit{stemming}, tratamento
+de ruído específico) mitiga parte do problema, e sua escolha e ordem afetam o
+desempenho final \cite{Naseem2021, Aliero2023}; nesta tese ele é deliberadamente
+mínimo (Capítulo~\ref{ch:metodo}), delegando a variação lexical ao
+classificador. No domínio específico — cupons fiscais de varejo — os textos
+têm 4 a 50 caracteres, caixa alta e abreviações agressivas
+(\texttt{CERV BRAHMA LT 350ML}), combinando todos os quatro desafios de uma vez.
 
-A \textbf{escassez de informação e contexto} é um aspecto central. O número reduzido de palavras restringe o contexto disponível, limitando a capacidade de extrair padrões semânticos e realizar a desambiguação de termos de forma eficaz \cite{Ahmed2022, Song2014}. A coocorrência de palavras, um sinal importante para muitos modelos tradicionais de PLN, ocorre com pouca frequência, resultando em uma representação textual limitada para cada documento \cite{Ahmed2023}.
-
-A \textbf{esparsidade lexical e a alta dimensionalidade} representam outro desafio significativo. Embora cada texto curto individualmente contenha poucos termos, o vocabulário agregado de um corpus pode ser amplo. Quando representados por métodos como Bag-of-Words, os textos resultam em vetores de características que são simultaneamente de alta dimensionalidade e altamente esparsos (com a maioria das entradas sendo zero). Esta característica limita a aplicabilidade de certas métricas de similaridade, eleva a complexidade computacional dos algoritmos e contribui para o fenômeno conhecido como ``maldição da dimensionalidade'' \cite{Ahmed2022}.
-
-O \textbf{ruído e a informalidade} são também comuns, especialmente em textos provenientes de mídias sociais e conteúdo gerado por usuários (UGC). É frequente a ocorrência de erros ortográficos, abreviações, gírias, emojis, URLs, hashtags e outras variações linguísticas não padronizadas, o que demanda etapas eficazes de pré-processamento e normalização \cite{Ahmed2022, Song2014, Aliero2023}. A linguagem utilizada tende a ser direta, com uso de acrônimos e formas não gramaticais \cite{Ahmed2023}.
-
-Por fim, a \textbf{ambiguidade} semântica é acentuada pela falta de contexto. Essa característica inerente aos textos curtos compromete a correta interpretação e, consequentemente, a classificação \cite{Song2014}. Superar esses desafios é um ponto central na pesquisa e desenvolvimento de métodos eficazes para STC.
-
-% --- Fim do arquivo 1_desafios.tex ---
-% --- Arquivo: capitulo_02_fundamentos/texto_curto/2_processo_preprocessamento.tex ---
-
-\subsection{Processo de Classificação e Pré-processamento}
-
-O fluxo de trabalho (\textit{pipeline}) para classificação de texto curto geralmente segue etapas sequenciais que incluem coleta de dados, pré-processamento, extração de características (vetorização), treinamento do modelo, avaliação e implantação \cite{Kowsari2019}. Neste contexto, um \textit{pipeline} refere-se a uma sequência definida de etapas de processamento de dados e modelagem. A etapa de pré-processamento, em particular, assume importância elevada devido aos desafios inerentes aos textos curtos discutidos na Seção~\ref{subsec:stc_desafios}.
-
-O pré-processamento visa limpar, normalizar e transformar o texto bruto em um formato mais adequado para análise computacional, buscando reduzir a complexidade e a variabilidade dos dados \cite{Aliero2023, Naseem2021}. Um conjunto bem definido de etapas de pré-processamento é aplicado para mitigar os efeitos da esparsidade e do ruído \cite{Ahmed2022}. A seguir, são descritas algumas das técnicas de normalização textuais frequentemente empregadas. A escolha e a ordem de aplicação destas técnicas devem ser consideradas cuidadosamente, pois podem impactar o desempenho do modelo e dependem das características do domínio e do corpus \cite{Naseem2021, Aliero2023}.
-
-\textbf{Tokenização} é frequentemente a primeira etapa, consistindo no processo de segmentação de uma sequência de texto em unidades léxicas individuais, denominadas tokens \cite{Ahmed2023}. Por exemplo, a frase ``O produto é bom!'' seria tokenizada em `[`O', `produto', `é', `bom', `!'` `]`.
-
-\textbf{Conversão para Minúsculas (\textit{Lowercasing})} é a transformação de todos os caracteres de um texto para suas formas minúsculas correspondentes \cite{Ahmed2022, Aliero2023}. Aplicada ao token ``Produto'', resultaria em ``produto''. Esta etapa padroniza o texto, garantindo que variações de capitalização sejam tratadas como o mesmo token.
-
-\textbf{Remoção de Pontuação e Caracteres Especiais} envolve a eliminação de símbolos de pontuação e caracteres não alfanuméricos do texto \cite{Ahmed2022, Aliero2023}. Por exemplo, de ``bom!'', o ponto de exclamação seria removido, resultando em ``bom''. Similarmente, de ``\#promoção'', o caractere ``\#'' seria removido. A remoção de números também pode ser realizada (e.g., ``item\_10'' $\rightarrow$ ``item\_''), mas sua pertinência depende do contexto da aplicação.
-
-\textbf{Remoção de \textit{Stopwords}} refere-se à eliminação de palavras comuns e de alta frequência que possuem pouco valor semântico discriminativo para a tarefa (e.g., artigos, preposições, conjunções) \cite{Ahmed2022, Aliero2023}. Aplicando a remoção de \textit{stopwords} (como 'o', 'é') à sequência de tokens `[`o', `produto', `é', `bom'`] resultaria em `[`produto', `bom'`]. O objetivo é reduzir a dimensionalidade e focar em termos semanticamente mais ricos.
-
-\textbf{Lematização (\textit{Lemmatization})} é o processo de redução de uma palavra flexionada à sua forma base canônica, conhecida como lema, utilizando análise morfológica e dicionários \cite{Ahmed2022, Aliero2023}. Por exemplo, as palavras ``correndo'' e ``correu'' seriam ambas reduzidas ao lema ``correr''. Embora geralmente preferível por gerar palavras válidas, a lematização pode ser computacionalmente mais intensiva que o \textit{stemming}.
-
-\textbf{\textit{Stemming}} é um processo alternativo de redução morfológica que reduz uma palavra ao seu radical (\textit{stem}) pela remoção de afixos (sufixos e prefixos), sem garantia de que o radical resultante seja uma palavra válida \cite{Ahmed2022, Aliero2023}. Por exemplo, ``consultor'', ``consultoria'' e ``consultando'' poderiam ser reduzidos ao radical ``consult''. É computacionalmente mais rápido que a lematização.
-
-\textbf{Tratamento de Ruído Específico} compreende um conjunto de técnicas aplicadas para lidar com elementos comuns em textos informais ou de fontes específicas \cite{Naseem2021, Aliero2023}. Exemplos incluem a remoção ou substituição de URLs (e.g., ``visite https://site.com'' $\rightarrow$ ``visite''), a limpeza de hashtags (e.g., ``\#imperdível'' $\rightarrow$ ``imperdível''), a expansão de abreviações (e.g., ``vc'' $\rightarrow$ ``você'') ou a normalização de emojis. Este tratamento é particularmente relevante para dados oriundos de mídias sociais ou conteúdo gerado por usuários (UGC).
-
-Reitera-se que a ordem e a seleção das técnicas de pré-processamento aplicadas são fatores que influenciam o desempenho final do classificador, sendo a experimentação e a adaptação ao problema específico etapas importantes no desenvolvimento do modelo \cite{Naseem2021}.
-
-% --- Fim do arquivo 2_processo_preprocessamento.tex ---
-% --- Arquivo: capitulo_02_fundamentos/texto_curto/3_vetorizacao.tex ---
-
-\subsection{Vetorização e Representação de Texto Curto}
-
-Após o pré-processamento, os textos necessitam ser convertidos em representações numéricas (vetores) para serem processados por algoritmos de aprendizado de máquina. A escolha da técnica de vetorização impacta diretamente a capacidade do modelo em capturar a semântica subjacente, especialmente em textos curtos.
-
-\subsubsection{Métodos Clássicos (Representações Esparsas)}
-\label{sssec:vetorizacao_esparsa}
-
-As representações esparsas — \textit{one-hot}, \textit{bag-of-words} nas
-variantes binária, por frequência (TF) e ponderada por raridade (TF--IDF)
-\citep{Salton1988} — projetam cada texto num vetor de dimensão igual ao
-vocabulário, com extensão por $n$-gramas para capturar contexto local. Suas
-propriedades, variantes e o comportamento específico em descrições curtas de
-produtos em português foram investigados em profundidade na dissertação de
-mestrado do autor \citep{Daru2024Dissertacao}, que este trabalho toma como
-ponto de partida: a configuração vencedora lá identificada (representação
-binária com uni e bigramas, sem normalização L2) é justamente a adotada pelo
-classificador leve PVBin (Capítulo~\ref{ch:metodo}). Em texto curto, a
-frequência de termos satura (quase todo termo ocorre uma única vez por
-descrição), o que explica a vantagem empírica da variante binária sobre TF e
-TF--IDF nesse regime \citep{Daru2024Dissertacao}; para o panorama geral de
-ponderação e representação, ver \citet{Salton1988} e \citet{Naseem2021WordRep}.
-
-\subsubsection{Embeddings (Representações Densas)}
-Estes métodos mapeiam itens (palavras, textos) para vetores em um espaço contínuo de baixa dimensionalidade ($k$), onde relações geométricas refletem propriedades semânticas ou sintáticas \cite{ Goldberg2017}.
-
-Um modelo de \textit{embedding} aprende uma função $E: \mathcal{X} \rightarrow \mathbb{R}^k$, onde $\mathcal{X}$ é o espaço de entrada (e.g., vocabulário $V$) e $k$ é a dimensão do \textit{embedding} \cite{Goldberg2017}.
-
-\paragraph{Embeddings Estáticos (\textit{Word Embeddings})} atribuem um único vetor $E(w) \in \mathbb{R}^k$ a cada palavra $w \in V$, independentemente do contexto.
-\begin{itemize}
-    \item \textbf{Word2Vec} \cite{Mikolov2013}: Aprende vetores treinando uma rede neural rasa para prever contexto a partir de palavras (Skip-gram) ou palavras a partir do contexto (CBOW).
-    \item \textbf{GloVe} \cite{Pennington2014}: Aprende vetores fatorizando a matriz de coocorrência global de palavras.
-    \item \textbf{FastText} \cite{Bojanowski2017}: Estende Word2Vec considerando n-grams de caracteres, útil para morfologia e palavras OOV.
-\end{itemize}
-A principal limitação é a incapacidade de lidar com polissemia, o que é relevante em textos curtos com contexto limitado \cite{Selva2021, Goldberg2017}.
-
-\paragraph{Embeddings Contextuais}
-Diferentemente dos embeddings estáticos, os embeddings contextuais geram representações vetoriais para um token que dependem do contexto específico (a sequência inteira) em que ele aparece \cite{Peters2018, Devlin2019}. Isso permite que a mesma palavra tenha representações diferentes conforme seu sentido na frase, resolvendo o problema da polissemia.
-
-\begin{definicao}[Embedding Contextual]
-A representação $h_i$ do $i$-ésimo token $t_i$ em uma sequência $S = (t_1, ..., t_l)$ é uma função de toda a sequência: $h_i = f(t_i, S) \in \mathbb{R}^k$.
-\end{definicao}
-Dessa forma, a mesma palavra $w$ terá vetores diferentes $h_i$ e $h_j$ se aparecer em contextos $S_1$ e $S_2$ distintos. Várias arquiteturas notáveis implementam este conceito.
-
-\textbf{ELMo (\textit{Embeddings from Language Models})} utiliza as representações internas de um modelo de linguagem baseado em LSTMs bidirecionais (biLM) treinados em um grande corpus \cite{Peters2018}. O embedding final para uma palavra em um contexto é uma combinação ponderada das representações de diferentes camadas do biLM.
-
-\textbf{GPT (\textit{Generative Pre-trained Transformer})} e suas variantes (e.g., GPT-2 \cite{Radford2019}, GPT-3) são baseados na arquitetura Transformer (especificamente, seu decodificador) \cite{Radford2018}. Estes modelos são pré-treinados em tarefas de modelagem de linguagem auto-regressiva (prever a próxima palavra). Embora primariamente geradores, suas representações internas também são contextuais, capturando informações da sequência anterior (contexto à esquerda), e podem ser ajustados para tarefas de classificação.
-
-\textbf{BERT (\textit{Bidirectional Encoder Representations from Transformers})} utiliza o codificador da arquitetura Transformer e é pré-treinado em tarefas de automodelagem (previsão de palavras mascaradas e previsão da próxima sentença) usando contexto bidirecional profundo (considerando palavras à esquerda e à direita simultaneamente) \cite{Devlin2019}. BERT e suas variantes (e.g., RoBERTa, ALBERT, DistilBERT) ajustados (\textit{fine-tuned}) para STC frequentemente alcançam o estado da arte, sendo particularmente vantajosos pela capacidade de entender o contexto complexo mesmo em textos curtos e esparsos \cite{Ahmed2022, Li2020, Karl2023}.
-% \subsubsection{Outras Abordagens de Vetorização}
-% \textbf{Modelos Baseados em Tópicos}, como LDA \cite{Blei2003} e suas adaptações para textos curtos (e.g., DMM \cite{Yin2014}, BTM, TextNetTopics \cite{Yousef2023}), representam documentos como distribuições sobre tópicos latentes ($P(\text{tópico}|d)$), ajudando a lidar com esparsidade \cite{Ahmed2023, Blei2003}.
-
-\subsubsection{Métricas de Similaridade}
-Após a vetorização, métricas quantificam a proximidade ou dissimilaridade entre as representações vetoriais dos textos. A escolha da métrica adequada é importante e depende das características dos vetores (esparsos vs. densos) e do objetivo da comparação.
-
-A \textbf{Similaridade do Cosseno} é uma métrica que avalia o quão similares são dois vetores em termos de sua orientação no espaço vetorial, independentemente de suas magnitudes. Ela mede o cosseno do ângulo entre eles \cite{Baeza2013}.
-
-É definida pela seguinte equação para vetores não-nulos $a$ e $b$:
-\begin{equation}
-    \text{sim}_{\cos}(a, b) = \cos(\theta) = \frac{a \cdot b}{\|a\| \|b\|} = \frac{\sum_{i=1}^{n} a_i b_i}{\sqrt{\sum_{i=1}^{n} a_i^2} \sqrt{\sum_{i=1}^{n} b_i^2}}
-    \label{eq:cosine_similarity_final_revised_again}
-\end{equation}
-Onde $a \cdot b$ é o produto escalar dos vetores e $\|a\|$, $\|b\|$ são suas normas euclidianas (magnitude). O valor da Similaridade do Cosseno varia de -1 a 1, onde 1 indica vetores com a mesma orientação (alta similaridade) e -1 indica vetores com orientação oposta. É uma métrica \textbf{amplamente utilizada e recomendada para comparar documentos textuais representados por vetores de alta dimensionalidade e esparsos}, como os gerados por TF-IDF \cite{Salton1988, Ahmed2023, Baeza2013}. Sua insensibilidade à magnitude dos vetores (e, portanto, ao comprimento do documento, especialmente após normalização) a torna eficaz para medir a semelhança de conteúdo ou tópico com base nas proporções relativas dos termos.
-
-O \textbf{Coeficiente de Jaccard / Tanimoto} mede a sobreposição entre conjuntos. Sua generalização para vetores com componentes não negativos, conhecida como Coeficiente de Tanimoto, pode ser usada para quantificar a similaridade entre representações textuais baseadas em contagens ou pesos \cite{Ahmed2023}.
-
-Para vetores $a$ e $b$ com componentes não negativos, o Coeficiente de Tanimoto é calculado por:
-\begin{equation}
-    J(a, b) = \frac{a \cdot b}{\|a\|^2 + \|b\|^2 - a \cdot b}
-    \label{eq:jaccard_tanimoto_final_revised_again}
-\end{equation}
-O valor varia de 0 a 1, onde 0 indica nenhuma sobreposição de termos ponderados e 1 indica vetores idênticos. É útil quando a ênfase está na proporção de características compartilhadas em relação ao total de características presentes em ambos os textos \cite{Ahmed2023}. Pode ser uma alternativa à Similaridade do Cosseno em certos cenários.
-
-A \textbf{Distância Euclidiana} mede a distância geométrica linear ("em linha reta") entre as extremidades de dois vetores no espaço n-dimensional \cite{Baeza2013}.
-
-A distância entre dois vetores $a$ e $b$ é dada por:
-\begin{equation}
-    d_{\text{euc}}(a, b) = \|a - b\| = \sqrt{\sum_{i=1}^{n} (a_i - b_i)^2}
-    \label{eq:euclidean_distance_final_revised_again}
-\end{equation}
-É uma métrica de \textit{distância} (dissimilaridade), onde valores menores indicam maior proximidade (similaridade). Seu uso em dados textuais esparsos de alta dimensão é frequentemente desencorajado \cite{Baeza2013}. Isso ocorre porque ela é sensível à magnitude dos vetores (comprimento do documento) e pode ser menos significativa em espaços muito esparsos devido ao fenômeno da ``maldição da dimensionalidade''. Pode ser mais apropriada para vetores densos de baixa dimensionalidade (\textit{embeddings}) se a magnitude for considerada relevante.
-
-Em resumo, a escolha da métrica depende da representação vetorial e dos objetivos da análise, sendo a Similaridade do Cosseno geralmente preferida para representações esparsas como TF-IDF. Estas métricas de similaridade ou distância são fundamentais não apenas para análise exploratória, mas também como componentes internos de certos algoritmos de classificação baseados em vizinhança ou para avaliar a qualidade das representações vetoriais que servirão de entrada para os modelos discutidos na próxima seção. A seção seguinte detalhará os algoritmos de aprendizado de máquina comumente aplicados à classificação de texto curto.
-% --- Fim do arquivo 3_vetorizacao.tex ---
-
-\subsection{Algoritmos de Classificação para Texto Curto}
+\subsection{Representação e classificadores}
 \label{subsec:stc_algoritmos}
 
-A classificação de textos curtos pode ser abordada por uma variedade de algoritmos de aprendizado de máquina. A seleção do algoritmo mais apropriado depende das características específicas dos dados (volume, dimensionalidade, esparsidade), da representação vetorial utilizada (esparsa vs. densa) e dos requisitos da aplicação em termos de desempenho, interpretabilidade e recursos computacionais.
+As \textbf{representações esparsas} — \textit{one-hot},
+\textit{bag-of-words} nas variantes binária, por frequência e TF--IDF
+\citep{Salton1988}, estendidas por $n$-gramas — projetam cada texto num vetor
+de dimensão igual ao vocabulário; a similaridade do cosseno é a métrica de
+comparação usual nesse regime \cite{Baeza2013}. Suas propriedades em
+descrições curtas de produtos em português foram investigadas em profundidade
+na dissertação de mestrado do autor \citep{Daru2024Dissertacao}, que este
+trabalho toma como ponto de partida: em texto curto a frequência de termos
+satura (quase todo termo ocorre uma única vez por descrição), o que explica a
+vantagem empírica da variante binária sobre TF e TF--IDF — e a configuração
+vencedora lá identificada (binária, uni e bigramas, sem normalização) é a
+adotada pelo classificador leve PVBin desta tese; para o panorama de
+ponderação e representação, ver \citet{Salton1988} e \citet{Naseem2021WordRep}.
+As \textbf{representações densas} mapeiam palavras ou textos para espaços
+contínuos de baixa dimensão: os \textit{embeddings} estáticos — Word2Vec
+\cite{Mikolov2013}, GloVe \cite{Pennington2014}, FastText
+\cite{Bojanowski2017} — atribuem um vetor por palavra, sem tratar polissemia
+\cite{Selva2021, Goldberg2017}; os \textbf{contextuais} condicionam a
+representação de cada token à sequência inteira — ELMo \cite{Peters2018}, a
+família GPT \cite{Radford2018, Radford2019} e o BERT \cite{Devlin2019} —,
+resolvendo a polissemia e sustentando o estado da arte em texto curto
+\cite{Ahmed2022, Li2020, Karl2023}. É dessa família o SBERT usado pelo DRI-SL
+e o BERTimbau \cite{Souza2020BERTimbau} usado como classificador forte.
 
-Algoritmos de aprendizado de máquina \textbf{tradicionais} são frequentemente empregados como linhas de base (\textit{baselines}) ou em cenários com restrições computacionais. Entre eles, destacam-se as Máquinas de Vetores de Suporte (SVM) \cite{Cortes1995}, classificadores Naive Bayes (NB) \cite{Murphy2012}, K-Vizinhos Mais Próximos (KNN) \cite{Cover1967}, modelos lineares como Regressão Logística (LR) \cite{Murphy2012}, e métodos baseados em árvores como Árvores de Decisão (DT) \cite{Quinlan1993} e seus \textit{ensembles}, como Florestas Aleatórias (\textit{Random Forests}) \cite{Breiman2001} ou \textit{Gradient Boosting} (e.g., XGBoost). Algoritmos como SVM podem apresentar bom desempenho em espaços de alta dimensão característicos de representações como TF-IDF, especialmente quando combinados com técnicas adequadas de seleção de características \cite{Kowsari2019, Aliero2023}. A descrição detalhada destes algoritmos pode ser encontrada na Seção~\ref{sec:ml_concepts}.
+Quanto aos \textbf{classificadores}, os algoritmos clássicos — SVM
+\cite{Cortes1995}, Naive Bayes e regressão logística \cite{Murphy2012}, KNN
+\cite{Cover1967}, árvores e \textit{ensembles} \cite{Quinlan1993,
+Breiman2001, Dietterich2000} — seguem relevantes como linhas de base
+eficientes sobre representações esparsas \cite{Kowsari2019, Aliero2023};
+arquiteturas profundas convolucionais e recorrentes capturam padrões locais e
+sequenciais \cite{Goodfellow2016, Xu2017}, com benefício limitado em textos
+muito curtos; e os \textbf{Transformers ajustados} (BERT e variantes)
+representam o estado da arte da tarefa \cite{Devlin2019, Li2020, Karl2023},
+ao custo de treinamento e inferência substancialmente maiores. Essa gradação
+de custo--capacidade é a razão de esta tese operar com um par de
+classificadores: um leve, barato o suficiente para re-treinos a cada lote, e
+um forte, para a validação final.
 
-O \textbf{Aprendizado Profundo (\textit{Deep Learning})} introduziu arquiteturas capazes de aprender representações hierárquicas diretamente dos dados, o que pode ser vantajoso para capturar padrões complexos em texto \cite{Goodfellow2016}. As Redes Neurais Convolucionais (CNNs) demonstraram eficácia na captura de padrões locais, como n-grams, em textos, sendo aplicadas com sucesso em tarefas de classificação \cite{Xu2017}. Redes Neurais Recorrentes (RNNs), incluindo suas variantes mais sofisticadas como \textit{Long Short-Term Memory} (LSTM) e LSTMs Bidirecionais (BiLSTMs), são projetadas para modelar sequências e capturar dependências de longo alcance \cite{Goodfellow2016}. Contudo, sua eficácia pode ser limitada em textos excessivamente curtos onde as dependências sequenciais são menos pronunciadas.
+\subsection{Implicações para o aprendizado ativo no domínio}
+\label{subsec:stc_implicacoes}
 
-Atualmente, modelos baseados na arquitetura \textbf{Transformer}, em particular o \textbf{BERT (\textit{Bidirectional Encoder Representations from Transformers})} e suas variantes (e.g., RoBERTa, ALBERT, DistilBERT), representam o \textbf{estado da arte para muitas tarefas de Processamento de Linguagem Natural, incluindo a classificação de texto curto} \cite{Devlin2019, Li2020, Karl2023}. A força desses modelos reside no pré-treinamento em vastos corpora textuais, que lhes permite aprender representações contextuais ricas e profundas. A capacidade de modelar o contexto de forma bidirecional (considerando informações anteriores e posteriores a um token) é particularmente benéfica para desambiguação e compreensão semântica, mesmo em textos com poucas palavras \cite{Devlin2019}. O processo de \textbf{ajuste fino (\textit{fine-tuning})}, onde um modelo pré-treinado é adaptado para a tarefa específica de STC com dados rotulados do domínio, geralmente resulta em desempenho superior ao de algoritmos tradicionais e outras arquiteturas de aprendizado profundo, desde que recursos computacionais para treinamento e armazenamento do modelo estejam disponíveis \cite{Devlin2019, Karl2023}.
+Três consequências do regime de texto curto estruturam os experimentos desta
+tese. Primeiro, a cauda longa de classes torna o Macro F1 implacável: com
+centenas de categorias e poucas instâncias nas raras, cada classe descoberta
+tarde custa caro na métrica — e é por isso que a cobertura de classes do
+conjunto inicial domina o desempenho no regime pequeno
+(Capítulo~\ref{ch:resultados-l0}). Segundo, a partida a frio é mais severa: com
+pouca informação por instância, o modelo inicial precisa de mais exemplos para
+sustentar seleções informadas, elevando o valor de heurísticas de
+representatividade que operam sem rótulos. Terceiro, o desbalanceamento
+interage com a seleção por incerteza — que tende a concentrar-se nas
+fronteiras das classes majoritárias \cite{Attenberg2010} — e com a própria
+avaliação, como discutido na Seção~\ref{sec:limitacoes_laco}. O domínio de
+descrições de varejo em português \cite{Daru2022} reúne essas três condições
+em escala, o que o torna o laboratório adequado para o framework proposto.
 
-Adicionalmente, \textbf{Modelos Híbridos e \textit{Ensembles}} podem ser explorados. Abordagens híbridas combinam diferentes arquiteturas (e.g., CNNs para extração de características locais e LSTMs para contexto sequencial), enquanto \textit{ensembles} agregam previsões de múltiplos classificadores (sejam eles tradicionais ou profundos) para potencialmente melhorar a robustez e a precisão geral \cite{Li2020, Dietterich2000}.
+\section{Estado da arte na interseção e lacuna de pesquisa}
+\label{sec:fund-soa}
 
-Em termos de recomendação, para obter o desempenho mais elevado na classificação de textos curtos, o uso de modelos baseados em Transformer pré-treinados e ajustados (\textit{fine-tuned}) é geralmente a abordagem preferencial \cite{Karl2023, Li2020}. No entanto, algoritmos tradicionais como SVM ou Naive Bayes, combinados com representações como TF-IDF e n-grams, podem oferecer uma alternativa computacionalmente menos custosa e mais interpretável, servindo como \textit{baselines} importantes ou sendo adequados para cenários com dados ou recursos limitados.
+As três seções anteriores revisaram as frentes isoladamente; esta seção
+examina sua interseção — aprendizado ativo com oráculos LLM para classificação
+de texto curto — na literatura de 2020 ao primeiro semestre de 2026, e
+delimita a lacuna que o restante da tese ocupa.
 
-A seleção e o treinamento eficazes de qualquer um desses algoritmos, desde os tradicionais até os modelos Transformer de última geração, exigem uma avaliação criteriosa de seu desempenho. Compreender como medir a qualidade das classificações e como validar os modelos de forma robusta é, portanto, essencial. A próxima seção detalhará as métricas de avaliação e as técnicas de validação apropriadas para a tarefa de classificação de texto curto.
-% --- Arquivo: capitulo_02_fundamentos/texto_curto/5_avaliacao_validacao.tex ---
+\subsection{Escopo e método da revisão}
+\label{sec:revisao_sistematica_focada}
 
-\subsection{Avaliação e Validação}
-\label{subsec:stc_avaliacao_validacao}
+Esta revisão concentrou-se em publicações revisadas por pares e pré-prints
+significativos (ACL Anthology, arXiv e periódicos da área) do período de 2020
+até o primeiro semestre de 2026, com uma atualização dedicada cobrindo o
+último ano (meados de 2025 a meados de 2026). A busca utilizou combinações de
+termos como \textit{active learning}, \textit{text classification},
+\textit{short text}, \textit{LLM}, \textit{large language model},
+\textit{cold start}, \textit{few-shot learning} e \textit{oracle},
+priorizando trabalhos que conectassem explicitamente essas áreas. A análise
+focou em identificar tendências na aplicação de LLMs em AA, abordagens para a
+partida a frio e as lacunas remanescentes.
 
-A avaliação e a validação de modelos são etapas necessárias para estimar a capacidade de generalização de classificadores de texto curto (STC) e para a seleção de hiperparâmetros.
+\subsection{Síntese por frente}
+\label{sec:integracao_llm_al}
 
-\subsubsection{Métricas de Avaliação}
-A avaliação do desempenho em tarefas de classificação multiclasse, comum em STC, utiliza métricas específicas, particularmente em cenários com desbalanceamento de classes. Conforme discutido na Seção~\ref{subsec:ml_evaluation}, a Acurácia (Eq.~\ref{eq:accuracy_ml}), embora forneça uma visão geral, pode apresentar limitações quando as classes possuem frequências distintas, pois um modelo pode alcançar alta acurácia ao predizer majoritariamente a classe mais frequente \cite{Grandini2020, Barros2014, Riyanto2023Comparative}.
+\textbf{Partida a frio informada.} A linha que antecede os LLMs usa
+representações pré-treinadas para selecionar o conjunto inicial — ALPS
+\cite{Yuan2020} explora a "surpresa" do modelo de linguagem; Ein-Dor et al.
+\cite{EinDor2020} e Griesshaber et al. \cite{Griesshaber2020} adaptam AA ao
+BERT — e culmina no DEUCE \cite{Guo2025Deuce}, que combina diversidade
+textual e de classe prevista num grafo duplo-vizinho para evitar o efeito de
+cluster perdido. O DEUCE converge conceitualmente com a Fase 1 do FALCO, mas
+não incorpora oráculo LLM nem é avaliado em português ou texto de
+e-commerce.
 
-Métricas que consideram o desempenho por classe ou são robustas ao desbalanceamento fornecem informações adicionais nesses cenários. O \textbf{F1-Score} (Eq.~\ref{eq:f1_ml}), média harmônica entre Precisão e Revocação (Eq.~\ref{eq:prec_rec_ml}), é frequentemente utilizado. A agregação \textbf{Macro-average} (Macro-F1) calcula a média aritmética dos F1-Scores de cada classe, atribuindo peso igual a todas elas. Esta abordagem reflete o desempenho em classes minoritárias \cite{Grandini2020, Riyanto2023Comparative}.
+\textbf{LLM no laço.} A transição do BERT ajustado para o LLM generativo
+redefiniu os papéis: seleção informada pelo conhecimento pré-treinado
+(ActiveLLM \cite{Bayer2024}), rotulagem das instâncias selecionadas
+\cite{Zhang2025}, roteamento híbrido humano--LLM \cite{Rouzegar2024},
+rótulos candidatos com destilação \cite{Xia2025CanDist} e misturas de LLMs
+leves \cite{Qi2026MixtureLLMs}; a survey de \citet{Xia2025} organiza o campo
+na progressão "da seleção para a geração". Os desafios transversais são a
+calibração da confiança, o custo por consulta e a propagação de vieses
+\cite{Bayer2024, Zhang2025}. A pesquisa de comunidade de
+\citet{Romberg2025Reassessing} acrescenta o alerta prático: complexidade de
+implantação, incerteza sobre a redução real de custo e ferramental inadequado
+seguem sendo as barreiras à adoção — a viabilidade operacional, não a
+acurácia, é o obstáculo apontado.
 
-A \textbf{Acurácia Balanceada (\textit{Balanced Accuracy})} é definida como a média aritmética dos \textit{recalls} de cada classe (equivalente ao Macro-Recall, vide Seção~\ref{subsec:ml_evaluation}). Esta métrica não é afetada pelo tamanho relativo das classes \cite{Grandini2020}.
+\textbf{Robustez a ruído e produto/e-commerce.} As duas frentes restantes
+foram detalhadas nas Seções~\ref{sssec:llm_desafios}
+e~\ref{sssec:llm_seletor}; na interseção com o domínio, o estudo de
+\citet{Machado2026RetailPt} — classificação de $\approx 100$ mil títulos de
+supermercados portugueses nas categorias ECOICOP para estatística oficial —
+corrobora a escolha do BERTimbau como classificador forte (97,0\% de
+acurácia, 94,0\% de Macro F1 após ajuste), mas depende de um fluxo de
+rotulagem humano ad-hoc iniciado com 12 mil rótulos manuais, sem estratégia
+formal de aprendizado ativo nem oráculo automatizado — exatamente o processo
+que o FALCO formaliza.
 
-Adicionalmente, o \textbf{Coeficiente de Correlação de Matthews (MCC)} é uma métrica considerada robusta para classificação binária e multiclasse, inclusive sob desbalanceamento. O MCC utiliza as quatro entradas da matriz de confusão (TP, FP, TN, FN) para todas as classes, resultando em uma medida de correlação entre as previsões e os rótulos verdadeiros \cite{Grandini2020, Riyanto2023Comparative}.
+\subsection{Lacuna de pesquisa}
+\label{sec:lacunas_pesquisa}
 
-Outras formas de agregação, como a média \textbf{Weighted-average} do F1-Score (que pondera pelo suporte de cada classe) ou a média \textbf{Micro-average} (equivalente à acurácia global em multiclasse), podem complementar a análise, mas tendem a dar mais peso às classes majoritárias \cite{Grandini2020}. O \textbf{Kappa de Cohen} também pode ser empregado para medir a concordância entre as predições e os rótulos reais, ajustada pela probabilidade de concordância ao acaso \cite{Grandini2020}.
-
-A Tabela~\ref{tab:metricas_stc_resumo_final_corrected_revised_v3} (adaptada de \cite{Grandini2020}) resume as características destas métricas no contexto de dados desbalanceados. A literatura sugere, para avaliação de STC em cenários desbalanceados, o uso das métricas Macro-F1, Acurácia Balanceada e/ou MCC, utilizando a Acurácia global como um indicador complementar \cite{Grandini2020, Riyanto2023Comparative}. A escolha final entre estas métricas pode, contudo, depender dos objetivos específicos da aplicação.
+A análise revela que as peças existem separadas, mas sua integração
+sistemática não: falta um framework que (i) utilize o conhecimento
+pré-treinado de LLMs para informar a seleção inicial ou fornecer rótulos na
+partida a frio; (ii) adapte as estratégias de seleção para considerar,
+além do classificador em treinamento, a confiança e o custo do oráculo LLM;
+(iii) seja otimizado para as características do texto curto; e (iv) balanceie
+explicitamente o custo financeiro das consultas com o ganho de informação —
+com avaliação rigorosa desse \textit{trade-off}, ainda rara mesmo nos
+trabalhos que tocam o custo \cite{Zhang2025, EinDor2020}. A
+Tabela~\ref{tab:lacunas} cruza os trabalhos mais próximos com as cinco
+dimensões cuja combinação define a lacuna.
 
 \begin{table}[htbp]
 \centering
-\caption{Métricas Comuns para Classificação Multiclasse e sua Sensibilidade ao Desbalanceamento (Adaptado de \cite{Grandini2020}).}
-\label{tab:metricas_stc_resumo_final_corrected_revised_v3}
-\begin{tabular}{p{0.2\textwidth} p{0.5\textwidth} p{0.25\textwidth}}
+\caption{Cobertura das dimensões da lacuna pelos trabalhos mais próximos
+(2020--2026). \cmark~= tratado; \xmark~= ausente; $\sim$ = parcial.}
+\label{tab:lacunas}
+\small
+\begin{tabular}{@{}lccccc@{}}
 \toprule
-\textbf{Métrica} & \textbf{Descrição (vide Seção~\ref{subsec:ml_evaluation})} & \textbf{Característica Principal (em dados desbalanceados)} \\
+\textbf{Trabalho} & \textbf{\textit{Cold start}} & \textbf{Oráculo} & \textbf{Custo} & \textbf{Texto curto} & \textbf{AA} \\
+ & \textbf{informado} & \textbf{LLM} & \textbf{instrum.} & \textbf{em PT} & \textbf{formal} \\
 \midrule
-Acurácia & Percentual global de acertos & Sensível ao desbalanceamento, favorece classes majoritárias \\
-Macro-F1 & Média aritmética dos F1-Scores por classe & Peso igual para todas as classes \\
-Micro-F1 & F1-Score calculado globalmente (equivale à Acurácia) & Favorece classes majoritárias \\
-Acurácia Balanceada & Média aritmética dos \textit{Recalls} por classe & Insensível ao desbalanceamento \\
-MCC & Coeficiente de correlação entre predições e rótulos & Robusta a desbalanceamento \\
-Kappa de Cohen & Medida de concordância ajustada pela chance & Avalia concordância além do acaso \\
+DEUCE \cite{Guo2025Deuce} & \cmark & \xmark & \xmark & $\sim$ & \cmark \\
+ActiveLLM \cite{Bayer2024} & \cmark & \xmark & \xmark & \xmark & \cmark \\
+\citet{Zhang2025} & \xmark & \cmark & $\sim$ & \xmark & \cmark \\
+\citet{Rouzegar2024} & \xmark & \cmark & $\sim$ & \xmark & \cmark \\
+\citet{Kholodna2024} & \xmark & \cmark & \cmark & \xmark & \cmark \\
+CanDist \cite{Xia2025CanDist} & \xmark & \cmark & \xmark & $\sim$ & $\sim$ \\
+MoLLIA \cite{Qi2026MixtureLLMs} & \xmark & \cmark & $\sim$ & \xmark & \cmark \\
+Dual-expert \cite{Cheng2024DualExpert} & \xmark & \cmark & \xmark & $\sim$ & \xmark \\
+\citet{Machado2026RetailPt} & \xmark & \xmark & \xmark & \cmark & \xmark \\
+\textbf{FALCO (esta tese)} & \cmark & \cmark & \cmark & \cmark & \cmark \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsubsection{Técnicas de Validação}
-Conforme detalhado na Seção~\ref{subsec:ml_validation}, estratégias de validação são aplicadas para obter estimativas do desempenho do modelo em dados não vistos e para o ajuste de hiperparâmetros.
+A leitura da tabela confirma que a lacuna permanece após a atualização
+2025--2026: DEUCE cobre a partida a frio sem oráculo LLM; a mistura de LLMs
+cobre a robustez do anotador sem progressão de custo; os estudos de produto
+cobrem o domínio sem aprendizado ativo. A ausência combinada — partida a
+frio informada + oráculo LLM progressivo + texto curto em português + custo
+instrumentado — é a lacuna que o Capítulo~\ref{ch:metodo} ataca.
 
-A \textbf{Validação Cruzada K-Fold (\textit{K-Fold Cross-Validation})} é uma técnica padrão para este fim \cite{Kohavi1995}. O procedimento divide o conjunto de dados em $k$ subconjuntos (\textit{folds}) e realiza $k$ iterações de treino e teste, utilizando a cada vez um \textit{fold} diferente para teste e os $k-1$ restantes para treino. O número de \textit{folds} ($k$) usualmente adotado é 5 ou 10, valores que oferecem um equilíbrio entre o viés/variância da estimativa de erro e o custo computacional \cite{Kohavi1995, Nti2021, Forman2010, Reusens2024}. Valores maiores de $k$, como em \textit{Leave-One-Out Cross-Validation} (LOOCV), aumentam o custo computacional e podem introduzir maior variância na estimativa, sendo menos utilizados exceto para conjuntos de dados muito pequenos \cite{James2013, Kohavi1995}. Para a tarefa de STC, o uso de $k=5$ ou $k=10$ \textit{folds} é uma prática comum.
+\subsection{Conclusão do capítulo}
+\label{sec:fund-conclusao}
 
-Em problemas de classificação com dados desbalanceados, utiliza-se a \textbf{Validação Cruzada K-Fold Estratificada (\textit{Stratified K-Fold})}. A estratificação assegura que a proporção original das classes seja mantida em cada \textit{fold} de treino e teste \cite{Forman2010, Widodo2022, James2013}. Esta abordagem objetiva prevenir distorções na avaliação decorrentes de representações não proporcionais das classes nos \textit{folds}, resultando em uma estimativa mais consistente do desempenho do modelo.
-
-Outra técnica, particularmente utilizada no treinamento de modelos de aprendizado profundo (como CNNs, LSTMs ou Transformers), é a \textbf{Parada Antecipada (\textit{Early Stopping})}. Este método funciona como uma forma de regularização para prevenir sobreajuste \cite{Prechelt2012, Goodfellow2016}. Ele monitora o desempenho do modelo (e.g., a função de perda ou uma métrica de interesse como Macro-F1) em um conjunto de validação durante o treinamento. O processo é interrompido quando o desempenho no conjunto de validação cessa de melhorar ou começa a degradar, selecionando-se o modelo correspondente ao ponto de melhor desempenho observado na validação.
-
-Em suma, a aplicação de métricas de avaliação adequadas ao problema e técnicas de validação como as discutidas permite aferir a qualidade dos classificadores de texto curto. O estabelecimento de estimativas de desempenho para os modelos base (discutidos na Seção~\ref{subsec:stc_algoritmos}) fornece a referência necessária para investigar metodologias que visam otimizar a aquisição de dados rotulados. Considerando os custos associados à rotulagem manual e as características dos textos curtos, o Aprendizado Ativo (AL), introduzido na Seção~\ref{subsec:ml_types}, constitui uma área de investigação pertinente. Para analisar o estado da arte e identificar tendências e lacunas na aplicação desta técnica ao domínio específico de interesse, a próxima seção apresentará uma revisão sistemática da literatura focada na combinação de estratégias de Aprendizado Ativo com a Classificação de Texto Curto.
-
-% --- Fim do arquivo 5_avaliacao_validacao.tex ---
-% ---------- fonte: capitulo_02_fundamentos/revisao/revisao_aprendizado_classificacao.tex ----------
-% Assume que este código está inserido no Capítulo 2, após a Seção 2.6
-
-\subsection{Revisão Sistemática: Avanços Recentes em Aprendizado Ativo para Classificação de Texto Curto (2020-2026)}\label{sec:revisao_sistematica_focada}
-
-Com base nos fundamentos de Aprendizado Ativo (AL) discutidos nas Seções 2.3 a 2.5 e nos desafios específicos da Classificação de Texto Curto detalhados na Seção 2.6, esta seção apresenta uma revisão sistemática focada nos avanços da literatura entre 2020 e o primeiro semestre de 2026. O objetivo é investigar como a pesquisa recente tem abordado os desafios persistentes, particularmente o problema de \textit{cold start}, e como tem explorado o potencial dos Modelos de Linguagem Grandes (LLMs), especialmente no papel de oráculos, para otimizar o ciclo de aprendizado ativo no contexto específico da classificação de texto curto.
-
-\subsubsection{Escopo e Metodologia desta Revisão}
-
-Esta revisão concentrou-se em publicações revisadas por pares e pré-prints significativos (como os encontrados na ACL Anthology e arXiv) do período de 2020 até o primeiro semestre de 2026, com uma atualização dedicada cobrindo o último ano (meados de 2025 a meados de 2026) para captar a produção mais recente sobre AL com oráculos LLM. A busca utilizou combinações de termos como "active learning", "text classification", "short text", "LLM", "large language model", "cold start", "few-shot learning", e "oracle", priorizando trabalhos que explicitamente conectassem essas áreas. A análise focou em identificar tendências na aplicação de LLMs em AL, abordagens para mitigar o \textit{cold start} e as lacunas remanescentes, especialmente relevantes para a classificação de texto curto.
-
-\subsubsection{Desafios Persistentes e a Emergência dos LLMs}\label{sec:desafios_emergencia_llm}
-
-Conforme introduzido na Seção 2.6.2, a classificação de texto curto apresenta desafios intrínsecos devido à esparsidade de características e falta de contexto. No âmbito do Aprendizado Ativo, esses desafios exacerbam problemas clássicos:
-
-\begin{itemize}
-    \item \textbf{Problema de Partida a Frio (Cold Start):} Como destacado por Bayer \& Reuter \cite{Bayer2024}, muitas estratégias de AL (detalhadas em 2.5.3) dependem de um modelo inicial razoavelmente treinado para fazer seleções informativas. Com texto curto e poucos exemplos iniciais, o modelo frequentemente não consegue fazer escolhas significativas, tornando o início do processo de rotulagem ineficiente.
-    \item \textbf{Custo Computacional e de Anotação:} Embora o objetivo do AL seja reduzir a anotação, algumas estratégias, especialmente as que envolvem múltiplos modelos ou re-treinamentos frequentes com modelos profundos como Transformers, podem ser computacionalmente caras \cite{Fromme2022}. O custo da anotação humana continua sendo um gargalo.
-    \item \textbf{Incerteza e Diversidade em Espaços Esparsos:} Estimar a incerteza do modelo ou garantir a diversidade das amostras selecionadas pode ser mais complexo com representações esparsas típicas de texto curto.
-\end{itemize}
-
-É neste cenário que os LLMs, com seu vasto conhecimento pré-treinado e capacidades de compreensão de linguagem em contextos \textit{few-shot} ou \textit{zero-shot}, emergiram como uma alternativa promissora a partir de 2023. Sua capacidade de inferir significado mesmo com pouco contexto textual direto oferece um potencial disruptivo para as abordagens tradicionais de AL, especialmente para mitigar o \textit{cold start}.
-
-\subsubsection{Integração de LLMs no Ciclo de Aprendizado Ativo}\label{sec:integracao_llm_al}
-
-A revisão da literatura recente (2020-2025) revela uma mudança paradigmática na forma como os LLMs estão sendo integrados ao AL para classificação de texto, indo além do uso de modelos baseados em Transformers (como BERT \cite{EinDor2020, Griesshaber2020, Yuan2020}) para incorporar diretamente as capacidades generativas e de inferência dos LLMs:
-
-\paragraph{LLMs como Oráculos Ativos:} Uma das aplicações mais diretas e impactantes é o uso de LLMs como substitutos ou complementos aos oráculos humanos.
-\begin{itemize}
-    \item Bayer \& Reuter \cite{Bayer2024} introduziram o \textbf{ActiveLLM}, demonstrando que LLMs como GPT-4 podem selecionar instâncias informativas para classificação de texto em cenários \textit{few-shot}, superando significativamente estratégias tradicionais de AL que sofrem com o \textit{cold start}. O ActiveLLM mostra que o conhecimento pré-treinado do LLM permite fazer seleções úteis mesmo sem um modelo classificador inicial robusto.
-    \item Zhang \& Takada \cite{Zhang2025} levaram adiante a ideia de usar LLMs (GPT) como oráculos para \textit{rotular} as instâncias selecionadas por estratégias de AL (como incerteza e diversidade), alcançando alta performance em classificação de texto \textit{cross-task} com um custo computacional e monetário significativamente menor do que usar o LLM para classificar todo o dataset. A engenharia de prompt torna-se crucial neste cenário.
-    \item Rouzegar \& Makrehchi \cite{Rouzegar2024} propuseram uma abordagem híbrida, combinando a rotulação por LLM com a validação/correção por anotadores humanos, sugerindo que a sinergia pode ser mais eficaz do que depender exclusivamente de um ou outro.
-\end{itemize}
-Essa abordagem de "oráculo LLM" ataca diretamente o problema do custo de anotação e, crucialmente, o problema de \textit{cold start}, pois o LLM pode fornecer rótulos ou selecionar amostras informativas desde o início, sem depender de um modelo treinado especificamente para a tarefa alvo.
-
-\paragraph{LLMs para Seleção e Geração de Dados Ativos:} Além de atuarem como oráculos, os LLMs também estão sendo usados para refinar a própria seleção de amostras ou gerar dados sintéticos de forma ativa.
-\begin{itemize}
-    \item A capacidade dos LLMs de avaliar a "surpresa" ou a incerteza semântica de um texto, como explorado conceitualmente em abordagens como ALPS \cite{Yuan2020} para BERT, pode ser potencializada com LLMs maiores, permitindo estratégias de seleção baseadas em quão "inesperado" ou "informativo" um texto curto é para o conhecimento geral do LLM.
-    \item Xia et al. \cite{Xia2025}, em sua survey sobre AL baseado em LLM, discutem a transição "da seleção para a geração", onde LLMs podem ser usados não apenas para selecionar, mas também para \textit{gerar} exemplos sintéticos em regiões de baixa densidade ou alta incerteza do espaço de características, auxiliando no preenchimento de lacunas de conhecimento do modelo, especialmente útil no \textit{cold start}.
-\end{itemize}
-
-\paragraph{Prompting Ativo e Adaptativo:} Em vez de um ciclo de AL tradicional focado no treinamento do modelo, o foco pode mudar para a otimização do prompt fornecido ao LLM. Técnicas de "active prompting" podem selecionar exemplos \textit{few-shot} ou refinar as instruções dadas ao LLM de forma iterativa, guiadas por princípios de AL para maximizar o desempenho do LLM na tarefa de classificação de texto curto com o mínimo de exemplos de demonstração.
-
-Apesar desses avanços, a integração de LLMs também traz novos desafios, como a calibração da confiança do LLM (eles tendem a ser excessivamente confiantes), o custo computacional das chamadas à API (para modelos proprietários) e o risco de vieses inerentes ao LLM serem propagados para o modelo final \cite{Bayer2024, Zhang2025}.
-
-\subsubsection{Atualização (2025-2026): Cold Start com Diversidade Dupla e Oráculos em Conjunto}\label{sec:atualizacao_ultimo_ano}
-
-Uma atualização desta revisão, cobrindo o período de meados de 2025 a meados de 2026, identifica três desenvolvimentos que reforçam a relevância e, ao mesmo tempo, delimitam com mais precisão a contribuição do FALCO frente ao estado da arte mais recente.
-
-\paragraph{Diversidade Dupla no Cold Start:} Guo et al. \cite{Guo2025Deuce} propuseram o \textbf{DEUCE} (\textit{Dual-diversity Enhancement and Uncertainty-awareness for Cold-start Active Learning}), que combina representações de um modelo de linguagem pré-treinado com um grafo de duplo-vizinho (textual e de classe) e agrupamento baseado em densidade para selecionar simultaneamente instâncias diversas e representativas de classes difíceis logo na fase de \textit{cold start}. A proposta converge conceitualmente com a Fase 1 do FALCO (clusterização semântica combinada à diversidade sintática via BoW/TF-IDF), mas o DEUCE não incorpora um oráculo LLM: a rotulagem permanece assumida como disponível ou humana, e o framework não é avaliado em português nem em texto curto de e-commerce. O FALCO se diferencia, portanto, ao integrar a seleção diversificada de \textit{cold start} com um oráculo LLM progressivo, tratando simultaneamente o problema de seleção e o de rotulagem.
-
-\paragraph{Oráculos LLM em Conjunto (\textit{Mixture-of-LLMs}):} Qi et al. \cite{Qi2026MixtureLLMs} propuseram um framework de rotulagem baseado em \textit{mixture-of-LLMs}, no qual múltiplos modelos leves rotulam simultaneamente e um mecanismo de discrepância entre anotações, combinado a aprendizado negativo, mitiga o ruído de rótulos individuais, aproximando a qualidade da anotação humana com modelos executáveis localmente. Essa abordagem é complementar à estratégia do FALCO: enquanto o \textit{mixture-of-LLMs} busca robustez ao ruído combinando vários oráculos \textit{em paralelo} no mesmo estágio, o FALCO busca eficiência de custo fazendo o oráculo evoluir \textit{sequencialmente} (LLM mais simples nas fases iniciais, mais capaz nas fases finais). A combinação das duas ideias — oráculos em conjunto que também evoluem em capacidade ao longo das fases — é apontada na discussão desta tese (Capítulo~\ref{ch:conclusao}) como direção de trabalho futuro.
-
-\paragraph{Barreiras Práticas à Adoção do AL com LLMs:} A pesquisa de comunidade conduzida por Romberg et al. \cite{Romberg2025Reassessing} constatou que, apesar do entusiasmo em torno de LLMs no ciclo de AL, três barreiras identificadas há mais de 15 anos permanecem: complexidade de implantação, incerteza quanto à real redução de custo e ferramental inadequado. Esse achado reforça a pertinência da Seção~\ref{sec:lacunas_pesquisa} a seguir e da discussão de custo financeiro do oráculo LLM retomada no Capítulo~\ref{ch:conclusao}, uma vez que a viabilidade prática — e não apenas o ganho de acurácia — é apontada pela comunidade como o principal obstáculo à adoção de frameworks como o FALCO fora de ambientes de pesquisa.
-
-\paragraph{Classificação de Produtos em Português em Escala:} Machado \& Veloso \cite{Machado2026RetailPt} publicaram, também em 2026, um estudo aplicado que reforça a relevância prática do domínio investigado nesta tese: a classificação de cerca de 100 mil títulos de produtos de supermercados portugueses nas categorias ECOICOP, usada para fins de estatística oficial. O BERTimbau \textit{fine-tuned} atingiu a melhor performance entre os modelos testados (97,04\% de acurácia, 94,00\% de Macro F1-Score), superando modelos multilíngues e clássicos, o que corrobora a escolha do BERTimbau como classificador \(\theta\) do FALCO (Seção~\ref{sec:metodo-classificadores}). Entretanto, o processo de rotulagem do estudo depende de um fluxo humano-no-loop ad-hoc, iniciado com aproximadamente 12 mil produtos rotulados manualmente e expandido retailer a retailer sem uma estratégia formal de aprendizado ativo ou oráculo automatizado -- exatamente a lacuna que o FALCO busca preencher ao formalizar a seleção e a rotulagem inicial com um oráculo LLM.
-
-Em conjunto, esses quatro trabalhos confirmam que a lacuna identificada na revisão original (Seção~\ref{sec:lacunas_pesquisa}) — a ausência de um framework que combine explicitamente diversidade no \textit{cold start}, oráculo LLM progressivo e avaliação em texto curto de baixo recurso como o português — permanece aberta mesmo após a publicação de propostas próximas em cada uma dessas dimensões isoladamente.
-
-\subsubsection{Lacunas de Pesquisa: A Necessidade de Frameworks Integrados}\label{sec:lacunas_pesquisa}
-
-A análise da literatura recente, embora mostre um progresso rápido e promissor na aplicação de LLMs ao AL, revela lacunas significativas, particularmente na interseção de AL, LLMs, \textit{cold start} e classificação de \textit{texto curto}:
-
-\paragraph{Falta de Frameworks Sistemáticos para LLM-Oráculo em Cold Start:} Apesar do potencial demonstrado por abordagens como ActiveLLM \cite{Bayer2024} e o uso de LLMs para rotulação \cite{Zhang2025}, carecem na literatura frameworks de aprendizado ativo que explorem *sistematicamente* a sinergia entre LLMs como oráculos (ou seletores iniciais) e a resolução do problema de \textit{cold start} especificamente para texto curto. As estratégias de seleção tradicionais (Seção 2.5.3) frequentemente falham no início, enquanto depender apenas do LLM para classificação direta pode ser caro ou subótimo. Falta, portanto, uma metodologia integrada que:
-\begin{itemize}
-    \item Utilize o conhecimento pré-treinado do LLM para informar as seleções iniciais ou fornecer rótulos no estágio de \textit{cold start}.
-    \item Adapte as estratégias de seleção (e.g., baseadas em incerteza ou diversidade) para considerar não apenas o modelo classificador sendo treinado, mas também a confiança e o custo do LLM-oráculo.
-    \item Seja otimizada para as características do texto curto (esparsidade, falta de contexto), talvez priorizando amostras que sejam semanticamente ambíguas ou representativas de clusters pouco explorados, conforme avaliado pelo LLM.
-    \item Balanceie explicitamente o custo computacional/financeiro das consultas ao LLM com o ganho de informação esperado para o modelo final.
-\end{itemize}
-
-\paragraph{Estratégias de Seleção Adaptadas para LLMs e Texto Curto:} Como apontado por Ein-Dor et al. \cite{EinDor2020} já no contexto do BERT, e ainda mais relevante para LLMs, há uma necessidade de desenvolver novas estratégias de seleção que sejam intrinsecamente projetadas para as representações e capacidades desses modelos, em vez de apenas adaptar métodos antigos. Isso é especialmente crítico para texto curto, onde a capacidade do LLM de inferir contexto pode ser explorada ativamente.
-
-\paragraph{Calibração e Confiabilidade do Oráculo LLM:} A tendência dos LLMs à excessiva confiança (\textit{overconfidence}) é um problema sério ao usá-los como oráculos. São necessárias pesquisas sobre como calibrar melhor as previsões dos LLMs ou desenvolver estratégias de AL robustas à incerteza do próprio oráculo.
-
-\paragraph{Avaliação Custo-Benefício Rigorosa:} Embora alguns trabalhos como \cite{Zhang2025} comecem a analisar o custo, falta uma avaliação mais sistemática e comparativa do trade-off entre o desempenho do modelo, o número de amostras rotuladas (seja por humanos ou LLMs) e o custo computacional/financeiro total, especialmente em cenários de \textit{cold start} para texto curto.
-
-\subsubsection{Conclusão da Revisão Sistemática}
-
-Esta revisão focada da literatura de 2020 até meados de 2026 evidencia que o campo do Aprendizado Ativo para classificação de texto curto está passando por uma transformação significativa impulsionada pelos LLMs. Essas tecnologias oferecem soluções promissoras para desafios persistentes como o \textit{cold start} e o alto custo de anotação, particularmente ao atuarem como oráculos ou seletores informados. No entanto, a integração dessas capacidades ainda é incipiente. Permanece uma clara lacuna na pesquisa pela falta de frameworks sistemáticos e otimizados que combinem as forças do AL tradicional com o poder dos LLMs para enfrentar eficazmente o problema de \textit{cold start} no domínio desafiador da classificação de texto curto. Esta lacuna motiva diretamente a necessidade de desenvolver novas abordagens, como a proposta neste trabalho.
-
-% --- Fim da Seção de Revisão Sistemática Focada ---
+O capítulo percorreu uma cadeia: as \emph{métricas} sob desbalanceamento e a
+inferência que as compara (Seção~\ref{sec:fund-super}); o \emph{laço} que
+compra informação e suas duas fraturas — partida a frio e oráculo imperfeito
+(Seção~\ref{sec:fund-al}); o \emph{oráculo LLM} que transforma qualidade,
+custo e instrumento em variáveis de projeto (Seção~\ref{sec:fund-llm}); o
+\emph{domínio} de texto curto que tensiona tudo simultaneamente
+(Seção~\ref{sec:fund-stc}); e o \emph{estado da arte} que resolve cada
+fratura isoladamente, mas não as três em conjunto
+(Seção~\ref{sec:fund-soa}). O Capítulo~\ref{ch:metodo} apresenta o framework
+que ocupa essa interseção — e o programa experimental que o submete à prova.

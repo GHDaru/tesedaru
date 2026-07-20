@@ -1,0 +1,422 @@
+% A1 — draft v0.1 (18/07/2026). Target: Information Processing & Management
+% (alt.: ESWA; EMNLP industry). Class: article (converter p/ elsarticle na submissão).
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage[round]{natbib}
+\usepackage[margin=2.8cm]{geometry}
+\usepackage{microtype}
+\usepackage{xcolor}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+
+\title{Large language models as labeling oracles for 621-category product
+classification in Portuguese:\\ an instrumented evaluation of quality and cost}
+
+\author{Gilsiley Henrique Darú$^{1}$ \and Gustavo Valentim Loch$^{1}$\\[2pt]
+\normalsize $^{1}$Graduate Program in Numerical Methods in Engineering (PPGMNE),\\
+\normalsize Federal University of Paraná (UFPR), Curitiba, Brazil}
+\date{Draft v0.1 --- \today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Large language models (LLMs) are increasingly used as labeling oracles, but
+the evidence base concentrates on tasks with tens to a few hundred classes
+and rarely treats cost or the measurement instrument as objects of study.
+We evaluate six LLM oracles on zero-shot classification of short Portuguese
+retail product descriptions into a closed space of 621 categories --- well
+beyond prior product-classification studies --- under a fully instrumented
+protocol: output constrained to the label space, batch annotation with
+paired calibration, cache-aware cost accounting, serving provenance, and
+paired statistics (Wilson intervals, exact McNemar). Four oracles plateau
+at 77--83\% accuracy, $\approx 7$ points under a supervised ceiling trained
+on 250{,}000 labels, at US\$~0.00--0.92 per thousand labels; the
+best-value model delivers 95\% of the top accuracy at 8.5\% of its cost,
+and a zero-cost oracle is statistically tied with it. Plateau Macro-F1
+\emph{exceeds} a fully supervised light baseline, because LLMs are
+strongest precisely in rare classes. Nearly half of oracle error reflects
+catalog conventions rather than product misunderstanding. Two findings
+concern the instrument itself: without output constraints, 6.8\% of
+responses become spurious phrasing errors charged against the model; and
+the same model served by two providers disagrees with itself ($p<0.001$)
+on identical instances. A prompt ablation with boundary rules improves the
+production distribution ($+4.6$ points, $p=0.012$) while severely
+degrading the stratified tail ($-10.8$ points, $p<0.001$). Code, prompts
+and per-instance annotation artifacts are released.
+\end{abstract}
+
+\noindent\textbf{Keywords:} large language models; data annotation; text
+classification; short text; active learning; annotation cost; Portuguese.
+
+\section{Introduction}
+\label{sec:intro}
+
+Supervised text classification remains bounded by the cost of labeled data.
+The recent proposal to replace human annotators with large language models
+promises orders-of-magnitude cost reduction \citep{Gilardi2023}, and a
+rapidly growing literature explores LLMs as annotators inside active
+learning loops \citep{Zhang2025,Rouzegar2024,Kholodna2024,Bayer2024}. Yet
+three aspects of this evidence base limit its transfer to production
+settings. First, \emph{granularity}: published product-classification
+evaluations operate on tens to $\approx 370$ categories
+\citep{Roumeliotis2025,Gholamian2024}; industrial catalogs routinely exceed
+several hundred. Second, \emph{cost}: most studies report label counts, not
+monetary cost, and none we are aware of instruments the pricing levers that
+dominate real spending --- batch amortization of the prompt prefix and
+provider-side prefix caching. Third, and least discussed, the
+\emph{measurement instrument}: accuracy numbers are reported as properties
+of a model, when they are in fact properties of a (model, prompt, output
+contract, serving provider, date) configuration.
+
+This paper evaluates six LLM oracles --- spanning commercial APIs, MaaS
+platforms and a zero-cost evaluation tier --- on zero-shot classification of
+Brazilian retail product descriptions (4--50 characters, uppercase,
+aggressive abbreviations) into a closed space of \textbf{621 categories}.
+The evaluation is \emph{instrumented} end to end: every annotation records
+its instrument mode, batch size, token counts and serving provenance; all
+comparisons are paired on identical instances; and the gold standard's own
+error rate is audited and propagated as a measurement ceiling.
+
+We ask four research questions. \textbf{RQ1}: what accuracy and Macro-F1 do
+LLM oracles reach at this granularity, and are their differences
+statistically real? \textbf{RQ2}: what does a thousand labels actually cost,
+and how do batching and caching change it? \textbf{RQ3}: what is the
+anatomy of oracle error? \textbf{RQ4}: how much of a measured ``error rate''
+is an artifact of the measurement instrument itself?
+
+Contributions: (i) the highest-granularity instrumented evaluation of
+LLM-as-annotator for product classification to date, in a lower-resource
+language; (ii) a reusable measurement protocol (output contract, paired
+batch calibration, cache-aware cost accounting, provenance triple) with
+public artifacts; (iii) two instrument-level findings --- the output-format
+artifact and serving-provider divergence --- that affect any future oracle
+evaluation; and (iv) an actionable error anatomy plus a prompt-ablation
+result showing that boundary rules derived from aggregate error profiles
+transfer asymmetrically between the production and tail distributions.
+
+\section{Related work}
+\label{sec:related}
+
+\paragraph{LLMs as annotators.} \citet{Gilardi2023} established that
+zero-shot ChatGPT can outperform crowdworkers at a fraction of the cost;
+subsequent work integrated LLM annotation into active learning loops
+\citep{Zhang2025}, routed hard cases to humans by confidence
+\citep{Rouzegar2024}, and demonstrated batch annotation economics in
+low-resource languages \citep{Kholodna2024}. This line inherits the older
+noisy-annotator tradition \citep{Snow2008,Sheng2008}; a known caveat is
+that LLM self-reported confidence tends toward overconfidence and requires
+calibration \citep{Tian2023}, which is why our protocol relies on external
+measurement rather than model-reported certainty. Evaluations at
+product-catalog scale are rarer: \citet{Roumeliotis2025} compare zero-shot
+LLMs on 248 categories; \citet{Gholamian2024} test robustness on up to 370
+leaf categories. Our 621-way closed space extends this frontier while
+adding paired statistics and cost instrumentation absent from both.
+
+\paragraph{Annotation noise.} Oracle errors become label noise for any
+downstream learner; taxonomies and robustness results
+\citep{Frenay2014,Song2023NoisyLabels} distinguish uniform from structured
+noise, and recent benchmarks show \emph{real} annotation noise to be more
+harmful than synthetic corruption \citep{Merdjanovska2024NoiseBench,
+Raczkowska2024AlleNoise}. Our error anatomy (RQ3) characterizes where LLM
+oracle noise falls in this spectrum.
+
+\paragraph{Portuguese retail classification.} \citet{Machado2026RetailPt}
+classify $\approx$100k Portuguese supermarket titles into ECOICOP
+categories with fine-tuned BERT variants, relying on an ad-hoc
+human-labeling pipeline; they do not evaluate LLM oracles. Community
+surveys report deployment complexity and cost uncertainty as the main
+barriers to LLM-assisted annotation \citep{Romberg2025Reassessing} ---
+precisely the gap an instrumented cost protocol addresses.
+
+\section{Task, data and gold standard}
+\label{sec:data}
+
+The task is single-label classification of short product descriptions from
+Brazilian fiscal receipts (e.g., \texttt{CERV BRAHMA LT 350ML}) into a
+closed catalog of 621 product-type categories. The dataset comprises
+$\approx$250k labeled descriptions \citep{Daru2024Dissertacao}; texts are
+4--50 characters, uppercase, with domain-specific abbreviations. The label
+space exhibits severe long-tail imbalance, which motivates Macro-F1 as the
+primary quality metric alongside accuracy.
+
+\paragraph{Gold-standard audit.} Since the reference labels were produced
+by a human process, we audited label conflicts (identical normalized text
+with divergent labels) and re-scored all oracles (a) excluding conflicting
+instances and (b) under multi-gold scoring. Accuracy shifts by at most
+$+0.7$ points and no ranking changes; the known gold error bounds the
+measurement ceiling at $\approx 99.3\%$ and is reported alongside all
+results rather than ignored.
+
+\paragraph{Evaluation samples.} All oracles annotate \emph{the same}
+instances (fully paired design). \textbf{S-rand} ($n=1{,}000$, simple
+random) preserves the production distribution and serves RQ1/RQ2/RQ4; its
+size caps the Wilson 95\% half-width at $\approx 3$ points (2.5 in the
+observed plateau). \textbf{S-strat} (3 per class, $n=1{,}863$) provides
+per-class support for Macro-F1 and confusion analysis (RQ3): with 621
+classes, a random sample leaves most classes unrepresented, and three
+instances per class is the minimum that separates systematic (0/3, 3/3)
+from sporadic (1/3, 2/3) class error.
+
+\section{Measurement instrumentation}
+\label{sec:instrument}
+
+\paragraph{Output contract.} Three instrument modes are defined and
+recorded per annotation: \textbf{enum} (production mode) --- structured
+output with the label constrained at decoding time to the 621-value schema
+(provider-enforced structured outputs); \textbf{json-prompt} --- for
+providers without structured output support, the category list and JSON
+format are instructed in the prompt, with strict post-validation and
+explicit accounting of invalid labels; \textbf{free} --- structured output
+\emph{without} label constraint, a controlled replica of the naive
+instrument used solely to quantify its artifact (RQ4).
+
+\paragraph{Prompt and batching.} The prompt contextualizes the domain
+(fiscal-receipt abbreviations), instructs type-level classification
+ignoring brand and packaging, and discourages misuse of the sentinel
+rare-class label. The static prefix (instructions + schema) precedes the
+variable items, exploiting provider prefix caches. Annotation is batched
+(numbered items in one call, indexed vector response); batch size is
+calibrated in a paired pre-study (1 vs.\ 10 vs.\ 25 items on identical
+instances): exact McNemar detects no degradation ($b{=}1$ vs.\ $b{=}10$:
+$p=0.58$), while batching cuts cost per label by up to $10\times$ through
+prefix amortization --- consistent with the batch-annotation economics of
+\citet{Kholodna2024}. We adopt $b=10$ (OpenAI) and $b=25$ (MaaS), recorded
+per annotation.
+
+\paragraph{Instrument-mode assignment and scoring convention.} The output
+contract is dictated by provider capability: enum for providers with
+structured-output support (OpenAI), json-prompt elsewhere. This is a
+potential confound between provider families, which the protocol handles by
+(a) reporting invalid-label rates separately in every table, (b) scoring
+invalid outputs as errors --- so json-prompt oracles are penalized, not
+shielded, by the weaker contract --- and (c) quantifying the maximal size of
+the contract effect directly in RQ4 with the same model under both
+contracts. Cost is computed from provider-metered token counts per call
+multiplied by the provider price sheet at execution date, with cached
+prefix tokens billed at the provider's cached rate; all per-call token
+counts are in the released artifacts.
+
+\paragraph{Provenance and statistics.} Every annotation records the
+(model, provider, mode, batch, temperature, date) tuple; temperature is 0
+throughout, which reduces but does not eliminate serving nondeterminism ---
+each cell is a single annotation run, a limitation stated in
+Section~\ref{sec:discussion}. Accuracies carry Wilson 95\% intervals
+\citep{Wilson1927,Brown2001}; model pairs are compared with McNemar's test
+on discordant pairs (exact binomial when $b+c<25$)
+\citep{McNemar1947,Dietterich1998}, the recommended regime for classifiers
+evaluated once on a common sample. Two comparisons were pre-registered as
+decision-relevant (best vs.\ runner-up for the advanced-oracle role;
+zero-cost vs.\ cheapest-paid for the initial-oracle role); remaining
+pairwise tests are reported as exploratory, and no result in this paper
+depends on a marginal $p$-value surviving multiplicity correction.
+
+\section{Results}
+\label{sec:results}
+
+\subsection{RQ1: quality at 621-way granularity}
+
+Table~\ref{tab:main} reports the paired evaluation.
+Four oracles form a plateau at 77--83\% accuracy on both samples.
+Within-plateau differences are small but partly real: deepseek-v4-pro is
+significantly better than v4-flash on S-strat (McNemar $b{=}43$, $c{=}16$,
+$p<0.001$) and statistically tied with gpt-4o ($p=0.061$). The small
+gpt-4o-mini collapses on the stratified sample (45.7\%): its errors
+concentrate systematically in rare classes, which S-strat exposes by
+construction. No oracle reaches the 85\% pre-registered adoption gate; the
+best zero-shot result sits $\approx 7$ points below a fully supervised
+ceiling trained on 250k labels (89.6\%, \citealp{Daru2024Dissertacao}).
+Conversely, plateau Macro-F1 (0.78--0.80 on S-strat) \emph{exceeds} the
+0.70 of a light supervised model trained on the full label budget: world
+knowledge compensates exactly where supervision is scarcest --- the long
+tail.
+
+\begin{table}[htb]
+\centering
+\caption{Oracle performance on paired samples (temperature 0, calibrated
+batching). Enum mode for OpenAI; json-prompt for MaaS/NIM. CI: Wilson 95\%.}
+\label{tab:main}
+\small
+\begin{tabular}{llrrrr}
+\toprule
+\textbf{Oracle} & \textbf{Sample} & \textbf{Acc.} & \textbf{95\% CI} &
+\textbf{Macro-F1} & \textbf{Invalid} \\
+\midrule
+deepseek-v4-pro   & S-rand  & 82.1\% & [79.6, 84.4] & 0.785 & 0.1\% \\
+gpt-4o            & S-rand  & 80.9\% & [78.4, 83.2] & 0.788 & 0.0\% \\
+deepseek-v4-flash & S-rand  & 78.3\% & [75.6, 80.8] & 0.750 & 0.7\% \\
+nemotron-3-ultra (free) & S-rand & 77.9\% & [75.2, 80.4] & 0.752 & 1.2\% \\
+glm-5.2           & S-rand  & 77.3\% & [74.6, 79.8] & 0.742 & 0.0\% \\
+gpt-4o-mini       & S-rand  & 61.3\% & [58.2, 64.3] & 0.518 & 0.0\% \\
+\midrule
+deepseek-v4-pro   & S-strat & 82.6\% & [80.8, 84.2] & 0.793 & 0.0\% \\
+gpt-4o            & S-strat & 82.1\% & [80.3, 83.8] & 0.797 & 0.0\% \\
+deepseek-v4-flash & S-strat & 81.6\% & [79.7, 83.3] & 0.781 & 0.9\% \\
+glm-5.2           & S-strat & 80.9\% & [79.1, 82.6] & 0.782 & 0.0\% \\
+nemotron-3-ultra (free) & S-strat & 79.6\% & [77.7, 81.4] & 0.770 & 2.6\% \\
+gpt-4o-mini       & S-strat & 45.7\% & [43.4, 48.0] & 0.427 & 0.0\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{RQ2: cost, cache and the serving provider}
+
+\begin{table}[htb]
+\centering
+\caption{Cost per thousand labels (US\$, prices at execution, Jul/2026)
+and prefix-cache hit rate on S-rand.}
+\label{tab:cost}
+\small
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Oracle} & \textbf{US\$/1k} & \textbf{Cache} & \textbf{Acc.} \\
+\midrule
+nemotron-3-ultra (free) & 0.000 & ---  & 77.9\% \\
+deepseek-v4-flash & 0.035 & ---  & 78.3\% \\
+gpt-4o-mini       & 0.051 & 91\% & 61.3\% \\
+glm-5.2           & 0.249 & ---  & 77.3\% \\
+deepseek-v4-pro   & 0.410 & ---  & 82.1\% \\
+gpt-4o            & 0.923 & 88\% & 80.9\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Costs within the same accuracy plateau span more than an order of
+magnitude (Table~\ref{tab:cost}): deepseek-v4-flash delivers 78--82\% at
+US\$~0.035/1k --- $26\times$ cheaper than gpt-4o at comparable quality ---
+and two to three orders of magnitude below typical human annotation costs
+\citep{Gilardi2023}. Prefix caching reaches 88--95\% hit rates where
+supported, halving effective input-token cost. Cost, however, is not the
+only operational constraint: provider throughput limits (3 requests/min on
+the MaaS tier; 18/min on a free aggregator tier) shape wall-clock time as
+much as price --- a cheap, slow oracle can be dominated by an expensive,
+parallel one when the deadline binds.
+
+The zero-monetary-cost regime proved competitive: nemotron-3-ultra served
+via NVIDIA's evaluation API ties deepseek-v4-flash on S-rand (McNemar,
+$p=0.76$). Two operational caveats are findings in themselves. (i) Free is
+not operationally free: a first attempt through an aggregator with a
+50-requests/day quota projected six days of wall time for the same
+workload. (ii) \emph{The serving provider is part of the instrument}: the
+same nemotron model served by the aggregator disagrees significantly with
+itself served by NVIDIA on identical instances (paired subset $n=850$,
+$p<0.001$). Oracle measurements should therefore record not only the
+model, but who serves it and when --- each number is a photograph of a
+(model, provider, date) triple, not a property of model weights.
+
+\subsection{RQ3: anatomy of oracle error}
+
+Errors of the best oracle (v4-pro, S-strat; $n=324$) were categorized by
+scripted lexical rules (shared head-word between predicted and gold label;
+umbrella-class markers; sentinel/invalid detection) with manual
+spot-checking; the categorization script and the labeled error list are in
+the released artifacts. The result: \textbf{31\%}
+are confusions between \emph{sibling categories} sharing a head word
+(\textit{antisseptico bucal} $\to$ \textit{enxaguante bucal});
+\textbf{17\%} have an umbrella class (``other \ldots'') as gold while the
+model picks the specific class, and 7\% the reverse; $\approx 2\%$ involve
+the sentinel class or invalid output; the remainder are genuine semantic
+errors. Nearly half of oracle error therefore reflects not product
+misunderstanding but ignorance of \emph{this catalog's conventions} ---
+boundaries between neighbors and aggregation policy, learnable only from
+labeled examples. Two consequences: it motivates the prompt ablation of
+Section~\ref{sec:prompt}, and it predicts oracle noise is
+\emph{structured} (concentrated in adjacent pairs), the more benign regime
+for downstream learners \citep{Frenay2014,Song2023NoisyLabels}.
+
+\subsection{RQ4: the instrument effect}
+
+Holding model (gpt-4o-mini), instances (S-rand) and prompt constant, and
+switching only the output contract --- enum vs.\ free --- yields accuracy
+61.3\% vs.\ 60.5\%, but invalid-label rates of \textbf{0.0\% vs.\ 6.8\%}.
+The instrument's effect appears less in point accuracy than in the
+\emph{accounting of error}: without output constraints, nearly 7\% of
+responses are out-of-space phrasings that a naive protocol counts as model
+error, deflating measurements and contaminating comparisons between models
+with different paraphrasing propensities. Enum-constrained decoding with
+strict validation eliminates this artifact class by construction.
+
+\subsection{Prompt as an instrument variable}
+\label{sec:prompt}
+
+Since $\approx 48\%$ of RQ3 errors are convention errors, we test whether
+prompt engineering can recover them in the cheapest cached model
+(gpt-4o-mini): variant \textbf{v4a} adds ten explicit boundary rules
+derived from the aggregate error profile; \textbf{v4b} adds ten
+\emph{invented} boundary examples (never sampled from evaluation data);
+both are paired against the base prompt on the first 500 items of each
+sample --- a prefix subset (random by construction, as samples are
+pre-shuffled) sized to detect shifts of 4--5 points via McNemar given the
+expected 60--80 discordant pairs, at one fifth of the full-sample cost per
+variant. On S-rand, rules recover part of the convention error: $+3.8$
+points (v4a, $p=0.045$) and $+4.6$ points (v4b, $p=0.012$). On S-strat the
+same rules \emph{destroy} performance: $-7.0$ and $-10.8$ points
+($p<0.001$), with invented examples significantly worse than rules alone
+($p=0.0013$). Rules distilled from aggregate error profiles push the model
+toward the conventions of \emph{frequent} classes --- exactly the behavior
+the stratified sample punishes. Prompt optimization for labeling oracles
+must therefore be validated on both the production and the tail
+distribution before adoption; a gain measured only on the natural
+distribution can mask severe tail regression.
+
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph{Choosing an oracle is a portfolio decision.} At 621-way
+granularity no oracle passes a 85\% adoption gate, yet the plateau's
+Macro-F1 beats a fully supervised light baseline. The practical reading
+for label-scarce pipelines: the LLM oracle is not a replacement for
+supervision but a complementary specialist for the long tail, at
+US\$~0.00--0.41 per thousand labels. The 26$\times$ price spread inside a
+statistical tie makes oracle selection a measurable engineering decision,
+not a brand choice --- and our protocol makes it auditable.
+
+\paragraph{Measure the instrument, not just the model.} Two of our
+findings would silently bias any naive replication: the 6.8\%
+output-format artifact and the significant self-disagreement across
+serving providers. Both argue that credible LLM-annotation papers should
+publish their output contract, serving provenance and per-instance
+artifacts --- as we do --- and that leaderboard-style comparisons without
+this metadata are fragile.
+
+\paragraph{Threats to validity.} Single dataset and language pair
+(mitigated by public artifacts and a replication design on AlleNoise
+\citep{Raczkowska2024AlleNoise} as future work); a single annotation run
+per cell --- temperature 0 reduces but does not eliminate serving
+nondeterminism, and the RQ2 provider-divergence finding quantifies exactly
+why this matters; API prices dated at execution (ratios are more stable
+than absolute values); boundary rules in the ablation derive from this
+catalog's error profile (the method generalizes; the rules do not);
+gold-standard noise bounds all accuracies at $\approx 99.3\%$, audited and
+propagated.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+We provide the highest-granularity instrumented evaluation of LLMs as
+labeling oracles to date: 621 closed categories, Portuguese short text,
+six oracles across three cost regimes, fully paired statistics, and
+cache-aware cost accounting. LLM oracles plateau at 77--83\%, seven points
+under a 250k-label supervised ceiling, while beating it on Macro-F1; a
+zero-cost oracle ties the best cost-efficiency tier; nearly half of oracle
+error is catalog convention, recoverable by prompt rules only at the
+tail's expense; and the measurement instrument itself --- output contract
+and serving provider --- moves results by margins that exceed several
+model-to-model differences. The protocol and artifacts are public and
+directly reusable for oracle selection in any closed-taxonomy annotation
+pipeline.
+
+\paragraph{Artifacts.} Code, prompts, per-instance annotations, token
+counts and analysis scripts: \texttt{github.com/GHDaru/activelearning}
+(\texttt{experiments/e0}, \texttt{e0p}). Release of the full underlying
+dataset is subject to a separate licensing decision; the paired evaluation
+samples and all annotation artifacts are released regardless.
+\todo{DOI/Zenodo release antes da submissão}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\end{document}
