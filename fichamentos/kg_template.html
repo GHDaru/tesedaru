@@ -83,6 +83,29 @@
     position: absolute; left: 1rem; bottom: 0.8rem; color: var(--muted);
     font-size: 0.72rem; pointer-events: none;
   }
+  #detail .links { margin: 0.1rem 0 0.6rem; font-size: 0.8rem; }
+  #detail a.ext {
+    display: inline-block; color: var(--artigo); text-decoration: none;
+    border-bottom: 1px dotted var(--artigo); word-break: break-all;
+  }
+  #detail a.ext:hover { border-bottom-style: solid; }
+  #detail .cited { margin-top: 0.35rem; color: var(--ink); }
+  #detail .cited .lbl { color: var(--muted); }
+  #detail .relhead {
+    margin: 0.7rem 0 0.1rem; font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--muted);
+  }
+  #detail .pdfbox { margin: 0.5rem 0 0.2rem; }
+  #detail .pdf-open {
+    position: static; display: inline-block; padding: 0.35rem 0.7rem;
+    background: var(--artigo); color: #fff; border-radius: 6px; border: 0;
+    font-size: 0.8rem; cursor: pointer;
+  }
+  #detail .pdfhint { font-size: 0.7rem; color: var(--muted); margin-bottom: 0.3rem; }
+  #detail iframe.pdfview {
+    width: 100%; height: 420px; border: 1px solid var(--line); border-radius: 8px;
+    background: #fff;
+  }
 </style>
 <div id="wrap">
   <header>
@@ -96,7 +119,7 @@
       <button id="close" aria-label="Fechar painel">×</button>
       <div id="detail-body"></div>
     </aside>
-    <div id="hint">arraste nós · roda do mouse = zoom · clique = detalhes · fundo = pan</div>
+    <div id="hint">clique num nó = foca as relações + detalhes · clique no fundo = limpa · roda = zoom · arraste = mover</div>
   </div>
 </div>
 <script>
@@ -158,14 +181,17 @@ window.addEventListener("resize", resize); resize();
 
 function isVisible(n) { return visible[n.type]; }
 
+const VMAX = 30; // teto de velocidade: mantém o layout numericamente estável
 function step() {
   const vs = nodes.filter(isVisible);
   for (const n of vs) { n.vx *= 0.85; n.vy *= 0.85; }
   for (let i = 0; i < vs.length; i++) for (let j = i + 1; j < vs.length; j++) {
     const a = vs[i], b = vs[j];
-    let dx = b.x - a.x, dy = b.y - a.y, d2 = dx*dx + dy*dy || 1;
+    let dx = b.x - a.x, dy = b.y - a.y, d2 = dx*dx + dy*dy;
     if (d2 < 90000) {
-      const f = 1400 / d2, d = Math.sqrt(d2);
+      d2 = Math.max(d2, 25);              // piso: evita força explosiva (nós colados)
+      const f = Math.min(1400 / d2, 40);  // teto de força de repulsão
+      const d = Math.sqrt(d2);
       dx /= d; dy /= d;
       a.vx -= dx * f; a.vy -= dy * f; b.vx += dx * f; b.vy += dy * f;
     }
@@ -180,11 +206,22 @@ function step() {
   }
   for (const n of vs) {
     n.vx -= n.x * 0.0012; n.vy -= n.y * 0.0012; // gravidade ao centro
+    n.vx = Math.max(-VMAX, Math.min(VMAX, n.vx));
+    n.vy = Math.max(-VMAX, Math.min(VMAX, n.vy));
     if (n !== dragNode) { n.x += n.vx; n.y += n.vy; }
   }
 }
 
-let selected = null, hover = null;
+let selected = null, hover = null, focusSet = null;
+function setFocus(n) {
+  selected = n;
+  if (!n) { focusSet = null; return; }
+  focusSet = new Set([n]);
+  for (const e of edges) {
+    if (e.s === n) focusSet.add(e.t);
+    else if (e.t === n) focusSet.add(e.s);
+  }
+}
 function draw() {
   ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
   ctx.clearRect(0, 0, W, H);
@@ -192,13 +229,17 @@ function draw() {
   const edgeCol = css("--edge"), falcoCol = css("--edge-falco");
   for (const e of edges) {
     if (!isVisible(e.s) || !isVisible(e.t)) continue;
+    const inFocus = e.s === selected || e.t === selected;
+    ctx.globalAlpha = (!focusSet || inFocus) ? 1 : 0.06;
     const toFalco = e.t.type === "framework";
     ctx.strokeStyle = toFalco ? falcoCol : edgeCol;
-    ctx.lineWidth = (selected && (e.s === selected || e.t === selected)) ? 2.2 : (toFalco ? 1.4 : 0.8);
+    ctx.lineWidth = inFocus ? 2.2 : (toFalco ? 1.4 : 0.8);
     ctx.beginPath(); ctx.moveTo(e.s.x, e.s.y); ctx.lineTo(e.t.x, e.t.y); ctx.stroke();
   }
   for (const n of nodes) {
     if (!isVisible(n)) continue;
+    const dimmed = focusSet && !focusSet.has(n);
+    ctx.globalAlpha = dimmed ? 0.12 : 1;
     const col = css(TYPE_VAR[n.type] || "--muted");
     if (n === selected || n === hover) {
       ctx.fillStyle = css("--halo");
@@ -210,13 +251,15 @@ function draw() {
       ctx.strokeStyle = css("--bg"); ctx.lineWidth = 1.5;
       ctx.beginPath(); ctx.arc(n.x, n.y, n.r - 2, 0, 7); ctx.stroke();
     }
-    if (scale > 0.55 || n.r >= 11 || n === selected || n === hover) {
+    if (!dimmed && (scale > 0.55 || n.r >= 11 || n === selected || n === hover
+        || (focusSet && focusSet.has(n)))) {
       ctx.fillStyle = css("--ink");
       ctx.font = `${n.type === "framework" ? "700 13px Georgia, serif" : "11px system-ui"}`;
       ctx.textAlign = "center";
       ctx.fillText(n.label, n.x, n.y - n.r - 5);
     }
   }
+  ctx.globalAlpha = 1;
 }
 
 function loop() { step(); draw(); requestAnimationFrame(loop); }
@@ -252,7 +295,7 @@ cv.addEventListener("pointermove", e => {
 cv.addEventListener("pointerup", e => {
   if (!moved) {
     const n = pick(e.offsetX, e.offsetY);
-    selected = n; showDetail(n);
+    setFocus(n); showDetail(n);
   }
   dragNode = null; panning = false; cv.classList.remove("dragging");
 });
@@ -265,8 +308,26 @@ cv.addEventListener("wheel", e => {
 }, { passive: false });
 
 const detail = document.getElementById("detail"), body = document.getElementById("detail-body");
-document.getElementById("close").addEventListener("click", () => { detail.classList.remove("open"); selected = null; });
+document.getElementById("close").addEventListener("click", () => { detail.classList.remove("open"); setFocus(null); });
 function esc(s) { return String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+// PDF só para visualização: sem download, com o toolbar do visualizador oculto.
+// Servido pelo backend (/api/fichamentos/{id}/pdf) ou, se aberto como arquivo
+// local, relativo à pasta da tese.
+function pdfSrc(n) {
+  if (!n.pdf) return null;
+  const frag = "#toolbar=0&navpanes=0&scrollbar=0";
+  if (location.protocol === "file:") return "../" + n.pdf + frag;
+  return "/api/fichamentos/" + encodeURIComponent(n.id) + "/pdf" + frag;
+}
+// carrega o iframe do PDF só ao clicar (evita baixar todo PDF a cada seleção)
+body.addEventListener("click", ev => {
+  const btn = ev.target.closest(".pdf-open");
+  if (!btn) return;
+  btn.parentElement.innerHTML =
+    `<div class="pdfhint">Somente visualização — sem download (direitos autorais).</div>` +
+    `<iframe class="pdfview" src="${btn.dataset.src}" title="PDF do artigo"></iframe>`;
+});
 function showDetail(n) {
   if (!n) { detail.classList.remove("open"); return; }
   const rels = edges.filter(e => e.s === n || e.t === n).map(e => {
@@ -275,13 +336,46 @@ function showDetail(n) {
     const note = e.note ? `<div class="note">${esc(e.note)}</div>` : "";
     return `<li><span class="rel">${esc(e.type)}</span> ${dir} ${esc(other.label)}${note}</li>`;
   }).join("");
+  const links = [];
+  if (n.url)
+    links.push(`<a class="ext" href="${esc(n.url)}" target="_blank" rel="noreferrer">` +
+      `publicado em ${esc(n.doi || n.venue)} ↗</a>`);
+  if (n.cited_in && n.cited_in.length)
+    links.push(`<div class="cited"><span class="lbl">citado na tese:</span> ` +
+      `${n.cited_in.map(esc).join(" · ")}</div>`);
+  const src = pdfSrc(n);
+  const pdfBlock = src
+    ? `<div class="pdfbox"><button class="pdf-open" data-src="${esc(src)}">Ver PDF (só visualização)</button></div>`
+    : ((n.type === "artigo" || n.type === "artigo-pendente")
+        ? `<div class="pdfbox note">PDF não disponível localmente.</div>` : "");
   body.innerHTML = `
     <div class="kind">${esc(TYPE_LABEL[n.type] || n.type)}</div>
     <h2>${esc(n.title || n.label)}</h2>
     <div class="meta">${[n.year, n.venue, n.paper_type].filter(Boolean).map(esc).join(" · ")}</div>
+    ${links.length ? `<div class="links">${links.join("")}</div>` : ""}
+    ${pdfBlock}
+    <div class="relhead">Relações${focusSet ? " · em foco no grafo" : ""}</div>
     <ul>${rels || "<li class='note'>sem relações visíveis</li>"}</ul>`;
   detail.classList.add("open");
 }
 
+// Enquadra o grafo na tela (evita abrir com zoom no centro vazio).
+function fitView() {
+  const vs = nodes.filter(isVisible);
+  if (!vs.length) return;
+  let minx = 1e9, miny = 1e9, maxx = -1e9, maxy = -1e9;
+  for (const n of vs) {
+    minx = Math.min(minx, n.x); maxx = Math.max(maxx, n.x);
+    miny = Math.min(miny, n.y); maxy = Math.max(maxy, n.y);
+  }
+  const gw = (maxx - minx) || 1, gh = (maxy - miny) || 1, pad = 70;
+  scale = Math.min(2.5, Math.max(0.12, Math.min((W - 2 * pad) / gw, (H - 2 * pad) / gh)));
+  ox = W / 2 - (minx + maxx) / 2 * scale;
+  oy = H / 2 - (miny + maxy) / 2 * scale;
+}
+
+// Assenta o layout antes do primeiro quadro e enquadra na tela.
+for (let i = 0; i < 320; i++) step();
+fitView();
 loop();
 </script>

@@ -13,7 +13,11 @@
       "year": 2012,
       "venue": "Springer",
       "paper_type": "livro",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Aggarwal2012MiningText.pdf",
+      "doi": "10.1007/978-1-4614-3223-4",
+      "url": "https://doi.org/10.1007/978-1-4614-3223-4",
+      "cited_in": []
     },
     {
       "id": "pilar:geral",
@@ -38,7 +42,11 @@
       "year": 2014,
       "venue": "Data Classification: Algorithms and Applications, Chapman & Hall/CRC, pp. 571–605",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Aggarwal2014.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "metodo:aprendizado-ativo",
@@ -53,7 +61,11 @@
       "year": 2018,
       "venue": "International Journal of Engineering & Technology, 7(3.8), pp. 11–15",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Aggarwal2018.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Agnihotri2018",
@@ -63,7 +75,11 @@
       "year": 2018,
       "venue": "Springer (capítulo de proceedings)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Agnihotri2018.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Alom2019",
@@ -73,7 +89,11 @@
       "year": 2019,
       "venue": "Electronics, 8(3), 292",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Alom2019.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Amir2023ColdStart",
@@ -83,7 +103,11 @@
       "year": 2023,
       "venue": "Dissertação de mestrado (MSc Interaction Technology), University of Twente",
       "paper_type": "dissertacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Amir2023ColdStart.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "pilar:P1",
@@ -118,7 +142,11 @@
       "year": 2018,
       "venue": "ICMLSC 2018 (2nd Int. Conf. on Machine Learning and Soft Computing), ACM",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/An2018.pdf",
+      "doi": "10.1145/3206098.3206116",
+      "url": "https://doi.org/10.1145/3206098.3206116",
+      "cited_in": []
     },
     {
       "id": "pilar:P2",
@@ -148,7 +176,13 @@
       "year": 1988,
       "venue": "Machine Learning, 2, pp. 319–342, Kluwer",
       "paper_type": "teoria",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Angluin1988.pdf",
+      "doi": "10.1023/A:1022821128753",
+      "url": "https://doi.org/10.1023/A:1022821128753",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:tipologia-de-consultas",
@@ -183,7 +217,11 @@
       "year": 2021,
       "venue": "Natural Language Engineering, 27(1)",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Azarbonyad2021.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Balyan2020",
@@ -193,7 +231,11 @@
       "year": 2020,
       "venue": "Int. J. of Artificial Intelligence in Education, 30, pp. 337–370",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Balyan2020.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Ban2022",
@@ -203,7 +245,11 @@
       "year": 2022,
       "venue": "NeurIPS 2022",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Ban2022.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "conceito:regret-populacional-para-al-neural",
@@ -233,7 +279,11 @@
       "year": 2019,
       "venue": "STIL (Symposium in Information and Human Language Technology) — edição a confirmar",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Bard2019Normalizador.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "conceito:normalizador-portugues-por-lm",
@@ -263,7 +313,11 @@
       "year": 2019,
       "venue": "ETASR, 9(6)",
       "paper_type": "avaliacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Basha2019.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Bayer2024ActiveLLM",
@@ -273,7 +327,14 @@
       "year": 2026,
       "venue": "Transactions of the ACL",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/bayer-activellm.pdf",
+      "doi": "10.1162/TACL.a.63",
+      "url": "https://doi.org/10.1162/TACL.a.63",
+      "cited_in": [
+        "Cap. 1 — Introdução",
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "pilar:P3",
@@ -308,7 +369,13 @@
       "year": 2021,
       "venue": "arXiv:2104.02822",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Baykal2021.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 6 — Conclusão"
+      ]
     },
     {
       "id": "conceito:al-como-sleeping-experts",
@@ -338,7 +405,11 @@
       "year": 2021,
       "venue": "ICCMC 2021, IEEE",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Bhavani2021.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Birunda2021",
@@ -348,7 +419,11 @@
       "year": 2021,
       "venue": "Innovative Data Communication Technologies and Application (ICIDCA 2020), Springer, pp. 267–281",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Birunda2021.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "metodo:embeddings",
@@ -368,7 +443,11 @@
       "year": 1999,
       "venue": "COLT 1999, pp. 203–208",
       "paper_type": "teoria",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Blum1999.pdf",
+      "doi": "10.1145/307400.307439",
+      "url": "https://doi.org/10.1145/307400.307439",
+      "cited_in": []
     },
     {
       "id": "conceito:garantias-para-kfold",
@@ -398,7 +477,13 @@
       "year": 2007,
       "venue": "Algorithmic Game Theory (Nisan et al., eds.), Cambridge University Press",
       "paper_type": "livro",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/BlumMansour2007.pdf",
+      "doi": "10.1017/CBO9780511800481.006",
+      "url": "https://doi.org/10.1017/CBO9780511800481.006",
+      "cited_in": [
+        "Cap. 6 — Conclusão"
+      ]
     },
     {
       "id": "tarefa:aprendizado-online",
@@ -413,7 +498,11 @@
       "year": 2012,
       "venue": "META-NET White Paper Series, Springer",
       "paper_type": "relatorio",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Branco2012.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "tarefa:pln-portugues",
@@ -428,7 +517,13 @@
       "year": 2001,
       "venue": "Statistical Science 16(2):101-133",
       "paper_type": "periodico",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Brown2001.pdf",
+      "doi": "10.1214/ss/1009213286",
+      "url": "https://doi.org/10.1214/ss/1009213286",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "pilar:transversal",
@@ -443,7 +538,11 @@
       "year": 2018,
       "venue": "Neurocomputing, 300, pp. 70–79",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Cai2018.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Cambria2013",
@@ -453,7 +552,11 @@
       "year": 2013,
       "venue": "IEEE Intelligent Systems, 28(2)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Cambria2013.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Cheng2024DualExpert",
@@ -463,7 +566,14 @@
       "year": 2024,
       "venue": "CustomNLP4U @ EMNLP 2024",
       "paper_type": "workshop",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Cheng2024DualExpert.pdf",
+      "doi": "10.18653/v1/2024.customnlp4u-1.22",
+      "url": "https://doi.org/10.18653/v1/2024.customnlp4u-1.22",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 6 — Conclusão"
+      ]
     },
     {
       "id": "conceito:dual-expert",
@@ -488,7 +598,11 @@
       "year": 2013,
       "venue": "Tese de doutorado, ICMC-USP (orient. Maria Carolina Monard)",
       "paper_type": "tese",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Cherman2013.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "metodo:classificacao-multirrotulo",
@@ -508,7 +622,13 @@
       "year": 1994,
       "venue": "Machine Learning, 15, pp. 201–221, Kluwer",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Cohn1994Improving.pdf",
+      "doi": "10.1007/BF00993277",
+      "url": "https://doi.org/10.1007/BF00993277",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:selective-sampling",
@@ -548,7 +668,14 @@
       "year": 2022,
       "venue": "Semina: Ciências Exatas e Tecnológicas, 43(2), pp. 189–198",
       "paper_type": "avaliacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Daru2022.pdf",
+      "doi": "10.5433/1679-0375.2022v43n2p189",
+      "url": "https://doi.org/10.5433/1679-0375.2022v43n2p189",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 3 — Metodologia"
+      ]
     },
     {
       "id": "pilar:P4",
@@ -613,7 +740,16 @@
       "year": 2024,
       "venue": "Dissertação de Mestrado (MECAI), ICMC-USP, São Carlos. Orientador: Antonio Castelo Filho",
       "paper_type": "dissertacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Daru2024Dissertacao.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 1 — Introdução",
+        "Cap. 2 — Fundamentação",
+        "Cap. 3 — Metodologia",
+        "Cap. 5 — Resultados (FALCO)"
+      ]
     },
     {
       "id": "conceito:argmax-binary",
@@ -648,7 +784,11 @@
       "year": 1990,
       "venue": "Journal of the American Society for Information Science, 41(6), pp. 391–407",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Deerwester1990.pdf",
+      "doi": "10.1002/(SICI)1097-4571(199009)41:6<391::AID-ASI1>3.0.CO;2-9",
+      "url": "https://doi.org/10.1002/(SICI)1097-4571(199009)41:6<391::AID-ASI1>3.0.CO;2-9",
+      "cited_in": []
     },
     {
       "id": "conceito:lsa",
@@ -683,7 +823,13 @@
       "year": 2006,
       "venue": "Journal of Machine Learning Research 7:1-30",
       "paper_type": "periodico",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Demsar2006.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:protocolo-de-comparacao-estatistica-de-classificadores",
@@ -698,7 +844,11 @@
       "year": 2019,
       "venue": "Multimedia Tools and Applications, 78",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Deng2019.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Dietterich1998",
@@ -708,7 +858,13 @@
       "year": 1998,
       "venue": "Neural Computation 10(7):1895-1923",
       "paper_type": "periodico",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Dietterich1998.pdf",
+      "doi": "10.1162/089976698300017197",
+      "url": "https://doi.org/10.1162/089976698300017197",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:taxonomia-de-testes-para-classificadores",
@@ -728,7 +884,11 @@
       "year": 2022,
       "venue": "Computational Intelligence and Neuroscience, 2022",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Dogra2022.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Donmez2009",
@@ -738,7 +898,13 @@
       "year": 2009,
       "venue": "KDD 2009, pp. 259-268",
       "paper_type": "conferencia",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Donmez2009.pdf",
+      "doi": "10.1145/1557019.1557053",
+      "url": "https://doi.org/10.1145/1557019.1557053",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "pilar:p3-oraculo",
@@ -768,7 +934,11 @@
       "year": 2019,
       "venue": "PLOS ONE, 14(12)",
       "paper_type": "avaliacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Du2019.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Feldman2013",
@@ -778,7 +948,11 @@
       "year": 2013,
       "venue": "Communications of the ACM, 56(4)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Feldman2013.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Forman2010",
@@ -788,7 +962,13 @@
       "year": 2010,
       "venue": "ACM SIGKDD Explorations, 12(1), pp. 49–57",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Forman2010.pdf",
+      "doi": "10.1145/1882471.1882479",
+      "url": "https://doi.org/10.1145/1882471.1882479",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:f1-agregado-corretamente-em-cv",
@@ -808,7 +988,11 @@
       "year": 2011,
       "venue": "Statistics and Computing, 21, pp. 137–146",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Fushiki2011.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Gandomi2015",
@@ -818,7 +1002,11 @@
       "year": 2015,
       "venue": "International Journal of Information Management, 35(2)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Gandomi2015.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Gasparetto2022",
@@ -828,7 +1016,11 @@
       "year": 2022,
       "venue": "Information, 13(2), 83",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Gasparetto2022.pdf",
+      "doi": "10.3390/info13020083",
+      "url": "https://doi.org/10.3390/info13020083",
+      "cited_in": []
     },
     {
       "id": "Gholamian2024",
@@ -838,7 +1030,14 @@
       "year": 2024,
       "venue": "CustomNLP4U @ EMNLP 2024 (arXiv:2408.05874)",
       "paper_type": "workshop",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Gholamian2024.pdf",
+      "doi": "10.48550/arXiv.2408.05874",
+      "url": "https://doi.org/10.48550/arXiv.2408.05874",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 6 — Conclusão"
+      ]
     },
     {
       "id": "dataset:Icecat-370",
@@ -858,7 +1057,15 @@
       "year": 2023,
       "venue": "Proceedings of the National Academy of Sciences (PNAS)",
       "paper_type": "avaliacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Gilardi2023.pdf",
+      "doi": "10.1073/pnas.2305016120",
+      "url": "https://doi.org/10.1073/pnas.2305016120",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 5 — Resultados (FALCO)",
+        "Cap. 6 — Conclusão"
+      ]
     },
     {
       "id": "metodo:llm-como-oraculo",
@@ -888,7 +1095,11 @@
       "year": 2020,
       "venue": "Automation and Remote Control, 81(12)",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Glazkova2020.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Goudjil2018",
@@ -898,7 +1109,13 @@
       "year": 2018,
       "venue": "International Journal of Automation and Computing, 15(3), pp. 290–298",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Goudjil2018.pdf",
+      "doi": "10.1007/s11633-015-0912-z",
+      "url": "https://doi.org/10.1007/s11633-015-0912-z",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:selecao-em-lote-por-probabilidade-svm",
@@ -918,7 +1135,11 @@
       "year": 2018,
       "venue": "ALW2 Workshop (EMNLP 2018)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Gunasekara2018.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Guo2025Deuce",
@@ -928,7 +1149,13 @@
       "year": 2024,
       "venue": "TACL 12:1736-1754",
       "paper_type": "periodico",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Guo2025Deuce.pdf",
+      "doi": "10.1162/tacl_a_00731",
+      "url": "https://doi.org/10.1162/tacl_a_00731",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:dual-neighbor-graph",
@@ -983,7 +1210,11 @@
       "year": 2009,
       "venue": "Expert Systems with Applications, 36(7)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Guzella2009.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Hafez2021",
@@ -993,7 +1224,11 @@
       "year": 2021,
       "venue": "Applied Sciences, 11(9), 4117 (MDPI)",
       "paper_type": "avaliacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Hafez2021.pdf",
+      "doi": "10.3390/app11094117",
+      "url": "https://doi.org/10.3390/app11094117",
+      "cited_in": []
     },
     {
       "id": "metodo:ranking-probabilistico",
@@ -1013,7 +1248,11 @@
       "year": 2021,
       "venue": "Knowledge-Based Systems, 212",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/He2021.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Hoi2006",
@@ -1023,7 +1262,13 @@
       "year": 2006,
       "venue": "WWW 2006 (15th International Conference on World Wide Web)",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Hoi2006.pdf",
+      "doi": "10.1145/1135777.1135870",
+      "url": "https://doi.org/10.1145/1135777.1135870",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:batch-mode-active-learning",
@@ -1053,7 +1298,11 @@
       "year": 2011,
       "venue": "Tese de doutorado, Technological University Dublin",
       "paper_type": "tese",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Hu2011.pdf",
+      "doi": "10.21427/D70K5Z",
+      "url": "https://doi.org/10.21427/D70K5Z",
+      "cited_in": []
     },
     {
       "id": "metodo:criterio-de-parada",
@@ -1068,7 +1317,11 @@
       "year": 2005,
       "venue": "WSEAS Transactions on Computers, 4(8)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Ikonomakis2005.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Jacomassi2024",
@@ -1078,7 +1331,11 @@
       "year": 2024,
       "venue": "Dissertação de mestrado, IME-USP (orient. Nina Hirata)",
       "paper_type": "dissertacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Jacomassi2024.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "James2021",
@@ -1088,7 +1345,11 @@
       "year": 2021,
       "venue": "Springer",
       "paper_type": "livro",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/James2021.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Javed2018",
@@ -1098,7 +1359,11 @@
       "year": 2018,
       "venue": "IJACSA, 9(10)",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Javed2018.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "conceito:normalizacao-de-texto-informal",
@@ -1128,7 +1393,11 @@
       "year": 2021,
       "venue": "Manuscrito, University of Nottingham Ningbo",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Jiang2021Multiview.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Jindal2015",
@@ -1138,7 +1407,11 @@
       "year": 2015,
       "venue": "Webology, 12(2)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Jindal2015.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Joachims1996",
@@ -1148,7 +1421,11 @@
       "year": 1996,
       "venue": "Technical Report CMU-CS-96-118, Carnegie Mellon University",
       "paper_type": "teoria",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Joachims1996.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "conceito:probtfidf",
@@ -1183,7 +1460,11 @@
       "year": 1998,
       "venue": "ECML 1998, pp. 137–142, Springer",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Joachims1998.pdf",
+      "doi": "10.1007/BFb0026683",
+      "url": "https://doi.org/10.1007/BFb0026683",
+      "cited_in": []
     },
     {
       "id": "conceito:svm-para-texto",
@@ -1203,7 +1484,11 @@
       "year": 2021,
       "venue": "IEEE Access, 9, pp. 125229–125237",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/KahlootEkler2021.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Karl2023",
@@ -1213,7 +1498,15 @@
       "year": 2023,
       "venue": "Machine Learning and Knowledge Extraction (CD-MAKE 2023), LNCS",
       "paper_type": "avaliacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Karl2023.pdf",
+      "doi": "10.1007/978-3-031-40837-3_7",
+      "url": "https://doi.org/10.1007/978-3-031-40837-3_7",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 3 — Metodologia",
+        "Cap. 6 — Conclusão"
+      ]
     },
     {
       "id": "conceito:benchmark-stops",
@@ -1268,7 +1561,11 @@
       "year": 2021,
       "venue": "Manuscrito (SRM Institute); venue a confirmar",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Kavitha2021Review.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Kesiku2022",
@@ -1278,7 +1575,11 @@
       "year": 2022,
       "venue": "Information, 13(10), 499",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Kesiku2022.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Kholodna2024",
@@ -1288,7 +1589,14 @@
       "year": 2024,
       "venue": "arXiv:2404.02261",
       "paper_type": "preprint",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Kholodna2024.pdf",
+      "doi": "10.48550/arXiv.2404.02261",
+      "url": "https://doi.org/10.48550/arXiv.2404.02261",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 5 — Resultados (FALCO)"
+      ]
     },
     {
       "id": "conceito:selecao-de-anotador-llm",
@@ -1328,7 +1636,13 @@
       "year": 2019,
       "venue": "Information, 10(4), 150 (MDPI)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Kowsari2019.pdf",
+      "doi": "10.3390/info10040150",
+      "url": "https://doi.org/10.3390/info10040150",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:pipeline-de-4-fases-da-classificacao-de-texto",
@@ -1353,7 +1667,11 @@
       "year": 2016,
       "venue": "IJSR, 5(5)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Kumbhar2016.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Lewis1994",
@@ -1363,7 +1681,14 @@
       "year": 1994,
       "venue": "SIGIR '94, pp. 3–12, Springer-Verlag",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Lewis1994.pdf",
+      "doi": "10.1007/978-1-4471-2099-5_1",
+      "url": "https://doi.org/10.1007/978-1-4471-2099-5_1",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 3 — Metodologia"
+      ]
     },
     {
       "id": "conceito:amostragem-por-incerteza",
@@ -1393,7 +1718,13 @@
       "year": 2020,
       "venue": "arXiv:2008.00364 (publicado em ACM TIST 13(2), 2022)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Li2020.pdf",
+      "doi": "10.1145/3495162",
+      "url": "https://doi.org/10.1145/3495162",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "Liang2007",
@@ -1403,7 +1734,11 @@
       "year": 2007,
       "venue": "Statistical Science, 22(2), pp. 189–205",
       "paper_type": "teoria",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Liang2007.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Liu2012",
@@ -1413,7 +1748,11 @@
       "year": 2012,
       "venue": "Proceedings of the IEEE, 100(9)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Liu2012.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Mabrouk2017",
@@ -1423,7 +1762,11 @@
       "year": 2017,
       "venue": "Ain Shams University (proceedings)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Mabrouk2017.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Marcot2021",
@@ -1433,7 +1776,11 @@
       "year": 2021,
       "venue": "Computational Statistics, 36, pp. 2009–2031",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Marcot2021.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "MaslejKresnakova2020",
@@ -1443,7 +1790,11 @@
       "year": 2020,
       "venue": "Applied Sciences, 10(23), 8631",
       "paper_type": "avaliacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/MaslejKresnakova2020.pdf",
+      "doi": "10.3390/app10238631",
+      "url": "https://doi.org/10.3390/app10238631",
+      "cited_in": []
     },
     {
       "id": "metodo:deep-learning",
@@ -1468,7 +1819,11 @@
       "year": 2023,
       "venue": "Dissertação de mestrado em Estatística, Stockholm University",
       "paper_type": "dissertacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Mattiasson2023.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "metodo:least-confident",
@@ -1493,7 +1848,11 @@
       "year": 2019,
       "venue": "Malaysian Journal of Computer Science, 32(2)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Maw2019.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Merdjanovska2024NoiseBench",
@@ -1503,7 +1862,14 @@
       "year": 2024,
       "venue": "EMNLP 2024",
       "paper_type": "conferencia",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Merdjanovska2024NoiseBench.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 5 — Resultados (FALCO)"
+      ]
     },
     {
       "id": "conceito:benchmark-6-tipos-ruido-real",
@@ -1518,7 +1884,13 @@
       "year": 2013,
       "venue": "ICLR 2013 Workshop (arXiv:1301.3781)",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Mikolov2013.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:word2vec",
@@ -1558,7 +1930,11 @@
       "year": 2022,
       "venue": "ACM Computing Surveys, 54(3), pp. 1–40",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Minaee2022.pdf",
+      "doi": "10.1145/3439726",
+      "url": "https://doi.org/10.1145/3439726",
+      "cited_in": []
     },
     {
       "id": "modelo:transformer",
@@ -1573,7 +1949,11 @@
       "year": 2018,
       "venue": "Expert Systems With Applications, 106, pp. 36–54",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Mironczuk2018.pdf",
+      "doi": "10.1016/j.eswa.2018.03.058",
+      "url": "https://doi.org/10.1016/j.eswa.2018.03.058",
+      "cited_in": []
     },
     {
       "id": "conceito:elementos-do-pipeline-de-classificacao",
@@ -1588,7 +1968,11 @@
       "year": 2017,
       "venue": "Capítulo-rascunho, 2ª ed. de Machine Learning (CMU)",
       "paper_type": "livro",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Mitchell2017NBLR.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Naseem2021HateSpeech",
@@ -1598,7 +1982,11 @@
       "year": 2021,
       "venue": "Multimedia Tools and Applications, 80, pp. 35239–35266",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Naseem2021HateSpeech.pdf",
+      "doi": "10.1007/s11042-020-10082-6",
+      "url": "https://doi.org/10.1007/s11042-020-10082-6",
+      "cited_in": []
     },
     {
       "id": "metodo:avaliacao-de-12-tecnicas",
@@ -1618,7 +2006,13 @@
       "year": 2021,
       "venue": "ACM TALLIP, 20(5), pp. 1–35",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Naseem2021WordRep.pdf",
+      "doi": "10.1145/3434237",
+      "url": "https://doi.org/10.1145/3434237",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:taxonomia-de-representacoes",
@@ -1633,7 +2027,11 @@
       "year": 2020,
       "venue": "IJEIS, 16(4)",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Ni2020.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Olsson2009",
@@ -1643,7 +2041,13 @@
       "year": 2009,
       "venue": "SICS Technical Report T2009:06, Swedish Institute of Computer Science",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Olsson2009.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 6 — Conclusão"
+      ]
     },
     {
       "id": "tarefa:ner",
@@ -1668,7 +2072,11 @@
       "year": 2018,
       "venue": "INCISCOS 2018, IEEE",
       "paper_type": "avaliacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Orellana2018.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Patra2013",
@@ -1678,7 +2086,11 @@
       "year": 2013,
       "venue": "IJCA, 75(7)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Patra2013.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Paulucio2020",
@@ -1688,7 +2100,11 @@
       "year": 2020,
       "venue": "IJCNN 2020, IEEE",
       "paper_type": "avaliacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Paulucio2020.pdf",
+      "doi": "10.1109/IJCNN48605.2020.9207093",
+      "url": "https://doi.org/10.1109/IJCNN48605.2020.9207093",
+      "cited_in": []
     },
     {
       "id": "conceito:dnn-como-extrator-de-atributos",
@@ -1708,7 +2124,11 @@
       "year": 2022,
       "venue": "Journal of Computer Information Systems, 62(4), pp. 730–739",
       "paper_type": "avaliacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Pawlowski2022.pdf",
+      "doi": "10.1080/08874417.2021.1910880",
+      "url": "https://doi.org/10.1080/08874417.2021.1910880",
+      "cited_in": []
     },
     {
       "id": "metodo:classificadores-classicos",
@@ -1733,7 +2153,13 @@
       "year": 2014,
       "venue": "EMNLP 2014, pp. 1532–1543",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Pennington2014.pdf",
+      "doi": "10.3115/v1/D14-1162",
+      "url": "https://doi.org/10.3115/v1/D14-1162",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:glove",
@@ -1763,7 +2189,11 @@
       "year": 2014,
       "venue": "IEEE TGRS, 52(11), pp. 6937–6956",
       "paper_type": "avaliacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Persello2014.pdf",
+      "doi": "10.1109/TGRS.2014.2305805",
+      "url": "https://doi.org/10.1109/TGRS.2014.2305805",
+      "cited_in": []
     },
     {
       "id": "conceito:comparacao-al-vs-ssl",
@@ -1793,7 +2223,11 @@
       "year": 2021,
       "venue": "Artificial Intelligence Review, 54",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Pintas2021.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "PuYang2006",
@@ -1803,7 +2237,11 @@
       "year": 2006,
       "venue": "ISNN 2006, LNCS 3972, pp. 265–270",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/PuYang2006.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Qi2026MixtureLLMs",
@@ -1813,7 +2251,14 @@
       "year": 2026,
       "venue": "AAAI 40(29):24909-24917",
       "paper_type": "conferencia",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Qi2026MixtureLLMs.pdf",
+      "doi": "10.1609/aaai.v40i29.39678",
+      "url": "https://doi.org/10.1609/aaai.v40i29.39678",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 6 — Conclusão"
+      ]
     },
     {
       "id": "conceito:mixture-of-llms-anotador",
@@ -1868,7 +2313,14 @@
       "year": 2024,
       "venue": "arXiv:2407.10992",
       "paper_type": "preprint-benchmark",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Raczkowska2024AlleNoise.pdf",
+      "doi": "10.48550/arXiv.2407.10992",
+      "url": "https://doi.org/10.48550/arXiv.2407.10992",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 6 — Conclusão"
+      ]
     },
     {
       "id": "conceito:benchmark-ruido-real",
@@ -1888,7 +2340,11 @@
       "year": 2018,
       "venue": "arXiv:1811.12808",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Raschka2018.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Ren2021",
@@ -1898,7 +2354,13 @@
       "year": 2021,
       "venue": "ACM Computing Surveys, 54(9)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Ren2021.pdf",
+      "doi": "10.1145/3472291",
+      "url": "https://doi.org/10.1145/3472291",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:taxonomia-deepal",
@@ -1923,7 +2385,11 @@
       "year": 2021,
       "venue": "IEEE (SLR), 2021",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Riduan2021.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Roumeliotis2025",
@@ -1933,7 +2399,14 @@
       "year": 2025,
       "venue": "Natural Language Processing Journal 11:100142",
       "paper_type": "periodico",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Roumeliotis2025.pdf",
+      "doi": "10.1016/j.nlp.2025.100142",
+      "url": "https://doi.org/10.1016/j.nlp.2025.100142",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 6 — Conclusão"
+      ]
     },
     {
       "id": "modelo:gpt-4o",
@@ -1968,7 +2441,11 @@
       "year": 2024,
       "venue": "Dissertação de mestrado, Ontario Tech University (expande arXiv:2406.12114 com Makrehchi)",
       "paper_type": "dissertacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Rouzegar2024Thesis.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "conceito:picr-criterio-de-parada",
@@ -2003,7 +2480,13 @@
       "year": 1988,
       "venue": "Information Processing & Management, 24(5), pp. 513–523",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Salton1988.pdf",
+      "doi": "10.1016/0306-4573(88)90021-0",
+      "url": "https://doi.org/10.1016/0306-4573(88)90021-0",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:tf-idf",
@@ -2028,7 +2511,14 @@
       "year": 2016,
       "venue": "Tese de doutorado, ICMC-USP (orient. André C. P. L. F. de Carvalho)",
       "paper_type": "tese",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Santos2016Vies.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 3 — Metodologia"
+      ]
     },
     {
       "id": "conceito:controle-de-vies-de-al",
@@ -2048,7 +2538,11 @@
       "year": 2016,
       "venue": "Computers in Industry, 78",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Schmidt2016.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Schroder2020DNNSurvey",
@@ -2058,7 +2552,11 @@
       "year": 2020,
       "venue": "arXiv:2008.07267",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Schroder2020DNNSurvey.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "conceito:taxonomia-data-model-prediction-based",
@@ -2073,7 +2571,11 @@
       "year": 2021,
       "venue": "arXiv:2107.10314 (posteriormente EACL 2023 System Demonstrations)",
       "paper_type": "ferramenta",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Schroder2021SmallText.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "conceito:biblioteca-small-text",
@@ -2098,7 +2600,11 @@
       "year": 1999,
       "venue": "ICML 1999, pp. 379–388",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/ScottMatwin1999.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Settles2009",
@@ -2108,7 +2614,13 @@
       "year": 2009,
       "venue": "Computer Sciences Technical Report 1648, University of Wisconsin–Madison",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Settles2009.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "Settles2012",
@@ -2118,7 +2630,15 @@
       "year": 2012,
       "venue": "Morgan & Claypool, Synthesis Lectures on Artificial Intelligence and Machine Learning",
       "paper_type": "livro",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Settles2012.pdf",
+      "doi": "10.2200/S00429ED1V01Y201207AIM018",
+      "url": "https://doi.org/10.2200/S00429ED1V01Y201207AIM018",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 3 — Metodologia",
+        "Cap. 6 — Conclusão"
+      ]
     },
     {
       "id": "conceito:taxonomia-de-cenarios-de-al",
@@ -2148,7 +2668,13 @@
       "year": 2008,
       "venue": "NIPS Workshop on Cost-Sensitive Learning",
       "paper_type": "avaliacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/SettlesCravenFriedland2008.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 6 — Conclusão"
+      ]
     },
     {
       "id": "conceito:al-sensivel-a-custo",
@@ -2178,7 +2704,11 @@
       "year": 2016,
       "venue": "IEEE WiSPNET 2016",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Shah2016.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Shah2018Review",
@@ -2188,7 +2718,11 @@
       "year": 2018,
       "venue": "IEEE, 2018",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Shah2018Review.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Shah2020",
@@ -2198,7 +2732,11 @@
       "year": 2020,
       "venue": "Augmented Human Research, 5",
       "paper_type": "avaliacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Shah2020.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Sharma2015",
@@ -2208,7 +2746,13 @@
       "year": 2015,
       "venue": "NAACL-HLT 2015, pp. 441–451",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Sharma2015.pdf",
+      "doi": "10.3115/v1/N15-1047",
+      "url": "https://doi.org/10.3115/v1/N15-1047",
+      "cited_in": [
+        "Cap. 6 — Conclusão"
+      ]
     },
     {
       "id": "conceito:al-com-racionais",
@@ -2228,7 +2772,11 @@
       "year": 2018,
       "venue": "ICLR 2018",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Shen2018.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "conceito:mnlp-normalizacao-de-incerteza",
@@ -2253,7 +2801,13 @@
       "year": 2008,
       "venue": "KDD 2008, pp. 614-622",
       "paper_type": "conferencia",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Sheng2008.pdf",
+      "doi": "10.1145/1401890.1401965",
+      "url": "https://doi.org/10.1145/1401890.1401965",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:rotulagem-repetida",
@@ -2273,7 +2827,11 @@
       "year": 2020,
       "venue": "Expert Systems With Applications, 146, 113199",
       "paper_type": "avaliacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Silva2020.pdf",
+      "doi": "10.1016/j.eswa.2020.113199",
+      "url": "https://doi.org/10.1016/j.eswa.2020.113199",
+      "cited_in": []
     },
     {
       "id": "conceito:corpus-fakebr",
@@ -2298,7 +2856,13 @@
       "year": 2008,
       "venue": "EMNLP 2008, pp. 254-263",
       "paper_type": "conferencia",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Snow2008.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:avaliacao-de-anotadores-nao-especialistas",
@@ -2318,7 +2882,14 @@
       "year": 2009,
       "venue": "Information Processing & Management, 45(4), pp. 427–437",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Sokolova2009.pdf",
+      "doi": "10.1016/j.ipm.2009.03.002",
+      "url": "https://doi.org/10.1016/j.ipm.2009.03.002",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 3 — Metodologia"
+      ]
     },
     {
       "id": "conceito:analise-de-invariancia-de-metricas",
@@ -2338,7 +2909,11 @@
       "year": 2023,
       "venue": "IEEE TNNLS, 34(11)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Song2022GraphSSL.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Souza2020BERTimbau",
@@ -2348,7 +2923,15 @@
       "year": 2020,
       "venue": "BRACIS 2020, pp. 403–417, Springer (PDF arquivado: dissertação de mestrado Unicamp, versão expandida)",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Souza2020BERTimbau.pdf",
+      "doi": "10.1007/978-3-030-61377-8_28",
+      "url": "https://doi.org/10.1007/978-3-030-61377-8_28",
+      "cited_in": [
+        "Cap. 1 — Introdução",
+        "Cap. 2 — Fundamentação",
+        "Cap. 3 — Metodologia"
+      ]
     },
     {
       "id": "conceito:bertimbau",
@@ -2408,7 +2991,11 @@
       "year": 2023,
       "venue": "Neural Computing and Applications, 35, pp. 9393–9406",
       "paper_type": "avaliacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Souza2022Embedding.pdf",
+      "doi": "10.1007/s00521-022-08068-6",
+      "url": "https://doi.org/10.1007/s00521-022-08068-6",
+      "cited_in": []
     },
     {
       "id": "dataset:reviews-em-portugues",
@@ -2423,7 +3010,13 @@
       "year": 2003,
       "venue": "JASIST, 54(11)",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Sun2003.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 6 — Conclusão"
+      ]
     },
     {
       "id": "Tan2020",
@@ -2433,7 +3026,13 @@
       "year": 2020,
       "venue": "ACM Transactions on Management Information Systems, 11(3)",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Tan2020.pdf",
+      "doi": "10.1145/3382189",
+      "url": "https://doi.org/10.1145/3382189",
+      "cited_in": [
+        "Cap. 6 — Conclusão"
+      ]
     },
     {
       "id": "conceito:categorizacao-como-traducao",
@@ -2468,7 +3067,11 @@
       "year": 2018,
       "venue": "Interdisciplinary Journal of Information, Knowledge, and Management, 13, pp. 117–135",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Thangaraj2018.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Tu2018",
@@ -2478,7 +3081,11 @@
       "year": 2018,
       "venue": "Journal of Shanghai Jiaotong University (em chinês)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Tu2018.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "VanEngelen2020",
@@ -2488,7 +3095,11 @@
       "year": 2020,
       "venue": "Machine Learning, 109, pp. 373–440",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/VanEngelen2020.pdf",
+      "doi": "10.1007/s10994-019-05855-6",
+      "url": "https://doi.org/10.1007/s10994-019-05855-6",
+      "cited_in": []
     },
     {
       "id": "conceito:taxonomia-ssl",
@@ -2503,7 +3114,11 @@
       "year": 2017,
       "venue": "NeurIPS 2017 (Advances in Neural Information Processing Systems 30)",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Vaswani2017.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "conceito:transformer",
@@ -2543,7 +3158,11 @@
       "year": 2015,
       "venue": "Pattern Recognition, 48(9)",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Wong2015.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Wu2020",
@@ -2553,7 +3172,11 @@
       "year": 2020,
       "venue": "Computers, Materials & Continua, 63(3), pp. 1309–1321",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Wu2020.pdf",
+      "doi": "10.32604/cmc.2020.010172",
+      "url": "https://doi.org/10.32604/cmc.2020.010172",
+      "cited_in": []
     },
     {
       "id": "Xia2025",
@@ -2563,7 +3186,13 @@
       "year": 2025,
       "venue": "ACL 2025 (arXiv:2502.11767)",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/LLMALSurvey2025.pdf",
+      "doi": "10.48550/arXiv.2502.11767",
+      "url": "https://doi.org/10.48550/arXiv.2502.11767",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "Xia2025CanDist",
@@ -2573,7 +3202,14 @@
       "year": 2025,
       "venue": "ACL 2025, pp. 2750-2770",
       "paper_type": "conferencia",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Xia2025CanDist.pdf",
+      "doi": "10.18653/v1/2025.acl-long.139",
+      "url": "https://doi.org/10.18653/v1/2025.acl-long.139",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 6 — Conclusão"
+      ]
     },
     {
       "id": "conceito:rotulos-candidatos",
@@ -2613,7 +3249,11 @@
       "year": 2020,
       "venue": "Multimedia Tools and Applications, 79",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Xu2020.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "Yuan2025NoiseAL",
@@ -2623,7 +3263,14 @@
       "year": 2025,
       "venue": "arXiv:2504.02901",
       "paper_type": "preprint",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Yuan2025NoiseAL.pdf",
+      "doi": "10.48550/arXiv.2504.02901",
+      "url": "https://doi.org/10.48550/arXiv.2504.02901",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 5 — Resultados (FALCO)"
+      ]
     },
     {
       "id": "conceito:filtragem-colaborativa-de-ruido",
@@ -2653,7 +3300,11 @@
       "year": 2016,
       "venue": "Knowledge-Based Systems, 102, pp. 76–86",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Zhang2016ShortText.pdf",
+      "doi": "10.1016/j.knosys.2016.03.027",
+      "url": "https://doi.org/10.1016/j.knosys.2016.03.027",
+      "cited_in": []
     },
     {
       "id": "conceito:vetores-conjuntos-palavra-topico",
@@ -2678,7 +3329,13 @@
       "year": 2025,
       "venue": "International Journal of Intelligent Systems (Wiley)",
       "paper_type": "periodico",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Zhang2025.pdf",
+      "doi": "10.1155/int/6472544",
+      "url": "https://doi.org/10.1155/int/6472544",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "metodo:diversidade",
@@ -2693,7 +3350,11 @@
       "year": 2017,
       "venue": "Dissertação de mestrado, KTH Royal Institute of Technology, Estocolmo",
       "paper_type": "dissertacao",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Zhao2017DeepALShortText.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "metodo:cnn",
@@ -2708,7 +3369,11 @@
       "year": 2020,
       "venue": "IJEECS, 19(1), pp. 325–335",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/Zulqarnain2020.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
     },
     {
       "id": "alsmadi2019shorttext",
@@ -2718,7 +3383,13 @@
       "year": 2019,
       "venue": "International Journal of Web Information Systems",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/alsmadi2019shorttext.pdf",
+      "doi": "10.1108/IJWIS-12-2017-0083",
+      "url": "https://doi.org/10.1108/IJWIS-12-2017-0083",
+      "cited_in": [
+        "Cap. 1 — Introdução"
+      ]
     },
     {
       "id": "conceito:revisao-por-estagios-do-pipeline",
@@ -2748,7 +3419,13 @@
       "year": 2019,
       "venue": "Proceedings of NAACL-HLT 2019, pp. 4171–4186",
       "paper_type": "metodo",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/devlin2019bert.pdf",
+      "doi": "10.18653/v1/N19-1423",
+      "url": "https://doi.org/10.18653/v1/N19-1423",
+      "cited_in": [
+        "Cap. 1 — Introdução"
+      ]
     },
     {
       "id": "conceito:bert",
@@ -2798,7 +3475,13 @@
       "year": 2014,
       "venue": "Journal of Multimedia, 9(5), pp. 635–643",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/song2014shorttext.pdf",
+      "doi": "10.4304/jmm.9.5.635-643",
+      "url": "https://doi.org/10.4304/jmm.9.5.635-643",
+      "cited_in": [
+        "Cap. 1 — Introdução"
+      ]
     },
     {
       "id": "conceito:caracterizacao-de-texto-curto",
@@ -2818,7 +3501,13 @@
       "year": 2022,
       "venue": "Proceedings of EMNLP 2022, pp. 6166–6190",
       "paper_type": "survey",
-      "status": "fichado"
+      "status": "fichado",
+      "pdf": "referencias-pdf/zhang2022surveyAL.pdf",
+      "doi": "10.18653/v1/2022.emnlp-main.414",
+      "url": "https://doi.org/10.18653/v1/2022.emnlp-main.414",
+      "cited_in": [
+        "Cap. 1 — Introdução"
+      ]
     },
     {
       "id": "conceito:taxonomia-de-estrategias-de-consulta",

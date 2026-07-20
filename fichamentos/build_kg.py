@@ -9,6 +9,7 @@ Uso:  uv run --with pyyaml python fichamentos/build_kg.py
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 import yaml
@@ -36,11 +37,40 @@ def parse_front_matter(path: Path) -> dict | None:
     return yaml.safe_load(text[3:end])
 
 
+# Diretórios de capítulo da tese -> nome legível (para "citado na tese em ...")
+CHAPTER_NAMES = {
+    "1-intro": "Cap. 1 — Introdução",
+    "2-fundam": "Cap. 2 — Fundamentação",
+    "3-metodo": "Cap. 3 — Metodologia",
+    "4-resultados-l0": "Cap. 4 — Resultados (L0)",
+    "5-resultados-falco": "Cap. 5 — Resultados (FALCO)",
+    "6-conclusao": "Cap. 6 — Conclusão",
+}
+_CITE_RE = re.compile(
+    r"\\(?:cite|citep|citet|citeauthor|citeyear|textcite|parencite)[a-zA-Z]*\*?"
+    r"(?:\[[^\]]*\])*\{([^}]*)\}"
+)
+
+
+def _citations_by_key() -> dict[str, list[str]]:
+    """Mapeia chave BibTeX -> capítulos da tese que a citam."""
+    root = HERE.parent
+    cited: dict[str, set[str]] = {}
+    for chdir, label in CHAPTER_NAMES.items():
+        for tex in (root / chdir).glob("*.tex"):
+            for m in _CITE_RE.finditer(tex.read_text(encoding="utf-8", errors="replace")):
+                for key in m.group(1).split(","):
+                    cited.setdefault(key.strip(), set()).add(label)
+    return {k: sorted(v, key=lambda s: list(CHAPTER_NAMES.values()).index(s))
+            for k, v in cited.items()}
+
+
 def build() -> dict:
     nodes: dict[str, dict] = {
         "FALCO": {"id": "FALCO", "type": "framework", "label": "FALCO"}
     }
     edges: list[dict] = []
+    cited_in = _citations_by_key()
 
     for path in sorted(HERE.glob("*.md")):
         if path.name.startswith("_"):
@@ -49,6 +79,7 @@ def build() -> dict:
         if not meta or "id" not in meta:
             continue
         pid = meta["id"]
+        doi = (meta.get("doi") or "").strip()
         nodes[pid] = {
             "id": pid,
             "type": "artigo",
@@ -58,6 +89,10 @@ def build() -> dict:
             "venue": meta.get("venue", ""),
             "paper_type": meta.get("paper_type", ""),
             "status": meta.get("status", ""),
+            "pdf": (meta.get("pdf") or "").strip(),
+            "doi": doi,
+            "url": f"https://doi.org/{doi}" if doi else "",
+            "cited_in": cited_in.get(pid, []),
         }
         for relation in PAPER_RELATIONS:
             for target in meta.get(relation) or []:

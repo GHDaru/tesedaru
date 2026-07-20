@@ -9,3 +9,7 @@
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+
+# Python bytecode (gerado ao regenerar o KG via app)
+__pycache__/
+*.pyc
