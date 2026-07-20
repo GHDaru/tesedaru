@@ -79,12 +79,18 @@ def build() -> dict:
                 }
             )
 
-    # Alvos de relações artigo→artigo ainda não fichados viram nós "pendentes"
+    # Alvos ainda não declarados como nó:
+    #  - se vieram de uma relação artigo→artigo (PAPER_RELATIONS), são artigos
+    #    ainda não fichados → "artigo-pendente";
+    #  - se vieram de falco_relation, são entidades internas do FALCO (fases,
+    #    experimentos, algoritmos, afirmações, temas) → "tema-falco".
+    paper_targets = {e["target"] for e in edges if e["type"] in PAPER_RELATIONS}
     for edge in edges:
         if edge["target"] not in nodes:
+            is_paper = edge["target"] in paper_targets
             nodes[edge["target"]] = {
                 "id": edge["target"],
-                "type": "artigo-pendente",
+                "type": "artigo-pendente" if is_paper else "tema-falco",
                 "label": edge["target"],
             }
     return {"nodes": list(nodes.values()), "edges": edges}

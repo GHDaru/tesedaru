@@ -10,7 +10,7 @@ paper_type: survey
 pillars: [geral, P2, P4]
 status: fichado
 proposes: [taxonomia-data-model-prediction-based]
-uses_methods: [deep-active-learning, embeddings, modelos-de-linguagem]
+uses_methods: [deep-active-learning, embeddings, modelo-de-linguagem]
 datasets: []
 metrics: []
 tasks: [classificacao-de-texto]

@@ -6,7 +6,7 @@
     --line: #e3e0d8; --edge: rgba(60, 64, 72, 0.28); --edge-falco: rgba(160, 58, 82, 0.5);
     --artigo: #35629e; --pendente: #9aa7bd; --framework: #a03a52; --pilar: #b0713a;
     --metodo: #4a8a63; --conceito: #7a6aa0; --modelo: #737d8c; --dataset: #737d8c;
-    --tarefa: #737d8c; --halo: rgba(53, 98, 158, 0.16);
+    --tarefa: #737d8c; --tema-falco: #c06a2e; --halo: rgba(53, 98, 158, 0.16);
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -14,7 +14,7 @@
       --line: #2a3040; --edge: rgba(200, 205, 214, 0.22); --edge-falco: rgba(224, 122, 148, 0.55);
       --artigo: #6f9bd4; --pendente: #5d6b83; --framework: #d4708c; --pilar: #cf9a62;
       --metodo: #74b58d; --conceito: #a894cf; --modelo: #8d99ac; --dataset: #8d99ac;
-      --tarefa: #8d99ac; --halo: rgba(111, 155, 212, 0.2);
+      --tarefa: #8d99ac; --tema-falco: #e08a4e; --halo: rgba(111, 155, 212, 0.2);
     }
   }
   :root[data-theme="light"] {
@@ -22,14 +22,14 @@
     --line: #e3e0d8; --edge: rgba(60, 64, 72, 0.28); --edge-falco: rgba(160, 58, 82, 0.5);
     --artigo: #35629e; --pendente: #9aa7bd; --framework: #a03a52; --pilar: #b0713a;
     --metodo: #4a8a63; --conceito: #7a6aa0; --modelo: #737d8c; --dataset: #737d8c;
-    --tarefa: #737d8c; --halo: rgba(53, 98, 158, 0.16);
+    --tarefa: #737d8c; --tema-falco: #c06a2e; --halo: rgba(53, 98, 158, 0.16);
   }
   :root[data-theme="dark"] {
     --bg: #151922; --panel: #1c212c; --ink: #e6e4dc; --muted: #98a0ad;
     --line: #2a3040; --edge: rgba(200, 205, 214, 0.22); --edge-falco: rgba(224, 122, 148, 0.55);
     --artigo: #6f9bd4; --pendente: #5d6b83; --framework: #d4708c; --pilar: #cf9a62;
     --metodo: #74b58d; --conceito: #a894cf; --modelo: #8d99ac; --dataset: #8d99ac;
-    --tarefa: #8d99ac; --halo: rgba(111, 155, 212, 0.2);
+    --tarefa: #8d99ac; --tema-falco: #e08a4e; --halo: rgba(111, 155, 212, 0.2);
   }
   html, body { height: 100%; }
   body {
@@ -104,15 +104,17 @@ const GRAPH = /*__GRAPH_JSON__*/;
 
 const TYPE_LABEL = {
   "artigo": "Artigos fichados", "artigo-pendente": "A fichar", "framework": "FALCO",
-  "pilar": "Pilares", "metodo": "Métodos", "conceito": "Conceitos propostos",
-  "modelo": "Modelos", "dataset": "Datasets", "tarefa": "Tarefas"
+  "tema-falco": "Temas do FALCO", "pilar": "Pilares", "metodo": "Métodos",
+  "conceito": "Conceitos propostos", "modelo": "Modelos", "dataset": "Datasets",
+  "tarefa": "Tarefas"
 };
 const TYPE_VAR = {
   "artigo": "--artigo", "artigo-pendente": "--pendente", "framework": "--framework",
-  "pilar": "--pilar", "metodo": "--metodo", "conceito": "--conceito",
-  "modelo": "--modelo", "dataset": "--dataset", "tarefa": "--tarefa"
+  "tema-falco": "--tema-falco", "pilar": "--pilar", "metodo": "--metodo",
+  "conceito": "--conceito", "modelo": "--modelo", "dataset": "--dataset",
+  "tarefa": "--tarefa"
 };
-const RADIUS = { "framework": 16, "artigo": 9, "artigo-pendente": 6, "pilar": 11 };
+const RADIUS = { "framework": 16, "artigo": 9, "artigo-pendente": 6, "pilar": 11, "tema-falco": 10 };
 const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
 const nodes = GRAPH.nodes.map(n => ({ ...n,

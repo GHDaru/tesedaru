@@ -10,7 +10,7 @@ paper_type: conferencia
 pillars: [P3, P4]
 status: fichado
 proposes: [mixture-of-llms-anotador, discrepancia-de-anotacao, negative-learning]
-datasets: [AGNews, IMDB, TREC, PubMed]
+datasets: [AGNews, IMDb, TREC, PubMed]
 models: [gemma-2-9b, llama-3.1-8b, mistral-7b, qwen2.5-7b, yi-1.5-9b]
 falco_relation:
   - type: compete

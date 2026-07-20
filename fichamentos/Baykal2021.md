@@ -10,7 +10,7 @@ paper_type: metodo
 pillars: [P2]
 status: fichado
 proposes: [al-como-sleeping-experts]
-uses_methods: [minimizacao-de-regret, online-learning, ensembles]
+uses_methods: [minimizacao-de-regret, online-learning, ensemble]
 datasets: []
 metrics: [regret, acuracia]
 tasks: [classificacao]

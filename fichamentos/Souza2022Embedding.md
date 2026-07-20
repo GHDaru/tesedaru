@@ -10,7 +10,7 @@ paper_type: avaliacao
 pillars: [geral, P4]
 status: fichado
 proposes: []
-uses_methods: [bag-of-words, embeddings, transformers, avaliacao-comparativa]
+uses_methods: [bag-of-words, embeddings, transformer, avaliacao-comparativa]
 datasets: [reviews-em-portugues]
 metrics: [f1]
 tasks: [classificacao-de-texto]

@@ -14,7 +14,7 @@ datasets: [TREC, MedicalAbstract, DBpedia, AGNews, RCT, Banking77]
 models: [gpt-3.5, roberta]
 falco_relation:
   - type: estende
-    target: E0P-inv-alidos-futuros
+    target: E0P-invalidos-futuros
     note: "Correção conceitual importante: quando incerto, o LLM emite CONJUNTO
            de rótulos candidatos (não um único 'ouro'); um SLM destila. A
            incerteza do oráculo vira informação em vez de erro duro. Citado nos

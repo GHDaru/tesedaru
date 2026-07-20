@@ -326,9 +326,9 @@
       "label": "online-learning"
     },
     {
-      "id": "metodo:ensembles",
+      "id": "metodo:ensemble",
       "type": "metodo",
-      "label": "ensembles"
+      "label": "ensemble"
     },
     {
       "id": "Bhavani2021",
@@ -1226,9 +1226,9 @@
       "label": "benchmark-nice"
     },
     {
-      "id": "metodo:transformers",
+      "id": "metodo:transformer",
       "type": "metodo",
-      "label": "transformers"
+      "label": "transformer"
     },
     {
       "id": "metodo:bert",
@@ -1352,16 +1352,6 @@
       "title": "A Survey on Feature Selection Techniques and Classification Algorithms",
       "year": 2016,
       "venue": "IJSR, 5(5)",
-      "paper_type": "survey",
-      "status": "fichado"
-    },
-    {
-      "id": "LLMALSurvey2025",
-      "type": "artigo",
-      "label": "LLMALSurvey2025",
-      "title": "From Selection to Generation: A Survey of LLM-based Active Learning",
-      "year": 2025,
-      "venue": "ACL 2025 (arXiv:2502.11767)",
       "paper_type": "survey",
       "status": "fichado"
     },
@@ -1571,9 +1561,9 @@
       "status": "fichado"
     },
     {
-      "id": "modelo:transformers",
+      "id": "modelo:transformer",
       "type": "modelo",
-      "label": "transformers"
+      "label": "transformer"
     },
     {
       "id": "Mironczuk2018",
@@ -1866,11 +1856,6 @@
       "label": "yi-1.5-9b"
     },
     {
-      "id": "dataset:IMDB",
-      "type": "dataset",
-      "label": "IMDB"
-    },
-    {
       "id": "dataset:PubMed",
       "type": "dataset",
       "label": "PubMed"
@@ -2079,11 +2064,6 @@
       "id": "conceito:taxonomia-data-model-prediction-based",
       "type": "conceito",
       "label": "taxonomia-data-model-prediction-based"
-    },
-    {
-      "id": "metodo:modelos-de-linguagem",
-      "type": "metodo",
-      "label": "modelos-de-linguagem"
     },
     {
       "id": "Schroder2021SmallText",
@@ -2546,11 +2526,6 @@
       "label": "encoder-decoder"
     },
     {
-      "id": "modelo:transformer",
-      "type": "modelo",
-      "label": "transformer"
-    },
-    {
       "id": "dataset:wmt14",
       "type": "dataset",
       "label": "wmt14"
@@ -2577,6 +2552,16 @@
       "title": "Review of Text Classification Methods on Deep Learning",
       "year": 2020,
       "venue": "Computers, Materials & Continua, 63(3), pp. 1309–1321",
+      "paper_type": "survey",
+      "status": "fichado"
+    },
+    {
+      "id": "Xia2025",
+      "type": "artigo",
+      "label": "Xia2025",
+      "title": "From Selection to Generation: A Survey of LLM-based Active Learning",
+      "year": 2025,
+      "venue": "ACL 2025 (arXiv:2502.11767)",
       "paper_type": "survey",
       "status": "fichado"
     },
@@ -2781,11 +2766,6 @@
       "label": "fine-tuning-com-uma-camada"
     },
     {
-      "id": "metodo:transformer",
-      "type": "metodo",
-      "label": "transformer"
-    },
-    {
       "id": "metodo:pre-treinamento-nao-supervisionado",
       "type": "metodo",
       "label": "pre-treinamento-nao-supervisionado"
@@ -2831,11 +2811,6 @@
       "label": "analise-semantica"
     },
     {
-      "id": "metodo:ensemble",
-      "type": "metodo",
-      "label": "ensemble"
-    },
-    {
       "id": "zhang2022surveyAL",
       "type": "artigo",
       "label": "zhang2022surveyAL",
@@ -2867,72 +2842,72 @@
     },
     {
       "id": "DRI-SL",
-      "type": "artigo-pendente",
+      "type": "tema-falco",
       "label": "DRI-SL"
     },
     {
       "id": "instrumentacao-estatistica",
-      "type": "artigo-pendente",
+      "type": "tema-falco",
       "label": "instrumentacao-estatistica"
     },
     {
       "id": "FALCO-futuros",
-      "type": "artigo-pendente",
+      "type": "tema-falco",
       "label": "FALCO-futuros"
     },
     {
       "id": "multiplos-oraculos",
-      "type": "artigo-pendente",
+      "type": "tema-falco",
       "label": "multiplos-oraculos"
     },
     {
       "id": "claim-granularidade",
-      "type": "artigo-pendente",
+      "type": "tema-falco",
       "label": "claim-granularidade"
     },
     {
       "id": "RQ2-lote",
-      "type": "artigo-pendente",
+      "type": "tema-falco",
       "label": "RQ2-lote"
     },
     {
-      "id": "Cap2-revisao",
-      "type": "artigo-pendente",
-      "label": "Cap2-revisao"
-    },
-    {
       "id": "E4-leitura",
-      "type": "artigo-pendente",
+      "type": "tema-falco",
       "label": "E4-leitura"
     },
     {
       "id": "FALCO-fases",
-      "type": "artigo-pendente",
+      "type": "tema-falco",
       "label": "FALCO-fases"
     },
     {
       "id": "E4",
-      "type": "artigo-pendente",
+      "type": "tema-falco",
       "label": "E4"
     },
     {
       "id": "claim-granularidade-e-E0",
-      "type": "artigo-pendente",
+      "type": "tema-falco",
       "label": "claim-granularidade-e-E0"
     },
     {
       "id": "oraculo-imperfeito",
-      "type": "artigo-pendente",
+      "type": "tema-falco",
       "label": "oraculo-imperfeito"
     },
     {
-      "id": "E0P-inv-alidos-futuros",
-      "type": "artigo-pendente",
-      "label": "E0P-inv-alidos-futuros"
+      "id": "Cap2-revisao",
+      "type": "tema-falco",
+      "label": "Cap2-revisao"
+    },
+    {
+      "id": "E0P-invalidos-futuros",
+      "type": "tema-falco",
+      "label": "E0P-invalidos-futuros"
     },
     {
       "id": "E4-futuros",
-      "type": "artigo-pendente",
+      "type": "tema-falco",
       "label": "E4-futuros"
     }
   ],
@@ -3359,7 +3334,7 @@
     },
     {
       "source": "Baykal2021",
-      "target": "metodo:ensembles",
+      "target": "metodo:ensemble",
       "type": "uses_methods"
     },
     {
@@ -4625,7 +4600,7 @@
     },
     {
       "source": "Karl2023",
-      "target": "metodo:transformers",
+      "target": "metodo:transformer",
       "type": "uses_methods"
     },
     {
@@ -4798,17 +4773,6 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Periférico."
-    },
-    {
-      "source": "LLMALSurvey2025",
-      "target": "pilar:P3",
-      "type": "pillars"
-    },
-    {
-      "source": "LLMALSurvey2025",
-      "target": "Cap2-revisao",
-      "type": "contextualiza",
-      "note": "Survey canônico da área AL+LLM: organiza papéis do LLM no laço (seletor, anotador, gerador). Confirma que os subproblemas (custo, cold start, ruído, parada) seguem tratados separadamente — a INTEGRAÇÃO instrumentada é a lacuna que o FALCO ocupa."
     },
     {
       "source": "Lewis1994",
@@ -5103,7 +5067,7 @@
     },
     {
       "source": "Minaee2022",
-      "target": "modelo:transformers",
+      "target": "modelo:transformer",
       "type": "models"
     },
     {
@@ -5598,7 +5562,7 @@
     },
     {
       "source": "Qi2026MixtureLLMs",
-      "target": "dataset:IMDB",
+      "target": "dataset:IMDb",
       "type": "datasets"
     },
     {
@@ -5978,7 +5942,7 @@
     },
     {
       "source": "Schroder2020DNNSurvey",
-      "target": "metodo:modelos-de-linguagem",
+      "target": "metodo:modelo-de-linguagem",
       "type": "uses_methods"
     },
     {
@@ -6034,7 +5998,7 @@
     },
     {
       "source": "Schroder2021SmallText",
-      "target": "modelo:transformers",
+      "target": "modelo:transformer",
       "type": "models"
     },
     {
@@ -6545,7 +6509,7 @@
     },
     {
       "source": "Souza2022Embedding",
-      "target": "metodo:transformers",
+      "target": "metodo:transformer",
       "type": "uses_methods"
     },
     {
@@ -6773,6 +6737,17 @@
       "note": "Review menor de DL para classificação de texto; nomeia as fraquezas do ML tradicional (explosão de dimensão, esparsidade, generalização limitada) — frase útil para a transição do Cap.2."
     },
     {
+      "source": "Xia2025",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Xia2025",
+      "target": "Cap2-revisao",
+      "type": "contextualiza",
+      "note": "Survey canônico da área AL+LLM: organiza papéis do LLM no laço (seletor, anotador, gerador). Confirma que os subproblemas (custo, cold start, ruído, parada) seguem tratados separadamente — a INTEGRAÇÃO instrumentada é a lacuna que o FALCO ocupa."
+    },
+    {
       "source": "Xia2025CanDist",
       "target": "pilar:P3",
       "type": "pillars"
@@ -6829,7 +6804,7 @@
     },
     {
       "source": "Xia2025CanDist",
-      "target": "E0P-inv-alidos-futuros",
+      "target": "E0P-invalidos-futuros",
       "type": "estende",
       "note": "Correção conceitual importante: quando incerto, o LLM emite CONJUNTO de rótulos candidatos (não um único 'ouro'); um SLM destila. A incerteza do oráculo vira informação em vez de erro duro. Citado nos futuros como resposta aos nossos 2-4% de inválidos e ao erro de fronteira do RQ3. CanDist sem humanos supera baselines com 10% de anotação humana em TREC."
     },
