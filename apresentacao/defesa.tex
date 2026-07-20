@@ -25,20 +25,31 @@
 \setbeamercolor{title}{fg=ufprgreen}
 \setbeamercolor{frametitle}{fg=ufprgreen}
 
+% --- notas do apresentador: gere a versão com notas com  touch NOTAS.on  ---
+\newif\ifshownotes\shownotesfalse
+\IfFileExists{NOTAS.on}{\shownotestrue}{}
+\usepackage{pgfpages}
+\ifshownotes\setbeameroption{show notes}\fi
+\setbeamertemplate{note page}{\insertnote}
+
 \title[FALCO]{FALCO: Aprendizado Ativo com Oráculos LLM\\ para Classificação de Texto Curto}
 \subtitle{Reduzindo o custo de rotulagem em português com 621 categorias}
 \author[G. H. Darú]{Gilsiley Henrique Darú}
 \institute[PPGMNE/UFPR]{Orientador: Prof.\ Dr.\ Gustavo Valentim Loch\\
 Programa de Pós-Graduação em Métodos Numéricos em Engenharia\\ Universidade Federal do Paraná}
 \date{Defesa de Doutorado --- 2026}
-% \titlegraphic{\includegraphics[height=1.6cm]{ufpr-ppgmne.png}} % <- solte o logo aqui
+\titlegraphic{\includegraphics[height=2.2cm]{capa.png}}
 
 \begin{document}
 
 {\setbeamertemplate{footline}{}
-\begin{frame}[plain]\titlepage\end{frame}}
+\begin{frame}[plain]\titlepage\end{frame}
+\note{[0:30] Cumprimente a banca. \"Bom dia. Vou apresentar o FALCO, um framework de aprendizado ativo com oráculos LLM para classificação de texto curto em português.\" Respire; não leia o slide.}
+}
 
 \begin{frame}{Roteiro}\tableofcontents\end{frame}
+\note{[0:30] \"O percurso: o problema e a hipótese; a fundamentação; o método; os resultados por pilar; e as entregas.\" Não detalhe --- é um mapa.}
+
 
 % ===============================================================
 \section{Contexto e problema}
@@ -63,6 +74,8 @@ o Macro F1 é implacável e a partida a frio é crítica.
 \end{block}
 \end{columns}
 \end{frame}
+\note{[2:00] Ancore no exemplo concreto: leia \texttt{CERV BRAHMA LT 350ML} em voz alta. Ponto-chave: 621 classes, cauda longa, texto sem contexto. Feche com \"por isso o Macro F1 é implacável e a partida a frio é crítica\" --- planta as duas ideias que voltam.}
+
 
 \begin{frame}{O gargalo real não é o modelo --- é o rótulo}
 \begin{itemize}
@@ -82,6 +95,8 @@ o Macro F1 é implacável e a partida a frio é crítica.
 \centering\small\color{ufprgreen}
 É nessas duas fraturas que o FALCO atua.
 \end{frame}
+\note{[2:00] A frase que a banca precisa reter: \"o gargalo não é o modelo, é o rótulo\". Explique as duas fraturas devagar (cold start e oráculo perfeito). Feche dizendo que LLMs mexem nas duas --- transição natural para a hipótese.}
+
 
 \begin{frame}{Pergunta e hipótese central (pré-registrada)}
 \begin{block}{Pergunta}
@@ -98,6 +113,8 @@ Definido de antemão o que conta como \textbf{refutação}; \emph{gate}
 pré-registrado de qualidade do oráculo. Postura: \textbf{nenhum número sem
 artefato rastreável}.
 \end{frame}
+\note{[2:30] Este é o slide mais importante do início. Enfatize PRÉ-REGISTRO: o critério (95\%/30\%) e a definição de refutação foram fixados ANTES. Diga a frase-assinatura: \"nenhum número sem artefato rastreável\". A banca vai gostar disso.}
+
 
 \begin{frame}{Objetivos e contribuições}
 \begin{columns}[T]
@@ -123,6 +140,8 @@ progressivos para texto curto em português.
 \end{itemize}
 \end{columns}
 \end{frame}
+\note{[1:30] Leia rápido --- é o mapa dos 4 pilares. Diga que cada pilar tem pergunta e critério próprios, e que os resultados virão nessa ordem.}
+
 
 % ===============================================================
 \section{Fundamentação}
@@ -141,6 +160,8 @@ progressivos para texto curto em português.
 texto curto em português + custo instrumentado. É a célula vazia da tabela de lacunas.
 \end{block}
 \end{frame}
+\note{[2:00] Não faça revisão de literatura falada; destaque só a LACUNA (a célula vazia: cold start informado + oráculo LLM + PT + custo instrumentado). Mencione que a instrumentação estatística está toda declarada --- Wilson, McNemar, Wilcoxon.}
+
 
 % ===============================================================
 \section{Método}
@@ -167,6 +188,8 @@ texto curto em português + custo instrumentado. É a célula vazia da tabela de
         Cada decisão vem de critério pré-registrado e artefato rastreável.
 \end{itemize}
 \end{frame}
+\note{[2:30] Caminhe pelo diagrama da esquerda para a direita: pool, Fase 1 (DRI-SL), Fase 2 (incerteza+leve), parada, classificador forte 1x no fim. Aponte o gate embaixo alimentando os oráculos. Frase central: \"o diferencial não é uma estratégia nova, é disciplina de medição\".}
+
 
 \begin{frame}{Dados e protocolo}
 \begin{columns}[T]
@@ -190,6 +213,8 @@ texto curto em português + custo instrumentado. É a célula vazia da tabela de
 \footnotesize\color{ufprgreen}
 Quatro pilares P1--P4, cada um com pergunta e critério declarados.
 \end{frame}
+\note{[2:00] Destaque a AUDITORIA do gabarito (censo de conflitos, teto 99,3\%) --- mostra rigor. E a deduplicação antes do particionamento (evita vazamento). Rigor estatístico: partições imutáveis, 8 sementes, Wilson.}
+
 
 % ===============================================================
 \section{Resultados}
@@ -211,6 +236,8 @@ de existir qualquer rótulo.
 \end{block}
 \end{columns}
 \end{frame}
+\note{[2:30] O número que impressiona: 6,4 p.p. de variação SÓ pelo sorteio em L0=100. Explique o mecanismo (cobertura de classes). Feche: \"se a composição importa tanto, construir o L0 é a alavanca antes de existir rótulo\" --- prepara o P2.}
+
 
 \begin{frame}{P2 --- DRI-SL: cold start sem nenhum rótulo}
 \centering\small
@@ -232,6 +259,8 @@ $|L_0|$ & Acc & Macro F1 & Acc & Macro F1 \\
         a comparação é \textbf{conservadora}
 \end{itemize}
 \end{frame}
+\note{[3:00] Slide forte. DRI-SL não usa NENHUM rótulo e supera o MELHOR indivíduo de um AG supervisionado. Deixe isso pousar. Depois a honestidade que impressiona banca: a auditoria de circularidade mostrou que o AG estava inflado 6,3 p.p. --- então a comparação é conservadora, o DRI-SL vence por mais.}
+
 
 \begin{frame}{P3 --- Oráculos LLM: viáveis, baratos, erram com estrutura}
 \centering\small
@@ -253,6 +282,8 @@ gpt-4o-mini & 61,3\% & 0,518 & 0,051 \\
   \item $\approx$48\% do erro é \emph{convenção de catálogo}, não ignorância do produto
 \end{itemize}
 \end{frame}
+\note{[3:00] Três mensagens: (1) platô 77-83\% em 621 classes; (2) spread de custo 26x dentro de empate estatístico --- escolher oráculo é decisão de engenharia; (3) o Macro F1 zero-shot supera o supervisionado leve porque o LLM é bom nas classes raras. Aponte o nemotron grátis.}
+
 
 \begin{frame}{P3 --- A medição é parte do método (RQ4)}
 \begin{itemize}
@@ -271,6 +302,8 @@ gpt-4o-mini & 61,3\% & 0,518 & 0,051 \\
 maiores que várias diferenças entre modelos.
 \end{block}
 \end{frame}
+\note{[2:30] O achado metodológico. \"A medição é parte do método.\" Os 6,8\% de falsos erros pelo contrato de saída e a divergência entre provedores (mesmo modelo diverge de si) --- isso costuma render pergunta da banca, esteja pronto. E0-P: a faca de dois gumes.}
+
 
 \begin{frame}{P4 / E4 --- Robustez ao ruído do oráculo}
 \begin{itemize}
@@ -286,6 +319,8 @@ maiores que várias diferenças entre modelos.
 O resultado positivo do E4 é um limite inferior do desempenho esperável com
 os oráculos reais.
 \end{frame}
+\note{[2:00] Robustez a ruído: retenção 87/74/54\%. O ponto esperto: o desenho é PESSIMISTA (ruído uniforme), enquanto o ruído real é estruturado e menos danoso --- então o resultado é um limite inferior. Isso fortalece qualquer número positivo.}
+
 
 \begin{frame}{E6 --- A autoavaliação engana (viés bidirecional)}
 \begin{columns}[T]
@@ -310,6 +345,8 @@ os oráculos reais.
 \centering\color{ufprgreen}\footnotesize
 Consequência de projeto: conjunto reservado é obrigatório para decidir liberação.
 \end{frame}
+\note{[2:30] Explique o protocolo pool/população e o braço de controle aleatório que VALIDA o instrumento (delta zero). Depois o achado: acurácia interna subestima 17 p.p., Macro F1 superestima --- direções opostas. Conclusão de projeto: conjunto reservado é obrigatório.}
+
 
 \begin{frame}{E6 --- Entropia domina, e ``menos é mais''}
 \begin{itemize}\footnotesize
@@ -324,6 +361,8 @@ Consequência de projeto: conjunto reservado é obrigatório para decidir libera
 \centering\footnotesize
 Um aviso operacional: \textbf{rotular mais pode piorar} a métrica macro.
 \end{frame}
+\note{[2:30] Entropia satura com 9k vs 15k do aleatório, vence 8/8 sementes (p=0,0078). E o contraintuitivo: MENOS É MAIS --- treinar com a amostra ativa supera o pool completo. Este é o achado mais memorável; dê ênfase e uma pausa.}
+
 
 \begin{frame}{E3$'$ --- O classificador forte julga a hipótese}
 \centering\small
@@ -346,6 +385,8 @@ D (100\%)  & 50.000 & 88,3\% & 0,451 & --- \\
   \item Com 70\%, o modelo forte \textbf{supera a supervisão completa} do pool
 \end{itemize}
 \end{frame}
+\note{[3:00] O clímax. BERTimbau treinado fora do laço julga a hipótese. Leia a tabela: refutada em 30\%, sustentada a partir de 50\%. Aponte E35 (70\%) SUPERANDO a régua completa --- menos é mais de novo, agora no transformer. Frase: \"o gargalo era a parada, não o oráculo\".}
+
 
 \begin{frame}{Decomposição da perda (por que 30\% não bastou)}
 \begin{itemize}
@@ -361,6 +402,8 @@ D (100\%)  & 50.000 & 88,3\% & 0,451 & --- \\
 do pool. A hipótese não é infirmada: ela requer o orçamento e a parada corretos.
 \end{block}
 \end{frame}
+\note{[2:30] Aqui você antecipa a pergunta \"você não mudou a trave?\". Explique a decomposição: ruído (ajuda o macro!), seleção (compra cobertura), orçamento (o culpado). O critério pré-registrado permanece; a varredura MEDE onde ele passa a valer. Piso de 50\%.}
+
 
 % ===============================================================
 \section{Entregas e conclusão}
@@ -387,6 +430,8 @@ do pool. A hipótese não é infirmada: ela requer o orçamento e a parada corre
 \centering\footnotesize\color{ufprgreen}
 Reprodutibilidade \emph{clicável}: cada número tem um artefato por trás.
 \end{frame}
+\note{[2:00] Mostre que a pesquisa virou uso: biblioteca pip, 80 testes, e a interface que REPRODUZ e REPRISA cada número. Frase: \"reprodutibilidade clicável\". Mencione o ciclo real a custo zero de oráculo.}
+
 
 \begin{frame}{Limitações e trabalhos futuros}
 \begin{columns}[T]
@@ -407,6 +452,8 @@ Reprodutibilidade \emph{clicável}: cada número tem um artefato por trás.
 \end{itemize}
 \end{columns}
 \end{frame}
+\note{[1:30] Seja honesto e curto --- listar limitações com naturalidade transmite maturidade. Um dataset, semente única em parte dos braços (declarado), custos datados. Futuros saem dos dados.}
+
 
 \begin{frame}{Conclusão}
 \begin{block}{A resposta}
@@ -423,6 +470,8 @@ bem} (incerteza) e \textbf{pagar bem} (oráculos LLM por centavos).
 \vspace{0.6em}
 \centering{\large\color{ufprgreen}\textbf{Obrigado.}}\quad Perguntas?
 \end{frame}
+\note{[2:00] Recapitule as três frentes: começar bem, perguntar bem, pagar bem. Reafirme: hipótese sustentada com ~50\% e parada correta, ambos medidos. Feche com a postura metodológica. Agradeça e abra para perguntas com calma.}
+
 
 % ===============================================================
 \appendix
@@ -438,6 +487,8 @@ bem} (incerteza) e \textbf{pagar bem} (oráculos LLM por centavos).
         (igualdade de escores, reexecução, conferência de artefato)
 \end{itemize}
 \end{frame}
+\note{[reserva] Use se perguntarem sobre o desenho do E3' ou a régua de 50k, ou a proveniência dupla (legado x biblioteca nova).}
+
 
 \begin{frame}{Reserva --- Gate e configuração do FALCO}
 \footnotesize
@@ -449,6 +500,8 @@ bem} (incerteza) e \textbf{pagar bem} (oráculos LLM por centavos).
   \item Restrição operacional: vazão do provedor define o tempo de parede tanto quanto o preço
 \end{itemize}
 \end{frame}
+\note{[reserva] Use se perguntarem por que deepseek-v4-flash/pro, ou sobre o gate de 85\% e a alternativa gratuita.}
+
 
 \begin{frame}{Reserva --- Instrumentação estatística}
 \footnotesize
@@ -465,6 +518,8 @@ Funcional sem distribuição & IC \textit{bootstrap} percentil \\
 \vspace{0.6em}\\
 Cada uso mapeado na tese à situação, ao teste e à referência original + aplicada.
 \end{frame}
+\note{[reserva] Use se perguntarem sobre escolha dos testes estatísticos --- situação -> instrumento.}
+
 
 \begin{frame}{Reserva --- DRI-SL em detalhe}
 \footnotesize
@@ -480,5 +535,7 @@ Determinístico, custo linear após o agrupamento, \textbf{sem usar rótulos}.
 Variante \textbf{DRI-SL-C}: após o cold start, os grupos passam a ser as
 classes previstas pelo classificador (para a seleção contínua).
 \end{frame}
+\note{[reserva] Use se perguntarem como o DRI-SL funciona por dentro, ou a variante DRI-SL-C.}
+
 
 \end{document}
