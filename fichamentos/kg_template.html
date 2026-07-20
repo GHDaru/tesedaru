@@ -311,6 +311,9 @@ const detail = document.getElementById("detail"), body = document.getElementById
 document.getElementById("close").addEventListener("click", () => { detail.classList.remove("open"); setFocus(null); });
 function esc(s) { return String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
 
+// Em modo hospedado (demo público) os PDFs não são distribuídos (direitos
+// autorais): o botão de PDF some e só o link do publicador fica.
+const HOSTED = (typeof window !== "undefined") && window.KG_HOSTED === true;
 // PDF só para visualização: sem download, com o toolbar do visualizador oculto.
 // Servido pelo backend (/api/fichamentos/{id}/pdf) ou, se aberto como arquivo
 // local, relativo à pasta da tese.
@@ -344,10 +347,12 @@ function showDetail(n) {
     links.push(`<div class="cited"><span class="lbl">citado na tese:</span> ` +
       `${n.cited_in.map(esc).join(" · ")}</div>`);
   const src = pdfSrc(n);
-  const pdfBlock = src
-    ? `<div class="pdfbox"><button class="pdf-open" data-src="${esc(src)}">Ver PDF (só visualização)</button></div>`
-    : ((n.type === "artigo" || n.type === "artigo-pendente")
-        ? `<div class="pdfbox note">PDF não disponível localmente.</div>` : "");
+  const isPaper = n.type === "artigo" || n.type === "artigo-pendente";
+  const pdfBlock = HOSTED
+    ? (isPaper ? `<div class="pdfbox note">PDF disponível na versão local (direitos autorais) — use o link do publicador acima.</div>` : "")
+    : (src
+        ? `<div class="pdfbox"><button class="pdf-open" data-src="${esc(src)}">Ver PDF (só visualização)</button></div>`
+        : (isPaper ? `<div class="pdfbox note">PDF não disponível localmente.</div>` : ""));
   body.innerHTML = `
     <div class="kind">${esc(TYPE_LABEL[n.type] || n.type)}</div>
     <h2>${esc(n.title || n.label)}</h2>

@@ -1,0 +1,39 @@
+{
+  "title": "FALCO: Aprendizado Ativo com Oráculos LLM para Classificação de Texto Curto em Português",
+  "description": "Tese de doutorado (PPGMNE/UFPR). Propõe e avalia o framework FALCO — aprendizado ativo com oráculos LLM progressivos para classificação de texto curto em português com 621 categorias de cauda longa. Contribuições: cold start sem rótulos (DRI-SL), avaliação instrumentada de oráculos LLM com custo, viés de autoavaliação (E6), e um programa experimental reprodutível. Base de dados pública com DOI próprio.",
+  "upload_type": "publication",
+  "publication_type": "thesis",
+  "license": "cc-by-4.0",
+  "access_right": "open",
+  "language": "por",
+  "creators": [
+    {
+      "name": "Darú, Gilsiley Henrique",
+      "affiliation": "PPGMNE — Universidade Federal do Paraná (UFPR)"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Loch, Gustavo Valentim",
+      "type": "Supervisor",
+      "affiliation": "Universidade Federal do Paraná (UFPR)"
+    }
+  ],
+  "keywords": [
+    "aprendizado ativo",
+    "active learning",
+    "large language models",
+    "classificação de texto curto",
+    "cold start",
+    "DRI-SL",
+    "português",
+    "FALCO"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.34740/kaggle/dsv/4265348",
+      "relation": "references",
+      "resource_type": "dataset"
+    }
+  ]
+}
