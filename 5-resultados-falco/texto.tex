@@ -94,7 +94,9 @@ gpt-4o            & 0,923 & 88\%   & 80,9\% \\
 \end{tabular}
 \end{table}
 
-O intervalo de custo entre oráculos do mesmo platô de acurácia é de mais de
+A Tabela~\ref{tab:e0-custo} consolida o custo por mil rótulos e a taxa de
+acerto do \textit{cache} de prefixo por oráculo. O intervalo de custo entre
+oráculos do mesmo platô de acurácia é de mais de
 uma ordem de grandeza: o deepseek-v4-flash entrega 78--82\% por
 US\$~0,035/1k — \textbf{26 vezes mais barato} que o gpt-4o (80--82\%). O
 \textit{cache} de prefixo (prefixo estático do \textit{prompt} + schema
@@ -471,7 +473,8 @@ braços na população reservada ($n=20.092$, amostra estratificada fixa,
 excluídos pool e os conjuntos de decisão do ciclo real). Configuração
 uniforme entre braços: 3 épocas, lote 16, comprimento máximo de 32
 \textit{tokens}, semente única — números descritivos, comparações amparadas
-pelos IC de Wilson e pelo pareamento na mesma amostra de avaliação. A
+pelos IC de Wilson e pelo pareamento na mesma amostra de avaliação
+(artefatos em \texttt{experiments/e2e3}). A
 Tabela~\ref{tab:e3p} consolida.
 
 \begin{table}[htb]
