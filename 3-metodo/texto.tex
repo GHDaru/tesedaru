@@ -148,7 +148,7 @@ discutida nas limitações (Seção~\ref{sec:metodo-validade}).
 \section{Classificadores da tarefa}
 \label{sec:metodo-classificadores}
 
-Dois classificadores $\theta$ são empregados, com papéis distintos e explícitos:
+Três classificadores $\theta$ são empregados, com papéis distintos e explícitos:
 
 \begin{itemize}
   \item \textbf{BERTimbau Base} (\texttt{neuralmind/bert-base-portuguese-cased})
@@ -166,11 +166,20 @@ Dois classificadores $\theta$ são empregados, com papéis distintos e explícit
   treinamento desprezível, viabiliza os estudos que exigem milhares de reexecuções:
   a sensibilidade de $L_0$, a otimização por algoritmo genético (P1) e a varredura
   de estratégias do E1.
+  \item \textbf{Regressão logística} (\textit{SGD}): regressão logística
+  multinomial --- a mesma família \textit{softmax}/entropia cruzada da
+  Equação~\ref{eq:softmax_ml} --- sobre representação \textit{bag-of-words}
+  com uni e bigramas, treinada por descida de gradiente estocástica
+  \citep{Bishop2006}. Também leve, atua como \emph{segundo} classificador nas
+  análises do E6 (Seção~\ref{sec:res-e6}): serve para testar se os achados de
+  seleção (saturação da entropia, ``menos é mais'') se sustentam sob troca do
+  classificador, e não são artefato do PVBin.
 \end{itemize}
 
 Essa separação isola a contribuição metodológica: o FALCO é validado com o
-classificador forte, enquanto as análises exploratórias massivas usam o
-classificador leve.
+classificador forte, enquanto as análises exploratórias massivas usam os
+classificadores leves --- dois deles (PVBin e SGD), para que os achados de
+seleção não dependam de um único modelo.
 
 \section{Métricas de avaliação e análise estatística}
 \label{sec:metodo-metricas}

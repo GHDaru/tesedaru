@@ -69,10 +69,12 @@ p_i = \frac{\exp(z_i)}{\sum_{j=1}^{K} \exp(z_j)}, \quad i = 1, \dots, K,
 treinados com perda de entropia cruzada \cite{Bishop2006, Murphy2012}. Essa
 distribuição $p$ é duplamente essencial no aprendizado ativo: além de fornecer
 a predição ($\arg\max_i p_i$), é dela que as estratégias de seleção por
-incerteza (Seção~\ref{sec:estrategias_selecao}) derivam seus escores. Os dois
-classificadores empregados nos experimentos — um modelo probabilístico
-vetorial leve e o BERTimbau ajustado com uma camada de classificação
-\cite{Souza2020BERTimbau} — são detalhados no Capítulo~\ref{ch:metodo}.
+incerteza (Seção~\ref{sec:estrategias_selecao}) derivam seus escores. Os
+classificadores empregados nos experimentos — dois modelos vetoriais leves (um
+baseado em protótipos de classe e uma regressão logística multinomial, ambos
+sobre representação \textit{bag-of-words}) e o BERTimbau ajustado com uma camada
+de classificação \cite{Souza2020BERTimbau} — são detalhados no
+Capítulo~\ref{ch:metodo}.
 
 \subsection{Métricas para classes desbalanceadas}
 \label{subsec:ml_evaluation}
