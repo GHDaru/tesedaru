@@ -543,9 +543,12 @@ suas fontes, e a resposta é acionável.
 \subsection{Varredura de orçamento: o piso que sustenta a hipótese}
 \label{sec:res-e3p-varredura}
 
-Para localizar o orçamento em que a hipótese passa a valer, o BERTimbau foi
-treinado sobre prefixos crescentes da mesma trajetória de entropia (20, 25,
-30 e 35 mil rótulos com gabarito), avaliados na população reservada
+A varredura desta seção é um \textbf{achado \emph{post hoc}}: foi desenhada
+e executada \emph{depois} de observada a refutação no orçamento
+pré-registrado de 30\%, e não substitui o critério original — apenas localiza
+empiricamente o orçamento em que ele passaria a valer. Para isso, o BERTimbau
+foi treinado sobre prefixos crescentes da mesma trajetória de entropia (20,
+25, 30 e 35 mil rótulos com gabarito), avaliados na população reservada
 (Tabela~\ref{tab:e3p-sweep}).
 
 \begin{table}[htb]

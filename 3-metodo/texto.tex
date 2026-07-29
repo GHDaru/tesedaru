@@ -130,20 +130,49 @@ cinco instâncias são agrupadas na categoria sentinela \texttt{\_rare\_}
 única da restrição de saída imposta aos oráculos LLM
 (Seção~\ref{sec:metodo-oraculo-instrumentacao}).
 
+Dois espaços de rótulos convivem na tese, com papéis distintos e ambos
+rastreáveis ao mesmo arquivo de dados: o \textit{CategorySchema} de 621
+categorias — contado sobre as \emph{linhas cruas} da versão corrigida (620
+classes com $\ge 5$ instâncias mais a sentinela) — governa os experimentos de
+oráculo; já os experimentos em escala populacional (E5, E6 e E3$'$,
+Capítulo~\ref{ch:resultados-falco}) operam sobre a visão \emph{deduplicada} com filtro
+brando ($\ge 2$ instâncias), na qual 231.490 textos únicos distribuem-se por
+\textbf{714 classes presentes} — sem o agrupamento \texttt{\_rare\_}, para não
+mascarar o comportamento da cauda longa justamente onde o aprendizado ativo é
+posto à prova.
+
 \subsection{Particionamento}
 \label{sec:metodo-dados-particionamento}
 
-Para os experimentos com treinamento do classificador (E2/E3), o conjunto — após
-deduplicação — é particionado de forma estratificada em: conjunto de teste $T$
-($20\%$), reservado exclusivamente à avaliação final; conjunto de validação $V$
-($10\%$), para monitoramento do ajuste fino; e o \textit{pool} de aprendizado ativo
-$U_0$ ($70\%$). Para o E3, um subconjunto estratificado de aproximadamente 50 mil
-instâncias do \textit{pool} é utilizado — amostragem estratificada por classe com
-semente fixa e registrada, preservando as proporções de $U_0$ —, dimensionado para
-viabilizar múltiplas repetições do ciclo completo com BERTimbau no hardware
-disponível; o orçamento de rotulagem é fixado em $B = 30\%$ de $|U_0|$. A
-generalização das conclusões do subconjunto para o \textit{pool} completo é
-discutida nas limitações (Seção~\ref{sec:metodo-validade}).
+O desenho \emph{pré-registrado} previa particionamento estratificado em
+conjunto de teste $T$ ($20\%$), validação $V$ ($10\%$) e \textit{pool} de
+aprendizado ativo $U_0$ ($70\%$), com orçamento de rotulagem $B = 30\%$ de
+$|U_0|$. O protocolo \emph{executado} nos experimentos em escala populacional
+(E5, E6 e E3$'$) — integralmente registrado em código e artefatos — parte da
+base deduplicada (231.490 textos únicos, 714 classes presentes), embaralha-a
+com semente fixa e registrada (42) e particiona por posição: as primeiras
+50.000 instâncias formam o \textit{pool} de aprendizado ativo; as 4.000
+seguintes, os conjuntos de validação e teste do ciclo real (2.000 + 2.000,
+usados apenas nas decisões de parada); e as 177.490 restantes, a
+\textbf{população reservada}, usada exclusivamente na avaliação final. O
+\textit{pool} é, portanto, uma amostra \emph{aleatória uniforme} da base — e
+não estratificada por classe. Sua representatividade foi medida e é
+verificável por artefato: a distribuição de classes do \textit{pool} diverge
+da distribuição da base por divergência de Jensen--Shannon de $0{,}0022$, com
+correlação de Spearman de $0{,}983$ entre os ranks de frequência e desvio
+máximo de proporção de $0{,}20$ ponto percentual em uma classe. O custo da
+amostragem aleatória concentra-se na cauda: 649 das 714 classes ($90{,}9\%$)
+estão presentes no \textit{pool}, 65 estão ausentes e 179 têm menos de cinco
+exemplos — limitação declarada, relevante para métricas macro
+(Seção~\ref{sec:metodo-validade}). O tamanho de 50 mil resulta de viabilidade
+computacional: cada braço do E3$'$ é um ajuste fino completo do BERTimbau, e o
+programa executa cinco braços mais a varredura de orçamento em uma única GPU,
+mantendo ainda uma média de 70 exemplos por classe no \textit{pool}. Com a
+mudança de régua do E3$'$ (Seção~\ref{sec:metodo-falco-baselines}), os
+orçamentos passam a ser medidos como fração do \textit{pool} de 50 mil
+($30\% = 15$ mil rótulos), e não de $|U_0|$; essa re-baseação do denominador é
+declarada e suas consequências são discutidas nas limitações
+(Seção~\ref{sec:metodo-validade}).
 
 \section{Classificadores da tarefa}
 \label{sec:metodo-classificadores}
@@ -476,6 +505,21 @@ processo (particionamento com deduplicação prévia; transição de fase por $V
 envelope do AG reavaliado em partição intocada). O viés distribucional que a
 amostragem ativa induz no conjunto rotulado \citep{Santos2016Vies} não afeta a
 medição, feita sempre em $T$ fixo e aleatório.
+
+\textbf{Desenho executado vs.\ pré-registrado.} Duas divergências entre o
+desenho pré-registrado e o executado são declaradas e têm consequências
+mensuráveis. Primeira: o \textit{pool} de 50 mil é amostra aleatória uniforme
+(Seção~\ref{sec:metodo-dados-particionamento}), não estratificada; 65 das 714
+classes não têm nenhum exemplo no \textit{pool} e 179 têm menos de cinco, de
+modo que o teto de Macro F1 alcançável por \emph{qualquer} braço treinado no
+\textit{pool} é estruturalmente rebaixado nas classes de cauda — as
+comparações \emph{entre} braços permanecem justas, pois todos compartilham o
+mesmo \textit{pool}, mas os valores absolutos de Macro F1 subestimam o que uma
+amostra estratificada permitiria. Segunda: o orçamento pré-registrado
+($B=30\%$ de $|U_0|$) foi re-baseado para fração do \textit{pool} de 50 mil
+com a mudança de régua do E3$'$; os percentuais reportados no
+Capítulo~\ref{ch:resultados-falco} referem-se sempre ao denominador de 50 mil,
+e a primeira menção de cada resultado o explicita.
 
 \textbf{Validade de constructo.} A acurácia do oráculo é medida contra um
 padrão-ouro com ruído conhecido (teto $\approx 99{,}3\%$; análise de
