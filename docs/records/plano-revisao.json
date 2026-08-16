@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 16,
-  "atualizado_em": "2026-08-16T21:12:00Z",
-  "atualizado_por": "executor02: e3p-seed123 rodando numa T4 (6 de 9 bracos); achado da GPU P100 repassado ao principal para o executor01",
+  "versao": 17,
+  "atualizado_em": "2026-08-16",
+  "atualizado_por": "executor02: seed123 entregue (6/9, canônico); s42 canônica rodando por decisão do autor; A/B/C das 3 sementes aguardam o cache do oráculo",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -754,13 +754,22 @@
       {
         "id": "e3p-seed123",
         "o_que": "E3′ semente 123 — 5 braços + varredura de orçamento",
-        "onde": "Kaggle Notebooks, GPU T4 forcada (machine_shape=NvidiaTeslaT4) · kernel ghdaru/falco-e3prime-s123 · activelearning/experiments/e2e3/kaggle/ (SEED=123, modo canonico)",
-        "estado": "rodando",
+        "onde": "Kaggle, GPU T4 · kernel ghdaru/falco-e3prime-s123 · activelearning/experiments/e2e3/kaggle/",
+        "estado": "bloqueado",
         "dono": "executor02",
         "duracao": "1,5–2,5 h em T4 (estimativa)",
         "resultado_esperado": "experiments/e2e3/results/e3prime_*_s123.json",
-        "bloqueio": "PARCIAL: rodando 6 dos 9 bracos (E, D, E20, E25, E30, E35). A, B e C seguem fora ate o cache do oraculo (experiments/e5cycle/results/annotation_cache_nemotron.jsonl, excluido pelo .gitignore) ser anexado como dataset do Kaggle. Pendente tambem a decisao de regime: canonico (bs=128, eval-limit=0, 177.490 itens de avaliacao) NAO e comparavel com a semente 42 ja publicada (bs=16, 20.092 itens) — media +- desvio entre sementes exige o mesmo regime. Ver coordenacao/caixa/20260816-1930_executor02_principal_aviso_bloqueio-e3prime-semente-123.aberta.md",
-        "achado": "A GPU P100 do Kaggle (sm_60) NAO roda o experimento: o PyTorch da imagem so cobre sm_70+. Correcao em activelearning@2f7c961. Vale igual para a semente 7 — ver coordenacao/caixa/20260816-2005_executor02_principal_aviso_gpu-p100-quebra-o-e3prime.aberta.md"
+        "bloqueio": "A, B e C aguardam o annotation_cache_nemotron.jsonl como dataset do Kaggle (fora do repositório). Reexecução pula os 6 prontos.",
+        "resultado": "6 de 9 braços entregues em regime canônico (bs=128, avaliação nos 177.490 da população inteira), 75 min de T4 — https://github.com/GHDaru/activelearning/commit/9d74484 · D: F1 0,3590/acc 0,8652 · E35: 0,3461/0,8582 · E30: 0,3228/0,8479 · E25: 0,3136/0,8305 · E20: 0,2416/0,7715 · E: 0,1909/0,6895. Varredura vs 0,95×D: E35 cruza F1 e acc; E30/E25 só acc."
+      },
+      {
+        "id": "e3p-seed42-canonico",
+        "o_que": "E3′ semente 42 REFEITA em regime canônico — decisão do autor (2026-08-16, sessão executor02): mais barato que refazer 7 e 123 em pareado. Regime antigo preservado em results/legacy_s42_bs16_eval20k/ (activelearning@176f703); mcnemar/bootstrap _s42 referem-se ao regime antigo e precisarão ser refeitos.",
+        "onde": "Kaggle, GPU T4 · kernel ghdaru/falco-e3prime-s42 · mesma receita",
+        "estado": "rodando",
+        "dono": "executor02",
+        "duracao": "~1,3 h (medido na semente 123)",
+        "resultado_esperado": "experiments/e2e3/results/e3prime_*_s42.json (canônicos, 6 braços)"
       },
       {
         "id": "mcnemar-pares",
