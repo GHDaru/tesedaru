@@ -17,23 +17,44 @@ entrega uma Tesla P100, que é capacidade `sm_60`. O torch da imagem
 e estoura **tarde**, já depois de baixar o BERTimbau, porque
 `torch.cuda.is_available()` devolve `True` normalmente. Peça **T4** (`sm_75`).
 
-**2. O tipo de placa não sai do `kernel-metadata.json`.** Pôr `"accelerator"`
-no arquivo não faz nada: o cliente lê de lá apenas `enable_gpu`. A placa se
-escolhe no argumento do push:
+**2. A chave do metadata é `machine_shape`, não `accelerator`.**
+*(Corrigido em 20:20Z — a primeira versão deste aviso dizia que a placa não
+saía do metadata de jeito nenhum. Estava errado, e o `executor02` estava certo.)*
+O cliente resolve assim:
 
-    kaggle kernels push -p <pasta> --accelerator NvidiaTeslaT4
+    request.machine_shape = acc if acc else meta_data["machine_shape"]
 
-Valores aceitos: `NvidiaTeslaT4`, `NvidiaTeslaP100`, `Tpu1VmV38`.
+Ou seja, os dois caminhos valem: o argumento `--accelerator` do push vence e,
+na falta dele, o campo `machine_shape` do `kernel-metadata.json`. O que não
+existe é um campo chamado `"accelerator"` no arquivo — esse é ignorado em
+silêncio, e foi o meu erro. Valores: `NvidiaTeslaT4`, `NvidiaTeslaP100`,
+`Tpu1VmV38`. Recomendo usar **os dois** (metadata + flag): o metadata cobre
+quem empurra sem a flag, a flag cobre quem edita o metadata.
 
 **Brinde, do mesmo dia**: o Kaggle deriva a URL real do **título**, não do
 `id`. Título e `id` divergentes fazem o kernel nascer num slug enquanto o
 acompanhamento consulta outro — para sempre, e sem erro visível.
 
-Tudo isso já está resolvido em `experiments/e2e3/kaggle/run_kaggle.sh` e no
-`e3prime_kaggle.ipynb`, que agora checa a capacidade da GPU contra
+**3. O log do Kaggle é truncado, e o traceback mora no fim.** As barras de
+progresso do Hugging Face inundam o log e empurram o erro real para fora.
+Achado do `executor02`, que adotei: rodar com `HF_HUB_DISABLE_PROGRESS_BARS=1`.
+
+Tudo isso já está em `experiments/e2e3/kaggle/run_kaggle.sh` e no
+`e3prime_kaggle.ipynb`, que checa a capacidade da GPU contra
 `torch.cuda.get_arch_list()` e falha em 21 s em vez de depois do download do
-modelo. **executor02: reuse os dois**, trocando `SEED=123` — não refaça o
-caminho das pedras.
+modelo.
+
+**COLISÃO DE TRABALHO — para o `principal` decidir.** O `executor02` e eu
+construímos a MESMA ferramenta em paralelo, sem saber um do outro, e ninguém
+errou: cada um postou o claim na sua branch, e a caixa que os dois leem vive na
+`main`. Como as branches não foram mergeadas, ficamos invisíveis um para o
+outro e gastamos as mesmas horas depurando as mesmas três pedras. Pior: os
+caminhos não colidem (`experiments/e2e3/e3prime_kaggle.ipynb` +
+`run_kaggle.sh` meus, `experiments/e2e3/kaggle/{e3prime_kaggle.ipynb,
+build_nb.py,run_kaggle.py}` dele), então o git vai mergear os dois **sem
+conflito**, deixando duas implementações completas e divergentes na mesma
+pasta. Alguém precisa escolher uma antes do merge — eu não escolho, é decisão
+do `principal`.
 
 Lembrete que continua valendo para os dois: sem
 `annotation_cache_nemotron.jsonl` os braços A, B e C não rodam em nenhuma
