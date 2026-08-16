@@ -370,7 +370,7 @@
       "venue": "Transactions of the ACL",
       "paper_type": "metodo",
       "status": "fichado",
-      "pdf": "referencias-pdf/bayer-activellm.pdf",
+      "pdf": "referencias-pdf/Bayer2024ActiveLLM.pdf",
       "doi": "10.1162/TACL.a.63",
       "url": "https://doi.org/10.1162/TACL.a.63",
       "cited_in": [
@@ -2316,7 +2316,9 @@
       "pdf": "referencias-pdf/Naseem2021HateSpeech.pdf",
       "doi": "10.1007/s11042-020-10082-6",
       "url": "https://doi.org/10.1007/s11042-020-10082-6",
-      "cited_in": []
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "metodo:avaliacao-de-12-tecnicas",
@@ -4006,9 +4008,9 @@
       "label": "predicao-estruturada"
     },
     {
-      "id": "Yuan2020ALPS",
+      "id": "Yuan2020",
       "type": "artigo-pendente",
-      "label": "Yuan2020ALPS"
+      "label": "Yuan2020"
     },
     {
       "id": "DRI-SL",
@@ -4114,11 +4116,6 @@
       "id": "E0P-invalidos-futuros",
       "type": "tema-falco",
       "label": "E0P-invalidos-futuros"
-    },
-    {
-      "id": "Yuan2020",
-      "type": "artigo-pendente",
-      "label": "Yuan2020"
     },
     {
       "id": "E4-futuros",
@@ -4508,7 +4505,7 @@
     },
     {
       "source": "Bayer2024ActiveLLM",
-      "target": "Yuan2020ALPS",
+      "target": "Yuan2020",
       "type": "compares_with"
     },
     {
