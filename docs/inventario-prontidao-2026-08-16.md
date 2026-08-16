@@ -88,7 +88,7 @@ executável de experimentos na interface foi um dos itens que fecharam o R5.
 
 | Ferramenta | Situação | Observação |
 |---|---|---|
-| "Maestro" (organizador de ciclos) | metodologia existe como repositório `GHDaru/maestro` (governança, mapa de gates — adotada a partir de 2026-08-16); ❌ não implantado como plugin/skill neste ambiente | ciclos hoje seguem o processo manualmente (checklist/diário/records + gates do ADR 0001); candidato a skill local |
+| "Maestro" (organizador de ciclos) | ✅ **instalado no repo** (ciclo governanca-01, ADRs 0002/0003, `check-install.sh` verde): 13 agentes em `.claude/agents/`, 6 skills em `skills/`, comandos speckit + `/dod` + `/eval`, templates `.specify/`, governança em `docs/governance/` (incl. Constituição da Tese v1.1.0) | `CLAUDE.md`/`AGENTS.md` apontam para o método; skill local separada é desnecessária (duplicaria o layout verificado pelo manifest) |
 | Skill `fichamento` (local, repo) | ✅ | única skill do repositório |
 | Skill `humanizer` (pessoal) | ✅ | remove sinais de escrita de IA — candidata principal para a Rodada 2 |
 | Skill "academic research/reviewer" | ❌ não habilitada | pareceres anteriores citam `academic-paper-reviewer` (ARS), aplicada externamente; buscar no marketplace na Rodada 3 |
