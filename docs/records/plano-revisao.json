@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 22,
-  "atualizado_em": "2026-08-16",
+  "versao": 23,
+  "atualizado_em": "2026-08-17T00:05:00Z",
   "atualizado_por": "executor02 sobre a v21 do principal (conflito de lock resolvido a favor da base dele): s42 canônica concluída — 3 sementes comparáveis fechadas",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -860,10 +860,6 @@
   "gate": "NADA entra na main sem gate humano do autor: toda rodada roda em branch, apresenta antes/depois na conversa e só mergeia com aprovação explícita. Vale para texto, código e plano.",
   "decisoes_pendentes": [
     {
-      "id": "dec-fila",
-      "titulo": "Ordem da fila: manter (lotes 2–5 do Cap. 2 primeiro) OU adotar a do parecer R6 (bib-audit → veredito+pré-textuais → lotes 2–5)? Humanizar antes de mexer nas citações = editar a mesma superfície duas vezes"
-    },
-    {
       "id": "dec-fecho-cap6",
       "titulo": "Fecho do Cap. 6: manter tríade+aforismo (estilo) sabendo que 2 trechos são apontados como mérito (DA-C1/C2/C3), ou reescrever"
     },
@@ -886,6 +882,10 @@
     {
       "id": "dec-obras-fichadas-nao-citadas",
       "titulo": "7 obras já fichadas e não citadas (LLMaAA, TypiClust, Farquhar, Kossen, Pangakis, Sener, Vaswani): autorizar citação no próximo lote de prosa do principal? (banca: trabalho barato de alto impacto)"
+    },
+    {
+      "id": "dec-cache-kaggle",
+      "titulo": "AUTOR: subir annotation_cache_nemotron.jsonl como dataset do Kaggle — destrava os braços A/B/C nas 3 sementes (o centro da hipótese F1(A) ≥ 0,95×F1(D)); 3 retomadas curtas, 18 resultados prontos são pulados"
     }
   ]
 }
