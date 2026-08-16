@@ -1,47 +1,47 @@
 {
  "schema": "kpis/v1",
  "computado_em": "2026-08-16",
- "git_sha": "95ab3da",
+ "git_sha": "c3abc4e",
  "prontidao": {
-  "global_pct": 4.6,
-  "texto_pct": 5.4,
+  "global_pct": 3.5,
+  "texto_pct": 4.1,
   "artefatos_pct": 0.0,
-  "pontos_totais": 1562,
+  "pontos_totais": 2050,
   "pontos_feitos": 84,
   "por_rodada": [
    {
     "id": "R1",
-    "pontos": 323,
+    "pontos": 349,
     "feitos": 28
    },
    {
     "id": "R2",
-    "pontos": 105,
+    "pontos": 120,
     "feitos": 15
    },
    {
     "id": "R3",
-    "pontos": 460,
+    "pontos": 468,
     "feitos": 0
    },
    {
     "id": "R4",
-    "pontos": 120,
+    "pontos": 140,
     "feitos": 0
    },
    {
     "id": "R5",
-    "pontos": 354,
+    "pontos": 743,
     "feitos": 21
    },
    {
     "id": "R6",
-    "pontos": 70,
+    "pontos": 80,
     "feitos": 20
    },
    {
     "id": "R7",
-    "pontos": 130,
+    "pontos": 150,
     "feitos": 0
    }
   ],
@@ -80,6 +80,11 @@
     "id": "cap6",
     "pontos": 164,
     "feitos": 0
+   },
+   {
+    "id": "ap",
+    "pontos": 488,
+    "feitos": 0
    }
   ]
  },
@@ -92,9 +97,9 @@
   "serie": [
    {
     "data": "2026-08-16",
-    "commit": "95ab3da",
+    "commit": "8bed730",
     "pontos": 84,
-    "pct": 5.4,
+    "pct": 4.1,
     "evento": null
    }
   ]
@@ -186,7 +191,7 @@
   "pontos": 239
  },
  "divida_fundamentacao": {
-  "citacoes_pendentes": 182,
+  "citacoes_pendentes": 185,
   "chaves_citadas": 151,
   "fichamentos": 142,
   "chaves_sem_fichamento": 9

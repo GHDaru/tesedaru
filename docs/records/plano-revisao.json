@@ -1,8 +1,8 @@
 {
  "schema": "plano-revisao/v1",
- "versao": 4,
+ "versao": 5,
  "atualizado_em": "2026-08-16",
- "atualizado_por": "incorporação do parecer ARS-R6 (sessão paralela) — v4",
+ "atualizado_por": "v5: apêndices na matriz + grupo dados + conformidade UFPR (lacunas apontadas pelo autor)",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
   "Abrir este JSON e ler o campo 'proximo'",
@@ -372,6 +372,48 @@
     "citacoes": 18,
     "tokens": 48
    }
+  },
+  {
+   "id": "ap",
+   "titulo": "Apêndices A1–A7",
+   "arquivo": "a1-lce … a7-parada-drift/texto.tex",
+   "rodadas": {
+    "R1": {
+     "status": "pendente",
+     "nota": "26 travessões em 7 apêndices — leve"
+    },
+    "R2": {
+     "status": "pendente",
+     "nota": "prompts/schemas cheios de siglas técnicas (A5) — conferir contra a lista"
+    },
+    "R3": {
+     "status": "pendente",
+     "nota": "3 citações distintas"
+    },
+    "R4": {
+     "status": "pendente"
+    },
+    "R5": {
+     "status": "pendente",
+     "nota": "973 tokens numéricos — 2ª maior R5 da tese; tabelas do A6 são espelho do Cap. 4; A7 espelha política de parada"
+    },
+    "R6": {
+     "status": "pendente"
+    },
+    "R7": {
+     "status": "pendente"
+    }
+   },
+   "abertura": [
+    "R5: 973 tokens numéricos (tabelas A6 = espelho do Cap. 4; princípio VIII vale para apêndice↔corpo)",
+    "A7 tem item próprio no grupo melhorias-r6: atualizar política de parada pós-E3′ (hoje ensina a política refutada)",
+    "R2: A5-prompts usa o CategorySchema — expansões devem bater com a lista de siglas"
+   ],
+   "dimensoes": {
+    "travessoes": 26,
+    "citacoes": 3,
+    "tokens": 973
+   }
   }
  ],
  "artefatos": [
@@ -594,10 +636,19 @@
    "nome": "Encerramento e aprovação final",
    "itens": [
     {
+     "id": "normas-ufpr",
+     "titulo": "Conformidade com o padrão UFPR/PPGMNE (template ppginf.cls): pré-textuais obrigatórios, ficha catalográfica, folha de aprovação, listas, citações/referências na norma, numeração e margens",
+     "dono": "agente",
+     "status": "pendente"
+    },
+    {
      "id": "dod-final",
      "titulo": "DoD final verificável: compila 0/0, siglas e números do diff verdes, todas as células da matriz em 'feito'",
      "dono": "agente",
-     "status": "pendente"
+     "status": "pendente",
+     "bloqueado_por": [
+      "normas-ufpr"
+     ]
     },
     {
      "id": "ars-fechamento",
@@ -634,6 +685,30 @@
      "bloqueado_por": [
       "gate-final"
      ]
+    }
+   ]
+  },
+  {
+   "id": "dados",
+   "nome": "Dados (auditoria e publicação)",
+   "itens": [
+    {
+     "id": "md5-versao",
+     "titulo": "Registrar no Cap. 3 o hash md5 e a versão exata do CSV usado + changelog Kaggle 250.365→250.221 (TODO herdado do artigo a5)",
+     "dono": "agente",
+     "status": "pendente"
+    },
+    {
+     "id": "dicionario-dados",
+     "titulo": "Dicionário de dados junto ao dataset (colunas, normalização de rótulos, CategorySchema 620+_rare_=621)",
+     "dono": "agente",
+     "status": "pendente"
+    },
+    {
+     "id": "pipeline-reprodutivel",
+     "titulo": "Checagem executável: load_base reproduz 231.490 textos/714 classes e o schema 621 a partir do CSV publicado (entra nos dod-scripts)",
+     "dono": "agente",
+     "status": "pendente"
     }
    ]
   }
