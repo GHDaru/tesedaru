@@ -136,26 +136,26 @@ bucal}; \textit{ervilha} $\to$ \textit{ervilha em conserva});
 inverso; $\approx 2\%$ envolvem \texttt{\_rare\_} ou rótulo inválido; o
 restante são erros semânticos genuínos. Ou seja: quase metade do erro do
 oráculo não é ignorância sobre o produto, e sim desconhecimento das
-\emph{convenções deste catálogo} — fronteiras entre classes vizinhas e
+\emph{convenções deste catálogo}: fronteiras entre classes vizinhas e
 política de agregação que só se aprendem com exemplos rotulados. Esse
 diagnóstico tem duas consequências: motiva a ablação de prompt do E0-P
 (regras de fronteira explícitas) e prevê que o ruído do oráculo é
 \emph{estruturado} (concentrado em pares vizinhos), cenário menos danoso ao
-classificador treinado que ruído uniforme \citep{Frenay2014,Song2023NoisyLabels}
-— hipótese testada no E4.
+classificador treinado que ruído uniforme \citep{Frenay2014,Song2023NoisyLabels};
+é a hipótese testada no E4.
 
 \subsection{RQ4 --- efeito do instrumento de medição}
 \label{sec:res-e0-rq4}
 
 Com o mesmo modelo (gpt-4o-mini), as mesmas 1.000 instâncias da S-rand e o
-mesmo \textit{prompt}, a troca do instrumento — saída estruturada com
-\texttt{enum} \textit{versus} saída livre (réplica do instrumento do
-legado) — produz: acurácia $61{,}3\%$ (enum) contra $60{,}5\%$ (free), mas
+mesmo \textit{prompt}, a troca do instrumento produz o seguinte, comparando
+saída estruturada com \texttt{enum} e saída livre (réplica do instrumento do
+legado): acurácia $61{,}3\%$ (enum) contra $60{,}5\%$ (free), mas
 taxa de rótulos inválidos de \textbf{0,0\% contra 6,8\%}. O efeito do
 instrumento aparece menos na acurácia pontual e mais na
 \emph{contabilidade do erro}: sem restrição de saída, quase 7\% das respostas
 são variações de fraseado fora do espaço de rótulos, que um protocolo ingênuo
-computa como erro do modelo — deflacionando a medição e contaminando qualquer
+computa como erro do modelo, o que deflaciona a medição e contamina qualquer
 comparação entre modelos com propensões diferentes a parafrasear. A restrição
 por \texttt{enum} com validação estrita elimina essa classe de artefato por
 construção, e é por isso o modo de produção do FALCO
@@ -167,12 +167,12 @@ construção, e é por isso o modo de produção do FALCO
 Duas verificações de instrumentação completam o E0. \textbf{Gabarito}:
 reavaliando todos os oráculos (a) sem as instâncias de rótulo conflitante e
 (b) sob pontuação \emph{multi-gold}, a acurácia varia no máximo $+0{,}7$
-p.p., sem alterar nenhum ordenamento — o ruído conhecido do gabarito limita o
+p.p., sem alterar nenhum ordenamento: o ruído conhecido do gabarito limita o
 teto de medição ($\approx 99{,}3\%$), mas não contamina as comparações
 (Seção~\ref{sec:metodo-dados-auditoria}). \textbf{Lote}: na calibração
 pareada (lotes de 1, 10 e 25 itens nas mesmas instâncias), o McNemar não
 detecta degradação ($b=1$ vs.\ $b=10$: $p=0{,}58$), e o lote reduz o custo por
-rótulo em até 10 vezes ao amortizar o prefixo — adotou-se $b=10$ (OpenAI) e
+rótulo em até 10 vezes ao amortizar o prefixo, e por isso adotou-se $b=10$ (OpenAI) e
 $b=25$ (MaaS), registrado por anotação. O ganho é consistente com o precedente
 de anotação em lote em laços de AL com LLM \citep{Kholodna2024}, que reporta o
 mesmo mecanismo de amortização de \textit{prompt} como componente central da
@@ -182,14 +182,14 @@ economia frente à anotação humana.
 \label{sec:res-e0p}
 
 A anatomia de erros (RQ3) indica que $\approx 48\%$ dos erros do oráculo são
-de convenção de catálogo — atacáveis por \textit{prompt}. O E0-P mede esse
+de convenção de catálogo, ou seja, atacáveis por \textit{prompt}. O E0-P mede esse
 potencial no modelo de MENOR custo com cache (gpt-4o-mini): variantes
 \textbf{v4a} (dez regras de fronteira explícitas derivadas do perfil de erro
 da S-strat) e \textbf{v4b} (v4a + dez exemplos \emph{inventados} de fronteiras
-difíceis — nunca instâncias das amostras, desenho anti-vazamento D-004),
-pareadas com o v3 oficial nos mesmos 500 primeiros itens de cada amostra —
+difíceis, nunca instâncias das amostras, desenho anti-vazamento D-004),
+pareadas com o v3 oficial nos mesmos 500 primeiros itens de cada amostra. Esse
 subconjunto-prefixo (aleatório por construção, pois as amostras já são
-embaralhadas) dimensionado para detectar, via McNemar, deslocamentos da ordem
+embaralhadas) foi dimensionado para detectar, via McNemar, deslocamentos da ordem
 de 4--5 p.p.\ com o volume de discordâncias esperado ($\approx 60$--$80$
 pares), a um quinto do custo da amostra completa por variante.
 A Tabela~\ref{tab:e0p} resume o resultado
@@ -215,7 +215,7 @@ S-strat & v4b (regras+ex.)   & $41{,}0\%$ & $14/68$ & $<0{,}001$ \\
 \end{tabular}
 \end{table}
 
-O resultado é uma faca de dois gumes — e por isso mesmo informativo. Na
+O resultado é uma faca de dois gumes, e por isso mesmo informativo. Na
 S-rand, que espelha a distribuição de produção, as regras de fronteira
 recuperam parte do erro de convenção: $+3{,}8$ p.p.\ com v4a ($p=0{,}045$) e
 $+4{,}6$ p.p.\ com v4b ($p=0{,}012$), confirmando que uma fração do déficit
@@ -231,7 +231,7 @@ nas \emph{duas} distribuições antes de adoção, pois um ganho medido só na
 amostra natural pode mascarar regressão severa nas caudas; e (ii) o ganho
 barato na distribuição de produção existe e justifica a direção de trabalho
 futuro de gerar regras automaticamente a partir da matriz de confusão
-(Seção~\ref{sec:conc-futuro}) — desde que com salvaguarda estratificada.
+(Seção~\ref{sec:conc-futuro}), desde que com salvaguarda estratificada.
 
 \section{E1: estratégias de seleção com oráculo perfeito}
 \label{sec:res-e1}
@@ -239,13 +239,13 @@ futuro de gerar regras automaticamente a partir da matriz de confusão
 O E1 varre as cinco estratégias de seleção (entropia, menor confiança, menor
 margem, híbrida, aleatória) com o PVBin e oráculo simulado sem ruído, em pool
 deduplicado de 20.000 instâncias, orçamento de 3.000 rótulos, lote 100 e
-8 sementes por célula; a ablação de lote repete a entropia — a estratégia
-pré-registrada da Fase~2 do FALCO e do E4 — com $b \in \{50, 200\}$. O
+8 sementes por célula; a ablação de lote repete a entropia, estratégia
+pré-registrada da Fase~2 do FALCO e do E4, com $b \in \{50, 200\}$. O
 dimensionamento é deliberado: 20.000 é o maior pool que mantém as 104 células
 (5 estratégias + ablações + E4, $\times$ 8 sementes) computáveis em CPU
 preservando representação de todas as classes; o orçamento de 3.000 (15\% do
 pool) cobre exatamente o regime de poucos rótulos em que as estratégias
-diferem — para além dele as curvas convergem e a comparação perde poder; o
+diferem, pois para além dele as curvas convergem e a comparação perde poder; o
 lote 100 é o valor operacional do FALCO, e a própria ablação testa sua
 vizinhança; e 8 sementes é o mínimo que permite $p<0{,}05$ no Wilcoxon
 pareado (Seção~\ref{sec:metodo-falco-baselines}).
