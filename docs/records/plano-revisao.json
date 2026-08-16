@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 18,
-  "atualizado_em": "2026-08-16T21:30:00Z",
-  "atualizado_por": "executor02: seed123 entregue (6/9, canônico); s42 canônica rodando por decisão do autor; A/B/C das 3 sementes aguardam o cache do oráculo",
+  "versao": 19,
+  "atualizado_em": "2026-08-16",
+  "atualizado_por": "executor02: seed7 do executor01 verificada e publicada na main; item herdado por handoff; s42 canônica segue rodando",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -745,11 +745,13 @@
       {
         "id": "e3p-seed7",
         "o_que": "E3′ semente 7 — 5 braços + varredura de orçamento",
-        "onde": "Kaggle Notebooks (GPU) · sessão executor01/02",
-        "estado": "rodando",
-        "dono": "autor",
+        "onde": "Kaggle, GPU T4 · kernel ghdaru/falco-e3-semente-7 (executor01) · resultados publicados na main pelo executor02",
+        "estado": "bloqueado",
+        "dono": "executor02",
         "duracao": "1,5–2,5 h",
-        "resultado_esperado": "experiments/e2e3/results/e3prime_*_s7.json"
+        "resultado_esperado": "experiments/e2e3/results/e3prime_*_s7.json",
+        "resultado": "6 de 9 braços, regime canônico, produzidos pelo executor01 (branch claude/e3prime-seed-7-bx08ks@2f7d26f) e publicados na main em https://github.com/GHDaru/activelearning/commit/ebd1797 após verificação independente (conteúdo == saída do kernel; regime conferido). D: F1 0,3771/acc 0,8678 · E35: 0,3440/0,8592 · E30: 0,3239/0,8443 · E25: 0,3058/0,8310 · E20: 0,2533/0,7826 · E: 0,2050/0,7005. Varredura vs 0,95×D: NENHUM braço cruza o F1 nesta semente; E25/E30/E35 cruzam acurácia. Handoff: executor01 passou o item ao executor02 (mensagem 2130 na branch dele) e assumiu notebooks-auditáveis.",
+        "bloqueio": "A, B e C aguardam o annotation_cache_nemotron.jsonl como dataset do Kaggle — mesmos três braços pendentes nas sementes 42, 7 e 123."
       },
       {
         "id": "e3p-seed123",
