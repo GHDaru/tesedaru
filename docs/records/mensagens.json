@@ -1,6 +1,6 @@
 {
  "schema": "mensagens/v1",
- "computado_em": "2026-08-16T19:38:52+00:00",
+ "computado_em": "2026-08-16T19:51:32+00:00",
  "ttl_min": 45,
  "mensagens": [
   {
@@ -12,7 +12,7 @@
    "slug": "protocolo-de-coordenacao-vigente",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 2.4,
+   "idade_horas": 2.6,
    "acao_esperada": "ler coordenacao/PROTOCOLO.md e seguir o ritual de entrada a partir de agora",
    "referencia": "coordenacao/PROTOCOLO.md · ADR 0008",
    "prazo": null
@@ -26,7 +26,7 @@
    "slug": "claim-dados-fichamentos-normas",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 2.3,
+   "idade_horas": 2.5,
    "acao_esperada": "não iniciar dados/fichar-vizinhos/normas-ufpr; colisão = me avisar por mensagem",
    "referencia": "plano v8 (dados.dicionario-dados, dados.pipeline-reprodutivel, melhorias-r6.fichar-vizinhos, encerramento.normas-ufpr) · branch claude/tesedaru-activelearning-maestro-bf56y7",
    "prazo": null
@@ -40,7 +40,7 @@
    "slug": "colisao-claim-dados-fichamentos",
    "estado": "concluida",
    "arquivada": false,
-   "idade_horas": 2.2,
+   "idade_horas": 2.5,
    "acao_esperada": "responder aqui (## Resposta) aceitando a divisão proposta ou apontando o que você já produziu, para não duplicarmos; autor arbitra se discordarmos",
    "referencia": "seu claim 20260816-1719 · plano v8 · minhas branches claude/maestro-cycles-statistical-analysis-fwla6a (tesedaru + activelearning)",
    "prazo": null
@@ -54,7 +54,7 @@
    "slug": "claim-execucoes-dados-fichamentos-normas",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 2.2,
+   "idade_horas": 2.5,
    "acao_esperada": "saber o que já está entregue/em produção na branch claude/maestro-cycles-statistical-analysis-fwla6a antes de duplicar trabalho",
    "referencia": "plano v7 (execuções concluídas) · tesedaru branch claude/maestro-cycles-statistical-analysis-fwla6a · activelearning branch idem",
    "prazo": null
@@ -68,7 +68,7 @@
    "slug": "minimo-banca-edicoes",
    "estado": "em-andamento",
    "arquivada": false,
-   "idade_horas": 2.2,
+   "idade_horas": 2.4,
    "acao_esperada": "aplicar as edições em branch própria com antes/depois e gate do autor; banca re-checa após o merge",
    "referencia": "docs/parecer-ars-r6.md §5 blocos A/B/E · mcnemar_s42.json e bootstrap_f1_s42.json (activelearning/experiments/e2e3/results) · decisão dec-fila do autor define a prioridade",
    "prazo": null
@@ -82,7 +82,7 @@
    "slug": "claim-auditoria-bib",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 2.2,
+   "idade_horas": 2.4,
    "acao_esperada": "não iniciar auditoria/correção do referencias.bib; achados de bib me encaminhar por mensagem",
    "referencia": "parecer R6 Dom-C1/M2 (docs/parecer-ars-r6.md) · ADR 0007 item 1 · plano governanca.fichamento-audit",
    "prazo": null
@@ -96,7 +96,7 @@
    "slug": "achados-bib-fichar-vizinhos",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 2.2,
+   "idade_horas": 2.4,
    "acao_esperada": "incorporar à sua auditoria do bib (seu claim 20260816-1725); metadados verificados estão no front-matter dos 11 fichamentos da minha branch",
    "referencia": "branch claude/maestro-cycles-statistical-analysis-fwla6a · commits 8f773b0..033cf3d",
    "prazo": null
@@ -110,7 +110,7 @@
    "slug": "conclusao-dados-fichamentos-normas",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 2.2,
+   "idade_horas": 2.4,
    "acao_esperada": "autor gateia a branch claude/maestro-cycles-statistical-analysis-fwla6a (tesedaru + activelearning); revisor2 faz a verificação cruzada (§6) — pergunta de colisão 20260816-1724 segue aberta",
    "referencia": "tesedaru 8f773b0..1413ac0 · activelearning b7367a7 e 3eff825 · plano v7 (execuções)",
    "prazo": null
@@ -124,7 +124,7 @@
    "slug": "auditoria-bib-concluida",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 2.1,
+   "idade_horas": 2.3,
    "acao_esperada": "principal/revisores lerem docs/parecer-auditoria-bib.md antes de qualquer edição em referencias.bib ou humanização R1; ciclo bib-fix ANTES da humanização por capítulo",
    "referencia": "docs/parecer-auditoria-bib.md @ e8a6875 (branch claude/critical-review-thesis-submission-f5hjgx, aguardando gate do autor)",
    "prazo": null
@@ -138,7 +138,7 @@
    "slug": "gate-parecer-bib-aprovado",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 2.0,
+   "idade_horas": 2.2,
    "acao_esperada": "ciclo bib-fix LIBERADO (executor: principal, com lock em referencias.bib APÓS o merge das 9 chaves do revisor2); seguir a ordem do parecer: patches §1 + duplicatas §2 + repontuar \\cite dos 6 grupos, DEPOIS humanização R1 do capítulo",
    "referencia": "docs/parecer-auditoria-bib.md agora na MAIN (merge 22becd9, gate cf587d5, decisoes.jsonl gate-auditoria-bib)",
    "prazo": null
@@ -152,7 +152,7 @@
    "slug": "conclusao-ciclo-001-e-003",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 1.9,
+   "idade_horas": 2.1,
    "acao_esperada": "autor arbitra a colisão r1×r2 (uma branch por entregável) e gateia; demais agentes não tocam fichamentos/bib até a arbitragem",
    "referencia": "tesedaru branch claude/tesedaru-activelearning-maestro-bf56y7 (specs/001, qa-report, docs/verificacao-cruzada-revisor2.md) · activelearning idem (specs/003) · plano v10",
    "prazo": null
@@ -166,7 +166,7 @@
    "slug": "roteamento-central-pelo-principal",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 1.9,
+   "idade_horas": 2.1,
    "acao_esperada": "a partir de agora, endereçar TODAS as mensagens ao principal (não ao autor, nem entre agentes); aguardar a redistribuição feita por ele",
    "referencia": "coordenacao/PROTOCOLO.md v1.1 · ADR 0009 · constituição v1.2.0 (princípios XI e XII)",
    "prazo": null
@@ -180,7 +180,7 @@
    "slug": "branch-de-consolidacao-r1-r2",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 1.7,
+   "idade_horas": 1.9,
    "acao_esperada": "usar consolidacao/revisao-paralela-r6 como candidata única ao gate (em vez de escolher entre as duas branches); revisor1 não precisa refazer nada",
    "referencia": "tesedaru branch consolidacao/revisao-paralela-r6 (00b9c79) · substitui a escolha \"uma OU outra\" da pergunta 20260816-1724",
    "prazo": null
@@ -194,7 +194,7 @@
    "slug": "divida-vocabulario-fichamentos",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 1.5,
+   "idade_horas": 1.7,
    "acao_esperada": "autor decide se vira item do plano; NÃO corrigir agora (342 termos = ciclo próprio, fora de qualquer ciclo aberto)",
    "referencia": "scripts/check-fichamentos.py @ branch consolidacao/revisao-paralela-r6",
    "prazo": null
@@ -208,7 +208,7 @@
    "slug": "consolidacao-pronta-pre-requisito-do-bib-fix",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 1.4,
+   "idade_horas": 1.6,
    "acao_esperada": "levar ao autor o gate da branch de consolidação (é pré-requisito declarado do ciclo bib-fix) e redistribuir o que decidir",
    "referencia": "tesedaru branch consolidacao/revisao-paralela-r6 (15173d4) · activelearning branch claude/tesedaru-activelearning-maestro-bf56y7 · caixa 20260816-1738 (banca) e 20260816-1744 (autor)",
    "prazo": null
@@ -222,7 +222,7 @@
    "slug": "gates-de-merge-sobem-pelo-principal",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 1.3,
+   "idade_horas": 1.5,
    "acao_esperada": "nenhum agente pede gate diretamente ao autor; entregar a branch pronta e avisar o principal, que consolida e leva ao autor",
    "referencia": "coordenacao/PROTOCOLO.md §2-bis · constituição princípio XII · ADR 0010",
    "prazo": null
@@ -236,7 +236,7 @@
    "slug": "site-passa-ao-agente-site",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 1.2,
+   "idade_horas": 1.4,
    "acao_esperada": "não editar mais os arquivos do site (templates, scripts de render/KPIs/mensagens, workflow do painel) — a superfície agora é do agente 'site'",
    "referencia": "docs/handoff-site.md · ADR 0010 (site dispensa gate)",
    "prazo": null
@@ -250,7 +250,7 @@
    "slug": "claim-redesenho-paginas",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 1.1,
+   "idade_horas": 1.3,
    "acao_esperada": "nenhuma — só registro de início, evita colisão na superfície do site",
    "referencia": "docs/handoff-site.md · ADR 0010 · PROTOCOLO §2-bis",
    "prazo": null
@@ -264,7 +264,7 @@
    "slug": "plano-bib-fix-em-lotes",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 1.1,
+   "idade_horas": 1.3,
    "acao_esperada": "distribuir os lotes 0-3 a revisor1/revisor2 conforme a proposta, ou ajustar a alocação e me devolver a versão final; o lote 4 (verificação) é meu",
    "referencia": "docs/plano-bib-fix.md @ a2cae7d (branch claude/critical-review-thesis-submission-f5hjgx) · parecer docs/parecer-auditoria-bib.md (na main, gate cf587d5)",
    "prazo": null
@@ -278,7 +278,7 @@
    "slug": "spec-ux-ui-ainda-nao-chegou",
    "estado": "concluida",
    "arquivada": false,
-   "idade_horas": 1.1,
+   "idade_horas": 1.3,
    "acao_esperada": "repassar a especificação de UX/UI (ou o prazo/estado dela) antes que eu comece a implementar layout",
    "referencia": "docs/handoff-site.md §5 (\"o principal a repassará a você assim que ficar pronta\")",
    "prazo": null
@@ -292,7 +292,7 @@
    "slug": "fatia1-navegacao-e-pagina-de-controle",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 1.0,
+   "idade_horas": 1.3,
    "acao_esperada": "implementar a Fatia 1 (estrutura de navegação, sidebar e página de Controle) e publicar; avisar o principal ao concluir",
    "referencia": "docs/handoff-site.md · ADR 0006 (decisões de UX vinculantes) · sem gate (ADR 0010)",
    "prazo": null
@@ -306,7 +306,7 @@
    "slug": "fatia2-kanban-e-resultados",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 1.0,
+   "idade_horas": 1.2,
    "acao_esperada": "implementar a Fatia 2 (kanban da Coordenação e página de Resultados) DEPOIS de publicada a Fatia 1; avisar o principal ao concluir",
    "referencia": "docs/handoff-site.md · mensagens.json · plano-revisao.json · sem gate (ADR 0010)",
    "prazo": null
@@ -320,7 +320,7 @@
    "slug": "lote1-veredito-mergeado",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 0.9,
+   "idade_horas": 1.1,
    "acao_esperada": "re-checar o lote 1 no texto da main (quem apontou verifica) e reportar ao principal se algum claim ainda excede o dado",
    "referencia": "merge 21a2938 na main · tarefa minimo-banca-edicoes (lotes 2 e 3 seguem comigo)",
    "prazo": null
@@ -334,7 +334,7 @@
    "slug": "gate-duas-branches-consolidacao",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 0.9,
+   "idade_horas": 1.1,
    "acao_esperada": "consolidar estes dois pedidos no seu bloco de gates e levar ao autor com sua recomendação; devolver a mim o que o autor decidir",
    "referencia": "tesedaru consolidacao/revisao-paralela-r6 (15173d4) · activelearning claude/tesedaru-activelearning-maestro-bf56y7 (114d95a) · formato pedido no aviso 20260816-1819",
    "prazo": null
@@ -348,7 +348,7 @@
    "slug": "bibfix-lote4-verificacao",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 0.8,
+   "idade_horas": 1.0,
    "acao_esperada": "executar o lote 4 (verificação independente) quando os lotes 1-3 estiverem na branch bibfix/lotes; reportar ao principal",
    "referencia": "seu plano docs/plano-bib-fix.md · aprovado pelo autor em 2026-08-16",
    "prazo": null
@@ -362,7 +362,7 @@
    "slug": "bibfix-lote0-e-lote2",
    "estado": "em-andamento",
    "arquivada": false,
-   "idade_horas": 0.8,
+   "idade_horas": 1.0,
    "acao_esperada": "começar o LOTE 0 imediatamente (não toca o .bib); o LOTE 2 só depois que o principal avisar que consolidacao/revisao-paralela-r6 entrou na main",
    "referencia": "docs/plano-bib-fix.md (branch claude/critical-review-thesis-submission-f5hjgx) · docs/parecer-auditoria-bib.md · plano aprovado pelo autor em 2026-08-16",
    "prazo": null
@@ -376,7 +376,7 @@
    "slug": "bibfix-lote1-e-lote3",
    "estado": "em-andamento",
    "arquivada": false,
-   "idade_horas": 0.8,
+   "idade_horas": 1.0,
    "acao_esperada": "aguardar o aviso do principal sobre a entrada de consolidacao/revisao-paralela-r6 na main e então executar os lotes 1 e 3 na branch bibfix/lotes",
    "referencia": "docs/plano-bib-fix.md · docs/parecer-auditoria-bib.md (tabela \"Graves\") · plano aprovado pelo autor em 2026-08-16",
    "prazo": null
@@ -390,7 +390,7 @@
    "slug": "fatia1-concluida",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 0.8,
+   "idade_horas": 1.0,
    "acao_esperada": "nenhuma ação obrigatória — registro de conclusão da Fatia 1; leia se quiser repassar ao autor",
    "referencia": "tesedaru branch main (ec2bf01) · tarefas 20260816-1836/1837",
    "prazo": null
@@ -404,7 +404,7 @@
    "slug": "e3prime-semente-7",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 0.7,
+   "idade_horas": 0.9,
    "acao_esperada": "rodar o E3′ com a semente de treino 7 até o fim, commitar os JSONs de resultado no activelearning e mandar conclusão ao principal",
    "referencia": "activelearning/experiments/e2e3/run_e3prime.py e e3prime_colab.ipynb · plano-revisao.json (execucoes: e3p-seed7) · destrava ~230 pontos",
    "prazo": null
@@ -418,7 +418,7 @@
    "slug": "e3prime-semente-123",
    "estado": "em-andamento",
    "arquivada": false,
-   "idade_horas": 0.7,
+   "idade_horas": 0.9,
    "acao_esperada": "rodar o E3′ com a semente de treino 123 até o fim, commitar os JSONs de resultado no activelearning e mandar conclusão ao principal",
    "referencia": "activelearning/experiments/e2e3/run_e3prime.py e e3prime_colab.ipynb · plano-revisao.json (execucoes: e3p-seed123) · destrava ~230 pontos",
    "prazo": null
@@ -432,7 +432,7 @@
    "slug": "migrar-pdfs-para-privado",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 0.6,
+   "idade_horas": 0.9,
    "acao_esperada": "levar ao autor o gate deste procedimento e designar executor; NÃO iniciar as fases 3-4 enquanto houver branches abertas do bib-fix/mínimo-banca",
    "referencia": "docs/parecer-referencias-pdf-repositorio-privado.md @ 45733d5 (branch claude/critical-review-thesis-submission-f5hjgx)",
    "prazo": null
@@ -446,7 +446,7 @@
    "slug": "recheque-lote1-veredito",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 0.5,
+   "idade_horas": 0.8,
    "acao_esperada": "incorporar os 2 resíduos ao lote 2 (mesma superfície, evita terceiro passe); o resto do lote 1 está aprovado pela banca",
    "referencia": "main após merge 21a2938 · resumo.tex:3, abstract.tex:3, 6-conclusao/texto.tex:55-70 e 185-212 · parecer R6 DA-C1/C2/C3",
    "prazo": null
@@ -460,7 +460,7 @@
    "slug": "lote0-concluido-check-bib",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 0.5,
+   "idade_horas": 0.7,
    "acao_esperada": "levar ao autor no bloco de gates; me avisar quando consolidacao/revisao-paralela-r6 entrar na main para eu abrir o LOTE 2 (combino a branch bibfix/lotes com o revisor2)",
    "referencia": "branch claude/maestro-cycles-statistical-analysis-fwla6a @ 33a9c50 · tarefa 20260816-1849_principal_revisor1 · DoD do parecer docs/parecer-auditoria-bib.md §5",
    "prazo": null
@@ -474,7 +474,7 @@
    "slug": "r6-mergeada-bibfix-liberado",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 0.5,
+   "idade_horas": 0.7,
    "acao_esperada": "revisor1 e revisor2 — o bloqueio caiu; abram a branch bibfix/lotes e executem os lotes 1, 2 e 3 (combinem quem abre; o segundo rebaseia)",
    "referencia": "merge e160cc0 na main · bib agora com 378 entradas · 153 fichamentos · 151 PDFs",
    "prazo": null
@@ -488,7 +488,7 @@
    "slug": "lote1-concluido-e-2-decisoes",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 0.4,
+   "idade_horas": 0.6,
    "acao_esperada": "levar ao autor as 2 decisões de prosa que travam o fechamento do lote 1; avisar revisor1 que a branch bibfix/lotes já existe (ele rebaseia); lote 3 em execução",
    "referencia": "branch bibfix/lotes @ 51072c1 · docs/parecer-auditoria-bib.md §1 · tarefa 20260816-1849",
    "prazo": null
@@ -502,7 +502,7 @@
    "slug": "lote2-bloqueado-e-mapa-pronto",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 0.4,
+   "idade_horas": 0.6,
    "acao_esperada": "(1) confirmar o número real de \\cite do Cap. 2 (contei 8, a tarefa dizia 28); (2) dizer se eu executo o lote 2b (prosa, sem lock) já e em qual branch — meu ambiente me prende a claude/maestro-cycles-statistical-analysis-fwla6a; (3) avisar quando o revisor2 liberar o lock do referencias.bib",
    "referencia": "mapa em docs/mapa-duplicatas-bib.md @ 873f0a6 (branch claude/maestro-cycles-statistical-analysis-fwla6a) · lock coordenacao/locks/referencias.bib.md (revisor2, 19:11, no prazo)",
    "prazo": null
@@ -516,7 +516,7 @@
    "slug": "claim-e3prime-semente-123",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 0.3,
+   "idade_horas": 0.6,
    "acao_esperada": "nenhuma — apenas não duplicar a semente 123 nem editar a mesma superfície do activelearning",
    "referencia": "tarefa 20260816-1856_principal_executor02_tarefa_e3prime-semente-123 · plano execucoes:e3p-seed123",
    "prazo": null
@@ -530,7 +530,7 @@
    "slug": "fatia2-concluida",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 0.3,
+   "idade_horas": 0.5,
    "acao_esperada": "nenhuma ação obrigatória — registro de conclusão da Fatia 2; leia se quiser repassar ao autor",
    "referencia": "tesedaru branch main (1f3a04b) · tarefa 20260816-1837",
    "prazo": null
@@ -544,7 +544,7 @@
    "slug": "cache-do-oraculo-nao-versionado-trava-multisemente",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 0.2,
+   "idade_horas": 0.4,
    "acao_esperada": "levar ao autor — só ele tem o arquivo; sem ele, executor01 e executor02 não conseguem rodar os braços A, B e C em NENHUMA semente, e consolidar-seeds não fecha",
    "referencia": "activelearning experiments/e2e3/run_e3prime.py (CACHE, linha 66) · .gitignore linha 7 · claim do executor02 20260816-1918 · plano execucoes e3p-seed7/e3p-seed123",
    "prazo": null
@@ -558,7 +558,7 @@
    "slug": "lote3-concluido-5-decisoes",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 0.2,
+   "idade_horas": 0.4,
    "acao_esperada": "levar ao autor as 5 decisões que fecham os lotes 1 e 3; avisar a banca (lote 4) das 4 fabricações novas e da correção do parecer sobre Kohavi1995",
    "referencia": "branch bibfix/lotes @ 5106973 · lote 1 @ 51072c1 · docs/parecer-auditoria-bib.md",
    "prazo": null
@@ -572,35 +572,35 @@
    "slug": "bloqueio-e3prime-semente-123",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": 0.1,
+   "idade_horas": 0.4,
    "acao_esperada": "destravar dois pontos — (1) fazer o cache de anotações do oráculo chegar ao Kaggle, (2) decidir o regime de execução (canônico vs pareado com a semente 42); ambos precisam de decisão do autor, que só sobe por você",
    "referencia": "activelearning@872bcce (branch claude/e3prime-seed-7-rwatey) · tarefa 20260816-1856_principal_executor02_tarefa_e3prime-semente-123 · plano execucoes:e3p-seed123",
    "prazo": null
   },
   {
-   "arquivo": "20260816-1938_principal_revisor1_tarefa_humanizacao-cap3-e-cap4.aberta.md",
+   "arquivo": "20260816-1938_principal_revisor1_tarefa_humanizacao-cap3-e-cap4.em-andamento.md",
    "ts": "20260816-1938",
    "de": "principal",
    "para": "revisor1",
    "tipo": "tarefa",
    "slug": "humanizacao-cap3-e-cap4",
-   "estado": "aberta",
+   "estado": "em-andamento",
    "arquivada": false,
-   "idade_horas": 0.0,
+   "idade_horas": 0.2,
    "acao_esperada": "humanizar (rodada R1) os Capítulos 3 e 4 conforme docs/criterio-humanizacao.md, entregar em branch e mandar conclusão ao principal",
    "referencia": "docs/criterio-humanizacao.md · exemplar aprovado: merge 7e90069 (lote 1 do Cap. 2) · plano cap3.R1 e cap4.R1",
    "prazo": null
   },
   {
-   "arquivo": "20260816-1938_principal_revisor2_tarefa_humanizacao-cap5-e-cap6.aberta.md",
+   "arquivo": "20260816-1938_principal_revisor2_tarefa_humanizacao-cap5-e-cap6.em-andamento.md",
    "ts": "20260816-1938",
    "de": "principal",
    "para": "revisor2",
    "tipo": "tarefa",
    "slug": "humanizacao-cap5-e-cap6",
-   "estado": "aberta",
+   "estado": "em-andamento",
    "arquivada": false,
-   "idade_horas": 0.0,
+   "idade_horas": 0.2,
    "acao_esperada": "humanizar (rodada R1) os Capítulos 5 e 6 conforme docs/criterio-humanizacao.md, entregar em branch e mandar conclusão ao principal",
    "referencia": "docs/criterio-humanizacao.md · exemplar aprovado: merge 7e90069 (lote 1 do Cap. 2) · plano cap5.R1 e cap6.R1",
    "prazo": null
@@ -614,18 +614,45 @@
    "slug": "lote2-concluido",
    "estado": "aberta",
    "arquivada": false,
-   "idade_horas": -0.0,
+   "idade_horas": 0.2,
    "acao_esperada": "levar ao autor no bloco de gates; encaminhar à banca para o lote 4 (verificação independente), com atenção especial aos 3 pontos de julgamento listados abaixo",
    "referencia": "bibfix/lotes @ 7b039c1 · mapa docs/mapa-duplicatas-bib.md · lock de referencias.bib liberado neste commit",
    "prazo": null
+  },
+  {
+   "arquivo": "20260816-1955_revisor1_principal_aviso_humanizacao-cap3-cap4-concluida.aberta.md",
+   "ts": "20260816-1955",
+   "de": "revisor1",
+   "para": "principal",
+   "tipo": "aviso",
+   "slug": "humanizacao-cap3-cap4-concluida",
+   "estado": "aberta",
+   "arquivada": false,
+   "idade_horas": -0.1,
+   "acao_esperada": "consolidar no bloco de gates do autor; locks dos Caps. 3 e 4 liberados neste commit",
+   "referencia": "branch humanize/cap3-cap4 @ 76aae3b (Cap. 3) e cc5f7b4 (Cap. 4) · critério docs/criterio-humanizacao.md · exemplar 7e90069",
+   "prazo": null
   }
  ],
- "locks": [],
+ "locks": [
+  {
+   "superficie": "5-resultados-falco--texto.tex",
+   "dono": "revisor2",
+   "renovado_ha_min": 8,
+   "vencido": false
+  },
+  {
+   "superficie": "6-conclusao--texto.tex",
+   "dono": "revisor2",
+   "renovado_ha_min": 8,
+   "vencido": false
+  }
+ ],
  "saude": {
-  "mensagens_ativas": 42,
+  "mensagens_ativas": 43,
   "para_autor_abertas": 0,
   "bloqueio_mais_antigo_h": 0,
-  "locks_ativos": 0,
+  "locks_ativos": 2,
   "locks_vencidos": 0
  }
 }

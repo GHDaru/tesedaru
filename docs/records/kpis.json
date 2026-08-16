@@ -1,7 +1,7 @@
 {
  "schema": "kpis/v1",
  "computado_em": "2026-08-16",
- "git_sha": "3a4bd30",
+ "git_sha": "38d345b",
  "prontidao": {
   "global_pct": 3.4,
   "texto_pct": 4.0,
@@ -97,15 +97,15 @@
   "serie": [
    {
     "data": "2026-08-16",
-    "commit": "11f997f",
-    "pontos": 84,
-    "pct": 4.1,
+    "commit": "62e9f95",
+    "pontos": 80,
+    "pct": 3.9,
     "evento": null
    }
   ]
  },
  "fila_autor": {
-  "total": 11,
+  "total": 10,
   "itens": [
    {
     "id": "seed7",
@@ -124,12 +124,6 @@
     "tipo": "acao",
     "titulo": "Ativar webhook Zenodo e gerar DOI (metadados prontos) · ao obter DOI: inserir URL+DOI no artigo A4 e no Cap. 3 (tese hoje não tem URL de repositório)",
     "pontos_destravados": 10
-   },
-   {
-    "id": "e3p-seed7",
-    "tipo": "execucao",
-    "titulo": "E3′ semente 7 — 5 braços + varredura de orçamento",
-    "pontos_destravados": 0
    },
    {
     "id": "kaggle-licenca",
