@@ -31,6 +31,6 @@
 
 ## Closing tail — MANDATORY, one line each, never delete
 
-- [ ] `TAIL:review` — revisão independente em contexto fresco do diff da branch (evidência no qa-report).
-- [ ] `TAIL:security` — varredura de segredos no diff (evidência no qa-report).
+- [x] `TAIL:review` — revisão independente em contexto fresco do diff da branch (evidência no qa-report).
+- [x] `TAIL:security` — varredura de segredos no diff (evidência no qa-report).
 - [ ] `TAIL:gate` — gate humano do autor no merge da branch (aguardando).

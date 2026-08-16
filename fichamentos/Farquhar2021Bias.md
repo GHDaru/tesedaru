@@ -49,6 +49,8 @@ falco_relation:
 
 # On Statistical Bias In Active Learning: How and When To Fix It
 
+> **Nota de fonte**: PDF arquivado = arXiv v2 (2101.11665v2, pós-camera-ready); o download do PDF oficial do OpenReview é bloqueado por challenge. Paginação citada refere-se ao PDF do arXiv.
+
 ## Resumo (5-8 linhas, com as MINHAS palavras)
 Formaliza o viés estatístico do aprendizado ativo: como os pontos são
 escolhidos (e não sorteados i.i.d.), o risco empírico calculado sobre o

@@ -36,12 +36,12 @@ nós `Claim` ligados por `asserts` (paper→claim) e `evidences` (claim→locali
 Termos entrados pelos fichamentos dos 11 vizinhos (parecer R6, Bloco C); mesmo commit do fichamento que os introduz.
 
 ### Tarefas (fichar-vizinhos)
-classificacao-de-texto  <!-- FreeAL2023 -->,,
+classificacao-de-texto  <!-- FreeAL2023 -->
 regressao  <!-- Farquhar2021Bias -->
 classificacao-de-imagens  <!-- Hacohen2022TypiClust -->
 
 ### Modelos (fichar-vizinhos)
-biomed-roberta-base, gpt-3.5-turbo, roberta-base  <!-- FreeAL2023 -->,,,,,,,,,
+biomed-roberta-base, gpt-3.5-turbo, roberta-base  <!-- FreeAL2023 -->
 resnet101, resnet18  <!-- Bengar2022ClassBalanced -->
 distilroberta, kimcnn, svm  <!-- Schroder2022Uncertainty -->
 processo-gaussiano, random-forest, resnet, wideresnet  <!-- Kossen2021ActiveTesting -->
@@ -53,7 +53,7 @@ gpt-3-davinci, pegasus-large, roberta-large  <!-- Wang2021GPT3Labeling -->
 gpt-4  <!-- Zhang2023LLMaAA -->
 
 ### Métodos (fichar-vizinhos)
-auto-supervisao, k-means, selecao-por-diversidade, tipicidade, transicao-de-fase-de-orcamento, typiclust  <!-- Hacohen2022TypiClust -->,,,,,
+auto-supervisao, k-means, selecao-por-diversidade, tipicidade, transicao-de-fase-de-orcamento, typiclust  <!-- Hacohen2022TypiClust -->
 aprendizado-ativo-balanceado-por-classe, otimizacao-binaria  <!-- Bengar2022ClassBalanced -->
 teste-ativo  <!-- Kossen2021ActiveTesting -->
 estimador-lure, estimador-pure  <!-- Farquhar2021Bias -->
@@ -61,12 +61,12 @@ partition-then-rewrite, patron, propagacao-de-incerteza  <!-- Yu2023Patron -->
 core-set-selection, k-center-greedy, robust-k-center  <!-- Sener2018 -->
 
 ### Datasets (fichar-vizinhos)
-cifar-10, cifar-100, imagenet-subconjuntos, tiny-imagenet  <!-- Hacohen2022TypiClust -->,,,,
+cifar-10, cifar-100, imagenet-subconjuntos, tiny-imagenet  <!-- Hacohen2022TypiClust -->
 customer-reviews, movie-reviews, subjectivity  <!-- Schroder2022Uncertainty -->
 fashion-mnist, mnist  <!-- Farquhar2021Bias -->
 dbpedia, yahoo-answers, yelp-full  <!-- Yu2023Patron -->
 svhn  <!-- Sener2018 -->
 
 ### Métricas (fichar-vizinhos)
-auc-curva-de-aprendizado  <!-- Schroder2022Uncertainty -->,
+auc-curva-de-aprendizado  <!-- Schroder2022Uncertainty -->
 l1-score-balanceamento  <!-- Bengar2022ClassBalanced -->
