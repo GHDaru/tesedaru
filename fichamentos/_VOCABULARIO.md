@@ -41,7 +41,8 @@ regressao  <!-- Farquhar2021Bias -->
 classificacao-de-imagens  <!-- Hacohen2022TypiClust -->
 
 ### Modelos (fichar-vizinhos)
-biomed-roberta-base, gpt-3.5-turbo, roberta-base  <!-- FreeAL2023 -->,,,,,,,,
+biomed-roberta-base, gpt-3.5-turbo, roberta-base  <!-- FreeAL2023 -->,,,,,,,,,
+resnet101, resnet18  <!-- Bengar2022ClassBalanced -->
 distilroberta, kimcnn, svm  <!-- Schroder2022Uncertainty -->
 processo-gaussiano, random-forest, resnet, wideresnet  <!-- Kossen2021ActiveTesting -->
 rede-neural-bayesiana, regressao-linear  <!-- Farquhar2021Bias -->
@@ -52,7 +53,8 @@ gpt-3-davinci, pegasus-large, roberta-large  <!-- Wang2021GPT3Labeling -->
 gpt-4  <!-- Zhang2023LLMaAA -->
 
 ### Métodos (fichar-vizinhos)
-auto-supervisao, k-means, selecao-por-diversidade, tipicidade, transicao-de-fase-de-orcamento, typiclust  <!-- Hacohen2022TypiClust -->,,,,
+auto-supervisao, k-means, selecao-por-diversidade, tipicidade, transicao-de-fase-de-orcamento, typiclust  <!-- Hacohen2022TypiClust -->,,,,,
+aprendizado-ativo-balanceado-por-classe, otimizacao-binaria  <!-- Bengar2022ClassBalanced -->
 teste-ativo  <!-- Kossen2021ActiveTesting -->
 estimador-lure, estimador-pure  <!-- Farquhar2021Bias -->
 partition-then-rewrite, patron, propagacao-de-incerteza  <!-- Yu2023Patron -->
@@ -66,4 +68,5 @@ dbpedia, yahoo-answers, yelp-full  <!-- Yu2023Patron -->
 svhn  <!-- Sener2018 -->
 
 ### Métricas (fichar-vizinhos)
-auc-curva-de-aprendizado  <!-- Schroder2022Uncertainty -->
+auc-curva-de-aprendizado  <!-- Schroder2022Uncertainty -->,
+l1-score-balanceamento  <!-- Bengar2022ClassBalanced -->
