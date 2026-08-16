@@ -272,7 +272,7 @@ Aleatória        & $0{,}444 \pm 0{,}011$ & $0{,}339 \pm 0{,}006$ & --- \\
 \end{tabular}
 \end{table}
 
-Três leituras. \textbf{(i)~Toda estratégia de incerteza supera a aleatória},
+A tabela comporta três leituras. \textbf{(i)~Toda estratégia de incerteza supera a aleatória},
 e o faz no máximo de significância que 8 sementes permitem ($p=0{,}0078$ em
 LCE e em F1 final, todas as comparações): com 15\% do orçamento de rótulos, a
 melhor célula recupera $78\%$ do Macro F1 do teto supervisionado.
@@ -328,7 +328,7 @@ $0{,}4$ & Entropia  & $0{,}215 \pm 0{,}010$ & $54{,}1\%$ & \multirow{2}{*}{$0{,}
 \end{tabular}
 \end{table}
 
-Dois achados. \textbf{Primeiro, o ruído custa caro, mas não destrói o
+Os resultados trazem dois achados. \textbf{Primeiro, o ruído custa caro, mas não destrói o
 aprendizado ativo}: a vantagem da entropia sobre a aleatória sobrevive
 \emph{intacta e no teto de significância} em todos os níveis de ruído
 ($p=0{,}0078$ em LCE e F1 final para todo $\varepsilon$), e a retenção
@@ -426,11 +426,11 @@ PVBin & DRI-SL    & 0,527 & 45.500 & 0,284 & 0,356 \\
 
 Cinco achados (Tabela~\ref{tab:e6}). \textbf{(i)~A entropia domina em
 escala}: satura a 95\% do teto com 8.000 rótulos no SGD (19.000 no PVBin),
-metade ou um quarto do que a seleção aleatória exige — confirmando o E1 fora
+metade ou um quarto do que a seleção aleatória exige, o que confirma o E1 fora
 do regime de orçamento pequeno. \textbf{(ii)~Rotular tudo pode piorar}: no
 SGD, o Macro F1 populacional atinge $0{,}59$ com $\approx 15$ mil rótulos
 selecionados por entropia e \emph{cai} para $0{,}44$ quando o \textit{pool}
-inteiro é rotulado — a amostra ativa é mais balanceada por classe que a
+inteiro é rotulado, porque a amostra ativa é mais balanceada por classe que a
 distribuição natural, que domina o treino do modelo de perda logística quando
 tudo entra; o PVBin, que constrói um protótipo por classe, é imune. Para o
 custo de rotulagem, a implicação é forte: além do desperdício, o rótulo
@@ -438,10 +438,10 @@ adicional pode ser \emph{nocivo} à métrica macro. \textbf{(iii)~O DRI-SL
 contínuo se corrige quando guiado pelo classificador}: a variante DRI-SL-C
 eleva o teto do SGD de $0{,}441$ para $0{,}491$, adianta a saturação em
 $2{,}7\times$ (de 41.500 para 15.500) e supera o aleatório em toda a região
-útil — enquanto o DRI-SL clássico, cego ao classificador, fica abaixo do
+útil, enquanto o DRI-SL clássico, cego ao classificador, fica abaixo do
 aleatório como política contínua. \textbf{(iv)~A ablação atribui o ganho ao
-agrupamento, não à novidade lexical}: o braço estratificado por predição —
-DRI-SL-C \emph{sem} o termo de novidade — supera a DRI-SL-C completa nos
+agrupamento, não à novidade lexical}: o braço estratificado por predição, que
+é a DRI-SL-C \emph{sem} o termo de novidade, supera a DRI-SL-C completa nos
 dois classificadores (SGD: teto $0{,}555$ e saturação em 10.000 contra
 $0{,}491$ e 15.500; PVBin: saturação em 18.000 contra 39.500, empatando com
 a entropia) e em toda a região média da curva. A seleção lexical
@@ -451,17 +451,17 @@ lexicalmente atípicos quando o que a métrica macro paga é cobertura
 balanceada de classes. A leitura consolidada da tese passa a ser: DRI-SL
 para o \textit{cold start} (Fase~1, onde venceu o envelope evolutivo);
 na Fase~2, entropia como padrão, tendo a estratificação pelas classes
-previstas — política trivial de implementar — como alternativa
+previstas, política trivial de implementar, como alternativa
 representativa que captura quase todo o ganho.
 \textbf{(v)~A autoavaliação em dados coletados ativamente é
-enviesada — com sinal dependente da métrica}: no braço aleatório (controle),
+enviesada, com sinal dependente da métrica}: no braço aleatório (controle),
 acurácia interna e externa coincidem ($\Delta \approx 0$), validando o
 instrumento; na entropia, a acurácia interna \emph{subestima} a real em até
 14 p.p.\ (o teste interno herda os casos difíceis); e o Macro F1 interno
 \emph{superestima} o populacional em todos os seletores (até $+34$ p.p.\ no
 DRI-SL no início da curva), porque a amostra ativa sobre-representa classes
-raras. Nenhuma das duas direções é utilizável como estimativa de implantação
-— a justificativa empírica direta para o conjunto de validação reservado que
+raras. Nenhuma das duas direções é utilizável como estimativa de implantação:
+é a justificativa empírica direta para o conjunto de validação reservado que
 o FALCO exige e para o critério de liberação do Apêndice~\ref{ap:liberacao}.
 
 \section{E3': o classificador forte julga o pipeline e a hipótese central}
@@ -472,8 +472,8 @@ BERTimbau uma vez por braço, sobre conjuntos já coletados, e avalia todos os
 braços na população reservada ($n=20.092$, amostra estratificada fixa,
 excluídos pool e os conjuntos de decisão do ciclo real). Configuração
 uniforme entre braços: 3 épocas, lote 16, comprimento máximo de 32
-\textit{tokens}, semente única — números descritivos, comparações amparadas
-pelos IC de Wilson e pelo pareamento na mesma amostra de avaliação
+\textit{tokens}, semente única; os números são descritivos e as comparações
+ficam amparadas pelos IC de Wilson e pelo pareamento na mesma amostra de avaliação
 (artefatos em \texttt{experiments/e2e3}). A
 Tabela~\ref{tab:e3p} consolida.
 
@@ -503,23 +503,23 @@ o desenho pareado permite:
 
 \textbf{(i) O ruído do oráculo não é o gargalo.} Nos mesmos 8.937 itens, os
 rótulos do oráculo custam $4{,}4$ p.p.\ de acurácia frente ao gabarito
-(A~vs.~B, ICs disjuntos) — coerente com a concordância oráculo--gabarito de
+(A~vs.~B, ICs disjuntos), o que é coerente com a concordância oráculo--gabarito de
 $71{,}6\%$ nesses itens, selecionados por incerteza e portanto mais difíceis
 que a média. Em Macro F1, porém, A \emph{supera} B ($0{,}242$ vs.\
 $0{,}209$): o erro estruturado do oráculo espalha rótulos por mais classes
-(635 vs.\ 620) e atua como regularizador involuntário das caudas —
+(635 vs.\ 620) e atua como regularizador involuntário das caudas,
 corroborando, agora no classificador forte, a previsão do E4 de que ruído
 estruturado é o regime benigno.
 
 \textbf{(ii) A seleção ativa compra cobertura, não acurácia.} Com o mesmo
 orçamento e gabarito, o braço aleatório vence em acurácia (C~vs.~B:
 $+3{,}0$ p.p.) mas perde em Macro F1 ($0{,}189$ vs.\ $0{,}209$) e em
-cobertura (493 vs.\ 620 classes presentes no treino) — o mesmo padrão do
+cobertura (493 vs.\ 620 classes presentes no treino): é o mesmo padrão do
 E6, reproduzido no transformer.
 
 \textbf{(iii) O fator dominante é orçamento, e o critério de parada do laço
-leve subserve o modelo forte.} O braço E — 15 mil rótulos perfeitos
-selecionados por entropia, o dobro do ponto em que o ciclo real parou —
+leve subserve o modelo forte.} O braço E, com 15 mil rótulos perfeitos
+selecionados por entropia (o dobro do ponto em que o ciclo real parou),
 salta para $83{,}1\%$ de acurácia ($94{,}1\%$ da régua, a $0{,}75$ p.p.\ do
 critério de $95\%$) e $0{,}380$ de Macro F1 ($84{,}3\%$ da régua). A
 estagnação da validação do classificador \emph{leve} (que encerrou o ciclo
@@ -527,13 +527,13 @@ real em 4,7--6 mil rótulos) é, portanto, um \textit{proxy} inadequado para o
 ponto de parada do classificador \emph{forte} em métrica macro: o BERTimbau
 segue convertendo rótulos em cobertura de cauda muito além do ponto em que o
 PVBin/SGD saturam. Como o braço B usa gabarito (oráculo perfeito), essa
-conclusão independe da qualidade do oráculo — nenhum oráculo sustentaria o
+conclusão independe da qualidade do oráculo: nenhum oráculo sustentaria o
 critério sob a política de parada executada.
 
 Em síntese: a hipótese, como pré-registrada, é \textbf{refutada para a
 configuração executada} (oráculo gratuito + parada por estagnação do
 classificador leve + 3 épocas), \emph{quase} se sustenta em acurácia com
-orçamento de $30\%$ ($94{,}1\%$ da régua) e não se sustenta em Macro F1 —
+orçamento de $30\%$ ($94{,}1\%$ da régua) e não se sustenta em Macro F1,
 com o diagnóstico apontando a correção de desenho (parar pelo
 \textit{proxy} do modelo forte, ou por piso de orçamento) como a extensão
 prioritária. O resultado negativo é o que o pré-registro existe para
@@ -545,7 +545,7 @@ suas fontes, e a resposta é acionável.
 
 A varredura desta seção é um \textbf{achado \emph{post hoc}}: foi desenhada
 e executada \emph{depois} de observada a refutação no orçamento
-pré-registrado de 30\%, e não substitui o critério original — apenas localiza
+pré-registrado de 30\%, e não substitui o critério original: apenas localiza
 empiricamente o orçamento em que ele passaria a valer. Para isso, o BERTimbau
 foi treinado sobre prefixos crescentes da mesma trajetória de entropia (20,
 25, 30 e 35 mil rótulos com gabarito), avaliados na população reservada
@@ -598,18 +598,18 @@ hipótese central; a versão executada apenas parou cedo demais.
 
 Aplicando o critério pré-registrado da Seção~\ref{sec:metodo-oraculo-decisao}
 aos resultados do E0: nenhum oráculo atinge acurácia $\ge 85\%$ na S-rand;
-portanto, (i) o \textbf{E4 torna-se obrigatório} — executado nesta tese com o
+portanto, (i) o \textbf{E4 torna-se obrigatório}, executado nesta tese com o
 classificador leve (Seção~\ref{sec:res-e4}) e pronto para reexecução com
-BERTimbau —, e (ii) a discussão passa a tratar o aprendizado com oráculo
+BERTimbau, e (ii) a discussão passa a tratar o aprendizado com oráculo
 ruidoso como cenário central, não excepcional. Para a configuração de
 oráculos do FALCO derivada do E0: \textbf{LLM Inicial} = deepseek-v4-flash
 (melhor razão acurácia/custo: 78--82\% a US\$~0,035/1k); \textbf{LLM
 Avançado} = deepseek-v4-pro (maior acurácia; significativamente superior ao
-flash na S-strat, $p<0{,}001$ — o critério de superioridade significativa é
+flash na S-strat, $p<0{,}001$: o critério de superioridade significativa é
 atendido e a Fase~3 do FALCO se justifica). O gpt-4o não se qualifica em
 nenhum papel: empata com o v4-pro em acurácia e custa o dobro; o gpt-4o-mini
 é eliminado ($p \approx 0$ contra todos na S-strat). O nemotron-3-ultra
-gratuito é a \emph{alternativa de custo zero} para o papel de LLM Inicial —
-empata com o flash na S-rand ($p=0{,}76$) — condicionada a um provedor de
+gratuito é a \emph{alternativa de custo zero} para o papel de LLM Inicial,
+pois empata com o flash na S-rand ($p=0{,}76$), condicionada a um provedor de
 \textit{serving} com vazão e termos de produção; o flash permanece a escolha
 padrão pela confiabilidade operacional.
