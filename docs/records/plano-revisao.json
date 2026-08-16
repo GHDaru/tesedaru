@@ -1,8 +1,8 @@
 {
  "schema": "plano-revisao/v1",
- "versao": 6,
+ "versao": 7,
  "atualizado_em": "2026-08-16",
- "atualizado_por": "v6: execuções mcnemar-pares e bootstrap-f1 iniciadas (agente, CPU local, predições _s42)",
+ "atualizado_por": "v7: execuções mcnemar-pares e bootstrap-f1 concluídas (activelearning@3eff825; script stats_e3prime.py reproduz o ponto antes de calcular)",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
   "Abrir este JSON e ler o campo 'proximo'",
@@ -751,19 +751,21 @@
     "id": "mcnemar-pares",
     "o_que": "McNemar pareado A–B, B–C, E35–D sobre predições persistidas (_s42)",
     "onde": "CPU local · experiments/e2e3/results/",
-    "estado": "rodando",
+    "estado": "concluido",
     "dono": "agente",
     "duracao": "minutos",
-    "resultado_esperado": "experiments/e2e3/results/mcnemar_s42.json"
+    "resultado_esperado": "experiments/e2e3/results/mcnemar_s42.json",
+    "resultado": "https://github.com/GHDaru/activelearning/blob/main/experiments/e2e3/results/mcnemar_s42.json — A–B: b=1263/c=2143, p≈8e-52 (ruído do oráculo custa acurácia); B–C: b=1198/c=1788, p≈3e-27 (itens selecionados PIORAM acurácia vs aleatório, embora melhorem Macro F1); E35–D: b=618/c=561, p=0,103 (35k ≈ 50k, sem diferença detectável)"
    },
    {
     "id": "bootstrap-f1",
     "o_que": "IC bootstrap das diferenças de Macro F1 entre braços",
     "onde": "CPU local · mesmas predições",
-    "estado": "rodando",
+    "estado": "concluido",
     "dono": "agente",
     "duracao": "minutos",
-    "resultado_esperado": "experiments/e2e3/results/bootstrap_f1_s42.json"
+    "resultado_esperado": "experiments/e2e3/results/bootstrap_f1_s42.json",
+    "resultado": "https://github.com/GHDaru/activelearning/blob/main/experiments/e2e3/results/bootstrap_f1_s42.json — ΔF1 (10k réplicas pareadas, IC95 percentil): A–B +0,0332 [0,0268; 0,0367]; B–C +0,0204 [0,0135; 0,0235]; E35–D +0,0117 [0,0022; 0,0177] — três ICs excluem zero"
    }
   ]
  },
