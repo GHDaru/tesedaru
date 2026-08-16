@@ -147,8 +147,8 @@ em CIFAR-10/100 e SVHN, com margem maior no regime fracamente supervisionado.
   encoder, isola o critério de seleção (minimax vs. densidade+novidade) e não
   exige solver comercial.
 
-## Nota de duplicata no referencias.bib (reportar, não editar)
-`Sener2018` (@inproceedings, ICLR 2018, url OpenReview H1aIuk-RW, linha 573) e
-`Sener2017` (@misc, arXiv 1708.00489, linha 2171) são o MESMO trabalho. Este
-fichamento usa **Sener2018** (versão publicada; venue correto). Dedupe fica
-para o ciclo próprio.
+## Nota de duplicata no referencias.bib (RESOLVIDA)
+O bib trazia a mesma obra duas vezes: `Sener2018` (@inproceedings, ICLR 2018,
+OpenReview H1aIuk-RW) e um @misc do preprint arXiv 1708.00489. O ciclo bib-fix
+(lote 2) manteve a versão publicada, **Sener2018**, e removeu o preprint. Este
+fichamento usa a chave sobrevivente.
