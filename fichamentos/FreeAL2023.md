@@ -15,9 +15,9 @@ status: fichado
 
 # ===== ENTIDADES (nós Método/Dataset/Métrica/Tarefa; usar nomes canônicos) =====
 proposes: []               # método proposto: FreeAL (termo ausente do vocabulário; ver relatório)
-uses_methods: [aprendizado-ativo, llm-como-oraculo, destilacao-ativa, few-shot, zero-shot, entropia]
+uses_methods: [aprendizado-ativo, llm-como-oraculo, destilacao-ativa, few-shot, zero-shot, entropia, cold-start]
 datasets: [trec]           # também: SST-2, MR, SUBJ, CoNLL03, Medical Abstract, BC5CDR (fora do vocabulário)
-metrics: [acuracia]        # também: F1 (micro) nos NER (fora do vocabulário)
+metrics: [acuracia, custo-por-rotulo]  # também: F1 (micro) nos NER (fora do vocabulário)
 tasks: [classificacao-de-texto]
 models: [gpt-3.5-turbo, roberta-base, biomed-roberta-base]
 
@@ -59,6 +59,9 @@ em tarefas simples e superando AL tradicional com 20-50% de rótulos humanos.
 | C3 | A qualidade do laço depende de demonstrações filtradas: seleção por menor perda supera seleção por entropia e aleatória no papel de feedback ao LLM | §5.3.2, Tab. 6, p. 14527 | Cap. 2/5: discussão de acoplamento seletor-oráculo (paralelo com DRI-SL) |
 | C4 | Sem rótulo humano o método fica refém da competência do LLM no domínio: em tarefas difíceis/eccêntricas a anotação inicial pode falhar | Limitations, p. 14528 | Cap. 5: justifica o gate E0 do FALCO (validar o oráculo antes de confiar nele) |
 | C5 | 4 rounds de interação bastam empiricamente; mais rounds melhoram com mais custo | §5.2, p. 14526 | Cap. 5: contraste com a política de parada do FALCO |
+| C6 | O refino iterativo melhora os pseudo-rótulos rodada a rodada: no conjunto de treino (transdutivo) o SST-2 sai de 88,93 (zero-shot, round 0) para 95,49 (RoBERTa anotado pelo round 3, round 4) | §5.2, Tab. 1, p. 14525 | Cap. 5: contraste com o FALCO, que rotula cada item uma única vez, sem realimentação |
+| C7 | O custo de anotação por exemplo do LLM fica ~2 ordens de grandeza abaixo do humano (SST-2: US$ 1,2e-3 vs US$ 0,11) | Apêndice A.2, Tab. 7, p. 14532 | Cap. 2: fundamenta a métrica custo-por-rotulo e o orçamento do FALCO; corrige a leitura de que o paper não mede custo |
+| C8 | Estratégia multi-rodada que anota apenas 10% do pool por rodada chega perto do FreeAL completo (SST-2 93,76 vs 94,66; MR 88,95 vs 90,20) com fração do custo | Apêndice A.2, Tab. 8, p. 14532 | Cap. 5: paralelo com o caráter progressivo/orçado do oráculo do FALCO |
 
 ## Números que posso citar
 - Test set, GPT-3.5-Turbo, m=10 exemplos in-context, média de 3 execuções (Tab. 3, p. 14526):
