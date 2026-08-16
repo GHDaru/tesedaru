@@ -790,13 +790,16 @@ document.getElementById('saude').textContent = doente
 /* ux-design.md §2/§5: o board tem altura ~constante (raia limitada); quem
    rola é cada coluna (.k-cards), nunca a página inteira por causa de N cartões */
 .k-board{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--sp-4); align-items:start}
+.k-col{background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:var(--sp-3); display:flex;
+  flex-direction:column; gap:var(--sp-2); min-width:0}
+/* as duas media queries vêm DEPOIS das regras base — min-width:260px do
+   breakpoint intermediário precisa vencer o min-width:0 da regra base na
+   cascata (mesma especificidade; quem aparece por último ganha) */
 @media (max-width:1099px) and (min-width:601px){
   .k-board{display:flex; overflow-x:auto; overscroll-behavior-x:contain; padding-bottom:var(--sp-2)}
   .k-col{min-width:260px; flex:1 0 260px}
 }
 @media (max-width:600px){ .k-board{grid-template-columns:1fr} }
-.k-col{background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:var(--sp-3); display:flex;
-  flex-direction:column; gap:var(--sp-2); min-width:0}
 .k-col-h{font-size:var(--fs-3); display:flex; align-items:center; gap:var(--sp-2); margin:0 0 var(--sp-1)}
 .k-count{margin-left:auto; color:var(--muted); font-size:var(--fs-1); font-weight:400}
 .k-cards{display:flex; flex-direction:column; gap:var(--sp-2); min-width:0;

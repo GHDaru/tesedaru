@@ -126,4 +126,39 @@ descrita textualmente acima com os valores medidos.)
 
 ## Revisão independente (TAIL:review)
 
-_(preenchido após o agente `review` avaliar o diff em contexto fresco)_
+Agente `review`, em contexto fresco, gerou o site de verdade (dados reais e
+sintéticos) e rodou Playwright/Chromium contra o HTML real — não confiou só
+na leitura do código nem neste relatório. Verificou FR1-FR8 e AC1-AC5 um a
+um de forma independente; todos PASS, confirmados em navegador real,
+inclusive tema escuro e os 3 breakpoints. Nenhuma violação da regra ADR
+0006 (destaque único âmbar de "para você") encontrada em nenhum ponto
+testado.
+
+**Dois achados de baixa severidade, ambos corrigidos no mesmo dia**
+(commit de acompanhamento, ver `tasks.md` T12/T13):
+1. CSS morto: `.k-col{min-width:260px}` do breakpoint intermediário nunca
+   tinha efeito (perdia a cascata para uma regra base posterior) — sem
+   regressão visual (outro mecanismo já garantia o piso), mas frágil.
+   Corrigido reordenando as regras.
+2. As citações de "ADR 0006" neste ciclo (herdadas literalmente da tarefa
+   do `principal`) não correspondem ao texto real desse ADR (que cobre só
+   Controle/KPIs). Não é decisão minha corrigir a governança — registrado
+   para o `principal` avaliar.
+
+Um achado adicional, não relacionado ao código deste ciclo: durante a
+revisão, o agente encontrou indícios de que o estado do repositório mudava
+sob ele enquanto revisava (um `system-reminder` sobre `CLAUDE.md` e uma
+leitura de `git status` que não bateu numa reconferência). Investigado após
+a notificação: **não foi um ataque** — o subagente de revisão rodou sem
+isolamento próprio (`isolation:"worktree"` não foi passado ao spawná-lo),
+então compartilhou o MESMO diretório de trabalho desta sessão, que seguiu
+commitando/rebaseando/dando push durante a revisão. `CLAUDE.md` de fato
+mudou (`git log -S` confirma: outro agente da coordenação commitou essa
+mudança de verdade, `38d345b`), só que por uma via legítima concorrente,
+não por manipulação. Lição para ciclos futuros: não mutar o repositório
+enquanto um subagente de revisão roda nele, ou spawná-lo com
+`isolation:"worktree"` para lhe dar uma cópia estável.
+
+**Veredito do revisor**: pronto para permanecer publicado como está (já
+estava na main quando a revisão terminou, ADR 0010). Os dois achados não
+bloqueiam; ambos corrigidos no mesmo commit de acompanhamento deste ciclo.
