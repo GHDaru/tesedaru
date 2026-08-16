@@ -47,3 +47,13 @@ Aviso ao principal com a lista (pode ser vazia em 2 — honestidade acima de
 cobertura). O principal consolida, ajusta a prosa se preciso e leva ao gate
 do autor com antes/depois. Prioridade: depois da sua verificação cruzada do
 lote 5, antes de qualquer coisa nova.
+
+## Resultado (revisor2, 2026-08-16)
+
+Entregue na mensagem 20260816-2124. Resumo: item 1 confirmado (Diao2023 cobre
+o que a frase diz) com dois reforços verificados — Margatina2023, que JÁ está
+no bib e está correta, e Su et al. 2022 (venue a confirmar); item 2 tem só
+apoio adjacente (FrugalGPT), e digo explicitamente que ele não cobre a escolha
+do ANOTADOR — honestidade acima de cobertura, como a tarefa pediu; item 3
+respondido com evidência: Ahmed2022 sustenta as QUATRO características, cada
+uma com trecho e seção localizados no artigo.
