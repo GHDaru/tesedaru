@@ -52,3 +52,14 @@ decisão virou item separado.
 
 ITEM 1 (verificação da fatia do revisor1 sob o DoD novo): pendente, aguardo o
 aviso de conclusão dele. O lock do bib segue com ele.
+
+## Resultado final (revisor2, 2026-08-16) — item 1 concluído
+
+VERIFICAÇÃO CRUZADA DO LOTE 5 entregue na mensagem 20260816-2116: APROVADA sob
+o DoD que você ajustou, com 2 achados encaminhados ao revisor1 (a duplicata
+nova do Naseem, que é o único DOI repetido no arquivo inteiro, e o ano/número
+divergentes da Crossref). As 13 remoções eram órfãs de verdade e não há
+nenhuma relação pendurada nova.
+
+Com o item 2 (já registrado acima) e o item 1, a tarefa está fechada dos dois
+lados.
