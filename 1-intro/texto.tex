@@ -83,19 +83,24 @@ processo?}
 
 A hipótese central é que \textbf{um framework de aprendizado ativo apoiado por
 modelos de linguagem nas etapas iniciais pode reduzir a necessidade de rótulos sem
-perda relevante de desempenho final}. Para torná-la falseável, adota-se o seguinte
-critério quantitativo de aceitação: o framework proposto deve atingir, com no máximo
-$30\%$ dos rótulos do \textit{pool} (fornecidos por oráculo LLM), pelo menos $95\%$
-do Macro F1-Score obtido com supervisão completa, superando com significância
-estatística as estratégias de referência de amostragem aleatória e de incerteza pura
-sob o mesmo orçamento (Capítulo~\ref{ch:metodo}). A hipótese é condicional à
-qualidade do oráculo disponível: o protocolo prevê um \emph{gate} pré-registrado
-de acurácia mínima do oráculo (Seção~\ref{sec:metodo-oraculo-decisao}) e define
-de antemão o que conta como refutação: se nem o melhor oráculo aprovado
-sustentar o critério, a hipótese é considerada refutada \emph{para o cardápio de
-oráculos avaliado}, e a tese reporta o resultado com a decomposição que separa
-custo do ruído de rotulagem e custo da parcimônia de rótulos (braços pareados
-do E3$'$, Seção~\ref{sec:metodo-falco-baselines}).
+perda relevante de desempenho final}. Para torná-la falseável, adota-se um critério
+quantitativo de aceitação. Dois termos o enunciam: no aprendizado ativo, o conjunto
+de exemplos ainda não rotulados de onde se escolhe o que anotar é o \textit{pool},
+e quem fornece o rótulo de cada exemplo escolhido é o \emph{oráculo}; nesta tese,
+esse papel é exercido por um modelo de linguagem, não por um anotador humano. O
+critério: treinado com no máximo $30\%$ dos exemplos do \textit{pool}, rotulados
+pelo oráculo, o framework deve alcançar pelo menos $95\%$ do Macro F1-Score que o
+mesmo classificador obtém com o \textit{pool} inteiro rotulado, superando com
+significância estatística a seleção aleatória e a seleção por incerteza sob o
+mesmo orçamento. A hipótese é condicional à qualidade do oráculo disponível. Por
+isso, fixou-se de antemão tanto o piso de acurácia que um modelo de linguagem
+precisa atingir para ser aprovado como oráculo quanto o que conta como refutação:
+se nem o melhor oráculo aprovado sustentar o critério, a hipótese é considerada
+refutada para o conjunto de oráculos avaliado. Nesse caso, a tese reporta o
+resultado com uma análise que separa as duas causas possíveis da perda: o erro que
+o oráculo introduz nos rótulos e a redução da quantidade de rótulos. O
+Capítulo~\ref{ch:metodo} formaliza cada elemento deste critério
+(Seções~\ref{sec:metodo-oraculo-decisao} e~\ref{sec:metodo-falco-baselines}).
 
 \section{Objetivos}
 \label{sec:intro-objetivos}
