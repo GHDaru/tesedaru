@@ -11,7 +11,7 @@ pillars: [P2]
 status: fichado
 proposes: [core-set-selection, k-center-greedy, robust-k-center]
 uses_methods: [aprendizado-ativo, pool-based, rotulagem-em-lote,
-               selecao-por-diversidade]
+               selecao-por-diversidade, amostragem-por-incerteza, entropia]
 datasets: [cifar-10, cifar-100, svhn]
 metrics: [acuracia]
 tasks: [classificacao-de-imagens]
@@ -60,6 +60,9 @@ em CIFAR-10/100 e SVHN, com margem maior no regime fracamente supervisionado.
 | C4 | O bound escala com o nº de classes: o método é menos eficaz em CIFAR-100 que em CIFAR-10/SVHN | §5, p. 8 ("it is better to have fewer classes") | Confronto direto: com 714 classes, a garantia do coreset degrada — argumento pró-DRI-SL |
 | C5 | Clustering puro (k-Median/k-Medoids) também não é eficaz: os centros já são bem cobertos por amostra iid; falha em amostrar as caudas | §5, p. 8 | Antecipa a crítica "por que k-médias sozinho não basta" — DRI-SL responde com a etapa lexical |
 | C6 | A distância usa ativações da última camada densa do modelo treinado (VGG-16) | §4.4, p. 7 | Mostra que coreset pressupõe modelo treinado — não resolve cold start puro |
+| C7 | O ganho do coreset é MAIOR no cenário fracamente supervisionado porque o modelo fracamente supervisionado aprende um espaço de características melhor, e o método é puramente geométrico — logo depende da qualidade da geometria | §5, p. 8 ("Weakly-supervised models provide better feature spaces resulting in accurate geometries") | Cap. 5: a eficácia de qualquer seleção geométrica (inclusive o cluster semântico do DRI-SL) é limitada pela qualidade do embedding — no nosso caso, SBERT/BERTimbau congelado |
+| C8 | Mesmo a incerteza de ORÁCULO (calculada com os rótulos verdadeiros de todo o dataset) e a estimativa bayesiana perdem de aleatório no regime de lote — a causa é a correlação entre as consultas do lote, não a má estimação | §5, p. 8; baseline "Best Oracle Uncertainty" descrita em §4.4/§5, p. 7 | Cap. 2: evidência independente e anterior ao mesmo achado de Hacohen2022TypiClust (C5) — reforça que o problema é estrutural |
+| C9 | O Teorema 1 depende da hipótese de ERRO DE TREINO ZERO no subconjunto e de perda Lipschitz; os autores admitem que erro zero "não é hipótese inteiramente realista" | §4.2, p. 5; Lema 1, p. 6 | Cap. 2: delimita o alcance da garantia teórica do coreset ao citá-la |
 
 ## Números que posso citar
 - Runtime para b=5k consultas com \|s0\|=10k: greedy 2 s; MIP total 244 s;
@@ -68,6 +71,19 @@ em CIFAR-10/100 e SVHN, com margem maior no regime fracamente supervisionado.
   dataset por rodada nas Figs. 3–4) — regime de orçamento ALTO, não baixo
   (Figs. 3–4, pp. 8).
 - Robustez a outliers: cota Ξ = 1e-4·n (§4.4, p. 7).
+- k-Center-Greedy é **2-aproximado** (2-OPT); o MIP procura uma solução entre OPT
+  e 2·OPT (§4.3, pp. 6–7). A viabilidade do MIP é checada com o solver
+  **Gurobi** (§4.4, p. 7) — dependência de solver comercial que o baseline
+  guloso não tem.
+- Todos os experimentos rodam com **cinco inicializações aleatórias** do pool
+  inicial rotulado, reportando acurácia média e barras de desvio-padrão
+  (§5, p. 8).
+- Baselines comparadas (§4.4/§5, p. 7): Random, Melhor Incerteza Empírica
+  (max-entropia, BALD ou Variation Ratios, a melhor por dataset), **Melhor
+  Incerteza de Oráculo** (usa os rótulos de todo o dataset), DBAL, BMDR, CEAL e
+  k-Median.
+- Fracamente supervisionado implementado com **Ladder networks**; arquitetura
+  VGG-16 em todos os experimentos; otimização RMSProp com taxa 1e-3 (§4.4, p. 7).
 
 ## Citações diretas (com página)
 > "many of the active learning heuristics in the literature are not effective
@@ -75,6 +91,14 @@ em CIFAR-10/100 e SVHN, com margem maior no regime fracamente supervisionado.
 
 > "Our bound over the core-set loss scales with the number of classes, hence
 > it is better to have fewer classes" (§5, p. 8)
+
+> "we define the problem of active learning as core-set selection, i.e. choosing
+> set of points such that a model learned over the selected subset is competitive
+> for the remaining data points" (Abstract, p. 1)
+
+> "Weakly-supervised models provide better feature spaces resulting in accurate
+> geometries. Since our method is geometric, it performs significantly better
+> with better feature spaces." (§5, p. 8)
 
 ## Crítica / limitações (minha leitura)
 - Não é cold start: precisa de pool inicial rotulado uniforme + rede treinada
@@ -90,6 +114,20 @@ em CIFAR-10/100 e SVHN, com margem maior no regime fracamente supervisionado.
   tendem a ser lixo, não informação.
 - Só imagens/CNNs; distância l2 em ativações não transfere diretamente para
   TF-IDF esparso.
+- A garantia repousa em erro de treino zero (C9), hipótese que os próprios
+  autores classificam como não inteiramente realista e que a justificação é
+  empírica ("our experiments suggest that the resulting upper bound is very
+  effective", §4.2, p. 5) — ou seja, o bound é defendido pelo resultado, não pela
+  hipótese.
+- A dependência do embedding é assumida pelos autores (C7): o método "funciona
+  melhor com espaços de características melhores". Isso corta nos dois sentidos
+  para o DRI-SL — legitima usar um encoder forte, mas torna o resultado
+  sensível a uma escolha que fica fora do método.
+- Datasets balanceados e nenhuma discussão de desbalanceamento; combinado com C4
+  (bound cresce com o nº de classes), o cenário do FALCO — 714 classes com cauda
+  longa — está fora do envelope testado em duas dimensões ao mesmo tempo.
+- O refinamento por MIP depende de solver comercial (Gurobi); na prática o que
+  se reusa da literatura é quase sempre só o k-Center-Greedy.
 
 ## Ideias que gera para a tese
 - Par com Hacohen2022TypiClust no confronto do R6 item 11: coreset é o
@@ -100,6 +138,14 @@ em CIFAR-10/100 e SVHN, com margem maior no regime fracamente supervisionado.
   Hacohen 2022 teoriza e que motiva o FALCO a não usar US no início.
 - C5 serve para responder à banca "por que não só k-médias?": até os autores do
   coreset mostram que clustering puro falha nas caudas.
+- C8 é um par de citação forte com Hacohen2022TypiClust C5: dois trabalhos
+  independentes (2018, lote; 2022, orçamento baixo) mostrando que nem incerteza
+  de oráculo salva a estratégia — usar os dois juntos no Cap. 2 tira do FALCO o
+  ônus de provar que a falha da incerteza não é defeito de implementação.
+- k-Center-Greedy sobre embeddings do BERTimbau é um baseline barato e
+  defensável para comparar com o DRI-SL em trabalho futuro: reaproveita o mesmo
+  encoder, isola o critério de seleção (minimax vs. densidade+novidade) e não
+  exige solver comercial.
 
 ## Nota de duplicata no referencias.bib (reportar, não editar)
 `Sener2018` (@inproceedings, ICLR 2018, url OpenReview H1aIuk-RW, linha 573) e

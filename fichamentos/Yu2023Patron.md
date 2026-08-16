@@ -72,6 +72,7 @@ penalidade que afasta seleções de clusters adjacentes. Em 6 datasets ingleses
 | C6 | K-Means simples (BERT-KM) supera métodos mais elaborados (TypiClust, ALPS) em datasets com mais classes | §5.3 obs. (4), p. 2505 | Sustenta a escolha do DRI-SL por k-médias como espinha + refino lexical |
 | C7 | Ganhos maiores em datasets com mais classes (TREC, Yahoo!): menos rótulos por classe sob orçamento fixo | §5.3 obs. (2), p. 2504 | Extrapolação favorável ao nosso caso (714 classes), com a ressalva c≤14 |
 | C8 | Em AL multi-rodada, quando o orçamento passa de ~256 (IMDB), métodos de incerteza voltam a vencer — o cold start é regime, não dogma | §5.4, p. 2505 | Converge com a transição de fase de Hacohen 2022; justifica o desenho por fases do FALCO |
+| C9 | Seleção estratégica reduz a VARIÂNCIA, não só a média: PATRON tem desvio-padrão menor que as baselines em 14 dos 18 cenários (6 datasets × 3 orçamentos) | §5.3 obs. (1), p. 2504 | Cap. 4/5: estabilidade do L0 como critério de qualidade além da acurácia média — métrica que o DRI-SL também pode reivindicar |
 
 ## Números que posso citar
 - Média de 6 datasets, fine-tuning, 10 execuções: PATRON **68,4 / 75,2 / 80,2**
@@ -84,7 +85,20 @@ penalidade que afasta seleções de clusters adjacentes. Em 6 datasets ingleses
 - Eficiência de rótulos: PATRON com 128 rótulos ≥ random com 2× rótulos; com
   512 (multi-rodada) ≈ 95% do supervisionado ≈ random com 3× (§5.5, Fig. 4).
 - Setup: RoBERTa-base; budgets {32, 64, 128}; c = 2..14 classes; seleção
-  one-round no experimento principal; T=2 iterações de PTR (§5.1; Alg. 1).
+  one-round no experimento principal; T=2 iterações de PTR (§5.1; Alg. 1) — o
+  texto de §4.3 (p. 2503) registra que a reescrita converge em **2-3 iterações**
+  ("the selected samples do not change anymore"), então T=2 é o valor fixado no
+  trabalho, não um limite do método.
+- Linha de Yahoo! Answers (c=10), B=32, para citar a hierarquia completa das
+  baselines: PATRON **56,8 ± 1,0** > ALPS 47,7 > BERT-KM 46,8 > aleatório 43,5 >
+  TPC 36,9 > Margin-KM 34,0 > CAL 26,6 > incerteza 23,0 > **Coreset 22,0**
+  (Tab. 1, p. 2504) — o dataset com mais classes é onde a ordem
+  representatividade > incerteza > geometria fica mais nítida.
+- Todos os resultados da Tab. 1 são média de **10 execuções**, com
+  significância por teste t de Student aos níveis **0,05 e 0,01** (legenda da
+  Tab. 1, p. 2504).
+- Estabilidade: desvio-padrão menor que o das baselines em **14 de 18** casos
+  (§5.3 obs. (1), p. 2504).
 - TREC é desbalanceado — reportado em F1 no apêndice G.2 (legenda da Tab. 1).
 
 ## Citações diretas (com página)
@@ -94,6 +108,11 @@ penalidade que afasta seleções de clusters adjacentes. Em 6 datasets ingleses
 
 > "we do not claim PATRON outperforms AL methods under high-budget scenarios"
 > (§6, p. 2507)
+
+> "In PATRON, we design (1) a prompt-based uncertainty propagation approach to
+> estimate the importance of data points and (2) a partition-then-rewrite (PTR)
+> strategy to promote sample diversity when querying for annotations."
+> (Abstract, p. 2499)
 
 ## Crítica / limitações (minha leitura)
 - Template e verbalizador MANUAIS por tarefa (nota 3, p. 2501): cada classe
@@ -110,7 +129,11 @@ penalidade que afasta seleções de clusters adjacentes. Em 6 datasets ingleses
   estudo de cauda longa severa.
 - Três hiperparâmetros novos (ρ, β, γ) — robustos nos ablations (§5.7), mas
   ajustados com acesso a conjuntos de validação rotulados, o que contradiz um
-  pouco o espírito rótulo-zero.
+  pouco o espírito rótulo-zero. Some-se o limiar de distância m da regularização
+  entre clusters adjacentes (§4.3, p. 2503): são quatro botões numa fase que,
+  por definição, não tem rótulo para calibrá-los.
+- Orçamentos de 32-128 rótulos em uma rodada: duas ordens de grandeza abaixo dos
+  braços de 15k-35k do FALCO; a evidência não cobre AL progressivo em escala.
 
 ## Ideias que gera para a tese
 - Fecha o triângulo do R6 item 11: TypiClust (visão, tipicidade), coreset
@@ -123,3 +146,10 @@ penalidade que afasta seleções de clusters adjacentes. Em 6 datasets ingleses
   do FALCO — representatividade primeiro, incerteza depois (se houver orçamento).
 - Comparação futura (trabalhos futuros do Cap. 6): PATRON com verbalizador
   automático seria o competidor textual a bater se o custo de prompting cair.
+- A calibração por prior contextualizado (Eqs. 3-4) é candidata a corrigir a
+  confiança que o oráculo LLM do FALCO reporta em classes raras — é o mesmo
+  problema (viés de classe na saída do PLM), mas aplicado à rotulagem (P3) em vez
+  da seleção.
+- C9 sugere reportar desvio-padrão entre sementes como resultado, e não como
+  ruído: se o DRI-SL estabilizar o L0, isso é um ganho vendável mesmo onde a
+  média empatar.

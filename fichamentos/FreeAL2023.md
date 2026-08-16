@@ -73,21 +73,59 @@ em tarefas simples e superando AL tradicional com 20-50% de rótulos humanos.
   rótulos humanos 94,29/90,00 e CAL 50% 94,56/89,75.
 - Ablação (Tab. 6, p. 14527): sem robust self-training o SLM cai de 94,66→89,18 (SST-2).
 - Datasets: 4-6 classes nas tarefas de classificação; MA com 5 classes (Tab. 4, p. 14526).
+- Custo de anotação por exemplo (Tab. 7, p. 14532): humano US$ 0,11 (SST-2, MR, SUBJ,
+  TREC) e US$ 0,55 (MA) vs FreeAL US$ 1,2e-3 / 1,3e-3 / 1,5e-3 / 8,5e-4 / 4,5e-3.
+  O custo humano segue Wang2021GPT3Labeling (US$ 0,11 por 50 tokens de entrada, com
+  mínimo de US$ 0,11); o do LLM usa (#Token x (m+1) + 100) x 2 x 2e-6 (p. 14532).
+- Desempenho transdutivo no treino (Tab. 1, p. 14525): SST-2 88,93 (zero-shot) →
+  92,16 (demonstrações auto-geradas) → 94,93 (round 3); RoBERTa 94,70 (round 2) →
+  95,49 (round 4). TREC: 43,36 → 70,74 → 77,70 no LLM e 76,75 → 81,59 no SLM.
+- Anotação multi-rodada com 10% do pool por vez (Tab. 8, p. 14532): SST-2/MR
+  87,97/81,20 (10% inicial) → 93,69/87,75 (round 2) → 93,76/88,95 (round 3),
+  contra 94,66/90,20 do FreeAL completo.
+- Hiperparâmetros do laço (Apêndice B.2, p. 14534): limiar tau do GMM = 0,7 e razão
+  R de seleção de demonstrações fixada em 20; construção e recuperação de D_demo
+  são feitas por classe (class-wise).
 
 ## Citações diretas (com página)
 > "FreeAL surpasses all the active learning rivals and achieves near-supervised performance without human annotation." (legenda da Fig. 1, p. 14520)
 
-> "the effectiveness of FreeAL largely hinges on the strong ability of LLMs. For some domains that are extremely challenging or eccentric, the commonly adopted GPT-3.5-Turbo nowadays may fail to provide a qualified initial annotation" (Limitations, p. 14528)
+> "the effectiveness of FreeAL largely hinges on the strong ability of LLMs. For some domains that are extremely challenging or eccentric, the commonly adopted GPT-3.5-Turbo nowadays may fail to provide a qualified initial annotation, even with self-generated demonstrations" (Limitations, p. 14528)
+
+> "as LLMs sometimes output ambiguous predictions outside the label space, these values are treated as random labels in the label space and repeated multiple times to evaluate the average performance" (Apêndice B.2, p. 14534)
+
+> "the annotation cost can be further reduced by a simple multi-round solution" (Apêndice A.2, p. 14532)
 
 ## Crítica / limitações (minha leitura)
 - Sem contabilidade de custo: nenhum número de tokens, chamadas ou dólares — o
   "free" refere-se ao humano, não ao orçamento de API. O FALCO instrumenta
   exatamente o que FreeAL omite (custo por rótulo, cache).
+  - RESSALVA (leitura cruzada, conferida no PDF): há sim uma contabilidade de
+    custo, mas escondida no Apêndice A.2 (Tab. 7, p. 14532) e só como custo
+    ESTIMADO por exemplo, via fórmula de tokens; não há custo total da execução,
+    número de chamadas, latência nem política de cache. A crítica correta é de
+    granularidade e de posição (apêndice, fora do corpo experimental), não de
+    ausência absoluta.
 - Espaço de rótulos pequeno (2-6 classes); nada indica que a autogeração de
   demonstrações escale para 714 classes de varejo — o prompt teria de cobrir o
   esquema inteiro.
 - Sem saída estruturada validável: o parsing da resposta do LLM não é tratado
   (nosso achado de taxa de inválidos não tem correspondente aqui).
+  - PRECISÃO (leitura cruzada, conferida no PDF): o problema é reconhecido no
+    Apêndice B.2 (p. 14534), mas resolvido por descarte estatístico — predições
+    fora do espaço de rótulos viram "random labels" repetidos várias vezes para
+    tirar a média. Ou seja, a taxa de inválidos existe e é diluída em vez de
+    medida; o CategorySchema do FALCO elimina o caso por construção.
+- O laço é avaliado sobretudo de forma transdutiva (acurácia no próprio treino,
+  Tab. 1, p. 14525); o ganho indutivo no teste é menor e oscila entre rodadas
+  (Tab. 2, p. 14525) — por exemplo, no TREC o RoBERTa cai de 86,80 (round 2) para
+  76,12 (round 4).
+- A seleção small-loss de demonstrações é feita POR CLASSE, com razão R fixa em 20
+  (Apêndice B.2, p. 14534): pressupõe classes populosas, o que não vale para a
+  cauda longa de 714 classes do varejo.
+- O ICL é executado "at most twice" por amostra (anotação inicial + refino,
+  p. 14532): o custo cresce com o número de rodadas, enquanto o FALCO paga uma
+  chamada por item selecionado pelo DRI-SL.
 - A transdução exige re-anotar todo o corpus por rounds — em ~231k textos isso
   multiplica o custo, enquanto o FALCO anota apenas o que o seletor pede.
 - Inglês e benchmarks públicos (risco de contaminação do LLM não discutido).
@@ -101,3 +139,12 @@ em tarefas simples e superando AL tradicional com 20-50% de rótulos humanos.
 - A seleção de demonstrações por menor perda + k-medoids ecoa a lógica de
   representatividade do DRI-SL — citar em 2.3 ao discutir acoplamento
   seletor-oráculo.
+- Usar a perda do BERTimbau (small-loss) como detector barato de ruído do oráculo
+  no braço A do E3': diagnóstico post-hoc do que o LLM errou, sem nenhuma chamada
+  adicional de API.
+- Corte de custo ortogonal para o Cap. 5: FreeAL tira o humano fechando o laço
+  LLM↔SLM (e paga com re-rotulagem); o FALCO tira o LLM da SELEÇÃO (DRI-SL) e o
+  mantém só na rotulagem. São duas economias diferentes, e podem ser somadas.
+- A Tab. 7 (p. 14532) dá a âncora externa de custo humano (US$ 0,11 por exemplo,
+  herdada de Wang2021GPT3Labeling) que o Cap. 2 precisa para dimensionar o ganho
+  do oráculo LLM em ordens de grandeza.

@@ -11,11 +11,12 @@ pillars: [P1, P2]
 status: fichado
 proposes: [typiclust, tipicidade, transicao-de-fase-de-orcamento]
 uses_methods: [aprendizado-ativo, pool-based, cold-start, auto-supervisao,
-               k-means, selecao-por-diversidade, amostragem-por-incerteza]
+               k-means, selecao-por-diversidade, amostragem-por-incerteza,
+               entropia, menor-margem]
 datasets: [cifar-10, cifar-100, tiny-imagenet, imagenet-subconjuntos]
 metrics: [acuracia]
 tasks: [classificacao-de-imagens]
-models: [simclr, dino, scan, flexmatch]
+models: [simclr, dino, scan, flexmatch, resnet18]
 extends: []
 compares_with: [Sener2018]
 contradicts: []
@@ -63,10 +64,11 @@ máximo no semi-supervisionado (93,2% em CIFAR-10 com 10 rótulos).
 | C2 | Em orçamento baixo, TODAS as baselines clássicas (incerteza, margem, entropia, BADGE, BALD, DBAL e CoreSet) empatam com random ou pioram | §4.2.1, Fig. 4, p. 7 | Confronto DRI-SL × coreset: coreset não é competidor forte no nosso regime |
 | C3 | TypiClust = representação auto-supervisionada + k-means em \|L\|+B clusters + exemplo mais típico dos B maiores clusters não cobertos | §3.2, Alg. 1, pp. 5–6 | Cap. 2: descrição do competidor conceitual mais próximo do DRI-SL |
 | C4 | Tipicidade sem diversidade falha (TPC_NoClust) e clustering sem tipicidade também (TPC_Rand) — os dois componentes são cruciais | §4.3.3, Fig. 7c, pp. 7–8 | Defesa da arquitetura em 2 etapas do DRI-SL (densidade + variedade) |
-| C5 | Mesmo incerteza calculada por um "oráculo" treinado no dataset inteiro perde de random no orçamento baixo | §4.3.4, Fig. 8, p. 8 | Cap. 2/5: o problema do cold start não é só má estimação de incerteza — é o princípio |
-| C6 | TypiClust produz conjuntos rotulados com melhor balanceamento de classes (menor distância TV à distribuição real) sem acesso a rótulos | §4.3.2, Fig. 7b, p. 7 | Paralelo com a cota proporcional por cluster do DRI-SL |
-| C7 | Métodos de representação auto-supervisionada assumem classes balanceadas; em CIFAR-10 desbalanceado TypiClust ainda vence no orçamento baixo, mas os autores admitem risco de falha | §4.3.5, p. 8 (Fig. 17, App. G.1) | Limitação frente ao nosso desbalanceamento severo (714 classes) |
-| C8 | Seleção não aleatória do pool inicial (L0=∅) traz ganho adicional vs. dar pool inicial random ao TypiClust | §4.3.1, Fig. 7a, p. 7 | Sustenta o P1 (o L0 importa) com evidência independente |
+| C5 | Mesmo incerteza calculada por um "oráculo" treinado no dataset inteiro perde de random no orçamento baixo | §4.3.4, Fig. 8, p. 9 | Cap. 2/5: o problema do cold start não é só má estimação de incerteza — é o princípio |
+| C6 | TypiClust produz conjuntos rotulados com melhor balanceamento de classes (menor distância TV à distribuição real) sem acesso a rótulos | §4.3.2, Fig. 7b, p. 8; já anunciado na legenda da Fig. 2, p. 2 | Paralelo com a cota proporcional por cluster do DRI-SL |
+| C7 | Métodos de representação auto-supervisionada assumem classes balanceadas; em CIFAR-10 desbalanceado TypiClust ainda vence no orçamento baixo, mas os autores admitem risco de falha | §4.3.5, p. 9 (Fig. 17, App. G.1) | Limitação frente ao nosso desbalanceamento severo (714 classes) |
+| C8 | Seleção não aleatória do pool inicial (L0=∅) traz ganho adicional vs. dar pool inicial random ao TypiClust | §4.3.1, Fig. 7a, p. 8 | Sustenta o P1 (o L0 importa) com evidência independente |
+| C9 | A explicação corrente do cold start é a incapacidade de redes neurais estimarem incerteza com poucos rótulos — os autores a adotam como ponto de partida e por isso trocam "certeza" por "tipicidade" | §1, p. 2 (citando Nguyen et al. 2015; Gal & Ghahramani 2016) | Cap. 2: enquadra o cold start; leia-se junto de C5, que mostra que a explicação é insuficiente (mesmo incerteza confiável perde) |
 
 ## Números que posso citar
 - CIFAR-10, semi-supervisionado (FlexMatch), 10 rótulos escolhidos por
@@ -77,7 +79,19 @@ máximo no semi-supervisionado (93,2% em CIFAR-10 com 10 rótulos).
 - Regime avaliado: 1–10 exemplos/classe por rodada; orçamentos B = M ou 5M
   (M = nº de classes) com L0 = ∅ (§4.2.1, p. 7).
 - Tipicidade: inverso da distância euclidiana média aos K = 20 vizinhos mais
-  próximos (Eq. 4 e nota 1, p. 6).
+  próximos (Eq. 4 e nota 1, p. 6); os autores registram que **outras escolhas de
+  K dão resultados semelhantes** ("other choices yield similar results", nota 1,
+  p. 6) — a tipicidade não é sensível ao ajuste de K.
+- Regime semi-supervisionado avaliado no extremo: apenas **0,02% a 1% dos dados
+  rotulados** (§4.2.3, p. 8). Nesse mesmo experimento entra uma baseline
+  **aleatória balanceada por classe** (55,9% em CIFAR-10), reconhecendo que
+  algoritmos semi-supervisionados costumam supor conjunto rotulado balanceado —
+  suposição inviável em AL (§4.2.3 e Fig. 6a, p. 8).
+- Variantes do método (§3.2, p. 6): **TPC_DC** usa clusterização profunda (SCAN)
+  para representação e agrupamento; **TPC_RP** usa aprendizado de representação
+  (DINO no ImageNet, SimCLR nos demais) seguido de k-médias.
+- Arquitetura de classificação nos experimentos: **ResNet18** (CIFAR-10/100 e
+  TinyImageNet; App. F.2/D.2, pp. 18–19).
 
 ## Citações diretas (com página)
 > "typical examples are best queried when the budget is low, while
@@ -86,6 +100,10 @@ máximo no semi-supervisionado (93,2% em CIFAR-10 com 10 rótulos).
 
 > "all other baseline AL methods perform on par with random selection or worse"
 > (§4.2.1, p. 7)
+
+> "Note that the ensuing labeled set is approximately class-balanced, even though
+> the queries are chosen without access to class labels."
+> (legenda da Fig. 2, p. 2)
 
 ## Crítica / limitações (minha leitura)
 - Só visão computacional (CIFAR/ImageNet); nada de texto — a transferência do
@@ -102,6 +120,14 @@ máximo no semi-supervisionado (93,2% em CIFAR-10 com 10 rótulos).
   agrupamento fica caro — DRI-SL fixa N_c = √I.
 - "O que torna um orçamento 'baixo' depende da tarefa" fica em aberto (§5) —
   na tese, o regime é definido empiricamente pelo envelope 100..5000.
+- O balanceamento emergente (C6) foi medido em datasets com 10 a 200 classes e
+  distribuição quase uniforme; nada garante que ele sobreviva a 714 classes com
+  cauda longa, porque classe rara tende a ter densidade baixíssima e, por
+  construção, tipicidade é justamente densidade — o critério que seleciona bem
+  sob uniformidade pode ser o que apaga a cauda no nosso domínio.
+- O custo do passo de representação auto-supervisionada não é contabilizado no
+  orçamento reportado: o "budget" do paper conta apenas rótulos, e a comparação
+  com baselines que não treinam encoder algum sai favorecida.
 
 ## Ideias que gera para a tese
 - Usar C1+C5 como fundamento teórico do Cap. 2 para explicar POR QUE US falha
@@ -113,3 +139,10 @@ máximo no semi-supervisionado (93,2% em CIFAR-10 com 10 rótulos).
 - Confronto R6 item 11: DRI-SL compartilha o princípio "denso e diverso" do
   TypiClust, mas o operacionaliza sem treinar encoder e com novidade lexical
   explícita — adequado a texto curto, orçamento e CPU.
+- Adotar a distância de Variação Total entre a distribuição de classes do L0 e a
+  distribuição real do pool (§4.3.2, p. 8) como métrica auxiliar de avaliação do
+  L0: dá um número comparável entre DRI-SL, AG e aleatório sem depender de
+  acurácia do classificador (P1/P2).
+- Replicar o desenho da ablação C4 nos componentes do DRI-SL: cluster semântico
+  sem variedade lexical vs. variedade lexical sem cluster — é o análogo direto de
+  TPC_NoClust / TPC_Rand e transforma a defesa da arquitetura em evidência.
