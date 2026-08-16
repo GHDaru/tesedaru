@@ -11,6 +11,24 @@ siglas abertas na 1ª ocorrência e presentes na lista, referências validadas
 contra fichamento, afirmações fundamentadas, decisões em ADR
 (`docs/adr/` + `docs/records/decisoes.jsonl`).
 
+## Rodadas de revisão (R1–R7) = ciclos Maestro — OBRIGATÓRIO
+Cada célula capítulo×rodada do plano (`docs/records/plano-revisao.json`) é UM
+ciclo Maestro completo: branch própria → antes/depois na conversa → DoD →
+gate humano no merge → ADR quando houver decisão → atualizar o plano
+(versao+1) e dar push (o painel https://ghdaru.github.io/tesedaru/ se
+re-renderiza sozinho). O campo `ritual` do plano é a forma executável desta
+regra; o campo `proximo` diz o passo seguinte de qualquer sessão.
+
+**Mapa skill → rodada (invocar pelo nome ao abrir o ciclo):**
+| Skill | Quando usar |
+|---|---|
+| `fight-the-pile-up` | R1 (humanização) e R2 (siglas): é a skill editorial de des-densificar sem mudar conteúdo técnico |
+| `constitution-check` | Ao abrir QUALQUER ciclo: tabela contra os 8 princípios do método + os 10 da tese |
+| `verifiable-dod` | R5 e todo DoD de merge (princípio IX): critério vira checagem executável (grep/script), não juízo |
+| `diagnose-before-fix` | R5-imediato e qualquer inconsistência numérica: causa-raiz antes de corrigir |
+| `anti-patterns` | Retrospectiva ao fechar cada capítulo |
+| `living-journey` | Já cumprida por painel + decisoes.jsonl; usar o formato dela em jornadas novas de interface |
+
 ## Method: Maestro
 - Read `docs/governance/principles.md` (the constitution) and
   `docs/governance/operating-model.md` before any work.
