@@ -53,6 +53,15 @@ def main() -> int:
             problemas.append(f"chave duplicada no bib: {c}")
         vistas.add(c)
 
+    # Chaves ancoradas por fichamento: são nós do grafo de conhecimento e
+    # NÃO são órfãs, mesmo sem \cite na prosa — remover uma quebraria o KG e
+    # o check-fichamentos.py. (Achado do ciclo bib-fix: a regra "matar órfã"
+    # do parecer, aplicada cegamente, mataria Sener2018 e Shen2018.)
+    ancoradas = {p.stem for p in (ROOT / "fichamentos").glob("*.md")
+                 if not p.name.startswith("_")}
+    for chave in sorted(ancoradas - vistas):
+        problemas.append(f"fichamento sem entrada no bib: {chave}")
+
     citadas: dict[str, list[str]] = {}
     for path in fontes_tex():
         conteudo = path.read_text(encoding="utf-8", errors="replace")
