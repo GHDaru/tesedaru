@@ -41,7 +41,8 @@ regressao  <!-- Farquhar2021Bias -->
 classificacao-de-imagens  <!-- Hacohen2022TypiClust -->
 
 ### Modelos (fichar-vizinhos)
-biomed-roberta-base, gpt-3.5-turbo, roberta-base  <!-- FreeAL2023 -->,,,,,,,
+biomed-roberta-base, gpt-3.5-turbo, roberta-base  <!-- FreeAL2023 -->,,,,,,,,
+distilroberta, kimcnn, svm  <!-- Schroder2022Uncertainty -->
 processo-gaussiano, random-forest, resnet, wideresnet  <!-- Kossen2021ActiveTesting -->
 rede-neural-bayesiana, regressao-linear  <!-- Farquhar2021Bias -->
 simcse  <!-- Yu2023Patron -->
@@ -58,7 +59,11 @@ partition-then-rewrite, patron, propagacao-de-incerteza  <!-- Yu2023Patron -->
 core-set-selection, k-center-greedy, robust-k-center  <!-- Sener2018 -->
 
 ### Datasets (fichar-vizinhos)
-cifar-10, cifar-100, imagenet-subconjuntos, tiny-imagenet  <!-- Hacohen2022TypiClust -->,,,
+cifar-10, cifar-100, imagenet-subconjuntos, tiny-imagenet  <!-- Hacohen2022TypiClust -->,,,,
+customer-reviews, movie-reviews, subjectivity  <!-- Schroder2022Uncertainty -->
 fashion-mnist, mnist  <!-- Farquhar2021Bias -->
 dbpedia, yahoo-answers, yelp-full  <!-- Yu2023Patron -->
 svhn  <!-- Sener2018 -->
+
+### Métricas (fichar-vizinhos)
+auc-curva-de-aprendizado  <!-- Schroder2022Uncertainty -->
