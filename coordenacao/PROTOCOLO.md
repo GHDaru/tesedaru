@@ -6,8 +6,9 @@
 >
 > **Agentes registrados**: `principal` (prosa da tese) · `banca` (revisão
 > crítica, read-only sobre o texto) · `revisor1` · `revisor2` (rodadas
-> paralelas: fichamentos, dados, análises, normas) · `autor` (humano; único que
-> mergeia na main e arbitra).
+> paralelas: fichamentos, dados, análises, normas) · `site` (páginas do painel,
+> templates, scripts de render e workflow — publica sem gate, ADR 0010) ·
+> `autor` (humano; único que mergeia na main e arbitra).
 >
 > A frase que resume tudo: **"Escreva só na sua superfície, verifique só o que
 > não fez, poste só o que muda a ação de outro, e nunca espere parado — a main
@@ -29,7 +30,7 @@
 coordenacao/caixa/AAAAMMDD-HHMM_<de>_<para>_<tipo>_<slug>.<estado>.md
 ```
 
-- `de`/`para`: `principal|banca|revisor1|revisor2|autor|todos` · hora em UTC
+- `de`/`para`: `principal|banca|revisor1|revisor2|site|autor|todos` · hora em UTC
 - `tipo`: `aviso|tarefa|pergunta` · `slug` kebab-case ≤40 chars
 - `estado`: `aberta` → `em-andamento` → `concluida`, mudando SEMPRE por
   `git mv` (preserva a história; o sufixo fica antes do `.md`).
