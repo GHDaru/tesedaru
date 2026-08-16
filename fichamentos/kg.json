@@ -398,6 +398,90 @@
       "label": "ensemble"
     },
     {
+      "id": "Bengar2022ClassBalanced",
+      "type": "artigo",
+      "label": "Bengar2022ClassBalanced",
+      "title": "Class-Balanced Active Learning for Image Classification",
+      "year": 2022,
+      "venue": "IEEE/CVF Winter Conference on Applications of Computer Vision (WACV 2022), pp. 1536–1545",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Bengar2022ClassBalanced.pdf",
+      "doi": "10.1109/WACV51458.2022.00376",
+      "url": "https://doi.org/10.1109/WACV51458.2022.00376",
+      "cited_in": []
+    },
+    {
+      "id": "pilar:P4",
+      "type": "pilar",
+      "label": "P4"
+    },
+    {
+      "id": "conceito:aprendizado-ativo-balanceado-por-classe",
+      "type": "conceito",
+      "label": "aprendizado-ativo-balanceado-por-classe"
+    },
+    {
+      "id": "metodo:pool-based",
+      "type": "metodo",
+      "label": "pool-based"
+    },
+    {
+      "id": "metodo:amostragem-por-incerteza",
+      "type": "metodo",
+      "label": "amostragem-por-incerteza"
+    },
+    {
+      "id": "metodo:entropia",
+      "type": "metodo",
+      "label": "entropia"
+    },
+    {
+      "id": "metodo:rotulagem-em-lote",
+      "type": "metodo",
+      "label": "rotulagem-em-lote"
+    },
+    {
+      "id": "metodo:otimizacao-binaria",
+      "type": "metodo",
+      "label": "otimizacao-binaria"
+    },
+    {
+      "id": "metodo:k-center-greedy",
+      "type": "metodo",
+      "label": "k-center-greedy"
+    },
+    {
+      "id": "modelo:resnet18",
+      "type": "modelo",
+      "label": "resnet18"
+    },
+    {
+      "id": "modelo:resnet101",
+      "type": "modelo",
+      "label": "resnet101"
+    },
+    {
+      "id": "dataset:cifar-10",
+      "type": "dataset",
+      "label": "cifar-10"
+    },
+    {
+      "id": "dataset:cifar-100",
+      "type": "dataset",
+      "label": "cifar-100"
+    },
+    {
+      "id": "dataset:tiny-imagenet",
+      "type": "dataset",
+      "label": "tiny-imagenet"
+    },
+    {
+      "id": "tarefa:classificacao-de-imagens",
+      "type": "tarefa",
+      "label": "classificacao-de-imagens"
+    },
+    {
       "id": "Bhavani2021",
       "type": "artigo",
       "label": "Bhavani2021",
@@ -678,11 +762,6 @@
       ]
     },
     {
-      "id": "pilar:P4",
-      "type": "pilar",
-      "label": "P4"
-    },
-    {
       "id": "conceito:argmaxtf",
       "type": "conceito",
       "label": "argmaxtf"
@@ -941,6 +1020,55 @@
       "cited_in": []
     },
     {
+      "id": "Farquhar2021Bias",
+      "type": "artigo",
+      "label": "Farquhar2021Bias",
+      "title": "On Statistical Bias In Active Learning: How and When To Fix It",
+      "year": 2021,
+      "venue": "ICLR 2021 (OpenReview JiYq3eqTKY; arXiv:2101.11665v2)",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Farquhar2021Bias.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
+    },
+    {
+      "id": "conceito:estimador-pure",
+      "type": "conceito",
+      "label": "estimador-pure"
+    },
+    {
+      "id": "conceito:estimador-lure",
+      "type": "conceito",
+      "label": "estimador-lure"
+    },
+    {
+      "id": "modelo:rede-neural-bayesiana",
+      "type": "modelo",
+      "label": "rede-neural-bayesiana"
+    },
+    {
+      "id": "modelo:regressao-linear",
+      "type": "modelo",
+      "label": "regressao-linear"
+    },
+    {
+      "id": "dataset:mnist",
+      "type": "dataset",
+      "label": "mnist"
+    },
+    {
+      "id": "dataset:fashion-mnist",
+      "type": "dataset",
+      "label": "fashion-mnist"
+    },
+    {
+      "id": "tarefa:regressao",
+      "type": "tarefa",
+      "label": "regressao"
+    },
+    {
       "id": "Feldman2013",
       "type": "artigo",
       "label": "Feldman2013",
@@ -979,6 +1107,55 @@
       "id": "tarefa:avaliacao-de-classificadores",
       "type": "tarefa",
       "label": "avaliacao-de-classificadores"
+    },
+    {
+      "id": "FreeAL2023",
+      "type": "artigo",
+      "label": "FreeAL2023",
+      "title": "FreeAL: Towards Human-Free Active Learning in the Era of Large Language Models",
+      "year": 2023,
+      "venue": "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP), pp. 14520-14535",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/FreeAL2023.pdf",
+      "doi": "10.18653/v1/2023.emnlp-main.896",
+      "url": "https://doi.org/10.18653/v1/2023.emnlp-main.896",
+      "cited_in": []
+    },
+    {
+      "id": "metodo:llm-como-oraculo",
+      "type": "metodo",
+      "label": "llm-como-oraculo"
+    },
+    {
+      "id": "metodo:destilacao-ativa",
+      "type": "metodo",
+      "label": "destilacao-ativa"
+    },
+    {
+      "id": "metodo:zero-shot",
+      "type": "metodo",
+      "label": "zero-shot"
+    },
+    {
+      "id": "modelo:gpt-3.5-turbo",
+      "type": "modelo",
+      "label": "gpt-3.5-turbo"
+    },
+    {
+      "id": "modelo:roberta-base",
+      "type": "modelo",
+      "label": "roberta-base"
+    },
+    {
+      "id": "modelo:biomed-roberta-base",
+      "type": "modelo",
+      "label": "biomed-roberta-base"
+    },
+    {
+      "id": "dataset:trec",
+      "type": "dataset",
+      "label": "trec"
     },
     {
       "id": "Fushiki2011",
@@ -1066,16 +1243,6 @@
         "Cap. 5 — Resultados (FALCO)",
         "Cap. 6 — Conclusão"
       ]
-    },
-    {
-      "id": "metodo:llm-como-oraculo",
-      "type": "metodo",
-      "label": "llm-como-oraculo"
-    },
-    {
-      "id": "metodo:zero-shot",
-      "type": "metodo",
-      "label": "zero-shot"
     },
     {
       "id": "modelo:chatgpt",
@@ -1215,6 +1382,80 @@
       "doi": "",
       "url": "",
       "cited_in": []
+    },
+    {
+      "id": "Hacohen2022TypiClust",
+      "type": "artigo",
+      "label": "Hacohen2022TypiClust",
+      "title": "Active Learning on a Budget: Opposite Strategies Suit High and Low Budgets",
+      "year": 2022,
+      "venue": "ICML 2022 (PMLR 162)",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Hacohen2022TypiClust.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
+    },
+    {
+      "id": "conceito:typiclust",
+      "type": "conceito",
+      "label": "typiclust"
+    },
+    {
+      "id": "conceito:tipicidade",
+      "type": "conceito",
+      "label": "tipicidade"
+    },
+    {
+      "id": "conceito:transicao-de-fase-de-orcamento",
+      "type": "conceito",
+      "label": "transicao-de-fase-de-orcamento"
+    },
+    {
+      "id": "metodo:auto-supervisao",
+      "type": "metodo",
+      "label": "auto-supervisao"
+    },
+    {
+      "id": "metodo:k-means",
+      "type": "metodo",
+      "label": "k-means"
+    },
+    {
+      "id": "metodo:selecao-por-diversidade",
+      "type": "metodo",
+      "label": "selecao-por-diversidade"
+    },
+    {
+      "id": "metodo:menor-margem",
+      "type": "metodo",
+      "label": "menor-margem"
+    },
+    {
+      "id": "modelo:simclr",
+      "type": "modelo",
+      "label": "simclr"
+    },
+    {
+      "id": "modelo:dino",
+      "type": "modelo",
+      "label": "dino"
+    },
+    {
+      "id": "modelo:scan",
+      "type": "modelo",
+      "label": "scan"
+    },
+    {
+      "id": "modelo:flexmatch",
+      "type": "modelo",
+      "label": "flexmatch"
+    },
+    {
+      "id": "dataset:imagenet-subconjuntos",
+      "type": "dataset",
+      "label": "imagenet-subconjuntos"
     },
     {
       "id": "Hafez2021",
@@ -1609,11 +1850,6 @@
       "label": "anotacao-em-lote"
     },
     {
-      "id": "metodo:amostragem-por-incerteza",
-      "type": "metodo",
-      "label": "amostragem-por-incerteza"
-    },
-    {
       "id": "modelo:gpt-4-turbo",
       "type": "modelo",
       "label": "gpt-4-turbo"
@@ -1627,6 +1863,50 @@
       "id": "dataset:MasakhaNER-2.0",
       "type": "dataset",
       "label": "MasakhaNER-2.0"
+    },
+    {
+      "id": "Kossen2021ActiveTesting",
+      "type": "artigo",
+      "label": "Kossen2021ActiveTesting",
+      "title": "Active Testing: Sample-Efficient Model Evaluation",
+      "year": 2021,
+      "venue": "ICML 2021, PMLR 139:5753-5763",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Kossen2021ActiveTesting.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
+    },
+    {
+      "id": "conceito:teste-ativo",
+      "type": "conceito",
+      "label": "teste-ativo"
+    },
+    {
+      "id": "metodo:estimador-lure",
+      "type": "metodo",
+      "label": "estimador-lure"
+    },
+    {
+      "id": "modelo:resnet",
+      "type": "modelo",
+      "label": "resnet"
+    },
+    {
+      "id": "modelo:wideresnet",
+      "type": "modelo",
+      "label": "wideresnet"
+    },
+    {
+      "id": "modelo:processo-gaussiano",
+      "type": "modelo",
+      "label": "processo-gaussiano"
+    },
+    {
+      "id": "modelo:random-forest",
+      "type": "modelo",
+      "label": "random-forest"
     },
     {
       "id": "Kowsari2019",
@@ -1834,11 +2114,6 @@
       "id": "metodo:margin",
       "type": "metodo",
       "label": "margin"
-    },
-    {
-      "id": "metodo:entropia",
-      "type": "metodo",
-      "label": "entropia"
     },
     {
       "id": "Maw2019",
@@ -2079,6 +2354,20 @@
       "cited_in": []
     },
     {
+      "id": "Pangakis2023Validation",
+      "type": "artigo",
+      "label": "Pangakis2023Validation",
+      "title": "Automated Annotation with Generative AI Requires Validation",
+      "year": 2023,
+      "venue": "arXiv:2306.00176 [cs.CL] (preprint, v1 de 31/05/2023)",
+      "paper_type": "avaliacao",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Pangakis2023Validation.pdf",
+      "doi": "10.48550/arXiv.2306.00176",
+      "url": "https://doi.org/10.48550/arXiv.2306.00176",
+      "cited_in": []
+    },
+    {
       "id": "Patra2013",
       "type": "artigo",
       "label": "Patra2013",
@@ -2209,11 +2498,6 @@
       "id": "dataset:imagens-sensoriamento-remoto",
       "type": "dataset",
       "label": "imagens-sensoriamento-remoto"
-    },
-    {
-      "id": "tarefa:classificacao-de-imagens",
-      "type": "tarefa",
-      "label": "classificacao-de-imagens"
     },
     {
       "id": "Pintas2021",
@@ -2583,14 +2867,68 @@
       "label": "biblioteca-small-text"
     },
     {
-      "id": "metodo:pool-based",
-      "type": "metodo",
-      "label": "pool-based"
-    },
-    {
       "id": "metodo:estrategias-de-consulta",
       "type": "metodo",
       "label": "estrategias-de-consulta"
+    },
+    {
+      "id": "Schroder2022Uncertainty",
+      "type": "artigo",
+      "label": "Schroder2022Uncertainty",
+      "title": "Revisiting Uncertainty-based Query Strategies for Active Learning with Transformers",
+      "year": 2022,
+      "venue": "Findings of the Association for Computational Linguistics: ACL 2022, pp. 2194–2203",
+      "paper_type": "avaliacao",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Schroder2022Uncertainty.pdf",
+      "doi": "10.18653/v1/2022.findings-acl.172",
+      "url": "https://doi.org/10.18653/v1/2022.findings-acl.172",
+      "cited_in": []
+    },
+    {
+      "id": "metodo:menor-confianca",
+      "type": "metodo",
+      "label": "menor-confianca"
+    },
+    {
+      "id": "metodo:fine-tuning",
+      "type": "metodo",
+      "label": "fine-tuning"
+    },
+    {
+      "id": "modelo:distilroberta",
+      "type": "modelo",
+      "label": "distilroberta"
+    },
+    {
+      "id": "modelo:svm",
+      "type": "modelo",
+      "label": "svm"
+    },
+    {
+      "id": "modelo:kimcnn",
+      "type": "modelo",
+      "label": "kimcnn"
+    },
+    {
+      "id": "dataset:agnews",
+      "type": "dataset",
+      "label": "agnews"
+    },
+    {
+      "id": "dataset:movie-reviews",
+      "type": "dataset",
+      "label": "movie-reviews"
+    },
+    {
+      "id": "dataset:customer-reviews",
+      "type": "dataset",
+      "label": "customer-reviews"
+    },
+    {
+      "id": "dataset:subjectivity",
+      "type": "dataset",
+      "label": "subjectivity"
     },
     {
       "id": "ScottMatwin1999",
@@ -2605,6 +2943,45 @@
       "doi": "",
       "url": "",
       "cited_in": []
+    },
+    {
+      "id": "Sener2018",
+      "type": "artigo",
+      "label": "Sener2018",
+      "title": "Active Learning for Convolutional Neural Networks: A Core-Set Approach",
+      "year": 2018,
+      "venue": "ICLR 2018",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Sener2018.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": []
+    },
+    {
+      "id": "conceito:core-set-selection",
+      "type": "conceito",
+      "label": "core-set-selection"
+    },
+    {
+      "id": "conceito:k-center-greedy",
+      "type": "conceito",
+      "label": "k-center-greedy"
+    },
+    {
+      "id": "conceito:robust-k-center",
+      "type": "conceito",
+      "label": "robust-k-center"
+    },
+    {
+      "id": "modelo:vgg-16",
+      "type": "modelo",
+      "label": "vgg-16"
+    },
+    {
+      "id": "dataset:svhn",
+      "type": "dataset",
+      "label": "svhn"
     },
     {
       "id": "Settles2009",
@@ -2944,11 +3321,6 @@
       "label": "pre-treinamento"
     },
     {
-      "id": "metodo:fine-tuning",
-      "type": "metodo",
-      "label": "fine-tuning"
-    },
-    {
       "id": "modelo:bertimbau",
       "type": "modelo",
       "label": "bertimbau"
@@ -3151,6 +3523,40 @@
       "label": "traducao-automatica"
     },
     {
+      "id": "Wang2021GPT3Labeling",
+      "type": "artigo",
+      "label": "Wang2021GPT3Labeling",
+      "title": "Want To Reduce Labeling Cost? GPT-3 Can Help",
+      "year": 2021,
+      "venue": "Findings of the Association for Computational Linguistics: EMNLP 2021, pp. 4195-4205",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Wang2021GPT3Labeling.pdf",
+      "doi": "10.18653/v1/2021.findings-emnlp.354",
+      "url": "https://doi.org/10.18653/v1/2021.findings-emnlp.354",
+      "cited_in": []
+    },
+    {
+      "id": "modelo:gpt-3-davinci",
+      "type": "modelo",
+      "label": "gpt-3-davinci"
+    },
+    {
+      "id": "modelo:roberta-large",
+      "type": "modelo",
+      "label": "roberta-large"
+    },
+    {
+      "id": "modelo:pegasus-large",
+      "type": "modelo",
+      "label": "pegasus-large"
+    },
+    {
+      "id": "dataset:dbpedia",
+      "type": "dataset",
+      "label": "dbpedia"
+    },
+    {
       "id": "Wong2015",
       "type": "artigo",
       "label": "Wong2015",
@@ -3256,6 +3662,50 @@
       "cited_in": []
     },
     {
+      "id": "Yu2023Patron",
+      "type": "artigo",
+      "label": "Yu2023Patron",
+      "title": "Cold-Start Data Selection for Better Few-shot Language Model Fine-tuning: A Prompt-based Uncertainty Propagation Approach",
+      "year": 2023,
+      "venue": "ACL 2023 (Long Papers), pp. 2499-2521",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Yu2023Patron.pdf",
+      "doi": "10.18653/v1/2023.acl-long.141",
+      "url": "https://doi.org/10.18653/v1/2023.acl-long.141",
+      "cited_in": []
+    },
+    {
+      "id": "conceito:patron",
+      "type": "conceito",
+      "label": "patron"
+    },
+    {
+      "id": "conceito:partition-then-rewrite",
+      "type": "conceito",
+      "label": "partition-then-rewrite"
+    },
+    {
+      "id": "modelo:simcse",
+      "type": "modelo",
+      "label": "simcse"
+    },
+    {
+      "id": "dataset:imdb",
+      "type": "dataset",
+      "label": "imdb"
+    },
+    {
+      "id": "dataset:yelp-full",
+      "type": "dataset",
+      "label": "yelp-full"
+    },
+    {
+      "id": "dataset:yahoo-answers",
+      "type": "dataset",
+      "label": "yahoo-answers"
+    },
+    {
       "id": "Yuan2025NoiseAL",
       "type": "artigo",
       "label": "Yuan2025NoiseAL",
@@ -3320,6 +3770,30 @@
       "id": "metodo:enriquecimento-com-corpus-externo",
       "type": "metodo",
       "label": "enriquecimento-com-corpus-externo"
+    },
+    {
+      "id": "Zhang2023LLMaAA",
+      "type": "artigo",
+      "label": "Zhang2023LLMaAA",
+      "title": "LLMaAA: Making Large Language Models as Active Annotators",
+      "year": 2023,
+      "venue": "Findings of the Association for Computational Linguistics: EMNLP 2023, pp. 13088-13103",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Zhang2023LLMaAA.pdf",
+      "doi": "10.18653/v1/2023.findings-emnlp.872",
+      "url": "https://doi.org/10.18653/v1/2023.findings-emnlp.872",
+      "cited_in": []
+    },
+    {
+      "id": "metodo:saida-estruturada",
+      "type": "metodo",
+      "label": "saida-estruturada"
+    },
+    {
+      "id": "modelo:gpt-3",
+      "type": "modelo",
+      "label": "gpt-3"
     },
     {
       "id": "Zhang2025",
@@ -3550,9 +4024,29 @@
       "label": "multiplos-oraculos"
     },
     {
+      "id": "MacKay1992",
+      "type": "artigo-pendente",
+      "label": "MacKay1992"
+    },
+    {
+      "id": "Settles2010",
+      "type": "artigo-pendente",
+      "label": "Settles2010"
+    },
+    {
+      "id": "Houlsby2011",
+      "type": "artigo-pendente",
+      "label": "Houlsby2011"
+    },
+    {
       "id": "claim-granularidade",
       "type": "tema-falco",
       "label": "claim-granularidade"
+    },
+    {
+      "id": "Hacohen2019",
+      "type": "artigo-pendente",
+      "label": "Hacohen2019"
     },
     {
       "id": "RQ2-lote",
@@ -3563,6 +4057,11 @@
       "id": "E4-leitura",
       "type": "tema-falco",
       "label": "E4-leitura"
+    },
+    {
+      "id": "oraculo-progressivo",
+      "type": "tema-falco",
+      "label": "oraculo-progressivo"
     },
     {
       "id": "FALCO-fases",
@@ -3580,6 +4079,26 @@
       "label": "claim-granularidade-e-E0"
     },
     {
+      "id": "Margatina2021",
+      "type": "artigo-pendente",
+      "label": "Margatina2021"
+    },
+    {
+      "id": "EinDor2020",
+      "type": "artigo-pendente",
+      "label": "EinDor2020"
+    },
+    {
+      "id": "LCE",
+      "type": "tema-falco",
+      "label": "LCE"
+    },
+    {
+      "id": "Gal2017",
+      "type": "artigo-pendente",
+      "label": "Gal2017"
+    },
+    {
       "id": "oraculo-imperfeito",
       "type": "tema-falco",
       "label": "oraculo-imperfeito"
@@ -3593,6 +4112,11 @@
       "id": "E0P-invalidos-futuros",
       "type": "tema-falco",
       "label": "E0P-invalidos-futuros"
+    },
+    {
+      "id": "Yuan2020",
+      "type": "artigo-pendente",
+      "label": "Yuan2020"
     },
     {
       "id": "E4-futuros",
@@ -4036,6 +4560,103 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Formula a seleção de instâncias como problema de regret (sleeping experts), agnóstica à definição de informatividade: moldura teórica alternativa às heurísticas de incerteza que usamos — citar como linha formal e como base do trabalho futuro de seleção de oráculo."
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "Settles2012",
+      "type": "builds_on"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "pilar:P2",
+      "type": "pillars"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "conceito:aprendizado-ativo-balanceado-por-classe",
+      "type": "proposes"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "metodo:entropia",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "metodo:rotulagem-em-lote",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "metodo:otimizacao-binaria",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "metodo:k-center-greedy",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "modelo:resnet18",
+      "type": "models"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "modelo:resnet101",
+      "type": "models"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "dataset:cifar-10",
+      "type": "datasets"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "dataset:cifar-100",
+      "type": "datasets"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "dataset:tiny-imagenet",
+      "type": "datasets"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "tarefa:classificacao-de-imagens",
+      "type": "tasks"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "FALCO",
+      "type": "motiva",
+      "note": "Demonstra (Fig. 2) que estratégias de AL — inclusive entropia, nosso baseline — reproduzem e AMPLIFICAM ao longo dos ciclos o desbalanceamento do pool. Com 714 classes em cauda longa, este é o risco central do nosso laço; citar no Cap.2 (lacuna) e na discussão dos resultados do P4."
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "DRI-SL",
+      "type": "complementa",
+      "note": "Ataca o mesmo problema (seleção balanceada sem rótulos) em fase diferente: CBAL balanceia DURANTE os ciclos usando pseudo-rótulos do modelo; DRI-SL balanceia o L0 ANTES de existir modelo, via densidade semântica + variedade lexical. Par natural de confronto no Cap.2."
     },
     {
       "source": "Bhavani2021",
@@ -4593,6 +5214,98 @@
       "note": "Reviews de produto: domínio adjacente ao nosso."
     },
     {
+      "source": "Farquhar2021Bias",
+      "target": "MacKay1992",
+      "type": "builds_on"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "Lewis1994",
+      "type": "builds_on"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "Settles2010",
+      "type": "builds_on"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "Houlsby2011",
+      "type": "builds_on"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "conceito:estimador-pure",
+      "type": "proposes"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "conceito:estimador-lure",
+      "type": "proposes"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "modelo:rede-neural-bayesiana",
+      "type": "models"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "modelo:regressao-linear",
+      "type": "models"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "dataset:mnist",
+      "type": "datasets"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "dataset:fashion-mnist",
+      "type": "datasets"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "tarefa:classificacao-de-imagens",
+      "type": "tasks"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "tarefa:regressao",
+      "type": "tasks"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Estabelece formalmente o FENÔMENO que o E6 da tese mede: o risco estimado sobre dados coletados ativamente é enviesado porque a amostra ativa não segue a distribuição populacional. É a citação obrigatória do parecer R6 item 10 [Dom-M3]: a tese cita o fenômeno daqui e reivindica apenas a QUANTIFICAÇÃO no seu cenário (texto curto pt-BR, oráculo LLM, avaliação interna vs. externa)."
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "FALCO",
+      "type": "ameaca",
+      "note": "Se a tese avaliasse o laço só no teste interno (dados coletados ativamente), estaria usando exatamente o estimador viesado R̃ que este paper desmonta. O desenho do E6 (população reservada) e o conjunto de validação reservado exigido pelo FALCO respondem a essa ameaça; o paper também oferece a alternativa não adotada (reponderação LURE), que a tese deve discutir como trabalho futuro."
+    },
+    {
       "source": "Feldman2013",
       "target": "pilar:geral",
       "type": "pillars"
@@ -4628,6 +5341,77 @@
       "target": "FALCO",
       "type": "fundamenta",
       "note": "Armadilhas de computar F1/AUC em validação cruzada (formas incompatíveis entre papers/software): diretamente aplicável a como agregamos Macro-F1 entre dobras/repetições nos E1–E3. (Arquivo veio rotulado como Forman 2003; identidade corrigida.)"
+    },
+    {
+      "source": "FreeAL2023",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "FreeAL2023",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "FreeAL2023",
+      "target": "metodo:llm-como-oraculo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "FreeAL2023",
+      "target": "metodo:destilacao-ativa",
+      "type": "uses_methods"
+    },
+    {
+      "source": "FreeAL2023",
+      "target": "metodo:few-shot",
+      "type": "uses_methods"
+    },
+    {
+      "source": "FreeAL2023",
+      "target": "metodo:zero-shot",
+      "type": "uses_methods"
+    },
+    {
+      "source": "FreeAL2023",
+      "target": "metodo:entropia",
+      "type": "uses_methods"
+    },
+    {
+      "source": "FreeAL2023",
+      "target": "metodo:cold-start",
+      "type": "uses_methods"
+    },
+    {
+      "source": "FreeAL2023",
+      "target": "modelo:gpt-3.5-turbo",
+      "type": "models"
+    },
+    {
+      "source": "FreeAL2023",
+      "target": "modelo:roberta-base",
+      "type": "models"
+    },
+    {
+      "source": "FreeAL2023",
+      "target": "modelo:biomed-roberta-base",
+      "type": "models"
+    },
+    {
+      "source": "FreeAL2023",
+      "target": "dataset:trec",
+      "type": "datasets"
+    },
+    {
+      "source": "FreeAL2023",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "FreeAL2023",
+      "target": "FALCO",
+      "type": "compara",
+      "note": "Vizinho direto exigido pelo parecer R6 (Bloco C, item 9 / Dom-M1) na tabela de lacunas. FreeAL elimina o humano do laço via colaboração LLM(anotador)-SLM(filtro) com refinamento iterativo de rótulos; FALCO difere em: progressão de oráculos com gate de custo, espaço FECHADO de 714 classes (FreeAL: 2-6 classes + NER), texto curto PT-BR de varejo, saída estruturada (CategorySchema) e contabilidade de custo por rótulo (FreeAL não reporta custo de API). Confronto central do Cap. 2."
     },
     {
       "source": "Fushiki2011",
@@ -4873,6 +5657,148 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Aplicação clássica com autoria nacional (UFMG)."
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "Sener2018",
+      "type": "compares_with"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "Hacohen2019",
+      "type": "builds_on"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "pilar:P1",
+      "type": "pillars"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "pilar:P2",
+      "type": "pillars"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "conceito:typiclust",
+      "type": "proposes"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "conceito:tipicidade",
+      "type": "proposes"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "conceito:transicao-de-fase-de-orcamento",
+      "type": "proposes"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "metodo:cold-start",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "metodo:auto-supervisao",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "metodo:k-means",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "metodo:selecao-por-diversidade",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "metodo:entropia",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "metodo:menor-margem",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "modelo:simclr",
+      "type": "models"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "modelo:dino",
+      "type": "models"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "modelo:scan",
+      "type": "models"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "modelo:flexmatch",
+      "type": "models"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "modelo:resnet18",
+      "type": "models"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "dataset:cifar-10",
+      "type": "datasets"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "dataset:cifar-100",
+      "type": "datasets"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "dataset:tiny-imagenet",
+      "type": "datasets"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "dataset:imagenet-subconjuntos",
+      "type": "datasets"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "tarefa:classificacao-de-imagens",
+      "type": "tasks"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "DRI-SL",
+      "type": "compara",
+      "note": "Fundamento teórico do regime de orçamento baixo: no cold start, selecionar exemplos TÍPICOS (densos) e diversos vence incerteza e coreset — mesmo princípio de representatividade da etapa 1 do DRI-SL (k-médias + cota proporcional). Diferenças: TypiClust exige representação auto-supervisionada treinada no pool (cara) e mede tipicidade por densidade k-NN, que em texto curto com 7,7% de duplicatas tende a escolher quase-duplicatas; o DRI-SL não usa encoder treinado na tarefa, tem custo linear e adiciona a variedade LEXICAL intragrupo que a tipicidade pura não garante (o próprio paper mostra que tipicidade sem diversidade falha, TPC_NoClust, §4.3.3)."
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Dá base teórica (modelo de mistura + transição de fase, §2) para a escolha do FALCO de usar estratégia de representatividade — e não incerteza — na fase de orçamento baixo: até incerteza de oráculo perfeito perde de random nesse regime (§4.3.4)."
     },
     {
       "source": "Hafez2021",
@@ -5420,6 +6346,123 @@
       "target": "RQ2-lote",
       "type": "suporta",
       "note": "Precedente direto da anotação em LOTE no laço de AL com LLM: mostra a amortização do prompt como componente central da economia (>=42x vs humano). Também mede 'output format correctness' — antecipa nosso achado de que erro de formato != erro semântico (taxa de inválidos)."
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "Farquhar2021Bias",
+      "type": "extends"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "Farquhar2021Bias",
+      "type": "builds_on"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "Houlsby2011",
+      "type": "builds_on"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "conceito:teste-ativo",
+      "type": "proposes"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "metodo:entropia",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "metodo:estimador-lure",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "modelo:rede-neural-bayesiana",
+      "type": "models"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "modelo:resnet",
+      "type": "models"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "modelo:wideresnet",
+      "type": "models"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "modelo:processo-gaussiano",
+      "type": "models"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "modelo:random-forest",
+      "type": "models"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "dataset:mnist",
+      "type": "datasets"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "dataset:fashion-mnist",
+      "type": "datasets"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "dataset:cifar-10",
+      "type": "datasets"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "dataset:cifar-100",
+      "type": "datasets"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "tarefa:classificacao-de-imagens",
+      "type": "tasks"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "tarefa:regressao",
+      "type": "tasks"
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Segunda citação obrigatória do parecer R6 item 10 [Dom-M3]. Estabelece que rotular o conjunto de TESTE também é caro e que o viés de seleção 'is far more harmful for testing than it is for training' — a justificativa de literatura para o instrumento interna vs. externa do E6 e para o conjunto reservado que o FALCO exige. A tese cita o fenômeno e o framework daqui; reivindica a quantificação no seu cenário, não a descoberta."
+    },
+    {
+      "source": "Kossen2021ActiveTesting",
+      "target": "FALCO",
+      "type": "ameaca",
+      "note": "Mostra que avaliar um modelo em pontos adquiridos por incerteza SUPERESTIMA a perda de teste (subestima o desempenho), pior em modelos sobreconfiantes — exatamente o risco do teste interno do laço FALCO se usado para decidir parada/liberação. Também expõe o custo da alternativa não adotada: corrigir por LURE exigiria registrar q(i_m) e manter um surrogate; o FALCO responde com população reservada."
     },
     {
       "source": "Kowsari2019",
@@ -5971,6 +7014,48 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Impacto de pré-processamento medido em ESPANHOL (língua próxima ao português) e cruzando curto×longo — apoio à discussão de pré-processamento fora do inglês no Cap.2. (Arquivo veio rotulado como Uysal 2014; identidade corrigida no saneamento.)"
+    },
+    {
+      "source": "Pangakis2023Validation",
+      "target": "Gilardi2023",
+      "type": "contradicts"
+    },
+    {
+      "source": "Pangakis2023Validation",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Pangakis2023Validation",
+      "target": "metodo:llm-como-oraculo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Pangakis2023Validation",
+      "target": "metodo:zero-shot",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Pangakis2023Validation",
+      "target": "modelo:gpt-4",
+      "type": "models"
+    },
+    {
+      "source": "Pangakis2023Validation",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Pangakis2023Validation",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Base normativa do bloco custo/validação do parecer R6 (Bloco C, item 12 vizinho): TODO uso de LLM como anotador deve ser validado contra rótulos humanos, tarefa a tarefa, porque o desempenho é altamente heterogêneo (9/27 tarefas com precisão ou recall < 0,5 mesmo com GPT-4). Fundamenta o E0-como-gate do FALCO (validar o oráculo contra gabarito antes do laço) e a leitura honesta dos resultados do P3."
+    },
+    {
+      "source": "Pangakis2023Validation",
+      "target": "oraculo-progressivo",
+      "type": "complementa",
+      "note": "O consistency score (re-rotular >=7x com temperatura 0,6; consistência correlaciona com acurácia) é um mecanismo de confiança do oráculo independente da autoavaliação — alternativa a discutir nos futuros."
     },
     {
       "source": "Patra2013",
@@ -6702,6 +7787,149 @@
       "note": "Referência de engenharia para a biblioteca activelearning da tese: mesma decomposição (classificador × estratégia × critério de parada com interfaces padronizadas). Nossa biblioteca difere ao elevar o ORÁCULO a porta de primeira classe (custo, cache, modos de saída) — ausente no small-text, que assume rótulos dados."
     },
     {
+      "source": "Schroder2022Uncertainty",
+      "target": "Margatina2021",
+      "type": "compares_with"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "EinDor2020",
+      "type": "compares_with"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "Schroder2020DNNSurvey",
+      "type": "builds_on"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "Schroder2021SmallText",
+      "type": "builds_on"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "Lewis1994",
+      "type": "builds_on"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "devlin2019bert",
+      "type": "builds_on"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "pilar:geral",
+      "type": "pillars"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "metodo:entropia",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "metodo:menor-margem",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "metodo:menor-confianca",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "modelo:bert",
+      "type": "models"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "modelo:distilroberta",
+      "type": "models"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "modelo:svm",
+      "type": "models"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "modelo:kimcnn",
+      "type": "models"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "dataset:agnews",
+      "type": "datasets"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "dataset:trec",
+      "type": "datasets"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "dataset:movie-reviews",
+      "type": "datasets"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "dataset:customer-reviews",
+      "type": "datasets"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "dataset:subjectivity",
+      "type": "datasets"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Valida empiricamente a escolha central do FALCO: com transformers, estratégias de incerteza (baratas) são eficazes E eficientes, enquanto as estratégias 'estado-da-arte' impõem overhead proibitivo no laço — mesmo argumento de custo que justifica nosso classificador leve no laço e BERTimbau fora dele (E3')."
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "FALCO",
+      "type": "ameaca",
+      "note": "Desafia o status da entropia (PE) como baseline default: com transformers, breaking ties (menor-margem) supera PE em média nos multiclasse. Como nosso baseline de incerteza é entropia num problema de 714 classes, precisamos ou justificar a escolha ou reportar BT — citar ao definir os baselines do P4."
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "LCE",
+      "type": "complementa",
+      "note": "Usa AUC da curva de aprendizado como métrica-resumo de eficiência — antecedente direto da LCE; citar como prática corrente que a LCE refina."
+    },
+    {
       "source": "ScottMatwin1999",
       "target": "pilar:geral",
       "type": "pillars"
@@ -6711,6 +7939,92 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Elo de 1999 da linha de enriquecimento que culmina no nosso expanded_description."
+    },
+    {
+      "source": "Sener2018",
+      "target": "Gal2017",
+      "type": "compares_with"
+    },
+    {
+      "source": "Sener2018",
+      "target": "pilar:P2",
+      "type": "pillars"
+    },
+    {
+      "source": "Sener2018",
+      "target": "conceito:core-set-selection",
+      "type": "proposes"
+    },
+    {
+      "source": "Sener2018",
+      "target": "conceito:k-center-greedy",
+      "type": "proposes"
+    },
+    {
+      "source": "Sener2018",
+      "target": "conceito:robust-k-center",
+      "type": "proposes"
+    },
+    {
+      "source": "Sener2018",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Sener2018",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Sener2018",
+      "target": "metodo:rotulagem-em-lote",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Sener2018",
+      "target": "metodo:selecao-por-diversidade",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Sener2018",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Sener2018",
+      "target": "metodo:entropia",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Sener2018",
+      "target": "modelo:vgg-16",
+      "type": "models"
+    },
+    {
+      "source": "Sener2018",
+      "target": "dataset:cifar-10",
+      "type": "datasets"
+    },
+    {
+      "source": "Sener2018",
+      "target": "dataset:cifar-100",
+      "type": "datasets"
+    },
+    {
+      "source": "Sener2018",
+      "target": "dataset:svhn",
+      "type": "datasets"
+    },
+    {
+      "source": "Sener2018",
+      "target": "tarefa:classificacao-de-imagens",
+      "type": "tasks"
+    },
+    {
+      "source": "Sener2018",
+      "target": "DRI-SL",
+      "type": "compara",
+      "note": "Clássico da seleção por diversidade geométrica: AL em lote como cobertura minimax (k-Center) no espaço de ativações do próprio modelo. Três diferenças que o confronto do Cap. 2 explora: (i) coreset NÃO é cold start — a distância usa ativações de uma rede já treinada no pool inicial rotulado, enquanto o DRI-SL parte de rótulo zero; (ii) o próprio bound dos autores escala com o número de classes (pior com muitas classes — nós temos 714); (iii) cobertura minimax privilegia pontos extremos/outliers, frágil em texto curto esparso e ruidoso, enquanto o DRI-SL aloca por densidade proporcional + novidade lexical. Em orçamento baixo, coreset empata com random (Hacohen2022TypiClust, Fig. 4) e fica abaixo até de random em cold start textual (Yu2023Patron, Tab. 1)."
     },
     {
       "source": "Settles2009",
@@ -7389,6 +8703,77 @@
       "note": "A arquitetura de TUDO que a tese usa: BERTimbau (encoder Transformer) e os próprios LLMs-oráculo (decoders Transformer). Uma citação, duas pontas do FALCO."
     },
     {
+      "source": "Wang2021GPT3Labeling",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Wang2021GPT3Labeling",
+      "target": "metodo:llm-como-oraculo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Wang2021GPT3Labeling",
+      "target": "metodo:few-shot",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Wang2021GPT3Labeling",
+      "target": "metodo:menor-confianca",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Wang2021GPT3Labeling",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Wang2021GPT3Labeling",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Wang2021GPT3Labeling",
+      "target": "modelo:gpt-3-davinci",
+      "type": "models"
+    },
+    {
+      "source": "Wang2021GPT3Labeling",
+      "target": "modelo:roberta-large",
+      "type": "models"
+    },
+    {
+      "source": "Wang2021GPT3Labeling",
+      "target": "modelo:pegasus-large",
+      "type": "models"
+    },
+    {
+      "source": "Wang2021GPT3Labeling",
+      "target": "dataset:agnews",
+      "type": "datasets"
+    },
+    {
+      "source": "Wang2021GPT3Labeling",
+      "target": "dataset:trec",
+      "type": "datasets"
+    },
+    {
+      "source": "Wang2021GPT3Labeling",
+      "target": "dataset:dbpedia",
+      "type": "datasets"
+    },
+    {
+      "source": "Wang2021GPT3Labeling",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Wang2021GPT3Labeling",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Primeiro trabalho (auto-declarado) a ANALISAR O CUSTO do LLM como rotulador e o mix LLM+humano sob orçamento fixo — é o ancestral direto do eixo custo-por-rótulo do P3. A 'active labeling' deles (humano re-rotula os casos de menor confiança do GPT-3) é o dual do FALCO (LLM anota o que o seletor pede). Fundamenta a moldura de AL como alocação de recursos sob orçamento (ancoragem PPGMNE) e a tabela de custo do Cap. 5."
+    },
+    {
       "source": "Wong2015",
       "target": "pilar:geral",
       "type": "pillars"
@@ -7509,6 +8894,148 @@
       "note": "Relações entre rótulos: direção futura para o espaço de 621 categorias."
     },
     {
+      "source": "Yu2023Patron",
+      "target": "Sener2018",
+      "type": "compares_with"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "Hacohen2022TypiClust",
+      "type": "compares_with"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "Yuan2020",
+      "type": "compares_with"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "pilar:P2",
+      "type": "pillars"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "conceito:patron",
+      "type": "proposes"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "conceito:propagacao-de-incerteza",
+      "type": "proposes"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "conceito:partition-then-rewrite",
+      "type": "proposes"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "metodo:cold-start",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "metodo:few-shot",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "metodo:zero-shot",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "metodo:entropia",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "metodo:k-means",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "metodo:selecao-por-diversidade",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "modelo:roberta-base",
+      "type": "models"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "modelo:simcse",
+      "type": "models"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "dataset:imdb",
+      "type": "datasets"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "dataset:agnews",
+      "type": "datasets"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "dataset:trec",
+      "type": "datasets"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "dataset:yelp-full",
+      "type": "datasets"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "dataset:yahoo-answers",
+      "type": "datasets"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "dataset:dbpedia",
+      "type": "datasets"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "DRI-SL",
+      "type": "compara",
+      "note": "Estado da arte de cold start textual que USA o conhecimento do PLM na seleção: pseudo-rótulos por prompt cloze + calibração + entropia, propagados por kernel RBF a vizinhos k-NN (SimCSE), e diversidade via K-Means + reescrita com regularização entre clusters. O DRI-SL difere em três eixos: (i) custo — PATRON roda inferência do PLM em TODO o pool não rotulado; DRI-SL usa encoder congelado + operações esparsas, sem nenhum modelo na malha de seleção; (ii) engenharia — PATRON exige template e verbalizador manuais por tarefa (mapear as 714 classes do varejo a palavras-rótulo de [MASK] é impraticável; experimentos param em c=14); (iii) sinal — PATRON mistura incerteza pseudo-rotulada com diversidade; DRI-SL é 100% representatividade + novidade lexical, coerente com a evidência de que incerteza é enviesada no cold start (o próprio PATRON, §1 e obs. 3 do §5.3)."
+    },
+    {
+      "source": "Yu2023Patron",
+      "target": "FALCO",
+      "type": "compara",
+      "note": "Como o ActiveLLM (Bayer2024ActiveLLM), põe o modelo de linguagem na fase de SELEÇÃO; o FALCO faz a separação oposta — seleção local barata (DRI-SL) e LLM só na ROTULAGEM — reduzindo chamadas na fase cara e eliminando template/verbalizador por classe."
+    },
+    {
       "source": "Yuan2025NoiseAL",
       "target": "pilar:P3",
       "type": "pillars"
@@ -7599,6 +9126,98 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Linha de enriquecimento para texto curto (vetores de palavras + tópicos ocultos aprendidos com coleção externa): a resposta pré-LLM à esparsidade. O expanded_description do nosso prompt é o herdeiro dessa linha com conhecimento paramétrico."
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "Wang2021GPT3Labeling",
+      "type": "builds_on"
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "pilar:P2",
+      "type": "pillars"
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "metodo:llm-como-oraculo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "metodo:entropia",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "metodo:menor-confianca",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "metodo:few-shot",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "metodo:saida-estruturada",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "modelo:gpt-3.5-turbo",
+      "type": "models"
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "modelo:gpt-3",
+      "type": "models"
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "modelo:gpt-4",
+      "type": "models"
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "modelo:bert",
+      "type": "models"
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "FALCO",
+      "type": "compara",
+      "note": "Vizinho direto exigido pelo parecer R6 (Bloco C, item 9 / Dom-M1): é O paper que põe o LLM como anotador DENTRO do laço pool-based com aquisição por incerteza — a mesma composição estrutural do FALCO. Difere: tarefas NER/RE (não classificação em espaço fechado grande), precisa de 100 exemplos ouro para demonstração+validação, robustez via reponderação automática (meta-learning), e não instrumenta custo monetário por rótulo. Confronto central do Cap. 2 e da RQ de seleção."
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "DRI-SL",
+      "type": "compara",
+      "note": "Compara estratégias de aquisição sob oráculo-LLM: menor confiança e entropia máxima superam aleatório e k-means (diversidade) — evidência externa para o debate incerteza vs representatividade do P2."
     },
     {
       "source": "Zhang2025",
