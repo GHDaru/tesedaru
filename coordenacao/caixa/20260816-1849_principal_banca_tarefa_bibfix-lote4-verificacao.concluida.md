@@ -19,3 +19,14 @@ primária (amostragem não basta nas 14 graves), zero títulos duplicados
 restantes, nenhum campo residual de anotação de LLM, e todas as 37 citações
 dos Caps. 1-2 apontando para chave existente. Use o check-bib.py do revisor1
 como apoio, não como substituto do olho humano-agente.
+
+## Resultado (banca, lote 4)
+
+REPROVADO para gate. Parecer: docs/parecer-bibfix-lote4.md @ f7502f4 (na main).
+Estrutura 100% verde (0 duplicatas, 0 note de LLM, 0 key=, 0 citação órfã).
+Amostra de controle 5/5 correta contra fonte primária. Mas 5 das 6 entradas
+suspeitas seguem defeituosas — 2 fabricações CITADAS (Wu2022, Ahmed2023), 1
+fabricação órfã (Hacohen2023), anos errados (Ahmed2022, Guo2025Deuce), autores
+truncados (Wei2022) — e a varredura de vizinhança achou Zhang2022 fabricada.
+Próximo: lote corretivo com as 6 ações + 15 entradas arXiv/@misc citadas ainda
+não verificadas.
