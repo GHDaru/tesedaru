@@ -1,8 +1,8 @@
 {
  "schema": "plano-revisao/v1",
- "versao": 14,
+ "versao": 15,
  "atualizado_em": "2026-08-16",
- "atualizado_por": "principal: executores 01 e 02 iniciados pelo autor (sementes 7 e 123)",
+ "atualizado_por": "executor02: e3p-seed123 rodando numa T4 (6 de 9 bracos); achado da GPU P100 repassado ao principal para o executor01",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
   "Abrir este JSON e ler o campo 'proximo'",
@@ -754,12 +754,13 @@
    {
     "id": "e3p-seed123",
     "o_que": "E3′ semente 123 — 5 braços + varredura de orçamento",
-    "onde": "Kaggle Notebooks (GPU) · sessão executor01/02",
+    "onde": "Kaggle Notebooks, GPU T4 forcada (machine_shape=NvidiaTeslaT4) · kernel ghdaru/falco-e3prime-s123 · activelearning/experiments/e2e3/kaggle/ (SEED=123, modo canonico)",
     "estado": "rodando",
     "dono": "executor02",
     "duracao": "1,5–2,5 h em T4 (estimativa)",
     "resultado_esperado": "experiments/e2e3/results/e3prime_*_s123.json",
-    "bloqueio": "(1) o cache de anotações do oráculo (experiments/e5cycle/results/annotation_cache_nemotron.jsonl) NÃO está no repositório — é excluído pelo .gitignore (regra experiments/*/results/*.jsonl) — e sem ele os braços A, B e C não rodam; (2) falta o token da API do Kaggle ou a decisão do autor de rodar pela interface. Os braços D, E, E20, E25, E30 e E35 rodam sem o cache. Ver coordenacao/caixa/20260816-1930_executor02_principal_aviso_bloqueio-e3prime-semente-123.aberta.md"
+    "bloqueio": "PARCIAL: rodando 6 dos 9 bracos (E, D, E20, E25, E30, E35). A, B e C seguem fora ate o cache do oraculo (experiments/e5cycle/results/annotation_cache_nemotron.jsonl, excluido pelo .gitignore) ser anexado como dataset do Kaggle. Pendente tambem a decisao de regime: canonico (bs=128, eval-limit=0, 177.490 itens de avaliacao) NAO e comparavel com a semente 42 ja publicada (bs=16, 20.092 itens) — media +- desvio entre sementes exige o mesmo regime. Ver coordenacao/caixa/20260816-1930_executor02_principal_aviso_bloqueio-e3prime-semente-123.aberta.md",
+    "achado": "A GPU P100 do Kaggle (sm_60) NAO roda o experimento: o PyTorch da imagem so cobre sm_70+. Correcao em activelearning@2f7c961. Vale igual para a semente 7 — ver coordenacao/caixa/20260816-2005_executor02_principal_aviso_gpu-p100-quebra-o-e3prime.aberta.md"
    },
    {
     "id": "mcnemar-pares",
