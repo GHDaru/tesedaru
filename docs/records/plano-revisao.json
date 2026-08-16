@@ -1,8 +1,8 @@
 {
  "schema": "plano-revisao/v1",
- "versao": 7,
+ "versao": 8,
  "atualizado_em": "2026-08-16",
- "atualizado_por": "v7: execuções mcnemar-pares e bootstrap-f1 concluídas (activelearning@3eff825; script stats_e3prime.py reproduz o ponto antes de calcular)",
+ "atualizado_por": "v8: sessão paralela assume grupo dados, fichar-vizinhos e levantamento normas-ufpr (branch claude/tesedaru-activelearning-maestro-bf56y7)",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
   "Abrir este JSON e ler o campo 'proximo'",
@@ -627,7 +627,8 @@
      "id": "fichar-vizinhos",
      "titulo": "Fichar 11 vizinhos faltantes (FreeAL, LLMaAA, TypiClust, coreset, PATRON, Farquhar21, Kossen21, Wang21, Pangakis23, Schröder22, Bengar22) + FreeAL/LLMaAA na tabela de lacunas — PRÉ-REQUISITO do R3 do Cap. 2",
      "dono": "agente",
-     "status": "pendente"
+     "status": "andamento",
+     "nota": "em execução (branch claude/tesedaru-activelearning-maestro-bf56y7); arquivos novos, validação contra fonte primária (lente R3)"
     }
    ]
   },
@@ -639,7 +640,8 @@
      "id": "normas-ufpr",
      "titulo": "Conformidade com o padrão UFPR/PPGMNE (template ppginf.cls): pré-textuais obrigatórios, ficha catalográfica, folha de aprovação, listas, citações/referências na norma, numeração e margens",
      "dono": "agente",
-     "status": "pendente"
+     "status": "andamento",
+     "nota": "FASE LEVANTAMENTO em execução (branch claude/tesedaru-activelearning-maestro-bf56y7): relatório de não conformidades em docs/, sem editar a tese; base: docs/normas-ufpr-ppgmne-e-skills.md; correções = ciclo de texto gateado"
     },
     {
      "id": "dod-final",
@@ -702,13 +704,15 @@
      "id": "dicionario-dados",
      "titulo": "Dicionário de dados junto ao dataset (colunas, normalização de rótulos, CategorySchema 620+_rare_=621)",
      "dono": "agente",
-     "status": "pendente"
+     "status": "andamento",
+     "nota": "em execução (branch claude/tesedaru-activelearning-maestro-bf56y7, activelearning)"
     },
     {
      "id": "pipeline-reprodutivel",
      "titulo": "Checagem executável: load_base reproduz 231.490 textos/714 classes e o schema 621 a partir do CSV publicado (entra nos dod-scripts)",
      "dono": "agente",
-     "status": "pendente"
+     "status": "andamento",
+     "nota": "em execução (branch claude/tesedaru-activelearning-maestro-bf56y7, activelearning)"
     }
    ]
   }
