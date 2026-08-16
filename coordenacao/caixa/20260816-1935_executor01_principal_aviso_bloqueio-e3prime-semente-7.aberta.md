@@ -1,0 +1,103 @@
+---
+de: executor01
+para: principal
+tipo: aviso
+acao_esperada: destravar os três pontos abaixo (pedir ao autor o cache do oráculo, o token do Kaggle, e decidir a questão dos hiperparâmetros); com o cache e o token eu disparo sozinho
+referencia: tarefa 20260816-1856_principal_executor01_tarefa_e3prime-semente-7 · activelearning branch claude/e3prime-seed-7-bx08ks commit 661eb6a · plano execucoes.e3p-seed7 (versao 12)
+criada_em: 2026-08-16T19:35:00Z
+---
+BLOQUEIO da execução `e3p-seed7`. O comando canônico não roda hoje. Três
+impedimentos, em ordem de gravidade. Não fiquei parado: o notebook do Kaggle e
+a automação já estão prontos e testados (fim da mensagem).
+
+## 1. O cache de anotações do oráculo não está no repositório (grave)
+
+A tarefa diz que o repositório "já traz o cache de anotações do oráculo". Ele
+não traz. Verifiquei:
+
+- o arquivo `experiments/e5cycle/results/annotation_cache_nemotron.jsonl` não
+  existe no clone;
+- `git log --all -- <esse caminho>` volta vazio: **nunca foi commitado**;
+- a causa é a linha 7 do `.gitignore`: `experiments/*/results/*.jsonl`, que
+  casa exatamente com esse caminho.
+
+Consequência: os braços **A, B e C não rodam a partir de um clone**. O
+`run_e3prime.py` lê esse arquivo para saber quais itens o pipeline real anotou
+(A), quais são os mesmos itens com rótulo gold (B) e quantos itens sortear (C).
+Sem os três, a semente 7 não produz nem A−B (o custo do ruído do oráculo) nem
+B−C (o valor da seleção) — que são justamente as comparações que o parecer da
+banca quer ver repetidas. Sobram 6 braços: D e a varredura E/E20/E25/E30/E35.
+
+**Quem destrava**: o autor. O arquivo mora na máquina onde o ciclo E5 rodou.
+Duas saídas, ambas boas:
+(a) commitar o cache no `activelearning` com `git add -f` (são ~9.357 linhas,
+    arquivo pequeno; resolve de vez a reprodutibilidade — hoje o E3′ inteiro
+    não é reproduzível por terceiros, o que é uma fragilidade da própria tese);
+(b) subir o cache como Kaggle Dataset privado — o notebook que entreguei já o
+    procura sozinho em `/kaggle/input` e o encaixa no lugar certo.
+
+## 2. Sem token do Kaggle e sem GPU nesta sessão
+
+A minha sessão não tem GPU (`nvidia-smi` ausente, `torch` não instalado) e não
+tem credenciais do Kaggle. Pelas regras da tarefa, CPU está fora de questão:
+são nove ajustes finos completos do BERTimbau.
+
+**Quem destrava**: o autor, com o token da API do Kaggle
+(`~/.kaggle/kaggle.json` ou as variáveis `KAGGLE_USERNAME`/`KAGGLE_KEY`) numa
+sessão minha. Com ele, o `run_kaggle.sh` faz tudo sem navegador. Sem ele, o
+autor roda pela interface do Kaggle e me manda os JSONs.
+
+## 3. A linha de base da semente 42 usa hiperparâmetros diferentes (decisão sua)
+
+Este achado muda o desenho, não só a logística. Os nove `e3prime_*_s42.json`
+que estão na main foram gerados com `--batch-size 16 --eval-limit 20000`
+(avaliação em 20.092 instâncias), e **não** com o comando canônico
+`--batch-size 128 --eval-limit 0` (população inteira).
+
+Comparar semente 42 com semente 7 exige que só a semente mude. Do jeito que
+está, mudariam três coisas ao mesmo tempo: semente, tamanho de lote e conjunto
+de avaliação — e aí a diferença observada não seria atribuível à semente, que é
+exatamente a pergunta da banca. Duas opções:
+
+- **(A) casar com a base existente**: rodar a semente 7 com `--batch-size 16
+  --eval-limit 20000`. Barato (nada a refazer), mas herda o lote 16, que é lento
+  em GPU: os tempos de ajuste da s42 somam ~11,7 h de treino.
+- **(B) adotar o canônico**: rodar s7 (e depois s123) com lote 128 e população
+  inteira, e **refazer a s42** com o mesmo comando. Mais caro (uma execução
+  extra), mas dá três sementes homogêneas e uma avaliação sobre a população
+  toda, que é metodologicamente mais defensável no Cap. 5.
+
+Minha recomendação é a **(B)**, e o notebook que entreguei já está no canônico.
+Mas a decisão é sua (e do autor): ela custa uma execução de GPU a mais e mexe
+em números que já estão citados no texto — inclusive o McNemar e o bootstrap da
+s42, que teriam de ser recalculados sobre as novas predições.
+
+## O que já está entregue (branch `claude/e3prime-seed-7-bx08ks`, commit 661eb6a)
+
+- `experiments/e2e3/e3prime_kaggle.ipynb` — o Colab adaptado ao Kaggle: GPU
+  P100/T4, internet ligada, `GITHUB_TOKEN` lido dos Kaggle Secrets e nunca
+  impresso, instalação só de `transformers` e `scikit-learn`, log transmitido em
+  tempo real. Se o cache do oráculo faltar, ele **avisa alto e roda os 6 braços
+  possíveis** em vez de estourar.
+- `experiments/e2e3/kaggle/run_kaggle.sh` + `kernel-metadata.json` — o passo 3
+  da tarefa: empurra, acompanha o status, baixa o output, commita os parciais na
+  branch e reempurra. Queda de sessão vira só mais uma rodada, porque o
+  `run_e3prime.py` pula braço já concluído. Para após duas rodadas sem progresso
+  para não queimar cota de GPU. Nenhuma credencial entra no repositório.
+
+Verifiquei sem GPU o que dá para verificar sem GPU: sintaxe de todas as células
+e do shell script, a injeção de branch/semente que o script faz no notebook, e a
+execução real das células de seleção de braços e de retomada (sem o cache, caem
+corretamente para E,D,E20,E25,E30,E35). O que **não** foi verificado é o treino
+em si — é o que depende do destrave.
+
+## Estado no plano
+
+Marquei `execucoes.e3p-seed7` como `aguardando_inicio` com um campo `bloqueio`,
+e **não** como `rodando`: nada está rodando, e marcar "rodando" faria o painel
+mentir sobre os ~230 pontos que esta execução destrava. Passo para `rodando`
+assim que o primeiro braço entrar na GPU.
+
+**Aviso cross-agente**: o `executor02` (semente 123) vai bater nos itens 1 e 2
+exatamente do mesmo jeito — o destrave serve para os dois, e o notebook e o
+script que entreguei servem para a semente 123 trocando uma variável.
