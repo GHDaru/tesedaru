@@ -36,6 +36,9 @@ MORTAS = {
     "Zhang2025LLMAL",              # -> Zhang2025
     "Yusuf2023",                   # obra fabricada; a real é Riyanto2023Comparative
     "Jung2021",                    # obra fabricada; a real é Nti2021
+    # bloco de linha única: fabricadas por sequestro de identificador —
+    # o DOI/arXiv declarado resolve, mas para artigo de OUTRA obra/área.
+    "Yu2022", "Zhang2020", "Liang2024LLMActive", "Qi2020FLAL",
 }
 
 def fontes_tex() -> list[Path]:
@@ -94,7 +97,9 @@ def main() -> int:
                     corpo = texto[i:k + 1]; break
         ano = re.search(r"year\s*=\s*\{?\s*(\d{4})", corpo)
         if ano and int(ano.group(1)) >= 2020:
-            if not re.search(r"^\s*(doi|url)\s*=", corpo, flags=re.M | re.I):
+            # sem âncora de linha: há entradas escritas em linha única, em que
+            # o campo não começa a linha (falso positivo pego na execução).
+            if not re.search(r"[\s,{](doi|url)\s*=", corpo, flags=re.I):
                 problemas.append(f"citada, year={ano.group(1)}, sem doi nem url: {chave}")
 
     print(f"entradas no bib: {len(chaves)} · chaves citadas nos .tex: {len(citadas)}")
