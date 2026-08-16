@@ -46,18 +46,27 @@ significativa comprovada). A validação com o classificador forte fora do
 laço (E3$'$) julgou o pipeline completo: a hipótese central \emph{não} se
 sustenta na configuração executada ($F1 = 0{,}242$ contra critério de
 $0{,}428$ com $17{,}9\%$ dos rótulos), e a decomposição pareada atribui a
-perda ao \emph{orçamento} — não ao ruído do oráculo (que em Macro F1 até
-ajuda as caudas) nem à seleção (que compra cobertura): a parada por
+perda ao \emph{orçamento} — não ao ruído do oráculo, que em Macro F1 até
+ajuda as caudas (A--B: $+0{,}033$, IC 95\% $[0{,}027;0{,}037]$,
+\textit{bootstrap} pareado), nem à seleção, que compra cobertura mas não
+acurácia (B--C: $+0{,}020$ em Macro F1 com IC excluindo zero, porém
+$-2{,}9$~p.p.\ em acurácia, McNemar $p<10^{-26}$; amostra pareada de 20.092
+instâncias da população reservada): a parada por
 estagnação do classificador leve encerra o laço muito antes do ponto em que
 o BERTimbau para de converter rótulos em cobertura de cauda. A varredura de
-orçamento confirma-o e quantifica a correção: a hipótese \textbf{passa a
-valer} com 20 mil rótulos ($40\%$ do \textit{pool}) em acurácia e 25 mil
-($50\%$) em Macro F1, e com 35 mil rótulos selecionados por entropia o
-modelo forte \emph{supera} a supervisão completa do \textit{pool} em ambas
-as métricas --- o mesmo ``menos é mais'' do E6, agora no transformer. A
-hipótese central, portanto, não é infirmada: ela requer um orçamento de
-$\approx 50\%$ do \textit{pool} e uma política de parada ancorada no modelo
-forte, ambos identificados e medidos.
+orçamento — achado \textit{post hoc}, executada com rótulos de
+\emph{gabarito}, não do oráculo da hipótese pré-registrada — quantifica a
+correção: o critério passa a ser atendido com 20 mil rótulos ($40\%$ do
+\textit{pool}) em acurácia e 25 mil ($50\%$) em Macro F1, e com 35 mil
+rótulos selecionados por entropia o modelo forte \emph{supera} a supervisão
+completa do \textit{pool} em Macro F1 (E35--D: $+0{,}012$, IC 95\%
+$[0{,}002;0{,}018]$) e a \emph{empata} em acurácia (McNemar, $p=0{,}10$) ---
+a vantagem de cobertura do ``menos é mais'' do E6 reaparece no transformer.
+O veredito que os dados sustentam: \textbf{refutada no orçamento
+pré-registrado}; o critério torna-se alcançável a partir de $\approx 50\%$
+do \textit{pool} com política de parada ancorada no modelo forte — orçamento
+e política identificados e medidos, restando a confirmação com rótulos de
+oráculo como trabalho futuro imediato.
 
 \section{Discussão}
 \label{sec:conc-discussao}
@@ -185,14 +194,17 @@ LLM com 78--83\% de acurácia por centavos de dólar o milhar, com erro
 majoritariamente estruturado). A hipótese quantitativa central — $\ge 95\%$
 do Macro F1 de supervisão completa com $\le 30\%$ dos rótulos via oráculo
 LLM — foi submetida ao teste pré-registrado (E3$'$): \textbf{refutada no
-orçamento de $30\%$ originalmente fixado, mas sustentada a partir de $50\%$
-do \textit{pool}}, com o diagnóstico identificando a causa --- não o ruído
+orçamento de $30\%$ originalmente fixado, tornando-se alcançável a partir de
+$50\%$ do \textit{pool} em varredura \textit{post hoc} com rótulos de
+gabarito}, com o diagnóstico identificando a causa --- não o ruído
 do oráculo nem a seleção, e sim o critério de parada herdado do
 classificador leve, que subestima o apetite do classificador forte por
-cobertura de cauda. A varredura de orçamento mediu os pisos ($40\%$ dos
-rótulos para a acurácia, $50\%$ para o Macro F1) e revelou que $70\%$ dos
-rótulos ativamente selecionados \emph{superam} a supervisão completa do
-\textit{pool} --- rotular tudo é contraproducente. Uma tese que termina com
+cobertura de cauda. A varredura de orçamento — \textit{post hoc}, com rótulos de gabarito —
+mediu os pisos ($40\%$ dos rótulos para a acurácia, $50\%$ para o Macro F1)
+e revelou que $70\%$ dos rótulos ativamente selecionados superam a
+supervisão completa do \textit{pool} em Macro F1 (IC 95\%
+$[0{,}002;0{,}018]$) e a empatam em acurácia ($p=0{,}10$): para a cobertura
+de cauda, a fração final dos rótulos não compra nada. Uma tese que termina com
 um número honesto, uma causa identificada e o piso corrigido medido vale
 mais que uma que termina com uma promessa: os resultados dos experimentos
 executados (E0, E0-P, E1, E4, E5, E6, E3$'$ e os replays de P1/P2) delimitam
