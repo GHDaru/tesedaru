@@ -116,6 +116,7 @@
 
 <script id="plano" type="application/json">__PLANO_JSON__</script>
 <script id="kpis" type="application/json">__KPIS_JSON__</script>
+<script id="mensagens" type="application/json">__MENSAGENS_JSON__</script>
 
 <div class="wrap">
   <header>
@@ -153,13 +154,23 @@
   </section>
 
   <section class="card">
-    <h2>Execuções fora do texto</h2>
-    <div id="exec"></div>
+    <details id="coord-det"><summary>Coordenação entre agentes <span id="coord-resumo" style="color:var(--muted);font-weight:400"></span></summary>
+      <p id="coord-saude" class="vazia" style="margin:.5rem 0"></p>
+      <div id="coord-msgs"></div>
+      <div id="coord-locks" style="margin-top:.4rem"></div>
+    </details>
   </section>
 
-  <section>
-    <h2 style="margin-bottom:.6rem">Artefatos e pendências</h2>
-    <div class="groups" id="grupos"></div>
+  <section class="card">
+    <details><summary>Execuções fora do texto</summary>
+      <div id="exec"></div>
+    </details>
+  </section>
+
+  <section class="card">
+    <details open><summary>Artefatos e pendências</summary>
+      <div class="groups" id="grupos" style="margin-top:.6rem"></div>
+    </details>
   </section>
 
   <footer class="card">
@@ -174,6 +185,7 @@
 <script>
   const P = JSON.parse(document.getElementById('plano').textContent);
   const K = JSON.parse(document.getElementById('kpis').textContent);
+  const M = JSON.parse(document.getElementById('mensagens').textContent || '{}');
   const el = id => document.getElementById(id);
   const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
 
@@ -207,13 +219,24 @@
       <span class="v">${dv.citacoes_pendentes}</span>
       <span class="ctx">citações a validar · ${dv.chaves_sem_fichamento} sem fichamento</span></div>`;
 
-  /* ---- zona 2: fila do autor ---- */
-  const fila = K.fila_autor.itens || [];
+  /* ---- zona 2: fila do autor (+ mensagens dirigidas a ele + saúde doente) ---- */
+  const GLIFO_MSG = {aberta:'○', 'em-andamento':'◐', concluida:'●'};
+  const msgs = (M.mensagens || []);
+  const msgsAutor = msgs.filter(m => m.para === 'autor' && m.estado !== 'concluida'
+                                  && m.tipo !== 'aviso');
+  const fila = (K.fila_autor.itens || []).concat(msgsAutor.map(m => ({
+    id: m.arquivo, tipo: 'mensagem',
+    titulo: `${GLIFO_MSG[m.estado]} ${m.acao_esperada || m.slug} · de ${m.de} · há ${m.idade_horas}h${m.prazo ? ' · prazo ' + m.prazo.slice(0,10) : ''}`,
+    pontos_destravados: 0})));
+  const doente = (M.saude || {}).bloqueio_mais_antigo_h > 48 || (M.saude || {}).locks_vencidos > 0;
+  if (doente) fila.push({id:'saude', tipo:'processo',
+    titulo:'Processo de coordenação doente: destravar bloqueio/lock vencido (ver zona Coordenação)',
+    pontos_destravados: 0});
   el('fila-titulo').textContent = fila.length
     ? `🔒 Aguardando você — ${fila.length} ${fila.length === 1 ? 'item' : 'itens'}`
     : 'Nada espera você';
   el('fila').innerHTML = fila.length ? fila.map(f => `
-    <div class="item"><span class="tipo">${{gate:'GATE', execucao:'RODAR', acao:'AÇÃO', decisao:'DECISÃO'}[f.tipo] || f.tipo}</span>
+    <div class="item"><span class="tipo">${{gate:'GATE', execucao:'RODAR', acao:'AÇÃO', decisao:'DECISÃO', mensagem:'MSG', processo:'SAÚDE'}[f.tipo] || f.tipo}</span>
       <span class="t">${esc(f.titulo)}</span>
       <span class="pts">${f.pontos_destravados ? '+' + f.pontos_destravados + ' pts' : ''}</span></div>`).join('')
     : `<p class="vazia">O agente segue no próximo passo abaixo. ✓</p>`;
@@ -312,6 +335,31 @@
     return `<div class="card group"><h3>${g.nome} <small style="color:var(--muted)">${done}/${g.itens.length}</small></h3>
       ${todosF ? `<details><summary>✓ concluído</summary>${corpo}</details>` : corpo}</div>`;
   }).join('');
+
+  /* ---- coordenação (telemetria silenciosa; expande só doente) ---- */
+  (function coord(){
+    const det = el('coord-det'); if (!M.mensagens) { det.closest('section').style.display='none'; return; }
+    const ativas = msgs.filter(m => m.estado !== 'concluida');
+    const concluidas = msgs.length - ativas.length;
+    const locks = M.locks || [];
+    el('coord-resumo').textContent =
+      ` · ${ativas.length} ativa${ativas.length===1?'':'s'} · ${concluidas} concluída${concluidas===1?'':'s'} · ${locks.length} lock${locks.length===1?'':'s'}`;
+    const s = M.saude || {};
+    el('coord-saude').textContent = doente
+      ? `✕ Doente — bloqueio mais antigo ${s.bloqueio_mais_antigo_h}h · locks vencidos ${s.locks_vencidos}`
+      : '✓ Coordenação saudável';
+    el('coord-msgs').innerHTML = ativas.length ? ativas.map(m => `
+      <div class="item"><span style="font-variant-numeric:tabular-nums">${GLIFO_MSG[m.estado]}</span>
+        <span class="t">${esc(m.tipo)} · <strong>${esc(m.de)} → ${esc(m.para)}</strong> · ${esc(m.acao_esperada || m.slug)}</span>
+        <span class="who">há ${m.idade_horas}h</span></div>`).join('')
+      : '<p class="vazia">Sem mensagens ativas — histórico no git</p>';
+    el('coord-locks').innerHTML = locks.length ? locks.map(l => `
+      <div class="item"><span>${l.vencido ? '✕' : '●'}</span>
+        <span class="t"><code>${esc(l.superficie)}</code> · dono ${esc(l.dono)}</span>
+        <span class="who">${l.vencido ? 'vencido — quebrável' : 'renovado há ' + l.renovado_ha_min + 'min'}</span></div>`).join('')
+      : '<p class="vazia">Nenhuma superfície travada</p>';
+    if (doente || locks.some(l => l.vencido)) det.open = true;
+  })();
 
   el('ritual').innerHTML = P.ritual.map(x => `<li>${esc(x)}</li>`).join('');
   el('legenda').innerHTML = '<span class="label">Legenda</span>' + Object.entries(P.status_legenda)

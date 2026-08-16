@@ -9,6 +9,8 @@ on:
       - docs/records/plano-revisao.json
       - docs/records/plano-artefato-template.html
       - scripts/render-plano-revisao.py
+      - scripts/compute-mensagens.py
+      - coordenacao/**
       - .github/workflows/painel.yml
   workflow_dispatch:
 
@@ -35,6 +37,7 @@ jobs:
         run: |
           mkdir -p _site
           python3 scripts/compute-kpis.py
+          python3 scripts/compute-mensagens.py
           python3 scripts/render-plano-revisao.py _site/index.html
           cp docs/records/plano-revisao.json docs/records/kpis.json _site/
       - uses: actions/configure-pages@v5

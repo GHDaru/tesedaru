@@ -1,8 +1,8 @@
 {
  "schema": "plano-revisao/v1",
- "versao": 8,
+ "versao": 9,
  "atualizado_em": "2026-08-16",
- "atualizado_por": "v8: sessão paralela assume grupo dados, fichar-vizinhos e levantamento normas-ufpr (branch claude/tesedaru-activelearning-maestro-bf56y7)",
+ "atualizado_por": "v9: grupo dados entregue na branch (dicionário + checagem executável) — aguardando gate do autor",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
   "Abrir este JSON e ler o campo 'proximo'",
@@ -698,21 +698,22 @@
      "id": "md5-versao",
      "titulo": "Registrar no Cap. 3 o hash md5 e a versão exata do CSV usado + changelog Kaggle 250.365→250.221 (TODO herdado do artigo a5)",
      "dono": "agente",
-     "status": "pendente"
+     "status": "pendente",
+     "nota": "PROSA do Cap. 3 (fica com o principal): md5 0682ee5ba077c180fb7a727fb200f154 e changelog 250.365→250.221 já documentados em activelearning/data/CORRECTIONS.md + DICIONARIO.md — falta só o registro no texto"
     },
     {
      "id": "dicionario-dados",
      "titulo": "Dicionário de dados junto ao dataset (colunas, normalização de rótulos, CategorySchema 620+_rare_=621)",
      "dono": "agente",
-     "status": "andamento",
-     "nota": "em execução (branch claude/tesedaru-activelearning-maestro-bf56y7, activelearning)"
+     "status": "gate",
+     "nota": "data/DICIONARIO.md na branch (https://github.com/GHDaru/activelearning/tree/claude/tesedaru-activelearning-maestro-bf56y7): colunas, normalize_label, 250.221→231.490/714, schema 620+_rare_=621, pool 50k/649, md5 0682ee5ba077c180fb7a727fb200f154"
     },
     {
      "id": "pipeline-reprodutivel",
      "titulo": "Checagem executável: load_base reproduz 231.490 textos/714 classes e o schema 621 a partir do CSV publicado (entra nos dod-scripts)",
      "dono": "agente",
-     "status": "andamento",
-     "nota": "em execução (branch claude/tesedaru-activelearning-maestro-bf56y7, activelearning)"
+     "status": "gate",
+     "nota": "scripts/check_dataset_invariants.py na branch (https://github.com/GHDaru/activelearning/tree/claude/tesedaru-activelearning-maestro-bf56y7): 12 invariantes verdes com as funções reais; falha provada (CSV truncado ⇒ exit 1)"
     }
    ]
   }
