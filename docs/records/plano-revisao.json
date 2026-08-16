@@ -1,6 +1,6 @@
 {
  "schema": "plano-revisao/v1",
- "versao": 12,
+ "versao": 13,
  "atualizado_em": "2026-08-16",
  "atualizado_por": "decisões do autor 2026-08-16: bib aprovado, paralelo confirmado, fecho do Cap.6 mantido em aberto",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
@@ -737,11 +737,12 @@
     "id": "e3p-seed7",
     "o_que": "E3′ semente 7 — 5 braços + varredura de orçamento",
     "onde": "Kaggle Notebooks (GPU T4/P100, sessão até 12 h) · experiments/e2e3/e3prime_kaggle.ipynb",
-    "estado": "aguardando_inicio",
+    "estado": "rodando",
     "dono": "executor01",
     "duracao": "1,5–2,5 h",
     "resultado_esperado": "experiments/e2e3/results/e3prime_*_s7.json",
-    "bloqueio": "NÃO iniciada. (1) O cache de anotações do oráculo (experiments/e5cycle/results/annotation_cache_nemotron.jsonl) nunca foi commitado — casa com .gitignore linha 7 'experiments/*/results/*.jsonl' — então os braços A, B e C não rodam a partir de um clone. (2) Sem token da API do Kaggle e sem GPU na sessão do executor01. (3) A linha de base s42 do repositório foi gerada com --batch-size 16 --eval-limit 20000, e não com o comando canônico --batch-size 128 --eval-limit 0: comparar sementes exige hiperparâmetros idênticos. Detalhes e opções na mensagem 20260816-1935_executor01_principal_aviso_bloqueio-e3prime-semente-7."
+    "kernel": "https://www.kaggle.com/code/ghdaru/falco-e3-semente-7 (versão 3, GPU T4, iniciada 2026-08-16T19:55Z)",
+    "bloqueio": "PARCIAL: rodando 6 dos 9 braços (E, D, E20, E25, E30, E35) com o comando canônico. Os braços A, B e C seguem bloqueados porque o cache de anotações do oráculo (experiments/e5cycle/results/annotation_cache_nemotron.jsonl) nunca foi commitado — casa com .gitignore linha 7 'experiments/*/results/*.jsonl'. Sem eles não há A−B (ruído do oráculo) nem B−C (valor da seleção) para a semente 7; entram depois por retomada, sem refazer o que já rodou. Continua aberta a decisão sobre hiperparâmetros: a linha de base s42 usa --batch-size 16 --eval-limit 20000 e esta execução usa o canônico --batch-size 128 --eval-limit 0 (177.490 instâncias avaliadas contra 20.092), então a s42 precisará ser refeita para as sementes serem comparáveis. Ver 20260816-1935_executor01_principal_aviso_bloqueio-e3prime-semente-7."
    },
    {
     "id": "e3p-seed123",
