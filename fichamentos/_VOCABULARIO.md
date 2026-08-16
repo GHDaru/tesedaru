@@ -39,5 +39,6 @@ Termos entrados pelos fichamentos dos 11 vizinhos (parecer R6, Bloco C); mesmo c
 classificacao-de-texto  <!-- FreeAL2023 -->
 
 ### Modelos (fichar-vizinhos)
-biomed-roberta-base, gpt-3.5-turbo, roberta-base  <!-- FreeAL2023 -->,
+biomed-roberta-base, gpt-3.5-turbo, roberta-base  <!-- FreeAL2023 -->,,
+gpt-3-davinci, pegasus-large, roberta-large  <!-- Wang2021GPT3Labeling -->
 gpt-4  <!-- Zhang2023LLMaAA -->
