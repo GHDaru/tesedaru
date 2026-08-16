@@ -629,6 +629,7 @@ def build_coordenacao() -> tuple[str, str]:
   <div class="filtros" id="filtros" aria-label="Filtros do quadro"></div>
 </section>
 
+<div id="board-status" class="sr-only" role="status" aria-live="polite"></div>
 <section class="k-board" id="board" aria-label="Quadro de coordenação"></section>
 
 <section class="card"><details id="arq-det"><summary id="t-arq">Arquivadas</summary>
@@ -659,8 +660,6 @@ const COLS = [
 const todas = (M.mensagens || []).slice().sort((a, b) => b.ts.localeCompare(a.ts));
 const ativas = todas.filter(m => !m.arquivada);
 const arquivadas = todas.filter(m => m.arquivada);
-const CAP_ENABLED = ativas.length > 50;
-const CAP = 20;
 
 // estado dos filtros: tudo ativo por padrão (mostra tudo até o usuário desligar algo)
 const filtroState = {agente: Object.fromEntries(AGENTES.map(a => [a, true])),
@@ -674,19 +673,33 @@ function prazoVencido(prazo) {
 }
 function prazoFmt(prazo) { return esc(String(prazo).slice(0, 10)); }
 
+// ux-design.md §4: fila priorizada dentro da raia — o essencial fica
+// visível no topo mesmo sem rolar (atrasado+para-você > para-você > atrasado > recência)
+function prioridade(m) {
+  const pv = m.para === 'autor', atr = prazoVencido(m.prazo);
+  if (pv && atr) return 0;
+  if (pv) return 1;
+  if (atr) return 2;
+  return 3;
+}
+function ordenarPorPrioridade(itens) {
+  return itens.slice().sort((a, b) => prioridade(a) - prioridade(b) || b.ts.localeCompare(a.ts));
+}
+
 function card(m) {
   const paraVoce = m.para === 'autor';
   const atrasado = prazoVencido(m.prazo);
-  const titulo = esc(m.acao_esperada || m.slug.replace(/-/g, ' '));
+  const tituloTxt = m.acao_esperada || m.slug.replace(/-/g, ' ');
+  const titulo = esc(tituloTxt);
   const ref = m.referencia ? esc(m.referencia) : '';
   let rodape = `há ${idade(m.idade_horas)}`;
-  if (m.prazo) rodape += ` · prazo ${prazoFmt(m.prazo)}${atrasado ? ' · atrasado' : ''}`;
+  if (m.prazo) rodape += ` · prazo ${prazoFmt(m.prazo)}`;
   return `<article class="k-card${paraVoce ? ' para-voce' : ''}${atrasado ? ' atrasado' : ''}"
       data-de="${esc(m.de)}" data-para="${esc(m.para)}" data-tipo="${esc(m.tipo)}">
     ${paraVoce ? '<span class="k-badge">para você</span>' : ''}
-    <p class="k-titulo">${titulo}</p>
+    <p class="k-titulo" title="${titulo}">${titulo}</p>
     <p class="k-rota"><strong>${esc(m.de)} → ${esc(m.para)}</strong> <span class="k-tipo">${esc(TIPO_LABEL[m.tipo] || m.tipo)}</span></p>
-    <p class="k-rodape">${rodape}${atrasado ? ' <strong class="k-atrasado">atrasado</strong>' : ''}</p>
+    <p class="k-rodape">${rodape}${atrasado ? ' <strong class="k-atrasado">⚠ atrasado</strong>' : ''}</p>
     ${ref ? `<p class="k-ref" title="${ref}">${ref}</p>` : ''}
   </article>`;
 }
@@ -700,25 +713,23 @@ function passaFiltro(m) {
 
 function renderBoard() {
   const board = document.getElementById('board');
+  const resumo = [];
   board.innerHTML = COLS.map(c => {
-    const itens = ativas.filter(m => m.estado === c.estado && passaFiltro(m));
-    const mostrar = CAP_ENABLED && itens.length > CAP ? itens.slice(0, CAP) : itens;
-    const resto = itens.length - mostrar.length;
-    return `<div class="k-col">
-      <h2 class="k-col-h">${c.glifo} ${c.nome} <span class="k-count">${itens.length}</span></h2>
-      <div class="k-cards">
-        ${mostrar.length ? mostrar.map(card).join('') : '<p class="vazia">Nada aqui</p>'}
+    const totalColuna = ativas.filter(m => m.estado === c.estado).length;
+    const itens = ordenarPorPrioridade(ativas.filter(m => m.estado === c.estado && passaFiltro(m)));
+    resumo.push(`${c.nome}: ${itens.length}`);
+    const vazio = totalColuna === 0
+      ? '<p class="vazia">Nada aqui</p>'
+      : '<p class="vazia">Nada aqui com os filtros atuais</p>';
+    const hId = `k-col-h-${c.estado}`;
+    return `<div class="k-col" role="region" aria-labelledby="${hId}">
+      <h2 class="k-col-h" id="${hId}">${c.glifo} ${c.nome} <span class="k-count">${itens.length}</span></h2>
+      <div class="k-cards" tabindex="0" aria-label="Coluna ${esc(c.nome)}, ${itens.length} ${itens.length === 1 ? 'item' : 'itens'}">
+        ${itens.length ? itens.map(card).join('') : vazio}
       </div>
-      ${resto > 0 ? `<button type="button" class="k-mais" data-col="${c.estado}">+${resto} mais</button>` : ''}
     </div>`;
   }).join('');
-  board.querySelectorAll('.k-mais').forEach(btn => btn.addEventListener('click', () => {
-    const estado = btn.dataset.col;
-    const itens = ativas.filter(m => m.estado === estado && passaFiltro(m));
-    const cardsWrap = btn.previousElementSibling;
-    cardsWrap.innerHTML = itens.map(card).join('');
-    btn.remove();
-  }));
+  document.getElementById('board-status').textContent = resumo.join(' · ');
   // somente leitura: sem draggable, sem dragover/drop — arrastar não faz nada
 }
 
@@ -768,32 +779,41 @@ document.getElementById('saude').textContent = doente
 })();
 </script>
 <style>
+.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+  clip:rect(0,0,0,0); white-space:nowrap; border:0}
 .ro-nota{margin:0 0 var(--sp-3); color:var(--muted); font-size:var(--fs-2)}
 .filtros{display:flex; flex-wrap:wrap; gap:var(--sp-4)}
 .pilulas{display:flex; flex-wrap:wrap; gap:var(--sp-2)}
 .pilula{border:1px solid var(--border); background:var(--panel); color:var(--muted); border-radius:99px;
   padding:.25rem .7rem; font-size:var(--fs-2); cursor:pointer}
 .pilula.on{border-color:var(--accent); color:var(--accent); background:var(--accent-soft); font-weight:600}
-.k-board{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--sp-4); align-items:start}
-@media (max-width:900px){ .k-board{grid-template-columns:1fr} }
-.k-col{background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:var(--sp-3); display:flex; flex-direction:column; gap:var(--sp-2)}
+/* ux-design.md §2/§5: o board tem altura ~constante (raia limitada); quem
+   rola é cada coluna (.k-cards), nunca a página inteira por causa de N cartões */
+.k-board{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--sp-4); align-items:start}
+@media (max-width:1099px) and (min-width:601px){
+  .k-board{display:flex; overflow-x:auto; overscroll-behavior-x:contain; padding-bottom:var(--sp-2)}
+  .k-col{min-width:260px; flex:1 0 260px}
+}
+@media (max-width:600px){ .k-board{grid-template-columns:1fr} }
+.k-col{background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:var(--sp-3); display:flex;
+  flex-direction:column; gap:var(--sp-2); min-width:0}
 .k-col-h{font-size:var(--fs-3); display:flex; align-items:center; gap:var(--sp-2); margin:0 0 var(--sp-1)}
 .k-count{margin-left:auto; color:var(--muted); font-size:var(--fs-1); font-weight:400}
-.k-cards{display:flex; flex-direction:column; gap:var(--sp-3)}
-.k-card{background:var(--ground); border:1px solid var(--border); border-radius:8px; padding:var(--sp-3);
-  cursor:default; position:relative; display:flex; flex-direction:column; gap:.3rem}
+.k-cards{display:flex; flex-direction:column; gap:var(--sp-2); min-width:0;
+  max-height:clamp(320px,58vh,640px); overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; padding-right:var(--sp-1)}
+.k-card{background:var(--ground); border:1px solid var(--border); border-radius:8px; padding:var(--sp-2) var(--sp-3);
+  cursor:default; position:relative; display:flex; flex-direction:column; gap:var(--sp-1); line-height:1.3; min-width:0}
 .k-card.para-voce{border-color:var(--atencao-borda); box-shadow:inset 3px 0 0 var(--atencao)}
 .k-badge{align-self:flex-start; background:var(--atencao-bg); color:var(--atencao); border:1px solid var(--atencao-borda);
   border-radius:99px; padding:.05rem .55rem; font-size:var(--fs-1); font-weight:700}
-.k-titulo{margin:0; font-size:var(--fs-3); font-weight:600}
+.k-titulo{margin:0; font-size:var(--fs-3); font-weight:600;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
 .k-rota{margin:0; font-size:var(--fs-2)}
 .k-rota strong{font-weight:600}
 .k-tipo{color:var(--muted); font-size:var(--fs-1)}
 .k-rodape{margin:0; color:var(--muted); font-size:var(--fs-1)}
 .k-atrasado{color:var(--atencao)}
 .k-ref{margin:0; color:var(--muted); font-size:var(--fs-1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-.k-mais{align-self:flex-start; background:none; border:1px dashed var(--border); color:var(--accent); border-radius:6px;
-  padding:.25rem .6rem; font-size:var(--fs-2); cursor:pointer}
 .estado{display:inline-flex; gap:.35rem; align-items:center; white-space:nowrap; font-weight:600}
 td.quando{white-space:nowrap; color:var(--muted)}
 td.rota{white-space:nowrap; font-weight:600}
