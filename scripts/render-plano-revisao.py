@@ -19,12 +19,14 @@ plano_path = ROOT / "docs/records/plano-revisao.json"
 template_path = ROOT / "docs/records/plano-artefato-template.html"
 out = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("/tmp/painel-tese-falco.html")
 
+kpis_path = ROOT / "docs/records/kpis.json"
 plano = json.loads(plano_path.read_text(encoding="utf-8"))  # valida o JSON
+kpis = json.loads(kpis_path.read_text(encoding="utf-8")) if kpis_path.exists() else {}
 html = template_path.read_text(encoding="utf-8")
-marker = "__PLANO_JSON__"
-if marker not in html:
-    sys.exit("template sem o marcador __PLANO_JSON__")
-# </script> dentro de strings do JSON quebraria o bloco; escapa por segurança
-payload = json.dumps(plano, ensure_ascii=False, indent=1).replace("</", "<\\/")
-out.write_text(html.replace(marker, payload), encoding="utf-8")
-print(f"ok: {out}  (plano v{plano['versao']}, atualizado {plano['atualizado_em']})")
+for marker, data in (("__PLANO_JSON__", plano), ("__KPIS_JSON__", kpis)):
+    if marker not in html:
+        sys.exit(f"template sem o marcador {marker}")
+    # </script> dentro de strings do JSON quebraria o bloco; escapa por segurança
+    html = html.replace(marker, json.dumps(data, ensure_ascii=False, indent=1).replace("</", "<\\/"))
+out.write_text(html, encoding="utf-8")
+print(f"ok: {out}  (plano v{plano['versao']}, PGP {kpis.get('prontidao',{}).get('global_pct','?')}%)")

@@ -31,11 +31,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0   # histórico completo: a série de evolução vem do git log do plano
-      - name: Renderiza o painel a partir do JSON
+      - name: Computa KPIs e renderiza o painel
         run: |
           mkdir -p _site
+          python3 scripts/compute-kpis.py
           python3 scripts/render-plano-revisao.py _site/index.html
-          cp docs/records/plano-revisao.json _site/
+          cp docs/records/plano-revisao.json docs/records/kpis.json _site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

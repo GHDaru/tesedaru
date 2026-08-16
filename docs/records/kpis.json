@@ -1,0 +1,186 @@
+{
+ "schema": "kpis/v1",
+ "computado_em": "2026-08-16",
+ "git_sha": "2267430",
+ "prontidao": {
+  "global_pct": 4.6,
+  "texto_pct": 5.4,
+  "artefatos_pct": 0.0,
+  "pontos_totais": 1562,
+  "pontos_feitos": 84,
+  "por_rodada": [
+   {
+    "id": "R1",
+    "pontos": 323,
+    "feitos": 28
+   },
+   {
+    "id": "R2",
+    "pontos": 105,
+    "feitos": 15
+   },
+   {
+    "id": "R3",
+    "pontos": 460,
+    "feitos": 0
+   },
+   {
+    "id": "R4",
+    "pontos": 120,
+    "feitos": 0
+   },
+   {
+    "id": "R5",
+    "pontos": 354,
+    "feitos": 21
+   },
+   {
+    "id": "R6",
+    "pontos": 70,
+    "feitos": 20
+   },
+   {
+    "id": "R7",
+    "pontos": 130,
+    "feitos": 0
+   }
+  ],
+  "por_capitulo": [
+   {
+    "id": "pre",
+    "pontos": 80,
+    "feitos": 10
+   },
+   {
+    "id": "cap1",
+    "pontos": 96,
+    "feitos": 31
+   },
+   {
+    "id": "cap2",
+    "pontos": 524,
+    "feitos": 22
+   },
+   {
+    "id": "cap3",
+    "pontos": 211,
+    "feitos": 21
+   },
+   {
+    "id": "cap4",
+    "pontos": 161,
+    "feitos": 0
+   },
+   {
+    "id": "cap5",
+    "pontos": 326,
+    "feitos": 0
+   },
+   {
+    "id": "cap6",
+    "pontos": 164,
+    "feitos": 0
+   }
+  ]
+ },
+ "ritmo": {
+  "velocidade_pontos_semana": null,
+  "janela_dias": 14,
+  "eta_semanas": null,
+  "eta_data": null,
+  "eta_confiavel": false,
+  "serie": [
+   {
+    "data": "2026-08-16",
+    "commit": "7672fc8",
+    "pontos": 258,
+    "pct": 16.5,
+    "evento": null
+   }
+  ]
+ },
+ "fila_autor": {
+  "total": 11,
+  "itens": [
+   {
+    "id": "seed7",
+    "tipo": "acao",
+    "titulo": "Rodar semente 7 no Colab (notebook e3prime_colab, 1 sessão)",
+    "pontos_destravados": 239
+   },
+   {
+    "id": "seed123",
+    "tipo": "acao",
+    "titulo": "Rodar semente 123 no Colab",
+    "pontos_destravados": 239
+   },
+   {
+    "id": "cap2.R1",
+    "tipo": "gate",
+    "titulo": "Aprovar 2 · Fundamentação · rodada R1",
+    "pontos_destravados": 110
+   },
+   {
+    "id": "zenodo",
+    "tipo": "acao",
+    "titulo": "Ativar webhook Zenodo e gerar DOI (metadados prontos)",
+    "pontos_destravados": 10
+   },
+   {
+    "id": "e3p-seed7",
+    "tipo": "execucao",
+    "titulo": "E3′ semente 7 — 5 braços + varredura de orçamento",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "e3p-seed123",
+    "tipo": "execucao",
+    "titulo": "E3′ semente 123 — 5 braços + varredura de orçamento",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "kaggle-licenca",
+    "tipo": "acao",
+    "titulo": "Definir licença do dataset no Kaggle (recomendado CC BY 4.0) — bloqueante do artigo a5",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "pypi-release",
+    "tipo": "acao",
+    "titulo": "Criar Release no GitHub → publica falco-active-learning no PyPI (workflow pronto)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "vercel",
+    "tipo": "acao",
+    "titulo": "Deploy Vercel do FlowBuilder (nome 'activelearning' já ocupado por terceiro — usar outro)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "chaves",
+    "tipo": "acao",
+    "titulo": "Rotacionar as 5 chaves de API (OpenAI, OpenRouter, MaaS, Neon, NVIDIA — a NVIDIA foi exposta em conversa)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "autoria-ordem",
+    "tipo": "acao",
+    "titulo": "Definir autoria/ordem dos 5 artigos",
+    "pontos_destravados": 0
+   }
+  ]
+ },
+ "represados": {
+  "pontos": 239
+ },
+ "divida_fundamentacao": {
+  "citacoes_pendentes": 182,
+  "chaves_citadas": 151,
+  "fichamentos": 142,
+  "chaves_sem_fichamento": 9
+ },
+ "meta_saida": {
+  "parecer_ars": 83.6,
+  "alvo": "reavaliar após R7"
+ }
+}

@@ -3,180 +3,309 @@
   :root{
     --ground:#FAFAF8; --panel:#FFFFFF; --ink:#20261F; --muted:#68705F;
     --accent:#1E6B3C; --accent-soft:#E7F0E9; --border:#E2E5DF;
+    --atencao:#8A5A00; --atencao-bg:#FBF1DC; --atencao-borda:#D9A73E;
     --st-feito:#2E7D4F; --st-feito-bg:#E3F0E7;
-    --st-gate:#A8730E; --st-gate-bg:#F7EDD8;
+    --st-gate:#8A5A00; --st-gate-bg:#FBF1DC;
     --st-andamento:#2B6CB0; --st-andamento-bg:#E4EDF7;
     --st-pendente:#7C8378; --st-pendente-bg:#EFF1EC;
     --st-na:#B6BCB0; --st-na-bg:#F5F6F3;
+    --grid:#ECEEE9;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
       --ground:#131714; --panel:#1B211C; --ink:#E6EAE4; --muted:#9AA294;
       --accent:#6FC492; --accent-soft:#223B2C; --border:#2A302B;
+      --atencao:#E8BE6A; --atencao-bg:#33290F; --atencao-borda:#8A6D24;
       --st-feito:#7DCB9B; --st-feito-bg:#1E3327;
-      --st-gate:#E0B25E; --st-gate-bg:#3A2F17;
+      --st-gate:#E8BE6A; --st-gate-bg:#33290F;
       --st-andamento:#7FAEDF; --st-andamento-bg:#1C2C3E;
       --st-pendente:#9AA294; --st-pendente-bg:#232823;
       --st-na:#5C635A; --st-na-bg:#1D221E;
+      --grid:#242A25;
     }
   }
   :root[data-theme="dark"]{
     --ground:#131714; --panel:#1B211C; --ink:#E6EAE4; --muted:#9AA294;
     --accent:#6FC492; --accent-soft:#223B2C; --border:#2A302B;
+    --atencao:#E8BE6A; --atencao-bg:#33290F; --atencao-borda:#8A6D24;
     --st-feito:#7DCB9B; --st-feito-bg:#1E3327;
-    --st-gate:#E0B25E; --st-gate-bg:#3A2F17;
+    --st-gate:#E8BE6A; --st-gate-bg:#33290F;
     --st-andamento:#7FAEDF; --st-andamento-bg:#1C2C3E;
     --st-pendente:#9AA294; --st-pendente-bg:#232823;
     --st-na:#5C635A; --st-na-bg:#1D221E;
+    --grid:#242A25;
   }
   *{box-sizing:border-box}
   body{background:var(--ground); color:var(--ink);
     font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-    margin:0; padding:2.2rem 1.2rem 4rem}
-  .wrap{max-width:1080px; margin:0 auto; display:flex; flex-direction:column; gap:1.6rem}
+    margin:0; padding:1.8rem 1.2rem 4rem}
+  .wrap{max-width:1080px; margin:0 auto; display:flex; flex-direction:column; gap:1.2rem}
+  header{display:flex; align-items:baseline; gap:1rem; flex-wrap:wrap}
   header h1{font-family:Georgia,'Times New Roman',serif; font-weight:600;
-    font-size:2rem; margin:0; letter-spacing:.2px; text-wrap:balance}
-  header .meta{color:var(--muted); font-size:.85rem; margin-top:.35rem;
-    display:flex; gap:1.2rem; flex-wrap:wrap; font-variant-numeric:tabular-nums}
+    font-size:1.55rem; margin:0}
+  header .meta{color:var(--muted); font-size:.78rem; font-variant-numeric:tabular-nums}
   .label{font-size:.72rem; text-transform:uppercase; letter-spacing:.09em;
     color:var(--muted); font-weight:600}
   .card{background:var(--panel); border:1px solid var(--border);
-    border-radius:8px; padding:1.1rem 1.3rem}
-  .next{background:var(--accent-soft); border-color:transparent}
-  .next p{margin:.45rem 0 .8rem; font-size:1.02rem}
-  .next ol{margin:.3rem 0 0; padding-left:1.3rem; font-size:.9rem}
-  .next li{margin:.18rem 0}
-  h2{font-family:Georgia,serif; font-weight:600; font-size:1.22rem; margin:.2rem 0 .7rem}
+    border-radius:8px; padding:1rem 1.2rem}
+  h2{font-family:Georgia,serif; font-weight:600; font-size:1.1rem; margin:0 0 .6rem}
+  /* zona 1: KPIs */
+  .kpis{display:grid; grid-template-columns:minmax(190px,1.4fr) repeat(auto-fit,minmax(140px,1fr)); gap:.8rem}
+  .kpi{background:var(--panel); border:1px solid var(--border); border-radius:8px;
+    padding:.8rem 1rem; display:flex; flex-direction:column; gap:.15rem}
+  .kpi .v{font-size:1.5rem; font-weight:700; font-variant-numeric:tabular-nums}
+  .kpi.hero .v{font-size:3rem; line-height:1.05; color:var(--accent)}
+  .kpi .ctx{color:var(--muted); font-size:.76rem}
+  .kpi.alerta{border-color:var(--atencao-borda)}
+  .kpi.alerta .v{color:var(--atencao)}
+  /* zona 2: fila do autor — o único grito da página */
+  .fila{background:var(--atencao-bg); border:1px solid var(--atencao-borda)}
+  .fila h2{color:var(--atencao)}
+  .fila .item{display:flex; gap:.6rem; align-items:baseline; padding:.35rem 0;
+    border-top:1px dashed var(--atencao-borda); font-size:.9rem}
+  .fila .item:first-of-type{border-top:none}
+  .fila .pts{margin-left:auto; white-space:nowrap; font-weight:700;
+    font-variant-numeric:tabular-nums; color:var(--atencao)}
+  .fila .tipo{font-size:.72rem; color:var(--atencao); white-space:nowrap}
+  .vazia{font-size:.9rem}
+  /* burn-up */
+  .chart-wrap{position:relative}
+  svg text{fill:var(--muted); font:11px system-ui}
+  .tip{position:absolute; pointer-events:none; background:var(--panel);
+    border:1px solid var(--border); border-radius:6px; padding:.3rem .55rem;
+    font-size:.78rem; display:none; white-space:nowrap; box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  /* matriz */
   .scroll{overflow-x:auto}
-  table{border-collapse:collapse; width:100%; font-size:.85rem; font-variant-numeric:tabular-nums}
-  th,td{padding:.5rem .55rem; text-align:left; border-top:1px solid var(--border); vertical-align:middle}
-  thead th{border-top:none; font-size:.72rem; text-transform:uppercase;
-    letter-spacing:.07em; color:var(--muted); white-space:nowrap}
+  table{border-collapse:collapse; width:100%; font-size:.84rem; font-variant-numeric:tabular-nums}
+  caption{text-align:left; color:var(--muted); font-size:.76rem; padding-bottom:.3rem}
+  th,td{padding:.45rem .5rem; text-align:left; border-top:1px solid var(--border); vertical-align:middle}
+  thead th{border-top:none; font-size:.7rem; text-transform:uppercase;
+    letter-spacing:.06em; color:var(--muted); white-space:nowrap}
   td.chap{white-space:nowrap; font-weight:600}
-  td.chap small{display:block; font-weight:400; color:var(--muted); font-size:.72rem}
-  .pill{display:inline-block; padding:.13rem .55rem; border-radius:99px;
-    font-size:.72rem; font-weight:600; white-space:nowrap; cursor:default}
+  td.chap small{display:block; font-weight:400; color:var(--muted); font-size:.7rem}
+  td.tot{color:var(--muted); font-size:.76rem; white-space:nowrap}
+  .pill{display:inline-flex; gap:.3rem; align-items:center; padding:.12rem .5rem;
+    border-radius:99px; font-size:.72rem; font-weight:600; white-space:nowrap}
   .pill.has-note{cursor:help; text-decoration:underline dotted 1px; text-underline-offset:3px}
   .feito{color:var(--st-feito); background:var(--st-feito-bg)}
-  .gate{color:var(--st-gate); background:var(--st-gate-bg)}
+  .gate{color:var(--st-gate); background:var(--st-gate-bg); outline:1px solid var(--atencao-borda)}
   .andamento{color:var(--st-andamento); background:var(--st-andamento-bg)}
   .pendente{color:var(--st-pendente); background:var(--st-pendente-bg)}
   .na{color:var(--st-na); background:var(--st-na-bg)}
-  .groups{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1rem}
-  .group h3{margin:0 0 .55rem; font-size:.95rem}
-  .item{display:flex; gap:.6rem; align-items:baseline; padding:.32rem 0;
-    border-top:1px dashed var(--border); font-size:.86rem}
+  .groups{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:.9rem}
+  .group h3{margin:0 0 .5rem; font-size:.92rem}
+  .item{display:flex; gap:.6rem; align-items:baseline; padding:.3rem 0;
+    border-top:1px dashed var(--border); font-size:.85rem}
   .item:first-of-type{border-top:none}
   .item .who{color:var(--muted); font-size:.72rem; white-space:nowrap}
-  .item .blocked{color:var(--st-gate); font-size:.72rem}
   .item span.t{flex:1}
+  details{margin-top:.5rem}
+  summary{cursor:pointer; font-size:.85rem; font-weight:600}
+  .notes{margin:.4rem 0 0; padding-left:1.2rem; font-size:.8rem; color:var(--muted)}
   footer{color:var(--muted); font-size:.8rem}
   footer ol{padding-left:1.25rem; margin:.4rem 0}
-  .legend{display:flex; gap:.9rem; flex-wrap:wrap; margin-top:.6rem; align-items:center}
-  .notes{margin:.6rem 0 0; padding-left:1.2rem; font-size:.8rem; color:var(--muted)}
-  .notes li{margin:.15rem 0}
+  .legend{display:flex; gap:.8rem; flex-wrap:wrap; margin-top:.5rem; align-items:center}
   :focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  @media (prefers-reduced-motion: no-preference){ .kpi.hero .v{transition:color .3s} }
 </style>
 
 <script id="plano" type="application/json">__PLANO_JSON__</script>
+<script id="kpis" type="application/json">__KPIS_JSON__</script>
 
 <div class="wrap">
   <header>
     <h1>Painel da Tese FALCO</h1>
-    <div class="meta" id="meta"></div>
+    <span class="meta" id="meta"></span>
   </header>
 
-  <section class="card next">
-    <span class="label">Próximo passo</span>
-    <p id="proximo-desc"></p>
-    <span class="label">Fila</span>
-    <ol id="fila"></ol>
+  <section class="kpis" id="kpis-row" aria-label="Indicadores"></section>
+
+  <section class="card fila" id="fila-card">
+    <h2 id="fila-titulo">🔒 Aguardando você</h2>
+    <div id="fila"></div>
   </section>
 
   <section class="card">
-    <h2>Execuções fora do texto</h2>
-    <p class="label" id="exec-desc" style="text-transform:none;letter-spacing:0"></p>
-    <div id="exec"></div>
+    <span class="label">Próximo passo do agente</span>
+    <p id="proximo-desc" style="margin:.4rem 0 0; font-size:.95rem"></p>
+  </section>
+
+  <section class="card">
+    <h2>Evolução da prontidão</h2>
+    <div class="chart-wrap" id="chart-wrap"></div>
+    <details><summary>Dados da série</summary>
+      <div class="scroll"><table id="serie-tab"></table></div>
+    </details>
   </section>
 
   <section class="card">
     <h2>Capítulos × rodadas</h2>
-    <p class="label" id="gate-banner" style="text-transform:none;letter-spacing:0"></p>
-    <div class="scroll"><table id="matriz"></table></div>
+    <div class="scroll"><table id="matriz">
+      <caption>✓ feito · 🔒 em gate (espera você) · ◐ andamento · ○ pendente · – não se aplica · ⛓ bloqueado</caption>
+    </table></div>
     <div id="aberturas"></div>
   </section>
 
+  <section class="card">
+    <h2>Execuções fora do texto</h2>
+    <div id="exec"></div>
+  </section>
+
   <section>
-    <h2 style="margin-bottom:.7rem">Artefatos e pendências</h2>
+    <h2 style="margin-bottom:.6rem">Artefatos e pendências</h2>
     <div class="groups" id="grupos"></div>
   </section>
 
   <footer class="card">
-    <span class="label">Ritual (toda sessão)</span>
-    <ol id="ritual"></ol>
-    <div class="legend" id="legenda"><span class="label">Legenda</span></div>
+    <details><summary>Ritual e legenda</summary>
+      <ol id="ritual"></ol>
+      <div class="legend" id="legenda"></div>
+      <p id="meta-saida"></p>
+    </details>
   </footer>
 </div>
 
 <script>
   const P = JSON.parse(document.getElementById('plano').textContent);
-  const el = (id) => document.getElementById(id);
+  const K = JSON.parse(document.getElementById('kpis').textContent);
+  const el = id => document.getElementById(id);
+  const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
 
-  el('meta').innerHTML =
-    `<span>versão ${P.versao}</span><span>atualizado em ${P.atualizado_em}</span>` +
-    `<span>${P.atualizado_por}</span><span>fonte: docs/records/plano-revisao.json</span>`;
+  el('meta').textContent = `plano v${P.versao} · KPIs de ${K.computado_em} (${K.git_sha}) · fonte: docs/records/`;
 
-  el('proximo-desc').textContent = P.proximo.descricao;
-  el('fila').innerHTML = P.proximo.fila.map(f => `<li>${f}</li>`).join('');
+  /* ---- zona 1: KPIs ---- */
+  const pr = K.prontidao, rt = K.ritmo, dv = K.divida_fundamentacao;
+  const serie = rt.serie || [];
+  const delta = serie.length >= 2
+    ? (() => { const d = (serie.at(-1).pct - serie[0].pct).toFixed(1);
+               return `${d >= 0 ? '▲ +' : '▼ '}${d} p.p. desde ${serie[0].data}`; })()
+    : 'primeira medição';
+  const vel = rt.velocidade_pontos_semana;
+  el('kpis-row').innerHTML = `
+    <div class="kpi hero"><span class="label">Prontidão global</span>
+      <span class="v">${pr.global_pct}%</span>
+      <span class="ctx">${delta} · ${pr.pontos_feitos}/${pr.pontos_totais} pontos de esforço</span></div>
+    <div class="kpi"><span class="label">Velocidade</span>
+      <span class="v">${vel ?? '—'}</span>
+      <span class="ctx">${vel != null ? 'pontos/semana (janela ' + rt.janela_dias + 'd)' : 'primeira medição'}</span></div>
+    <div class="kpi"><span class="label">ETA</span>
+      <span class="v">${rt.eta_confiavel ? rt.eta_semanas + ' sem' : '—'}</span>
+      <span class="ctx">${rt.eta_confiavel ? 'projeção: ' + rt.eta_data : 'indeterminado (sem ritmo medível)'}</span></div>
+    <div class="kpi alerta"><span class="label">Aguardando você</span>
+      <span class="v">${K.fila_autor.total}</span>
+      <span class="ctx">itens que só o autor destrava</span></div>
+    <div class="kpi"><span class="label">Maior destrava</span>
+      <span class="v">${K.represados.pontos}</span>
+      <span class="ctx">pontos represados atrás de 1 ação sua</span></div>
+    <div class="kpi"><span class="label">Dívida de fundamentação</span>
+      <span class="v">${dv.citacoes_pendentes}</span>
+      <span class="ctx">citações a validar · ${dv.chaves_sem_fichamento} sem fichamento</span></div>`;
 
-  const pill = (r) => {
-    const s = r?.status || 'pendente';
-    const note = r?.nota ? ` title="${r.nota.replace(/"/g,'&quot;')}" ` : ' ';
-    const cls = r?.nota ? `pill ${s} has-note` : `pill ${s}`;
-    const label = {feito:'feito', gate:'em gate', andamento:'andamento', pendente:'pendente', na:'n/a'}[s] || s;
-    return `<span class="${cls}"${note}>${label}</span>`;
+  /* ---- zona 2: fila do autor ---- */
+  const fila = K.fila_autor.itens || [];
+  el('fila-titulo').textContent = fila.length
+    ? `🔒 Aguardando você — ${fila.length} ${fila.length === 1 ? 'item' : 'itens'}`
+    : 'Nada espera você';
+  el('fila').innerHTML = fila.length ? fila.map(f => `
+    <div class="item"><span class="tipo">${{gate:'GATE', execucao:'RODAR', acao:'AÇÃO'}[f.tipo] || f.tipo}</span>
+      <span class="t">${esc(f.titulo)}</span>
+      <span class="pts">${f.pontos_destravados ? '+' + f.pontos_destravados + ' pts' : ''}</span></div>`).join('')
+    : `<p class="vazia">O agente segue no próximo passo abaixo. ✓</p>`;
+
+  el('proximo-desc').textContent = P.proximo?.descricao || 'indefinido — definir no ritual';
+
+  /* ---- burn-up (série única, Y fixo 0–100, X em datas reais) ---- */
+  (function chart(){
+    const wrap = el('chart-wrap');
+    const W = 980, H = 240, mL = 34, mR = 12, mT = 10, mB = 26;
+    if (serie.length < 3){
+      wrap.innerHTML = `<p class="vazia">Histórico insuficiente para tendência
+        (${serie.length} ${serie.length === 1 ? 'medição' : 'medições'}). O gráfico nasce com a terceira.</p>`;
+      return;
+    }
+    const t0 = new Date(serie[0].data).getTime(), t1 = new Date(serie.at(-1).data).getTime();
+    const X = d => mL + (W - mL - mR) * ((new Date(d).getTime() - t0) / Math.max(1, t1 - t0));
+    const Y = pct => mT + (H - mT - mB) * (1 - pct / 100);
+    const pts = serie.map(s => [X(s.data), Y(s.pct), s]);
+    const grid = [0, 25, 50, 75, 100].map(g =>
+      `<line x1="${mL}" x2="${W - mR}" y1="${Y(g)}" y2="${Y(g)}" stroke="var(--grid)"/>
+       <text x="2" y="${Y(g) + 4}">${g}%</text>`).join('');
+    const path = pts.map((p, i) => `${i ? 'L' : 'M'}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join('');
+    const marks = pts.filter(p => p[2].evento).map(p =>
+      `<circle cx="${p[0]}" cy="${p[1]}" r="4.5" fill="var(--accent)" stroke="var(--panel)" stroke-width="2"/>`).join('');
+    const xlab = [serie[0], serie.at(-1)].map(s =>
+      `<text x="${X(s.data)}" y="${H - 6}" text-anchor="middle">${s.data}</text>`).join('');
+    wrap.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" style="width:100%"
+        aria-label="Prontidão da tese ao longo do tempo: de ${serie[0].pct}% em ${serie[0].data} a ${serie.at(-1).pct}% em ${serie.at(-1).data}.">
+      ${grid}<path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2"/>
+      ${marks}<circle cx="${pts.at(-1)[0]}" cy="${pts.at(-1)[1]}" r="4" fill="var(--accent)"/>${xlab}
+      <rect id="hit" x="${mL}" y="0" width="${W - mL - mR}" height="${H}" fill="transparent"/></svg>
+      <div class="tip" id="tip"></div>`;
+    const svg = wrap.querySelector('svg'), tip = el('tip');
+    svg.addEventListener('mousemove', e => {
+      const r = svg.getBoundingClientRect(), mx = (e.clientX - r.left) * W / r.width;
+      let best = pts[0];
+      for (const p of pts) if (Math.abs(p[0] - mx) < Math.abs(best[0] - mx)) best = p;
+      tip.style.display = 'block';
+      tip.style.left = Math.min(best[0] / W * 100, 82) + '%';
+      tip.style.top = (best[1] / H * 100) + '%';
+      tip.innerHTML = `<strong>${best[2].pct}%</strong> · ${best[2].data}` +
+        (best[2].evento ? `<br>${esc(best[2].evento)}` : '');
+    });
+    svg.addEventListener('mouseleave', () => tip.style.display = 'none');
+  })();
+  el('serie-tab').innerHTML = '<thead><tr><th>Data</th><th>%</th><th>Pontos</th><th>Evento</th></tr></thead><tbody>' +
+    serie.map(s => `<tr><td>${s.data}</td><td>${s.pct}%</td><td>${s.pontos}</td><td>${esc(s.evento || '')}</td></tr>`).join('') + '</tbody>';
+
+  /* ---- matriz ---- */
+  const GLIFO = {feito:'✓', gate:'🔒', andamento:'◐', pendente:'○', na:'–'};
+  const ptsCap = Object.fromEntries((pr.por_capitulo || []).map(c => [c.id, c]));
+  const pill = (cell, capTit, rid) => {
+    const s = cell?.status || 'pendente';
+    const bloq = (cell?.bloqueado_por || []).length ? ' ⛓' : '';
+    const note = cell?.nota ? ` title="${esc(cell.nota)}"` : '';
+    const aria = `${capTit}, rodada ${rid}: ${s}${bloq ? ', bloqueada' : ''}${cell?.nota ? ' — ' + cell.nota : ''}`;
+    return `<span class="pill ${s}${cell?.nota ? ' has-note' : ''}"${note} aria-label="${esc(aria)}">${GLIFO[s]}${bloq}</span>`;
   };
-
-  let head = '<thead><tr><th>Capítulo</th>' +
-    P.rodadas.map(r => `<th title="${r.nome} — ${r.descricao}">${r.id} ${r.nome.split(' ')[0]}</th>`).join('') +
-    '</tr></thead>';
-  let body = '<tbody>' + P.capitulos.map(c =>
-    `<tr><td class="chap">${c.titulo}<small>${c.arquivo}</small></td>` +
-    P.rodadas.map(r => `<td>${pill(c.rodadas[r.id])}</td>`).join('') + '</tr>'
-  ).join('') + '</tbody>';
-  el('matriz').innerHTML = head + body;
-
-  el('gate-banner').textContent = P.gate || '';
+  el('matriz').innerHTML += '<thead><tr><th scope="col">Capítulo</th>' +
+    P.rodadas.map(r => `<th scope="col" title="${esc(r.nome)} — ${esc(r.descricao)}">${r.id}</th>`).join('') +
+    '<th scope="col">Pontos</th></tr></thead><tbody>' +
+    P.capitulos.map(c => {
+      const t = ptsCap[c.id] || {pontos: 0, feitos: 0};
+      return `<tr><th scope="row" class="chap">${c.titulo}<small>${c.arquivo}</small></th>` +
+        P.rodadas.map(r => `<td>${pill(c.rodadas[r.id], c.titulo, r.id)}</td>`).join('') +
+        `<td class="tot">${t.feitos}/${t.pontos}</td></tr>`;
+    }).join('') + '</tbody>';
 
   el('aberturas').innerHTML = P.capitulos.map(c => c.abertura ? `
-    <details style="margin-top:.5rem">
-      <summary style="cursor:pointer;font-size:.86rem;font-weight:600">${c.titulo} — o que abre esta frente</summary>
-      <ul class="notes">${c.abertura.map(a => `<li>${a}</li>`).join('')}</ul>
-    </details>` : '').join('');
+    <details><summary>${c.titulo} — o que abre esta frente</summary>
+      <ul class="notes">${c.abertura.map(a => `<li>${esc(a)}</li>`).join('')}</ul></details>` : '').join('');
 
-  const estadoPill = (e) => {
-    const map = {aguardando_inicio:['pendente','aguardando início'], rodando:['andamento','rodando'],
-                 concluido:['feito','concluído'], falhou:['gate','falhou']};
-    const [cls,label] = map[e] || ['pendente', e];
-    return `<span class="pill ${cls}">${label}</span>`;
-  };
-  el('exec-desc').textContent = P.execucoes?.descricao || '';
-  el('exec').innerHTML = (P.execucoes?.itens || []).map(i => `
-    <div class="item">${estadoPill(i.estado)}
-      <span class="t">${i.o_que} <small style="color:var(--muted)">· ${i.onde} · ~${i.duracao} · → ${i.resultado_esperado}</small></span>
-      <span class="who">${i.dono}</span>
-    </div>`).join('') || '<p class="label" style="text-transform:none">nada rodando</p>';
+  /* ---- execuções ---- */
+  const EX = {aguardando_inicio:['pendente','aguardando início'], rodando:['andamento','rodando'],
+              concluido:['feito','concluído'], falhou:['gate','falhou']};
+  const exec = P.execucoes?.itens || [];
+  el('exec').innerHTML = exec.length ? exec.map(i => {
+    const [cls, lab] = EX[i.estado] || ['pendente', i.estado];
+    return `<div class="item"><span class="pill ${cls}">${lab}</span>
+      <span class="t">${esc(i.o_que)} <small style="color:var(--muted)">· ${esc(i.onde)} · ~${i.duracao} · → ${esc(i.resultado_esperado)}</small></span>
+      <span class="who">${i.dono}</span></div>`; }).join('')
+    : '<p class="vazia">0 execuções ativas</p>';
 
-  el('grupos').innerHTML = P.artefatos.map(g => `
-    <div class="card group"><h3>${g.nome}</h3>` +
-    g.itens.map(i => `
-      <div class="item">${pill(i)}<span class="t">${i.titulo}</span>
-        <span class="who">${i.dono}</span>
-        ${i.bloqueado_por ? `<span class="blocked">⛔ ${i.bloqueado_por.join(', ')}</span>` : ''}
-      </div>`).join('') + '</div>'
-  ).join('');
+  /* ---- artefatos ---- */
+  el('grupos').innerHTML = P.artefatos.map(g => {
+    const done = g.itens.filter(i => i.status === 'feito').length;
+    const todosF = done === g.itens.length;
+    const corpo = g.itens.map(i => `
+      <div class="item"><span class="pill ${i.status}">${GLIFO[i.status] || ''} ${i.status}</span>
+        <span class="t">${esc(i.titulo)}${(i.bloqueado_por || []).length ? ' <small style="color:var(--st-gate)">⛓ ' + i.bloqueado_por.join(', ') + '</small>' : ''}</span>
+        <span class="who">${i.dono}</span></div>`).join('');
+    return `<div class="card group"><h3>${g.nome} <small style="color:var(--muted)">${done}/${g.itens.length}</small></h3>
+      ${todosF ? `<details><summary>✓ concluído</summary>${corpo}</details>` : corpo}</div>`;
+  }).join('');
 
-  el('ritual').innerHTML = P.ritual.map(x => `<li>${x}</li>`).join('');
-  el('legenda').innerHTML += Object.entries(P.status_legenda)
-    .map(([k,v]) => `<span class="pill ${k}" title="${v}">${k}</span>`).join('');
+  el('ritual').innerHTML = P.ritual.map(x => `<li>${esc(x)}</li>`).join('');
+  el('legenda').innerHTML = '<span class="label">Legenda</span>' + Object.entries(P.status_legenda)
+    .map(([k, v]) => `<span class="pill ${k}" title="${esc(v)}">${GLIFO[k] || ''} ${k}</span>`).join('');
+  el('meta-saida').textContent = `Meta de saída: parecer ARS ${K.meta_saida.parecer_ars} → ${K.meta_saida.alvo}.`;
 </script>

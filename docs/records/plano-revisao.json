@@ -1,8 +1,8 @@
 {
  "schema": "plano-revisao/v1",
- "versao": 2,
+ "versao": 3,
  "atualizado_em": "2026-08-16",
- "atualizado_por": "ciclo governanca-01 (v2: abertura por capítulo + controle de execuções)",
+ "atualizado_por": "ciclo governanca-01 (v3: dimensões por capítulo, progresso e bloqueio por célula — camada de KPIs)",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
   "Abrir este JSON e ler o campo 'proximo'",
@@ -87,7 +87,10 @@
     },
     "R5": {
      "status": "andamento",
-     "nota": "espelhos alinhados em 2026-08 (P4, 250.221); rechecar ao final"
+     "nota": "espelhos alinhados em 2026-08 (P4, 250.221); rechecar ao final",
+     "bloqueado_por": [
+      "consolidar-seeds"
+     ]
     },
     "R6": {
      "status": "feito",
@@ -101,7 +104,12 @@
     "R1: 32 travessões (16 no resumo + 16 no abstract) — maior densidade da tese (21–22/1000 palavras)",
     "R2: abrir as siglas de forma independente do corpo (FALCO/LLM já abertos; auditar o restante)",
     "R5: 32 tokens numéricos a rechecar contra o corpo APÓS a consolidação multi-semente"
-   ]
+   ],
+   "dimensoes": {
+    "travessoes": 32,
+    "citacoes": 0,
+    "tokens": 32
+   }
   },
   {
    "id": "cap1",
@@ -124,7 +132,10 @@
     },
     "R5": {
      "status": "pendente",
-     "nota": "critério 30%/95% citado: conferir espelho com Cap. 3/5"
+     "nota": "critério 30%/95% citado: conferir espelho com Cap. 3/5",
+     "bloqueado_por": [
+      "consolidar-seeds"
+     ]
     },
     "R6": {
      "status": "feito",
@@ -139,7 +150,12 @@
     "R3: 8 citações distintas a validar contra fichamento",
     "R4: varrer afirmações não citadas (poucas: capítulo curto)",
     "R5: critério 30%/95% deve espelhar Cap. 3 e Cap. 5"
-   ]
+   ],
+   "dimensoes": {
+    "travessoes": 6,
+    "citacoes": 8,
+    "tokens": 2
+   }
   },
   {
    "id": "cap2",
@@ -148,7 +164,8 @@
    "rodadas": {
     "R1": {
      "status": "gate",
-     "nota": "lote 1/5 na branch humanize/cap2 (50190dc); lotes 2–5 a fazer (92 travessões restantes)"
+     "nota": "lote 1/5 na branch humanize/cap2 (50190dc); lotes 2–5 a fazer (92 travessões restantes)",
+     "progresso": 0.2
     },
     "R2": {
      "status": "pendente"
@@ -175,7 +192,12 @@
     "R3: 132 citações distintas — a maior rodada de fichamento da tese, fazer por seção",
     "R4: capítulo de fundamentação = maior risco de afirmação órfã",
     "R5: 48 tokens numéricos (números de terceiros: conferir contra fichamento, não artefato)"
-   ]
+   ],
+   "dimensoes": {
+    "travessoes": 110,
+    "citacoes": 132,
+    "tokens": 48
+   }
   },
   {
    "id": "cap3",
@@ -214,7 +236,12 @@
     "R3: 18 citações distintas",
     "R5: 105 tokens numéricos; particionamento/621-714/50k já revisados (a4617e8)",
     "R6: explicar o nome E3′ (corte do E3) na 1ª aparição — anotado no ciclo do Cap. 1"
-   ]
+   ],
+   "dimensoes": {
+    "travessoes": 59,
+    "citacoes": 18,
+    "tokens": 105
+   }
   },
   {
    "id": "cap4",
@@ -249,7 +276,12 @@
     "R1: 17 travessões — capítulo leve",
     "R3: citações raras (resultados próprios); validar as poucas que houver",
     "R5: 185 tokens numéricos × artefatos do repositório legado (activetextclassification) + replays"
-   ]
+   ],
+   "dimensoes": {
+    "travessoes": 17,
+    "citacoes": 0,
+    "tokens": 185
+   }
   },
   {
    "id": "cap5",
@@ -272,7 +304,10 @@
     },
     "R5": {
      "status": "andamento",
-     "nota": "varredura marcada post hoc (a4617e8); ATENÇÃO: multi-semente E3' vai reescrever números deste capítulo"
+     "nota": "varredura marcada post hoc (a4617e8); ATENÇÃO: multi-semente E3' vai reescrever números deste capítulo",
+     "bloqueado_por": [
+      "consolidar-seeds"
+     ]
     },
     "R6": {
      "status": "pendente"
@@ -286,7 +321,12 @@
     "R2: NIM e MaaS aparecem aqui — abrir na 1ª ocorrência",
     "R3: 6 citações distintas",
     "R5: 455 tokens numéricos — a maior rodada de números; EXECUTAR APÓS multi-semente do E3′"
-   ]
+   ],
+   "dimensoes": {
+    "travessoes": 64,
+    "citacoes": 6,
+    "tokens": 455
+   }
   },
   {
    "id": "cap6",
@@ -307,7 +347,10 @@
      "status": "pendente"
     },
     "R5": {
-     "status": "pendente"
+     "status": "pendente",
+     "bloqueado_por": [
+      "consolidar-seeds"
+     ]
     },
     "R6": {
      "status": "pendente"
@@ -320,7 +363,12 @@
     "R1: maior densidade relativa (19,7/1000) + fecho retórico (tríade + aforismo) = DECISÃO DO AUTOR + unificar ---/—",
     "R3: 18 citações distintas",
     "R5: 48 tokens numéricos, todos espelhos de números dos Caps. 4-5"
-   ]
+   ],
+   "dimensoes": {
+    "travessoes": 35,
+    "citacoes": 18,
+    "tokens": 48
+   }
   }
  ],
  "artefatos": [
