@@ -1,18 +1,18 @@
 {
  "schema": "kpis/v1",
  "computado_em": "2026-08-16",
- "git_sha": "c3abc4e",
+ "git_sha": "3a4bd30",
  "prontidao": {
-  "global_pct": 3.5,
-  "texto_pct": 4.1,
+  "global_pct": 3.4,
+  "texto_pct": 4.0,
   "artefatos_pct": 0.0,
-  "pontos_totais": 2050,
-  "pontos_feitos": 84,
+  "pontos_totais": 2032,
+  "pontos_feitos": 80,
   "por_rodada": [
    {
     "id": "R1",
-    "pontos": 349,
-    "feitos": 28
+    "pontos": 331,
+    "feitos": 24
    },
    {
     "id": "R2",
@@ -58,8 +58,8 @@
    },
    {
     "id": "cap2",
-    "pontos": 524,
-    "feitos": 22
+    "pontos": 506,
+    "feitos": 18
    },
    {
     "id": "cap3",
@@ -97,7 +97,7 @@
   "serie": [
    {
     "data": "2026-08-16",
-    "commit": "8bed730",
+    "commit": "11f997f",
     "pontos": 84,
     "pct": 4.1,
     "evento": null
@@ -105,7 +105,7 @@
   ]
  },
  "fila_autor": {
-  "total": 13,
+  "total": 11,
   "itens": [
    {
     "id": "seed7",
@@ -120,12 +120,6 @@
     "pontos_destravados": 239
    },
    {
-    "id": "cap2.R1",
-    "tipo": "gate",
-    "titulo": "Aprovar 2 · Fundamentação · rodada R1",
-    "pontos_destravados": 110
-   },
-   {
     "id": "zenodo",
     "tipo": "acao",
     "titulo": "Ativar webhook Zenodo e gerar DOI (metadados prontos) · ao obter DOI: inserir URL+DOI no artigo A4 e no Cap. 3 (tese hoje não tem URL de repositório)",
@@ -135,12 +129,6 @@
     "id": "e3p-seed7",
     "tipo": "execucao",
     "titulo": "E3′ semente 7 — 5 braços + varredura de orçamento",
-    "pontos_destravados": 0
-   },
-   {
-    "id": "e3p-seed123",
-    "tipo": "execucao",
-    "titulo": "E3′ semente 123 — 5 braços + varredura de orçamento",
     "pontos_destravados": 0
    },
    {
@@ -193,8 +181,8 @@
  "divida_fundamentacao": {
   "citacoes_pendentes": 185,
   "chaves_citadas": 151,
-  "fichamentos": 142,
-  "chaves_sem_fichamento": 9
+  "fichamentos": 153,
+  "chaves_sem_fichamento": 0
  },
  "meta_saida": {
   "parecer_ars": 83.6,

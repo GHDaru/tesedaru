@@ -1,8 +1,8 @@
 {
  "schema": "plano-revisao/v1",
- "versao": 12,
+ "versao": 13,
  "atualizado_em": "2026-08-16",
- "atualizado_por": "executor02: e3p-seed123 assumida — receita do Kaggle pronta, execução bloqueada (cache do oráculo ausente no repo + token do Kaggle)",
+ "atualizado_por": "principal: lote 1 do Cap.2 mergeado; humanização R1 dos Caps. 3-6 delegada aos revisores",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
   "Abrir este JSON e ler o campo 'proximo'",
@@ -163,9 +163,10 @@
    "arquivo": "2-fundam/texto.tex",
    "rodadas": {
     "R1": {
-     "status": "gate",
-     "nota": "lote 1/5 na branch humanize/cap2 (50190dc); lotes 2–5 a fazer (92 travessões restantes)",
-     "progresso": 0.2
+     "status": "andamento",
+     "progresso": 0.2,
+     "nota": "lote 1 MERGEADO com gate (110->92 travessões); lotes 2-5 aguardam o bib-fix sair do Cap. 2",
+     "dono": "principal"
     },
     "R2": {
      "status": "pendente"
@@ -194,7 +195,7 @@
     "R5: 48 tokens numéricos (números de terceiros: conferir contra fichamento, não artefato)"
    ],
    "dimensoes": {
-    "travessoes": 110,
+    "travessoes": 92,
     "citacoes": 132,
     "tokens": 48
    }
@@ -205,8 +206,10 @@
    "arquivo": "3-metodo/texto.tex",
    "rodadas": {
     "R1": {
-     "status": "pendente",
-     "nota": "59 travessões; 5 aberturas enumerativas; 1 muleta"
+     "status": "andamento",
+     "progresso": 0.0,
+     "dono": "revisor1",
+     "nota": "delegada ao revisor1 em 2026-08-16 (docs/criterio-humanizacao.md); entrega em branch, gate consolidado pelo principal"
     },
     "R2": {
      "status": "pendente",
@@ -250,8 +253,10 @@
    "arquivo": "4-resultados-l0/texto.tex",
    "rodadas": {
     "R1": {
-     "status": "pendente",
-     "nota": "capítulo mais limpo (17 travessões)"
+     "status": "andamento",
+     "progresso": 0.0,
+     "dono": "revisor1",
+     "nota": "delegada ao revisor1 em 2026-08-16 (docs/criterio-humanizacao.md); entrega em branch, gate consolidado pelo principal"
     },
     "R2": {
      "status": "pendente"
@@ -291,8 +296,10 @@
    "arquivo": "5-resultados-falco/texto.tex",
    "rodadas": {
     "R1": {
-     "status": "pendente",
-     "nota": "64 travessões + 6 frases telegráficas ('Três leituras.')"
+     "status": "andamento",
+     "progresso": 0.0,
+     "dono": "revisor2",
+     "nota": "delegada ao revisor2 em 2026-08-16 (docs/criterio-humanizacao.md)"
     },
     "R2": {
      "status": "pendente",
@@ -337,8 +344,10 @@
    "arquivo": "6-conclusao/texto.tex",
    "rodadas": {
     "R1": {
-     "status": "pendente",
-     "nota": "fecho (tríade + aforismo) MANTIDO por decisão do autor em 2026-08-16; revisão futura EM ABERTO — reavaliar junto com o R7; travessões e ---/— seguem pendentes"
+     "status": "andamento",
+     "progresso": 0.0,
+     "dono": "revisor2",
+     "nota": "delegada ao revisor2 em 2026-08-16 (docs/criterio-humanizacao.md); FECHO (tríade + aforismo) MANTIDO por decisão do autor — não reescrever; revisão futura em aberto no R7"
     },
     "R2": {
      "status": "pendente"
@@ -719,14 +728,14 @@
   }
  ],
  "proximo": {
-  "descricao": "PARALELO confirmado pelo autor: bibliografia nos Caps. 1-2 (revisor1 lote 0 já; lotes 1-3 após a entrada da consolidacao/revisao-paralela-r6) e humanização R1 dos Caps. 3-6 pelo principal, ao mesmo tempo — o dimensionamento provou que não colidem.",
+  "descricao": "Três frentes em paralelo: (1) bib-fix nos Caps. 1-2 — revisor1 lotes 0 e 2, revisor2 lotes 1 e 3, banca verifica; (2) humanização R1 dos Caps. 3-6 — revisor1 nos Caps. 3 e 4, revisor2 nos Caps. 5 e 6, critério em docs/criterio-humanizacao.md; (3) executores 01 e 02 com as sementes 7 e 123 no Kaggle. O principal consolida as entregas e leva ao gate do autor em bloco.",
   "fila": [
-   "revisor1: lote 0 (check-bib.py) — em curso, sem bloqueio",
-   "gate do autor: consolidacao/revisao-paralela-r6 (revisada pelo principal; destrava lotes 1-3)",
-   "revisor2: lotes 1 e 3 do bib · revisor1: lote 2 · banca: lote 4 (verificação)",
-   "principal: humanização R1 dos Caps. 3, 4, 5 e 6 (em paralelo)",
-   "principal: lotes 2 e 3 do mínimo-banca (números R5-imediato e declaração de IA)",
-   "executores: sementes 7 e 123 do E3′ (destrava ~230 pontos)",
+   "revisor1: bib lote 0 (em curso) -> bib lote 2 -> humanização Caps. 3 e 4",
+   "revisor2: bib lotes 1 e 3 -> humanização Caps. 5 e 6",
+   "banca: lote 4 (verificação do bib) + re-checagem do veredito mergeado",
+   "executor01/02: sementes 7 e 123 (Kaggle) -> consolidação estatística",
+   "principal: lotes 2 e 3 do mínimo-banca (números R5-imediato, declaração de IA) + Cap. 2 lotes 2-5 após o bib",
+   "site: fatia 2 (kanban + página de Resultados)",
    "depois: R2 siglas · R5 números × artefatos · R3 fichamento · R4 · R6 · R7 + ARS final"
   ]
  },
