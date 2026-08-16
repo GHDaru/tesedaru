@@ -1,0 +1,161 @@
+<title>Painel da Tese FALCO</title>
+<style>
+  :root{
+    --ground:#FAFAF8; --panel:#FFFFFF; --ink:#20261F; --muted:#68705F;
+    --accent:#1E6B3C; --accent-soft:#E7F0E9; --border:#E2E5DF;
+    --st-feito:#2E7D4F; --st-feito-bg:#E3F0E7;
+    --st-gate:#A8730E; --st-gate-bg:#F7EDD8;
+    --st-andamento:#2B6CB0; --st-andamento-bg:#E4EDF7;
+    --st-pendente:#7C8378; --st-pendente-bg:#EFF1EC;
+    --st-na:#B6BCB0; --st-na-bg:#F5F6F3;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#131714; --panel:#1B211C; --ink:#E6EAE4; --muted:#9AA294;
+      --accent:#6FC492; --accent-soft:#223B2C; --border:#2A302B;
+      --st-feito:#7DCB9B; --st-feito-bg:#1E3327;
+      --st-gate:#E0B25E; --st-gate-bg:#3A2F17;
+      --st-andamento:#7FAEDF; --st-andamento-bg:#1C2C3E;
+      --st-pendente:#9AA294; --st-pendente-bg:#232823;
+      --st-na:#5C635A; --st-na-bg:#1D221E;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#131714; --panel:#1B211C; --ink:#E6EAE4; --muted:#9AA294;
+    --accent:#6FC492; --accent-soft:#223B2C; --border:#2A302B;
+    --st-feito:#7DCB9B; --st-feito-bg:#1E3327;
+    --st-gate:#E0B25E; --st-gate-bg:#3A2F17;
+    --st-andamento:#7FAEDF; --st-andamento-bg:#1C2C3E;
+    --st-pendente:#9AA294; --st-pendente-bg:#232823;
+    --st-na:#5C635A; --st-na-bg:#1D221E;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--ground); color:var(--ink);
+    font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    margin:0; padding:2.2rem 1.2rem 4rem}
+  .wrap{max-width:1080px; margin:0 auto; display:flex; flex-direction:column; gap:1.6rem}
+  header h1{font-family:Georgia,'Times New Roman',serif; font-weight:600;
+    font-size:2rem; margin:0; letter-spacing:.2px; text-wrap:balance}
+  header .meta{color:var(--muted); font-size:.85rem; margin-top:.35rem;
+    display:flex; gap:1.2rem; flex-wrap:wrap; font-variant-numeric:tabular-nums}
+  .label{font-size:.72rem; text-transform:uppercase; letter-spacing:.09em;
+    color:var(--muted); font-weight:600}
+  .card{background:var(--panel); border:1px solid var(--border);
+    border-radius:8px; padding:1.1rem 1.3rem}
+  .next{background:var(--accent-soft); border-color:transparent}
+  .next p{margin:.45rem 0 .8rem; font-size:1.02rem}
+  .next ol{margin:.3rem 0 0; padding-left:1.3rem; font-size:.9rem}
+  .next li{margin:.18rem 0}
+  h2{font-family:Georgia,serif; font-weight:600; font-size:1.22rem; margin:.2rem 0 .7rem}
+  .scroll{overflow-x:auto}
+  table{border-collapse:collapse; width:100%; font-size:.85rem; font-variant-numeric:tabular-nums}
+  th,td{padding:.5rem .55rem; text-align:left; border-top:1px solid var(--border); vertical-align:middle}
+  thead th{border-top:none; font-size:.72rem; text-transform:uppercase;
+    letter-spacing:.07em; color:var(--muted); white-space:nowrap}
+  td.chap{white-space:nowrap; font-weight:600}
+  td.chap small{display:block; font-weight:400; color:var(--muted); font-size:.72rem}
+  .pill{display:inline-block; padding:.13rem .55rem; border-radius:99px;
+    font-size:.72rem; font-weight:600; white-space:nowrap; cursor:default}
+  .pill.has-note{cursor:help; text-decoration:underline dotted 1px; text-underline-offset:3px}
+  .feito{color:var(--st-feito); background:var(--st-feito-bg)}
+  .gate{color:var(--st-gate); background:var(--st-gate-bg)}
+  .andamento{color:var(--st-andamento); background:var(--st-andamento-bg)}
+  .pendente{color:var(--st-pendente); background:var(--st-pendente-bg)}
+  .na{color:var(--st-na); background:var(--st-na-bg)}
+  .groups{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1rem}
+  .group h3{margin:0 0 .55rem; font-size:.95rem}
+  .item{display:flex; gap:.6rem; align-items:baseline; padding:.32rem 0;
+    border-top:1px dashed var(--border); font-size:.86rem}
+  .item:first-of-type{border-top:none}
+  .item .who{color:var(--muted); font-size:.72rem; white-space:nowrap}
+  .item .blocked{color:var(--st-gate); font-size:.72rem}
+  .item span.t{flex:1}
+  footer{color:var(--muted); font-size:.8rem}
+  footer ol{padding-left:1.25rem; margin:.4rem 0}
+  .legend{display:flex; gap:.9rem; flex-wrap:wrap; margin-top:.6rem; align-items:center}
+  .notes{margin:.6rem 0 0; padding-left:1.2rem; font-size:.8rem; color:var(--muted)}
+  .notes li{margin:.15rem 0}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+</style>
+
+<script id="plano" type="application/json">__PLANO_JSON__</script>
+
+<div class="wrap">
+  <header>
+    <h1>Painel da Tese FALCO</h1>
+    <div class="meta" id="meta"></div>
+  </header>
+
+  <section class="card next">
+    <span class="label">Próximo passo</span>
+    <p id="proximo-desc"></p>
+    <span class="label">Fila</span>
+    <ol id="fila"></ol>
+  </section>
+
+  <section class="card">
+    <h2>Capítulos × rodadas</h2>
+    <div class="scroll"><table id="matriz"></table></div>
+    <ul class="notes" id="notas"></ul>
+  </section>
+
+  <section>
+    <h2 style="margin-bottom:.7rem">Artefatos e pendências</h2>
+    <div class="groups" id="grupos"></div>
+  </section>
+
+  <footer class="card">
+    <span class="label">Ritual (toda sessão)</span>
+    <ol id="ritual"></ol>
+    <div class="legend" id="legenda"><span class="label">Legenda</span></div>
+  </footer>
+</div>
+
+<script>
+  const P = JSON.parse(document.getElementById('plano').textContent);
+  const el = (id) => document.getElementById(id);
+
+  el('meta').innerHTML =
+    `<span>versão ${P.versao}</span><span>atualizado em ${P.atualizado_em}</span>` +
+    `<span>${P.atualizado_por}</span><span>fonte: docs/records/plano-revisao.json</span>`;
+
+  el('proximo-desc').textContent = P.proximo.descricao;
+  el('fila').innerHTML = P.proximo.fila.map(f => `<li>${f}</li>`).join('');
+
+  const pill = (r) => {
+    const s = r?.status || 'pendente';
+    const note = r?.nota ? ` title="${r.nota.replace(/"/g,'&quot;')}" ` : ' ';
+    const cls = r?.nota ? `pill ${s} has-note` : `pill ${s}`;
+    const label = {feito:'feito', gate:'em gate', andamento:'andamento', pendente:'pendente', na:'n/a'}[s] || s;
+    return `<span class="${cls}"${note}>${label}</span>`;
+  };
+
+  let head = '<thead><tr><th>Capítulo</th>' +
+    P.rodadas.map(r => `<th title="${r.nome} — ${r.descricao}">${r.id} ${r.nome.split(' ')[0]}</th>`).join('') +
+    '</tr></thead>';
+  let body = '<tbody>' + P.capitulos.map(c =>
+    `<tr><td class="chap">${c.titulo}<small>${c.arquivo}</small></td>` +
+    P.rodadas.map(r => `<td>${pill(c.rodadas[r.id])}</td>`).join('') + '</tr>'
+  ).join('') + '</tbody>';
+  el('matriz').innerHTML = head + body;
+
+  const notas = [];
+  P.capitulos.forEach(c => P.rodadas.forEach(r => {
+    const cell = c.rodadas[r.id];
+    if (cell?.nota) notas.push(`<li><strong>${c.titulo} · ${r.id}</strong>: ${cell.nota}</li>`);
+  }));
+  el('notas').innerHTML = notas.join('');
+
+  el('grupos').innerHTML = P.artefatos.map(g => `
+    <div class="card group"><h3>${g.nome}</h3>` +
+    g.itens.map(i => `
+      <div class="item">${pill(i)}<span class="t">${i.titulo}</span>
+        <span class="who">${i.dono}</span>
+        ${i.bloqueado_por ? `<span class="blocked">⛔ ${i.bloqueado_por.join(', ')}</span>` : ''}
+      </div>`).join('') + '</div>'
+  ).join('');
+
+  el('ritual').innerHTML = P.ritual.map(x => `<li>${x}</li>`).join('');
+  el('legenda').innerHTML += Object.entries(P.status_legenda)
+    .map(([k,v]) => `<span class="pill ${k}" title="${v}">${k}</span>`).join('');
+</script>

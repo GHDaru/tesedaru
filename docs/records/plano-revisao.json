@@ -1,0 +1,183 @@
+{
+  "schema": "plano-revisao/v1",
+  "versao": 1,
+  "atualizado_em": "2026-08-16",
+  "atualizado_por": "ciclo governanca-01",
+  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
+  "ritual": [
+    "Abrir este JSON e ler o campo 'proximo'",
+    "Criar branch do ciclo (uma por capítulo/rodada)",
+    "Toda alteração apresentada com antes/depois na conversa",
+    "Merge somente com gate humano do autor",
+    "Decisão registrada em ADR + linha no decisoes.jsonl",
+    "Atualizar este JSON (status, versao+1, proximo) e dar push",
+    "Republicar o painel: python3 scripts/render-plano-revisao.py e publicar o HTML na mesma URL do artefato"
+  ],
+  "rodadas": [
+    { "id": "R1", "nome": "Humanização calibrada", "ref": "ADR 0001 · princípio X", "descricao": "Reduzir assinatura de máquina: travessões, fórmulas enumerativas, staccato; preservar registro acadêmico." },
+    { "id": "R2", "nome": "Siglas", "ref": "princípio I", "descricao": "Toda sigla aberta na 1ª ocorrência, presente na lista, expansões idênticas." },
+    { "id": "R3", "nome": "Referências × fichamento", "ref": "princípio II", "descricao": "Cada citação validada contra seu fichamento em fichamentos/." },
+    { "id": "R4", "nome": "Afirmações fundamentadas", "ref": "princípio III", "descricao": "Nenhuma afirmação órfã: argumento, citação ou dado." },
+    { "id": "R5", "nome": "Números × artefatos + espelhos", "ref": "princípios V e VIII", "descricao": "Todo número resolve para artefato; resumo/abstract/corpo com os mesmos números e vereditos." },
+    { "id": "R6", "nome": "Terminologia em camadas", "ref": "princípio VII", "descricao": "Capítulo legível com o que já foi definido; jargão operacional só do Cap. 3 em diante." },
+    { "id": "R7", "nome": "Leitura final", "ref": "revisão humana + parecer ARS", "descricao": "Fluidez, didática e olhar de banca; reavaliação ARS após todas as rodadas." }
+  ],
+  "status_legenda": {
+    "feito": "mergeado na main com gate",
+    "gate": "na branch, aguardando gate do autor",
+    "andamento": "em execução na branch",
+    "pendente": "não iniciado",
+    "na": "não se aplica"
+  },
+  "capitulos": [
+    {
+      "id": "pre", "titulo": "Pré-textuais (resumo + abstract)", "arquivo": "0-iniciais/resumo.tex · abstract.tex",
+      "rodadas": {
+        "R1": { "status": "pendente", "nota": "maior densidade de travessões da tese (21–22/1000 palavras)" },
+        "R2": { "status": "pendente", "nota": "abrem FALCO/LLM; auditar todas" },
+        "R3": { "status": "na" },
+        "R4": { "status": "na" },
+        "R5": { "status": "andamento", "nota": "espelhos alinhados em 2026-08 (P4, 250.221); rechecar ao final" },
+        "R6": { "status": "feito", "nota": "sem jargão de experimento" },
+        "R7": { "status": "pendente" }
+      }
+    },
+    {
+      "id": "cap1", "titulo": "1 · Introdução", "arquivo": "1-intro/texto.tex",
+      "rodadas": {
+        "R1": { "status": "feito", "nota": "gate 2026-08-16, merge 2effcfc (mudanças 2,3,3a + A,B)" },
+        "R2": { "status": "feito", "nota": "FALCO, DRI-SL, LLM, BERT, TF abertos; merge be4074d" },
+        "R3": { "status": "pendente" },
+        "R4": { "status": "pendente" },
+        "R5": { "status": "pendente", "nota": "critério 30%/95% citado: conferir espelho com Cap. 3/5" },
+        "R6": { "status": "feito", "nota": "hipótese reescrita sem E3'/gate/cardápio" },
+        "R7": { "status": "pendente" }
+      }
+    },
+    {
+      "id": "cap2", "titulo": "2 · Fundamentação", "arquivo": "2-fundam/texto.tex",
+      "rodadas": {
+        "R1": { "status": "gate", "nota": "lote 1/5 na branch humanize/cap2 (50190dc); lotes 2–5 a fazer (92 travessões restantes)" },
+        "R2": { "status": "pendente" },
+        "R3": { "status": "pendente", "nota": "capítulo com mais citações — rodada mais longa" },
+        "R4": { "status": "pendente" },
+        "R5": { "status": "pendente" },
+        "R6": { "status": "pendente" },
+        "R7": { "status": "pendente" }
+      }
+    },
+    {
+      "id": "cap3", "titulo": "3 · Método", "arquivo": "3-metodo/texto.tex",
+      "rodadas": {
+        "R1": { "status": "pendente", "nota": "59 travessões; 5 aberturas enumerativas; 1 muleta" },
+        "R2": { "status": "pendente", "nota": "define a maioria das siglas — conferir 1ª ocorrência de cada" },
+        "R3": { "status": "pendente" },
+        "R4": { "status": "pendente" },
+        "R5": { "status": "andamento", "nota": "particionamento executado + 621/714 + 50k justificado em 2026-08 (a4617e8); resta varrer o capítulo inteiro" },
+        "R6": { "status": "pendente", "nota": "ANOTADO: conferir se a 1ª aparição de E3' explica o nome (corte do E3)" },
+        "R7": { "status": "pendente" }
+      }
+    },
+    {
+      "id": "cap4", "titulo": "4 · Resultados P1/P2", "arquivo": "4-resultados-l0/texto.tex",
+      "rodadas": {
+        "R1": { "status": "pendente", "nota": "capítulo mais limpo (17 travessões)" },
+        "R2": { "status": "pendente" },
+        "R3": { "status": "pendente" },
+        "R4": { "status": "pendente" },
+        "R5": { "status": "pendente", "nota": "tab:replay-vs-original referenciada em 2026-08; varrer números" },
+        "R6": { "status": "pendente" },
+        "R7": { "status": "pendente" }
+      }
+    },
+    {
+      "id": "cap5", "titulo": "5 · Resultados P3/P4", "arquivo": "5-resultados-falco/texto.tex",
+      "rodadas": {
+        "R1": { "status": "pendente", "nota": "64 travessões + 6 frases telegráficas ('Três leituras.')" },
+        "R2": { "status": "pendente", "nota": "NIM/MaaS aparecem aqui — abrir na 1ª ocorrência" },
+        "R3": { "status": "pendente" },
+        "R4": { "status": "pendente" },
+        "R5": { "status": "andamento", "nota": "varredura marcada post hoc (a4617e8); ATENÇÃO: multi-semente E3' vai reescrever números deste capítulo" },
+        "R6": { "status": "pendente" },
+        "R7": { "status": "pendente" }
+      }
+    },
+    {
+      "id": "cap6", "titulo": "6 · Conclusão", "arquivo": "6-conclusao/texto.tex",
+      "rodadas": {
+        "R1": { "status": "pendente", "nota": "maior densidade relativa; fecho retórico (tríade + aforismo) é DECISÃO DO AUTOR manter ou não; mistura ---/—" },
+        "R2": { "status": "pendente" },
+        "R3": { "status": "pendente" },
+        "R4": { "status": "pendente" },
+        "R5": { "status": "pendente" },
+        "R6": { "status": "pendente" },
+        "R7": { "status": "pendente" }
+      }
+    }
+  ],
+  "artefatos": [
+    {
+      "id": "experimentos", "nome": "Experimentos (robustez E3′)",
+      "itens": [
+        { "id": "seed7", "titulo": "Rodar semente 7 no Colab (notebook e3prime_colab, 1 sessão)", "dono": "autor", "status": "pendente" },
+        { "id": "seed123", "titulo": "Rodar semente 123 no Colab", "dono": "autor", "status": "pendente" },
+        { "id": "consolidar-seeds", "titulo": "Consolidar média±desvio e atualizar Cap. 5 + resumo/abstract", "dono": "agente", "status": "pendente", "bloqueado_por": ["seed7", "seed123"] }
+      ]
+    },
+    {
+      "id": "publicacoes", "nome": "Publicações e deploys",
+      "itens": [
+        { "id": "kaggle-licenca", "titulo": "Definir licença do dataset no Kaggle (recomendado CC BY 4.0) — bloqueante do artigo a5", "dono": "autor", "status": "pendente" },
+        { "id": "pypi-release", "titulo": "Criar Release no GitHub → publica falco-active-learning no PyPI (workflow pronto)", "dono": "autor", "status": "pendente" },
+        { "id": "zenodo", "titulo": "Ativar webhook Zenodo e gerar DOI (metadados prontos)", "dono": "autor", "status": "pendente" },
+        { "id": "pwc", "titulo": "Papers with Code (precisa de URL de paper público)", "dono": "autor", "status": "pendente", "bloqueado_por": ["zenodo"] },
+        { "id": "vercel", "titulo": "Deploy Vercel do FlowBuilder (nome 'activelearning' já ocupado por terceiro — usar outro)", "dono": "autor", "status": "pendente" },
+        { "id": "chaves", "titulo": "Rotacionar as 5 chaves de API (OpenAI, OpenRouter, MaaS, Neon, NVIDIA — a NVIDIA foi exposta em conversa)", "dono": "autor", "status": "pendente" }
+      ]
+    },
+    {
+      "id": "artigos", "nome": "Artigos derivados (a1–a5)",
+      "itens": [
+        { "id": "a5-classes", "titulo": "Corrigir a5: '649 raw classes' → 714 (649 é a contagem no pool de 50k) + resolver TODOs de licença/versão", "dono": "agente", "status": "pendente" },
+        { "id": "artigos-revisao", "titulo": "Rodada de revisão dos 5 artigos após texto final da tese", "dono": "agente", "status": "pendente" },
+        { "id": "autoria-ordem", "titulo": "Definir autoria/ordem dos 5 artigos", "dono": "autor", "status": "pendente" }
+      ]
+    },
+    {
+      "id": "defesa", "nome": "Defesa",
+      "itens": [
+        { "id": "slides-sync", "titulo": "Sincronizar defesa.tex com o texto final (números pós multi-semente)", "dono": "agente", "status": "pendente", "bloqueado_por": ["consolidar-seeds"] },
+        { "id": "arguicao-sync", "titulo": "Atualizar arguicao.md com vereditos finais", "dono": "agente", "status": "pendente" }
+      ]
+    },
+    {
+      "id": "governanca", "nome": "Governança e qualidade",
+      "itens": [
+        { "id": "fichamento-audit", "titulo": "Auditoria citações × 142 fichamentos (dívida do princípio II) — relatório referência a referência", "dono": "agente", "status": "pendente" },
+        { "id": "dod-scripts", "titulo": "Scripts de DoD do princípio IX: checar siglas do diff, compilação e espelhos como gate", "dono": "agente", "status": "pendente" },
+        { "id": "ars-final", "titulo": "Reavaliação ARS (parecer simulado) após todas as rodadas — meta: subir de 83,6", "dono": "agente", "status": "pendente" }
+      ]
+    },
+    {
+      "id": "biblioteca", "nome": "Biblioteca e software (concluídos recentes)",
+      "itens": [
+        { "id": "wheel-fix", "titulo": "Pacote pip: create_app sem config não quebra mais (33d0f50)", "dono": "agente", "status": "feito" },
+        { "id": "multiseed-infra", "titulo": "E3′ multi-semente: --seed/--out-dir + notebook Colab/Databricks (7dbe5d9)", "dono": "agente", "status": "feito" },
+        { "id": "docs-pages", "titulo": "Documentação MkDocs no GitHub Pages (86/86 testes verdes)", "dono": "agente", "status": "feito" }
+      ]
+    }
+  ],
+  "proximo": {
+    "descricao": "Cap. 2, rodada R1: revisar o lote 1 (9 antes/depois na branch humanize/cap2) e seguir com os lotes 2–5; em paralelo o autor roda as sementes 7 e 123 no Colab.",
+    "fila": [
+      "cap2 R1 lotes 2–5 → gate → merge",
+      "cap3 R1 (inclui nota R6 do E3')",
+      "cap5 R1 · cap4 R1 · cap6 R1 (fecho = decisão do autor)",
+      "pré-textuais R1 (última humanização, após corpo estável)",
+      "R2 siglas nos caps. 2–6 (varredura + script do princípio IX)",
+      "R5 números × artefatos + espelhos (após multi-semente consolidada)",
+      "R3 fichamento (ciclo dedicado, mais longo)",
+      "R4 afirmações · R6 camadas · R7 leitura final + ARS"
+    ]
+  }
+}
