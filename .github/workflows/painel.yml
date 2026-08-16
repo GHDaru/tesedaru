@@ -1,0 +1,42 @@
+name: Painel da tese
+# Publica o Painel da Tese FALCO no GitHub Pages a cada push que toque o plano.
+# O HTML é gerado do JSON no momento do deploy — a página online está sempre
+# igual ao docs/records/plano-revisao.json da main, sem passo manual.
+on:
+  push:
+    branches: [main]
+    paths:
+      - docs/records/plano-revisao.json
+      - docs/records/plano-artefato-template.html
+      - scripts/render-plano-revisao.py
+      - .github/workflows/painel.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Renderiza o painel a partir do JSON
+        run: |
+          mkdir -p _site
+          python3 scripts/render-plano-revisao.py _site/index.html
+          cp docs/records/plano-revisao.json _site/
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4

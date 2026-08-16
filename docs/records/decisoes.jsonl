@@ -4,3 +4,4 @@
 {"id":"adr-0003","data":"2026-08-16","titulo":"Ratificação dos princípios V-X — Constituição da Tese v1.1.0","status":"aceita","registro":"docs/adr/0003-ratificacao-principios-v-a-x.md"}
 {"id":"gate-governanca-01","data":"2026-08-16","titulo":"Gate de merge do ciclo governanca-01 aprovado (instalação Maestro + constituição v1.1.0 + siglas Cap. 1)","status":"aceita","registro":"merge be4074d (branch governanca/constituicao, ADRs 0002-0003)"}
 {"id":"adr-0004","data":"2026-08-16","titulo":"Plano de revisão como JSON versionado + painel republicável","status":"aceita","registro":"docs/adr/0004-plano-de-revisao-como-artefato-versionado.md"}
+{"id":"adr-0005","data":"2026-08-16","titulo":"Cópia online sempre atual do painel via GitHub Pages","status":"aceita","registro":"docs/adr/0005-copia-online-do-painel-via-github-pages.md"}

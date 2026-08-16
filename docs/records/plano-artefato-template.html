@@ -94,9 +94,16 @@
   </section>
 
   <section class="card">
+    <h2>Execuções fora do texto</h2>
+    <p class="label" id="exec-desc" style="text-transform:none;letter-spacing:0"></p>
+    <div id="exec"></div>
+  </section>
+
+  <section class="card">
     <h2>Capítulos × rodadas</h2>
+    <p class="label" id="gate-banner" style="text-transform:none;letter-spacing:0"></p>
     <div class="scroll"><table id="matriz"></table></div>
-    <ul class="notes" id="notas"></ul>
+    <div id="aberturas"></div>
   </section>
 
   <section>
@@ -139,12 +146,26 @@
   ).join('') + '</tbody>';
   el('matriz').innerHTML = head + body;
 
-  const notas = [];
-  P.capitulos.forEach(c => P.rodadas.forEach(r => {
-    const cell = c.rodadas[r.id];
-    if (cell?.nota) notas.push(`<li><strong>${c.titulo} · ${r.id}</strong>: ${cell.nota}</li>`);
-  }));
-  el('notas').innerHTML = notas.join('');
+  el('gate-banner').textContent = P.gate || '';
+
+  el('aberturas').innerHTML = P.capitulos.map(c => c.abertura ? `
+    <details style="margin-top:.5rem">
+      <summary style="cursor:pointer;font-size:.86rem;font-weight:600">${c.titulo} — o que abre esta frente</summary>
+      <ul class="notes">${c.abertura.map(a => `<li>${a}</li>`).join('')}</ul>
+    </details>` : '').join('');
+
+  const estadoPill = (e) => {
+    const map = {aguardando_inicio:['pendente','aguardando início'], rodando:['andamento','rodando'],
+                 concluido:['feito','concluído'], falhou:['gate','falhou']};
+    const [cls,label] = map[e] || ['pendente', e];
+    return `<span class="pill ${cls}">${label}</span>`;
+  };
+  el('exec-desc').textContent = P.execucoes?.descricao || '';
+  el('exec').innerHTML = (P.execucoes?.itens || []).map(i => `
+    <div class="item">${estadoPill(i.estado)}
+      <span class="t">${i.o_que} <small style="color:var(--muted)">· ${i.onde} · ~${i.duracao} · → ${i.resultado_esperado}</small></span>
+      <span class="who">${i.dono}</span>
+    </div>`).join('') || '<p class="label" style="text-transform:none">nada rodando</p>';
 
   el('grupos').innerHTML = P.artefatos.map(g => `
     <div class="card group"><h3>${g.nome}</h3>` +
