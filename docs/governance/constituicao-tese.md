@@ -5,8 +5,9 @@
 > governam o PROCESSO (spec, gates, reversibilidade). Emendas passam por ADR + bump de
 > versão. Todo agente e todo humano DEVE ler este documento antes de editar a tese.
 >
-> **Versão**: 1.0.0 · **Ratificada**: 2026-08-16 (ADR 0002) · Princípios I–IV ditados
-> pelo autor; V–X propostos pelo agente, aguardando gate do autor.
+> **Versão**: 1.1.0 · **Ratificada**: 2026-08-16 (ADR 0002: I–IV; ADR 0003: V–X) ·
+> Princípios I–IV ditados pelo autor; V–X propostos pelo agente e ratificados pelo
+> autor no gate de 2026-08-16.
 
 ## Princípios ratificados
 
@@ -32,7 +33,7 @@ Toda decisão de processo ou de conteúdo com efeito duradouro é registrada em 
 imutável (`docs/adr/`) e indexada em `docs/records/decisoes.jsonl` (append-only).
 Mudança de posição = novo ADR que supersede o anterior, nunca edição do registro.
 
-## Princípios propostos (aguardando gate do autor)
+## Princípios ratificados no gate de 2026-08-16 (ADR 0003)
 
 ### V. Nenhum número sem artefato rastreável
 Todo número reportado no texto resolve para um artefato versionado (arquivo de
