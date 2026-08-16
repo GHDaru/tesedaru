@@ -30,3 +30,13 @@ acuracia, macro-f1, lce, custo-por-rotulo, ic-wilson, mcnemar, wilcoxon
 fichamentos/*.md → (script: front-matter → triplas) → JSON-LD/CSV de arestas →
 Neo4j ou RDF. O corpo markdown NÃO entra no grafo; claims da tabela entram como
 nós `Claim` ligados por `asserts` (paper→claim) e `evidences` (claim→localização).
+
+## Adições da rodada fichar-vizinhos (2026-08-16)
+
+Termos entrados pelos fichamentos dos 11 vizinhos (parecer R6, Bloco C); mesmo commit do fichamento que os introduz.
+
+### Tarefas (fichar-vizinhos)
+classificacao-de-texto  <!-- FreeAL2023 -->
+
+### Modelos (fichar-vizinhos)
+biomed-roberta-base, gpt-3.5-turbo, roberta-base  <!-- FreeAL2023 -->
