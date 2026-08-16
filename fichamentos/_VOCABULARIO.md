@@ -41,7 +41,8 @@ regressao  <!-- Farquhar2021Bias -->
 classificacao-de-imagens  <!-- Hacohen2022TypiClust -->
 
 ### Modelos (fichar-vizinhos)
-biomed-roberta-base, gpt-3.5-turbo, roberta-base  <!-- FreeAL2023 -->,,,,,,
+biomed-roberta-base, gpt-3.5-turbo, roberta-base  <!-- FreeAL2023 -->,,,,,,,
+processo-gaussiano, random-forest, resnet, wideresnet  <!-- Kossen2021ActiveTesting -->
 rede-neural-bayesiana, regressao-linear  <!-- Farquhar2021Bias -->
 simcse  <!-- Yu2023Patron -->
 vgg-16  <!-- Sener2018 -->
@@ -50,7 +51,8 @@ gpt-3-davinci, pegasus-large, roberta-large  <!-- Wang2021GPT3Labeling -->
 gpt-4  <!-- Zhang2023LLMaAA -->
 
 ### Métodos (fichar-vizinhos)
-auto-supervisao, k-means, selecao-por-diversidade, tipicidade, transicao-de-fase-de-orcamento, typiclust  <!-- Hacohen2022TypiClust -->,,,
+auto-supervisao, k-means, selecao-por-diversidade, tipicidade, transicao-de-fase-de-orcamento, typiclust  <!-- Hacohen2022TypiClust -->,,,,
+teste-ativo  <!-- Kossen2021ActiveTesting -->
 estimador-lure, estimador-pure  <!-- Farquhar2021Bias -->
 partition-then-rewrite, patron, propagacao-de-incerteza  <!-- Yu2023Patron -->
 core-set-selection, k-center-greedy, robust-k-center  <!-- Sener2018 -->
