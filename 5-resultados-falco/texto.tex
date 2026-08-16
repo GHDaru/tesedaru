@@ -1,10 +1,10 @@
 \chapter{Resultados: Oráculos LLM e o Framework FALCO}
 \label{ch:resultados-falco}
 
-Este capítulo apresenta os resultados do pilar P3 — a avaliação instrumentada de
-LLMs como oráculos de rotulagem (E0, Seção~\ref{sec:res-e0}), a ablação de
-prompt no modelo de menor custo (E0-P, Seção~\ref{sec:res-e0p}) — e o pilar
-P4: a varredura de estratégias com oráculo simulado
+Este capítulo apresenta os resultados de dois pilares. O pilar P3 traz a
+avaliação instrumentada de LLMs como oráculos de rotulagem (E0,
+Seção~\ref{sec:res-e0}) e a ablação de prompt no modelo de menor custo
+(E0-P, Seção~\ref{sec:res-e0p}). O pilar P4 traz: a varredura de estratégias com oráculo simulado
 (E1, Seção~\ref{sec:res-e1}), a robustez do aprendizado a ruído controlado de
 oráculo (E4, Seção~\ref{sec:res-e4}), os seletores em escala populacional
 (E6, Seção~\ref{sec:res-e6}) e a validação com o classificador forte fora do
@@ -55,21 +55,21 @@ gpt-4o-mini       & S-strat & 45,7\% & [43,4; 48,0] & 0,427 & 0,0\% \\
 \end{table}
 
 Quatro leituras principais. \textbf{(i)} Os quatro melhores oráculos formam um
-platô entre 77\% e 83\% nas duas amostras — as diferenças internas ao platô
+platô entre 77\% e 83\% nas duas amostras, e as diferenças internas ao platô
 são pequenas; o teste pareado (RQ1, McNemar) na S-strat mostra
 deepseek-v4-pro significativamente superior ao v4-flash
 ($b=43$, $c=16$, $p<0{,}001$) e estatisticamente empatado com o gpt-4o
 ($p=0{,}061$). \textbf{(ii)} O gpt-4o-mini colapsa na amostra estratificada
 (45,7\%): o modelo pequeno erra sistematicamente nas classes raras, que a
 S-strat expõe por construção. \textbf{(iii)} Nenhum oráculo atinge o limiar de
-$85\%$ do gate (Seção~\ref{sec:metodo-oraculo-decisao}) na S-rand — o melhor
+$85\%$ do gate (Seção~\ref{sec:metodo-oraculo-decisao}) na S-rand: o melhor
 zero-shot fica a $\approx 7$ p.p.\ do teto supervisionado com 250 mil rótulos
 ($89{,}6\%$, \citealp{Daru2024Dissertacao}). A consequência de desenho está na
 Seção~\ref{sec:res-gate}. \textbf{(iv)} Em compensação, o Macro F1 zero-shot
 dos oráculos do platô ($\approx 0{,}78$--$0{,}80$ na S-strat) \emph{supera} o
 Macro F1 do PVBin treinado com supervisão completa ($0{,}70$): o conhecimento
-de mundo do LLM compensa exatamente onde o supervisionado leve sofre — classes
-com pouquíssimos exemplos.
+de mundo do LLM compensa exatamente onde o supervisionado leve sofre, ou seja,
+nas classes com pouquíssimos exemplos.
 
 \subsection{RQ2 --- custo e o efeito do \textit{cache}}
 \label{sec:res-e0-rq2}
@@ -98,7 +98,7 @@ A Tabela~\ref{tab:e0-custo} consolida o custo por mil rótulos e a taxa de
 acerto do \textit{cache} de prefixo por oráculo. O intervalo de custo entre
 oráculos do mesmo platô de acurácia é de mais de
 uma ordem de grandeza: o deepseek-v4-flash entrega 78--82\% por
-US\$~0,035/1k — \textbf{26 vezes mais barato} que o gpt-4o (80--82\%). O
+US\$~0,035/1k, \textbf{26 vezes mais barato} que o gpt-4o (80--82\%). O
 \textit{cache} de prefixo (prefixo estático do \textit{prompt} + schema
 precedendo o item variável, Seção~\ref{sec:metodo-oraculo-instrumentacao})
 atinge 88--95\% de acerto nos provedores que o suportam, reduzindo pela metade
@@ -108,7 +108,7 @@ item relatado na literatura \citep{Gilardi2023}. Custo, porém, não é a única
 restrição operacional: os limites de vazão dos provedores (3 requisições/min
 no MaaS, 18/min no plano gratuito do OpenRouter, nos artefatos de latência do
 E0) moldaram o próprio desenho experimental e, em produção, definem o tempo de
-parede de um ciclo de rotulagem tanto quanto o preço — um oráculo barato e
+parede de um ciclo de rotulagem tanto quanto o preço: um oráculo barato e
 lento pode ser dominado por um caro e paralelo quando o gargalo é o prazo.
 
 O \textbf{regime de custo monetário zero} confirmou-se competitivo: o
@@ -116,13 +116,13 @@ nemotron-3-ultra servido pela API de avaliação da NVIDIA empata
 estatisticamente com o deepseek-v4-flash na S-rand (McNemar, $p=0{,}76$) e
 com o glm-5.2 na S-strat ($p=0{,}078$), ficando abaixo apenas do v4-pro
 ($p<0{,}001$). Duas ressalvas operacionais, ambas achados: (i) grátis não é
-custo operacional zero — a primeira tentativa, via agregador com cota de 50
-requisições/dia, projetava seis dias de execução (decisões D-005/D-006); e
+custo operacional zero, porque a primeira tentativa, via agregador com cota de
+50 requisições/dia, projetava seis dias de execução (decisões D-005/D-006); e
 (ii) \emph{o provedor de \textit{serving} é parte do instrumento}: o MESMO
 modelo servido pelo agregador diverge significativamente de si mesmo servido
 pela NVIDIA nas mesmas instâncias ($p<0{,}001$ no subconjunto pareado de 850
-itens) — medições de oráculo LLM devem registrar não só o modelo, mas quem o
-serve e como.
+itens). Medições de oráculo LLM devem registrar, portanto, não só o modelo, mas
+quem o serve e como.
 
 \subsection{RQ3 --- perfil de erro}
 \label{sec:res-e0-rq3}
