@@ -278,15 +278,15 @@ LCE e em F1 final, todas as comparações): com 15\% do orçamento de rótulos, 
 melhor célula recupera $78\%$ do Macro F1 do teto supervisionado.
 \textbf{(ii)~As margens vencem a entropia} no regime de 621 classes: menor
 margem lidera em LCE ($0{,}528$) e menor confiança em F1 final ($0{,}421$),
-enquanto a entropia — diluída pela cauda longa de probabilidades em espaços
-de classe muito grandes — fica $\approx 2$--$3$ p.p.\ atrás; a híbrida herda
+enquanto a entropia, diluída pela cauda longa de probabilidades em espaços
+de classe muito grandes, fica $\approx 2$--$3$ p.p.\ atrás; a híbrida herda
 o pior dos dois mundos. \textbf{(iii)~O lote é barato até certo ponto}: na
 ablação com entropia, $b=50$ (LCE $0{,}492 \pm 0{,}009$) e $b=100$
 ($0{,}493 \pm 0{,}006$) são indistinguíveis, mas $b=200$ degrada para
-$0{,}481 \pm 0{,}012$ — com lotes grandes a seleção repete redundância dentro
-do próprio lote antes de o modelo se atualizar. Para o FALCO, isso fixa o
+$0{,}481 \pm 0{,}012$, porque com lotes grandes a seleção repete redundância
+dentro do próprio lote antes de o modelo se atualizar. Para o FALCO, isso fixa o
 lote operacional em $b \le 100$ e recomenda menor margem/menor confiança como
-estratégias da Fase~2 — com a ressalva explícita de que o ordenamento foi
+estratégias da Fase~2, com a ressalva explícita de que o ordenamento foi
 medido com o classificador leve e deve ser revalidado com BERTimbau no E3:
 probabilidades mais calibradas do \textit{transformer} podem reordenar
 entropia e margens.
@@ -295,13 +295,13 @@ entropia e margens.
 \label{sec:res-e4}
 
 O E4 injeta ruído uniforme $\varepsilon \in \{0{,}1;\, 0{,}2;\, 0{,}4\}$ no
-oráculo simulado e repete o desenho do E1 para entropia e aleatória — a
+oráculo simulado e repete o desenho do E1 para entropia e aleatória. A
 pergunta é quanto do valor do aprendizado ativo sobrevive quando o oráculo
 erra na taxa observada nos LLMs reais ($\varepsilon \approx 0{,}17$--$0{,}23$
 no platô do E0). Os três níveis são escolhidos para \emph{cercar} essa faixa:
 $0{,}1$ abaixo dela (oráculo melhor que os disponíveis), $0{,}2$ dentro dela
-(cenário central) e $0{,}4$ como teste de estresse — o dobro do erro real,
-região do gpt-4o-mini na S-strat.
+(cenário central) e $0{,}4$ como teste de estresse, ou seja, o dobro do erro
+real, na região do gpt-4o-mini na S-strat.
 A Tabela~\ref{tab:e4} apresenta o resultado
 (mesmo artefato do E1).
 
@@ -333,7 +333,7 @@ aprendizado ativo}: a vantagem da entropia sobre a aleatória sobrevive
 \emph{intacta e no teto de significância} em todos os níveis de ruído
 ($p=0{,}0078$ em LCE e F1 final para todo $\varepsilon$), e a retenção
 relativa das duas estratégias é praticamente idêntica ($87\%$, $74\%$ e
-$54\%$ em $\varepsilon=0{,}1$, $0{,}2$ e $0{,}4$) — ou seja, o ruído
+$54\%$ em $\varepsilon=0{,}1$, $0{,}2$ e $0{,}4$): o ruído
 uniforme deprime a curva inteira sem corroer o \emph{valor da seleção}. Não
 há, neste regime, o colapso descrito na literatura em que a incerteza
 persegue os rótulos errados. \textbf{Segundo, a taxa de erro dos oráculos
@@ -345,7 +345,7 @@ que quase metade do erro real dos oráculos é estruturado (categorias-irmãs e
 guarda-chuva semanticamente próximas), cujo dano esperado ao classificador é
 menor que o do erro aleatório de mesma taxa
 \citep{Frenay2014,Song2023NoisyLabels}. Registre-se a nuance: essa leitura
-não é unânime — em reconhecimento de entidades, ruído \emph{real} de anotação
+não é unânime, pois em reconhecimento de entidades o ruído \emph{real} de anotação
 mostrou-se mais nocivo que corrupção artificial de mesma taxa
 \citep{Merdjanovska2024NoiseBench}; a extrapolação aqui é condicionada à
 anatomia específica medida no RQ3 (confusões semanticamente adjacentes e
@@ -366,14 +366,14 @@ próprio gabarito) e uma \textbf{população reservada} com todo o restante
 ($\approx 140$ mil instâncias), jamais tocada pela seleção. A cada lote de
 500, o conjunto rotulado acumulado sofre uma divisão convencional 80/20 e o
 modelo treinado é medido em dois lugares: no \emph{teste interno} (os 20\% do
-que o processo rotulou — o que um praticante sem conjunto reservado
+que o processo rotulou, isto é, o que um praticante sem conjunto reservado
 conseguiria medir) e na \emph{população} (o desempenho real de implantação).
 Cinco seletores são comparados com PVBin e SGD logístico: entropia,
-aleatório, DRI-SL como política contínua, a variante \textbf{DRI-SL-C} —
-em que, após o \textit{cold start}, os grupos do DRI-SL deixam de vir de
-$k$-means e passam a ser as \emph{classes previstas pelo próprio
-classificador}, mantidas a alocação proporcional e a novidade lexical
-intra-grupo — e um braço de \textbf{ablação} da própria DRI-SL-C, que
+aleatório, DRI-SL como política contínua, a variante \textbf{DRI-SL-C} e um
+braço de \textbf{ablação} da própria DRI-SL-C. Na DRI-SL-C, após o
+\textit{cold start}, os grupos do DRI-SL deixam de vir de $k$-means e passam a
+ser as \emph{classes previstas pelo próprio classificador}, mantidas a
+alocação proporcional e a novidade lexical intra-grupo; a ablação
 remove o termo de novidade lexical e equivale, portanto, a
 \emph{amostragem estratificada pelas classes previstas}. A ablação isola a
 origem do ganho da variante: agrupamento por predição ou seleção lexical
