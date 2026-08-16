@@ -40,16 +40,19 @@ classificacao-de-texto  <!-- FreeAL2023 -->,
 classificacao-de-imagens  <!-- Hacohen2022TypiClust -->
 
 ### Modelos (fichar-vizinhos)
-biomed-roberta-base, gpt-3.5-turbo, roberta-base  <!-- FreeAL2023 -->,,,,
+biomed-roberta-base, gpt-3.5-turbo, roberta-base  <!-- FreeAL2023 -->,,,,,
+simcse  <!-- Yu2023Patron -->
 vgg-16  <!-- Sener2018 -->
 dino, flexmatch, scan, simclr  <!-- Hacohen2022TypiClust -->
 gpt-3-davinci, pegasus-large, roberta-large  <!-- Wang2021GPT3Labeling -->
 gpt-4  <!-- Zhang2023LLMaAA -->
 
 ### Métodos (fichar-vizinhos)
-auto-supervisao, k-means, selecao-por-diversidade, tipicidade, transicao-de-fase-de-orcamento, typiclust  <!-- Hacohen2022TypiClust -->,
+auto-supervisao, k-means, selecao-por-diversidade, tipicidade, transicao-de-fase-de-orcamento, typiclust  <!-- Hacohen2022TypiClust -->,,
+partition-then-rewrite, patron, propagacao-de-incerteza  <!-- Yu2023Patron -->
 core-set-selection, k-center-greedy, robust-k-center  <!-- Sener2018 -->
 
 ### Datasets (fichar-vizinhos)
-cifar-10, cifar-100, imagenet-subconjuntos, tiny-imagenet  <!-- Hacohen2022TypiClust -->,
+cifar-10, cifar-100, imagenet-subconjuntos, tiny-imagenet  <!-- Hacohen2022TypiClust -->,,
+dbpedia, yahoo-answers, yelp-full  <!-- Yu2023Patron -->
 svhn  <!-- Sener2018 -->
