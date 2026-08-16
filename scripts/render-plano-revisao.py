@@ -961,6 +961,7 @@ const COLS = [
   {key:'ordem',    label:'#',            kind:'num',  get:r=>r.ordem},
   {key:'titulo',   label:'Título',       kind:'str',  get:r=>r.titulo},
   {key:'autores',  label:'Autores',      kind:'str',  get:r=>(r.autores[0]||'')},
+  {key:'ano',      label:'Ano',          kind:'num',  get:r=>(r.ano ? parseInt(r.ano,10) : null)},
   {key:'onde',     label:'Onde citada',  kind:'num',  get:r=>r.ordem},
   {key:'link',     label:'Link',         kind:'str',  get:r=>(r.link_tipo||'')},
   {key:'pdf',      label:'PDF',          kind:'bool', get:r=>r.pdf},
@@ -1021,6 +1022,7 @@ function linha(r){
     <td class="tot">${r.ordem ?? '<span class="vazia">não citada</span>'}</td>
     <td>${esc(r.titulo)}</td>
     <td>${autoresTxt(r.autores)}</td>
+    <td class="tot">${r.ano ? esc(r.ano) : '<span class="vazia">—</span>'}</td>
     <td>${ondeCell(r)}</td>
     <td>${linkCell(r)}</td>
     <td>${badge(r.pdf)}</td>
@@ -1028,7 +1030,7 @@ function linha(r){
     <td><button type="button" class="ref-det-btn" data-target="${detId}" aria-expanded="false">ver</button></td>
   </tr>
   <tr id="${detId}" class="ref-det-row" hidden>
-    <td colspan="8">${r.detalhes_html ? r.detalhes_html : '<p class="vazia">Ainda não fichada.</p>'}</td>
+    <td colspan="9">${r.detalhes_html ? r.detalhes_html : '<p class="vazia">Ainda não fichada.</p>'}</td>
   </tr>`;
 }
 
@@ -1044,7 +1046,7 @@ function render(){
   const visiveis = refs.filter(passaFiltro).slice().sort((a,b) => cmp(a,b,col,sortState.dir));
   const tab = document.getElementById('ref-tabela');
   tab.innerHTML = '<thead><tr>' + COLS.map(headerCell).join('') + '</tr></thead>' +
-    '<tbody>' + (visiveis.length ? visiveis.map(linha).join('') : '<tr><td colspan="8" class="vazia">Nenhuma referência encontrada.</td></tr>') + '</tbody>';
+    '<tbody>' + (visiveis.length ? visiveis.map(linha).join('') : '<tr><td colspan="9" class="vazia">Nenhuma referência encontrada.</td></tr>') + '</tbody>';
   tab.querySelectorAll('.ref-th-btn').forEach(btn => btn.addEventListener('click', () => {
     const key = btn.dataset.col;
     if (sortState.campo !== key) sortState = {campo: key, dir: 1};
