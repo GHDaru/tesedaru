@@ -71,6 +71,10 @@ SHARED_CSS = """
   --st-pendente:#7C8378; --st-pendente-bg:#EFF1EC;
   --st-na:#B6BCB0; --st-na-bg:#F5F6F3;
   --grid:#ECEEE9;
+  /* identidade por agente (kanban, ciclo 004b) — 5 matizes que não colidem
+     com accent/atencao/st-andamento, que já carregam outro significado */
+  --ag-principal:#6E42C1; --ag-banca:#0E7C86; --ag-revisor1:#B15C2E;
+  --ag-revisor2:#9C3F76; --ag-autor:#4A4E9E;
   /* tipografia: escala fixa 12/13/15/20/28/44 — nunca tamanho arbitrário */
   --fs-1:12px; --fs-2:13px; --fs-3:15px; --fs-4:20px; --fs-5:28px; --fs-6:44px;
   /* espaço em múltiplos de 4px */
@@ -88,6 +92,8 @@ SHARED_CSS = """
     --st-pendente:#9AA294; --st-pendente-bg:#232823;
     --st-na:#5C635A; --st-na-bg:#1D221E;
     --grid:#242A25;
+    --ag-principal:#B79AF0; --ag-banca:#7FDBE0; --ag-revisor1:#E3A67A;
+    --ag-revisor2:#E091C4; --ag-autor:#A7ABE8;
   }
 }
 :root[data-theme="dark"]{
@@ -100,6 +106,8 @@ SHARED_CSS = """
   --st-pendente:#9AA294; --st-pendente-bg:#232823;
   --st-na:#5C635A; --st-na-bg:#1D221E;
   --grid:#242A25;
+  --ag-principal:#B79AF0; --ag-banca:#7FDBE0; --ag-revisor1:#E3A67A;
+  --ag-revisor2:#E091C4; --ag-autor:#A7ABE8;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -701,11 +709,12 @@ function card(m) {
   const ref = m.referencia ? esc(m.referencia) : '';
   let rodape = `há ${idade(m.idade_horas)}`;
   if (m.prazo) rodape += ` · prazo ${prazoFmt(m.prazo)}`;
+  const agDot = AGENTES.includes(m.de) ? `<span class="k-ag-dot" data-ag="${esc(m.de)}" aria-hidden="true"></span>` : '';
   return `<article class="k-card${paraVoce ? ' para-voce' : ''}${atrasado ? ' atrasado' : ''}"
       data-de="${esc(m.de)}" data-para="${esc(m.para)}" data-tipo="${esc(m.tipo)}">
     ${paraVoce ? '<span class="k-badge">para você</span>' : ''}
     <p class="k-titulo" title="${titulo}">${titulo}</p>
-    <p class="k-rota"><strong>${esc(m.de)} → ${esc(m.para)}</strong> <span class="k-tipo">${esc(TIPO_LABEL[m.tipo] || m.tipo)}</span></p>
+    <p class="k-rota"><strong>${agDot}${esc(m.de)} → ${esc(m.para)}</strong> <span class="k-tipo">${esc(TIPO_LABEL[m.tipo] || m.tipo)}</span></p>
     <p class="k-rodape">${rodape}${atrasado ? ' <strong class="k-atrasado">⚠ atrasado</strong>' : ''}</p>
     ${ref ? `<p class="k-ref" title="${ref}">${ref}</p>` : ''}
   </article>`;
@@ -742,8 +751,10 @@ function renderBoard() {
 
 function renderFiltros() {
   const wrap = document.getElementById('filtros');
-  const pill = (grupo, val, label) =>
-    `<button type="button" class="pilula on" data-grupo="${grupo}" data-val="${esc(val)}" aria-pressed="true">${esc(label)}</button>`;
+  const pill = (grupo, val, label) => {
+    const dot = grupo === 'agente' ? `<span class="k-ag-dot" data-ag="${esc(val)}" aria-hidden="true"></span>` : '';
+    return `<button type="button" class="pilula on" data-grupo="${grupo}" data-val="${esc(val)}" aria-pressed="true">${dot}${esc(label)}</button>`;
+  };
   wrap.innerHTML =
     `<div class="pilulas" aria-label="Filtrar por agente">` + AGENTES.map(a => pill('agente', a, a)).join('') + `</div>` +
     `<div class="pilulas" aria-label="Filtrar por tipo">` + TIPOS.map(t => pill('tipo', t, TIPO_LABEL[t])).join('') + `</div>`;
@@ -816,14 +827,29 @@ document.getElementById('saude').textContent = doente
 .k-card.para-voce{border-color:var(--atencao-borda); box-shadow:inset 3px 0 0 var(--atencao)}
 .k-badge{align-self:flex-start; background:var(--atencao-bg); color:var(--atencao); border:1px solid var(--atencao-borda);
   border-radius:99px; padding:.05rem .55rem; font-size:var(--fs-1); font-weight:700}
-.k-titulo{margin:0; font-size:var(--fs-3); font-weight:600;
+/* fonte um pouco menor no cartão inteiro (pedido do autor) — título sai de
+   --fs-3 para --fs-2, o resto já estava no piso da escala (--fs-1) */
+.k-titulo{margin:0; font-size:var(--fs-2); font-weight:600; line-height:1.25;
   display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
-.k-rota{margin:0; font-size:var(--fs-2)}
+.k-rota{margin:0; font-size:var(--fs-1)}
 .k-rota strong{font-weight:600}
 .k-tipo{color:var(--muted); font-size:var(--fs-1)}
 .k-rodape{margin:0; color:var(--muted); font-size:var(--fs-1)}
 .k-atrasado{color:var(--atencao)}
 .k-ref{margin:0; color:var(--muted); font-size:var(--fs-1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+/* identidade por agente: pontinho colorido + nome por extenso ao lado —
+   nunca só a cor (mesma régua de estado do site inteiro). Decisão de UX:
+   tag pequena, não o cartão inteiro pintado — o cartão inteiro competiria
+   com o sinal de "para você"/"atrasado" (âmbar), que precisa continuar
+   sendo o mais saliente da tela. */
+.k-ag-dot{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:.35em;
+  vertical-align:middle; flex:none}
+.k-ag-dot[data-ag="principal"]{background:var(--ag-principal)}
+.k-ag-dot[data-ag="banca"]{background:var(--ag-banca)}
+.k-ag-dot[data-ag="revisor1"]{background:var(--ag-revisor1)}
+.k-ag-dot[data-ag="revisor2"]{background:var(--ag-revisor2)}
+.k-ag-dot[data-ag="autor"]{background:var(--ag-autor)}
+.pilula .k-ag-dot{margin-right:.4em}
 .estado{display:inline-flex; gap:.35rem; align-items:center; white-space:nowrap; font-weight:600}
 td.quando{white-space:nowrap; color:var(--muted)}
 td.rota{white-space:nowrap; font-weight:600}
