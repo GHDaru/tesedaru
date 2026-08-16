@@ -15,13 +15,16 @@ como comércio eletrônico e cadastros operacionais, descrições curtas costuma
 apresentar abreviações, variações morfológicas, ruídos ortográficos e grande
 heterogeneidade lexical. Em trabalho anterior, voltado à classificação de descrições
 curtas de produtos em português, observou-se que métodos clássicos de recuperação da
-informação, como \textit{bag-of-words}, TF e TF--IDF, podem alcançar desempenho
+informação, como \textit{bag-of-words}, a frequência de termos (TF) e sua
+ponderação TF--IDF (\textit{term frequency--inverse document frequency}), podem
+alcançar desempenho
 relevante quando combinados com pré-processamento e parametrização adequados
 \citep{Daru2024Dissertacao}. Esse resultado ancora empiricamente o problema e é a
 base da qual esta tese parte.
 
 Ao mesmo tempo, o avanço dos modelos de linguagem pré-treinados alterou
-significativamente o estado da arte em PLN. O BERT mostrou que representações
+significativamente o estado da arte em PLN. O BERT (\textit{Bidirectional
+Encoder Representations from Transformers}) mostrou que representações
 bidirecionais profundas, obtidas por pré-treinamento em texto não rotulado e
 posterior ajuste fino em tarefas específicas, podem produzir resultados de ponta em
 diversas tarefas \citep{devlin2019bert}. Para o português, o BERTimbau evidenciou que
@@ -59,7 +62,8 @@ ativo tradicional nas fases iniciais do processo \citep{zhang2022surveyAL}.
 A literatura já consolidou os desafios da classificação de textos curtos e a força de
 modelos pré-treinados em cenários com poucos dados anotados
 \citep{alsmadi2019shorttext,song2014shorttext,devlin2019bert,Souza2020BERTimbau}. Trabalhos recentes, como o
-ActiveLLM, indicaram que modelos de linguagem de grande porte podem apoiar a seleção
+ActiveLLM, indicaram que modelos de linguagem de grande porte (LLMs, de
+\textit{large language models}) podem apoiar a seleção
 de instâncias em cenários com poucos exemplos, mitigando o \textit{cold start}
 \citep{Bayer2024ActiveLLM}, e que LLMs podem atuar como rotuladores de baixo custo em
 ciclos de aprendizado ativo \citep{Zhang2025LLMAL}. Ainda assim, permanece uma lacuna
@@ -105,7 +109,8 @@ Capítulo~\ref{ch:metodo} formaliza cada elemento deste critério
 \section{Objetivos}
 \label{sec:intro-objetivos}
 
-O objetivo geral é propor e avaliar o \textbf{FALCO}, um framework de aprendizado
+O objetivo geral é propor e avaliar o \textbf{FALCO} (\textit{Framework} de
+Aprendizado Ativo com LLM para texto CurtO): um framework de aprendizado
 ativo para classificação de textos curtos em português, com uso de modelos de
 linguagem como oráculo de rotulagem e apoio à fase inicial de seleção, visando
 reduzir o custo de anotação e manter desempenho competitivo. A investigação é
@@ -117,8 +122,8 @@ resultados:
   composição e do tamanho do conjunto inicial de rotulagem ($L_0$) na generalização
   do classificador, incluindo a estimativa de limites por otimização evolutiva;
   \item \textbf{P2 — \textit{cold start} sem rótulos}: propor e avaliar o algoritmo
-  DRI-SL, que constrói um $L_0$ informativo sem acesso a rótulos, combinando
-  densidade semântica e variedade lexical;
+  DRI-SL (\textit{Diversidade Representativa Inicial via densidade Semântica e
+  variedade Lexical}), que constrói um $L_0$ informativo sem acesso a rótulos;
   \item \textbf{P3 — LLM como oráculo}: medir, com instrumentação validada, a
   assertividade, o custo e o perfil de erro de LLMs como rotuladores para o domínio,
   derivando a configuração de oráculos do framework;

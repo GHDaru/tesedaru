@@ -1,0 +1,53 @@
+name: Painel da tese
+# Publica as 4 páginas do site da tese (Controle, Plano, Coordenação,
+# Resultados) no GitHub Pages a cada push que as toque. O HTML nasce inteiro
+# do scripts/render-plano-revisao.py no momento do deploy — a página online
+# está sempre igual aos JSONs de docs/records/ da main, sem passo manual.
+on:
+  push:
+    branches: [main]
+    paths:
+      - docs/records/plano-revisao.json
+      - docs/records/resultados.json
+      - scripts/render-plano-revisao.py
+      - scripts/compute-kpis.py
+      - scripts/compute-mensagens.py
+      - coordenacao/**
+      - .github/workflows/painel.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # histórico completo: a série de evolução vem do git log do plano
+      - name: Computa KPIs e renderiza as 4 páginas do site
+        run: |
+          mkdir -p _site
+          python3 scripts/compute-kpis.py
+          python3 scripts/compute-mensagens.py
+          python3 scripts/render-plano-revisao.py _site
+          cp docs/records/plano-revisao.json docs/records/kpis.json docs/records/mensagens.json _site/
+          test -f docs/records/resultados.json && cp docs/records/resultados.json _site/ || true
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+# Pages habilitado pelo autor em 2026-08-16; este commit re-dispara o deploy inicial.

@@ -1,0 +1,185 @@
+{
+ "schema": "kpis/v1",
+ "computado_em": "2026-08-16",
+ "git_sha": "38d345b",
+ "prontidao": {
+  "global_pct": 3.4,
+  "texto_pct": 4.0,
+  "artefatos_pct": 0.0,
+  "pontos_totais": 2032,
+  "pontos_feitos": 80,
+  "por_rodada": [
+   {
+    "id": "R1",
+    "pontos": 331,
+    "feitos": 24
+   },
+   {
+    "id": "R2",
+    "pontos": 120,
+    "feitos": 15
+   },
+   {
+    "id": "R3",
+    "pontos": 468,
+    "feitos": 0
+   },
+   {
+    "id": "R4",
+    "pontos": 140,
+    "feitos": 0
+   },
+   {
+    "id": "R5",
+    "pontos": 743,
+    "feitos": 21
+   },
+   {
+    "id": "R6",
+    "pontos": 80,
+    "feitos": 20
+   },
+   {
+    "id": "R7",
+    "pontos": 150,
+    "feitos": 0
+   }
+  ],
+  "por_capitulo": [
+   {
+    "id": "pre",
+    "pontos": 80,
+    "feitos": 10
+   },
+   {
+    "id": "cap1",
+    "pontos": 96,
+    "feitos": 31
+   },
+   {
+    "id": "cap2",
+    "pontos": 506,
+    "feitos": 18
+   },
+   {
+    "id": "cap3",
+    "pontos": 211,
+    "feitos": 21
+   },
+   {
+    "id": "cap4",
+    "pontos": 161,
+    "feitos": 0
+   },
+   {
+    "id": "cap5",
+    "pontos": 326,
+    "feitos": 0
+   },
+   {
+    "id": "cap6",
+    "pontos": 164,
+    "feitos": 0
+   },
+   {
+    "id": "ap",
+    "pontos": 488,
+    "feitos": 0
+   }
+  ]
+ },
+ "ritmo": {
+  "velocidade_pontos_semana": null,
+  "janela_dias": 14,
+  "eta_semanas": null,
+  "eta_data": null,
+  "eta_confiavel": false,
+  "serie": [
+   {
+    "data": "2026-08-16",
+    "commit": "62e9f95",
+    "pontos": 80,
+    "pct": 3.9,
+    "evento": null
+   }
+  ]
+ },
+ "fila_autor": {
+  "total": 10,
+  "itens": [
+   {
+    "id": "seed7",
+    "tipo": "acao",
+    "titulo": "Rodar semente 7 no Colab (notebook e3prime_colab, 1 sessão)",
+    "pontos_destravados": 239
+   },
+   {
+    "id": "seed123",
+    "tipo": "acao",
+    "titulo": "Rodar semente 123 no Colab",
+    "pontos_destravados": 239
+   },
+   {
+    "id": "zenodo",
+    "tipo": "acao",
+    "titulo": "Ativar webhook Zenodo e gerar DOI (metadados prontos) · ao obter DOI: inserir URL+DOI no artigo A4 e no Cap. 3 (tese hoje não tem URL de repositório)",
+    "pontos_destravados": 10
+   },
+   {
+    "id": "kaggle-licenca",
+    "tipo": "acao",
+    "titulo": "Definir licença do dataset no Kaggle (recomendado CC BY 4.0) — bloqueante do artigo a5 · PAR OBRIGATÓRIO: parágrafo de proveniência/LGPD no Cap. 3 (agente)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "pypi-release",
+    "tipo": "acao",
+    "titulo": "Criar Release no GitHub → publica falco-active-learning no PyPI (workflow pronto)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "vercel",
+    "tipo": "acao",
+    "titulo": "Deploy Vercel do FlowBuilder (nome 'activelearning' já ocupado por terceiro — usar outro)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "chaves",
+    "tipo": "acao",
+    "titulo": "Rotacionar as 5 chaves de API (OpenAI, OpenRouter, MaaS, Neon, NVIDIA — a NVIDIA foi exposta em conversa)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "autoria-ordem",
+    "tipo": "acao",
+    "titulo": "Definir autoria/ordem dos 5 artigos",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-fila",
+    "tipo": "decisao",
+    "titulo": "Ordem da fila: manter (lotes 2–5 do Cap. 2 primeiro) OU adotar a do parecer R6 (bib-audit → veredito+pré-textuais → lotes 2–5)? Humanizar antes de mexer nas citações = editar a mesma superfície duas vezes",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-fecho-cap6",
+    "tipo": "decisao",
+    "titulo": "Fecho do Cap. 6: manter tríade+aforismo (estilo) sabendo que 2 trechos são apontados como mérito (DA-C1/C2/C3), ou reescrever",
+    "pontos_destravados": 0
+   }
+  ]
+ },
+ "represados": {
+  "pontos": 239
+ },
+ "divida_fundamentacao": {
+  "citacoes_pendentes": 185,
+  "chaves_citadas": 151,
+  "fichamentos": 153,
+  "chaves_sem_fichamento": 0
+ },
+ "meta_saida": {
+  "parecer_ars": 83.6,
+  "alvo": "reavaliar após R7"
+ }
+}
