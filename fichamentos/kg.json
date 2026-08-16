@@ -4036,11 +4036,6 @@
       "label": "MacKay1992"
     },
     {
-      "id": "Settles2010",
-      "type": "artigo-pendente",
-      "label": "Settles2010"
-    },
-    {
       "id": "Houlsby2011",
       "type": "artigo-pendente",
       "label": "Houlsby2011"
@@ -5344,7 +5339,7 @@
     },
     {
       "source": "Farquhar2021Bias",
-      "target": "Settles2010",
+      "target": "Settles2009",
       "type": "builds_on"
     },
     {
