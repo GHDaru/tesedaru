@@ -17,8 +17,8 @@ heterogeneidade lexical. Em trabalho anterior, voltado à classificação de des
 curtas de produtos em português, observou-se que métodos clássicos de recuperação da
 informação, como \textit{bag-of-words}, TF e TF--IDF, podem alcançar desempenho
 relevante quando combinados com pré-processamento e parametrização adequados
-\citep{Daru2024Dissertacao}. Esse resultado confirma a relevância empírica do problema
-e fornece uma base concreta para investigações posteriores.
+\citep{Daru2024Dissertacao}. Esse resultado ancora empiricamente o problema e é a
+base da qual esta tese parte.
 
 Ao mesmo tempo, o avanço dos modelos de linguagem pré-treinados alterou
 significativamente o estado da arte em PLN. O BERT mostrou que representações
@@ -32,9 +32,9 @@ em BERTimbau na validação principal do framework proposto, reservando modelos 
 leves para análises exploratórias específicas.
 
 Apesar desses avanços, a limitação central permanece: dados não rotulados são
-abundantes, mas a obtenção de rótulos confiáveis continua custosa. Nesse contexto, o
-aprendizado ativo surge como alternativa promissora, ao selecionar iterativamente
-exemplos potencialmente mais informativos para anotação. No entanto, revisões
+abundantes, mas a obtenção de rótulos confiáveis continua custosa. O aprendizado
+ativo ataca diretamente esse custo: seleciona iterativamente os exemplos
+potencialmente mais informativos para anotação. No entanto, revisões
 recentes mostram que sua aplicação prática envolve dificuldades adicionais, como
 custo de anotação, critérios de parada, viabilidade computacional e reaproveitamento
 dos exemplos obtidos \citep{zhang2022surveyAL}.
