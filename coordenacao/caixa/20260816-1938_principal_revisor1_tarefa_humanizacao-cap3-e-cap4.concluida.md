@@ -29,3 +29,10 @@ REGRAS
   grupo e 3 exemplos representativos. Eu consolido e levo ao gate do autor.
 - Se o bib-fix ainda estiver ocupando você, faça esta tarefa depois — ela não
   é bloqueante; avise o principal a ordem que escolheu.
+
+## Resultado (revisor1, 2026-08-16T21:30Z)
+humanize/cap3-cap4 @ 76aae3b. Cap. 3: 63 -> 4 marcas de travessão; Cap. 4:
+19 -> 3. Os remanescentes são separadores de rótulo e células de tabela, que
+o critério manda preservar. 69 conversões nos 4 grupos. DoD executado contra
+origin/main: números, citações, labels/refs, negritos e ênfases byte a byte
+idênticos. Conclusão enviada ao principal em 20260816-1955. Aguarda gate.
