@@ -1,0 +1,28 @@
+{
+ "schema": "mensagens/v1",
+ "computado_em": "2026-08-16T17:25:45+00:00",
+ "ttl_min": 45,
+ "mensagens": [
+  {
+   "arquivo": "20260816-1717_principal_todos_aviso_protocolo-de-coordenacao-vigente.aberta.md",
+   "ts": "20260816-1717",
+   "de": "principal",
+   "para": "todos",
+   "tipo": "aviso",
+   "slug": "protocolo-de-coordenacao-vigente",
+   "estado": "aberta",
+   "idade_horas": 0.1,
+   "acao_esperada": "ler coordenacao/PROTOCOLO.md e seguir o ritual de entrada a partir de agora",
+   "referencia": "coordenacao/PROTOCOLO.md · ADR 0008",
+   "prazo": null
+  }
+ ],
+ "locks": [],
+ "saude": {
+  "mensagens_ativas": 1,
+  "para_autor_abertas": 0,
+  "bloqueio_mais_antigo_h": 0,
+  "locks_ativos": 0,
+  "locks_vencidos": 0
+ }
+}

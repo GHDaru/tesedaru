@@ -20,10 +20,12 @@ template_path = ROOT / "docs/records/plano-artefato-template.html"
 out = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("/tmp/painel-tese-falco.html")
 
 kpis_path = ROOT / "docs/records/kpis.json"
+mens_path = ROOT / "docs/records/mensagens.json"
 plano = json.loads(plano_path.read_text(encoding="utf-8"))  # valida o JSON
 kpis = json.loads(kpis_path.read_text(encoding="utf-8")) if kpis_path.exists() else {}
+mens = json.loads(mens_path.read_text(encoding="utf-8")) if mens_path.exists() else {}
 html = template_path.read_text(encoding="utf-8")
-for marker, data in (("__PLANO_JSON__", plano), ("__KPIS_JSON__", kpis)):
+for marker, data in (("__PLANO_JSON__", plano), ("__KPIS_JSON__", kpis), ("__MENSAGENS_JSON__", mens)):
     if marker not in html:
         sys.exit(f"template sem o marcador {marker}")
     # </script> dentro de strings do JSON quebraria o bloco; escapa por segurança
