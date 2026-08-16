@@ -88,12 +88,23 @@ Bojanowski2016→Bojanowski2017 · Bates2022→Karl2023 · activellm2024→(grup
 
 ## 5. DoD verificável do ciclo de correção
 
+Tudo verificável na FONTE (`.tex`, `.bib`, `.bst`). O `principal.pdf` commitado
+é de 29/07 e está 18 dias atrás do texto: **não serve de evidência para nada** —
+nenhuma checagem deste DoD o utiliza.
+
 - Script resolve cada DOI/arXiv ID das chaves citadas e compara título+autores
   (fuzzy) — 0 divergências.
-- 0 títulos duplicados (normalizados) no bib; 0 campos `note` com texto de
-  trabalho; 0 campos `key=`; toda chave citada com year≥2020 tem DOI ou URL.
-- Compilação 0 erros / 0 warnings de BibTeX; nº de entradas nas Referências
-  do PDF = nº de obras distintas citadas.
+- 0 títulos duplicados (normalizados) **entre as chaves citadas** — este é o
+  teste de "referência repetida na lista final", feito em `.bib` + `.tex`, sem
+  compilar nada.
+- 0 campos `note` com texto de trabalho nas entradas citadas. Justificativa
+  documentada: `apalike-ptbr.bst` imprime `note` em todos os tipos de entrada
+  (`note output` nas l.501–750), logo o campo VAI para a lista de referências.
+- 0 campos `key=`; toda chave citada com year≥2020 tem DOI ou URL.
+- Compilação limpa (0 erros, 0 refs indefinidas, 0 warnings de BibTeX) medida
+  em **build novo**, com evidência nos logs (`principal.log`, `principal.blg`)
+  — nunca no PDF versionado. Roda onde há toolchain LaTeX (máquina do autor ou
+  CI); este contêiner não tem `pdflatex`.
 
 ## Adendo (17:40 UTC) — achados do revisor1 incorporados + lote suspeito
 

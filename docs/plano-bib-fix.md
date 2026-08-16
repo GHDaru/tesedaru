@@ -63,11 +63,12 @@ onde estão `Yu2022` e `Zhang2020`, ambas com padrão de fabricação e órfãs)
 Evidência: checador verde nos 4 critérios estruturais.
 
 ### Lote 4 — Verificação independente (executor: banca) · após os lotes
-Rodar `check-bib.py` do zero, reconferir por amostra 10 entradas corrigidas
-contra fonte primária (quem executou não verifica — §6 do protocolo), conferir
-compilação (0 erros/0 warnings BibTeX) e nº de entradas nas Referências do PDF
-= nº de obras distintas citadas. Saída: adendo ao parecer + mensagem ao
-principal.
+Rodar `check-bib.py` do zero e reconferir por amostra 10 entradas corrigidas
+contra fonte primária (quem executou não verifica — §6 do protocolo). Todas as
+checagens são feitas na FONTE (`.tex`/`.bib`/`.bst`): o `principal.pdf` do
+repositório é de 29/07, anterior ao texto atual, e não é evidência de nada.
+A compilação limpa é medida em build novo, pelos logs (`.log`/`.blg`), onde
+houver toolchain LaTeX. Saída: adendo ao parecer + mensagem ao principal.
 
 ## Sequência e paralelismo
 
