@@ -1,4 +1,4 @@
-# Protocolo de coordenação — 4 agentes + autor (v1.0)
+# Protocolo de coordenação — 4 agentes + autor (v1.1)
 
 > Regra única de mensageria, locks e processo multiagente da tese FALCO.
 > Todo agente LÊ este arquivo ao iniciar a sessão e segue o ritual de entrada.
@@ -68,6 +68,17 @@ Corpo curto. Conteúdo grande vai em arquivo/commit normal; aqui só o hash.
 - **Pergunta**: a resposta é EDIÇÃO da mesma mensagem (`## Resposta (por X,
   data)`) + `git mv` para `.concluida`. Réplica = pergunta nova.
 
+## 2-bis. Roteamento central (ADR 0009 — decisão do autor)
+
+O agente **principal é o hub obrigatório** de todo o fluxo:
+- Nenhum agente endereça mensagem diretamente ao `autor` — só o principal pode.
+- Mensagens agente↔agente também passam pelo principal (`para: principal`),
+  que decide o que sobe ao autor e o que redistribui, e para quem. Exceção:
+  avisos broadcast (`para: todos`) de claim/conclusão continuam diretos.
+- Planejamento (prioridades, fila, matriz, estrutura do plano) só muda pelas
+  mãos do principal; cada agente segue atualizando o status da própria
+  execução.
+
 ## 3. Cadência — só 4 eventos geram mensagem
 
 1. **Claim** — iniciei ciclo/tarefa (evita colisão).
@@ -101,6 +112,12 @@ Force-push em main é proibido em qualquer circunstância.
 **TTL 45 min · heartbeat ~15 min** (commit tocando `renovado_em`; pode ir com
 commits de trabalho). Fonte de verdade = timestamp do último COMMIT que tocou
 o lock (`git log -1 --format=%cI -- <lock>`), nunca o YAML.
+
+**Trabalho entregue aguardando gate**: o lock pode (e deve) ser liberado ao
+publicar a branch para gate — a proteção da superfície passa a ser o estado
+"gate" registrado no plano/tarefa: nenhum agente edita superfície com
+pendência de merge em gate. O TTL de 45 min é para edição ATIVA, não para a
+espera (que pode durar dias) pela decisão humana.
 
 **Quebra**: lock vencido (>45 min sem commit) — qualquer agente pode remover,
 DESDE QUE no mesmo commit crie aviso `lock-quebrado-<superficie>` para o

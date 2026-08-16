@@ -11,6 +11,13 @@ siglas abertas na 1ª ocorrência e presentes na lista, referências validadas
 contra fichamento, afirmações fundamentadas, decisões em ADR
 (`docs/adr/` + `docs/records/decisoes.jsonl`).
 
+## Comunicação com o autor (princípio XI — "ELI15") e roteamento (XII)
+Ao falar com o AUTOR: didático e detalhado — termos explicados, siglas abertas,
+nada de expressões curtas/telegráficas; o autor decide melhor com contexto
+completo. Ao coordenar: o agente `principal` é o HUB — mensagens ao autor só
+via principal; agente↔agente via principal; planejamento só pelo principal
+(constituição v1.2.0, ADR 0009, PROTOCOLO §2-bis).
+
 ## Coordenação multiagente — OBRIGATÓRIO para toda sessão
 4 agentes (principal · banca · revisor1 · revisor2) + o autor coordenam-se por
 `coordenacao/` (PROTOCOLO.md = a regra; caixa/ = mensagens; locks/ = locks de

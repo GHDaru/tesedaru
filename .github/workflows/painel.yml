@@ -39,7 +39,7 @@ jobs:
           python3 scripts/compute-kpis.py
           python3 scripts/compute-mensagens.py
           python3 scripts/render-plano-revisao.py _site/index.html
-          cp docs/records/plano-revisao.json docs/records/kpis.json _site/
+          cp docs/records/plano-revisao.json docs/records/kpis.json docs/records/mensagens.json _site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
