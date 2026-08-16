@@ -14,18 +14,18 @@ pillars: [P4]
 status: fichado
 
 # ===== ENTIDADES (nós Método/Dataset/Métrica/Tarefa; usar nomes canônicos) =====
-proposes: [estimador-pure, estimador-lure]   # R_PURE e R_LURE (pendentes no vocabulário)
+proposes: [estimador-pure, estimador-lure]
 uses_methods: [aprendizado-ativo, pool-based, amostragem-por-incerteza]
-datasets: [mnist, fashion-mnist]             # pendentes no vocabulário
+datasets: [mnist, fashion-mnist]
 metrics: [acuracia]
-tasks: [classificacao-de-imagens, regressao] # pendentes no vocabulário
-models: [rede-neural-bayesiana, regressao-linear]  # pendentes no vocabulário
+tasks: [classificacao-de-imagens, regressao]
+models: [rede-neural-bayesiana, regressao-linear]
 
 # ===== RELAÇÕES COM OUTROS PAPERS (arestas tipadas; alvo = chave bibtex) =====
 extends: []
 compares_with: []
 contradicts: []
-builds_on: [MacKay1992]
+builds_on: [MacKay1992, Lewis1994, Settles2010, Houlsby2011]
 
 # ===== RELAÇÃO COM A TESE (arestas para nós do FALCO) =====
 falco_relation:
@@ -76,6 +76,8 @@ A aplicação a avaliação de modelos é apontada como direção nova — semen
 | C6 | Remover o viés pode PIORAR o treino de modelos superparametrizados: ALB (negativo) cancela parcialmente OFB (positivo) — AL como regularização ad hoc | §6 Fig. 3, §7 Fig. 4, pp. 8-9 | Cap. 6: por que a tese corrige a AVALIAÇÃO (população reservada) sem reponderar o TREINO |
 | C7 | Sob a proposta ótima q* ∝ perda, os estimadores são exatos (variância zero em relação ao risco empírico do pool) | Teorema 7, p. 6 | Contexto do C3; ponte para Kossen2021ActiveTesting, que operacionaliza q* na avaliação |
 | C8 | Qualquer estratégia determinística (argmax) vira proposta válida via softmax ou epsilon-greedy — a correção acopla-se a esquemas de AL existentes | §3.3, p. 5 | Cap. 6: viabilidade de aplicar LURE ao FALCO sem redesenhar o seletor |
+| C9 | Em tempo de teste (avaliação), onde não há viés de otimização nem de overfitting, o custo de usar R_LURE é pequeno e a correção "will usually be beneficial" — 5ª regra de bolso das conclusões | §8, p. 9 | Cap. 3/6: fundamenta que a reponderação é indicada na AVALIAÇÃO (não no treino) e faz a ponte explícita para Kossen2021ActiveTesting |
+| C10 | O único requisito teórico sobre a proposta q é colocar probabilidade não-nula sobre TODOS os dados de treino; "anything else necessarily introduces bias" | §3.1, p. 3 | Cap. 6: condição de aplicabilidade do LURE ao seletor por entropia do FALCO (que é determinístico) |
 
 ## Números que posso citar
 - Levantamento informal: dos **15** papers revisados por pares mais citados que
@@ -92,6 +94,16 @@ A aplicação a avaliação de modelos é apontada como direção nova — semen
 - Condições: resultados de treino/avaliação com regressão linear (dados toy
   não lineares, 1000 trajetórias) e BNN (45 aquisições, proposta estilo BALD
   relaxada estocasticamente); sombreamento ±1 desvio-padrão.
+- Pesos corretivos explícitos: w_m = 1/(N·q(i_m; i_{1:m−1}, D_pool)) no R_PURE
+  (Eq. 2, p. 3) e v_m = 1 + (N−M)/(N−m) · [1/((N−m+1)·q(i_m; i_{1:m−1},
+  D_pool)) − 1] no R_LURE (Eq. 5, p. 4) — o custo computacional/memória é
+  declarado trivial (§3, p. 3).
+- Protocolo de estimação do risco populacional r: na regressão linear, **1000**
+  amostras com r estimado sobre **10.100** pontos da distribuição; na BNN
+  (MNIST/FashionMNIST), **45** amostras com r estimado no conjunto de teste
+  (legenda da Fig. 3, p. 8). No estudo do viés de overfitting: **1000**
+  trajetórias na regressão linear e **150** trajetórias na BNN, sombreamento
+  IQR / ±1 erro-padrão (legenda da Fig. 4, p. 9).
 
 ## Citações diretas (com página)
 > "Almost all work on active learning for neural networks currently ignores
@@ -103,6 +115,20 @@ A aplicação a avaliação de modelos é apontada como direção nova — semen
 > "This final application, of active learning for model evaluation, is an
 > interesting new research direction that is opened up by our estimators."
 > (p. 9)
+
+> "If training data are actively sampled, that estimator is biased and we
+> optimize the wrong objective." (p. 1, §1)
+
+> "The bias from standard active learning can actually be helpful by providing
+> a regularising effect that aids generalization." (p. 1, §1)
+
+> "Under active—i.e. non-uniform—sampling the M datapoints are not drawn from
+> the population distribution, resulting in a bias which we formally
+> characterize in §4." (p. 2, §2)
+
+> "Fifth, at test–time, where optimization and overfitting bias are no-longer
+> an issue, there is little cost to using R̃_LURE to evaluate a model and it
+> will usually be beneficial." (p. 9, §8)
 
 ## Crítica / limitações (minha leitura)
 - Experimentos apenas em imagens (MNIST/FashionMNIST) e regressão toy; nada de
@@ -118,6 +144,17 @@ A aplicação a avaliação de modelos é apontada como direção nova — semen
   de "sinal dependente da métrica" não está aqui.
 - O levantamento dos "15 papers" é declaradamente informal (amostra de
   conveniência por citação); citável como indício, não como estatística.
+- Toda a parte estatística assume θ escolhido independentemente dos dados de
+  treino — hipótese que os próprios autores dizem ser "almost always
+  (implicitly) made in the literature" e cujas implicações são "typically
+  overlooked" (§2, p. 2). A interação real entre viés estatístico e viés de
+  overfitting só é tratada empiricamente (§7, pp. 8-9), sem garantia teórica.
+- Além de registrar q(i_m), a correção exige uma proposta com massa não-nula em
+  TODO o pool (§3.1, p. 3): o seletor determinístico por entropia usado no E5/E6
+  precisaria virar amostragem estocástica (softmax/ε-greedy) para admitir LURE.
+- Escala e domínio dos experimentos são pequenos: regressão linear toy e BNN de
+  ~80.000 parâmetros; nada de transformers, NLP ou classificação multiclasse de
+  alta cardinalidade (as 714 classes do cenário da tese).
 
 ## Ideias que gera para a tese
 - Parágrafo Dom-M3 (Cap. 2 ou 5): citar C1+C2 para estabelecer que o fenômeno

@@ -16,10 +16,10 @@ status: fichado
 # ===== ENTIDADES (nós Método/Dataset/Métrica/Tarefa; usar nomes canônicos) =====
 proposes: [teste-ativo]                      # "active testing" (pendente no vocabulário)
 uses_methods: [aprendizado-ativo, pool-based, entropia, amostragem-por-incerteza, estimador-lure]
-datasets: [mnist, fashion-mnist, cifar-10, cifar-100]  # pendentes no vocabulário
-metrics: [acuracia]
-tasks: [classificacao-de-imagens, regressao] # pendentes no vocabulário
-models: [rede-neural-bayesiana, resnet, wideresnet, processo-gaussiano, random-forest]  # pendentes no vocabulário
+datasets: [mnist, fashion-mnist, cifar-10, cifar-100]
+metrics: [acuracia, custo-por-rotulo]
+tasks: [classificacao-de-imagens, regressao]
+models: [rede-neural-bayesiana, resnet, wideresnet, processo-gaussiano, random-forest]
 
 # ===== RELAÇÕES COM OUTROS PAPERS (arestas tipadas; alvo = chave bibtex) =====
 extends: [Farquhar2021Bias]
@@ -74,8 +74,9 @@ GP e floresta aleatória a ResNet-18 e WideResNet.
 | C4 | R_LURE (Eqs. 3-4) corrige o viés da seleção ativa no teste e, com proposta adequada, reduz (drasticamente) a variância vs. teste i.i.d. | §2.2, p. 2-3 | Cap. 6/trabalho futuro: alternativa por reponderação ao conjunto reservado |
 | C5 | A proposta ótima é q*(i_m) ∝ perda esperada sob o verdadeiro p(y|x) (aprox. por surrogate, Eq. 6); para classificação vira entropia cruzada entre preditiva do surrogate e do modelo (Eq. 12) | §3.1-3.3, pp. 3-4 | Contexto metodológico; mostra o custo de implementação da alternativa |
 | C6 | Funções de aquisição de AL não transferem para avaliação: informação mútua (BALD) desempenha PIOR que entropia preditiva no active testing, pois ignora incerteza aleatórica, que é crítica para estimar perda | §5.6, Fig. 8b, p. 8 | Cap. 2: nuance de posicionamento — avaliar ≠ treinar; reforça que o E6 mede um problema próprio, não um subproduto do seletor |
-| C7 | Active testing atinge a precisão do i.i.d. com fração dos rótulos: custo relativo de rotulagem ~0,25 (fator ~4) em Fashion-MNIST/CIFAR-10 e ~fator 2 em CIFAR-100 | §5.3, Fig. 6b, p. 8 | Cap. 6: quantifica o que a tese economizaria adotando teste ativo no lugar da população reservada rotulada |
+| C7 | Active testing atinge a precisão do i.i.d. com fração dos rótulos: custo relativo de rotulagem ~0,25 (fator ~4) em Fashion-MNIST/CIFAR-10 e ~fator 2 (custo relativo ≈0,5) em CIFAR-100 | §5.3, Fig. 6b, p. 8 | Cap. 6: quantifica o que a tese economizaria adotando teste ativo no lugar da população reservada rotulada |
 | C8 | Sem correção, estimativas com aquisição por entropia preditiva são viesadas e claramente superestimam o erro do modelo | §5.5, Fig. 8a, p. 8 | Cap. 5 (E6): confirmação experimental independente do sinal do viés em acurácia/perda |
+| C9 | Usar o PRÓPRIO modelo como surrogate (sem modelo dedicado) é desaconselhado: "should remain a last resort", só aceitável quando há razão forte para confiar nas incertezas do modelo — a diversidade dada por um surrogate é crítica, ainda que ele seja simples | §3.4, p. 5; §5.7, p. 9 | Cap. 6: mostra que a alternativa "barata" do teste ativo (reusar o próprio classificador do laço como surrogate) é justamente a que o paper não recomenda; encarece a rota alternativa à população reservada |
 
 ## Números que posso citar
 - Sintético (GP/GP/GP prior, Fig. 3a): com **5** rótulos de teste ativos o
@@ -91,6 +92,13 @@ GP e floresta aleatória a ResNet-18 e WideResNet.
 - Condições: perda = entropia cruzada (Eq. 12) salvo indicação; surrogates de
   ensemble (deep ensemble de ResNets treinado só em D_train já supera i.i.d.);
   probabilidade mínima de proposta imposta para limitar os pesos (§5, p. 6).
+- Peso corretivo do estimador: v_m = 1 + (N−M)/(N−m) · [1/((N−m+1)·q(i_m)) − 1]
+  (Eq. 4, p. 3), com R_LURE = (1/M)·Σ v_m·L(f(x_{i_m}), y_{i_m}) (Eq. 3, p. 3).
+- Ablação de fidelidade × diversidade do surrogate: um **ensemble de 5
+  ResNet-18** supera um **único ResNet-50** na avaliação de um ResNet-18 em
+  CIFAR-10 (§5.4, p. 8), com o efeito da diversidade maior que o da fidelidade;
+  médias sobre **1000** conjuntos de teste sorteados, passos de aquisição
+  100-200 (legenda da Fig. 7, p. 9).
 
 ## Citações diretas (com página)
 > "existing literature largely ignores the cost of labeling test data,
@@ -104,6 +112,17 @@ GP e floresta aleatória a ResNet-18 e WideResNet.
 > or optimize hyperparameters." (p. 2)
 
 > "this bias is far more harmful for testing than it is for training." (p. 2)
+
+> "Whenever labels are expensive enough that we need to carefully pick training
+> data, we cannot afford to be wasteful with test data either." (p. 1, §1)
+
+> "This is just one way active testing needs special examination and cannot
+> just re-use results from active learning." (p. 9, §5.6)
+
+> "This strategy should remain a last resort and used only when there is
+> significant reason to trust the original model's uncertainties; we find the
+> diversity provided by a surrogate is critical, even if that surrogate is
+> itself simple." (p. 9, §5.7)
 
 ## Crítica / limitações (minha leitura)
 - Avalia um modelo FIXO ("f is fixed as given", §2): não cobre o laço completo
@@ -119,6 +138,13 @@ GP e floresta aleatória a ResNet-18 e WideResNet.
 - O método exige infraestrutura própria (surrogate retreinado, registro de
   q(i_m), pesos v_m); a tese pode citá-lo como alternativa mais barata em
   rótulos, mas mais cara em engenharia, à população reservada.
+- O próprio paper fecha a saída barata: a variante sem surrogate dedicado (usar
+  o modelo avaliado como sua própria proposta) "should remain a last resort"
+  (§5.7, p. 9) e no ResNet chega a ficar PIOR que a aquisição i.i.d. (§5.2,
+  Fig. 4b, p. 7). A recomendação é retreinar o surrogate a cada novo rótulo,
+  afrouxada só quando esse custo for perceptível diante do custo de rotular
+  (§5.7, p. 9) — no FALCO seria um segundo modelo mantido em paralelo ao
+  BERTimbau apenas para avaliar.
 
 ## Ideias que gera para a tese
 - Par de citação com Farquhar2021Bias no parágrafo Dom-M3: Farquhar formaliza

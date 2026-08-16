@@ -1423,6 +1423,11 @@
       "label": "selecao-por-diversidade"
     },
     {
+      "id": "metodo:menor-margem",
+      "type": "metodo",
+      "label": "menor-margem"
+    },
+    {
       "id": "modelo:simclr",
       "type": "modelo",
       "label": "simclr"
@@ -2876,11 +2881,6 @@
       "cited_in": []
     },
     {
-      "id": "metodo:menor-margem",
-      "type": "metodo",
-      "label": "menor-margem"
-    },
-    {
       "id": "metodo:menor-confianca",
       "type": "metodo",
       "label": "menor-confianca"
@@ -4024,6 +4024,16 @@
       "label": "MacKay1992"
     },
     {
+      "id": "Settles2010",
+      "type": "artigo-pendente",
+      "label": "Settles2010"
+    },
+    {
+      "id": "Houlsby2011",
+      "type": "artigo-pendente",
+      "label": "Houlsby2011"
+    },
+    {
       "id": "claim-granularidade",
       "type": "tema-falco",
       "label": "claim-granularidade"
@@ -4037,11 +4047,6 @@
       "id": "RQ2-lote",
       "type": "tema-falco",
       "label": "RQ2-lote"
-    },
-    {
-      "id": "Houlsby2011",
-      "type": "artigo-pendente",
-      "label": "Houlsby2011"
     },
     {
       "id": "E4-leitura",
@@ -4067,6 +4072,16 @@
       "id": "claim-granularidade-e-E0",
       "type": "tema-falco",
       "label": "claim-granularidade-e-E0"
+    },
+    {
+      "id": "Margatina2021",
+      "type": "artigo-pendente",
+      "label": "Margatina2021"
+    },
+    {
+      "id": "EinDor2020",
+      "type": "artigo-pendente",
+      "label": "EinDor2020"
     },
     {
       "id": "LCE",
@@ -5195,6 +5210,21 @@
     },
     {
       "source": "Farquhar2021Bias",
+      "target": "Lewis1994",
+      "type": "builds_on"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "Settles2010",
+      "type": "builds_on"
+    },
+    {
+      "source": "Farquhar2021Bias",
+      "target": "Houlsby2011",
+      "type": "builds_on"
+    },
+    {
+      "source": "Farquhar2021Bias",
       "target": "pilar:P4",
       "type": "pillars"
     },
@@ -5335,6 +5365,11 @@
     {
       "source": "FreeAL2023",
       "target": "metodo:entropia",
+      "type": "uses_methods"
+    },
+    {
+      "source": "FreeAL2023",
+      "target": "metodo:cold-start",
       "type": "uses_methods"
     },
     {
@@ -5685,6 +5720,16 @@
     },
     {
       "source": "Hacohen2022TypiClust",
+      "target": "metodo:entropia",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "metodo:menor-margem",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
       "target": "modelo:simclr",
       "type": "models"
     },
@@ -5701,6 +5746,11 @@
     {
       "source": "Hacohen2022TypiClust",
       "target": "modelo:flexmatch",
+      "type": "models"
+    },
+    {
+      "source": "Hacohen2022TypiClust",
+      "target": "modelo:resnet18",
       "type": "models"
     },
     {
@@ -7728,6 +7778,16 @@
     },
     {
       "source": "Schroder2022Uncertainty",
+      "target": "Margatina2021",
+      "type": "compares_with"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
+      "target": "EinDor2020",
+      "type": "compares_with"
+    },
+    {
+      "source": "Schroder2022Uncertainty",
       "target": "Schroder2020DNNSurvey",
       "type": "builds_on"
     },
@@ -7913,6 +7973,16 @@
     {
       "source": "Sener2018",
       "target": "metodo:selecao-por-diversidade",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Sener2018",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Sener2018",
+      "target": "metodo:entropia",
       "type": "uses_methods"
     },
     {
@@ -9095,6 +9165,11 @@
     {
       "source": "Zhang2023LLMaAA",
       "target": "metodo:saida-estruturada",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2023LLMaAA",
+      "target": "metodo:fine-tuning",
       "type": "uses_methods"
     },
     {

@@ -17,7 +17,7 @@ metrics: [acuracia, auc-curva-de-aprendizado]
 tasks: [classificacao-de-texto]
 models: [bert, distilroberta, svm, kimcnn]
 extends: []
-compares_with: []
+compares_with: [Margatina2021, EinDor2020]
 contradicts: []
 builds_on: [Schroder2020DNNSurvey, Schroder2021SmallText, Lewis1994, devlin2019bert]
 falco_relation:
@@ -66,6 +66,7 @@ dos mesmos autores; usa a small-text como infraestrutura dos experimentos.
 | C4 | Amostragem aleatória é competitiva nas iterações iniciais mas é superada depois; em dataset desbalanceado (TREC-6) é menos eficaz | §4 Results, p. 2197 (confirmando Ein-Dor et al. 2020) | Cap.5: interpreta por que aleatória compete no início das nossas curvas e por que degrada sob desbalanceamento |
 | C5 | DistilRoBERTa (<25% dos parâmetros do BERT) chega muito perto do BERT a uma fração do custo — do ponto de vista do praticante, o modelo menor é preferível | Tab. 2, p. 2196; §4, p. 2198; Tab. 8, p. 2203 | Cap.3/Cap.6: precedente do trade-off "modelo menor no laço"; paralelo com nosso par leve/BERTimbau |
 | C6 | Para o TREC-6 (desbalanceado), o conjunto inicial foi balanceado por classe, senão a classe mais rara "raramente seria encontrada" por amostragem aleatória | Apêndice C, p. 2201 | P1/P2: até o benchmark padrão precisa intervir na composição do L0 sob desbalanceamento — motiva DRI-SL |
+| C7 | Razão teórica declarada para a fraqueza da entropia: em redes profundas atuais a entropia de predição "has been observed to be overconfident" (Guo et al. 2017; Lakshminarayanan et al. 2017); ensembles, a alternativa calibrada, são caros demais | §2, p. 2195 | Cap. 5: fundamenta POR QUE a entropia pode falhar como critério de incerteza no E5/E6, além do resultado empírico do C2 |
 
 ## Números que posso citar
 - Protocolo: L0 de 25 instâncias + 20 iterações × 25 instâncias/consulta; 5
@@ -82,6 +83,24 @@ dos mesmos autores; usa a small-text como infraestrutura dos experimentos.
 - Condições exatas: BERT-large (336M par.) e DistilRoBERTa (82M); 5 datasets
   (AGN, CR, MR, SUBJ, TREC-6), todos balanceados exceto TREC-6; small-text
   1.0.0a8 como framework (Apêndices A–C, p. 2200–2201).
+- Orçamento total de rótulos: **525** instâncias por execução (25 iniciais +
+  20 × 25), o teto de todas as curvas da Fig. 1 (§4, p. 2197).
+- Faixa declarada pelos autores: modelos ficam próximos ou acima do estado da
+  arte usando "only between **0,4% and 14%** of the data" (§4, p. 2198); o maior
+  percentual da Tab. 3 é **15,45%** (CR), donde a leitura "~15%" acima.
+- Uso de dados por dataset (Tab. 3, p. 2197): AGN **0,4%** (525 de 120.000);
+  CR **15,45%**; MR **0,547%**; SUBJ **5,83%**; TREC-6 **9,55%**.
+- Acurácia final do BERT (média±dp sobre 5 execuções, Tab. 5, p. 2201):
+  AGN+BT **0,904±0,002**; CR+LC **0,919±0,009**; MR+PE/BT **0,857±0,009**;
+  SUBJ+LC **0,958±0,005**; TREC-6+CA **0,968±0,004** (nos três datasets
+  binários — CR, MR, SUBJ — PE e BT compartilham a mesma célula porque
+  selecionam as mesmas instâncias).
+- Arquiteturas: BERT-large com 24 camadas e estados ocultos de 1024;
+  DistilRoBERTa com 6 camadas e 768 (§3, p. 2196).
+- Tempo de consulta em AGN com BERT, série completa (Tab. 8, p. 2203):
+  LC **480,4s ± 107,4** < BT **503,5s ± 112,6** < PE **528,9s ± 118,3** <<
+  CA **1476,0s ± 391,6**; RS 0,002s — as três estratégias de incerteza custam
+  praticamente o mesmo entre si e ~3× menos que a contrastiva.
 
 ## Citações diretas (com página)
 > "This invalidates the common practice of solely relying on prediction entropy
@@ -92,6 +111,13 @@ dos mesmos autores; usa a small-text como infraestrutura dos experimentos.
 > "using state-of-the-art query strategies for transformers induces a
 > prohibitive runtime overhead, which effectively nullifies, or even outweighs
 > the desired cost savings." (p. 2194)
+
+> "For active learning with transformers, several other uncertainty-based
+> approaches outperform the well-known prediction entropy query strategy,
+> thereby challenging its status as most popular uncertainty baseline in active
+> learning for text classification." (Resumo, p. 2194)
+
+> "prediction entropy has been observed to be overconfident" (p. 2195, §2)
 
 ## Crítica / limitações (minha leitura)
 - Sentenças em inglês, 2–6 classes, datasets quase todos balanceados: a
