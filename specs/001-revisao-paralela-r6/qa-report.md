@@ -47,3 +47,55 @@
 - **FR2**: entregue — divergências reportadas sem corrigir (FreeAL2023/Su2023 fabricadas, Sener2017 duplicata, sinais Diao/Margatina/Tian, Alsmadi a/b); encaminhadas também pela banca (parecer de auditoria do bib, mensagem 17:35).
 - **FR3**: entregue — KG regenerado (523 nós/1035 arestas).
 - **FR4**: entregue — relatório de não conformidades com evidência arquivo:linha (6 evidências amostradas pela revisão, todas conferem).
+
+## Consolidação r1+r2 (2026-08-16, branch `consolidacao/revisao-paralela-r6`)
+
+Por decisão do autor ("compila os dois resultados para não perdermos os
+trabalhos"), a arbitragem "uma OU outra branch" foi substituída por uma branch
+de consolidação. O que ela contém:
+
+| Frente | Resultado |
+|---|---|
+| 11 fichamentos canônicos | absorveram os claims exclusivos da leitura do revisor1, **cada item verificado no PDF arquivado antes de entrar** |
+| 11 leituras do revisor1 | preservadas verbatim em `fichamentos/leitura-cruzada-revisor1/` (fora do `glob("*.md")` do `build_kg.py` — não duplica nó) |
+| Normas UFPR | `docs/normas-ufpr-consolidado.md` funde as duas auditorias; os dois relatórios-fonte seguem versionados |
+| Dados (activelearning) | causa-raiz nominal do 715→714 do revisor1 virou o 17º invariante executável |
+
+**Erros no trabalho canônico que só a fusão revelou** (evidência de que a
+duplicação valeu como verificação, e não apenas custou tokens):
+
+1. `Wang2021GPT3Labeling`: custos de SST-2 e TREC **trocados** — a leitura do
+   revisor1 estava correta (Tab. 1, p. 4196). Linha marcada contra regressão.
+2. `FreeAL2023`: a crítica "sem contabilidade de custo" era **falsa** — o paper
+   tem Tab. 7 (p. 14532) com fórmula de tokens. Reformulada como ressalva de
+   granularidade; o registro anterior não foi apagado.
+3. `Zhang2023LLMaAA`: 6 locators deslocados em +1 página; mais 7 corrigidos em
+   TypiClust, Kossen e Pangakis.
+4. `Sener2018`: `compares_with` apontava `Gal2016` (Dropout as Bayesian
+   Approximation); o DBAL do paper é `Gal2017` (Gal, Islam & Ghahramani), chave
+   que já existia no bib.
+
+**Itens da leitura cruzada REJEITADOS por não confirmação** (a fusão filtrou,
+não apenas somou): complexidade assintótica do surrogate (Kossen — o paper só
+trata custo qualitativamente); "ganhos crescem com o número de classes"
+(Bengar — contradito pela Tab. 3, Tiny ImageNet com 200 classes tem os menores
+ganhos). O custo por rótulo do Pangakis entrou marcado como **DERIVAÇÃO NOSSA**,
+com a ressalva de que o paper só reporta o total.
+
+### Fitness function nova
+
+`uv run --with pyyaml python scripts/check-fichamentos.py [chaves]` — 6
+invariantes por fichamento (YAML/id, `falco_relation`, entidades no
+vocabulário, alvos de relação com entrada no bib, PDF existente, evidência por
+claim).
+
+| Check | Expected | Result |
+|---|---|---|
+| checador nos 11 novos | exit 0, "PROBLEMAS: nenhum" | exit 0 ✅ |
+| checador com `falco_relation` removida (falha provada) | exit 1 nomeando o arquivo | exit 1 ✅ |
+| `build_kg.py` após a fusão | exit 0, nós ≥ 523 | 527 nós / 1049 arestas ✅ |
+
+**Achado reportado, não corrigido** (fora de escopo — anti-pattern 10): os 140
+fichamentos legados acumulam 344 violações (342 entidades fora do vocabulário,
+1 alvo de relação sem bib, 1 PDF inexistente em `Bayer2024ActiveLLM`).
+Registrado na caixa de coordenação para o autor decidir se vira item do plano.
