@@ -14,3 +14,4 @@
 {"id":"adr-0010","data":"2026-08-16","titulo":"Gates de merge consolidados pelo principal (exceto site/painel)","status":"aceita","registro":"docs/adr/0010-gates-consolidados-pelo-principal.md"}
 {"id":"gate-banca-min-lote1","data":"2026-08-16","titulo":"Gate aprovado: lote 1 do minimo-banca (veredito demarcado + estatistica pareada)","status":"aceita","registro":"merge 21a2938 (branch banca-min/veredito)"}
 {"id":"gate-revisao-paralela-r6","data":"2026-08-16","titulo":"Gate aprovado: consolidacao/revisao-paralela-r6 (9 refs, 11 fichamentos+PDFs, relatorio UFPR)","status":"aceita","registro":"merge e160cc0"}
+{"id":"gate-humanize-cap2-lote1","data":"2026-08-16","titulo":"Gate aprovado: lote 1 da humanizacao do Cap.2 (9 conversoes, 110->92 travessoes)","status":"aceita","registro":"merge 7e90069 (branch humanize/cap2)"}
