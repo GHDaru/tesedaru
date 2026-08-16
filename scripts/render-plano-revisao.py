@@ -37,9 +37,11 @@ plano = json.loads((ROOT / "docs/records/plano-revisao.json").read_text(encoding
 kpis_path = ROOT / "docs/records/kpis.json"
 mens_path = ROOT / "docs/records/mensagens.json"
 resultados_path = ROOT / "docs/records/resultados.json"
+referencias_path = ROOT / "docs/records/referencias.json"
 kpis = json.loads(kpis_path.read_text(encoding="utf-8")) if kpis_path.exists() else {}
 mens = json.loads(mens_path.read_text(encoding="utf-8")) if mens_path.exists() else {}
 resultados = json.loads(resultados_path.read_text(encoding="utf-8")) if resultados_path.exists() else {}
+referencias = json.loads(referencias_path.read_text(encoding="utf-8")) if referencias_path.exists() else {}
 
 
 def as_json_script(elem_id: str, data) -> str:
@@ -278,6 +280,7 @@ NAV = [
     ("plano.html", "Plano", "▤"),
     ("mensagens.html", "Coordenação", "✉"),
     ("resultados.html", "Resultados", "★"),
+    ("referencias.html", "Referências", "❐"),
 ]
 
 
@@ -925,20 +928,182 @@ if (!experimentos.length) expTab.outerHTML = '<p class="vazia">Nenhum experiment
     return body, script
 
 
+# --------------------------------------------------------------------------
+# Referências (referencias.html) — tabela ordenável de tudo o que a tese
+# cita, cruzado com fichamento e PDF. Pedido literal do autor (tarefa do
+# principal 20260816-2110). ux-design.md do ciclo 003 explica os porquês.
+# --------------------------------------------------------------------------
+def build_referencias() -> tuple[str, str]:
+    body = """
+<header class="page-head"><h1>Referências</h1>
+  <span class="meta" id="meta"></span></header>
+
+<section class="card">
+  <input type="search" id="ref-busca" class="ref-busca"
+    placeholder="Buscar por título, autor ou chave…" aria-label="Buscar referência">
+</section>
+
+<section class="card">
+  <div class="scroll"><table id="ref-tabela"></table></div>
+</section>
+"""
+    json_blocks = as_json_script('referencias', referencias)
+    script = json_blocks + """
+<script>
+(function(){
+const R = JSON.parse(document.getElementById('referencias').textContent || '{}');
+const refs = R.referencias || [];
+const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+document.getElementById('meta').textContent = R.computado_em
+  ? `${R.total} referências · ${R.citadas} citadas no livro · atualizado em ${R.computado_em}` : '';
+
+const COLS = [
+  {key:'ordem',    label:'#',            kind:'num',  get:r=>r.ordem},
+  {key:'titulo',   label:'Título',       kind:'str',  get:r=>r.titulo},
+  {key:'autores',  label:'Autores',      kind:'str',  get:r=>(r.autores[0]||'')},
+  {key:'onde',     label:'Onde citada',  kind:'num',  get:r=>r.ordem},
+  {key:'link',     label:'Link',         kind:'str',  get:r=>(r.link_tipo||'')},
+  {key:'pdf',      label:'PDF',          kind:'bool', get:r=>r.pdf},
+  {key:'fichado',  label:'Fichado',      kind:'bool', get:r=>r.fichado},
+  {key:'detalhes', label:'Detalhes',     sortable:false},
+];
+
+let sortState = {campo:'ordem', dir:1};
+let filtro = '';
+
+function cmp(a, b, col, dir){
+  const va = col.get(a), vb = col.get(b);
+  if (va == null && vb == null) return 0;
+  if (va == null) return 1;
+  if (vb == null) return -1;
+  let res;
+  if (col.kind === 'num') res = va - vb;
+  else if (col.kind === 'bool') res = (vb?1:0) - (va?1:0);
+  else res = String(va).localeCompare(String(vb), 'pt-BR');
+  return dir * res;
+}
+
+function shortCap(capStr){ return capStr ? capStr.split(' — ')[0] : ''; }
+
+function autoresTxt(autores){
+  if (!autores || !autores.length) return '—';
+  if (autores.length <= 3) return esc(autores.join(', '));
+  return `<span title="${esc(autores.join(', '))}">${esc(autores[0])} et al.</span>`;
+}
+
+function ondeCell(r){
+  if (!r.primeira_aparicao) return '<span class="vazia">não citada</span>';
+  const cap = shortCap(r.primeira_aparicao.capitulo);
+  const sec = r.primeira_aparicao.secao;
+  const tip = r.ocorrencias.map(o => `${o.capitulo}${o.secao ? ' § ' + o.secao : ''}`).join('\\n');
+  return `<span title="${esc(tip)}">${esc(cap)}${sec ? ' §' + esc(sec) : ''}` +
+    (r.total_ocorrencias > 1 ? ` <span class="ref-badge">${r.total_ocorrencias}×</span>` : '') + `</span>`;
+}
+
+function linkCell(r){
+  return r.link ? `<a href="${esc(r.link)}" target="_blank" rel="noopener">${esc(r.link_tipo || 'link')} ↗</a>`
+                : '<span class="vazia">—</span>';
+}
+
+function badge(ok){
+  return ok ? '<span class="pill feito">✓ sim</span>' : '<span class="pill pendente">✕ não</span>';
+}
+
+function passaFiltro(r){
+  if (!filtro) return true;
+  const alvo = (r.titulo + ' ' + (r.autores||[]).join(' ') + ' ' + r.chave).toLowerCase();
+  return alvo.includes(filtro);
+}
+
+function linha(r){
+  const detId = `det-${r.chave}`;
+  return `<tr>
+    <td class="tot">${r.ordem ?? '<span class="vazia">não citada</span>'}</td>
+    <td>${esc(r.titulo)}</td>
+    <td>${autoresTxt(r.autores)}</td>
+    <td>${ondeCell(r)}</td>
+    <td>${linkCell(r)}</td>
+    <td>${badge(r.pdf)}</td>
+    <td>${badge(r.fichado)}</td>
+    <td><button type="button" class="ref-det-btn" data-target="${detId}" aria-expanded="false">ver</button></td>
+  </tr>
+  <tr id="${detId}" class="ref-det-row" hidden>
+    <td colspan="8">${r.detalhes_html ? r.detalhes_html : '<p class="vazia">Ainda não fichada.</p>'}</td>
+  </tr>`;
+}
+
+function headerCell(col){
+  if (col.sortable === false) return `<th scope="col">${esc(col.label)}</th>`;
+  const ativo = sortState.campo === col.key;
+  const seta = ativo ? (sortState.dir === 1 ? ' ▲' : ' ▼') : '';
+  return `<th scope="col"><button type="button" class="ref-th-btn" data-col="${col.key}" aria-sort="${ativo ? (sortState.dir===1?'ascending':'descending') : 'none'}">${esc(col.label)}${seta}</button></th>`;
+}
+
+function render(){
+  const col = COLS.find(c => c.key === sortState.campo) || COLS[0];
+  const visiveis = refs.filter(passaFiltro).slice().sort((a,b) => cmp(a,b,col,sortState.dir));
+  const tab = document.getElementById('ref-tabela');
+  tab.innerHTML = '<thead><tr>' + COLS.map(headerCell).join('') + '</tr></thead>' +
+    '<tbody>' + (visiveis.length ? visiveis.map(linha).join('') : '<tr><td colspan="8" class="vazia">Nenhuma referência encontrada.</td></tr>') + '</tbody>';
+  tab.querySelectorAll('.ref-th-btn').forEach(btn => btn.addEventListener('click', () => {
+    const key = btn.dataset.col;
+    if (sortState.campo !== key) sortState = {campo: key, dir: 1};
+    else if (sortState.dir === 1) sortState.dir = -1;
+    else sortState = {campo: 'ordem', dir: 1};
+    render();
+  }));
+  tab.querySelectorAll('.ref-det-btn').forEach(btn => btn.addEventListener('click', () => {
+    const row = document.getElementById(btn.dataset.target);
+    const aberto = !row.hidden;
+    row.hidden = aberto;
+    btn.setAttribute('aria-expanded', String(!aberto));
+    btn.textContent = aberto ? 'ver' : 'fechar';
+  }));
+}
+
+document.getElementById('ref-busca').addEventListener('input', e => {
+  filtro = e.target.value.trim().toLowerCase();
+  render();
+});
+
+render();
+})();
+</script>
+<style>
+.ref-busca{width:100%; max-width:420px; padding:.4rem .6rem; border:1px solid var(--border);
+  border-radius:6px; background:var(--panel); color:var(--ink); font-size:var(--fs-3)}
+.ref-th-btn{background:none; border:none; color:var(--muted); font-size:var(--fs-1);
+  text-transform:uppercase; letter-spacing:.06em; font-weight:600; cursor:pointer; padding:0; white-space:nowrap}
+.ref-th-btn:hover{color:var(--accent)}
+.ref-badge{color:var(--muted); font-size:var(--fs-1)}
+.ref-det-btn{background:none; border:1px solid var(--border); color:var(--accent); border-radius:6px;
+  padding:.15rem .5rem; font-size:var(--fs-1); cursor:pointer}
+.ref-det-row td{background:var(--ground); padding:var(--sp-4)}
+.ref-det-row h2, .ref-det-row h3{font-size:var(--fs-3); margin:.8rem 0 .3rem}
+.ref-det-row h2:first-child, .ref-det-row h3:first-child{margin-top:0}
+.ref-det-row p{margin:.3rem 0}
+.ref-det-row table{margin:.4rem 0}
+#ref-tabela td, #ref-tabela th{vertical-align:top}
+</style>"""
+    return body, script
+
+
 def main() -> None:
     pages = {
         "index.html": build_controle,
         "plano.html": build_plano,
         "mensagens.html": build_coordenacao,
         "resultados.html": build_resultados,
+        "referencias.html": build_referencias,
     }
     titles = {"index.html": "Controle", "plano.html": "Plano",
-              "mensagens.html": "Coordenação", "resultados.html": "Resultados"}
+              "mensagens.html": "Coordenação", "resultados.html": "Resultados",
+              "referencias.html": "Referências"}
     for fname, builder in pages.items():
         body, script = builder()
         html = page_shell(titles[fname], fname, FOOTER_TEXT, body, script)
         (out_dir / fname).write_text(html, encoding="utf-8")
-    print(f"ok: {out_dir}/ (index, plano, mensagens, resultados)  "
+    print(f"ok: {out_dir}/ (index, plano, mensagens, resultados, referencias)  "
           f"plano v{plano['versao']}, PGP {kpis.get('prontidao', {}).get('global_pct', '?')}%")
 
 
