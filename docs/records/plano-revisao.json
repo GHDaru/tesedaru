@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 19,
-  "atualizado_em": "2026-08-16",
+  "versao": 20,
+  "atualizado_em": "2026-08-16T21:55:00Z",
   "atualizado_por": "executor02: seed7 do executor01 verificada e publicada na main; item herdado por handoff; s42 canônica segue rodando",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -125,24 +125,24 @@
           "nota": "FALCO, DRI-SL, LLM, BERT, TF abertos; merge be4074d"
         },
         "R3": {
-          "status": "pendente"
+          "status": "feito",
+          "nota": "banca: 8/8 citações com fichamento (100%); conferir fichamentos das 5 chaves repontuadas ao final do bib-fix"
         },
         "R4": {
-          "status": "pendente"
+          "status": "gate",
+          "nota": "3 correções na branch banca/cap1-r4-correcoes @ 65a6fe0; diff verificado pelo principal; aguarda merge do autor"
         },
         "R5": {
-          "status": "pendente",
-          "nota": "critério 30%/95% citado: conferir espelho com Cap. 3/5",
-          "bloqueado_por": [
-            "consolidar-seeds"
-          ]
+          "status": "gate",
+          "nota": "aprovado com 2 ajustes (E1 ramo de refutação, E2 três causas), aplicados na mesma branch @ 65a6fe0"
         },
         "R6": {
           "status": "feito",
-          "nota": "hipótese reescrita sem E3'/gate/cardápio"
+          "nota": "banca: capítulo auto-suficiente; ressalva única resolvida no item 3 do R4"
         },
         "R7": {
-          "status": "pendente"
+          "status": "pendente",
+          "nota": "leitura final do autor — única pendência do Cap. 1 após o merge do gate R4+R5"
         }
       },
       "abertura": [

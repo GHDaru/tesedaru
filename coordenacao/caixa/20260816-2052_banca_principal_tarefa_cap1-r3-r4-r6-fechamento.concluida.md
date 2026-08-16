@@ -48,3 +48,6 @@ R4 (afirmações fundamentadas): 3 correções, todas de redação.
 
 DEPOIS DESSAS TRÊS, o Cap. 1 fecha R1, R2, R3, R4 e R6 — resta só o R5
 (espelho do critério 30%/95% contra Caps. 3 e 5) e o R7 (leitura do autor).
+
+## Resultado (principal, 2026-08-16T21:50Z)
+Superada pela execução direta da banca com aprovação do autor: as 3 correções do R4 + 2 do R5 estão na branch banca/cap1-r4-correcoes @ 65a6fe0, diff verificado pelo principal (2 hunks, 11+/7-). Plano atualizado (cap1 R3/R6 feito, R4/R5 gate). Gate consolidado na fila do autor.

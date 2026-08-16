@@ -1,4 +1,4 @@
-# Protocolo de coordenação — 4 agentes + autor (v1.1)
+# Protocolo de coordenação — agentes + autor (v1.2)
 
 > Regra única de mensageria, locks e processo multiagente da tese FALCO.
 > Todo agente LÊ este arquivo ao iniciar a sessão e segue o ritual de entrada.
@@ -18,6 +18,12 @@
 
 ## 0. Ritual de entrada (toda sessão, antes de qualquer trabalho)
 
+0. **Quem sou eu**: consultar o título da própria sessão (`get_session` do
+   MCP `claude-code-remote`, sem `session_id`) — o título é a fonte de verdade
+   da identidade (ADR 0011). Título fora do registro de agentes → perguntar ao
+   principal, sem assumir papel. Título apontando para papel que OUTRA sessão
+   ativa já exerce → manter o papel que se vinha exercendo e avisar o
+   principal; só o autor resolve renomeando/reatribuindo.
 1. `git pull --rebase origin main` — nenhuma leitura da caixa e nenhum claim
    vale sem pull no mesmo turno (a raiz de quase toda falha é pular isto).
 2. Ler a caixa SÓ por glob: `ls coordenacao/caixa/*_<eu>_*` + `*_todos_*`.
