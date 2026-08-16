@@ -207,7 +207,7 @@
     ? `🔒 Aguardando você — ${fila.length} ${fila.length === 1 ? 'item' : 'itens'}`
     : 'Nada espera você';
   el('fila').innerHTML = fila.length ? fila.map(f => `
-    <div class="item"><span class="tipo">${{gate:'GATE', execucao:'RODAR', acao:'AÇÃO'}[f.tipo] || f.tipo}</span>
+    <div class="item"><span class="tipo">${{gate:'GATE', execucao:'RODAR', acao:'AÇÃO', decisao:'DECISÃO'}[f.tipo] || f.tipo}</span>
       <span class="t">${esc(f.titulo)}</span>
       <span class="pts">${f.pontos_destravados ? '+' + f.pontos_destravados + ' pts' : ''}</span></div>`).join('')
     : `<p class="vazia">O agente segue no próximo passo abaixo. ✓</p>`;

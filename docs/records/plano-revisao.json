@@ -1,8 +1,8 @@
 {
  "schema": "plano-revisao/v1",
- "versao": 3,
+ "versao": 4,
  "atualizado_em": "2026-08-16",
- "atualizado_por": "ciclo governanca-01 (v3: dimensões por capítulo, progresso e bloqueio por célula — camada de KPIs)",
+ "atualizado_por": "incorporação do parecer ARS-R6 (sessão paralela) — v4",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
   "Abrir este JSON e ler o campo 'proximo'",
@@ -29,9 +29,9 @@
   },
   {
    "id": "R3",
-   "nome": "Referências × fichamento",
+   "nome": "Referências × fichamento × fonte",
    "ref": "princípio II",
-   "descricao": "Cada citação validada contra seu fichamento em fichamentos/."
+   "descricao": "Cada citação validada contra o fichamento E contra a fonte primária (DOI/página do venue) — obrigatório para entradas pós-2022, onde a amostra do parecer R6 achou ~4 erradas em 12. Zero chaves duplicadas no bib."
   },
   {
    "id": "R4",
@@ -231,6 +231,7 @@
     }
    },
    "abertura": [
+    "R5-IMEDIATO: racional do gate invertido ('85% um desvio acima de 89,56%'); '8 sementes é o mínimo para p<0,05' é falso (n=6 dá 0,031); tabela do programa sem E0-P/E5/E6/E3′",
     "R1: 59 travessões + 5 aberturas enumerativas + 1 muleta",
     "R2: capítulo que DEFINE a maioria das siglas — conferir 1ª ocorrência real de cada",
     "R3: 18 citações distintas",
@@ -273,6 +274,7 @@
     }
    },
    "abertura": [
+    "R5-IMEDIATO: linha I=100 divergente entre as duas tabelas do AG",
     "R1: 17 travessões — capítulo leve",
     "R3: citações raras (resultados próprios); validar as poucas que houver",
     "R5: 185 tokens numéricos × artefatos do repositório legado (activetextclassification) + replays"
@@ -317,6 +319,7 @@
     }
    },
    "abertura": [
+    "R5-IMEDIATO: população reservada ≈140 mil × 177.490 do Cap. 3 (aritmética só fecha com 177.490); E2 prometido e nunca reportado + E5 fantasma",
     "R1: 64 travessões + 6 frases telegráficas ('Três leituras.')",
     "R2: NIM e MaaS aparecem aqui — abrir na 1ª ocorrência",
     "R3: 6 citações distintas",
@@ -335,7 +338,7 @@
    "rodadas": {
     "R1": {
      "status": "pendente",
-     "nota": "maior densidade relativa; fecho retórico (tríade + aforismo) é DECISÃO DO AUTOR manter ou não; mistura ---/—"
+     "nota": "fecho retórico: parte virou questão de MÉRITO (DA-C1/C2/C3 do parecer R6): 'não é infirmada', 'rotular tudo é contraproducente' e 'sustentada a ~50%' (com gabarito, não oráculo) afirmam mais do que os dados sustentam — decisão do autor, agora com parecer"
     },
     "R2": {
      "status": "pendente"
@@ -360,7 +363,7 @@
     }
    },
    "abertura": [
-    "R1: maior densidade relativa (19,7/1000) + fecho retórico (tríade + aforismo) = DECISÃO DO AUTOR + unificar ---/—",
+    "R1+MÉRITO: fecho (tríade+aforismo) tem 2 trechos que bloqueiam Accept no ARS (DA-C1/C2/C3 do parecer R6) — decisão do autor · unificar ---/—",
     "R3: 18 citações distintas",
     "R5: 48 tokens numéricos, todos espelhos de números dos Caps. 4-5"
    ],
@@ -406,7 +409,7 @@
    "itens": [
     {
      "id": "kaggle-licenca",
-     "titulo": "Definir licença do dataset no Kaggle (recomendado CC BY 4.0) — bloqueante do artigo a5",
+     "titulo": "Definir licença do dataset no Kaggle (recomendado CC BY 4.0) — bloqueante do artigo a5 · PAR OBRIGATÓRIO: parágrafo de proveniência/LGPD no Cap. 3 (agente)",
      "dono": "autor",
      "status": "pendente"
     },
@@ -418,7 +421,7 @@
     },
     {
      "id": "zenodo",
-     "titulo": "Ativar webhook Zenodo e gerar DOI (metadados prontos)",
+     "titulo": "Ativar webhook Zenodo e gerar DOI (metadados prontos) · ao obter DOI: inserir URL+DOI no artigo A4 e no Cap. 3 (tese hoje não tem URL de repositório)",
      "dono": "autor",
      "status": "pendente"
     },
@@ -502,13 +505,13 @@
     },
     {
      "id": "dod-scripts",
-     "titulo": "Scripts de DoD do princípio IX: checar siglas do diff, compilação e espelhos como gate",
+     "titulo": "Scripts de DoD do princípio IX: checar siglas do diff, compilação e espelhos como gate + deduplicar 17 títulos duplicados no referencias.bib (verificado: ActiveLLM 3x, zhang2022 3x, Settles2008 3x…)",
      "dono": "agente",
      "status": "pendente"
     },
     {
      "id": "ars-final",
-     "titulo": "Reavaliação ARS (parecer simulado) após todas as rodadas — meta: subir de 83,6",
+     "titulo": "Reavaliação ARS final — âncora: parecer R6 de sessão paralela alega 85,8 com roadmap de 20 itens; AGUARDA push de docs/parecer-ars-r6.md para o número virar artefato (princípio V)",
      "dono": "agente",
      "status": "pendente"
     }
@@ -537,10 +540,106 @@
      "status": "feito"
     }
    ]
+  },
+  {
+   "id": "melhorias-r6",
+   "nome": "Melhorias do parecer R6 (agente executa, gate seu)",
+   "itens": [
+    {
+     "id": "a7-parada",
+     "titulo": "Atualizar Apêndice A7: política de parada pós-E3′ (hoje ensina a política refutada)",
+     "dono": "agente",
+     "status": "pendente"
+    },
+    {
+     "id": "custo-latencia",
+     "titulo": "Tabela de custo: acrescentar latência/vazão e tokens por rótulo (dados já instrumentados)",
+     "dono": "agente",
+     "status": "pendente"
+    },
+    {
+     "id": "etica",
+     "titulo": "Subseção curta de ética no Cap. 3",
+     "dono": "agente",
+     "status": "pendente"
+    },
+    {
+     "id": "decl-ia",
+     "titulo": "Declaração de IA: tirar RASCUNHO, nomear ferramenta, incluir E1/E2",
+     "dono": "agente",
+     "status": "pendente"
+    },
+    {
+     "id": "ppgmne-intro",
+     "titulo": "Parágrafo de ancoragem ao PPGMNE na Introdução",
+     "dono": "agente",
+     "status": "pendente"
+    },
+    {
+     "id": "fig-arq-a4",
+     "titulo": "Figura de arquitetura no artigo A4",
+     "dono": "agente",
+     "status": "pendente"
+    },
+    {
+     "id": "fichar-vizinhos",
+     "titulo": "Fichar 11 vizinhos faltantes (FreeAL, LLMaAA, TypiClust, coreset, PATRON, Farquhar21, Kossen21, Wang21, Pangakis23, Schröder22, Bengar22) + FreeAL/LLMaAA na tabela de lacunas — PRÉ-REQUISITO do R3 do Cap. 2",
+     "dono": "agente",
+     "status": "pendente"
+    }
+   ]
+  },
+  {
+   "id": "encerramento",
+   "nome": "Encerramento e aprovação final",
+   "itens": [
+    {
+     "id": "dod-final",
+     "titulo": "DoD final verificável: compila 0/0, siglas e números do diff verdes, todas as células da matriz em 'feito'",
+     "dono": "agente",
+     "status": "pendente"
+    },
+    {
+     "id": "ars-fechamento",
+     "titulo": "Parecer ARS de fechamento (após R7 de todos os capítulos)",
+     "dono": "agente",
+     "status": "pendente",
+     "bloqueado_por": [
+      "dod-final"
+     ]
+    },
+    {
+     "id": "aprovacao-orientador",
+     "titulo": "Revisão e aprovação do orientador (Prof. Gustavo)",
+     "dono": "autor",
+     "status": "pendente",
+     "bloqueado_por": [
+      "ars-fechamento"
+     ]
+    },
+    {
+     "id": "gate-final",
+     "titulo": "GATE FINAL DO AUTOR: aprovação explícita do texto completo para depósito",
+     "dono": "autor",
+     "status": "pendente",
+     "bloqueado_por": [
+      "aprovacao-orientador"
+     ]
+    },
+    {
+     "id": "deposito",
+     "titulo": "Depósito e agendamento da defesa",
+     "dono": "autor",
+     "status": "pendente",
+     "bloqueado_por": [
+      "gate-final"
+     ]
+    }
+   ]
   }
  ],
  "proximo": {
-  "descricao": "Cap. 2, rodada R1: revisar o lote 1 (9 antes/depois na branch humanize/cap2) e seguir com os lotes 2–5; em paralelo o autor roda as sementes 7 e 123 no Colab.",
+  "descricao": "SUSPENSO até decisão do autor sobre a ordem (ver DECISÕES na fila): opção A = lotes 2–5 do Cap. 2; opção B (parecer R6) = auditoria do bib primeiro (não toca prosa), depois veredito+pré-textuais, depois lotes. Enquanto isso, jobs de agente liberados: McNemar + bootstrap (execuções).",
   "fila": [
    "cap2 R1 lotes 2–5 → gate → merge",
    "cap3 R1 (inclui nota R6 do E3')",
@@ -572,8 +671,36 @@
     "dono": "autor",
     "duracao": "1,5–2,5 h",
     "resultado_esperado": "experiments/e2e3/results/e3prime_*_s123.json"
+   },
+   {
+    "id": "mcnemar-pares",
+    "o_que": "McNemar pareado A–B, B–C, E35–D sobre predições persistidas (_s42)",
+    "onde": "CPU local · experiments/e2e3/results/",
+    "estado": "aguardando_inicio",
+    "dono": "agente",
+    "duracao": "minutos",
+    "resultado_esperado": "experiments/e2e3/results/mcnemar_s42.json"
+   },
+   {
+    "id": "bootstrap-f1",
+    "o_que": "IC bootstrap das diferenças de Macro F1 entre braços",
+    "onde": "CPU local · mesmas predições",
+    "estado": "aguardando_inicio",
+    "dono": "agente",
+    "duracao": "minutos",
+    "resultado_esperado": "experiments/e2e3/results/bootstrap_f1_s42.json"
    }
   ]
  },
- "gate": "NADA entra na main sem gate humano do autor: toda rodada roda em branch, apresenta antes/depois na conversa e só mergeia com aprovação explícita. Vale para texto, código e plano."
+ "gate": "NADA entra na main sem gate humano do autor: toda rodada roda em branch, apresenta antes/depois na conversa e só mergeia com aprovação explícita. Vale para texto, código e plano.",
+ "decisoes_pendentes": [
+  {
+   "id": "dec-fila",
+   "titulo": "Ordem da fila: manter (lotes 2–5 do Cap. 2 primeiro) OU adotar a do parecer R6 (bib-audit → veredito+pré-textuais → lotes 2–5)? Humanizar antes de mexer nas citações = editar a mesma superfície duas vezes"
+  },
+  {
+   "id": "dec-fecho-cap6",
+   "titulo": "Fecho do Cap. 6: manter tríade+aforismo (estilo) sabendo que 2 trechos são apontados como mérito (DA-C1/C2/C3), ou reescrever"
+  }
+ ]
 }

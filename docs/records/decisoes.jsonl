@@ -6,3 +6,4 @@
 {"id":"adr-0004","data":"2026-08-16","titulo":"Plano de revisão como JSON versionado + painel republicável","status":"aceita","registro":"docs/adr/0004-plano-de-revisao-como-artefato-versionado.md"}
 {"id":"adr-0005","data":"2026-08-16","titulo":"Cópia online sempre atual do painel via GitHub Pages","status":"aceita","registro":"docs/adr/0005-copia-online-do-painel-via-github-pages.md"}
 {"id":"adr-0006","data":"2026-08-16","titulo":"Camada de KPIs em pontos de esforço + dashboard de evolução (6 zonas UX)","status":"aceita","registro":"docs/adr/0006-camada-de-kpis-e-dashboard-de-evolucao.md"}
+{"id":"adr-0007","data":"2026-08-16","titulo":"Incorporação do parecer ARS-R6 + gate final de aprovação (plano v4)","status":"aceita","registro":"docs/adr/0007-incorporacao-parecer-r6-e-gate-final.md"}

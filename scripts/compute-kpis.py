@@ -188,6 +188,9 @@ def fila_e_represados(plano):
                     and not bloqueada(i, itens)):
                 fila.append({"id": i["id"], "tipo": "acao", "titulo": i["titulo"],
                              "pontos_destravados": round(destrava(i["id"]))})
+    for dp in plano.get("decisoes_pendentes", []):
+        fila.append({"id": dp["id"], "tipo": "decisao", "titulo": dp["titulo"],
+                     "pontos_destravados": 0})
     fila.sort(key=lambda x: -x["pontos_destravados"])
     return {"total": len(fila), "itens": fila}, \
            {"pontos": round(max((f["pontos_destravados"] for f in fila), default=0))}

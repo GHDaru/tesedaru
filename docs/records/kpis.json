@@ -1,7 +1,7 @@
 {
  "schema": "kpis/v1",
  "computado_em": "2026-08-16",
- "git_sha": "2267430",
+ "git_sha": "95ab3da",
  "prontidao": {
   "global_pct": 4.6,
   "texto_pct": 5.4,
@@ -92,15 +92,15 @@
   "serie": [
    {
     "data": "2026-08-16",
-    "commit": "7672fc8",
-    "pontos": 258,
-    "pct": 16.5,
+    "commit": "95ab3da",
+    "pontos": 84,
+    "pct": 5.4,
     "evento": null
    }
   ]
  },
  "fila_autor": {
-  "total": 11,
+  "total": 13,
   "itens": [
    {
     "id": "seed7",
@@ -123,7 +123,7 @@
    {
     "id": "zenodo",
     "tipo": "acao",
-    "titulo": "Ativar webhook Zenodo e gerar DOI (metadados prontos)",
+    "titulo": "Ativar webhook Zenodo e gerar DOI (metadados prontos) · ao obter DOI: inserir URL+DOI no artigo A4 e no Cap. 3 (tese hoje não tem URL de repositório)",
     "pontos_destravados": 10
    },
    {
@@ -141,7 +141,7 @@
    {
     "id": "kaggle-licenca",
     "tipo": "acao",
-    "titulo": "Definir licença do dataset no Kaggle (recomendado CC BY 4.0) — bloqueante do artigo a5",
+    "titulo": "Definir licença do dataset no Kaggle (recomendado CC BY 4.0) — bloqueante do artigo a5 · PAR OBRIGATÓRIO: parágrafo de proveniência/LGPD no Cap. 3 (agente)",
     "pontos_destravados": 0
    },
    {
@@ -166,6 +166,18 @@
     "id": "autoria-ordem",
     "tipo": "acao",
     "titulo": "Definir autoria/ordem dos 5 artigos",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-fila",
+    "tipo": "decisao",
+    "titulo": "Ordem da fila: manter (lotes 2–5 do Cap. 2 primeiro) OU adotar a do parecer R6 (bib-audit → veredito+pré-textuais → lotes 2–5)? Humanizar antes de mexer nas citações = editar a mesma superfície duas vezes",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-fecho-cap6",
+    "tipo": "decisao",
+    "titulo": "Fecho do Cap. 6: manter tríade+aforismo (estilo) sabendo que 2 trechos são apontados como mérito (DA-C1/C2/C3), ou reescrever",
     "pontos_destravados": 0
    }
   ]
