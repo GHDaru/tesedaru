@@ -36,8 +36,10 @@ out_dir.mkdir(parents=True, exist_ok=True)
 plano = json.loads((ROOT / "docs/records/plano-revisao.json").read_text(encoding="utf-8"))
 kpis_path = ROOT / "docs/records/kpis.json"
 mens_path = ROOT / "docs/records/mensagens.json"
+resultados_path = ROOT / "docs/records/resultados.json"
 kpis = json.loads(kpis_path.read_text(encoding="utf-8")) if kpis_path.exists() else {}
 mens = json.loads(mens_path.read_text(encoding="utf-8")) if mens_path.exists() else {}
+resultados = json.loads(resultados_path.read_text(encoding="utf-8")) if resultados_path.exists() else {}
 
 
 def as_json_script(elem_id: str, data) -> str:
@@ -613,95 +615,314 @@ def build_plano() -> tuple[str, str]:
 
 
 # --------------------------------------------------------------------------
-# Coordenação (mensagens.html) — Fatia 1: renderização em tabela (o kanban é
-# Fatia 2); mantém a função íntegra dentro do novo casco de navegação.
+# Coordenação (mensagens.html) — Fatia 2: board kanban somente-leitura
+# (Aberta · Em andamento · Concluída), filtros por agente/tipo, arquivadas
+# recolhidas abaixo, locks + saúde da coordenação.
 # --------------------------------------------------------------------------
 def build_coordenacao() -> tuple[str, str]:
     body = """
 <header class="page-head"><h1>Coordenação</h1>
   <span class="meta" id="meta"></span></header>
 
-<section class="card"><h2 id="t-ativas">Ativas</h2>
-  <div class="scroll"><table id="ativas"></table></div></section>
-<section class="card"><h2 id="t-conc">Concluídas</h2>
-  <div class="scroll"><table id="concluidas"></table></div></section>
-<section class="card"><details><summary id="t-arq">Arquivadas</summary>
+<section class="card">
+  <p class="ro-nota">🔒 quadro somente leitura — o estado muda pelos agentes no repositório (renomeação do arquivo é a reserva atômica do protocolo)</p>
+  <div class="filtros" id="filtros" aria-label="Filtros do quadro"></div>
+</section>
+
+<div id="board-status" class="sr-only" role="status" aria-live="polite"></div>
+<section class="k-board" id="board" aria-label="Quadro de coordenação"></section>
+
+<section class="card"><details id="arq-det"><summary id="t-arq">Arquivadas</summary>
   <div class="scroll"><table id="arquivadas"></table></div></details></section>
+
 <section class="card"><h2>Locks de superfície</h2><div id="locks"></div></section>
+
+<section class="card"><h2>Saúde da coordenação</h2><p id="saude" class="vazia"></p></section>
 """
     json_blocks = as_json_script('mensagens', mens)
-    script = json_blocks + f"""
+    script = json_blocks + """
 <script>
-(function(){{
+(function(){
 const M = JSON.parse(document.getElementById('mensagens').textContent);
-const esc = s => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
-const GL = {{aberta:'○ aberta', 'em-andamento':'◐ em andamento', concluida:'● concluída'}};
-const fmts = ts => `${{ts.slice(6,8)}}/${{ts.slice(4,6)}} ${{ts.slice(9,11)}}:${{ts.slice(11,13)}} UTC`;
-const idade = h => h < 1 ? `${{Math.round(h*60)}} min` : h < 48 ? `${{Math.round(h)}} h` : `${{Math.round(h/24)}} dias`;
-document.getElementById('meta').textContent = `Atualizada em ${{M.computado_em}} · fonte: coordenacao/ no repositório`;
+const esc = s => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const idade = h => h < 1 ? `${Math.round(h*60)} min` : h < 48 ? `${Math.round(h)} h` : `${Math.round(h/24)} dias`;
+document.getElementById('meta').textContent = `Atualizada em ${M.computado_em} · fonte: coordenacao/ no repositório`;
+
+const AGENTES = ['principal', 'banca', 'revisor1', 'revisor2', 'autor'];
+const TIPOS = ['tarefa', 'pergunta', 'aviso'];
+const TIPO_LABEL = {tarefa: 'tarefa', pergunta: 'pergunta', aviso: 'aviso'};
+const COLS = [
+  {estado: 'aberta', nome: 'Aberta', glifo: '○'},
+  {estado: 'em-andamento', nome: 'Em andamento', glifo: '◐'},
+  {estado: 'concluida', nome: 'Concluída', glifo: '●'},
+];
+
+const todas = (M.mensagens || []).slice().sort((a, b) => b.ts.localeCompare(a.ts));
+const ativas = todas.filter(m => !m.arquivada);
+const arquivadas = todas.filter(m => m.arquivada);
+
+// estado dos filtros: tudo ativo por padrão (mostra tudo até o usuário desligar algo)
+const filtroState = {agente: Object.fromEntries(AGENTES.map(a => [a, true])),
+                      tipo: Object.fromEntries(TIPOS.map(t => [t, true]))};
+
+function hoje() { return new Date(); }
+function prazoVencido(prazo) {
+  if (!prazo) return false;
+  const d = new Date(prazo);
+  return !isNaN(d) && d < hoje();
+}
+function prazoFmt(prazo) { return esc(String(prazo).slice(0, 10)); }
+
+// ux-design.md §4: fila priorizada dentro da raia — o essencial fica
+// visível no topo mesmo sem rolar (atrasado+para-você > para-você > atrasado > recência)
+function prioridade(m) {
+  const pv = m.para === 'autor', atr = prazoVencido(m.prazo);
+  if (pv && atr) return 0;
+  if (pv) return 1;
+  if (atr) return 2;
+  return 3;
+}
+function ordenarPorPrioridade(itens) {
+  return itens.slice().sort((a, b) => prioridade(a) - prioridade(b) || b.ts.localeCompare(a.ts));
+}
+
+function card(m) {
+  const paraVoce = m.para === 'autor';
+  const atrasado = prazoVencido(m.prazo);
+  const tituloTxt = m.acao_esperada || m.slug.replace(/-/g, ' ');
+  const titulo = esc(tituloTxt);
+  const ref = m.referencia ? esc(m.referencia) : '';
+  let rodape = `há ${idade(m.idade_horas)}`;
+  if (m.prazo) rodape += ` · prazo ${prazoFmt(m.prazo)}`;
+  return `<article class="k-card${paraVoce ? ' para-voce' : ''}${atrasado ? ' atrasado' : ''}"
+      data-de="${esc(m.de)}" data-para="${esc(m.para)}" data-tipo="${esc(m.tipo)}">
+    ${paraVoce ? '<span class="k-badge">para você</span>' : ''}
+    <p class="k-titulo" title="${titulo}">${titulo}</p>
+    <p class="k-rota"><strong>${esc(m.de)} → ${esc(m.para)}</strong> <span class="k-tipo">${esc(TIPO_LABEL[m.tipo] || m.tipo)}</span></p>
+    <p class="k-rodape">${rodape}${atrasado ? ' <strong class="k-atrasado">⚠ atrasado</strong>' : ''}</p>
+    ${ref ? `<p class="k-ref" title="${ref}">${ref}</p>` : ''}
+  </article>`;
+}
+
+function passaFiltro(m) {
+  const agOk = filtroState.agente[m.de] || filtroState.agente[m.para] ||
+    (!AGENTES.includes(m.de) && !AGENTES.includes(m.para));
+  const tpOk = filtroState.tipo[m.tipo] !== undefined ? filtroState.tipo[m.tipo] : true;
+  return agOk && tpOk;
+}
+
+function renderBoard() {
+  const board = document.getElementById('board');
+  const resumo = [];
+  board.innerHTML = COLS.map(c => {
+    const totalColuna = ativas.filter(m => m.estado === c.estado).length;
+    const itens = ordenarPorPrioridade(ativas.filter(m => m.estado === c.estado && passaFiltro(m)));
+    resumo.push(`${c.nome}: ${itens.length}`);
+    const vazio = totalColuna === 0
+      ? '<p class="vazia">Nada aqui</p>'
+      : '<p class="vazia">Nada aqui com os filtros atuais</p>';
+    const hId = `k-col-h-${c.estado}`;
+    return `<div class="k-col" role="region" aria-labelledby="${hId}">
+      <h2 class="k-col-h" id="${hId}">${c.glifo} ${c.nome} <span class="k-count">${itens.length}</span></h2>
+      <div class="k-cards" tabindex="0" aria-label="Coluna ${esc(c.nome)}, ${itens.length} ${itens.length === 1 ? 'item' : 'itens'}">
+        ${itens.length ? itens.map(card).join('') : vazio}
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('board-status').textContent = resumo.join(' · ');
+  // somente leitura: sem draggable, sem dragover/drop — arrastar não faz nada
+}
+
+function renderFiltros() {
+  const wrap = document.getElementById('filtros');
+  const pill = (grupo, val, label) =>
+    `<button type="button" class="pilula on" data-grupo="${grupo}" data-val="${esc(val)}" aria-pressed="true">${esc(label)}</button>`;
+  wrap.innerHTML =
+    `<div class="pilulas" aria-label="Filtrar por agente">` + AGENTES.map(a => pill('agente', a, a)).join('') + `</div>` +
+    `<div class="pilulas" aria-label="Filtrar por tipo">` + TIPOS.map(t => pill('tipo', t, TIPO_LABEL[t])).join('') + `</div>`;
+  wrap.querySelectorAll('.pilula').forEach(btn => btn.addEventListener('click', () => {
+    const grupo = btn.dataset.grupo, val = btn.dataset.val;
+    filtroState[grupo][val] = !filtroState[grupo][val];
+    btn.classList.toggle('on', filtroState[grupo][val]);
+    btn.setAttribute('aria-pressed', String(filtroState[grupo][val]));
+    renderBoard();
+  }));
+}
+
+renderFiltros();
+renderBoard();
+
+// arquivadas: recolhidas, não são coluna do board
+const cab = '<thead><tr><th>Quando</th><th>De → Para</th><th>Assunto e ação esperada</th></tr></thead>';
+const fmts = ts => `${ts.slice(6,8)}/${ts.slice(4,6)} ${ts.slice(9,11)}:${ts.slice(11,13)} UTC`;
 const linha = m => `<tr>
-  <td><span class="estado ${{m.estado}}">${{GL[m.estado]}}</span></td>
-  <td class="quando">${{fmts(m.ts)}}<br><small>há ${{idade(m.idade_horas)}}</small></td>
-  <td class="rota">${{esc(m.de)}} → ${{esc(m.para)}}<small>${{esc(m.tipo)}}</small></td>
-  <td class="assunto"><strong>${{esc(m.slug.replace(/-/g,' '))}}</strong>
-    <small>${{esc(m.acao_esperada)}}${{m.prazo ? ' · prazo ' + esc(m.prazo).slice(0,10) : ''}}
-    ${{m.referencia ? '<br>ref: ' + esc(m.referencia) : ''}}</small></td></tr>`;
-const cab = '<thead><tr><th>Estado</th><th>Quando</th><th>De → Para</th><th>Assunto e ação esperada</th></tr></thead>';
-const tab = (id, lista, vazioTxt) => {{
-  const el = document.getElementById(id);
-  el.innerHTML = lista.length ? cab + '<tbody>' + lista.map(linha).join('') + '</tbody>' : '';
-  if (!lista.length) el.outerHTML = `<p class="vazia">${{vazioTxt}}</p>`;
-  return lista.length;
-}};
-const ms = (M.mensagens||[]).slice().sort((a,b)=> b.ts.localeCompare(a.ts));
-const ativas = ms.filter(m => m.estado !== 'concluida' && !m.arquivada);
-const conc   = ms.filter(m => m.estado === 'concluida' && !m.arquivada);
-const arq    = ms.filter(m => m.arquivada);
-document.getElementById('t-ativas').textContent = `Ativas (${{ativas.length}})`;
-document.getElementById('t-conc').textContent = `Concluídas (${{conc.length}})`;
-document.getElementById('t-arq').textContent = `Arquivadas (${{arq.length}})`;
-tab('ativas', ativas, 'Sem mensagens ativas.');
-tab('concluidas', conc, 'Nenhuma concluída ainda na caixa.');
-tab('arquivadas', arq, 'Nada arquivado ainda.');
+  <td class="quando">${fmts(m.ts)}<br><small>há ${idade(m.idade_horas)}</small></td>
+  <td class="rota">${esc(m.de)} → ${esc(m.para)}<small>${esc(m.tipo)}</small></td>
+  <td class="assunto"><strong>${esc(m.slug.replace(/-/g,' '))}</strong>
+    <small>${esc(m.acao_esperada)}${m.referencia ? '<br>ref: ' + esc(m.referencia) : ''}</small></td></tr>`;
+document.getElementById('t-arq').textContent = `Arquivadas (${arquivadas.length})`;
+const arqTab = document.getElementById('arquivadas');
+arqTab.innerHTML = arquivadas.length ? cab + '<tbody>' + arquivadas.map(linha).join('') + '</tbody>' : '';
+if (!arquivadas.length) arqTab.outerHTML = '<p class="vazia">Nada arquivado ainda.</p>';
+
 const locks = M.locks || [];
 document.getElementById('locks').innerHTML = locks.length ? locks.map(l => `
-  <p style="margin:.25rem 0">${{l.vencido ? '✕' : '●'}} <code>${{esc(l.superficie)}}</code>
-   · dono ${{esc(l.dono)}} · ${{l.vencido ? 'vencido — quebrável' : 'renovado há ' + l.renovado_ha_min + ' min'}}</p>`).join('')
+  <p style="margin:.25rem 0">${l.vencido ? '✕' : '●'} <code>${esc(l.superficie)}</code>
+   · dono ${esc(l.dono)} · ${l.vencido ? 'vencido — quebrável' : 'renovado há ' + l.renovado_ha_min + ' min'}</p>`).join('')
   : '<p class="vazia">Nenhuma superfície travada.</p>';
-}})();
+
+const s = M.saude || {};
+const doente = s.bloqueio_mais_antigo_h > 48 || s.locks_vencidos > 0;
+document.getElementById('saude').textContent = doente
+  ? `✕ Doente — bloqueio mais antigo ${s.bloqueio_mais_antigo_h}h · locks vencidos ${s.locks_vencidos} · mensagens ativas ${s.mensagens_ativas}`
+  : `✓ Saudável — mensagens ativas ${s.mensagens_ativas} · para o autor (abertas) ${s.para_autor_abertas} · locks ativos ${s.locks_ativos}`;
+})();
 </script>
 <style>
-.estado{{display:inline-flex; gap:.35rem; align-items:center; white-space:nowrap; font-weight:600}}
-.estado.aberta{{color:var(--atencao)}}
-.estado.em-andamento{{color:var(--accent)}}
-.estado.concluida{{color:var(--muted)}}
-td.quando{{white-space:nowrap; color:var(--muted)}}
-td.rota{{white-space:nowrap; font-weight:600}}
-td.rota small{{display:block; font-weight:400; color:var(--muted)}}
-td.assunto strong{{display:block}}
-td.assunto small{{color:var(--muted)}}
+.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+  clip:rect(0,0,0,0); white-space:nowrap; border:0}
+.ro-nota{margin:0 0 var(--sp-3); color:var(--muted); font-size:var(--fs-2)}
+.filtros{display:flex; flex-wrap:wrap; gap:var(--sp-4)}
+.pilulas{display:flex; flex-wrap:wrap; gap:var(--sp-2)}
+.pilula{border:1px solid var(--border); background:var(--panel); color:var(--muted); border-radius:99px;
+  padding:.25rem .7rem; font-size:var(--fs-2); cursor:pointer}
+.pilula.on{border-color:var(--accent); color:var(--accent); background:var(--accent-soft); font-weight:600}
+/* ux-design.md §2/§5: o board tem altura ~constante (raia limitada); quem
+   rola é cada coluna (.k-cards), nunca a página inteira por causa de N cartões */
+.k-board{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--sp-4); align-items:start}
+.k-col{background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:var(--sp-3); display:flex;
+  flex-direction:column; gap:var(--sp-2); min-width:0}
+/* as duas media queries vêm DEPOIS das regras base — min-width:260px do
+   breakpoint intermediário precisa vencer o min-width:0 da regra base na
+   cascata (mesma especificidade; quem aparece por último ganha) */
+@media (max-width:1099px) and (min-width:601px){
+  .k-board{display:flex; overflow-x:auto; overscroll-behavior-x:contain; padding-bottom:var(--sp-2)}
+  .k-col{min-width:260px; flex:1 0 260px}
+}
+@media (max-width:600px){ .k-board{grid-template-columns:1fr} }
+.k-col-h{font-size:var(--fs-3); display:flex; align-items:center; gap:var(--sp-2); margin:0 0 var(--sp-1)}
+.k-count{margin-left:auto; color:var(--muted); font-size:var(--fs-1); font-weight:400}
+.k-cards{display:flex; flex-direction:column; gap:var(--sp-2); min-width:0;
+  max-height:clamp(320px,58vh,640px); overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; padding-right:var(--sp-1)}
+.k-card{background:var(--ground); border:1px solid var(--border); border-radius:8px; padding:var(--sp-2) var(--sp-3);
+  cursor:default; position:relative; display:flex; flex-direction:column; gap:var(--sp-1); line-height:1.3; min-width:0}
+.k-card.para-voce{border-color:var(--atencao-borda); box-shadow:inset 3px 0 0 var(--atencao)}
+.k-badge{align-self:flex-start; background:var(--atencao-bg); color:var(--atencao); border:1px solid var(--atencao-borda);
+  border-radius:99px; padding:.05rem .55rem; font-size:var(--fs-1); font-weight:700}
+.k-titulo{margin:0; font-size:var(--fs-3); font-weight:600;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+.k-rota{margin:0; font-size:var(--fs-2)}
+.k-rota strong{font-weight:600}
+.k-tipo{color:var(--muted); font-size:var(--fs-1)}
+.k-rodape{margin:0; color:var(--muted); font-size:var(--fs-1)}
+.k-atrasado{color:var(--atencao)}
+.k-ref{margin:0; color:var(--muted); font-size:var(--fs-1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.estado{display:inline-flex; gap:.35rem; align-items:center; white-space:nowrap; font-weight:600}
+td.quando{white-space:nowrap; color:var(--muted)}
+td.rota{white-space:nowrap; font-weight:600}
+td.rota small{display:block; font-weight:400; color:var(--muted)}
+td.assunto strong{display:block}
+td.assunto small{color:var(--muted)}
 </style>"""
     return body, script
 
 
 # --------------------------------------------------------------------------
-# Resultados (resultados.html) — stub de navegação nesta fatia; o conteúdo
-# real (achados por pilar, entregas, experimentos) é a Fatia 2.
+# Resultados (resultados.html) — Fatia 2: o que a tese já produziu, para o
+# autor e a banca. Três blocos com papéis diferentes: achados (conclusão
+# científica sustentada por evidência), entregas (artefato que existe) e
+# experimentos executados. Conteúdo lido de docs/records/resultados.json —
+# outro agente aprofunda; esta função só entrega a estrutura + os exemplos
+# reais já carregados no JSON.
 # --------------------------------------------------------------------------
 def build_resultados() -> tuple[str, str]:
     body = """
 <header class="page-head"><h1>Resultados</h1>
-  <span class="meta">o que a tese já produziu</span></header>
+  <span class="meta" id="meta"></span></header>
 
 <section class="card">
-  <p class="vazia">Esta página chega na próxima entrega: achados por pilar
-  (P1–P4) com evidência, entregas da tese (artigos, biblioteca, dataset,
-  fichamentos) e a tabela de experimentos executados. A estrutura de
-  navegação já está pronta — o conteúdo é preenchido a partir de
-  <code>docs/records/resultados.json</code>.</p>
+  <p class="vazia">O que a tese já produziu, com a evidência que sustenta cada
+  número — vitrine para o autor e a banca, sem afirmação sem fonte.</p>
+</section>
+
+<section aria-label="Achados por pilar">
+  <div id="achados-pilares"></div>
+</section>
+
+<section class="card">
+  <h2>Entregas</h2>
+  <div class="entregas" id="entregas"></div>
+</section>
+
+<section class="card">
+  <h2>Experimentos executados</h2>
+  <div class="scroll"><table id="experimentos"></table></div>
 </section>
 """
-    return body, ""
+    json_blocks = as_json_script('resultados', resultados)
+    script = json_blocks + """
+<script>
+(function(){
+const R = JSON.parse(document.getElementById('resultados').textContent || '{}');
+const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+document.getElementById('meta').textContent = R.atualizado_em ? `atualizado em ${R.atualizado_em}` : '';
+
+const pilares = R.pilares || {};
+const achados = R.achados || [];
+document.getElementById('achados-pilares').innerHTML = Object.entries(pilares).map(([id, nome]) => {
+  const itens = achados.filter(a => a.pilar === id);
+  const corpo = itens.length ? itens.map(a => `
+    <div class="achado">
+      <p class="achado-afirmacao">${esc(a.afirmacao)}</p>
+      <p class="achado-numero">${esc(a.numero)}</p>
+      <p class="achado-evidencia">${esc(a.evidencia)}</p>
+      ${a.detalhe ? `<p class="achado-detalhe">${esc(a.detalhe)}</p>` : ''}
+    </div>`).join('') : '<p class="vazia">Sem achados registrados nesta versão.</p>';
+  return `<div class="card" style="margin-bottom:var(--sp-4)">
+    <h2>${esc(id)} — ${esc(nome)}</h2>
+    ${corpo}
+  </div>`;
+}).join('');
+
+const entregas = R.entregas || [];
+document.getElementById('entregas').innerHTML = entregas.length ? entregas.map(e => {
+  const isLink = /^https?:\\/\\/|^doi\\.org\\//.test(e.link_ou_caminho || '');
+  const alvo = isLink
+    ? `<a href="${/^https?:\\/\\//.test(e.link_ou_caminho) ? esc(e.link_ou_caminho) : 'https://' + esc(e.link_ou_caminho)}">${esc(e.link_ou_caminho)}</a>`
+    : `<code>${esc(e.link_ou_caminho || '')}</code>`;
+  return `<div class="entrega">
+    <p class="entrega-nome">${esc(e.nome)}</p>
+    <p class="entrega-descricao">${esc(e.descricao)}</p>
+    <p class="entrega-link">${alvo}</p>
+  </div>`;
+}).join('') : '<p class="vazia">Nenhuma entrega registrada ainda.</p>';
+
+const experimentos = R.experimentos || [];
+const cab = '<thead><tr><th>Experimento</th><th>Pergunta</th><th>Resultado</th><th>Artefato</th></tr></thead>';
+const linha = x => `<tr>
+  <td class="chap">${esc(x.id)}</td>
+  <td>${x.pergunta ? esc(x.pergunta) : '<span class="vazia">—</span>'}</td>
+  <td>${x.resultado ? esc(x.resultado) : '<span class="vazia">pendente' + (x.nota ? ': ' + esc(x.nota) : '') + '</span>'}</td>
+  <td class="tot">${x.artefato ? esc(x.artefato) : '—'}</td></tr>`;
+const expTab = document.getElementById('experimentos');
+expTab.innerHTML = experimentos.length ? cab + '<tbody>' + experimentos.map(linha).join('') + '</tbody>' : '';
+if (!experimentos.length) expTab.outerHTML = '<p class="vazia">Nenhum experimento registrado ainda.</p>';
+})();
+</script>
+<style>
+.achado{border-top:1px dashed var(--border); padding:var(--sp-3) 0}
+.achado:first-of-type{border-top:none; padding-top:0}
+.achado-afirmacao{margin:0 0 var(--sp-1); font-size:var(--fs-3)}
+.achado-numero{margin:0; font-size:var(--fs-5); font-weight:700; color:var(--accent)}
+.achado-evidencia{margin:.2rem 0 0; color:var(--muted); font-size:var(--fs-1)}
+.achado-detalhe{margin:.3rem 0 0; color:var(--muted); font-size:var(--fs-2)}
+.entregas{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:var(--sp-3)}
+.entrega{border:1px solid var(--border); border-radius:8px; padding:var(--sp-3); background:var(--ground)}
+.entrega-nome{margin:0; font-weight:600; font-size:var(--fs-3)}
+.entrega-descricao{margin:.25rem 0; color:var(--muted); font-size:var(--fs-2)}
+.entrega-link{margin:0; font-size:var(--fs-1); word-break:break-word}
+</style>"""
+    return body, script
 
 
 def main() -> None:

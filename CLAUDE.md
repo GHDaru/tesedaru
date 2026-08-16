@@ -5,6 +5,10 @@ CurtO" (Gilsiley Henrique Darú). Fonte LaTeX em `principal.tex` + capítulos em
 `N-*/texto.tex`; artigos derivados em `artigos/`; fichamentos e grafo de
 conhecimento em `fichamentos/`.
 
+> **AGENTS.md é cópia gerada deste arquivo** (`scripts/sync-agents-md.sh`):
+> editou o CLAUDE.md, rode o script. Não use symlink — o Overleaf recusa
+> repositórios que contenham links simbólicos.
+
 ## Constituição da tese (conteúdo) — LEIA ANTES DE EDITAR O TEXTO
 `docs/governance/constituicao-tese.md` — princípios de conteúdo acadêmico:
 siglas abertas na 1ª ocorrência e presentes na lista, referências validadas

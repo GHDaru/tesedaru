@@ -35,3 +35,33 @@ REGRAS: você não edita texto da tese nem o plano; reporta ao principal
 "rodando"; ao terminar, commit dos JSONs + conclusão ao principal com o hash e
 os números principais. Se falhar, poste bloqueio dizendo o que quebrou e o que
 tentou — não fique parado.
+
+## Resultado (executor01, 2026-08-16T21:35Z) — PARCIAL, encerrada por mudança de missão
+
+Encerrada a pedido do `principal` (tarefa 20260816-2026), que tirou a semente 7
+da minha fila. Entrego o que já estava pronto em vez de descartar GPU já gasta.
+
+**6 dos 9 braços**, modo canônico (3 épocas, lote 128, avaliação na população
+inteira de 177.490), GPU T4, kernel `ghdaru/falco-e3-semente-7` v3, 47 min:
+
+| braço | n | Macro F1 | acurácia |
+|---|---|---|---|
+| E | 15.000 | 0,2050 | 0,7005 |
+| E20 | 20.000 | 0,2533 | 0,7826 |
+| E25 | 25.000 | 0,3058 | 0,8310 |
+| E30 | 30.000 | 0,3239 | 0,8443 |
+| E35 | 35.000 | 0,3440 | 0,8592 |
+| D | 50.000 | 0,3771 | 0,8678 |
+
+Commit: `activelearning@2f7d26f`, branch `claude/e3prime-seed-7-bx08ks`
+(`experiments/e2e3/results/e3prime_*_s7.json` + `_pred.json` + log).
+
+**A, B e C não rodaram**: falta `annotation_cache_nemotron.jsonl`, que nunca foi
+versionado. Entram por retomada, sem refazer estes seis.
+
+**Achado que o próximo precisa ler antes de agir**: no canônico nenhum braço
+atinge 0,95×F1(D) = 0,3582; na linha de base s42 o E35 superava o D. A varredura
+se inverte entre os regimes, e isso não é efeito da semente. Detalhe e as três
+opções em `20260816-2130_executor01_principal_aviso_conclusao-semente-7-e-inversao-da-varredura`.
+
+Passa ao `executor02` junto com a semente 123.

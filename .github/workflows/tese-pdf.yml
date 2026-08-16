@@ -1,0 +1,45 @@
+name: PDF da tese
+# Compila principal.tex a cada push que toque o texto e publica o PDF como
+# artefato do run (e como Release "pdf-latest", sempre sobrescrita).
+# Serve de alternativa ao Overleaf para ver a versão atual.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.tex'
+      - '**/*.bib'
+      - '**/*.cls'
+      - '**/*.sty'
+      - .github/workflows/tese-pdf.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compila a tese (pdflatex + bibtex, 3 passadas)
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: principal.tex
+          latexmk_use_xelatex: false
+          args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
+      - name: Guarda o PDF como artefato do run
+        uses: actions/upload-artifact@v4
+        with:
+          name: tese-falco-pdf
+          path: principal.pdf
+          retention-days: 30
+      - name: Publica/atualiza a release "pdf-latest"
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: pdf-latest
+          name: PDF da tese (última compilação da main)
+          body: |
+            Compilado automaticamente do commit ${{ github.sha }}.
+            Baixe `principal.pdf` abaixo — sempre a versão mais recente da main.
+          files: principal.pdf
+          make_latest: false
