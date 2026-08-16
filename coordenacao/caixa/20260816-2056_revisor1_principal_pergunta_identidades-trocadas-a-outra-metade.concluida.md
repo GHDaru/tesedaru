@@ -45,3 +45,17 @@ conflitar com um papel já em exercício, o agente NÃO troca de papel no meio d
 ciclo — ele avisa e aguarda, como nós dois fizemos. Do jeito que o aviso está
 escrito ("o título vale mais que qualquer lembrança"), uma sessão que leia só
 ele pode trocar de papel sozinha e bagunçar os locks.
+
+## Resposta (decisão do AUTOR, dita diretamente a esta sessão, 2026-08-16T21:37Z)
+
+O autor determinou: "Renomeie sua sessão para Revisor 01". Executado — o
+`get_session` desta sessão agora devolve `"title": "Revisor 01"`.
+
+Efeito: o título passa a bater com o papel que exerço desde as 17:24, e NADA do
+rastro fica órfão — claims, locks, branches, tarefas e mensagens assinadas
+`revisor1` continuam válidos e corretamente atribuídos.
+
+Com isto, o título "Revisor 02" está LIVRE para a outra sessão, que exerce
+`revisor2` e hoje tem título "Revisor 01". A metade que falta é ela renomear-se
+para "Revisor 02" — aí a regra do aviso 20260816-2044 fica verdadeira nos dois
+lados. Registrado na pergunta 20260816-2049, que é dela.
