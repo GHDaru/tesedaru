@@ -50,7 +50,8 @@ simcse  <!-- Yu2023Patron -->
 vgg-16  <!-- Sener2018 -->
 dino, flexmatch, scan, simclr  <!-- Hacohen2022TypiClust -->
 gpt-3-davinci, pegasus-large, roberta-large  <!-- Wang2021GPT3Labeling -->
-gpt-4  <!-- Zhang2023LLMaAA -->
+gpt-3, gpt-4  <!-- Zhang2023LLMaAA (gpt-3 = família, quando o paper não fixa a variante) -->
+bert  <!-- Zhang2023LLMaAA, Schroder2022Uncertainty (família; use a variante exata quando o paper a fixar) -->
 
 ### Métodos (fichar-vizinhos)
 auto-supervisao, k-means, selecao-por-diversidade, tipicidade, transicao-de-fase-de-orcamento, typiclust  <!-- Hacohen2022TypiClust -->
@@ -70,3 +71,4 @@ svhn  <!-- Sener2018 -->
 ### Métricas (fichar-vizinhos)
 auc-curva-de-aprendizado  <!-- Schroder2022Uncertainty -->
 l1-score-balanceamento  <!-- Bengar2022ClassBalanced -->
+f1  <!-- Yu2023Patron: o paper reporta "F1 score" sem especificar macro/micro; não normalizar para macro-f1 -->

@@ -16,7 +16,7 @@ status: fichado
 # ===== ENTIDADES (nós Método/Dataset/Métrica/Tarefa; usar nomes canônicos) =====
 proposes: []               # rotulagem-ativa-gpt3-humano (termo ausente do vocabulário; ver relatório)
 uses_methods: [llm-como-oraculo, few-shot, menor-confianca, aprendizado-ativo, fine-tuning]
-datasets: [agnews, trec]   # também: SST-2, CB, RTE, DBPedia, Gigaword, XSum, SQuAD (fora do vocabulário)
+datasets: [agnews, trec, dbpedia]   # também: SST-2, CB, RTE, Gigaword, XSum, SQuAD (fora do vocabulário)
 metrics: [acuracia, custo-por-rotulo]  # também: ROUGE-L (fora do vocabulário)
 tasks: [classificacao-de-texto]        # também NLG (sumarização, geração de pergunta)
 models: [gpt-3-davinci, roberta-large, pegasus-large]

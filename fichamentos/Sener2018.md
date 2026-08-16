@@ -17,7 +17,7 @@ metrics: [acuracia]
 tasks: [classificacao-de-imagens]
 models: [vgg-16]
 extends: []
-compares_with: [Gal2016]
+compares_with: [Gal2017]   # DBAL = Gal, Islam & Ghahramani 2017 (confirmado no PDF, p. 7)
 contradicts: []
 builds_on: []
 falco_relation:

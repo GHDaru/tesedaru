@@ -447,6 +447,11 @@
       "label": "otimizacao-binaria"
     },
     {
+      "id": "metodo:k-center-greedy",
+      "type": "metodo",
+      "label": "k-center-greedy"
+    },
+    {
       "id": "modelo:resnet18",
       "type": "modelo",
       "label": "resnet18"
@@ -3547,6 +3552,11 @@
       "label": "pegasus-large"
     },
     {
+      "id": "dataset:dbpedia",
+      "type": "dataset",
+      "label": "dbpedia"
+    },
+    {
       "id": "Wong2015",
       "type": "artigo",
       "label": "Wong2015",
@@ -3694,11 +3704,6 @@
       "id": "dataset:yahoo-answers",
       "type": "dataset",
       "label": "yahoo-answers"
-    },
-    {
-      "id": "dataset:dbpedia",
-      "type": "dataset",
-      "label": "dbpedia"
     },
     {
       "id": "Yuan2025NoiseAL",
@@ -4089,9 +4094,9 @@
       "label": "LCE"
     },
     {
-      "id": "Gal2016",
+      "id": "Gal2017",
       "type": "artigo-pendente",
-      "label": "Gal2016"
+      "label": "Gal2017"
     },
     {
       "id": "oraculo-imperfeito",
@@ -4604,6 +4609,11 @@
     {
       "source": "Bengar2022ClassBalanced",
       "target": "metodo:otimizacao-binaria",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Bengar2022ClassBalanced",
+      "target": "metodo:k-center-greedy",
       "type": "uses_methods"
     },
     {
@@ -7932,7 +7942,7 @@
     },
     {
       "source": "Sener2018",
-      "target": "Gal2016",
+      "target": "Gal2017",
       "type": "compares_with"
     },
     {
@@ -8745,6 +8755,11 @@
     {
       "source": "Wang2021GPT3Labeling",
       "target": "dataset:trec",
+      "type": "datasets"
+    },
+    {
+      "source": "Wang2021GPT3Labeling",
+      "target": "dataset:dbpedia",
       "type": "datasets"
     },
     {
