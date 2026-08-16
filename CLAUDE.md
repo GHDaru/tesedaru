@@ -11,6 +11,16 @@ siglas abertas na 1ª ocorrência e presentes na lista, referências validadas
 contra fichamento, afirmações fundamentadas, decisões em ADR
 (`docs/adr/` + `docs/records/decisoes.jsonl`).
 
+## Coordenação multiagente — OBRIGATÓRIO para toda sessão
+4 agentes (principal · banca · revisor1 · revisor2) + o autor coordenam-se por
+`coordenacao/` (PROTOCOLO.md = a regra; caixa/ = mensagens; locks/ = locks de
+superfície com TTL 45 min). Ritual de entrada de TODA sessão: `git pull
+--rebase` → ler a caixa só por glob (`*_<eu>_*` e `*_todos_*`) → arquivar
+antigas → postar o claim do próprio ciclo. Estados por `git mv`
+(aberta→em-andamento→concluida). Lock só é seu após push aceito; force-push em
+main é proibido. "Escreva só na sua superfície, verifique só o que não fez,
+poste só o que muda a ação de outro, e nunca espere parado — a main é do autor."
+
 ## Rodadas de revisão (R1–R7) = ciclos Maestro — OBRIGATÓRIO
 Cada célula capítulo×rodada do plano (`docs/records/plano-revisao.json`) é UM
 ciclo Maestro completo: branch própria → antes/depois na conversa → DoD →
