@@ -13,3 +13,4 @@
 {"id":"adr-0009","data":"2026-08-16","titulo":"ELI15 com o autor + roteamento central pelo principal (constituição v1.2.0, PROTOCOLO v1.1)","status":"aceita","registro":"docs/adr/0009-eli15-e-roteamento-central.md"}
 {"id":"adr-0010","data":"2026-08-16","titulo":"Gates de merge consolidados pelo principal (exceto site/painel)","status":"aceita","registro":"docs/adr/0010-gates-consolidados-pelo-principal.md"}
 {"id":"gate-banca-min-lote1","data":"2026-08-16","titulo":"Gate aprovado: lote 1 do minimo-banca (veredito demarcado + estatistica pareada)","status":"aceita","registro":"merge 21a2938 (branch banca-min/veredito)"}
+{"id":"gate-revisao-paralela-r6","data":"2026-08-16","titulo":"Gate aprovado: consolidacao/revisao-paralela-r6 (9 refs, 11 fichamentos+PDFs, relatorio UFPR)","status":"aceita","registro":"merge e160cc0"}
