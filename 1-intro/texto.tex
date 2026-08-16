@@ -8,7 +8,7 @@ cenário aparece em aplicações como consultas, comentários, atendimento e des
 produtos. A literatura mostra que textos curtos apresentam dificuldades específicas,
 como baixo contexto por instância, alta esparsidade, ruído e informalidade, o que
 torna sua classificação mais desafiadora do que a de documentos mais extensos
-\citep{alsmadi2019shorttext,song2014shorttext}.
+\citep{Alsmadi2019,Song2014}.
 
 No contexto da língua portuguesa, essas dificuldades se intensificam. Em aplicações
 como comércio eletrônico e cadastros operacionais, descrições curtas costumam
@@ -27,7 +27,7 @@ significativamente o estado da arte em PLN. O BERT (\textit{Bidirectional
 Encoder Representations from Transformers}) mostrou que representações
 bidirecionais profundas, obtidas por pré-treinamento em texto não rotulado e
 posterior ajuste fino em tarefas específicas, podem produzir resultados de ponta em
-diversas tarefas \citep{devlin2019bert}. Para o português, o BERTimbau evidenciou que
+diversas tarefas \citep{Devlin2019}. Para o português, o BERTimbau evidenciou que
 modelos monolíngues pré-treinados são particularmente relevantes em cenários com
 poucos dados anotados, superando o BERT multilíngue em tarefas importantes da língua
 \citep{Souza2020BERTimbau}. Por essa razão, esta tese adota um classificador baseado
@@ -40,7 +40,7 @@ ativo ataca diretamente esse custo: seleciona iterativamente os exemplos
 potencialmente mais informativos para anotação. No entanto, revisões
 recentes mostram que sua aplicação prática envolve dificuldades adicionais, como
 custo de anotação, critérios de parada, viabilidade computacional e reaproveitamento
-dos exemplos obtidos \citep{zhang2022surveyAL}.
+dos exemplos obtidos \citep{zhang-etal-2022-survey}.
 
 \section{Problema de pesquisa}
 \label{sec:intro-problema}
@@ -54,14 +54,14 @@ o treinamento iterativo do modelo ao longo do ciclo de seleção pode ser caro e
 prático. Assim, o problema central desta tese não é apenas classificar textos curtos
 em português com boa acurácia, mas \textbf{como reduzir o custo de rotulagem nesse
 contexto sem comprometer o desempenho final}, superando as limitações do aprendizado
-ativo tradicional nas fases iniciais do processo \citep{zhang2022surveyAL}.
+ativo tradicional nas fases iniciais do processo \citep{zhang-etal-2022-survey}.
 
 \section{Lacuna de pesquisa}
 \label{sec:intro-lacuna}
 
 A literatura já consolidou os desafios da classificação de textos curtos e a força de
 modelos pré-treinados em cenários com poucos dados anotados
-\citep{alsmadi2019shorttext,song2014shorttext,devlin2019bert,Souza2020BERTimbau}. Trabalhos recentes, como o
+\citep{Alsmadi2019,Song2014,Devlin2019,Souza2020BERTimbau}. Trabalhos recentes, como o
 ActiveLLM, indicaram que modelos de linguagem de grande porte (LLMs, de
 \textit{large language models}) podem apoiar a seleção
 de instâncias em cenários com poucos exemplos, mitigando o \textit{cold start}

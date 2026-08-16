@@ -52,7 +52,7 @@ categorização de texto, POS tagging, parsing e desambiguação de sentido.
 ## Crítica / limitações (minha leitura)
 - Pré-deep learning (2009): estratégias sobre modelos rasos; committee-based
   ganha destaque que hoje é menor. Citar apenas como fundamento histórico —
-  zhang2022surveyAL já constata que esses surveys têm mais de uma década.
+  zhang-etal-2022-survey já constata que esses surveys têm mais de uma década.
 
 ## Ideias que gera para a tese
 - Par de citações de abertura da seção de AL do Cap.2: Settles (2009/2012) +

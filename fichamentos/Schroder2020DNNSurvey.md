@@ -16,7 +16,7 @@ metrics: []
 tasks: [classificacao-de-texto]
 models: []
 extends: [Olsson2009]
-compares_with: [Ren2021, zhang2022surveyAL]
+compares_with: [Ren2021, zhang-etal-2022-survey]
 contradicts: []
 builds_on: [Olsson2009, Lewis1994]
 falco_relation:

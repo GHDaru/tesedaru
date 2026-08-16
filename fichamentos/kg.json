@@ -96,6 +96,53 @@
       "cited_in": []
     },
     {
+      "id": "Alsmadi2019",
+      "type": "artigo",
+      "label": "Alsmadi2019",
+      "title": "Review of short-text classification",
+      "year": 2019,
+      "venue": "International Journal of Web Information Systems",
+      "paper_type": "survey",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Alsmadi2019.pdf",
+      "doi": "10.1108/IJWIS-12-2017-0083",
+      "url": "https://doi.org/10.1108/IJWIS-12-2017-0083",
+      "cited_in": [
+        "Cap. 1 — Introdução",
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "pilar:P1",
+      "type": "pilar",
+      "label": "P1"
+    },
+    {
+      "id": "conceito:revisao-por-estagios-do-pipeline",
+      "type": "conceito",
+      "label": "revisao-por-estagios-do-pipeline"
+    },
+    {
+      "id": "metodo:selecao-de-atributos",
+      "type": "metodo",
+      "label": "selecao-de-atributos"
+    },
+    {
+      "id": "metodo:algoritmos-geneticos",
+      "type": "metodo",
+      "label": "algoritmos-geneticos"
+    },
+    {
+      "id": "metodo:soft-computing",
+      "type": "metodo",
+      "label": "soft-computing"
+    },
+    {
+      "id": "tarefa:classificacao-de-texto-curto",
+      "type": "tarefa",
+      "label": "classificacao-de-texto-curto"
+    },
+    {
       "id": "Amir2023ColdStart",
       "type": "artigo",
       "label": "Amir2023ColdStart",
@@ -108,11 +155,6 @@
       "doi": "",
       "url": "",
       "cited_in": []
-    },
-    {
-      "id": "pilar:P1",
-      "type": "pilar",
-      "label": "P1"
     },
     {
       "id": "conceito:construcao-de-pool-inicial",
@@ -802,11 +844,6 @@
       "label": "retail-product-description-ptbr"
     },
     {
-      "id": "tarefa:classificacao-de-texto-curto",
-      "type": "tarefa",
-      "label": "classificacao-de-texto-curto"
-    },
-    {
       "id": "tarefa:classificacao-de-produtos-e-servicos",
       "type": "tarefa",
       "label": "classificacao-de-produtos-e-servicos"
@@ -928,6 +965,68 @@
       "doi": "",
       "url": "",
       "cited_in": []
+    },
+    {
+      "id": "Devlin2019",
+      "type": "artigo",
+      "label": "Devlin2019",
+      "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+      "year": 2019,
+      "venue": "Proceedings of NAACL-HLT 2019, pp. 4171–4186",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Devlin2019.pdf",
+      "doi": "10.18653/v1/N19-1423",
+      "url": "https://doi.org/10.18653/v1/N19-1423",
+      "cited_in": [
+        "Cap. 1 — Introdução",
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "conceito:bert",
+      "type": "conceito",
+      "label": "bert"
+    },
+    {
+      "id": "conceito:masked-language-model",
+      "type": "conceito",
+      "label": "masked-language-model"
+    },
+    {
+      "id": "conceito:fine-tuning-com-uma-camada",
+      "type": "conceito",
+      "label": "fine-tuning-com-uma-camada"
+    },
+    {
+      "id": "metodo:transformer",
+      "type": "metodo",
+      "label": "transformer"
+    },
+    {
+      "id": "metodo:pre-treinamento-nao-supervisionado",
+      "type": "metodo",
+      "label": "pre-treinamento-nao-supervisionado"
+    },
+    {
+      "id": "dataset:glue",
+      "type": "dataset",
+      "label": "glue"
+    },
+    {
+      "id": "dataset:squad",
+      "type": "dataset",
+      "label": "squad"
+    },
+    {
+      "id": "dataset:multinli",
+      "type": "dataset",
+      "label": "multinli"
+    },
+    {
+      "id": "tarefa:compreensao-de-linguagem",
+      "type": "tarefa",
+      "label": "compreensao-de-linguagem"
     },
     {
       "id": "Dietterich1998",
@@ -1719,11 +1818,6 @@
       "id": "conceito:benchmark-nice",
       "type": "conceito",
       "label": "benchmark-nice"
-    },
-    {
-      "id": "metodo:transformer",
-      "type": "metodo",
-      "label": "transformer"
     },
     {
       "id": "metodo:bert",
@@ -3245,6 +3339,33 @@
       "label": "analise-sistematica"
     },
     {
+      "id": "Song2014",
+      "type": "artigo",
+      "label": "Song2014",
+      "title": "Short Text Classification: A Survey",
+      "year": 2014,
+      "venue": "Journal of Multimedia, 9(5), pp. 635–643",
+      "paper_type": "survey",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Song2014.pdf",
+      "doi": "10.4304/jmm.9.5.635-643",
+      "url": "https://doi.org/10.4304/jmm.9.5.635-643",
+      "cited_in": [
+        "Cap. 1 — Introdução",
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "conceito:caracterizacao-de-texto-curto",
+      "type": "conceito",
+      "label": "caracterizacao-de-texto-curto"
+    },
+    {
+      "id": "metodo:analise-semantica",
+      "type": "metodo",
+      "label": "analise-semantica"
+    },
+    {
       "id": "Song2022GraphSSL",
       "type": "artigo",
       "label": "Song2022GraphSSL",
@@ -3322,15 +3443,15 @@
       "label": "inferencia-textual"
     },
     {
-      "id": "Souza2022Embedding",
+      "id": "Souza2023",
       "type": "artigo",
-      "label": "Souza2022Embedding",
+      "label": "Souza2023",
       "title": "Embedding generation for text classification of Brazilian Portuguese user reviews: from bag-of-words to transformers",
       "year": 2023,
       "venue": "Neural Computing and Applications, 35, pp. 9393–9406",
       "paper_type": "avaliacao",
       "status": "fichado",
-      "pdf": "referencias-pdf/Souza2022Embedding.pdf",
+      "pdf": "referencias-pdf/Souza2023.pdf",
       "doi": "10.1007/s00521-022-08068-6",
       "url": "https://doi.org/10.1007/s00521-022-08068-6",
       "cited_in": []
@@ -3853,137 +3974,20 @@
       "cited_in": []
     },
     {
-      "id": "alsmadi2019shorttext",
+      "id": "zhang-etal-2022-survey",
       "type": "artigo",
-      "label": "alsmadi2019shorttext",
-      "title": "Review of short-text classification",
-      "year": 2019,
-      "venue": "International Journal of Web Information Systems",
-      "paper_type": "survey",
-      "status": "fichado",
-      "pdf": "referencias-pdf/alsmadi2019shorttext.pdf",
-      "doi": "10.1108/IJWIS-12-2017-0083",
-      "url": "https://doi.org/10.1108/IJWIS-12-2017-0083",
-      "cited_in": [
-        "Cap. 1 — Introdução"
-      ]
-    },
-    {
-      "id": "conceito:revisao-por-estagios-do-pipeline",
-      "type": "conceito",
-      "label": "revisao-por-estagios-do-pipeline"
-    },
-    {
-      "id": "metodo:selecao-de-atributos",
-      "type": "metodo",
-      "label": "selecao-de-atributos"
-    },
-    {
-      "id": "metodo:algoritmos-geneticos",
-      "type": "metodo",
-      "label": "algoritmos-geneticos"
-    },
-    {
-      "id": "metodo:soft-computing",
-      "type": "metodo",
-      "label": "soft-computing"
-    },
-    {
-      "id": "devlin2019bert",
-      "type": "artigo",
-      "label": "devlin2019bert",
-      "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
-      "year": 2019,
-      "venue": "Proceedings of NAACL-HLT 2019, pp. 4171–4186",
-      "paper_type": "metodo",
-      "status": "fichado",
-      "pdf": "referencias-pdf/devlin2019bert.pdf",
-      "doi": "10.18653/v1/N19-1423",
-      "url": "https://doi.org/10.18653/v1/N19-1423",
-      "cited_in": [
-        "Cap. 1 — Introdução"
-      ]
-    },
-    {
-      "id": "conceito:bert",
-      "type": "conceito",
-      "label": "bert"
-    },
-    {
-      "id": "conceito:masked-language-model",
-      "type": "conceito",
-      "label": "masked-language-model"
-    },
-    {
-      "id": "conceito:fine-tuning-com-uma-camada",
-      "type": "conceito",
-      "label": "fine-tuning-com-uma-camada"
-    },
-    {
-      "id": "metodo:pre-treinamento-nao-supervisionado",
-      "type": "metodo",
-      "label": "pre-treinamento-nao-supervisionado"
-    },
-    {
-      "id": "dataset:glue",
-      "type": "dataset",
-      "label": "glue"
-    },
-    {
-      "id": "dataset:squad",
-      "type": "dataset",
-      "label": "squad"
-    },
-    {
-      "id": "dataset:multinli",
-      "type": "dataset",
-      "label": "multinli"
-    },
-    {
-      "id": "tarefa:compreensao-de-linguagem",
-      "type": "tarefa",
-      "label": "compreensao-de-linguagem"
-    },
-    {
-      "id": "song2014shorttext",
-      "type": "artigo",
-      "label": "song2014shorttext",
-      "title": "Short Text Classification: A Survey",
-      "year": 2014,
-      "venue": "Journal of Multimedia, 9(5), pp. 635–643",
-      "paper_type": "survey",
-      "status": "fichado",
-      "pdf": "referencias-pdf/song2014shorttext.pdf",
-      "doi": "10.4304/jmm.9.5.635-643",
-      "url": "https://doi.org/10.4304/jmm.9.5.635-643",
-      "cited_in": [
-        "Cap. 1 — Introdução"
-      ]
-    },
-    {
-      "id": "conceito:caracterizacao-de-texto-curto",
-      "type": "conceito",
-      "label": "caracterizacao-de-texto-curto"
-    },
-    {
-      "id": "metodo:analise-semantica",
-      "type": "metodo",
-      "label": "analise-semantica"
-    },
-    {
-      "id": "zhang2022surveyAL",
-      "type": "artigo",
-      "label": "zhang2022surveyAL",
+      "label": "zhang-etal-2022-survey",
       "title": "A Survey of Active Learning for Natural Language Processing",
       "year": 2022,
       "venue": "Proceedings of EMNLP 2022, pp. 6166–6190",
       "paper_type": "survey",
       "status": "fichado",
-      "pdf": "referencias-pdf/zhang2022surveyAL.pdf",
+      "pdf": "referencias-pdf/zhang-etal-2022-survey.pdf",
       "doi": "10.18653/v1/2022.emnlp-main.414",
       "url": "https://doi.org/10.18653/v1/2022.emnlp-main.414",
       "cited_in": [
-        "Cap. 1 — Introdução"
+        "Cap. 1 — Introdução",
+        "Cap. 2 — Fundamentação"
       ]
     },
     {
@@ -4214,8 +4218,59 @@
       "note": "Guarda-chuva de DL; preferir Goodfellow/Minaee conforme o contexto."
     },
     {
+      "source": "Alsmadi2019",
+      "target": "Song2014",
+      "type": "extends"
+    },
+    {
+      "source": "Alsmadi2019",
+      "target": "Song2014",
+      "type": "builds_on"
+    },
+    {
+      "source": "Alsmadi2019",
+      "target": "pilar:geral",
+      "type": "pillars"
+    },
+    {
+      "source": "Alsmadi2019",
+      "target": "pilar:P1",
+      "type": "pillars"
+    },
+    {
+      "source": "Alsmadi2019",
+      "target": "conceito:revisao-por-estagios-do-pipeline",
+      "type": "proposes"
+    },
+    {
+      "source": "Alsmadi2019",
+      "target": "metodo:selecao-de-atributos",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Alsmadi2019",
+      "target": "metodo:algoritmos-geneticos",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Alsmadi2019",
+      "target": "metodo:soft-computing",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Alsmadi2019",
+      "target": "tarefa:classificacao-de-texto-curto",
+      "type": "tasks"
+    },
+    {
+      "source": "Alsmadi2019",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Revisão de STC organizada por estágio do pipeline; aponta algoritmos genéticos como solução promissora para otimização em texto curto — eco direto do nosso P1 (otimização do L0 via AG)."
+    },
+    {
       "source": "Amir2023ColdStart",
-      "target": "zhang2022surveyAL",
+      "target": "zhang-etal-2022-survey",
       "type": "builds_on"
     },
     {
@@ -4924,12 +4979,12 @@
     },
     {
       "source": "Daru2022",
-      "target": "song2014shorttext",
+      "target": "Song2014",
       "type": "builds_on"
     },
     {
       "source": "Daru2022",
-      "target": "alsmadi2019shorttext",
+      "target": "Alsmadi2019",
       "type": "builds_on"
     },
     {
@@ -5141,6 +5196,67 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Review específico de texto — preferível ao genérico Cai2018 quando o assunto é texto."
+    },
+    {
+      "source": "Devlin2019",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Devlin2019",
+      "target": "conceito:bert",
+      "type": "proposes"
+    },
+    {
+      "source": "Devlin2019",
+      "target": "conceito:masked-language-model",
+      "type": "proposes"
+    },
+    {
+      "source": "Devlin2019",
+      "target": "conceito:fine-tuning-com-uma-camada",
+      "type": "proposes"
+    },
+    {
+      "source": "Devlin2019",
+      "target": "metodo:transformer",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Devlin2019",
+      "target": "metodo:pre-treinamento-nao-supervisionado",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Devlin2019",
+      "target": "modelo:bert",
+      "type": "models"
+    },
+    {
+      "source": "Devlin2019",
+      "target": "dataset:glue",
+      "type": "datasets"
+    },
+    {
+      "source": "Devlin2019",
+      "target": "dataset:squad",
+      "type": "datasets"
+    },
+    {
+      "source": "Devlin2019",
+      "target": "dataset:multinli",
+      "type": "datasets"
+    },
+    {
+      "source": "Devlin2019",
+      "target": "tarefa:compreensao-de-linguagem",
+      "type": "tasks"
+    },
+    {
+      "source": "Devlin2019",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Base arquitetural do classificador-alvo: BERTimbau (usado nos E2/E3 via HuggingFace) é um BERT pré-treinado em português. O paradigma pré-treino + fine-tuning é o que torna o AL viável com poucos rótulos."
     },
     {
       "source": "Dietterich1998",
@@ -6122,7 +6238,7 @@
     },
     {
       "source": "Karl2023",
-      "target": "devlin2019bert",
+      "target": "Devlin2019",
       "type": "compares_with"
     },
     {
@@ -6784,7 +6900,7 @@
     },
     {
       "source": "Naseem2021HateSpeech",
-      "target": "song2014shorttext",
+      "target": "Song2014",
       "type": "extends"
     },
     {
@@ -6830,7 +6946,7 @@
     },
     {
       "source": "Naseem2021WordRep",
-      "target": "devlin2019bert",
+      "target": "Devlin2019",
       "type": "builds_on"
     },
     {
@@ -7603,7 +7719,7 @@
     },
     {
       "source": "Schroder2020DNNSurvey",
-      "target": "zhang2022surveyAL",
+      "target": "zhang-etal-2022-survey",
       "type": "compares_with"
     },
     {
@@ -7669,7 +7785,7 @@
     },
     {
       "source": "Schroder2021SmallText",
-      "target": "zhang2022surveyAL",
+      "target": "zhang-etal-2022-survey",
       "type": "builds_on"
     },
     {
@@ -7745,7 +7861,7 @@
     },
     {
       "source": "Schroder2022Uncertainty",
-      "target": "devlin2019bert",
+      "target": "Devlin2019",
       "type": "builds_on"
     },
     {
@@ -8321,6 +8437,42 @@
       "note": "A referência das métricas usadas na tese (já citada na seção de avaliação do Cap.2): analisa 24 medidas em binário/multiclasse/ multirrótulo/hierárquico via propriedades de invariância."
     },
     {
+      "source": "Song2014",
+      "target": "pilar:geral",
+      "type": "pillars"
+    },
+    {
+      "source": "Song2014",
+      "target": "conceito:caracterizacao-de-texto-curto",
+      "type": "proposes"
+    },
+    {
+      "source": "Song2014",
+      "target": "metodo:analise-semantica",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Song2014",
+      "target": "metodo:semi-supervisao",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Song2014",
+      "target": "metodo:ensemble",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Song2014",
+      "target": "tarefa:classificacao-de-texto-curto",
+      "type": "tasks"
+    },
+    {
+      "source": "Song2014",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Define as quatro dificuldades canônicas do texto curto (esparsidade, larga escala, imediatismo, não-padronização) — a caracterização do nosso objeto de estudo (descrições de produto ~20–40 caracteres)."
+    },
+    {
       "source": "Song2022GraphSSL",
       "target": "pilar:geral",
       "type": "pillars"
@@ -8333,12 +8485,12 @@
     },
     {
       "source": "Souza2020BERTimbau",
-      "target": "devlin2019bert",
+      "target": "Devlin2019",
       "type": "extends"
     },
     {
       "source": "Souza2020BERTimbau",
-      "target": "devlin2019bert",
+      "target": "Devlin2019",
       "type": "builds_on"
     },
     {
@@ -8413,62 +8565,62 @@
       "note": "É o classificador-alvo dos experimentos E2/E3 da tese (via HuggingFace, sem fork, conforme decisão de projeto). Estado da arte para português nas três tarefas avaliadas, superando o BERT multilíngue."
     },
     {
-      "source": "Souza2022Embedding",
+      "source": "Souza2023",
       "target": "Karl2023",
       "type": "compares_with"
     },
     {
-      "source": "Souza2022Embedding",
+      "source": "Souza2023",
       "target": "Souza2020BERTimbau",
       "type": "builds_on"
     },
     {
-      "source": "Souza2022Embedding",
+      "source": "Souza2023",
       "target": "pilar:geral",
       "type": "pillars"
     },
     {
-      "source": "Souza2022Embedding",
+      "source": "Souza2023",
       "target": "pilar:P4",
       "type": "pillars"
     },
     {
-      "source": "Souza2022Embedding",
+      "source": "Souza2023",
       "target": "metodo:bag-of-words",
       "type": "uses_methods"
     },
     {
-      "source": "Souza2022Embedding",
+      "source": "Souza2023",
       "target": "metodo:embeddings",
       "type": "uses_methods"
     },
     {
-      "source": "Souza2022Embedding",
+      "source": "Souza2023",
       "target": "metodo:transformer",
       "type": "uses_methods"
     },
     {
-      "source": "Souza2022Embedding",
+      "source": "Souza2023",
       "target": "metodo:avaliacao-comparativa",
       "type": "uses_methods"
     },
     {
-      "source": "Souza2022Embedding",
+      "source": "Souza2023",
       "target": "modelo:bertimbau",
       "type": "models"
     },
     {
-      "source": "Souza2022Embedding",
+      "source": "Souza2023",
       "target": "dataset:reviews-em-portugues",
       "type": "datasets"
     },
     {
-      "source": "Souza2022Embedding",
+      "source": "Souza2023",
       "target": "tarefa:classificacao-de-texto",
       "type": "tasks"
     },
     {
-      "source": "Souza2022Embedding",
+      "source": "Souza2023",
       "target": "FALCO",
       "type": "fundamenta",
       "note": "Compara BoW→transformers PARA PORTUGUÊS (reviews de e-commerce): versão nacional do achado de Karl2023 (transformers vencem) e ponte direta para a escolha do BERTimbau nos E2/E3."
@@ -9081,12 +9233,12 @@
     },
     {
       "source": "Zhang2016ShortText",
-      "target": "song2014shorttext",
+      "target": "Song2014",
       "type": "compares_with"
     },
     {
       "source": "Zhang2016ShortText",
-      "target": "song2014shorttext",
+      "target": "Song2014",
       "type": "builds_on"
     },
     {
@@ -9311,225 +9463,77 @@
       "note": "Review pré-transformer herdado; superado por Minaee2022."
     },
     {
-      "source": "alsmadi2019shorttext",
-      "target": "song2014shorttext",
-      "type": "extends"
-    },
-    {
-      "source": "alsmadi2019shorttext",
-      "target": "song2014shorttext",
-      "type": "builds_on"
-    },
-    {
-      "source": "alsmadi2019shorttext",
-      "target": "pilar:geral",
-      "type": "pillars"
-    },
-    {
-      "source": "alsmadi2019shorttext",
-      "target": "pilar:P1",
-      "type": "pillars"
-    },
-    {
-      "source": "alsmadi2019shorttext",
-      "target": "conceito:revisao-por-estagios-do-pipeline",
-      "type": "proposes"
-    },
-    {
-      "source": "alsmadi2019shorttext",
-      "target": "metodo:selecao-de-atributos",
-      "type": "uses_methods"
-    },
-    {
-      "source": "alsmadi2019shorttext",
-      "target": "metodo:algoritmos-geneticos",
-      "type": "uses_methods"
-    },
-    {
-      "source": "alsmadi2019shorttext",
-      "target": "metodo:soft-computing",
-      "type": "uses_methods"
-    },
-    {
-      "source": "alsmadi2019shorttext",
-      "target": "tarefa:classificacao-de-texto-curto",
-      "type": "tasks"
-    },
-    {
-      "source": "alsmadi2019shorttext",
-      "target": "FALCO",
-      "type": "fundamenta",
-      "note": "Revisão de STC organizada por estágio do pipeline; aponta algoritmos genéticos como solução promissora para otimização em texto curto — eco direto do nosso P1 (otimização do L0 via AG)."
-    },
-    {
-      "source": "devlin2019bert",
-      "target": "pilar:P4",
-      "type": "pillars"
-    },
-    {
-      "source": "devlin2019bert",
-      "target": "conceito:bert",
-      "type": "proposes"
-    },
-    {
-      "source": "devlin2019bert",
-      "target": "conceito:masked-language-model",
-      "type": "proposes"
-    },
-    {
-      "source": "devlin2019bert",
-      "target": "conceito:fine-tuning-com-uma-camada",
-      "type": "proposes"
-    },
-    {
-      "source": "devlin2019bert",
-      "target": "metodo:transformer",
-      "type": "uses_methods"
-    },
-    {
-      "source": "devlin2019bert",
-      "target": "metodo:pre-treinamento-nao-supervisionado",
-      "type": "uses_methods"
-    },
-    {
-      "source": "devlin2019bert",
-      "target": "modelo:bert",
-      "type": "models"
-    },
-    {
-      "source": "devlin2019bert",
-      "target": "dataset:glue",
-      "type": "datasets"
-    },
-    {
-      "source": "devlin2019bert",
-      "target": "dataset:squad",
-      "type": "datasets"
-    },
-    {
-      "source": "devlin2019bert",
-      "target": "dataset:multinli",
-      "type": "datasets"
-    },
-    {
-      "source": "devlin2019bert",
-      "target": "tarefa:compreensao-de-linguagem",
-      "type": "tasks"
-    },
-    {
-      "source": "devlin2019bert",
-      "target": "FALCO",
-      "type": "fundamenta",
-      "note": "Base arquitetural do classificador-alvo: BERTimbau (usado nos E2/E3 via HuggingFace) é um BERT pré-treinado em português. O paradigma pré-treino + fine-tuning é o que torna o AL viável com poucos rótulos."
-    },
-    {
-      "source": "song2014shorttext",
-      "target": "pilar:geral",
-      "type": "pillars"
-    },
-    {
-      "source": "song2014shorttext",
-      "target": "conceito:caracterizacao-de-texto-curto",
-      "type": "proposes"
-    },
-    {
-      "source": "song2014shorttext",
-      "target": "metodo:analise-semantica",
-      "type": "uses_methods"
-    },
-    {
-      "source": "song2014shorttext",
-      "target": "metodo:semi-supervisao",
-      "type": "uses_methods"
-    },
-    {
-      "source": "song2014shorttext",
-      "target": "metodo:ensemble",
-      "type": "uses_methods"
-    },
-    {
-      "source": "song2014shorttext",
-      "target": "tarefa:classificacao-de-texto-curto",
-      "type": "tasks"
-    },
-    {
-      "source": "song2014shorttext",
-      "target": "FALCO",
-      "type": "fundamenta",
-      "note": "Define as quatro dificuldades canônicas do texto curto (esparsidade, larga escala, imediatismo, não-padronização) — a caracterização do nosso objeto de estudo (descrições de produto ~20–40 caracteres)."
-    },
-    {
-      "source": "zhang2022surveyAL",
+      "source": "zhang-etal-2022-survey",
       "target": "Settles2012",
       "type": "builds_on"
     },
     {
-      "source": "zhang2022surveyAL",
+      "source": "zhang-etal-2022-survey",
       "target": "Ren2021",
       "type": "builds_on"
     },
     {
-      "source": "zhang2022surveyAL",
+      "source": "zhang-etal-2022-survey",
       "target": "Lewis1994",
       "type": "builds_on"
     },
     {
-      "source": "zhang2022surveyAL",
+      "source": "zhang-etal-2022-survey",
       "target": "Cohn1994Improving",
       "type": "builds_on"
     },
     {
-      "source": "zhang2022surveyAL",
+      "source": "zhang-etal-2022-survey",
       "target": "pilar:geral",
       "type": "pillars"
     },
     {
-      "source": "zhang2022surveyAL",
+      "source": "zhang-etal-2022-survey",
       "target": "pilar:P2",
       "type": "pillars"
     },
     {
-      "source": "zhang2022surveyAL",
+      "source": "zhang-etal-2022-survey",
       "target": "pilar:P4",
       "type": "pillars"
     },
     {
-      "source": "zhang2022surveyAL",
+      "source": "zhang-etal-2022-survey",
       "target": "conceito:taxonomia-de-estrategias-de-consulta",
       "type": "proposes"
     },
     {
-      "source": "zhang2022surveyAL",
+      "source": "zhang-etal-2022-survey",
       "target": "metodo:amostragem-por-incerteza",
       "type": "uses_methods"
     },
     {
-      "source": "zhang2022surveyAL",
+      "source": "zhang-etal-2022-survey",
       "target": "metodo:representatividade",
       "type": "uses_methods"
     },
     {
-      "source": "zhang2022surveyAL",
+      "source": "zhang-etal-2022-survey",
       "target": "metodo:cold-start",
       "type": "uses_methods"
     },
     {
-      "source": "zhang2022surveyAL",
+      "source": "zhang-etal-2022-survey",
       "target": "metodo:criterio-de-parada",
       "type": "uses_methods"
     },
     {
-      "source": "zhang2022surveyAL",
+      "source": "zhang-etal-2022-survey",
       "target": "tarefa:classificacao-de-texto",
       "type": "tasks"
     },
     {
-      "source": "zhang2022surveyAL",
+      "source": "zhang-etal-2022-survey",
       "target": "tarefa:predicao-estruturada",
       "type": "tasks"
     },
     {
-      "source": "zhang2022surveyAL",
+      "source": "zhang-etal-2022-survey",
       "target": "FALCO",
       "type": "fundamenta",
       "note": "Survey-espinha-dorsal do Cap.2: organiza estratégias de consulta (informatividade vs representatividade), cold-start e parada — exatamente os eixos das fases do FALCO. Anterior à era dos LLMs-como-oráculo, o que demarca a lacuna que a tese ocupa."

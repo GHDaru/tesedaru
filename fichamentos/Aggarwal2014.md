@@ -37,7 +37,7 @@ pela escola de mineração de dados (IBM Watson/UIUC/UIC).
 ## Claims relevantes
 | # | Claim | Evidência | Uso na tese |
 |---|-------|-----------|-------------|
-| C1 | AL como família dentro do espectro de estratégias de economia de rótulos | Estrutura (22.2) | Cap.2: citação alternativa a Settles para a taxonomia; zhang2022surveyAL o lista entre os surveys canônicos |
+| C1 | AL como família dentro do espectro de estratégias de economia de rótulos | Estrutura (22.2) | Cap.2: citação alternativa a Settles para a taxonomia; zhang-etal-2022-survey o lista entre os surveys canônicos |
 
 ## Números que posso citar
 - (Survey.)
