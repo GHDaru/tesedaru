@@ -50,7 +50,7 @@ no kanban sem violar nada), só a referência ao número do ADR está
 desalinhada com o texto real desse ADR. Sugiro: emendar o ADR 0006 para
 declarar explicitamente que o princípio vale para o site inteiro, ou abrir
 um registro em `docs/records/decisoes.jsonl` apontando a fonte correta. Não
-é decisão minha —儿fica com você.
+é decisão minha — fica com você.
 
 ## Nota de processo (não é sobre o código, é sobre como rodei a revisão)
 O agente de revisão (TAIL:review) rodou sem isolamento próprio (sem
