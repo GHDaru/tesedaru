@@ -1,14 +1,16 @@
 name: Painel da tese
-# Publica o Painel da Tese FALCO no GitHub Pages a cada push que toque o plano.
-# O HTML é gerado do JSON no momento do deploy — a página online está sempre
-# igual ao docs/records/plano-revisao.json da main, sem passo manual.
+# Publica as 4 páginas do site da tese (Controle, Plano, Coordenação,
+# Resultados) no GitHub Pages a cada push que as toque. O HTML nasce inteiro
+# do scripts/render-plano-revisao.py no momento do deploy — a página online
+# está sempre igual aos JSONs de docs/records/ da main, sem passo manual.
 on:
   push:
     branches: [main]
     paths:
       - docs/records/plano-revisao.json
-      - docs/records/plano-artefato-template.html
+      - docs/records/resultados.json
       - scripts/render-plano-revisao.py
+      - scripts/compute-kpis.py
       - scripts/compute-mensagens.py
       - coordenacao/**
       - .github/workflows/painel.yml
@@ -33,13 +35,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0   # histórico completo: a série de evolução vem do git log do plano
-      - name: Computa KPIs e renderiza o painel
+      - name: Computa KPIs e renderiza as 4 páginas do site
         run: |
           mkdir -p _site
           python3 scripts/compute-kpis.py
           python3 scripts/compute-mensagens.py
-          python3 scripts/render-plano-revisao.py _site/index.html
+          python3 scripts/render-plano-revisao.py _site
           cp docs/records/plano-revisao.json docs/records/kpis.json docs/records/mensagens.json _site/
+          test -f docs/records/resultados.json && cp docs/records/resultados.json _site/ || true
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
