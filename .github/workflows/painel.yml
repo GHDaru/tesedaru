@@ -40,3 +40,5 @@ jobs:
           path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
+
+# Pages habilitado pelo autor em 2026-08-16; este commit re-dispara o deploy inicial.
