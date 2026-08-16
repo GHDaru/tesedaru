@@ -1,8 +1,8 @@
 {
  "schema": "plano-revisao/v1",
- "versao": 10,
+ "versao": 11,
  "atualizado_em": "2026-08-16",
- "atualizado_por": "v10: fichar-vizinhos e normas-ufpr (levantamento) entregues em DUAS branches paralelas (r1 fwla6a × r2 bf56y7) — verificação cruzada §6 concluída, ARBITRAGEM DO AUTOR pendente",
+ "atualizado_por": "decisões do autor 2026-08-16: bib aprovado, paralelo confirmado, fecho do Cap.6 mantido em aberto",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
   "Abrir este JSON e ler o campo 'proximo'",
@@ -338,7 +338,7 @@
    "rodadas": {
     "R1": {
      "status": "pendente",
-     "nota": "fecho retórico: parte virou questão de MÉRITO (DA-C1/C2/C3 do parecer R6): 'não é infirmada', 'rotular tudo é contraproducente' e 'sustentada a ~50%' (com gabarito, não oráculo) afirmam mais do que os dados sustentam — decisão do autor, agora com parecer"
+     "nota": "fecho (tríade + aforismo) MANTIDO por decisão do autor em 2026-08-16; revisão futura EM ABERTO — reavaliar junto com o R7; travessões e ---/— seguem pendentes"
     },
     "R2": {
      "status": "pendente"
@@ -719,20 +719,19 @@
   }
  ],
  "proximo": {
-  "descricao": "SUSPENSO até decisão do autor sobre a ordem (ver DECISÕES na fila): opção A = lotes 2–5 do Cap. 2; opção B (parecer R6) = auditoria do bib primeiro (não toca prosa), depois veredito+pré-textuais, depois lotes. Enquanto isso, jobs de agente liberados: McNemar + bootstrap (execuções).",
+  "descricao": "PARALELO confirmado pelo autor: bibliografia nos Caps. 1-2 (revisor1 lote 0 já; lotes 1-3 após a entrada da consolidacao/revisao-paralela-r6) e humanização R1 dos Caps. 3-6 pelo principal, ao mesmo tempo — o dimensionamento provou que não colidem.",
   "fila": [
-   "cap2 R1 lotes 2–5 → gate → merge",
-   "cap3 R1 (inclui nota R6 do E3')",
-   "cap5 R1 · cap4 R1 · cap6 R1 (fecho = decisão do autor)",
-   "pré-textuais R1 (última humanização, após corpo estável)",
-   "R2 siglas nos caps. 2–6 (varredura + script do princípio IX)",
-   "R5 números × artefatos + espelhos (após multi-semente consolidada)",
-   "R3 fichamento (ciclo dedicado, mais longo)",
-   "R4 afirmações · R6 camadas · R7 leitura final + ARS"
+   "revisor1: lote 0 (check-bib.py) — em curso, sem bloqueio",
+   "gate do autor: consolidacao/revisao-paralela-r6 (revisada pelo principal; destrava lotes 1-3)",
+   "revisor2: lotes 1 e 3 do bib · revisor1: lote 2 · banca: lote 4 (verificação)",
+   "principal: humanização R1 dos Caps. 3, 4, 5 e 6 (em paralelo)",
+   "principal: lotes 2 e 3 do mínimo-banca (números R5-imediato e declaração de IA)",
+   "executores: sementes 7 e 123 do E3′ (destrava ~230 pontos)",
+   "depois: R2 siglas · R5 números × artefatos · R3 fichamento · R4 · R6 · R7 + ARS final"
   ]
  },
  "execucoes": {
-  "descricao": "Controle do que está rodando fora do texto (treinos, jobs, deploys). Estados: aguardando_inicio | rodando | concluido | falhou. Atualizar ao iniciar e ao terminar, com link do resultado.",
+  "descricao": "Controle do que está rodando fora do texto (treinos, jobs, deploys). Estados: aguardando_inicio | rodando | concluido | falhou. Atualizar ao iniciar e ao terminar, com link do resultado. Execuções longas passam a rodar em sessões dedicadas (executor01/executor02), que reportam ao principal; ver coordenacao/PROTOCOLO.md.",
   "itens": [
    {
     "id": "e3p-seed7",
