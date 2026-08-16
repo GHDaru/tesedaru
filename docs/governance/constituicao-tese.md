@@ -5,7 +5,7 @@
 > governam o PROCESSO (spec, gates, reversibilidade). Emendas passam por ADR + bump de
 > versão. Todo agente e todo humano DEVE ler este documento antes de editar a tese.
 >
-> **Versão**: 1.2.0 · **Ratificada**: 2026-08-16 (ADR 0002: I–IV; ADR 0003: V–X;
+> **Versão**: 1.2.1 · **Ratificada**: 2026-08-16 (ADR 0002: I–IV; ADR 0003: V–X;
 > ADR 0009: XI–XII) · Princípios I–IV e XI–XII ditados pelo autor; V–X propostos
 > pelo agente e ratificados pelo autor.
 
@@ -78,7 +78,9 @@ para decidir. Brevidade nunca tem prioridade sobre compreensão.
 Todo o planejamento e toda mensagem entre agentes passam pelo agente principal,
 que faz a triagem: decide o que exige decisão do autor e o que é redistribuído
 para qual agente. Nenhum agente endereça o autor diretamente nem altera
-prioridades/estrutura do plano; o detalhe operacional está no
+prioridades/estrutura do plano. **Todo gate de merge sobe pelo principal**, que
+consolida os pedidos e os apresenta ao autor em bloco (exceção: mudanças do
+site/painel, reversíveis, seguem sem gate); o detalhe operacional está no
 `coordenacao/PROTOCOLO.md` §2-bis. Razão ditada pelo autor: com múltiplos
 agentes em paralelo, sem ponto único de triagem perde-se o controle do que
 precisa de decisão humana.

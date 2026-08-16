@@ -15,8 +15,10 @@ contra fichamento, afirmações fundamentadas, decisões em ADR
 Ao falar com o AUTOR: didático e detalhado — termos explicados, siglas abertas,
 nada de expressões curtas/telegráficas; o autor decide melhor com contexto
 completo. Ao coordenar: o agente `principal` é o HUB — mensagens ao autor só
-via principal; agente↔agente via principal; planejamento só pelo principal
-(constituição v1.2.0, ADR 0009, PROTOCOLO §2-bis).
+via principal; agente↔agente via principal; planejamento só pelo principal;
+GATES DE MERGE consolidados pelo principal e levados ao autor em bloco (exceto
+site/painel, que dispensa gate) — constituição v1.2.1, ADRs 0009/0010,
+PROTOCOLO §2-bis.
 
 ## Coordenação multiagente — OBRIGATÓRIO para toda sessão
 4 agentes (principal · banca · revisor1 · revisor2) + o autor coordenam-se por

@@ -78,6 +78,12 @@ O agente **principal é o hub obrigatório** de todo o fluxo:
 - Planejamento (prioridades, fila, matriz, estrutura do plano) só muda pelas
   mãos do principal; cada agente segue atualizando o status da própria
   execução.
+- **Gates de merge também sobem pelo principal (ADR 0010)**: o agente entrega a
+  branch e manda conclusão ao principal (o que mudou · hash/branch · evidência ·
+  risco); o principal consolida, verifica e leva ao autor em bloco, com
+  antes/depois e recomendação. Nenhum agente pede aprovação direta ao autor.
+  **Exceção**: mudanças do site/painel (`docs/records/*`, scripts de render,
+  `coordenacao/`) dispensam gate — reversíveis, não tocam texto nem dados.
 
 ## 3. Cadência — só 4 eventos geram mensagem
 
