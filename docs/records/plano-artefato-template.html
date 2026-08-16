@@ -92,6 +92,11 @@
   .andamento{color:var(--st-andamento); background:var(--st-andamento-bg)}
   .pendente{color:var(--st-pendente); background:var(--st-pendente-bg)}
   .na{color:var(--st-na); background:var(--st-na-bg)}
+  .rodadas-def{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+    gap:.35rem .9rem; margin:0 0 .8rem; padding:.6rem .8rem; background:var(--ground);
+    border:1px solid var(--border); border-radius:6px; font-size:.78rem}
+  .rodadas-def b{color:var(--accent); font-variant-numeric:tabular-nums}
+  .rodadas-def small{color:var(--muted); display:block}
   .groups{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:.9rem}
   .group h3{margin:0 0 .5rem; font-size:.92rem}
   .item{display:flex; gap:.6rem; align-items:baseline; padding:.3rem 0;
@@ -140,6 +145,7 @@
 
   <section class="card">
     <h2>Capítulos × rodadas</h2>
+    <div class="rodadas-def" id="rodadas-def"></div>
     <div class="scroll"><table id="matriz">
       <caption>✓ feito · 🔒 em gate (espera você) · ◐ andamento · ○ pendente · – não se aplica · ⛓ bloqueado</caption>
     </table></div>
@@ -258,6 +264,9 @@
     serie.map(s => `<tr><td>${s.data}</td><td>${s.pct}%</td><td>${s.pontos}</td><td>${esc(s.evento || '')}</td></tr>`).join('') + '</tbody>';
 
   /* ---- matriz ---- */
+  el('rodadas-def').innerHTML = P.rodadas.map(r =>
+    `<div><b>${r.id}</b> ${esc(r.nome)} <small>${esc(r.descricao)} (${esc(r.ref)})</small></div>`).join('');
+
   const GLIFO = {feito:'✓', gate:'🔒', andamento:'◐', pendente:'○', na:'–'};
   const ptsCap = Object.fromEntries((pr.por_capitulo || []).map(c => [c.id, c]));
   const pill = (cell, capTit, rid) => {
