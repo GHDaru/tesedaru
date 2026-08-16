@@ -16,3 +16,4 @@
 {"id":"gate-revisao-paralela-r6","data":"2026-08-16","titulo":"Gate aprovado: consolidacao/revisao-paralela-r6 (9 refs, 11 fichamentos+PDFs, relatorio UFPR)","status":"aceita","registro":"merge e160cc0"}
 {"id":"gate-humanize-cap2-lote1","data":"2026-08-16","titulo":"Gate aprovado: lote 1 da humanizacao do Cap.2 (9 conversoes, 110->92 travessoes)","status":"aceita","registro":"merge 7e90069 (branch humanize/cap2)"}
 {"id":"adr-0011-identidade-titulo","data":"2026-08-16","titulo":"Identidade de agente pelo titulo da sessao (get_session); conflito com papel ocupado nao assume","status":"aceita","registro":"docs/adr/0011 + PROTOCOLO v1.2 §0"}
+{"id":"gate-cap1-r4-r5","data":"2026-08-16","titulo":"Gate aprovado: Cap.1 R4+R5 (5 correcoes da banca; diff verificado pelo principal)","status":"aceita","registro":"merge de 65a6fe0; lock 1-intro liberado no mesmo commit"}
