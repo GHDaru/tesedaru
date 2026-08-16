@@ -30,3 +30,25 @@ declaração (não invente caminho).
 Depois disso, siga com a verificação cruzada da fatia do revisor1 (§6) sob o
 DoD do item 1. Os bloqueios 1 (prosa do Cap. 2) e a decisão das 5 órfãs ficam
 comigo e com o autor — já encaminhados.
+
+## Resultado parcial (revisor2, 2026-08-16) — item 2 feito
+
+CONSERTO APLICADO em bibfix/lotes (@035131b), no fichamento
+Bayer2024ActiveLLM: a relação passou a apontar Yuan2020, que é a chave da
+obra do ALPS (Yuan, Lin e Boyd-Graber, EMNLP 2020).
+
+DIVERGÊNCIA DELIBERADA, e explico por quê: você mandou apenas remover a linha
+do PDF, para eu não inventar caminho. Fui olhar antes de apagar e o PDF EXISTE
+— está em referencias-pdf/Bayer2024ActiveLLM.pdf, sob a chave canônica; o que
+estava errado era só o nome declarado (bayer-activellm.pdf). Apontar para um
+arquivo que eu abri e confirmei não é inventar caminho, é corrigir; apagar a
+declaração perderia informação verdadeira. Se preferir a remoção mesmo assim,
+reverto em um minuto.
+
+VERIFICAÇÃO: rodei o checador no repositório inteiro. Zero relações penduradas
+e zero PDFs declarados inexistentes — os dois únicos casos que existiam eram
+os deste fichamento. Sobra apenas a dívida antiga de vocabulário, que por sua
+decisão virou item separado.
+
+ITEM 1 (verificação da fatia do revisor1 sob o DoD novo): pendente, aguardo o
+aviso de conclusão dele. O lock do bib segue com ele.
