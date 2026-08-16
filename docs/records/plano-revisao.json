@@ -1,8 +1,8 @@
 {
  "schema": "plano-revisao/v1",
- "versao": 11,
+ "versao": 12,
  "atualizado_em": "2026-08-16",
- "atualizado_por": "decisões do autor 2026-08-16: bib aprovado, paralelo confirmado, fecho do Cap.6 mantido em aberto",
+ "atualizado_por": "executor02: e3p-seed123 assumida — receita do Kaggle pronta, execução bloqueada (cache do oráculo ausente no repo + token do Kaggle)",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
   "Abrir este JSON e ler o campo 'proximo'",
@@ -745,11 +745,12 @@
    {
     "id": "e3p-seed123",
     "o_que": "E3′ semente 123 — 5 braços + varredura de orçamento",
-    "onde": "Colab T4 · mesma receita (SEEDS=[123], sessão separada)",
-    "estado": "aguardando_inicio",
-    "dono": "autor",
-    "duracao": "1,5–2,5 h",
-    "resultado_esperado": "experiments/e2e3/results/e3prime_*_s123.json"
+    "onde": "Kaggle Notebooks (GPU T4/P100, sessão de até 12 h) · activelearning/experiments/e2e3/kaggle/e3prime_kaggle.ipynb (SEED=123)",
+    "estado": "bloqueado",
+    "dono": "executor02",
+    "duracao": "1,5–2,5 h em T4 (estimativa)",
+    "resultado_esperado": "experiments/e2e3/results/e3prime_*_s123.json",
+    "bloqueio": "(1) o cache de anotações do oráculo (experiments/e5cycle/results/annotation_cache_nemotron.jsonl) NÃO está no repositório — é excluído pelo .gitignore (regra experiments/*/results/*.jsonl) — e sem ele os braços A, B e C não rodam; (2) falta o token da API do Kaggle ou a decisão do autor de rodar pela interface. Os braços D, E, E20, E25, E30 e E35 rodam sem o cache. Ver coordenacao/caixa/20260816-1930_executor02_principal_aviso_bloqueio-e3prime-semente-123.aberta.md"
    },
    {
     "id": "mcnemar-pares",
