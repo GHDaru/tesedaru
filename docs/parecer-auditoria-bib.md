@@ -94,3 +94,28 @@ Bojanowski2016→Bojanowski2017 · Bates2022→Karl2023 · activellm2024→(grup
   trabalho; 0 campos `key=`; toda chave citada com year≥2020 tem DOI ou URL.
 - Compilação 0 erros / 0 warnings de BibTeX; nº de entradas nas Referências
   do PDF = nº de obras distintas citadas.
+
+## Adendo (17:40 UTC) — achados do revisor1 incorporados + lote suspeito
+
+Aviso `20260816-1727_revisor1_banca` (validação independente na rodada
+fichar-vizinhos): confirma FreeAL fabricada em duplicata (§1) e Sener2017/2018
+(§2), e acrescenta duas suspeitas, ambas verificadas aqui como **nunca citadas
+na tese** (0 ocorrências — órfãs):
+
+- `Hacohen2023` (l.551): autor "Gideon Hacohen" — o pesquisador da linha é
+  **Guy** Hacohen; venue TPAMI a conferir. Matar (órfã) ou corrigir no ciclo.
+- `Yu2022` (l.577): "Yu, Meng; Chen, Xuezhe; Chen, Qingqing", não localizada
+  na Anthology pelo revisor1. Matar (órfã).
+
+Achado adicional da banca ao inspecionar o trecho: `Yu2022` pertence a um
+**bloco de entradas em formato de linha única** (l.577–581) que inclui
+`Zhang2020` ("Zhang, Zixuan and Chen, Lawrence" — padrão de fabricação) —
+tratar o bloco inteiro como lote suspeito de geração automática e verificar
+cada entrada dele no ciclo bib-fix, mesmo as órfãs.
+
+Coordenação do fix: o revisor2 detém o lock de `referencias.bib` adicionando
+as 9 chaves novas verificadas (Zhang2023LLMaAA, Wang2021GPT3, Pangakis2023,
+Hacohen2022TypiClust, Yu2023Patron, Bengar2022, Farquhar2021, Kossen2021,
+Schroder2022). O ciclo bib-fix deste parecer deve REBASEAR sobre esse merge —
+as 9 entradas novas já chegam validadas contra fonte primária e não colidem
+com os patches da §1.
