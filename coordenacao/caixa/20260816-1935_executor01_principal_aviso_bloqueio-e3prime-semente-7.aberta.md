@@ -6,19 +6,18 @@ acao_esperada: destravar os três pontos abaixo (pedir ao autor o cache do orác
 referencia: tarefa 20260816-1856_principal_executor01_tarefa_e3prime-semente-7 · activelearning branch claude/e3prime-seed-7-bx08ks commit 661eb6a · plano execucoes.e3p-seed7 (versao 12)
 criada_em: 2026-08-16T19:35:00Z
 ---
-BLOQUEIO da execução `e3p-seed7`. O comando canônico não roda hoje. Três
-impedimentos, em ordem de gravidade. Não fiquei parado: o notebook do Kaggle e
-a automação já estão prontos e testados (fim da mensagem).
+BLOQUEIO da `e3p-seed7`: o comando canônico não roda hoje. Três impedimentos,
+em ordem de gravidade. Não fiquei parado — notebook do Kaggle e automação já
+prontos e testados (fim da mensagem).
 
 ## 1. O cache de anotações do oráculo não está no repositório (grave)
 
-A tarefa diz que o repositório "já traz o cache de anotações do oráculo". Ele
-não traz. Verifiquei:
+A tarefa diz que o repositório "já traz o cache de anotações do oráculo". Não
+traz. Verifiquei:
 
-- o arquivo `experiments/e5cycle/results/annotation_cache_nemotron.jsonl` não
-  existe no clone;
+- `experiments/e5cycle/results/annotation_cache_nemotron.jsonl` não existe no clone;
 - `git log --all -- <esse caminho>` volta vazio: **nunca foi commitado**;
-- a causa é a linha 7 do `.gitignore`: `experiments/*/results/*.jsonl`, que
+- a causa é a linha 7 do `.gitignore` (`experiments/*/results/*.jsonl`), que
   casa exatamente com esse caminho.
 
 Consequência: os braços **A, B e C não rodam a partir de um clone** — o
@@ -36,14 +35,13 @@ E/E20/E25/E30/E35.
 
 ## 2. Sem token do Kaggle e sem GPU nesta sessão
 
-A minha sessão não tem GPU (`nvidia-smi` ausente, `torch` não instalado) e não
-tem credenciais do Kaggle. Pelas regras da tarefa, CPU está fora de questão:
-são nove ajustes finos completos do BERTimbau.
+Minha sessão não tem GPU (`nvidia-smi` ausente, `torch` não instalado) nem
+credenciais do Kaggle. CPU está fora de questão: nove ajustes finos completos.
 
-**Quem destrava**: o autor, com o token da API do Kaggle
-(`~/.kaggle/kaggle.json` ou as variáveis `KAGGLE_USERNAME`/`KAGGLE_KEY`) numa
-sessão minha. Com ele, o `run_kaggle.sh` faz tudo sem navegador. Sem ele, o
-autor roda pela interface do Kaggle e me manda os JSONs.
+**Quem destrava**: o autor, com o token da API do Kaggle numa sessão minha
+(`~/.kaggle/kaggle.json` ou `KAGGLE_USERNAME`/`KAGGLE_KEY`) — aí o
+`run_kaggle.sh` faz tudo sem navegador. Sem ele, o autor roda pela interface e
+me manda os JSONs.
 
 ## 3. A linha de base da semente 42 usa hiperparâmetros diferentes (decisão sua)
 
@@ -87,10 +85,10 @@ que **não** foi verificado — depende do destrave.
 ## Estado no plano
 
 Marquei `execucoes.e3p-seed7` como `aguardando_inicio` com um campo `bloqueio`,
-e **não** como `rodando`: nada está rodando, e marcar "rodando" faria o painel
-mentir sobre os ~230 pontos que esta execução destrava. Passo para `rodando`
-assim que o primeiro braço entrar na GPU.
+e **não** como `rodando`: nada está rodando, e "rodando" faria o painel mentir
+sobre os ~230 pontos que esta execução destrava. Passo para `rodando` quando o
+primeiro braço entrar na GPU.
 
-**Aviso cross-agente**: o `executor02` (semente 123) vai bater nos itens 1 e 2
-exatamente do mesmo jeito — o destrave serve para os dois, e o notebook e o
-script que entreguei servem para a semente 123 trocando uma variável.
+**Cross-agente**: o `executor02` (semente 123) vai bater nos itens 1 e 2 do
+mesmo jeito; o destrave serve para os dois e o notebook roda a 123 trocando uma
+variável.
