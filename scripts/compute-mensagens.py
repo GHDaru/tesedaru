@@ -49,13 +49,15 @@ def ultimo_commit_iso(path: Path) -> str | None:
 
 def main():
     mensagens = []
-    for f in sorted(CAIXA.glob("*.md")):
+    fontes = [(CAIXA, False)] + [(d, True) for d in sorted((ROOT / "coordenacao/arquivo").glob("*/"))]
+    for pasta, arquivada in fontes:
+      for f in sorted(pasta.glob("*.md")):
         m = RE_NOME.match(f.name)
         if not m:
             continue
         fm = front_matter(f.read_text(errors="replace"))
         mensagens.append({
-            "arquivo": f.name, **m.groupdict(),
+            "arquivo": f.name, **m.groupdict(), "arquivada": arquivada,
             "idade_horas": idade_horas(m.group("ts")),
             "acao_esperada": fm.get("acao_esperada", ""),
             "referencia": fm.get("referencia", ""),

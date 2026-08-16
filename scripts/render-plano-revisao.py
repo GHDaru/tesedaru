@@ -31,4 +31,12 @@ for marker, data in (("__PLANO_JSON__", plano), ("__KPIS_JSON__", kpis), ("__MEN
     # </script> dentro de strings do JSON quebraria o bloco; escapa por segurança
     html = html.replace(marker, json.dumps(data, ensure_ascii=False, indent=1).replace("</", "<\\/"))
 out.write_text(html, encoding="utf-8")
-print(f"ok: {out}  (plano v{plano['versao']}, PGP {kpis.get('prontidao',{}).get('global_pct','?')}%)")
+
+# página completa da caixa de mensagens (mensagens.html, ao lado da saída)
+mtpl = ROOT / "docs/records/mensagens-template.html"
+if mtpl.exists():
+    mhtml = mtpl.read_text(encoding="utf-8").replace(
+        "__MENSAGENS_JSON__",
+        json.dumps(mens, ensure_ascii=False, indent=1).replace("</", "<\\/"))
+    (out.parent / "mensagens.html").write_text(mhtml, encoding="utf-8")
+print(f"ok: {out} + mensagens.html  (plano v{plano['versao']}, PGP {kpis.get('prontidao',{}).get('global_pct','?')}%)")
