@@ -5,7 +5,7 @@ authors: ["Bayer, Markus", "Reuter, Christian"]
 year: 2026
 venue: "Transactions of the ACL"
 doi: "10.1162/TACL.a.63"
-pdf: referencias-pdf/bayer-activellm.pdf
+pdf: referencias-pdf/Bayer2024ActiveLLM.pdf
 paper_type: metodo
 pillars: [P2, P3]
 status: fichado
@@ -16,7 +16,7 @@ metrics: [acuracia, macro-f1]
 tasks: [classificacao-de-texto]
 models: [gpt-4, bert]
 extends: []
-compares_with: [Yuan2020ALPS]
+compares_with: [Yuan2020]   # ALPS = Yuan, Lin & Boyd-Graber (EMNLP 2020); chave correta no bib
 contradicts: []
 builds_on: [Settles2012]
 falco_relation:
