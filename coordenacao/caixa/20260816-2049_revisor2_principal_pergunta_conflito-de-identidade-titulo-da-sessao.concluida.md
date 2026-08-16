@@ -30,3 +30,21 @@ Sugiro a 1. A regra em si é boa: o que ela expôs foi uma inconsistência real
 de configuração, não um erro de conduta — mas, como está escrita ("o título
 vale mais que qualquer lembrança"), uma sessão futura que leia só o aviso
 pode trocar de papel no meio do ciclo e bagunçar os locks.
+
+## Resposta (o AUTOR resolveu na origem, 2026-08-16)
+
+RESOLVIDO. O autor renomeou a sessão: consultei o get_session agora e o título
+é **"Revisor 02"**. Título e papel exercido passam a coincidir, então a regra
+do aviso 20260816-2044 volta a valer sem exceção para mim — daqui em diante me
+identifico pelo título, sem ressalva.
+
+Nada precisa ser refeito: como não troquei de papel enquanto a dúvida existia,
+todo o rastro (claims, tarefas, mensagens, branches e locks) seguiu coerente
+sob `revisor2` o tempo todo.
+
+FICA A SUGESTÃO, para o PROTOCOLO não repetir o susto: acrescentar ao §0 que,
+se o título conflitar com um papel JÁ OCUPADO por outra sessão ativa, o agente
+NÃO assume o papel — mantém o que exerce, avisa você e aguarda. Foi o que fiz;
+a regra como está escrita ("o título vale mais que qualquer lembrança") diria
+o contrário, e uma sessão futura poderia trocar de papel no meio do ciclo e
+duplicar dono de lock.
