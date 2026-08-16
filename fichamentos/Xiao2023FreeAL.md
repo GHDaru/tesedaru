@@ -1,12 +1,12 @@
 ---
 # ===== IDENTIDADE (nó Paper do grafo) =====
-id: FreeAL2023
+id: Xiao2023FreeAL
 title: "FreeAL: Towards Human-Free Active Learning in the Era of Large Language Models"
 authors: ["Xiao, Ruixuan", "Dong, Yiwen", "Zhao, Junbo", "Wu, Runze", "Lin, Minmin", "Chen, Gang", "Wang, Haobo"]
 year: 2023
 venue: "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP), pp. 14520-14535"
 doi: "10.18653/v1/2023.emnlp-main.896"
-pdf: referencias-pdf/FreeAL2023.pdf
+pdf: referencias-pdf/Xiao2023FreeAL.pdf
 
 # ===== CLASSIFICAÇÃO (arestas de tipo) =====
 paper_type: metodo

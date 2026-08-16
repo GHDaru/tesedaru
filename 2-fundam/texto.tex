@@ -222,7 +222,7 @@ anotação é o gargalo — de imagens médicas que exigem radiologistas a
 transcrições cuja anotação custa dez vezes a duração do áudio
 \cite{Settles2012} —, e ganhou novas camadas com o aprendizado profundo
 \cite{Ren2021} e, mais recentemente, com os LLMs no papel de oráculo ou de
-seletor \cite{Bayer2024}. Esta seção formaliza o laço, apresenta o catálogo de
+seletor \cite{Bayer2024ActiveLLM}. Esta seção formaliza o laço, apresenta o catálogo de
 estratégias de seleção e encerra nas duas limitações estruturais que motivam o
 desenho do FALCO.
 
@@ -437,9 +437,9 @@ A primeira é a existência de um modelo inicial capaz de guiar a seleção. As
 estratégias de incerteza e desacordo pressupõem $\theta_0$ treinado em algum
 $L_0$; com $L_0$ minúsculo ou inexistente — a \textbf{partida a frio}
 (\textit{cold start}) — o modelo não sustenta seleções melhores que o acaso
-\cite{Bayer2024}, e o problema se agrava em texto curto, onde cada instância
+\cite{Bayer2024ActiveLLM}, e o problema se agrava em texto curto, onde cada instância
 carrega pouca informação, e com classificadores profundos, cujo re-treinamento
-frequente é caro \cite{Fromme2022}. As respostas da literatura passam pela
+frequente é caro \cite{Wertz2022}. As respostas da literatura passam pela
 exploração da estrutura dos dados antes de existir modelo — a família da
 Eq.~\eqref{eq:id} — e, mais recentemente, por seletores externos com
 conhecimento pré-treinado (Seção~\ref{sec:fund-llm}).
@@ -523,14 +523,14 @@ várias instâncias, com economia estimada superior a 42 vezes frente à
 anotação humana.
 
 Como \textbf{seletor}, o LLM ataca a partida a frio: o ActiveLLM
-\citep{Bayer2024} usa o conhecimento pré-treinado de modelos como o GPT-4 para
+\citep{Bayer2024ActiveLLM} usa o conhecimento pré-treinado de modelos como o GPT-4 para
 escolher instâncias informativas em regime \textit{few-shot}, sem depender de
 um classificador inicial, superando estratégias tradicionais e técnicas
 específicas de poucos exemplos; a arquitetura conceitual está na
 Figura~\ref{fig:activellm_arch}. O desempenho do seletor depende da engenharia
 do \textit{prompt} — instruções claras de papel, encadeamento de pensamento
 \citep{Wei2022}, controle do tamanho do lote e recapitulação das seleções
-anteriores \citep{Bayer2024} —, e a própria escolha de \textit{prompts} pode
+anteriores \citep{Bayer2024ActiveLLM} —, e a própria escolha de \textit{prompts} pode
 ser ativa \citep{Diao2023, Schick2023}.
 
 \begin{figure}[htbp]
@@ -561,7 +561,7 @@ ser ativa \citep{Diao2023, Schick2023}.
 Como \textbf{componente de sistemas compostos}, quatro desenhos recentes
 importam ao posicionamento desta tese: a \emph{destilação ativa de
 conhecimento}, em que o LLM-professor rotula para um estudante compacto
-\citep{Su2023}, com a variante de \emph{rótulos candidatos} de
+\citep{Xiao2023FreeAL}, com a variante de \emph{rótulos candidatos} de
 \citet{Xia2025CanDist} — quando incerto, o LLM emite um conjunto de hipóteses
 que o estudante destila, convertendo incerteza em informação; os
 \emph{sistemas híbridos humano--LLM}, que roteiam casos difíceis ao humano
@@ -612,7 +612,7 @@ anotador é erro de \emph{formato} — resposta fora do espaço de classes ou
 inconsumível automaticamente — e não de semântica \citep{Kholodna2024}, o que
 torna a restrição da saída ao espaço fechado de rótulos parte do instrumento;
 a confiança auto-reportada dos LLMs tende ao excesso, exigindo calibração
-\citep{Tian2023}; as janelas de contexto limitam o lote \citep{Bayer2024}; e a
+\citep{Tian2023}; as janelas de contexto limitam o lote \citep{Bayer2024ActiveLLM}; e a
 resposta do mesmo modelo pode variar entre versões e provedores de
 \textit{serving}, fazendo de cada medição uma fotografia da tripla (modelo,
 provedor, data). A seleção ativa em múltiplos níveis — de instâncias, de
@@ -763,13 +763,13 @@ e-commerce.
 
 \textbf{LLM no laço.} A transição do BERT ajustado para o LLM generativo
 redefiniu os papéis: seleção informada pelo conhecimento pré-treinado
-(ActiveLLM \cite{Bayer2024}), rotulagem das instâncias selecionadas
+(ActiveLLM \cite{Bayer2024ActiveLLM}), rotulagem das instâncias selecionadas
 \cite{Zhang2025}, roteamento híbrido humano--LLM \cite{Rouzegar2024},
 rótulos candidatos com destilação \cite{Xia2025CanDist} e misturas de LLMs
 leves \cite{Qi2026MixtureLLMs}; a survey de \citet{Xia2025} organiza o campo
 na progressão "da seleção para a geração". Os desafios transversais são a
 calibração da confiança, o custo por consulta e a propagação de vieses
-\cite{Bayer2024, Zhang2025}. A pesquisa de comunidade de
+\cite{Bayer2024ActiveLLM, Zhang2025}. A pesquisa de comunidade de
 \citet{Romberg2025Reassessing} acrescenta o alerta prático: complexidade de
 implantação, incerteza sobre a redução real de custo e ferramental inadequado
 seguem sendo as barreiras à adoção — a viabilidade operacional, não a
@@ -813,7 +813,7 @@ dimensões cuja combinação define a lacuna.
  & \textbf{informado} & \textbf{LLM} & \textbf{instrum.} & \textbf{em PT} & \textbf{formal} \\
 \midrule
 DEUCE \cite{Guo2025Deuce} & \cmark & \xmark & \xmark & $\sim$ & \cmark \\
-ActiveLLM \cite{Bayer2024} & \cmark & \xmark & \xmark & \xmark & \cmark \\
+ActiveLLM \cite{Bayer2024ActiveLLM} & \cmark & \xmark & \xmark & \xmark & \cmark \\
 \citet{Zhang2025} & \xmark & \cmark & $\sim$ & \xmark & \cmark \\
 \citet{Rouzegar2024} & \xmark & \cmark & $\sim$ & \xmark & \cmark \\
 \citet{Kholodna2024} & \xmark & \cmark & \cmark & \xmark & \cmark \\

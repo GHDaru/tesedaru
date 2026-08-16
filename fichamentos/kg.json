@@ -1109,55 +1109,6 @@
       "label": "avaliacao-de-classificadores"
     },
     {
-      "id": "FreeAL2023",
-      "type": "artigo",
-      "label": "FreeAL2023",
-      "title": "FreeAL: Towards Human-Free Active Learning in the Era of Large Language Models",
-      "year": 2023,
-      "venue": "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP), pp. 14520-14535",
-      "paper_type": "metodo",
-      "status": "fichado",
-      "pdf": "referencias-pdf/FreeAL2023.pdf",
-      "doi": "10.18653/v1/2023.emnlp-main.896",
-      "url": "https://doi.org/10.18653/v1/2023.emnlp-main.896",
-      "cited_in": []
-    },
-    {
-      "id": "metodo:llm-como-oraculo",
-      "type": "metodo",
-      "label": "llm-como-oraculo"
-    },
-    {
-      "id": "metodo:destilacao-ativa",
-      "type": "metodo",
-      "label": "destilacao-ativa"
-    },
-    {
-      "id": "metodo:zero-shot",
-      "type": "metodo",
-      "label": "zero-shot"
-    },
-    {
-      "id": "modelo:gpt-3.5-turbo",
-      "type": "modelo",
-      "label": "gpt-3.5-turbo"
-    },
-    {
-      "id": "modelo:roberta-base",
-      "type": "modelo",
-      "label": "roberta-base"
-    },
-    {
-      "id": "modelo:biomed-roberta-base",
-      "type": "modelo",
-      "label": "biomed-roberta-base"
-    },
-    {
-      "id": "dataset:trec",
-      "type": "dataset",
-      "label": "trec"
-    },
-    {
       "id": "Fushiki2011",
       "type": "artigo",
       "label": "Fushiki2011",
@@ -1243,6 +1194,16 @@
         "Cap. 5 — Resultados (FALCO)",
         "Cap. 6 — Conclusão"
       ]
+    },
+    {
+      "id": "metodo:llm-como-oraculo",
+      "type": "metodo",
+      "label": "llm-como-oraculo"
+    },
+    {
+      "id": "metodo:zero-shot",
+      "type": "metodo",
+      "label": "zero-shot"
     },
     {
       "id": "modelo:chatgpt",
@@ -2916,6 +2877,11 @@
       "label": "agnews"
     },
     {
+      "id": "dataset:trec",
+      "type": "dataset",
+      "label": "trec"
+    },
+    {
       "id": "dataset:movie-reviews",
       "type": "dataset",
       "label": "movie-reviews"
@@ -3648,6 +3614,42 @@
       "label": "Banking77"
     },
     {
+      "id": "Xiao2023FreeAL",
+      "type": "artigo",
+      "label": "Xiao2023FreeAL",
+      "title": "FreeAL: Towards Human-Free Active Learning in the Era of Large Language Models",
+      "year": 2023,
+      "venue": "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP), pp. 14520-14535",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Xiao2023FreeAL.pdf",
+      "doi": "10.18653/v1/2023.emnlp-main.896",
+      "url": "https://doi.org/10.18653/v1/2023.emnlp-main.896",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "metodo:destilacao-ativa",
+      "type": "metodo",
+      "label": "destilacao-ativa"
+    },
+    {
+      "id": "modelo:gpt-3.5-turbo",
+      "type": "modelo",
+      "label": "gpt-3.5-turbo"
+    },
+    {
+      "id": "modelo:roberta-base",
+      "type": "modelo",
+      "label": "roberta-base"
+    },
+    {
+      "id": "modelo:biomed-roberta-base",
+      "type": "modelo",
+      "label": "biomed-roberta-base"
+    },
+    {
       "id": "Xu2020",
       "type": "artigo",
       "label": "Xu2020",
@@ -3808,6 +3810,7 @@
       "doi": "10.1155/int/6472544",
       "url": "https://doi.org/10.1155/int/6472544",
       "cited_in": [
+        "Cap. 1 — Introdução",
         "Cap. 2 — Fundamentação"
       ]
     },
@@ -5341,77 +5344,6 @@
       "target": "FALCO",
       "type": "fundamenta",
       "note": "Armadilhas de computar F1/AUC em validação cruzada (formas incompatíveis entre papers/software): diretamente aplicável a como agregamos Macro-F1 entre dobras/repetições nos E1–E3. (Arquivo veio rotulado como Forman 2003; identidade corrigida.)"
-    },
-    {
-      "source": "FreeAL2023",
-      "target": "pilar:P3",
-      "type": "pillars"
-    },
-    {
-      "source": "FreeAL2023",
-      "target": "metodo:aprendizado-ativo",
-      "type": "uses_methods"
-    },
-    {
-      "source": "FreeAL2023",
-      "target": "metodo:llm-como-oraculo",
-      "type": "uses_methods"
-    },
-    {
-      "source": "FreeAL2023",
-      "target": "metodo:destilacao-ativa",
-      "type": "uses_methods"
-    },
-    {
-      "source": "FreeAL2023",
-      "target": "metodo:few-shot",
-      "type": "uses_methods"
-    },
-    {
-      "source": "FreeAL2023",
-      "target": "metodo:zero-shot",
-      "type": "uses_methods"
-    },
-    {
-      "source": "FreeAL2023",
-      "target": "metodo:entropia",
-      "type": "uses_methods"
-    },
-    {
-      "source": "FreeAL2023",
-      "target": "metodo:cold-start",
-      "type": "uses_methods"
-    },
-    {
-      "source": "FreeAL2023",
-      "target": "modelo:gpt-3.5-turbo",
-      "type": "models"
-    },
-    {
-      "source": "FreeAL2023",
-      "target": "modelo:roberta-base",
-      "type": "models"
-    },
-    {
-      "source": "FreeAL2023",
-      "target": "modelo:biomed-roberta-base",
-      "type": "models"
-    },
-    {
-      "source": "FreeAL2023",
-      "target": "dataset:trec",
-      "type": "datasets"
-    },
-    {
-      "source": "FreeAL2023",
-      "target": "tarefa:classificacao-de-texto",
-      "type": "tasks"
-    },
-    {
-      "source": "FreeAL2023",
-      "target": "FALCO",
-      "type": "compara",
-      "note": "Vizinho direto exigido pelo parecer R6 (Bloco C, item 9 / Dom-M1) na tabela de lacunas. FreeAL elimina o humano do laço via colaboração LLM(anotador)-SLM(filtro) com refinamento iterativo de rótulos; FALCO difere em: progressão de oráculos com gate de custo, espaço FECHADO de 714 classes (FreeAL: 2-6 classes + NER), texto curto PT-BR de varejo, saída estruturada (CategorySchema) e contabilidade de custo por rótulo (FreeAL não reporta custo de API). Confronto central do Cap. 2."
     },
     {
       "source": "Fushiki2011",
@@ -8881,6 +8813,77 @@
       "target": "E0P-invalidos-futuros",
       "type": "estende",
       "note": "Correção conceitual importante: quando incerto, o LLM emite CONJUNTO de rótulos candidatos (não um único 'ouro'); um SLM destila. A incerteza do oráculo vira informação em vez de erro duro. Citado nos futuros como resposta aos nossos 2-4% de inválidos e ao erro de fronteira do RQ3. CanDist sem humanos supera baselines com 10% de anotação humana em TREC."
+    },
+    {
+      "source": "Xiao2023FreeAL",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Xiao2023FreeAL",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Xiao2023FreeAL",
+      "target": "metodo:llm-como-oraculo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Xiao2023FreeAL",
+      "target": "metodo:destilacao-ativa",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Xiao2023FreeAL",
+      "target": "metodo:few-shot",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Xiao2023FreeAL",
+      "target": "metodo:zero-shot",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Xiao2023FreeAL",
+      "target": "metodo:entropia",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Xiao2023FreeAL",
+      "target": "metodo:cold-start",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Xiao2023FreeAL",
+      "target": "modelo:gpt-3.5-turbo",
+      "type": "models"
+    },
+    {
+      "source": "Xiao2023FreeAL",
+      "target": "modelo:roberta-base",
+      "type": "models"
+    },
+    {
+      "source": "Xiao2023FreeAL",
+      "target": "modelo:biomed-roberta-base",
+      "type": "models"
+    },
+    {
+      "source": "Xiao2023FreeAL",
+      "target": "dataset:trec",
+      "type": "datasets"
+    },
+    {
+      "source": "Xiao2023FreeAL",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Xiao2023FreeAL",
+      "target": "FALCO",
+      "type": "compara",
+      "note": "Vizinho direto exigido pelo parecer R6 (Bloco C, item 9 / Dom-M1) na tabela de lacunas. FreeAL elimina o humano do laço via colaboração LLM(anotador)-SLM(filtro) com refinamento iterativo de rótulos; FALCO difere em: progressão de oráculos com gate de custo, espaço FECHADO de 714 classes (FreeAL: 2-6 classes + NER), texto curto PT-BR de varejo, saída estruturada (CategorySchema) e contabilidade de custo por rótulo (FreeAL não reporta custo de API). Confronto central do Cap. 2."
     },
     {
       "source": "Xu2020",
