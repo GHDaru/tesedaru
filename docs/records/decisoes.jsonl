@@ -2,3 +2,4 @@
 {"id":"gate-humanize-cap1","data":"2026-08-16","titulo":"Gate de merge do Cap. 1 aprovado: mudanças 2, 3, 3a + opcionais A e B","status":"aceita","registro":"merge 2effcfc (branch humanize/cap1, ADR 0001)"}
 {"id":"adr-0002","data":"2026-08-16","titulo":"Constituição de conteúdo da tese (princípios I-IV ratificados, V-X propostos) e instalação do Maestro","status":"aceita","registro":"docs/adr/0002-constituicao-da-tese-e-instalacao-maestro.md"}
 {"id":"adr-0003","data":"2026-08-16","titulo":"Ratificação dos princípios V-X — Constituição da Tese v1.1.0","status":"aceita","registro":"docs/adr/0003-ratificacao-principios-v-a-x.md"}
+{"id":"gate-governanca-01","data":"2026-08-16","titulo":"Gate de merge do ciclo governanca-01 aprovado (instalação Maestro + constituição v1.1.0 + siglas Cap. 1)","status":"aceita","registro":"merge be4074d (branch governanca/constituicao, ADRs 0002-0003)"}
