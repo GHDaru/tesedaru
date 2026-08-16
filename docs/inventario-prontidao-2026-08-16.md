@@ -37,6 +37,38 @@ prontidão.
 - Regra de ouro respeitada: números rastreáveis a artefatos em
   `GHDaru/activelearning`.
 
+## Mapa dos repositórios da tese (fornecido pelo autor, 2026-08-16)
+
+| Repositório | Papel | Estado |
+|---|---|---|
+| `GHDaru/tesedaru` | A tese (LaTeX, ~90 p.) + 5 artigos + fichamentos/KG + slides de defesa + ADRs | **Ativo — fonte de verdade do texto** |
+| `GHDaru/activelearning` | Biblioteca `falco-active-learning` + FlowBuilder (front/back em `apps/web`) + experimentos E0–E6/E3′ + dataset CSV + docs MkDocs | **Ativo — fonte de verdade do código** |
+| `GHDaru/activetextclassification` | Programa experimental legado (P1/P2, AG, notebooks originais) | Congelado — só rastreabilidade |
+| `GHDaru/Tese-Vers-o-Draft` | Rascunho antigo da tese | Superado pelo `tesedaru` |
+| `GHDaru/FlowBuilder` | FlowBuilder antigo | Superado pelo `apps/web` do `activelearning` |
+| `GHDaru/maestro` | Metodologia de governança (mapa de gates, ciclos) | **Adotada a partir de agora** |
+| Kaggle (não-git) | Dataset publicado, DOI 10.34740/kaggle/dsv/4265348 | Pendente: definir licença (CC BY 4.0) |
+
+## Artefatos de código (repositório `GHDaru/activelearning`)
+
+Detalhamento do repositório de código (fontes: apêndice
+`a4-biblioteca/texto.tex`, plano mestre, parecer R5, diário 17/07, mapa acima):
+
+| Artefato | Descrição | Estado |
+|---|---|---|
+| Biblioteca `falco-active-learning` | Arquitetura hexagonal, domínio puro (instâncias, CategorySchema, OracleUsage, estratégias, LCE/Wilson/McNemar) sem dependência de rede | ✅ validada, **pip-instalável** (R5) |
+| Adapters de oráculo | OpenAI, OpenAI-compatível/MaaS, OpenRouter, Gemini, Ollama, Simulado(ε) — custo, cache, lote e latência medidos por anotação | ✅ validados ao vivo |
+| Adapters de classificador | PVBin (portado do legado, validado contra ele) e BERTimbau (`transformers`); DRI-SL com SBERT | ✅ |
+| Casos de uso | Avaliação de oráculo (E0, retomável), laço de AL (E1/E4), runner FALCO (fases com transição por validação), saneamento | ✅ |
+| Testes | Suíte unitária cobrindo domínio, adapters e casos de uso sem rede | ✅ verde + lint |
+| Reprodutibilidade | 1 ponto de entrada por experimento, config versionada, seeds + JSONL por item/iteração, retomável | ✅ (base da regra de ouro) |
+| **FlowBuilder** ("o site") | Interface web FastAPI + React (`apps/web` do `activelearning`; substitui o repo antigo `GHDaru/FlowBuilder`): upload de CSV com saneamento automático, execução parametrizada de fluxos (semente, orçamento, lote, L0, estratégia, oráculo incl. custo zero), curvas de aprendizado; índice em banco, artefatos em disco | ✅ E2E com oráculo real gratuito (ciclo FALCO completo em 17/07) |
+| Documentação | docs MkDocs: biblioteca.md, flowbuilder.md, experimentos.md, avaliacao-e-graficos.md + README com estado real | ✅ (17/07) |
+| DOI Zenodo do código | fecha os artefatos dos artigos A1/A5 | ⬜ pendente (P8) |
+
+O FlowBuilder é interface local (não há site público no ar); o catálogo
+executável de experimentos na interface foi um dos itens que fecharam o R5.
+
 ## Pendências conhecidas (herdadas do R5 §4 + estado atual)
 
 | # | Pendência | Tipo | Origem |
@@ -56,7 +88,7 @@ prontidão.
 
 | Ferramenta | Situação | Observação |
 |---|---|---|
-| "Maestro" (organizador de ciclos) | ❌ **não instalado** — nenhum plugin habilitado na conta | ciclos hoje são organizados manualmente via checklist/diário/records |
+| "Maestro" (organizador de ciclos) | metodologia existe como repositório `GHDaru/maestro` (governança, mapa de gates — adotada a partir de 2026-08-16); ❌ não implantado como plugin/skill neste ambiente | ciclos hoje seguem o processo manualmente (checklist/diário/records + gates do ADR 0001); candidato a skill local |
 | Skill `fichamento` (local, repo) | ✅ | única skill do repositório |
 | Skill `humanizer` (pessoal) | ✅ | remove sinais de escrita de IA — candidata principal para a Rodada 2 |
 | Skill "academic research/reviewer" | ❌ não habilitada | pareceres anteriores citam `academic-paper-reviewer` (ARS), aplicada externamente; buscar no marketplace na Rodada 3 |
