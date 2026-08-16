@@ -1,8 +1,8 @@
 {
  "schema": "plano-revisao/v1",
- "versao": 5,
+ "versao": 6,
  "atualizado_em": "2026-08-16",
- "atualizado_por": "v5: apêndices na matriz + grupo dados + conformidade UFPR (lacunas apontadas pelo autor)",
+ "atualizado_por": "v6: execuções mcnemar-pares e bootstrap-f1 iniciadas (agente, CPU local, predições _s42)",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
   "Abrir este JSON e ler o campo 'proximo'",
@@ -751,7 +751,7 @@
     "id": "mcnemar-pares",
     "o_que": "McNemar pareado A–B, B–C, E35–D sobre predições persistidas (_s42)",
     "onde": "CPU local · experiments/e2e3/results/",
-    "estado": "aguardando_inicio",
+    "estado": "rodando",
     "dono": "agente",
     "duracao": "minutos",
     "resultado_esperado": "experiments/e2e3/results/mcnemar_s42.json"
@@ -760,7 +760,7 @@
     "id": "bootstrap-f1",
     "o_que": "IC bootstrap das diferenças de Macro F1 entre braços",
     "onde": "CPU local · mesmas predições",
-    "estado": "aguardando_inicio",
+    "estado": "rodando",
     "dono": "agente",
     "duracao": "minutos",
     "resultado_esperado": "experiments/e2e3/results/bootstrap_f1_s42.json"
