@@ -38,10 +38,12 @@ kpis_path = ROOT / "docs/records/kpis.json"
 mens_path = ROOT / "docs/records/mensagens.json"
 resultados_path = ROOT / "docs/records/resultados.json"
 referencias_path = ROOT / "docs/records/referencias.json"
+kg_path = ROOT / "fichamentos/kg.json"
 kpis = json.loads(kpis_path.read_text(encoding="utf-8")) if kpis_path.exists() else {}
 mens = json.loads(mens_path.read_text(encoding="utf-8")) if mens_path.exists() else {}
 resultados = json.loads(resultados_path.read_text(encoding="utf-8")) if resultados_path.exists() else {}
 referencias = json.loads(referencias_path.read_text(encoding="utf-8")) if referencias_path.exists() else {}
+kg = json.loads(kg_path.read_text(encoding="utf-8")) if kg_path.exists() else {}
 
 
 def as_json_script(elem_id: str, data) -> str:
@@ -281,6 +283,8 @@ NAV = [
     ("mensagens.html", "Coordenação", "✉"),
     ("resultados.html", "Resultados", "★"),
     ("referencias.html", "Referências", "❐"),
+    ("grafo.html", "Grafo", "⬡"),
+    ("bibliometria.html", "Bibliometria", "◫"),
 ]
 
 
@@ -1090,6 +1094,239 @@ render();
     return body, script
 
 
+# --------------------------------------------------------------------------
+# Grafo (grafo.html) — janela para o instrumento externo já existente
+# (fichamentos/kg_template.html, canvas de física de força). Embutido via
+# iframe, nunca reimplementado — ux-design.md do ciclo 004 explica o porquê
+# (é outro sistema, com identidade visual própria, não um componente nativo).
+# --------------------------------------------------------------------------
+def build_grafo() -> tuple[str, str]:
+    n_nos = len(kg.get("nodes", []))
+    n_arestas = len(kg.get("edges", []))
+    body = f"""
+<header class="page-head"><h1>Grafo</h1>
+  <span class="meta">{n_nos} nós · {n_arestas} arestas</span></header>
+
+<section class="card">
+  <p class="vazia">Mapa de argumentação e grafo de conhecimento fichado —
+  as relações (estende, compara, contradiz, sustenta-se em) foram lidas e
+  registradas por quem fichou cada obra, não inferidas automaticamente.
+  Não é uma rede de co-citação bibliométrica. Instrumento separado do
+  site: física de força, filtros por tipo de nó e um painel de detalhe ao
+  clicar — leva alguns segundos para os nós convergirem.
+  <a href="grafo-embed.html" target="_blank" rel="noopener">abrir em nova aba ↗</a></p>
+</section>
+
+<div class="grafo-frame-wrap">
+  <iframe id="grafo-iframe" class="grafo-frame" src="grafo-embed.html"
+    title="Grafo de conhecimento da tese FALCO — instrumento interativo separado, {n_nos} nós e {n_arestas} arestas"
+    loading="lazy"></iframe>
+</div>
+"""
+    script = """
+<style>
+.grafo-frame-wrap{max-width:none; margin:0 calc(-1 * var(--sp-5))}
+@media (max-width:767px){ .grafo-frame-wrap{margin:0 calc(-1 * var(--sp-4))} }
+.grafo-frame{width:100%; height:calc(100vh - 260px); min-height:520px;
+  border:1px solid var(--border); border-radius:8px; display:block; background:var(--panel)}
+</style>"""
+    return body, script
+
+
+# --------------------------------------------------------------------------
+# Bibliometria (bibliometria.html) — perfil descritivo da bibliografia da
+# tese (não uma bibliometria de campo: sem citação externa, sem busca
+# sistemática — só o que este autor leu e citou). ux-design.md do ciclo 004
+# registra, com um especialista em bibliometria acadêmica, o que é honesto
+# de medir aqui e o que NÃO é (Lotka/Bradford/h-index ficam fora, com razão
+# documentada em qa-report.md).
+# --------------------------------------------------------------------------
+def build_bibliometria() -> tuple[str, str]:
+    refs_list = referencias.get("referencias", [])
+    pilares_nomes = resultados.get("pilares", {})
+
+    pilar_counts: dict[str, int] = {}
+    for e in kg.get("edges", []):
+        if e.get("type") == "pillars":
+            target = str(e.get("target", "")).removeprefix("pilar:")
+            pilar_counts[target] = pilar_counts.get(target, 0) + 1
+
+    total = referencias.get("total", len(refs_list))
+    citadas = referencias.get("citadas", sum(1 for r in refs_list if r.get("ordem")))
+    fichadas = sum(1 for r in refs_list if r.get("fichado"))
+    com_pdf = sum(1 for r in refs_list if r.get("pdf"))
+
+    body = """
+<header class="page-head"><h1>Bibliometria</h1>
+  <span class="meta" id="meta"></span></header>
+
+<section class="card">
+  <p class="vazia">Como a revisão de literatura desta tese foi conduzida —
+  composição, atualidade e distribuição da bibliografia. <strong>Não</strong>
+  é o que a pesquisa descobriu (isso está em Resultados) nem uma
+  bibliometria do campo científico: sem citação externa, sem afiliação,
+  sem busca sistemática de base — só o que este autor leu e citou.</p>
+</section>
+
+<section class="kpis" id="kpis-bib" aria-label="Indicadores da bibliografia"></section>
+
+<section class="card">
+  <span class="label">Quando a literatura consultada nesta tese foi publicada</span>
+  <h2>Publicações por ano</h2>
+  <div id="chart-anos"></div>
+  <details><summary>Ver dados em tabela</summary>
+    <div class="scroll"><table id="tab-anos"></table></div>
+  </details>
+</section>
+
+<div class="groups">
+  <section class="card">
+    <span class="label">Autores mais presentes nesta bibliografia — não citação externa ao campo</span>
+    <h2>Top 10 autores</h2>
+    <div id="rank-autores"></div>
+  </section>
+  <section class="card">
+    <span class="label">Veículos mais presentes nesta bibliografia</span>
+    <h2>Top 10 veículos</h2>
+    <div id="rank-venues"></div>
+  </section>
+  <section class="card">
+    <span class="label">Frequência de citação dentro do texto da tese — não impacto externo</span>
+    <h2>Top 10 mais citadas no texto</h2>
+    <div id="rank-citadas"></div>
+  </section>
+  <section class="card">
+    <span class="label">Referências fichadas por pilar (P1–P4) — uma obra pode contar em mais de um pilar</span>
+    <h2>Distribuição por pilar</h2>
+    <div id="rank-pilares"></div>
+  </section>
+</div>
+"""
+    json_blocks = (
+        as_json_script('bib-refs', refs_list) + "\n"
+        + as_json_script('bib-pilares', {'nomes': pilares_nomes, 'contagens': pilar_counts})
+    )
+    script = json_blocks + """
+<script>
+(function(){
+const REFS = JSON.parse(document.getElementById('bib-refs').textContent || '[]');
+const PILARES = JSON.parse(document.getElementById('bib-pilares').textContent || '{}');
+const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const el = id => document.getElementById(id);
+
+const total = REFS.length;
+const citadas = REFS.filter(r => r.ordem).length;
+const fichadas = REFS.filter(r => r.fichado).length;
+const comPdf = REFS.filter(r => r.pdf).length;
+
+el('meta').textContent = `${total} referências · ${citadas} citadas · ${fichadas} fichadas`;
+el('kpis-bib').innerHTML = `
+  <div class="kpi hero"><span class="label">Total na bibliografia</span><span class="v">${total}</span>
+    <span class="ctx">${citadas} citadas de fato no texto</span></div>
+  <div class="kpi"><span class="label">Fichadas</span><span class="v">${fichadas}</span>
+    <span class="ctx">${(fichadas/total*100).toFixed(0)}% do total processado</span></div>
+  <div class="kpi"><span class="label">Com PDF</span><span class="v">${comPdf}</span>
+    <span class="ctx">${(comPdf/total*100).toFixed(0)}% com arquivo físico</span></div>`;
+
+// ---- barra de ranking reutilizável: rótulo + barra proporcional + valor sempre visível ----
+function hbar(containerId, itens) {
+  const max = Math.max(...itens.map(i => i.valor), 1);
+  el(containerId).innerHTML = itens.map(it => {
+    const pct = (it.valor / max * 100).toFixed(1);
+    const rotulo = `${it.label}: ${it.valor}`;
+    return `<div class="hbar-row">
+      <span class="hbar-label" title="${esc(it.label)}">${esc(it.label)}</span>
+      <svg class="hbar-track" viewBox="0 0 100 14" preserveAspectRatio="none" role="img" aria-label="${esc(rotulo)}">
+        <rect x="0" y="0" width="100" height="14" fill="var(--grid)" rx="2"/>
+        <rect x="0" y="0" width="${pct}" height="14" fill="var(--accent)" rx="2"><title>${esc(rotulo)}</title></rect>
+      </svg>
+      <span class="hbar-valor">${it.valor}</span>
+    </div>`;
+  }).join('') || '<p class="vazia">Sem dados.</p>';
+}
+
+function topN(getter, n) {
+  const contagem = new Map();
+  for (const r of REFS) {
+    const vals = getter(r);
+    for (const v of (Array.isArray(vals) ? vals : [vals])) {
+      if (!v) continue;
+      contagem.set(v, (contagem.get(v) || 0) + 1);
+    }
+  }
+  return [...contagem.entries()].sort((a,b) => b[1]-a[1]).slice(0, n).map(([label,valor]) => ({label, valor}));
+}
+
+hbar('rank-autores', topN(r => r.autores, 10));
+hbar('rank-venues', topN(r => r.venue, 10));
+hbar('rank-citadas', REFS.filter(r => r.total_ocorrencias > 0)
+  .sort((a,b) => b.total_ocorrencias - a.total_ocorrencias).slice(0,10)
+  .map(r => ({label: r.titulo, valor: r.total_ocorrencias})));
+
+const nomesPilar = PILARES.nomes || {};
+const contagensPilar = PILARES.contagens || {};
+const ORDEM_PILAR = ['P1','P2','P3','P4'];
+const itensPilar = ORDEM_PILAR.filter(p => contagensPilar[p]).map(p =>
+  ({label: `${p} — ${nomesPilar[p] || ''}`, valor: contagensPilar[p]}));
+const outros = Object.entries(contagensPilar).filter(([k]) => !ORDEM_PILAR.includes(k))
+  .reduce((s,[,v]) => s+v, 0);
+if (outros) itensPilar.push({label: 'Geral / transversal', valor: outros});
+hbar('rank-pilares', itensPilar);
+
+// ---- publicações por ano: bucket <2000 + barra por ano 2000..max ----
+(function chartAnos(){
+  const CORTE = 2000;
+  const porAno = new Map();
+  let antes = 0;
+  for (const r of REFS) {
+    const a = parseInt(r.ano, 10);
+    if (!a) continue;
+    if (a < CORTE) { antes++; continue; }
+    porAno.set(a, (porAno.get(a) || 0) + 1);
+  }
+  if (porAno.size === 0 && !antes) { el('chart-anos').innerHTML = '<p class="vazia">Sem dados de ano.</p>'; return; }
+  const anoMax = Math.max(...porAno.keys());
+  const dados = [{rotulo: `≤${CORTE-1}`, valor: antes, bucket: true}];
+  for (let a = CORTE; a <= anoMax; a++) dados.push({rotulo: String(a), valor: porAno.get(a) || 0, bucket: false});
+
+  const W = 980, H = 240, mL = 32, mR = 12, mT = 10, mB = 30;
+  const n = dados.length;
+  const bw = (W - mL - mR) / n;
+  const max = Math.max(...dados.map(d => d.valor), 1);
+  const Y = v => mT + (H - mT - mB) * (1 - v / max);
+  const passo = Math.max(1, Math.round(n / 10));
+  const barras = dados.map((d, i) => {
+    const x = mL + i * bw, y = Y(d.valor), h = (H - mT - mB) - (y - mT);
+    const rotula = i === 0 || i === n - 1 || i % passo === 0;
+    return `<g><rect x="${(x+1).toFixed(1)}" y="${y.toFixed(1)}" width="${Math.max(bw-2,0.5).toFixed(1)}" height="${h.toFixed(1)}"
+        fill="var(--accent)" ${d.bucket ? 'opacity="0.55"' : ''}><title>${esc(d.rotulo)}: ${d.valor} referência(s)</title></rect>
+      ${rotula ? `<text x="${(x+bw/2).toFixed(1)}" y="${H-mB+14}" text-anchor="middle">${esc(d.rotulo)}</text>` : ''}</g>`;
+  }).join('');
+  const gMax = Math.max(1, max);
+  const grid = [0, Math.round(gMax/2), gMax].map(g =>
+    `<line x1="${mL}" x2="${W-mR}" y1="${Y(g).toFixed(1)}" y2="${Y(g).toFixed(1)}" stroke="var(--grid)"/>
+     <text x="2" y="${(Y(g)+4).toFixed(1)}">${g}</text>`).join('');
+  const picoIdx = dados.reduce((best,d,i) => d.valor > dados[best].valor ? i : best, 0);
+  el('chart-anos').innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" style="width:100%"
+      aria-label="Publicações por ano: de ${dados[0].rotulo} a ${dados.at(-1).rotulo}, pico de ${dados[picoIdx].valor} em ${dados[picoIdx].rotulo}.">
+    ${grid}${barras}</svg>`;
+  el('tab-anos').innerHTML = '<thead><tr><th>Período</th><th>Referências</th></tr></thead><tbody>' +
+    dados.filter(d => d.valor > 0).map(d => `<tr><td>${esc(d.rotulo)}</td><td>${d.valor}</td></tr>`).join('') + '</tbody>';
+})();
+})();
+</script>
+<style>
+.hbar-row{display:grid; grid-template-columns:minmax(0,180px) 1fr auto; gap:var(--sp-3);
+  align-items:center; padding:var(--sp-1) 0}
+.hbar-label{font-size:var(--fs-2); color:var(--ink); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.hbar-track{height:14px; width:100%; display:block}
+.hbar-valor{font-size:var(--fs-1); color:var(--muted); font-variant-numeric:tabular-nums;
+  text-align:right; min-width:2.2em}
+#chart-anos text{font-size:10px}
+</style>"""
+    return body, script
+
+
 def main() -> None:
     pages = {
         "index.html": build_controle,
@@ -1097,15 +1334,18 @@ def main() -> None:
         "mensagens.html": build_coordenacao,
         "resultados.html": build_resultados,
         "referencias.html": build_referencias,
+        "grafo.html": build_grafo,
+        "bibliometria.html": build_bibliometria,
     }
     titles = {"index.html": "Controle", "plano.html": "Plano",
               "mensagens.html": "Coordenação", "resultados.html": "Resultados",
-              "referencias.html": "Referências"}
+              "referencias.html": "Referências", "grafo.html": "Grafo",
+              "bibliometria.html": "Bibliometria"}
     for fname, builder in pages.items():
         body, script = builder()
         html = page_shell(titles[fname], fname, FOOTER_TEXT, body, script)
         (out_dir / fname).write_text(html, encoding="utf-8")
-    print(f"ok: {out_dir}/ (index, plano, mensagens, resultados, referencias)  "
+    print(f"ok: {out_dir}/ ({', '.join(titles.values())})  "
           f"plano v{plano['versao']}, PGP {kpis.get('prontidao', {}).get('global_pct', '?')}%")
 
 

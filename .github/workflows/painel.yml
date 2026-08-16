@@ -1,9 +1,9 @@
 name: Painel da tese
-# Publica as 5 páginas do site da tese (Controle, Plano, Coordenação,
-# Resultados, Referências) no GitHub Pages a cada push que as toque. O HTML
-# nasce inteiro do scripts/render-plano-revisao.py no momento do deploy — a
-# página online está sempre igual aos JSONs de docs/records/ da main, sem
-# passo manual.
+# Publica as 7 páginas do site da tese (Controle, Plano, Coordenação,
+# Resultados, Referências, Grafo, Bibliometria) no GitHub Pages a cada push
+# que as toque. O HTML nasce inteiro do scripts/render-plano-revisao.py no
+# momento do deploy — a página online está sempre igual aos JSONs de
+# docs/records/ da main, sem passo manual.
 on:
   push:
     branches: [main]
@@ -57,16 +57,20 @@ jobs:
           fetch-depth: 0   # histórico completo: a série de evolução vem do git log do plano
       - name: Instala dependências (PyYAML — parsing de front-matter dos fichamentos)
         run: pip install --quiet pyyaml
-      - name: Computa KPIs e renderiza as 5 páginas do site
+      - name: Computa KPIs, grafo e renderiza as 7 páginas do site
         run: |
           mkdir -p _site
           python3 scripts/compute-kpis.py
           python3 scripts/compute-mensagens.py
           python3 scripts/compute-referencias.py
+          python3 fichamentos/build_kg.py
           python3 scripts/render-plano-revisao.py _site
           cp docs/records/plano-revisao.json docs/records/kpis.json docs/records/mensagens.json _site/
           test -f docs/records/resultados.json && cp docs/records/resultados.json _site/ || true
           test -f docs/records/referencias.json && cp docs/records/referencias.json _site/ || true
+          # Grafo: kg.html é o instrumento autocontido (canvas + física de força);
+          # servido dentro de um iframe da página grafo.html sob o nome grafo-embed.html.
+          cp fichamentos/kg.html _site/grafo-embed.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
