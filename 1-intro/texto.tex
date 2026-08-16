@@ -101,9 +101,12 @@ mesmo orçamento. A hipótese é condicional à qualidade do oráculo disponíve
 isso, fixou-se de antemão tanto o piso de acurácia que um modelo de linguagem
 precisa atingir para ser aprovado como oráculo quanto o que conta como refutação:
 se nem o melhor oráculo aprovado sustentar o critério, a hipótese é considerada
-refutada para o conjunto de oráculos avaliado. Nesse caso, a tese reporta o
-resultado com uma análise que separa as duas causas possíveis da perda: o erro que
-o oráculo introduz nos rótulos e a redução da quantidade de rótulos. O
+refutada para o conjunto de oráculos avaliado; se nenhum oráculo atingir o piso,
+o teste prossegue com o melhor disponível, a divergência em relação ao protocolo
+é registrada, e o veredito passa a valer para essa configuração degradada. Nesse
+caso, a tese reporta o resultado com uma análise que separa as causas possíveis
+da perda: o erro que o oráculo introduz nos rótulos, o valor da própria seleção
+ativa e o momento em que o laço para de rotular. O
 Capítulo~\ref{ch:metodo} formaliza cada elemento deste critério
 (Seções~\ref{sec:metodo-oraculo-decisao} e~\ref{sec:metodo-falco-baselines}).
 
