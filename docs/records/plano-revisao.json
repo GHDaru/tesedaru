@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 17,
-  "atualizado_em": "2026-08-16",
+  "versao": 18,
+  "atualizado_em": "2026-08-16T21:30:00Z",
   "atualizado_por": "executor02: seed123 entregue (6/9, canônico); s42 canônica rodando por decisão do autor; A/B/C das 3 sementes aguardam o cache do oráculo",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -798,7 +798,8 @@
         "commit": "43f6fae",
         "estado": "gate",
         "responsavel": "principal",
-        "bloqueado_por": "busca acadêmica revisor2 + gate do autor"
+        "bloqueado_por": "busca acadêmica revisor2 (tarefa 20260816-2110)",
+        "aprovacao_previa_autor": "2026-08-16: autor de acordo com o texto do antes/depois; aguardar a busca acadêmica do revisor2 (tarefa 20260816-2110) e reapresentar consolidado antes do merge"
       }
     ]
   },
