@@ -166,3 +166,35 @@ delta-de-desbalanceamento-de-classe  <!-- Griesshaber2020, Tab. 3: Δ|T| = max_c
 
 ### Tarefas (R3 t5)
 inferencia-de-linguagem-natural  <!-- Griesshaber2020: MNLI, QNLI e SNLI são tarefas de implicação textual, não classificação temática -->
+
+## Adições do nível 1 do Cap. 2 (2026-08-17, tarefa 20260817-1420)
+
+Termos entrados pelos 6 fichamentos integrais do nível 1; mesmo commit do
+fichamento que os introduz.
+
+### Métodos
+prompting-ativo, cadeia-de-pensamento  <!-- Diao2023, Wei2022 -->
+bald, razao-de-variacao, desvio-padrao-medio, dropout-monte-carlo  <!-- Gal2017 -->
+perda-corrigida, estimador-nao-viesado-de-perda, minimizacao-de-risco-empirico, ruido-dependente-de-classe  <!-- Natarajan2013 -->
+confianca-verbalizada, calibracao  <!-- Tian2023 -->
+uso-de-ferramentas  <!-- Schick2023 -->
+
+### Tarefas
+raciocinio-aritmetico, raciocinio-de-senso-comum, raciocinio-simbolico  <!-- Diao2023, Wei2022 -->
+diagnostico-de-melanoma  <!-- Gal2017 -->
+resposta-a-perguntas  <!-- Tian2023, Schick2023 -->
+
+### Datasets
+gsm8k  <!-- Diao2023, Wei2022 -->
+isic-2016  <!-- Gal2017 -->
+triviaqa, sciq, truthfulqa  <!-- Tian2023 -->
+
+### Métricas
+ece  <!-- Tian2023 (erro de calibração esperado) -->
+auroc  <!-- Tian2023 -->
+
+### Modelos
+code-davinci-002  <!-- Diao2023 -->
+palm-540b, lamda  <!-- Wei2022 -->
+vgg-16-bayesiano  <!-- Gal2017 -->
+llama-2  <!-- Tian2023 -->
