@@ -30,29 +30,49 @@ estão disponíveis, o processo é simulado com fidelidade: o oráculo LLM pode 
 avaliado contra o padrão-ouro, e um modelo treinado com supervisão completa fornece o
 limite superior de desempenho.
 
-A Tabela~\ref{tab:metodo-experimentos} resume o programa experimental. Os experimentos
-E0 a E3 respondem, respectivamente, aos pilares P3, P1/P2 (reanálise) e P4; E4 é
-condicional ao resultado de E0, conforme o critério de decisão da
-Seção~\ref{sec:metodo-oraculo-decisao}.
+A Tabela~\ref{tab:metodo-experimentos} resume o programa experimental e serve de
+\textbf{mapa de rastreabilidade}: para cada experimento, o pilar que ele
+sustenta, a seção em que o resultado é discutido e o diretório de artefatos que
+permite reexecutá-lo. Os identificadores da primeira coluna são \emph{controle
+interno} — servem para localizar código e dados, não para nomear achados, e por
+isso não reaparecem no texto corrido dos capítulos de resultados, que se
+organiza pelo que foi descoberto. Quem quiser ir do achado ao artefato usa esta
+tabela; quem quiser ler a tese não precisa dela.
 
 \begin{table}[htb]
 \centering
-\caption{Programa experimental da tese.}
+\caption{Programa experimental e mapa de rastreabilidade: de cada experimento
+para a seção que discute o resultado e para os artefatos que o reproduzem.}
 \label{tab:metodo-experimentos}
 \small
 \begin{tabular}{llll}
 \toprule
-\textbf{Id} & \textbf{Objetivo} & \textbf{Pilar} & \textbf{Recursos} \\
+\textbf{Id} & \textbf{Objetivo} & \textbf{Pilar} & \textbf{Resultado em} \\
 \midrule
-E0 & Avaliação fatorial de LLMs como oráculo & P3 & APIs de LLM \\
-E1 & Estratégias de seleção $\times$ tamanho de lote (oráculo simulado) & apoio a P4 & CPU \\
-E2 & Épocas de ajuste fino do BERTimbau por iteração & apoio a P4 & GPU \\
-E3 & FALCO \textit{versus} RS e US sob mesmo orçamento & P4 & GPU + APIs \\
-E4 & Robustez do aprendizado a ruído controlado do oráculo & P4 (condicional) & GPU \\
+\multicolumn{4}{l}{\textit{Composição do conjunto inicial} --- artefatos em \texttt{experiments/p1}}\\
+--- & Sensibilidade à composição e ao tamanho de $L_0$ & P1 & Seção~\ref{sec:res-l0-sens} \\
+--- & Envelope por otimização evolutiva & P1 & Seção~\ref{sec:res-l0-ag} \\
+--- & DRI-SL \textit{versus} sorteio aleatório & P2 & Seção~\ref{sec:res-l0-drisl} \\
+--- & Reexecução independente e circularidade & P1/P2 & Seção~\ref{sec:res-l0-replay} \\
 \midrule
-\multicolumn{4}{l}{\footnotesize P1 (sensibilidade de $L_0$) e P2 (DRI-SL) reutilizam execuções já realizadas e auditadas.}\\
+\multicolumn{4}{l}{\textit{Oráculo e laço ativo}}\\
+E0 & Avaliação fatorial de LLMs como oráculo & P3 & Seção~\ref{sec:res-e0} \\
+E0-P & O \textit{prompt} como variável do instrumento & P3 & Seção~\ref{sec:res-e0p} \\
+E1 & Estratégias de seleção sob oráculo perfeito & apoio a P4 & Seção~\ref{sec:res-e1} \\
+E2 & Épocas de ajuste fino do BERTimbau por iteração & apoio a P4 & (interno) \\
+E4 & Robustez do aprendizado a ruído do oráculo & P4 (condicional) & Seção~\ref{sec:res-e4} \\
+E5, E6 & Seletores em escala populacional e viés de autoavaliação & P4 & Seção~\ref{sec:res-e6} \\
+E3$'$ & Veredito do classificador forte sobre a hipótese central & P4 & Seção~\ref{sec:res-e3p} \\
 \bottomrule
 \end{tabular}
+
+\vspace{0.4em}
+{\footnotesize \textbf{Artefatos por experimento} (todos sob a raiz de execução
+descrita na Seção~\ref{sec:metodo-reprodutibilidade}):
+\texttt{experiments/e0} (E0) $\cdot$ \texttt{experiments/e0p} (E0-P) $\cdot$
+\texttt{experiments/e1e4} (E1, E4) $\cdot$ \texttt{experiments/e6population}
+(E5, E6) $\cdot$ \texttt{experiments/e2e3} (E2, E3$'$) $\cdot$
+\texttt{experiments/p1} (pilares P1 e P2).}
 \end{table}
 
 \section{Conjunto de dados}
