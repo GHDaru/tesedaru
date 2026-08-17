@@ -176,8 +176,11 @@ supor normalidade — suposição indefensável para métricas limitadas como o
 Macro F1 —, e é a recomendação canônica de \citet{Demsar2006} para comparar
 dois algoritmos sobre múltiplas condições. Sua limitação estrutural importa ao
 desenho: com $n$ pares, o menor $p$-valor bicaudal atingível é $2/2^{n}$ — com
-menos de seis sementes a significância a 5\% é inalcançável por construção, o
-que fundamenta o mínimo de oito sementes adotado no Capítulo~\ref{ch:metodo}.
+menos de seis sementes a significância a 5\% é inalcançável por construção.
+Seis é, portanto, o mínimo lógico; o Capítulo~\ref{ch:metodo} adota oito para
+que a significância não dependa de uma varredura perfeita: com oito pares, o
+teste tolera uma inversão de pequena magnitude e o descarte de empates sem
+perder o nível de 5\%.
 
 \textbf{Intervalos por reamostragem (\textit{bootstrap}).} Para funcionais sem
 distribuição amostral conhecida — como a diferença de LCE entre estratégias —,
