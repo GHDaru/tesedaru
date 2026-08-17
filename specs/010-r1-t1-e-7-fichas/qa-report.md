@@ -1,0 +1,85 @@
+# QA — ciclo 010: R1 do t1 + as 7 pendências reais
+
+**Tarefa:** 20260817-0740 (ordem direta do autor: "quero terminar o t1")
+**Executor:** revisor2 · **Branch:** `humanize/cap2-t1`
+**Skills:** `fight-the-pile-up` (R1) · `fichamento` (as 4 fichas)
+
+## Parte 1 — R1 (humanização) do t1
+
+Medido **por seção** (`\section{Aprendizado supervisionado…}` até
+`\section{Aprendizado ativo}`), não por faixa de linhas. Essa mudança de método
+é consequência direta do falso positivo que cometi na verificação do t2: janela
+de linha fixa quebra quando o texto muda de tamanho.
+
+| # | Critério | Antes | Depois |
+|---|---|---|---|
+| 1 | travessões `—` na seção | **9** | **0** |
+| 2 | multiconjunto de chaves de citação | 25 | **25, idêntico** (`diff` vazio) |
+| 3 | todos os números da seção | — | **idênticos** (`diff` vazio) |
+| 4 | travessão em `\section`/`\subsection`/`\caption` (aviso 0815) | — | **nenhum** |
+
+As 9 conversões foram todas de aposto encaixado entre pares de travessão:
+estratificação sob desbalanceamento, cobertura errática do intervalo de Wald,
+regime do teste de McNemar, suposição de normalidade do Wilcoxon e funcionais
+sem distribuição conhecida no bootstrap.
+
+**Nenhum número foi tocado** — inclusive os do parágrafo das sementes, que o
+autor acabou de aprovar no lote R4 (seis como mínimo, oito por margem, pisos
+$p=0{,}031$ e $p=0{,}0078$). Aquele trecho passou intacto: humanizei em volta
+dele, não dentro.
+
+## Parte 2 — as 7 pendências
+
+Baixei os PDFs de fonte aberta para `a_sanear/` (1,8 MB no total) e li cada um
+antes de fichar. Nenhuma ficha foi escrita a partir de resumo de terceiros.
+
+| Chave | Situação | Resultado |
+|---|---|---|
+| `Grandini2020` | aberta (arXiv 2008.05756, 17 pp.) | **fichada** |
+| `Nti2021` | aberta (MECS, 11 pp.) | **fichada** |
+| `Widodo2022` | aberta (Sinkron, 8 pp.) | **fichada** |
+| `Riyanto2023Comparative` | aberta (IJACSA, 9 pp.) | **fichada** |
+| `Reusens2024` | fechada (Elsevier) | link para o autor: DOI 10.1016/j.eswa.2024.124302 |
+| `Prechelt2012` | fechada (Springer) | link para o autor: DOI 10.1007/978-3-642-35289-8_5 |
+| `Barros2014` | não localizada | segue `nao-encontrada`; **não inserir** o DOI da homônima |
+
+Efeito medido no verificador: o aviso A1 (citada, sem ficha, não canônica) caiu
+de **35 para 31** — exatamente as quatro fichadas. As quatro passam
+`check-fichamentos.py` com `PROBLEMAS: nenhum`.
+
+### As quatro citações sustentam o que a tese diz que sustentam?
+
+Essa era a pergunta que importava, e a resposta é **sim nas quatro** — verificado
+contra o texto da fonte, com seção e página em cada claim:
+
+- **Nti2021** confirma literalmente "k tipicamente 5 ou 10", e as palavras da
+  própria fonte (*"are believed to"*, *"there is no formal rule"*) **reforçam** o
+  hedge da tese.
+- **Grandini2020** descreve as três alternativas que a tese cita e dispensa
+  (acurácia balanceada p. 4; Matthews e Kappa p. 9).
+- **Widodo2022** usa a estratificação exatamente como remédio declarado para
+  desbalanceamento (Resumo, p. 1) — o uso que a tese faz.
+- **Riyanto2023Comparative** é a mais alinhada: conclui que o F1 é a métrica que
+  importa sob desbalanceamento, em texto multiclasse.
+
+## Achados registrados nas fichas
+
+1. **`Widodo2022`: o PDF do periódico tem o volume ERRADO no cabeçalho** —
+   "Volume 6, Number 4" contra o DOI `…v7i4…` e o registro da Crossref (volume
+   7). Erro do periódico, não da tese. Registrado para que ninguém "corrija" o
+   `.bib` para 6 acreditando seguir a fonte.
+2. **`Nti2021`: a conclusão própria da obra aponta k = 7**, não 5 nem 10. Não
+   contradiz a tese (que cita a convenção), mas oferece um argumento melhor caso
+   o texto precise defender o $k$ desta tese.
+3. **`Grandini2020` é um *white paper* corporativo**, não artigo revisado por
+   pares. Não compromete o uso (descrição de métricas consagradas), mas a banca
+   pode perguntar.
+4. **`Riyanto2023Comparative`: ressalva de escala** — 4 classes com razão de
+   17:1, contra os 621 rótulos da tese. A conclusão qualitativa transfere; os
+   números, não.
+
+## Pendências que NÃO são desta rodada
+
+- `BERT` sem expansão no diagrama TikZ da figura do ActiveLLM (faixa do t3):
+  é critério do **R2 (siglas)**, registrado e não corrigido.
+- Título e página do `Widodo2022` no `.bib`: superfície do **revisor1**.

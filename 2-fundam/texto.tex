@@ -125,9 +125,9 @@ Avaliar um modelo nos mesmos dados de treino superestima seu desempenho
 \cite{Kohavi1995}. As práticas empregadas nesta tese são: (i)
 \textbf{hold-out}, separação treino/teste, adequada a bases grandes como a
 desta tese; (ii) \textbf{validação cruzada $k$-fold estratificada}, que
-particiona os dados em $k$ dobras preservando as proporções de classe —
+particiona os dados em $k$ dobras preservando as proporções de classe, o que é
 essencial sob desbalanceamento \cite{Kohavi1995, Forman2010, James2013,
-Widodo2022} — com $k$ tipicamente 5 ou 10, equilíbrio entre viés, variância e
+Widodo2022}, com $k$ tipicamente 5 ou 10, equilíbrio entre viés, variância e
 custo \cite{Nti2021, Reusens2024}; (iii) um conjunto de \textbf{validação}
 separado do teste para ajuste de hiperparâmetros, mantendo o teste intocado
 até a avaliação final \cite{Bishop2006}; e (iv) para modelos de aprendizado
@@ -150,9 +150,9 @@ referência original e a de uso em aprendizado de máquina.
 
 \textbf{Intervalo de confiança para proporções (Wilson).} Toda acurácia é uma
 proporção estimada em $n$ instâncias. O intervalo usual de Wald
-($\hat{p} \pm z\sqrt{\hat{p}(1-\hat{p})/n}$) tem cobertura errática — oscila
-severamente abaixo do nível nominal mesmo com $n$ grande e $p$ moderado —,
-enquanto o intervalo de \citet{Wilson1927}, que resolve a desigualdade no
+($\hat{p} \pm z\sqrt{\hat{p}(1-\hat{p})/n}$) tem cobertura errática: oscila
+severamente abaixo do nível nominal mesmo com $n$ grande e $p$ moderado. Já o
+intervalo de \citet{Wilson1927}, que resolve a desigualdade no
 parâmetro em vez de na estimativa, mantém cobertura próxima da nominal em
 toda a faixa de $p$; a análise sistemática de \citet{Brown2001} recomenda-o
 como escolha padrão. Por isso toda acurácia de oráculo desta tese é reportada
@@ -166,28 +166,28 @@ que só o primeiro acerta e as $c$ em que só o segundo. O teste de
 acaso produziria; quando $b+c<25$, usa-se a versão binomial exata. A escolha
 segue \citet{Dietterich1998}, que comparou empiricamente cinco testes e
 concluiu que o McNemar é o adequado quando cada modelo é avaliado uma única
-vez sobre um conjunto comum — o regime desta tese; nesse cenário, as
+vez sobre um conjunto comum, que é o regime desta tese. Nesse cenário, as
 alternativas declaram diferenças inexistentes com frequência acima da que
 prometem.
 
 \textbf{Comparação pareada por semente (Wilcoxon).} Quando duas estratégias
 são executadas com as mesmas sementes, cada semente gera um par de resultados.
 O teste de postos sinalizados de \citet{Wilcoxon1945} compara os pares sem
-supor normalidade — suposição difícil de sustentar para métricas limitadas ao
-intervalo $[0,1]$, como o Macro F1 — e é a recomendação de \citet{Demsar2006}
-para comparar dois algoritmos sobre múltiplas condições. Um limite aritmético
+supor normalidade, suposição difícil de sustentar para métricas limitadas ao
+intervalo $[0,1]$, como o Macro F1. É também a recomendação de
+\citet{Demsar2006} para comparar dois algoritmos sobre múltiplas condições. Um limite aritmético
 importa ao desenho: com $n$ pares, o menor $p$-valor bicaudal é $2/2^{n}$.
 Seis sementes são o mínimo que alcança significância a 5\% ($p=0{,}031$);
 esta tese adota oito, cujo piso de $p=0{,}0078$ mantém a significância
 alcançável mesmo sob correção para comparações múltiplas sobre as mesmas
 sementes.
 
-\textbf{Intervalos por reamostragem (\textit{bootstrap}).} Para funcionais sem
-distribuição amostral conhecida — caso típico das áreas sob curvas de
+\textbf{Intervalos por reamostragem (\textit{bootstrap}).} Alguns funcionais
+não têm distribuição amostral conhecida, caso típico das áreas sob curvas de
 aprendizado usadas para resumir uma execução inteira de aprendizado ativo
-\citep{Guyon2011ALC} —, o \textit{bootstrap} \citep{EfronTibshirani1993}
-estima o intervalo de confiança reamostrando os pares observados com
-reposição (método do percentil).
+\citep{Guyon2011ALC}. Para eles, o \textit{bootstrap}
+\citep{EfronTibshirani1993} estima o intervalo de confiança reamostrando os
+pares observados com reposição (método do percentil).
 
 A Tabela~\ref{tab:inferencia-mapa} resume o mapeamento situação--teste--uso.
 
