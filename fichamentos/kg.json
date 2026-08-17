@@ -1268,6 +1268,54 @@
       "label": "avaliacao-de-classificadores"
     },
     {
+      "id": "Frenay2014",
+      "type": "artigo",
+      "label": "Frenay2014",
+      "title": "Classification in the Presence of Label Noise: A Survey",
+      "year": 2014,
+      "venue": "IEEE Transactions on Neural Networks and Learning Systems, v. 25, n. 5, p. 845-869",
+      "paper_type": "survey",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Frenay2014.pdf",
+      "doi": "10.1109/TNNLS.2013.2292894",
+      "url": "https://doi.org/10.1109/TNNLS.2013.2292894",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 5 — Resultados (FALCO)",
+        "Cap. 6 — Conclusão"
+      ]
+    },
+    {
+      "id": "conceito:taxonomia-ncar-nar-nnar",
+      "type": "conceito",
+      "label": "taxonomia-ncar-nar-nnar"
+    },
+    {
+      "id": "metodo:ruido-simetrico",
+      "type": "metodo",
+      "label": "ruido-simetrico"
+    },
+    {
+      "id": "metodo:ruido-assimetrico",
+      "type": "metodo",
+      "label": "ruido-assimetrico"
+    },
+    {
+      "id": "metodo:ruido-de-par",
+      "type": "metodo",
+      "label": "ruido-de-par"
+    },
+    {
+      "id": "metodo:ruido-dependente-da-instancia",
+      "type": "metodo",
+      "label": "ruido-dependente-da-instancia"
+    },
+    {
+      "id": "metodo:matriz-de-transicao-de-ruido",
+      "type": "metodo",
+      "label": "matriz-de-transicao-de-ruido"
+    },
+    {
       "id": "Fushiki2011",
       "type": "artigo",
       "label": "Fushiki2011",
@@ -3619,31 +3667,6 @@
       ]
     },
     {
-      "id": "metodo:ruido-simetrico",
-      "type": "metodo",
-      "label": "ruido-simetrico"
-    },
-    {
-      "id": "metodo:ruido-assimetrico",
-      "type": "metodo",
-      "label": "ruido-assimetrico"
-    },
-    {
-      "id": "metodo:ruido-de-par",
-      "type": "metodo",
-      "label": "ruido-de-par"
-    },
-    {
-      "id": "metodo:ruido-dependente-da-instancia",
-      "type": "metodo",
-      "label": "ruido-dependente-da-instancia"
-    },
-    {
-      "id": "metodo:matriz-de-transicao-de-ruido",
-      "type": "metodo",
-      "label": "matriz-de-transicao-de-ruido"
-    },
-    {
       "id": "metodo:efeito-de-memorizacao",
       "type": "metodo",
       "label": "efeito-de-memorizacao"
@@ -4528,11 +4551,6 @@
       "id": "oraculo-imperfeito",
       "type": "tema-falco",
       "label": "oraculo-imperfeito"
-    },
-    {
-      "id": "Frenay2014",
-      "type": "artigo-pendente",
-      "label": "Frenay2014"
     },
     {
       "id": "Natarajan2013",
@@ -5965,6 +5983,63 @@
       "target": "FALCO",
       "type": "fundamenta",
       "note": "Armadilhas de computar F1/AUC em validação cruzada (formas incompatíveis entre papers/software): diretamente aplicável a como agregamos Macro-F1 entre dobras/repetições nos E1–E3. (Arquivo veio rotulado como Forman 2003; identidade corrigida.)"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "pilar:P2",
+      "type": "pillars"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "conceito:taxonomia-ncar-nar-nnar",
+      "type": "proposes"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "metodo:ruido-simetrico",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "metodo:ruido-assimetrico",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "metodo:ruido-de-par",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "metodo:ruido-dependente-da-instancia",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "metodo:matriz-de-transicao-de-ruido",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "DRI-SL",
+      "type": "fundamenta",
+      "note": "É a fonte formal da taxonomia de ruído de rótulo, anterior e mais rigorosa que o Song2023NoisyLabels: NCAR (uniforme), NAR (dependente da classe verdadeira, que inclui o RUÍDO DE PAR) e NNAR (dependente da instância). O 'ruído estruturado, concentrado em pares vizinhos' que a tese descreve tem nome formal aqui: **pairwise label noise**, caso particular do NAR."
+    },
+    {
+      "source": "Frenay2014",
+      "target": "FALCO",
+      "type": "ameaca",
+      "note": "ATENÇÃO — junto com o Song2023NoisyLabels, esta ficha FECHA a verificação da frase de 5-resultados-falco/texto.tex:143. As duas fontes citadas ali para sustentar que o ruído estruturado é 'menos danoso que o uniforme' foram lidas, e NENHUMA sustenta a afirmação. Este survey diz o oposto na direção que mede, e traz um agravante específico para o nosso caso de 621 classes — ver a seção 'Veredito'."
     },
     {
       "source": "Fushiki2011",
