@@ -1153,6 +1153,102 @@
       "label": "trec"
     },
     {
+      "id": "Fromme2022",
+      "type": "artigo",
+      "label": "Fromme2022",
+      "title": "Investigating Active Learning Sampling Strategies for Extreme Multi Label Text Classification",
+      "year": 2022,
+      "venue": "Proceedings of the 13th Language Resources and Evaluation Conference (LREC 2022), Marselha, p. 4597-4605, ELRA",
+      "paper_type": "avaliacao",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Fromme2022.pdf",
+      "doi": "10.63317/48xs9zc3987o",
+      "url": "https://doi.org/10.63317/48xs9zc3987o",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "conceito:limiar-variavel-multirrotulo",
+      "type": "conceito",
+      "label": "limiar-variavel-multirrotulo"
+    },
+    {
+      "id": "conceito:cnn-como-cabeca-de-classificacao",
+      "type": "conceito",
+      "label": "cnn-como-cabeca-de-classificacao"
+    },
+    {
+      "id": "metodo:alps",
+      "type": "metodo",
+      "label": "alps"
+    },
+    {
+      "id": "metodo:cvirs",
+      "type": "metodo",
+      "label": "cvirs"
+    },
+    {
+      "id": "metodo:discriminative-active-learning",
+      "type": "metodo",
+      "label": "discriminative-active-learning"
+    },
+    {
+      "id": "metodo:amostragem-por-subpalavras",
+      "type": "metodo",
+      "label": "amostragem-por-subpalavras"
+    },
+    {
+      "id": "metodo:selecao-aleatoria",
+      "type": "metodo",
+      "label": "selecao-aleatoria"
+    },
+    {
+      "id": "modelo:bert-base-uncased",
+      "type": "modelo",
+      "label": "bert-base-uncased"
+    },
+    {
+      "id": "dataset:eurlex",
+      "type": "dataset",
+      "label": "eurlex"
+    },
+    {
+      "id": "dataset:arxiv-xmtc",
+      "type": "dataset",
+      "label": "arxiv-xmtc"
+    },
+    {
+      "id": "dataset:nyt",
+      "type": "dataset",
+      "label": "nyt"
+    },
+    {
+      "id": "dataset:rcv1",
+      "type": "dataset",
+      "label": "rcv1"
+    },
+    {
+      "id": "dataset:yelp-xmtc",
+      "type": "dataset",
+      "label": "yelp-xmtc"
+    },
+    {
+      "id": "dataset:agnews",
+      "type": "dataset",
+      "label": "agnews"
+    },
+    {
+      "id": "dataset:toxic",
+      "type": "dataset",
+      "label": "toxic"
+    },
+    {
+      "id": "tarefa:classificacao-multirrotulo-extrema",
+      "type": "tarefa",
+      "label": "classificacao-multirrotulo-extrema"
+    },
+    {
       "id": "Fushiki2011",
       "type": "artigo",
       "label": "Fushiki2011",
@@ -2953,11 +3049,6 @@
       "label": "kimcnn"
     },
     {
-      "id": "dataset:agnews",
-      "type": "dataset",
-      "label": "agnews"
-    },
-    {
       "id": "dataset:movie-reviews",
       "type": "dataset",
       "label": "movie-reviews"
@@ -4076,6 +4167,16 @@
       "label": "Houlsby2011"
     },
     {
+      "id": "Devlin2019",
+      "type": "artigo-pendente",
+      "label": "Devlin2019"
+    },
+    {
+      "id": "LCE",
+      "type": "tema-falco",
+      "label": "LCE"
+    },
+    {
       "id": "claim-granularidade",
       "type": "tema-falco",
       "label": "claim-granularidade"
@@ -4129,11 +4230,6 @@
       "id": "EinDor2020",
       "type": "artigo-pendente",
       "label": "EinDor2020"
-    },
-    {
-      "id": "LCE",
-      "type": "tema-falco",
-      "label": "LCE"
     },
     {
       "id": "Gal2017",
@@ -5449,6 +5545,128 @@
       "target": "FALCO",
       "type": "compara",
       "note": "Vizinho direto exigido pelo parecer R6 (Bloco C, item 9 / Dom-M1) na tabela de lacunas. FreeAL elimina o humano do laço via colaboração LLM(anotador)-SLM(filtro) com refinamento iterativo de rótulos; FALCO difere em: progressão de oráculos com gate de custo, espaço FECHADO de 714 classes (FreeAL: 2-6 classes + NER), texto curto PT-BR de varejo, saída estruturada (CategorySchema) e contabilidade de custo por rótulo (FreeAL não reporta custo de API). Confronto central do Cap. 2."
+    },
+    {
+      "source": "Fromme2022",
+      "target": "Devlin2019",
+      "type": "builds_on"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "pilar:P1",
+      "type": "pillars"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "pilar:P2",
+      "type": "pillars"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "conceito:limiar-variavel-multirrotulo",
+      "type": "proposes"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "conceito:cnn-como-cabeca-de-classificacao",
+      "type": "proposes"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "metodo:alps",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "metodo:cvirs",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "metodo:discriminative-active-learning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "metodo:amostragem-por-subpalavras",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "metodo:selecao-aleatoria",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "modelo:bert-base-uncased",
+      "type": "models"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "dataset:eurlex",
+      "type": "datasets"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "dataset:arxiv-xmtc",
+      "type": "datasets"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "dataset:nyt",
+      "type": "datasets"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "dataset:rcv1",
+      "type": "datasets"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "dataset:yelp-xmtc",
+      "type": "datasets"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "dataset:agnews",
+      "type": "datasets"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "dataset:toxic",
+      "type": "datasets"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "tarefa:classificacao-multirrotulo-extrema",
+      "type": "tasks"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Fromme2022",
+      "target": "FALCO",
+      "type": "ameaca",
+      "note": "É o achado mais incômodo da literatura fichada para a premissa do FALCO: em rótulo extremo, NENHUMA das quatro estratégias testadas (ALPS, CVIRS, DAL, subword) supera a seleção ALEATÓRIA de forma consistente entre conjuntos, e em quatro dos sete a aleatória empata ou ganha (p. 4601, 4604). Com 621 classes o FALCO opera na mesma faixa do EurLex (739) e do Yelp (580) deste artigo. Obriga a tese a tratar o braço aleatório como baseline forte, não como palha, e a declarar em qual regime a seleção compensa."
+    },
+    {
+      "source": "Fromme2022",
+      "target": "LCE",
+      "type": "fundamenta",
+      "note": "Dá base externa para reportar macro F1 e não só micro: §6.2 (p. 4604) argumenta que micro F1 sobe mesmo quando o classificador só melhora nas classes frequentes, e que em rótulo extremo é o macro que mede quantas classes o sistema aprende a discriminar. É o mesmo motivo pelo qual o Cap. 5 elege macro F1 como métrica principal."
     },
     {
       "source": "Fushiki2011",

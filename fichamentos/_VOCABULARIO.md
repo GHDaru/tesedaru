@@ -86,3 +86,18 @@ fake-news, movie-genres  <!-- Rouzegar2024: nomes como o artigo os chama; "Movie
 
 ### Modelos (R3 t2)
 gpt-3.5, regressao-logistica  <!-- Rouzegar2024: gpt-3.5 já em uso por Rouzegar2024Thesis, aqui registrado; a regressão logística é o classificador que gera a incerteza -->
+
+### Métodos (R3 t2 — rótulo extremo)
+alps, cvirs, discriminative-active-learning, amostragem-por-subpalavras, selecao-aleatoria, limiar-variavel-multirrotulo, cnn-como-cabeca-de-classificacao  <!-- Fromme2022 -->
+
+### Tarefas (R3 t2)
+classificacao-multirrotulo-extrema  <!-- Fromme2022: XMTC, centenas a milhões de classes com vários rótulos por texto -->
+
+### Datasets (R3 t2 — rótulo extremo)
+eurlex, arxiv-xmtc, nyt, rcv1, yelp-xmtc, toxic  <!-- Fromme2022: compilados PELOS AUTORES a partir de tarefas hierárquicas; yelp-xmtc (580 classes) NÃO é o yelp-full (5 estrelas) de Yu2023Patron -->
+
+### Métricas (R3 t2)
+micro-f1  <!-- Fromme2022: reportado lado a lado com macro-f1; não são intercambiáveis em rótulo desbalanceado -->
+
+### Modelos (R3 t2 — rótulo extremo)
+bert-base-uncased  <!-- Fromme2022: variante exata; usar em vez do genérico bert quando o paper a fixa -->
