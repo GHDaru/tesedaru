@@ -82,6 +82,27 @@
       "cited_in": []
     },
     {
+      "id": "Aliero2023",
+      "type": "artigo",
+      "label": "Aliero2023",
+      "title": "Systematic Review on Text Normalization Techniques and its Approach to Non-Standard Words",
+      "year": 2023,
+      "venue": "International Journal of Computer Applications, v. 185, n. 33, set. 2023",
+      "paper_type": "survey",
+      "status": "ficha-minima",
+      "pdf": "referencias-pdf/Aliero2023.pdf",
+      "doi": "10.5120/ijca2023923106",
+      "url": "https://doi.org/10.5120/ijca2023923106",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "metodo:normalizacao-de-texto",
+      "type": "metodo",
+      "label": "normalizacao-de-texto"
+    },
+    {
       "id": "Alom2019",
       "type": "artigo",
       "label": "Alom2019",
@@ -3284,6 +3305,27 @@
       "label": "pln"
     },
     {
+      "id": "Reusens2024",
+      "type": "artigo",
+      "label": "Reusens2024",
+      "title": "Evaluating text classification: A benchmark study",
+      "year": 2024,
+      "venue": "Expert Systems with Applications, v. 254, p. 124302",
+      "paper_type": "avaliacao",
+      "status": "ficha-minima",
+      "pdf": "referencias-pdf/Reusens2024.pdf",
+      "doi": "10.1016/j.eswa.2024.124302",
+      "url": "https://doi.org/10.1016/j.eswa.2024.124302",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "modelo:roberta-base",
+      "type": "modelo",
+      "label": "roberta-base"
+    },
+    {
       "id": "Riduan2021",
       "type": "artigo",
       "label": "Riduan2021",
@@ -4663,11 +4705,6 @@
       "label": "destilacao-ativa"
     },
     {
-      "id": "modelo:roberta-base",
-      "type": "modelo",
-      "label": "roberta-base"
-    },
-    {
       "id": "modelo:biomed-roberta-base",
       "type": "modelo",
       "label": "biomed-roberta-base"
@@ -5130,6 +5167,27 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Herança da dissertação; linha de ponderação de termos."
+    },
+    {
+      "source": "Aliero2023",
+      "target": "pilar:geral",
+      "type": "pillars"
+    },
+    {
+      "source": "Aliero2023",
+      "target": "metodo:normalizacao-de-texto",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Aliero2023",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Aliero2023",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "sustenta as duas frases da §2.3 sobre texto curto: a informalidade (erros, abreviações, contrações) exige normalização, e a normalização afeta o desempenho da tarefa a jusante"
     },
     {
       "source": "Alom2019",
@@ -9258,6 +9316,37 @@
       "target": "FALCO",
       "type": "fundamenta",
       "note": "Ponte AL clássico → deep learning: fundamenta o uso de AL com classificadores profundos (BERTimbau no E2/E3) e explica por que o AL 'renasceu' na era DL — modelos famintos por dados anotados caros."
+    },
+    {
+      "source": "Reusens2024",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Reusens2024",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Reusens2024",
+      "target": "modelo:bert",
+      "type": "models"
+    },
+    {
+      "source": "Reusens2024",
+      "target": "modelo:roberta-base",
+      "type": "models"
+    },
+    {
+      "source": "Reusens2024",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Reusens2024",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "benchmark imparcial que mostra que os maiores modelos do estado da arte NÃO são sempre preferíveis e que métodos simples competem em vários casos — sustenta a escolha desta tese de usar um classificador de porte médio (BERTimbau) em vez do maior LLM disponível"
     },
     {
       "source": "Riduan2021",
