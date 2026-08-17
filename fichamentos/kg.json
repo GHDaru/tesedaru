@@ -1177,6 +1177,22 @@
       "cited_in": []
     },
     {
+      "id": "EfronTibshirani1993",
+      "type": "artigo",
+      "label": "EfronTibshirani1993",
+      "title": "An Introduction to the Bootstrap",
+      "year": 1993,
+      "venue": "Chapman & Hall/CRC",
+      "paper_type": "canonica",
+      "status": "ficha-minima",
+      "pdf": "",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
       "id": "EinDor2020",
       "type": "artigo",
       "label": "EinDor2020",
@@ -1225,6 +1241,7 @@
       "doi": "",
       "url": "",
       "cited_in": [
+        "Cap. 2 — Fundamentação",
         "Cap. 5 — Resultados (FALCO)"
       ]
     },
@@ -1665,7 +1682,9 @@
       "pdf": "referencias-pdf/Hacohen2022TypiClust.pdf",
       "doi": "",
       "url": "",
-      "cited_in": []
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:typiclust",
@@ -2130,6 +2149,22 @@
       "label": "MasakhaNER-2.0"
     },
     {
+      "id": "Kohavi1995",
+      "type": "artigo",
+      "label": "Kohavi1995",
+      "title": "A Study of Cross-Validation and Bootstrap for Accuracy Estimation and Model Selection",
+      "year": 1995,
+      "venue": "Proceedings of the 14th International Joint Conference on Artificial Intelligence (IJCAI), v. 2, pp. 1137--1143",
+      "paper_type": "canonica",
+      "status": "ficha-minima",
+      "pdf": "",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
       "id": "Kossen2021ActiveTesting",
       "type": "artigo",
       "label": "Kossen2021ActiveTesting",
@@ -2142,6 +2177,7 @@
       "doi": "",
       "url": "",
       "cited_in": [
+        "Cap. 2 — Fundamentação",
         "Cap. 5 — Resultados (FALCO)"
       ]
     },
@@ -2492,6 +2528,23 @@
       "doi": "",
       "url": "",
       "cited_in": []
+    },
+    {
+      "id": "McNemar1947",
+      "type": "artigo",
+      "label": "McNemar1947",
+      "title": "Note on the sampling error of the difference between correlated proportions or percentages",
+      "year": 1947,
+      "venue": "Psychometrika, v. 12, n. 2, pp. 153--157",
+      "paper_type": "canonica",
+      "status": "ficha-minima",
+      "pdf": "",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 3 — Metodologia"
+      ]
     },
     {
       "id": "Merdjanovska2024NoiseBench",
@@ -3180,7 +3233,9 @@
       "pdf": "referencias-pdf/Rouzegar2024Thesis.pdf",
       "doi": "",
       "url": "",
-      "cited_in": []
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:picr-criterio-de-parada",
@@ -3377,7 +3432,9 @@
       "pdf": "referencias-pdf/Sener2018.pdf",
       "doi": "",
       "url": "",
-      "cited_in": []
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:core-set-selection",
@@ -4159,6 +4216,40 @@
       "id": "tarefa:classificacao-multirrotulo-extrema",
       "type": "tarefa",
       "label": "classificacao-multirrotulo-extrema"
+    },
+    {
+      "id": "Wilcoxon1945",
+      "type": "artigo",
+      "label": "Wilcoxon1945",
+      "title": "Individual comparisons by ranking methods",
+      "year": 1945,
+      "venue": "Biometrics Bulletin, v. 1, n. 6, pp. 80--83",
+      "paper_type": "canonica",
+      "status": "ficha-minima",
+      "pdf": "",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 3 — Metodologia"
+      ]
+    },
+    {
+      "id": "Wilson1927",
+      "type": "artigo",
+      "label": "Wilson1927",
+      "title": "Probable inference, the law of succession, and statistical inference",
+      "year": 1927,
+      "venue": "Journal of the American Statistical Association, v. 22, n. 158, pp. 209--212",
+      "paper_type": "canonica",
+      "status": "ficha-minima",
+      "pdf": "",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 3 — Metodologia"
+      ]
     },
     {
       "id": "Wong2015",
@@ -5954,6 +6045,12 @@
       "note": "Reviews de produto: domínio adjacente ao nosso."
     },
     {
+      "source": "EfronTibshirani1993",
+      "target": "LCE",
+      "type": "fundamenta",
+      "note": "Intervalo de confiança bootstrap percentil para funcional sem distribuição conhecida — é como a tese põe barra de erro na diferença de LCE (E3)."
+    },
+    {
       "source": "EinDor2020",
       "target": "Sener2018",
       "type": "builds_on"
@@ -7284,6 +7381,12 @@
       "note": "Precedente direto da anotação em LOTE no laço de AL com LLM: mostra a amortização do prompt como componente central da economia (>=42x vs humano). Também mede 'output format correctness' — antecipa nosso achado de que erro de formato != erro semântico (taxa de inválidos)."
     },
     {
+      "source": "Kohavi1995",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Protocolo de estimação de acurácia e seleção de modelo: validação cruzada estratificada como prática padrão, essencial sob desbalanceamento — condição do nosso espaço de 621 rótulos."
+    },
+    {
       "source": "Kossen2021ActiveTesting",
       "target": "Farquhar2021Bias",
       "type": "extends"
@@ -7809,6 +7912,12 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Mapping study herdado; nota: metadado de ano corrigido no saneamento (2019, não 2020)."
+    },
+    {
+      "source": "McNemar1947",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Teste pareado que opera SÓ sobre os pares discordantes (b e c), usado em toda comparação entre dois oráculos sobre as mesmas instâncias."
     },
     {
       "source": "Merdjanovska2024NoiseBench",
@@ -10366,6 +10475,18 @@
       "target": "LCE",
       "type": "fundamenta",
       "note": "Dá base externa para reportar macro F1 e não só micro: §6.2 (p. 4604) argumenta que micro F1 sobe mesmo quando o classificador só melhora nas classes frequentes, e que em rótulo extremo é o macro que mede quantas classes o sistema aprende a discriminar. É o mesmo motivo pelo qual o Cap. 5 elege macro F1 como métrica principal."
+    },
+    {
+      "source": "Wilcoxon1945",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Teste de postos sinalizados: compara duas estratégias nas mesmas sementes sem supor normalidade — usado nos experimentos E1/E4."
+    },
+    {
+      "source": "Wilson1927",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Intervalo de confiança para proporção binomial obtido resolvendo a desigualdade no parâmetro, e não na estimativa — é o IC de 95% usado em TODA acurácia de oráculo relatada na tese."
     },
     {
       "source": "Wong2015",

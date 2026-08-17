@@ -245,11 +245,11 @@ resultado do `Wertz2022`: se a aquisição por incerteza enviesa a distribuiçã
 classes já com duas, com centenas ela pode simplesmente deixar classes inteiras
 sem nenhum rótulo.
 
-## Autoria corrompida — a sexta encontrada (registro, sem correção)
+## Autoria corrompida — a sexta encontrada (CORRIGIDA em 2026-08-17)
 
-| | Nosso `referencias.bib` | PDF, p. 1158 |
-|---|---|---|
-| 2º autor | Julia Maucher | **Johannes** Maucher |
+| | `referencias.bib` (antes) | PDF, p. 1158 · Crossref | `referencias.bib` (agora) |
+|---|---|---|---|
+| 2º autor | Julia Maucher | **Johannes** Maucher | **Johannes** Maucher |
 
 O sobrenome está certo, o prenome é falso — é **exatamente o padrão das outras
 cinco** entradas corrompidas que a varredura de autoria encontrou (`Ren2021`,
@@ -258,8 +258,22 @@ DOI certo, prenome preenchido por plausibilidade. O endereço de e-mail no PDF
 (`maucher@hdm-stuttgart.de`) e a filiação (IAAI, Hochschule der Medien
 Stuttgart) confirmam a pessoa.
 
-**A correção NÃO foi aplicada**: não está autorizada. Fica registrada aqui e vai
-ao principal com as outras.
+**Correção aplicada em 2026-08-17**, autorizada pela tarefa `20260817-1140`.
+
+E o modo como ela chegou até aqui é o registro que importa: quando fichei esta
+obra, eu **achei a divergência à mão** e não podia corrigi-la. Horas depois, o
+`scripts/check-autoria.py` entrou na `main` pelo gate e **acusou esta mesma
+entrada sozinho, no primeiro run** — a primeira das sete divergências do ciclo
+encontrada por máquina em vez de por leitura. É a demonstração do princípio IX
+no caso mais concreto possível: o defeito é invisível na saída em PDF, porque
+em ABNT o prenome vira inicial, e por isso **nenhuma revisão de leitura o
+pegaria**. Só checagem mecânica contra a fonte pega.
+
+Verificado em três fontes independentes antes de aplicar: a *byline* do PDF
+(p. 1158), o e-mail institucional (`maucher@hdm-stuttgart.de`) com a filiação
+IAAI/Hochschule der Medien Stuttgart, e a Crossref pelo DOI
+`10.18653/v1/2020.coling-main.100`. Depois da correção, o `check-autoria`
+devolve **zero divergências** e o `check-bib` sai em exit 0.
 
 Dois desvios menores na mesma entrada, também não corrigidos:
 - `booktitle = {COLING 2020}` — o nome completo é *Proceedings of the 28th
