@@ -120,3 +120,12 @@ precisao-de-rotulo, revocacao-de-rotulo  <!-- Song2023NoisyLabels: metricas espe
 
 ### Modelos (ruído de rótulo)
 wideresnet  <!-- Song2023NoisyLabels: ja registrado por Kossen2021ActiveTesting; repetido aqui so como referencia cruzada -->
+
+### Métodos (R3 t2 — federado)
+aprendizado-ativo-federado, entropia-de-ensemble, aprendizado-federado  <!-- Deng2023fedal: o comitê é o par modelo local + modelo global, que já existem no laço federado — incerteza sem custo extra -->
+
+### Datasets (R3 t2 — federado)
+ham10k, msk-isic  <!-- Deng2023fedal: 10.490 imagens dermatoscópicas repartidas em 4 hospitais com distribuição não-IID -->
+
+### Métricas (R3 t2 — federado)
+auc  <!-- Deng2023fedal: reportada ao lado de micro-f1 e macro-f1 -->

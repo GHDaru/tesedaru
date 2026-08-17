@@ -925,6 +925,57 @@
       "cited_in": []
     },
     {
+      "id": "Deng2023fedal",
+      "type": "artigo",
+      "label": "Deng2023fedal",
+      "title": "Federated Active Learning Framework for Efficient Annotation Strategy in Skin-Lesion Classification",
+      "year": 2025,
+      "venue": "Journal of Investigative Dermatology, v. 145, n. 2, p. 303-311 (preprint arXiv:2406.11310, jun. 2024)",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Deng2023fedal.pdf",
+      "doi": "10.1016/j.jid.2024.05.023",
+      "url": "https://doi.org/10.1016/j.jid.2024.05.023",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "conceito:aprendizado-ativo-federado",
+      "type": "conceito",
+      "label": "aprendizado-ativo-federado"
+    },
+    {
+      "id": "conceito:entropia-de-ensemble",
+      "type": "conceito",
+      "label": "entropia-de-ensemble"
+    },
+    {
+      "id": "metodo:aprendizado-federado",
+      "type": "metodo",
+      "label": "aprendizado-federado"
+    },
+    {
+      "id": "metodo:selecao-aleatoria",
+      "type": "metodo",
+      "label": "selecao-aleatoria"
+    },
+    {
+      "id": "metodo:fine-tuning",
+      "type": "metodo",
+      "label": "fine-tuning"
+    },
+    {
+      "id": "dataset:ham10k",
+      "type": "dataset",
+      "label": "ham10k"
+    },
+    {
+      "id": "dataset:msk-isic",
+      "type": "dataset",
+      "label": "msk-isic"
+    },
+    {
       "id": "Dietterich1998",
       "type": "artigo",
       "label": "Dietterich1998",
@@ -1197,11 +1248,6 @@
       "id": "metodo:amostragem-por-subpalavras",
       "type": "metodo",
       "label": "amostragem-por-subpalavras"
-    },
-    {
-      "id": "metodo:selecao-aleatoria",
-      "type": "metodo",
-      "label": "selecao-aleatoria"
     },
     {
       "id": "modelo:bert-base-uncased",
@@ -3088,11 +3134,6 @@
       "doi": "10.18653/v1/2022.findings-acl.172",
       "url": "https://doi.org/10.18653/v1/2022.findings-acl.172",
       "cited_in": []
-    },
-    {
-      "id": "metodo:fine-tuning",
-      "type": "metodo",
-      "label": "fine-tuning"
     },
     {
       "id": "modelo:distilroberta",
@@ -5452,6 +5493,77 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Review específico de texto — preferível ao genérico Cai2018 quando o assunto é texto."
+    },
+    {
+      "source": "Deng2023fedal",
+      "target": "pilar:P1",
+      "type": "pillars"
+    },
+    {
+      "source": "Deng2023fedal",
+      "target": "conceito:aprendizado-ativo-federado",
+      "type": "proposes"
+    },
+    {
+      "source": "Deng2023fedal",
+      "target": "conceito:entropia-de-ensemble",
+      "type": "proposes"
+    },
+    {
+      "source": "Deng2023fedal",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Deng2023fedal",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Deng2023fedal",
+      "target": "metodo:entropia",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Deng2023fedal",
+      "target": "metodo:aprendizado-federado",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Deng2023fedal",
+      "target": "metodo:selecao-aleatoria",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Deng2023fedal",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Deng2023fedal",
+      "target": "modelo:resnet101",
+      "type": "models"
+    },
+    {
+      "source": "Deng2023fedal",
+      "target": "dataset:ham10k",
+      "type": "datasets"
+    },
+    {
+      "source": "Deng2023fedal",
+      "target": "dataset:msk-isic",
+      "type": "datasets"
+    },
+    {
+      "source": "Deng2023fedal",
+      "target": "tarefa:classificacao-de-imagens",
+      "type": "tasks"
+    },
+    {
+      "source": "Deng2023fedal",
+      "target": "FALCO",
+      "type": "complementa",
+      "note": "Sustenta a menção ao cenário FEDERADO em 2-fundam:327, que é uma das três extensões do laço clássico listadas ali. Não compete com o FALCO: o eixo dele é privacidade entre instituições, não custo de oráculo. Serve como terceiro ponto da série regime × ganho da seleção — ver 'Ideias que gera'."
     },
     {
       "source": "Dietterich1998",
