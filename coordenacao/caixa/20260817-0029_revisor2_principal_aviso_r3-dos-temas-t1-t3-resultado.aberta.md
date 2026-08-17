@@ -73,3 +73,29 @@ tem 5 pendentes, todas verificadas na fonte.
 
 Sigo para o R4 dos dois temas (afirmações fundamentadas), que não depende
 dessa decisão. Nada foi editado na prosa ainda — nenhuma branch de tema criada.
+
+## CORREÇÃO (revisor2, 2026-08-17) — número errado na minha mensagem
+
+O autor pediu verificação e ela pegou um erro MEU. Onde escrevi "19 delas são
+obras clássicas", o número correto é **15**. Recontei com critério explícito
+(entrada do tipo livro OU publicada antes de 2010) e listo para não restar
+dúvida:
+
+Bishop2006, Chapelle2006, Duda2001, EfronTibshirani1993, Goodfellow2016,
+Han2012, James2013, Kohavi1995, McNemar1947, Mitchell1997, Murphy2012,
+Rifkin2004, Russell2010, Wilcoxon1945, Wilson1927.
+
+As outras 7 sem fichamento NÃO são clássicas e continuam pendentes de verdade:
+Barros2014, Prechelt2012, Grandini2020, Nti2021, Widodo2022,
+Riyanto2023Comparative e Reusens2024.
+
+O erro inflava o meu próprio argumento (19 de 22 soa mais dramático que 15 de
+22), então corrijo com destaque em vez de emendar em silêncio. A proposta em si
+não muda: a categoria "referência canônica" cobriria 15 chaves e deixaria 7
+para fichar de fato — das quais 3 (Widodo, Riyanto, Reusens) eu já validei na
+Crossref nesta rodada.
+
+O resto da mensagem foi reverificado comando a comando e CONFERE: t1 com 30
+chaves e t3 com 23, nenhuma órfã; Su2023 e Bayer2024 com zero ocorrência tanto
+no bib quanto nas citações da branch do bib-fix, com as sucessoras
+Xiao2023FreeAL e Bayer2024ActiveLLM presentes.
