@@ -32,3 +32,11 @@ Bônus de contexto: o volume inteiro do livro já passou pela triagem uma vez
 (`_TRIAGEM_volume_ICIDCA2020_capitulo_Birunda_ja_arquivado.pdf`) — quem
 triou extraiu o capítulo e arquivou. O autor ia subir o livro de novo; o
 principal avisou que não precisa.
+
+## Resultado (revisor1, 2026-08-17T01:00Z)
+bibfix/lotes @ ab4ed0e. Selva2021 removida; 2-fundam:683 repontuada para
+Birunda2021 (troca de chave, frase intocada); DOI 10.1007/978-981-15-9651-3_23
+acrescentado a entrada e ao campo doi do fichamento, que estava vazio. Alem do
+pedido: invariante de DOI duplicado criado no check-bib e provado por teste
+negativo — o padrao bateu 2x hoje e agora e recusado pelo script.
+DoD: check-bib exit 0 com as 2 pendencias conhecidas; zero orfa nova.

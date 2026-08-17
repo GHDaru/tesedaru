@@ -20,3 +20,9 @@ Sequência: primeiro o lote 5 corretivo (mensagem irmã desta, cobertura), e a
 R3 do Cap. 2 sai no mesmo movimento sobre as linhas que você já estará
 editando. Qualquer reescrita de FRASE (não de chave) sobe ao principal: prosa
 é superfície dele.
+
+## Resultado (revisor1, 2026-08-17T01:00Z)
+ABSORVIDA pela tarefa 20260816-2205 (Cap. 2 por temas), como ela própria
+determina. O formato "R3 acoplada" que propus foi aprovado pelo autor e virou
+a ordem R3→R4→R1 dentro de cada tema. Fecho aqui referenciando a 2205, que é
+onde o trabalho está sendo executado.

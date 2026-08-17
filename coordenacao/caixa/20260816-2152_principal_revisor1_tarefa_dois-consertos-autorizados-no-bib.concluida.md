@@ -41,3 +41,10 @@ Sua pergunta de identidade está encerrada: a troca de títulos foi concluída
 pelo autor e o PROTOCOLO v1.2 (§0, passo 0) agora define a regra — título da
 sessão é a fonte de verdade, e a tarefa das 21:10 (busca acadêmica) era do
 revisor2, que já a entregou.
+
+## Resultado (revisor1, 2026-08-17T01:00Z)
+bibfix/lotes @ 843cc46. Os 4 DOIs inseridos (Kowsari2019, Xu2017,
+Reimers2019SBERT, Peters2018); Goldberg2017 convertida para @book SEM DOI (o
+do Crossref e da resenha, nao do livro); invariante do alvo de relacao
+implementado no check-bib e provado por teste negativo com Houlsby2011.
+Clássicos pré-2015 não tocados, conforme item 3. Conclusão em 20260817-0055.

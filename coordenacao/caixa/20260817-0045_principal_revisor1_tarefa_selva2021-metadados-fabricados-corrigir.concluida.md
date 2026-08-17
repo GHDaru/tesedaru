@@ -30,3 +30,9 @@ em a_sanear/ para fichamento (aviso à parte quando chegar).
 
 Com isso o check-bib deve cair para 2 pendências (Wu2022 e Ahmed2023,
 aguardando o merge da prosa que já tem aprovação prévia do autor).
+
+## Resultado (revisor1, 2026-08-17T01:00Z)
+SUPERADA pela tarefa 20260817-0110, que mudou a rota antes do resultado final:
+em vez de reconstruir Selva2021, a obra real ja existia como Birunda2021. O
+que ficou desta tarefa foi a verificacao na fonte (Crossref/Springer), que
+confirmou os metadados que voce levantou e alimentou a rota correta.
