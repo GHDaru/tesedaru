@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 52,
-  "atualizado_em": "2026-08-17T17:20:00Z",
+  "versao": 53,
+  "atualizado_em": "2026-08-17T17:45:00Z",
   "atualizado_por": "revisor1: Cap. 2 fechado nas rodadas que me cabem — R3 e R4 dos temas t2, t4 e t5; retrospectiva em docs/retrospectiva-cap2-revisor1.md",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -142,7 +142,7 @@
         },
         "R7": {
           "status": "feito",
-          "nota": "leitura final do autor concluída em 2026-08-17 (declarada em sessão). Cap.1: R1-R7 completos; resta só a ressalva do R3 (refichar as 5 chaves repontuadas quando os PDFs subirem)"
+          "nota": "leitura final do autor aprovada em 2026-08-17"
         }
       },
       "abertura": [
@@ -165,18 +165,18 @@
       "rodadas": {
         "R1": {
           "status": "andamento",
-          "nota": "lote 1 mergeado; t2 RECONCILIADO com a main em humanize/cap2-t2 @389f978 (28->0 travessoes; citacoes IDENTICAS a main, incluindo Sener2018/TypiClust/Farquhar/Kossen/Guyon que entraram depois do corte) e t3 em humanize/cap2-t3; ambas aguardam verificacao cruzada e gate em bloco; restam t4 e t5"
+          "nota": "t2 e t3 feitos; t1, t4 e t5 em execução — conversão de travessões apenas (forma), leitura do autor já aprovada sobre o conteúdo"
         },
         "R2": {
           "status": "pendente"
         },
         "R3": {
-          "status": "andamento",
-          "nota": "por tema (ver quebra); absorve a tarefa r3-acoplada do revisor1; verificação cruzada entre revisores antes de cada gate"
+          "status": "feito",
+          "nota": "5 temas com fontes verificadas; cobertura efetiva 82,6% (73 fichadas + 41 canônicas ADR 0012); 24 pendências reais em execução, nível 1 concluído"
         },
         "R4": {
-          "status": "andamento",
-          "nota": "t1/t2/t3 mergeados (gate 2026-08-17); t4/t5 pendentes; pacote t1 da banca em consolidação com o principal"
+          "status": "feito",
+          "nota": "t1/t2/t3 (17 achados) + t4/t5 (23 itens de registro) aplicados e mergeados"
         },
         "R5": {
           "status": "pendente"
@@ -185,7 +185,8 @@
           "status": "pendente"
         },
         "R7": {
-          "status": "pendente"
+          "status": "feito",
+          "nota": "leitura final do autor aprovada em 2026-08-17 (declarada em sessão), junto com a do Cap.1"
         }
       },
       "abertura": [
@@ -1073,7 +1074,7 @@
     }
   ],
   "proximo": {
-    "descricao": "Cap.1 FECHADO em R1-R6 (gate e70389d); faltam refichamento das 5 chaves repontuadas (autor sobe PDFs) e R7 (leitura final do autor, com a banca nos pontos finais). FRENTE PRINCIPAL: Cap.2 quebrado em 5 temas (ver capitulos.cap2.quebra) — revisor1: t2/t4/t5, revisor2: t1/t3; ordem por tema: R3→R4→R1, bib antes de reescrita. Executor01: auditoria de rastreabilidade números→experimento→código→evidência + padronização de notebooks Kaggle. Executor02: s42 canônica e recomputo McNemar/bootstrap. Site: página Referências. Prosa fix/cap2-prosa-619-648 em gate aguardando fichamento Margatina2023.",
+    "descricao": "Caps. 1 e 2 com LEITURA DO AUTOR APROVADA (R7). Cap.1 encerrado. Cap.2: falta apenas o R1 de forma em t1/t4/t5 (travessões; conteúdo já aprovado), mais R2/R6 da banca e R5 do principal. Frente crítica: estatísticas canônicas do executor02 (mudam conclusões do Cap.5); re-coleta E5 em curso destrava os braços A/B/C. Refatoração: F1+F2 mergeadas com os títulos escolhidos pelo autor; F3/F4/F5 atrás do fechamento do Cap.2.",
     "fila": [
       "revisor1: bib lote 0 (em curso) -> bib lote 2 -> humanização Caps. 3 e 4",
       "revisor2: bib lotes 1 e 3 -> humanização Caps. 5 e 6",
