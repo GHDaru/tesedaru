@@ -655,6 +655,22 @@
       "label": "aprendizado-online"
     },
     {
+      "id": "Bojanowski2017",
+      "type": "artigo",
+      "label": "Bojanowski2017",
+      "title": "Enriching Word Vectors with Subword Information",
+      "year": null,
+      "venue": "ver referencias.bib",
+      "paper_type": "metodo",
+      "status": "ficha-existencia",
+      "pdf": "",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
       "id": "Branco2012",
       "type": "artigo",
       "label": "Branco2012",
@@ -3195,6 +3211,22 @@
       "label": "imagens-sensoriamento-remoto"
     },
     {
+      "id": "Peters2018",
+      "type": "artigo",
+      "label": "Peters2018",
+      "title": "Deep contextualized word representations",
+      "year": 2018,
+      "venue": "ver referencias.bib",
+      "paper_type": "metodo",
+      "status": "ficha-existencia",
+      "pdf": "",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
       "id": "Pintas2021",
       "type": "artigo",
       "label": "Pintas2021",
@@ -3310,6 +3342,38 @@
       "id": "dataset:AlleNoise",
       "type": "dataset",
       "label": "AlleNoise"
+    },
+    {
+      "id": "Radford2018",
+      "type": "artigo",
+      "label": "Radford2018",
+      "title": "Improving language understanding by generative pre-training",
+      "year": 2018,
+      "venue": "ver referencias.bib",
+      "paper_type": "metodo",
+      "status": "ficha-existencia",
+      "pdf": "",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "Radford2019",
+      "type": "artigo",
+      "label": "Radford2019",
+      "title": "Language models are unsupervised multitask learners",
+      "year": null,
+      "venue": "ver referencias.bib",
+      "paper_type": "metodo",
+      "status": "ficha-existencia",
+      "pdf": "",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "Raschka2018",
@@ -5946,6 +6010,17 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Fundamento de regret/online learning: vocabulário para formular a escolha sequencial de estratégia/oráculo do FALCO como decisão online (cada fase 'aposta' num braço). Uso apenas conceitual."
+    },
+    {
+      "source": "Bojanowski2017",
+      "target": "pilar:geral",
+      "type": "pillars"
+    },
+    {
+      "source": "Bojanowski2017",
+      "target": "FALCO",
+      "type": "complementa",
+      "note": "citada na §2.3 apenas como exemplo nomeado de \textit{embedding} estático (FastText); a afirmação da sentença é sustentada por Birunda2021 e Goldberg2017"
     },
     {
       "source": "Branco2012",
@@ -9313,6 +9388,17 @@
       "note": "Comparação teórica+experimental AL vs SSL sob poucos rótulos e viés de seleção amostral: a referência para a pergunta 'por que AL e não semi-supervisão?' no Cap.2 — os dois paradigmas atacam o mesmo gargalo."
     },
     {
+      "source": "Peters2018",
+      "target": "pilar:geral",
+      "type": "pillars"
+    },
+    {
+      "source": "Peters2018",
+      "target": "FALCO",
+      "type": "complementa",
+      "note": "citada na §2.3 apenas como exemplo nomeado de \textit{embedding} contextual (ELMo); a afirmação da sentença é sustentada por Ahmed2022, Li2020 e Karl2023"
+    },
+    {
       "source": "Pintas2021",
       "target": "pilar:geral",
       "type": "pillars"
@@ -9440,6 +9526,28 @@
       "target": "E4",
       "type": "suporta",
       "note": "502.310 títulos CURTOS de produtos, 5.692 categorias, 15% de ruído REAL instance-dependent de marketplace com rótulos limpos verificados. Mostra que métodos de learning-with-noisy-labels que funcionam com ruído sintético falham no real — nuance incorporada à leitura do E4. É o benchmark de réplica ideal para o FALCO (Cap. 6, futuros)."
+    },
+    {
+      "source": "Radford2018",
+      "target": "pilar:geral",
+      "type": "pillars"
+    },
+    {
+      "source": "Radford2018",
+      "target": "FALCO",
+      "type": "complementa",
+      "note": "citada na §2.3 apenas como exemplo nomeado de \textit{embedding} contextual (família GPT); a afirmação da sentença é sustentada por Ahmed2022, Li2020 e Karl2023"
+    },
+    {
+      "source": "Radford2019",
+      "target": "pilar:geral",
+      "type": "pillars"
+    },
+    {
+      "source": "Radford2019",
+      "target": "FALCO",
+      "type": "complementa",
+      "note": "citada na §2.3 apenas como exemplo nomeado de \textit{embedding} contextual (família GPT); a afirmação da sentença é sustentada por Ahmed2022, Li2020 e Karl2023"
     },
     {
       "source": "Raschka2018",
