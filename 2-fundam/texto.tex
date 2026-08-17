@@ -586,7 +586,8 @@ A literatura organiza-se em torno de papéis e composições distintas para o
 LLM no laço.
 
 Como \textbf{anotador}, o LLM substitui o oráculo humano: \citet{Zhang2025}
-rotulam com GPT as instâncias selecionadas por estratégias clássicas de
+rotulam com o GPT (\textit{Generative Pre-trained Transformer}) as
+instâncias selecionadas por estratégias clássicas de
 incerteza e diversidade, treinando um único modelo compacto que atende várias
 tarefas (\textit{cross-task}) a
 custo muito inferior ao de classificar todo o conjunto com o LLM;
@@ -681,7 +682,7 @@ cautela metodológica: ruído \emph{real} de anotação é substancialmente mais
 nocivo que as corrupções sintéticas usadas em avaliação. Isso foi demonstrado
 em reconhecimento de entidades pelo NoiseBench
 \citep{Merdjanovska2024NoiseBench}, que inclui um
-braço explícito de ruído gerado por LLM, e em classificação de produtos em
+uma condição explícita de ruído gerado por LLM, e em classificação de produtos em
 larga escala pelo AlleNoise \citep{Raczkowska2024AlleNoise}, meio milhão de
 títulos em 5.692 categorias com 15\% de ruído real de \textit{marketplace}.
 Estratégias que combinam filtragem por modelos pequenos com consulta seletiva
@@ -725,7 +726,7 @@ decisão que o FALCO opera.
 
 O domínio de aplicação desta tese, descrições de produtos de varejo em
 português, pertence à classificação de texto curto (\textit{short text
-classification}, STC), subcampo com desafios próprios que tensionam tanto as
+classification}), subcampo com desafios próprios que tensionam tanto as
 métricas da Seção~\ref{sec:fund-super} quanto o laço da
 Seção~\ref{sec:fund-al}. Textos curtos abundam em plataformas digitais
 (consultas de busca, mensagens, títulos) e sua classificação sustenta
@@ -735,7 +736,7 @@ aplicações de análise de sentimento a categorização de catálogos
 \subsection{Definições e desafios}
 \label{subsec:stc_desafios}
 
-A classificação de texto aprende $f: D \rightarrow C$ de documentos para um
+A classificação de texto aprende $f: X \rightarrow Y$ de documentos para um
 conjunto pré-definido de classes a partir de exemplos rotulados
 \cite{Aggarwal2012, Kowsari2019}; o texto \emph{curto} especializa a tarefa
 para sequências de comprimento limitado \cite{Song2014}, tipicamente até 200
@@ -772,7 +773,7 @@ satura (quase todo termo ocorre uma única vez por descrição), o que explica a
 vantagem empírica da variante binária sobre TF e TF--IDF; e a configuração
 vencedora lá identificada (binária, uni e bigramas, sem normalização) é a
 adotada pelo classificador leve desta tese, o PVBin (protótipos de classe
-sobre vetores binários); para o panorama de
+sobre vetores binários; Capítulo~\ref{ch:metodo}); para o panorama de
 ponderação e representação, ver \citet{Salton1988} e \citet{Naseem2021WordRep}.
 As \textbf{representações densas} mapeiam palavras ou textos para espaços
 contínuos de baixa dimensão: os \textit{embeddings} estáticos (Word2Vec
@@ -859,7 +860,8 @@ causa ao modelo de linguagem, na acepção da teoria da informação, e
 BERT. A linha culmina no DEUCE \cite{Guo2025Deuce}, que combina diversidade
 textual e de classe prevista num grafo duplo-vizinho para evitar o que seus autores chamam de efeito
 de agrupamento não coberto (\textit{missed cluster effect}): classes inteiras
-que a amostra inicial deixa de representar. O DEUCE converge conceitualmente com a Fase 1 do FALCO, mas
+que a amostra inicial deixa de representar. O DEUCE converge conceitualmente
+com a fase de partida a frio do FALCO (Capítulo~\ref{ch:metodo}), mas
 não incorpora oráculo LLM nem é avaliado em português ou texto de
 e-commerce.
 
@@ -881,8 +883,8 @@ acurácia, é o obstáculo apontado.
 foram detalhadas nas Seções~\ref{sssec:llm_desafios}
 e~\ref{sssec:llm_seletor}; na interseção com o domínio, o estudo de
 \citet{Machado2026RetailPt}, que classifica $\approx 100$ mil títulos de
-supermercados portugueses nas categorias da Classificação do Consumo Individual por Finalidade
-(ECOICOP) para estatística oficial,
+supermercados portugueses nas categorias da classificação europeia do consumo
+individual por finalidade (ECOICOP) para estatística oficial,
 corrobora a escolha do BERTimbau como classificador forte (97,0\% de
 acurácia, 94,0\% de Macro F1 após ajuste), mas depende de um fluxo de rotulagem humano sem protocolo definido iniciado com 12 mil rótulos manuais, sem estratégia
 formal de aprendizado ativo nem oráculo automatizado: exatamente o processo
