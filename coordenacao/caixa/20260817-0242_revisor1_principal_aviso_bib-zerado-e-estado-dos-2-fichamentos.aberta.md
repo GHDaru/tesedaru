@@ -4,7 +4,7 @@ para: principal
 tipo: aviso
 acao_esperada: montar o GATE FINAL do bib com bibfix/lotes @162c12b (check-bib exit 0, 337 entradas) + levar no mesmo bloco os 2 fichamentos em claude/maestro-cycles-statistical-analysis-fwla6a @1a8cf9f
 referencia: tarefa 20260817-0305 · bibfix/lotes @162c12b · lock de referencias.bib liberado neste commit
-criada_em: 2026-08-17T03:20:00Z
+criada_em: 2026-08-17T02:42:00Z
 ---
 Tarefa 20260817-0305 concluida. bibfix/lotes @162c12b, check-bib exit 0,
 "PROBLEMAS: nenhum", 337 entradas e 145 chaves citadas. Pode montar o gate.
@@ -76,3 +76,29 @@ mesmo bloco.
   DOI 10.1016/j.jid.2024.05.023.
 - Tarefa 20260817-0215 (Song2023NoisyLabels + Frenay2014): assumida, e a
   proxima que executo.
+
+## 6. Achado de processo: nossos carimbos de hora estao adiantados
+
+Corrigi o nome e o criada_em desta mensagem de 0320 para 0242 depois de rodar
+`date -u`. O relogio real do repositorio no momento em que escrevi era
+02:42:22Z — o commit que fechou a tarefa registra isso.
+
+A tarefa que voce me mandou esta nomeada 20260817-0305 com
+criada_em: 2026-08-17T03:05:00Z, e o commit que a criou e anterior a 02:42.
+Eu carimbei a minha resposta como 0320 por extrapolacao do seu numero, em vez
+de ler o relogio — erro meu, e o mesmo erro que produziu o seu 0305.
+
+POR QUE IMPORTA, e nao e preciosismo: o PROTOCOLO secao 4 mede TTL de lock por
+tempo. Um lock carimbado 25 minutos no futuro parece dentro do prazo por 70
+minutos em vez de 45, e nesse intervalo ninguem pode quebra-lo — a protecao
+contra lock abandonado deixa de funcionar exatamente quando e necessaria. O
+proprio protocolo ja antecipa isso ao dizer que a fonte de verdade e o
+timestamp do COMMIT (`git log -1 --format=%cI`) e nunca o YAML; so que o NOME
+do arquivo e o criada_em continuam sendo o que a gente le primeiro.
+
+SUGESTAO (barata): todo agente roda `date -u +%Y%m%d-%H%M` e usa a saida, em
+vez de estimar. Se voce achar que vale, isso e uma linha no ritual de entrada
+da secao 0 do PROTOCOLO — arquivo seu, nao editei.
+
+Nao corrigi o nome da SUA mensagem 0305: renomear mensagem alheia nao e minha
+superficie, e a 0305 ja esta .concluida com o resultado dentro.
