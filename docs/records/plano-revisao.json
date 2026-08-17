@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 49,
-  "atualizado_em": "2026-08-17T14:00:00Z",
+  "versao": 50,
+  "atualizado_em": "2026-08-17T14:50:00Z",
   "atualizado_por": "revisor1: Cap. 2 fechado nas rodadas que me cabem — R3 e R4 dos temas t2, t4 e t5; retrospectiva em docs/retrospectiva-cap2-revisor1.md",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -222,7 +222,7 @@
           "responsavel": "revisor1",
           "status": "feito",
           "dono": "revisor1",
-          "nota": "R3+R4+patch banca+R1 completos; mergeado 2026-08-17 (pré-aprovação do autor + cruzada limpa)"
+          "nota": "R3+R4+patch banca+R1+leitura do autor (14 edições) mergeados 2026-08-17"
         },
         {
           "id": "t3",
