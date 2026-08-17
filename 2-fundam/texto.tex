@@ -142,12 +142,11 @@ duplicatas exatas.
 \subsection{Inferência estatística para comparação de classificadores e oráculos}
 \label{subsec:ml_inferencia}
 
-Medir não basta: as comparações desta tese — entre oráculos, entre estratégias
-de seleção, entre configurações — exigem afirmar se uma diferença observada
-excede a flutuação amostral. Quatro instrumentos cobrem as situações que
-aparecem nos Capítulos~\ref{ch:resultados-l0} e~\ref{ch:resultados-falco},
-cada qual com a referência original e a referência aplicada ao aprendizado de
-máquina.
+Toda comparação desta tese (entre oráculos, estratégias de seleção ou
+configurações) exige afirmar se a diferença observada excede a flutuação
+amostral. Quatro instrumentos cobrem as situações que aparecem nos
+Capítulos~\ref{ch:resultados-l0} e~\ref{ch:resultados-falco}, cada qual com a
+referência original e a de uso em aprendizado de máquina.
 
 \textbf{Intervalo de confiança para proporções (Wilson).} Toda acurácia é uma
 proporção estimada em $n$ instâncias. O intervalo usual de Wald
@@ -156,37 +155,39 @@ severamente abaixo do nível nominal mesmo com $n$ grande e $p$ moderado —,
 enquanto o intervalo de \citet{Wilson1927}, que resolve a desigualdade no
 parâmetro em vez de na estimativa, mantém cobertura próxima da nominal em
 toda a faixa de $p$; a análise sistemática de \citet{Brown2001} recomenda-o
-como escolha padrão. Por isso toda acurácia de oráculo do E0 é reportada com
-IC de Wilson a 95\%.
+como escolha padrão. Por isso toda acurácia de oráculo desta tese é reportada
+com IC de Wilson a 95\% (Capítulo~\ref{ch:resultados-falco}).
 
 \textbf{Comparação pareada na mesma amostra (McNemar).} Quando dois oráculos
-rotulam \emph{as mesmas} instâncias, os erros são dependentes e o teste
-correto opera sobre os pares discordantes: o teste de \citet{McNemar1947}
-examina a assimetria entre os $b$ casos em que só o primeiro acerta e os $c$
-em que só o segundo acerta; quando $b+c<25$, usa-se a versão binomial exata.
-\citet{Dietterich1998}, avaliando empiricamente cinco testes para comparar
-classificadores, recomenda o McNemar precisamente no regime desta tese —
-modelos avaliados uma única vez sobre um conjunto comum — por controlar o
-erro tipo~I onde os testes $t$ re-amostrados falham.
+rotulam \emph{as mesmas} instâncias, seus acertos não são independentes, e a
+comparação correta olha apenas os pares discordantes: as $b$ instâncias em
+que só o primeiro acerta e as $c$ em que só o segundo. O teste de
+\citet{McNemar1947} verifica se a assimetria entre $b$ e $c$ excede o que o
+acaso produziria; quando $b+c<25$, usa-se a versão binomial exata. A escolha
+segue \citet{Dietterich1998}, que comparou empiricamente cinco testes e
+concluiu que o McNemar é o adequado quando cada modelo é avaliado uma única
+vez sobre um conjunto comum — o regime desta tese; nesse cenário, as
+alternativas declaram diferenças inexistentes com frequência acima da que
+prometem.
 
 \textbf{Comparação pareada por semente (Wilcoxon).} Quando duas estratégias
 são executadas com as mesmas sementes, cada semente gera um par de resultados.
 O teste de postos sinalizados de \citet{Wilcoxon1945} compara os pares sem
-supor normalidade — suposição indefensável para métricas limitadas como o
-Macro F1 —, e é a recomendação canônica de \citet{Demsar2006} para comparar
-dois algoritmos sobre múltiplas condições. Sua limitação estrutural importa ao
-desenho: com $n$ pares, o menor $p$-valor bicaudal atingível é $2/2^{n}$ — com
-menos de seis sementes a significância a 5\% é inalcançável por construção.
-Seis é, portanto, o mínimo lógico; o Capítulo~\ref{ch:metodo} adota oito para
-que a significância não dependa de uma varredura perfeita: com oito pares, o
-teste tolera uma inversão de pequena magnitude e o descarte de empates sem
-perder o nível de 5\%.
+supor normalidade — suposição difícil de sustentar para métricas limitadas ao
+intervalo $[0,1]$, como o Macro F1 — e é a recomendação de \citet{Demsar2006}
+para comparar dois algoritmos sobre múltiplas condições. Um limite aritmético
+importa ao desenho: com $n$ pares, o menor $p$-valor bicaudal é $2/2^{n}$.
+Seis sementes são o mínimo que alcança significância a 5\% ($p=0{,}031$);
+esta tese adota oito, cujo piso de $p=0{,}0078$ mantém a significância
+alcançável mesmo sob correção para comparações múltiplas sobre as mesmas
+sementes.
 
 \textbf{Intervalos por reamostragem (\textit{bootstrap}).} Para funcionais sem
-distribuição amostral conhecida — como a diferença de LCE entre estratégias —,
-o \textit{bootstrap} \citep{EfronTibshirani1993} estima o intervalo de
-confiança reamostrando os pares observados com reposição (método do
-percentil).
+distribuição amostral conhecida — caso típico das áreas sob curvas de
+aprendizado usadas para resumir uma execução inteira de aprendizado ativo
+\citep{Guyon2011ALC} —, o \textit{bootstrap} \citep{EfronTibshirani1993}
+estima o intervalo de confiança reamostrando os pares observados com
+reposição (método do percentil).
 
 A Tabela~\ref{tab:inferencia-mapa} resume o mapeamento situação--teste--uso.
 
@@ -199,10 +200,10 @@ A Tabela~\ref{tab:inferencia-mapa} resume o mapeamento situação--teste--uso.
 \toprule
 \textbf{Situação} & \textbf{Instrumento} & \textbf{Uso na tese} \\
 \midrule
-Precisão de uma proporção estimada & IC de Wilson 95\% \cite{Wilson1927, Brown2001} & toda acurácia de oráculo (E0) \\
-Dois oráculos, mesmas instâncias & McNemar; binomial exato se $b{+}c{<}25$ \cite{McNemar1947, Dietterich1998} & pareamentos do E0/E0-P \\
-Duas estratégias, mesmas sementes & Wilcoxon de postos sinalizados \cite{Wilcoxon1945, Demsar2006} & E1/E4 (8 sementes) \\
-Funcional sem distribuição conhecida & IC \textit{bootstrap} percentil \cite{EfronTibshirani1993} & diferença de LCE (E3) \\
+Precisão de uma proporção estimada & IC de Wilson 95\% \cite{Wilson1927, Brown2001} & toda acurácia de oráculo (Cap.~\ref{ch:resultados-falco}) \\
+Dois oráculos, mesmas instâncias & McNemar; binomial exato se $b{+}c{<}25$ \cite{McNemar1947, Dietterich1998} & pareamentos de oráculos e de variantes de \textit{prompt} (Cap.~\ref{ch:resultados-falco}) \\
+Duas estratégias, mesmas sementes & Wilcoxon de postos sinalizados \cite{Wilcoxon1945, Demsar2006} & duas estratégias sob as mesmas sementes (Cap.~\ref{ch:resultados-falco}) \\
+Funcional sem distribuição conhecida & IC \textit{bootstrap} percentil \cite{EfronTibshirani1993} & comparação de curvas de aprendizado (Cap.~\ref{ch:metodo}) \\
 \bottomrule
 \end{tabular}
 \end{table}
