@@ -1638,6 +1638,37 @@
       "cited_in": []
     },
     {
+      "id": "Golovin2011",
+      "type": "artigo",
+      "label": "Golovin2011",
+      "title": "Adaptive Submodularity: Theory and Applications in Active Learning and Stochastic Optimization",
+      "year": 2011,
+      "venue": "Journal of Artificial Intelligence Research (JAIR)",
+      "paper_type": "metodo",
+      "status": "ficha-minima",
+      "pdf": "referencias-pdf/Golovin2011.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "conceito:submodularidade-adaptativa",
+      "type": "conceito",
+      "label": "submodularidade-adaptativa"
+    },
+    {
+      "id": "metodo:algoritmo-guloso",
+      "type": "metodo",
+      "label": "algoritmo-guloso"
+    },
+    {
+      "id": "metodo:otimizacao-estocastica",
+      "type": "metodo",
+      "label": "otimizacao-estocastica"
+    },
+    {
       "id": "Goudjil2018",
       "type": "artigo",
       "label": "Goudjil2018",
@@ -2431,6 +2462,27 @@
       "id": "metodo:reducao-de-dimensionalidade",
       "type": "metodo",
       "label": "reducao-de-dimensionalidade"
+    },
+    {
+      "id": "Krause2014",
+      "type": "artigo",
+      "label": "Krause2014",
+      "title": "Submodular Function Maximization",
+      "year": 2014,
+      "venue": "Capítulo em Tractability: Practical Approaches to Hard Problems (Cambridge University Press)",
+      "paper_type": "survey",
+      "status": "ficha-minima",
+      "pdf": "referencias-pdf/Krause2014.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "metodo:otimizacao-submodular",
+      "type": "metodo",
+      "label": "otimizacao-submodular"
     },
     {
       "id": "Kumbhar2016",
@@ -4710,6 +4762,47 @@
       "label": "biomed-roberta-base"
     },
     {
+      "id": "Xu2017",
+      "type": "artigo",
+      "label": "Xu2017",
+      "title": "Self-Taught Convolutional Neural Networks for Short Text Clustering",
+      "year": 2017,
+      "venue": "Neural Networks (Elsevier); pré-impressão arXiv:1701.00185",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Xu2017.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "conceito:stc2",
+      "type": "conceito",
+      "label": "stc2"
+    },
+    {
+      "id": "dataset:searchsnippets",
+      "type": "dataset",
+      "label": "searchsnippets"
+    },
+    {
+      "id": "dataset:stackoverflow",
+      "type": "dataset",
+      "label": "stackoverflow"
+    },
+    {
+      "id": "dataset:biomedical",
+      "type": "dataset",
+      "label": "biomedical"
+    },
+    {
+      "id": "tarefa:agrupamento-de-texto-curto",
+      "type": "tarefa",
+      "label": "agrupamento-de-texto-curto"
+    },
+    {
       "id": "Xu2020",
       "type": "artigo",
       "label": "Xu2020",
@@ -5052,6 +5145,11 @@
       "id": "claim-granularidade",
       "type": "tema-falco",
       "label": "claim-granularidade"
+    },
+    {
+      "id": "aprendizado-ativo",
+      "type": "tema-falco",
+      "label": "aprendizado-ativo"
     },
     {
       "id": "Hacohen2019",
@@ -7033,6 +7131,42 @@
       "note": "Enriquecimento por contexto local — contraste que fortalece o argumento do oráculo LLM."
     },
     {
+      "source": "Golovin2011",
+      "target": "Krause2014",
+      "type": "builds_on"
+    },
+    {
+      "source": "Golovin2011",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Golovin2011",
+      "target": "conceito:submodularidade-adaptativa",
+      "type": "proposes"
+    },
+    {
+      "source": "Golovin2011",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Golovin2011",
+      "target": "metodo:algoritmo-guloso",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Golovin2011",
+      "target": "metodo:otimizacao-estocastica",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Golovin2011",
+      "target": "aprendizado-ativo",
+      "type": "fundamenta",
+      "note": "sustenta a frase da §2.2 sobre tratamento de lotes por otimização submodular: a submodularidade adaptativa garante que o guloso é competitivo com a política ótima, e o aprendizado ativo é uma das três aplicações que o próprio artigo desenvolve"
+    },
+    {
       "source": "Goudjil2018",
       "target": "Hoi2006",
       "type": "compares_with"
@@ -8177,6 +8311,27 @@
       "target": "FALCO",
       "type": "fundamenta",
       "note": "Survey-guarda-chuva da classificação de texto: fornece o vocabulário do pipeline (extração de atributos → redução → classificador → avaliação) usado na fundamentação, e as métricas de avaliação padrão."
+    },
+    {
+      "source": "Krause2014",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Krause2014",
+      "target": "metodo:algoritmo-guloso",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Krause2014",
+      "target": "metodo:otimizacao-submodular",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Krause2014",
+      "target": "aprendizado-ativo",
+      "type": "fundamenta",
+      "note": "é o texto de referência da definição de submodularidade e dos algoritmos com garantia, invocado pela §2.2 ao falar de seleção de lotes"
     },
     {
       "source": "Kumbhar2016",
@@ -11584,6 +11739,68 @@
       "target": "FALCO",
       "type": "compara",
       "note": "Vizinho direto exigido pelo parecer R6 (Bloco C, item 9 / Dom-M1) na tabela de lacunas. FreeAL elimina o humano do laço via colaboração LLM(anotador)-SLM(filtro) com refinamento iterativo de rótulos; FALCO difere em: progressão de oráculos com gate de custo, espaço FECHADO de 714 classes (FreeAL: 2-6 classes + NER), texto curto PT-BR de varejo, saída estruturada (CategorySchema) e contabilidade de custo por rótulo (FreeAL não reporta custo de API). Confronto central do Cap. 2."
+    },
+    {
+      "source": "Xu2017",
+      "target": "pilar:geral",
+      "type": "pillars"
+    },
+    {
+      "source": "Xu2017",
+      "target": "conceito:stc2",
+      "type": "proposes"
+    },
+    {
+      "source": "Xu2017",
+      "target": "metodo:auto-supervisao",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Xu2017",
+      "target": "metodo:k-means",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Xu2017",
+      "target": "metodo:reducao-de-dimensionalidade",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Xu2017",
+      "target": "metodo:normalizacao-de-texto",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Xu2017",
+      "target": "dataset:searchsnippets",
+      "type": "datasets"
+    },
+    {
+      "source": "Xu2017",
+      "target": "dataset:stackoverflow",
+      "type": "datasets"
+    },
+    {
+      "source": "Xu2017",
+      "target": "dataset:biomedical",
+      "type": "datasets"
+    },
+    {
+      "source": "Xu2017",
+      "target": "tarefa:agrupamento-de-texto-curto",
+      "type": "tasks"
+    },
+    {
+      "source": "Xu2017",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "sustenta a dificuldade do texto curto pela ESPARSIDADE da representação — que é o que a fonte afirma literalmente"
+    },
+    {
+      "source": "Xu2017",
+      "target": "FALCO",
+      "type": "ameaca",
+      "note": "ATENÇÃO: a obra argumenta pelo BENEFÍCIO de redes convolucionais em texto curto, o oposto do que a cláusula vizinha na §2.3 insinua; ver a leitura crítica"
     },
     {
       "source": "Xu2020",

@@ -206,3 +206,4 @@ selecao-conjunta-instancia-anotador, modelagem-de-competencia-do-anotador  <!-- 
 stc2, reducao-de-dimensionalidade  <!-- Xu2017 -->
 agrupamento-de-texto-curto  <!-- Xu2017 (tarefa) -->
 searchsnippets, stackoverflow, biomedical  <!-- Xu2017 (datasets) -->
+submodularidade-adaptativa, algoritmo-guloso, otimizacao-estocastica, otimizacao-submodular  <!-- Golovin2011, Krause2014 -->
