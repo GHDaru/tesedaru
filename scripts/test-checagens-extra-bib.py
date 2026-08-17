@@ -124,6 +124,32 @@ BIB_KEY_NO_VALOR = (
 caso("'key =' DENTRO de um valor não dispara",
      "key-residual" not in codigos(ch.campos_key_residuais(BIB_KEY_NO_VALOR)))
 
+# O falso POSITIVO que o revisor2 achou em 20260817-0600: o fixture acima usa
+# a forma SEM vírgula, e por isso cobria menos do que a afirmação que
+# sustentava. Com vírgula antes do `key`, o padrão antigo casava.
+BIB_KEY_NO_VALOR_COM_VIRGULA = (
+    "@article{Legitima2021, title = {Obra}, note = {ver tabela, key = valor}, year = {2021}}\n"
+)
+caso("'key =' dentro de um valor COM VÍRGULA antes não dispara (regressão do falso positivo)",
+     "key-residual" not in codigos(ch.campos_key_residuais(BIB_KEY_NO_VALOR_COM_VIRGULA)))
+
+# Duas classes que o relato não citava e que o mesmo conserto passa a cobrir.
+BIB_KEY_NO_VALOR_ASPAS = (
+    '@article{Legitima2021, title = {Obra}, note = "ver tabela, key = valor", year = {2021}}\n'
+)
+caso("'key =' dentro de valor entre ASPAS não dispara",
+     "key-residual" not in codigos(ch.campos_key_residuais(BIB_KEY_NO_VALOR_ASPAS)))
+
+BIB_KEY_NO_VALOR_ANINHADO = (
+    "@article{Legitima2021, title = {A {LLM} survey, key = x}, year = {2021}}\n"
+)
+caso("'key =' dentro de valor com chave ANINHADA não dispara",
+     "key-residual" not in codigos(ch.campos_key_residuais(BIB_KEY_NO_VALOR_ANINHADO)))
+
+BIB_KEY_MAIUSCULO = "@article{ComKey2021, title = {Obra}, KEY = {residuo}}\n"
+caso("KEY maiúsculo ainda dispara (o conserto não quebrou a insensibilidade a caixa)",
+     "key-residual" in codigos(ch.campos_key_residuais(BIB_KEY_MAIUSCULO)))
+
 print()
 if falhas:
     print(f"FALHOU — {len(falhas)} de {casos}: {', '.join(falhas)}")

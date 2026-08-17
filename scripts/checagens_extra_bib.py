@@ -76,6 +76,41 @@ def _corpo_das_entradas(texto: str) -> list[tuple[str, str]]:
     return saida
 
 
+def _esqueleto(corpo: str) -> str:
+    """Apaga o CONTEÚDO dos campos, preservando as posições dos caracteres.
+
+    De `note = {ver tabela, key = valor}, title = {T}` sobra
+    `note = {                        }, title = { }` — ou seja, só o esqueleto
+    `nome =` + delimitadores. Varrer o esqueleto é o que impede que um `key =`
+    escrito DENTRO do texto de um campo seja confundido com um campo `key`.
+
+    Falso positivo relatado pelo revisor2 em 20260817-0600 e REPRODUZIDO antes
+    de corrigir: `note = {ver tabela, key = valor}` disparava, porque havia
+    vírgula antes do `key`. O fixture negativo que eu tinha usava a forma sem
+    vírgula, então cobria menos do que a afirmação que sustentava.
+
+    Cobre valor entre chaves e valor entre aspas. NÃO cobre chave escapada
+    (`\\{`) no meio do valor — limite declarado, não coberto, igual ao de
+    `_corpo_das_entradas`.
+    """
+    saida = list(corpo)
+    profundidade = 0
+    aspas = False
+    for i, c in enumerate(corpo):
+        if not aspas and c == "{":
+            profundidade += 1
+            continue
+        if not aspas and c == "}":
+            profundidade -= 1
+            continue
+        if profundidade == 0 and c == '"':
+            aspas = not aspas
+            continue
+        if profundidade > 0 or aspas:
+            saida[i] = " "
+    return "".join(saida)
+
+
 def _campo(corpo: str, nome: str) -> str | None:
     """Lê um campo contando chaves — `title = {A {LLM} survey}` sai inteiro."""
     m = re.search(rf"(?:^|[{{,\s]){nome}\s*=\s*", corpo, re.I)
@@ -144,9 +179,14 @@ def campos_key_residuais(texto: str) -> list[dict]:
     CAMPO (precedido de `{` ou `,`), e não em início de linha. Assim vale
     também para entrada escrita numa linha só. `keywords = {...}` não casa,
     porque a fronteira exige `=` logo depois de `key`.
+
+    Correção do falso positivo (revisor2, 20260817-0600): a varredura roda
+    sobre `_esqueleto(corpo)`, não sobre o corpo cru, para que um `key =`
+    escrito dentro do TEXTO de um campo não dispare.
     """
     achados = []
     for chave, corpo in _corpo_das_entradas(texto):
+        corpo = _esqueleto(corpo)
         for m in re.finditer(r"[{,]\s*key\s*=", corpo, re.I):
             achados.append({
                 "codigo": "key-residual",
