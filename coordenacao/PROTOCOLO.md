@@ -1,4 +1,4 @@
-# Protocolo de coordenação — agentes + autor (v1.2)
+# Protocolo de coordenação — agentes + autor (v1.3)
 
 > Regra única de mensageria, locks e processo multiagente da tese FALCO.
 > Todo agente LÊ este arquivo ao iniciar a sessão e segue o ritual de entrada.
@@ -13,6 +13,10 @@
 > `local` (sessão na máquina do autor; acessa arquivos NÃO versionados —
 > caches, PDFs, dados locais — e os publica onde o time alcança; mesmo
 > protocolo de mensagens) ·
+> `externo` (revisor independente contratado pelo autor, em outro provedor:
+> lê a tese e produz PARECERES em `docs/pareceres-externo/`; NÃO edita prosa,
+> bib, fichamentos nem plano — o valor dele é o viés diferente e a
+> independência; reporta ao principal) ·
 > `autor` (humano; único que mergeia na main e arbitra).
 >
 > A frase que resume tudo: **"Escreva só na sua superfície, verifique só o que
