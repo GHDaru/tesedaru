@@ -4,7 +4,7 @@ title: "Metrics for Multi-Class Classification: an Overview"
 authors: ["Grandini, Margherita", "Bagli, Enrico", "Visani, Giorgio"]
 year: 2020
 venue: "White paper, arXiv:2008.05756 (CRIF S.p.A. e Universidade de Bolonha)"
-pdf: a_sanear/Grandini2020.pdf
+pdf: referencias-pdf/Grandini2020.pdf
 
 paper_type: survey
 status: fichado

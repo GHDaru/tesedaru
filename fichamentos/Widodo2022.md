@@ -5,7 +5,7 @@ authors: ["Widodo, Slamet", "Brawijaya, Herlambang", "Samudi"]
 year: 2022
 venue: "Sinkron: Jurnal dan Penelitian Teknik Informatika, v. 7, n. 4, pp. 2407--2414"
 doi: "10.33395/sinkron.v7i4.11792"
-pdf: a_sanear/Widodo2022.pdf
+pdf: referencias-pdf/Widodo2022.pdf
 
 paper_type: empirico
 status: fichado

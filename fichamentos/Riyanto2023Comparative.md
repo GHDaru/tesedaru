@@ -4,7 +4,7 @@ title: "Comparative Analysis using Various Performance Metrics in Imbalanced Dat
 authors: ["Riyanto, Slamet", "Sitanggang, Imas Sukaesih", "Djatna, Taufik", "Atikah, Tika Dewi"]
 year: 2023
 venue: "International Journal of Advanced Computer Science and Applications (IJACSA), v. 14, n. 6, pp. 1082--1090"
-pdf: a_sanear/Riyanto2023Comparative.pdf
+pdf: referencias-pdf/Riyanto2023Comparative.pdf
 
 paper_type: empirico
 status: fichado
