@@ -6506,9 +6506,9 @@
     },
     {
       "source": "Griesshaber2020",
-      "target": "FALCO",
-      "type": "ameaca",
-      "note": "ACHADO MAIS IMPORTANTE DA FICHA. A §5 e a Tab. 3 documentam que a aquisição por incerteza DESEQUILIBRA as classes do conjunto de treino: a diferença entre a classe maior e a menor é de 4 a 10 vezes a da seleção aleatória. Isso foi medido com 2 e 3 classes; o FALCO opera com 621. O mecanismo existe, a magnitude no nosso regime é desconhecida."
+      "target": "LCE",
+      "type": "fundamenta",
+      "note": "CORRIGIDO em 2026-08-17, ver a seção 'Correção'. A §5 e a Tab. 3 documentam que a aquisição por incerteza DESEQUILIBRA as classes do treino, de 4 a 10 vezes a seleção aleatória. Eu havia registrado isso como AMEAÇA ao FALCO; o E6 da própria tese mostra o oposto, e o que a evidência combinada sustenta é uma CONDIÇÃO DE CONTORNO: o sinal do efeito depende de o pool ser balanceado (Griesshaber, GLUE, 2-3 classes: afasta do equilíbrio, prejudicial) ou torto (FALCO, natural, 621 classes: puxa para o equilíbrio, é o ganho)."
     },
     {
       "source": "Griesshaber2020",

@@ -38,14 +38,16 @@ falco_relation:
            ativo VENCE a seleção aleatória sobre BERT com menos de mil rótulos
            — mas em tarefas de 2 a 3 classes. Confirma literalmente a frase da
            L770 da tese ('adaptam AA ao BERT')."
-  - type: ameaca
-    target: FALCO
-    note: "ACHADO MAIS IMPORTANTE DA FICHA. A §5 e a Tab. 3 documentam que a
-           aquisição por incerteza DESEQUILIBRA as classes do conjunto de
-           treino: a diferença entre a classe maior e a menor é de 4 a 10 vezes
-           a da seleção aleatória. Isso foi medido com 2 e 3 classes; o FALCO
-           opera com 621. O mecanismo existe, a magnitude no nosso regime é
-           desconhecida."
+  - type: fundamenta
+    target: LCE
+    note: "CORRIGIDO em 2026-08-17, ver a seção 'Correção'. A §5 e a Tab. 3
+           documentam que a aquisição por incerteza DESEQUILIBRA as classes do
+           treino, de 4 a 10 vezes a seleção aleatória. Eu havia registrado
+           isso como AMEAÇA ao FALCO; o E6 da própria tese mostra o oposto, e
+           o que a evidência combinada sustenta é uma CONDIÇÃO DE CONTORNO: o
+           sinal do efeito depende de o pool ser balanceado (Griesshaber, GLUE,
+           2-3 classes: afasta do equilíbrio, prejudicial) ou torto (FALCO,
+           natural, 621 classes: puxa para o equilíbrio, é o ganho)."
   - type: complementa
     target: DRI-SL
     note: "Restringe o pool a um subconjunto de 20 mil elementos por custo
@@ -78,7 +80,7 @@ duplo: o BALD melhora a acurácia média **e** reduz a dispersão entre execuç�
 |---|-------|-----------|-------------|
 | C1 | O BALD com *dropout* de Monte Carlo bate a seleção aleatória em acurácia média em todos os modelos e em toda a faixa de tamanhos de treino testada | §4.2, p. 1163; Fig. 3, p. 1162 | Cap. 2 §2.5, L770 — sustenta "adaptam AA ao BERT" |
 | C2 | A seleção por AA também **estabiliza** o treino: a dispersão da acurácia entre execuções é menor do que com seleção aleatória | §4.2, p. 1163; Fig. 3 (faixas de confiança) | Cap. 2 e Cap. 5 — argumento de variância, não só de média |
-| C3 | **A aquisição por incerteza enviesa a distribuição de classes do conjunto de treino**; a seleção aleatória não | §5 "Overall Observation", p. 1165; Tab. 3, p. 1166; Fig. 6, p. 1166 | Cap. 5 e Cap. 6 (limitações) — ameaça direta ao FALCO em 621 classes |
+| C3 | **A aquisição por incerteza enviesa a distribuição de classes do conjunto de treino**; a seleção aleatória não | §5 "Overall Observation", p. 1165; Tab. 3, p. 1166; Fig. 6, p. 1166 | Cap. 5: **não** é ameaça — ver "Correção". O sinal depende de o pool ser balanceado (aqui) ou torto (FALCO) |
 | C4 | O AA seleciona preferencialmente exemplos que treinam as **camadas iniciais** do BERT (as de compreensão geral), não as finais (específicas da tarefa) | §4.3, p. 1163; Fig. 4, p. 1163 | Cap. 2 — mecanismo, não só desempenho |
 | C5 | Congelar 25% das camadas melhora o desempenho médio; congelar 50% piora, às vezes abaixo do modelo sem congelamento | §4.3, p. 1164; Tab. 1, p. 1164 | Cap. 3/4 se houver discussão de custo de ajuste |
 | C6 | Congelar as camadas **próximas à saída** ($F=-3$) dá o treino mais estável (intervalos de confiança mais estreitos) | §4.3, p. 1164; Tab. 2, p. 1164; §7 Conclusão, p. 1167 | Cap. 4 — decisão de projeto |
@@ -288,3 +290,49 @@ Confere no bib e no PDF: páginas **1158-1171**, DOI
    hiperparâmetro, declarar o compromisso e seguir.
 4. **Qualificar a L770**, como descrito acima — custa uma oração e fortalece a
    contribuição da Fase 1.
+
+## Correção de 2026-08-17 — o meu claim de "ameaça" estava errado
+
+Ao fichar, registrei o viés de classe como **ameaça** ao FALCO: a seleção por
+incerteza desequilibra as classes, foi medido com 2-3 classes, o FALCO tem 621,
+logo seria risco. **Escrevi isso sem ter aberto o Capítulo 5**, que já
+continha a medida.
+
+O E6 (`5-resultados-falco/texto.tex`, Tab. `tab:e6`) diz o contrário:
+
+- **achado (ii)**: o Macro F1 populacional chega a 0,59 com ~15 mil rótulos por
+  entropia e **cai para 0,44 com o pool inteiro rotulado**, *"porque a amostra
+  ativa é mais balanceada por classe que a distribuição natural"*;
+- **achado (iv)**: estratificar pelas classes previstas captura quase todo o
+  ganho, porque *"o que a métrica macro paga é cobertura balanceada de
+  classes"*.
+
+O desbalanceamento induzido pela seleção **não é a ameaça: é a fonte do ganho**.
+
+### O que a evidência combinada sustenta de fato
+
+As duas medidas não se contradizem — reconciliam-se pela distribuição do pool:
+
+| | `Griesshaber2020` | FALCO (E6) |
+|---|---|---|
+| Classes | 2 a 3 | 621 |
+| Pool de origem | GLUE, aproximadamente balanceado | natural, fortemente enviesado |
+| Efeito da seleção ativa | **desequilibra** (4 a 10× o aleatório) | **equilibra** |
+| Consequência | prejudicial | **é o ganho** |
+
+**O sinal do efeito depende de o pool ser balanceado ou torto.** É uma condição
+de contorno que explica as duas literaturas de uma vez, e é o que esta obra de
+fato oferece à tese — mais útil que a ameaça que eu havia inventado.
+
+### Por que registro em vez de apagar
+
+O erro é do anti-padrão nº 23 que eu mesmo propus algumas horas antes —
+diagnosticar contra a cópia desatualizada — na sua forma mais constrangedora:
+a cópia desatualizada era a minha ignorância do próprio repositório. Fichei uma
+ameaça contra um capítulo de resultados que eu não tinha lido.
+
+A lição operacional, que vale para qualquer ficha futura: **antes de escrever
+`falco_relation: ameaca`, abrir o capítulo de resultados que mede aquilo.** Uma
+ameaça é uma afirmação sobre a tese, não sobre o artigo, e por isso precisa de
+evidência do lado da tese — exatamente como o princípio V exige artefato para
+número.
