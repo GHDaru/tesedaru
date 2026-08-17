@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 25,
-  "atualizado_em": "2026-08-17T00:50:00Z",
+  "versao": 26,
+  "atualizado_em": "2026-08-17T01:20:00Z",
   "atualizado_por": "revisor1: R3 do tema t2 do Cap. 2 concluído (4 pós-2022 limpas na fonte); t4 e t5 assumidos",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -141,8 +141,8 @@
           "nota": "banca: capítulo auto-suficiente; ressalva única resolvida no item 3 do R4"
         },
         "R7": {
-          "status": "pendente",
-          "nota": "leitura final do autor — única pendência do Cap. 1 após o merge do gate R4+R5"
+          "status": "feito",
+          "nota": "leitura final do autor concluída em 2026-08-17 (declarada em sessão). Cap.1: R1-R7 completos; resta só a ressalva do R3 (refichar as 5 chaves repontuadas quando os PDFs subirem)"
         }
       },
       "abertura": [
