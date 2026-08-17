@@ -105,3 +105,18 @@ micro-f1  <!-- Fromme2022: reportado lado a lado com macro-f1; não são interca
 
 ### Modelos (R3 t2 — rótulo extremo)
 bert-base-uncased  <!-- Fromme2022: variante exata; usar em vez do genérico bert quando o paper a fixa -->
+## Adições da rodada do ruído estruturado (2026-08-17)
+
+Termos entrados pelo fichamento do survey de ruído de rótulo (tarefa 20260817-0215).
+
+### Métodos (ruído de rótulo)
+ruido-simetrico, ruido-assimetrico, ruido-de-par, ruido-dependente-da-instancia, matriz-de-transicao-de-ruido, efeito-de-memorizacao, small-loss-trick, selecao-de-amostras, correcao-de-perda, co-teaching, aprendizado-multi-rodada  <!-- Song2023NoisyLabels: a taxonomia simetrico/assimetrico/dependente-da-instancia e a que a tese deve usar para nomear o ruido do oraculo LLM (o nosso e assimetrico) -->
+
+### Datasets (ruído de rótulo)
+clothing1m, animal-10n, food-101n, webvision, cifar-10n, cifar-100n, imagenet  <!-- Song2023NoisyLabels: conjuntos com ruido REAL (taxas de 8% a 40%), distintos dos conjuntos limpos corrompidos artificialmente -->
+
+### Métricas (ruído de rótulo)
+precisao-de-rotulo, revocacao-de-rotulo  <!-- Song2023NoisyLabels: metricas especificas da familia "selecao de amostras" -->
+
+### Modelos (ruído de rótulo)
+wideresnet  <!-- Song2023NoisyLabels: ja registrado por Kossen2021ActiveTesting; repetido aqui so como referencia cruzada -->

@@ -3487,6 +3487,114 @@
       "cited_in": []
     },
     {
+      "id": "Song2023NoisyLabels",
+      "type": "artigo",
+      "label": "Song2023NoisyLabels",
+      "title": "Learning from Noisy Labels with Deep Neural Networks: A Survey",
+      "year": 2023,
+      "venue": "IEEE Transactions on Neural Networks and Learning Systems, v. 34, n. 11, p. 8135-8153",
+      "paper_type": "survey",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Song2023NoisyLabels.pdf",
+      "doi": "10.1109/TNNLS.2022.3152527",
+      "url": "https://doi.org/10.1109/TNNLS.2022.3152527",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 5 — Resultados (FALCO)",
+        "Cap. 6 — Conclusão"
+      ]
+    },
+    {
+      "id": "metodo:ruido-simetrico",
+      "type": "metodo",
+      "label": "ruido-simetrico"
+    },
+    {
+      "id": "metodo:ruido-assimetrico",
+      "type": "metodo",
+      "label": "ruido-assimetrico"
+    },
+    {
+      "id": "metodo:ruido-de-par",
+      "type": "metodo",
+      "label": "ruido-de-par"
+    },
+    {
+      "id": "metodo:ruido-dependente-da-instancia",
+      "type": "metodo",
+      "label": "ruido-dependente-da-instancia"
+    },
+    {
+      "id": "metodo:matriz-de-transicao-de-ruido",
+      "type": "metodo",
+      "label": "matriz-de-transicao-de-ruido"
+    },
+    {
+      "id": "metodo:efeito-de-memorizacao",
+      "type": "metodo",
+      "label": "efeito-de-memorizacao"
+    },
+    {
+      "id": "metodo:small-loss-trick",
+      "type": "metodo",
+      "label": "small-loss-trick"
+    },
+    {
+      "id": "metodo:selecao-de-amostras",
+      "type": "metodo",
+      "label": "selecao-de-amostras"
+    },
+    {
+      "id": "metodo:correcao-de-perda",
+      "type": "metodo",
+      "label": "correcao-de-perda"
+    },
+    {
+      "id": "metodo:co-teaching",
+      "type": "metodo",
+      "label": "co-teaching"
+    },
+    {
+      "id": "metodo:aprendizado-multi-rodada",
+      "type": "metodo",
+      "label": "aprendizado-multi-rodada"
+    },
+    {
+      "id": "dataset:imagenet",
+      "type": "dataset",
+      "label": "imagenet"
+    },
+    {
+      "id": "dataset:clothing1m",
+      "type": "dataset",
+      "label": "clothing1m"
+    },
+    {
+      "id": "dataset:animal-10n",
+      "type": "dataset",
+      "label": "animal-10n"
+    },
+    {
+      "id": "dataset:food-101n",
+      "type": "dataset",
+      "label": "food-101n"
+    },
+    {
+      "id": "dataset:webvision",
+      "type": "dataset",
+      "label": "webvision"
+    },
+    {
+      "id": "dataset:cifar-10n",
+      "type": "dataset",
+      "label": "cifar-10n"
+    },
+    {
+      "id": "dataset:cifar-100n",
+      "type": "dataset",
+      "label": "cifar-100n"
+    },
+    {
       "id": "Souza2020BERTimbau",
       "type": "artigo",
       "label": "Souza2020BERTimbau",
@@ -4303,6 +4411,16 @@
       "id": "oraculo-imperfeito",
       "type": "tema-falco",
       "label": "oraculo-imperfeito"
+    },
+    {
+      "id": "Frenay2014",
+      "type": "artigo-pendente",
+      "label": "Frenay2014"
+    },
+    {
+      "id": "Natarajan2013",
+      "type": "artigo-pendente",
+      "label": "Natarajan2013"
     },
     {
       "id": "Cap2-revisao",
@@ -8966,6 +9084,168 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Par moderno do Liu2012; uso opcional."
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "Frenay2014",
+      "type": "builds_on"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "Natarajan2013",
+      "type": "builds_on"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "pilar:P2",
+      "type": "pillars"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "metodo:ruido-simetrico",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "metodo:ruido-assimetrico",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "metodo:ruido-de-par",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "metodo:ruido-dependente-da-instancia",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "metodo:matriz-de-transicao-de-ruido",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "metodo:efeito-de-memorizacao",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "metodo:small-loss-trick",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "metodo:selecao-de-amostras",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "metodo:correcao-de-perda",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "metodo:co-teaching",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "metodo:aprendizado-multi-rodada",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "modelo:wideresnet",
+      "type": "models"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "dataset:cifar-10",
+      "type": "datasets"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "dataset:cifar-100",
+      "type": "datasets"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "dataset:mnist",
+      "type": "datasets"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "dataset:fashion-mnist",
+      "type": "datasets"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "dataset:svhn",
+      "type": "datasets"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "dataset:tiny-imagenet",
+      "type": "datasets"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "dataset:imagenet",
+      "type": "datasets"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "dataset:clothing1m",
+      "type": "datasets"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "dataset:animal-10n",
+      "type": "datasets"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "dataset:food-101n",
+      "type": "datasets"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "dataset:webvision",
+      "type": "datasets"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "dataset:cifar-10n",
+      "type": "datasets"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "dataset:cifar-100n",
+      "type": "datasets"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "tarefa:classificacao-de-imagens",
+      "type": "tasks"
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "DRI-SL",
+      "type": "fundamenta",
+      "note": "Dá o vocabulário formal para descrever o ruído do oráculo LLM: a matriz de transição T com Tij = p(ỹ=j|y=i) separa ruído SIMÉTRICO (uniforme entre classes) de ASSIMÉTRICO ou dependente de rótulo (a classe verdadeira tende a ser trocada por uma classe específica — o exemplo do survey é 'cachorro' confundido com 'gato' e não com 'peixe'), e ambos de ruído DEPENDENTE DA INSTÂNCIA. O ruído observado no FALCO — confusões concentradas em pares de classes semanticamente vizinhas — é assimétrico nessa taxonomia."
+    },
+    {
+      "source": "Song2023NoisyLabels",
+      "target": "FALCO",
+      "type": "ameaca",
+      "note": "ATENÇÃO — a tese cita este survey em 5-resultados-falco/texto.tex:143 para sustentar que ruído estruturado é 'cenário MENOS DANOSO ao classificador treinado que ruído uniforme'. O survey NÃO sustenta isso e, na dimensão que ele efetivamente mede, afirma o CONTRÁRIO: sob ruído assimétrico as distribuições de perda dos exemplos corretos e incorretos se sobrepõem, o desempenho dos métodos robustos 'piora consideravelmente' e identificar exemplos limpos fica MAIS difícil (§VII-A, p. 14; §III-E Remark, p. 9; Figuras 5 e 7, ambas a 40% de ruído no CIFAR-100). Detalhe na seção 'Contradição com o Cap. 5' abaixo."
     },
     {
       "source": "Souza2020BERTimbau",
