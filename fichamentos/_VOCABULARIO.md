@@ -166,3 +166,7 @@ delta-de-desbalanceamento-de-classe  <!-- Griesshaber2020, Tab. 3: Δ|T| = max_c
 
 ### Tarefas (R3 t5)
 inferencia-de-linguagem-natural  <!-- Griesshaber2020: MNLI, QNLI e SNLI são tarefas de implicação textual, não classificação temática -->
+
+### Registro de termos já em uso (2026-08-17, ao fechar o R5 do Alsmadi)
+soft-computing  <!-- Alsmadi2019 -->
+classificacao-de-texto-curto  <!-- Alsmadi2019 (tarefa) -->
