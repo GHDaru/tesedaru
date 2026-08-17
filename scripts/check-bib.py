@@ -69,6 +69,15 @@ MORTAS = {
     # bloco de linha única: fabricadas por sequestro de identificador —
     # o DOI/arXiv declarado resolve, mas para artigo de OUTRA obra/área.
     "Yu2022", "Zhang2020", "Liang2024LLMActive", "Qi2020FLAL",
+    # Razali2020: removida em 10cd093 após a checagem `titulo-duplicado` do
+    # ciclo 011 a acusar. Copiava o título do Widodo2022 sobre coordenadas de
+    # outro artigo (J. Phys. Conf. Ser. 1529(2):022098 = navegação outdoor em
+    # AR). Entra aqui por um motivo concreto, não por simetria: o revisor1
+    # verificou que ela É CITADA no repositório LEGADO (Tese-Vers-o-Draft), na
+    # mesma frase de estratificação, ao lado de Forman2010 e James2013. Texto
+    # trazido do rascunho antigo reintroduziria a citação fabricada, e é
+    # exatamente isso que esta lista existe para pegar.
+    "Razali2020",
 }
 
 ERRO = "erro"
