@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 23,
-  "atualizado_em": "2026-08-17T00:05:00Z",
+  "versao": 24,
+  "atualizado_em": "2026-08-17T00:45:00Z",
   "atualizado_por": "executor02 sobre a v21 do principal (conflito de lock resolvido a favor da base dele): s42 canônica concluída — 3 sementes comparáveis fechadas",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -886,6 +886,10 @@
     {
       "id": "dec-cache-kaggle",
       "titulo": "AUTOR: subir annotation_cache_nemotron.jsonl como dataset do Kaggle — destrava os braços A/B/C nas 3 sementes (o centro da hipótese F1(A) ≥ 0,95×F1(D)); 3 retomadas curtas, 18 resultados prontos são pulados"
+    },
+    {
+      "id": "dec-nome-e3",
+      "titulo": "Rebatismo do E3': autor incomoda-se com a plica; recomendação do principal = E3' assume o nome E3 (o E3 original nunca teve resultados; exige reescrever o desenho em 3-metodo:443 + renomear ~35 ocorrências + código/artefatos/notebooks via executor01). Autor: 'voltemos com ela' — retomar."
     }
   ]
 }

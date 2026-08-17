@@ -10,6 +10,9 @@
 > templates, scripts de render e workflow — publica sem gate, ADR 0010) ·
 > `executor01` e `executor02` (execuções longas: treinos, varreduras, jobs —
 > reportam ao principal; não editam texto nem plano) ·
+> `local` (sessão na máquina do autor; acessa arquivos NÃO versionados —
+> caches, PDFs, dados locais — e os publica onde o time alcança; mesmo
+> protocolo de mensagens) ·
 > `autor` (humano; único que mergeia na main e arbitra).
 >
 > A frase que resume tudo: **"Escreva só na sua superfície, verifique só o que
