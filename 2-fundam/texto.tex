@@ -378,7 +378,7 @@ seleção localmente em múltiplos clientes preservando privacidade
 \cite{Deng2023fedal}; e o cenário com \textbf{múltiplos oráculos} de custos e
 competências distintos \cite{Yan2011}, formulado originalmente para anotadores humanos em \textit{crowdsourcing} e
 que hoje se repete na oferta de LLMs com preços e acurácias distintos, que é o
-cenário do FALCO. Esse cardápio e
+cenário do FALCO. Essa oferta e
 seus preços são instrumentados no Capítulo~\ref{ch:metodo}.
 
 \subsection{Estratégias de seleção de instâncias}
@@ -516,8 +516,9 @@ Seção~\ref{sec:fund-llm}.
 
 Duas consequências operacionais do laço merecem registro porque reaparecem nos
 experimentos. Primeiro, o \textbf{critério de parada}: o ganho marginal por
-lote decresce ao longo da curva de aprendizado (comportamento que a própria
-curva populacional do E6 exibe, Capítulo~\ref{ch:resultados-falco}), e critérios baseados na
+lote decresce ao longo da curva de aprendizado (comportamento que a curva
+populacional de aprendizado desta tese exibe,
+Capítulo~\ref{ch:resultados-falco}), e critérios baseados na
 estagnação do desempenho em um conjunto de validação (como o adotado pelo
 FALCO e formalizado no Apêndice~\ref{ap:parada-drift}) ou em razões de
 custo-benefício \cite{Rouzegar2024Thesis} evitam gastar orçamento em
@@ -530,7 +531,7 @@ conjunto fica mais balanceado que a distribuição natural) quanto,
 criticamente, a \emph{avaliação}: métricas calculadas sobre os próprios dados
 coletados não estimam o desempenho populacional
 \citep{Farquhar2021Bias, Kossen2021ActiveTesting}, exigindo conjuntos
-reservados. O fenômeno é quantificado no experimento E6 desta tese
+reservados. O fenômeno é quantificado nesta tese
 (Capítulo~\ref{ch:resultados-falco}).
 
 \section{Modelos de linguagem como oráculos de rotulagem}
@@ -605,7 +606,7 @@ Figura~\ref{fig:activellm_arch}. O desempenho do seletor depende da engenharia
 do \textit{prompt}: instruções claras de papel, encadeamento de pensamento
 \citep{Wei2022}, controle do tamanho do lote e recapitulação das seleções
 anteriores \citep{Bayer2024ActiveLLM}. A própria escolha de \textit{prompts}
-pode ser ativa \citep{Diao2023, Schick2023}.
+pode ser ativa \citep{Diao2023}.
 
 \begin{figure}[htbp]
     \centering
@@ -633,7 +634,10 @@ pode ser ativa \citep{Diao2023, Schick2023}.
 \end{figure}
 
 Como \textbf{componente de sistemas compostos}, quatro desenhos recentes
-importam ao posicionamento desta tese.
+importam ao posicionamento desta tese. O pano de fundo é a capacidade, já
+demonstrada, de o próprio modelo decidir quando e como acionar recursos
+externos: no Toolformer, o LLM aprende por auto-supervisão quais interfaces
+chamar, em que momento e com quais argumentos \citep{Schick2023}.
 
 O primeiro é a \emph{destilação ativa de conhecimento}, em que o LLM-professor
 rotula para um estudante compacto \citep{Xiao2023FreeAL}. Quando a aquisição é
@@ -697,8 +701,9 @@ preço. A \textbf{medição} também muda: parte do erro aparente de um LLM
 anotador é erro de \emph{formato}, e não de semântica \citep{Kholodna2024}:
 resposta fora do espaço de classes ou inconsumível automaticamente. É o que
 torna a restrição da saída ao espaço fechado de rótulos parte do instrumento;
-a confiança auto-reportada dos LLMs tende ao excesso, exigindo calibração
-\citep{Tian2023}; as janelas de contexto limitam o lote \citep{Bayer2024ActiveLLM}; e a
+a confiança auto-reportada dos LLMs tende ao excesso \citep{Diao2023},
+exigindo calibração \citep{Tian2023}; as janelas de contexto limitam o lote
+\citep{Bayer2024ActiveLLM}; e a
 resposta do mesmo modelo pode variar entre versões e provedores de
 \textit{serving}, fazendo de cada medição uma fotografia da tripla (modelo,
 provedor, data). A generalização natural desse cenário é estender a seleção
