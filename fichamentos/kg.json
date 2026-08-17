@@ -1499,6 +1499,72 @@
       "label": "selecao-em-lote"
     },
     {
+      "id": "Griesshaber2020",
+      "type": "artigo",
+      "label": "Griesshaber2020",
+      "title": "Fine-tuning BERT for Low-Resource Natural Language Understanding via Active Learning",
+      "year": 2020,
+      "venue": "Proceedings of the 28th International Conference on Computational Linguistics (COLING 2020), p. 1158-1171, Barcelona (online)",
+      "paper_type": "avaliacao",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Griesshaber2020.pdf",
+      "doi": "10.18653/v1/2020.coling-main.100",
+      "url": "https://doi.org/10.18653/v1/2020.coling-main.100",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "metodo:bald",
+      "type": "metodo",
+      "label": "bald"
+    },
+    {
+      "id": "metodo:dropout-de-monte-carlo",
+      "type": "metodo",
+      "label": "dropout-de-monte-carlo"
+    },
+    {
+      "id": "metodo:aproximacao-bayesiana-de-incerteza",
+      "type": "metodo",
+      "label": "aproximacao-bayesiana-de-incerteza"
+    },
+    {
+      "id": "metodo:congelamento-de-camadas",
+      "type": "metodo",
+      "label": "congelamento-de-camadas"
+    },
+    {
+      "id": "metodo:cnn-como-cabeca-de-classificacao",
+      "type": "metodo",
+      "label": "cnn-como-cabeca-de-classificacao"
+    },
+    {
+      "id": "modelo:bert-base-uncased",
+      "type": "modelo",
+      "label": "bert-base-uncased"
+    },
+    {
+      "id": "dataset:mnli",
+      "type": "dataset",
+      "label": "mnli"
+    },
+    {
+      "id": "dataset:qnli",
+      "type": "dataset",
+      "label": "qnli"
+    },
+    {
+      "id": "dataset:snli",
+      "type": "dataset",
+      "label": "snli"
+    },
+    {
+      "id": "tarefa:inferencia-de-linguagem-natural",
+      "type": "tarefa",
+      "label": "inferencia-de-linguagem-natural"
+    },
+    {
       "id": "Gunasekara2018",
       "type": "artigo",
       "label": "Gunasekara2018",
@@ -4060,11 +4126,6 @@
       "label": "amostragem-por-subpalavras"
     },
     {
-      "id": "modelo:bert-base-uncased",
-      "type": "modelo",
-      "label": "bert-base-uncased"
-    },
-    {
       "id": "dataset:eurlex",
       "type": "dataset",
       "label": "eurlex"
@@ -6331,6 +6392,129 @@
       "target": "FALCO",
       "type": "fundamenta",
       "note": "Já citado no formalismo do Cap.2 (arcabouço do ciclo de AL). Exemplo canônico de AL+SVM com seleção em LOTE guiada por probabilidades — antecedente direto do QueryBatch por incerteza do FALCO."
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "Devlin2019",
+      "type": "builds_on"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "pilar:P1",
+      "type": "pillars"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:bald",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:dropout-de-monte-carlo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:aproximacao-bayesiana-de-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:congelamento-de-camadas",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:cnn-como-cabeca-de-classificacao",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:selecao-aleatoria",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "modelo:bert-base-uncased",
+      "type": "models"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "dataset:glue",
+      "type": "datasets"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "dataset:mnli",
+      "type": "datasets"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "dataset:qnli",
+      "type": "datasets"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "dataset:snli",
+      "type": "datasets"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "dataset:sst-2",
+      "type": "datasets"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "tarefa:inferencia-de-linguagem-natural",
+      "type": "tasks"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Sexto trabalho da série de regime que venho montando: aprendizado ativo VENCE a seleção aleatória sobre BERT com menos de mil rótulos — mas em tarefas de 2 a 3 classes. Confirma literalmente a frase da L770 da tese ('adaptam AA ao BERT')."
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "FALCO",
+      "type": "ameaca",
+      "note": "ACHADO MAIS IMPORTANTE DA FICHA. A §5 e a Tab. 3 documentam que a aquisição por incerteza DESEQUILIBRA as classes do conjunto de treino: a diferença entre a classe maior e a menor é de 4 a 10 vezes a da seleção aleatória. Isso foi medido com 2 e 3 classes; o FALCO opera com 621. O mecanismo existe, a magnitude no nosso regime é desconhecida."
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "DRI-SL",
+      "type": "complementa",
+      "note": "Restringe o pool a um subconjunto de 20 mil elementos por custo computacional, e declara o risco de excluir instâncias relevantes. É precedente publicado para a mesma decisão no FALCO, cujo pool tem 250.221 linhas."
     },
     {
       "source": "Gunasekara2018",

@@ -150,3 +150,19 @@ pubmed-20k-rct, sst-2  <!-- Yuan2020: dos 4 conjuntos, todos de 2 a 5 classes --
 
 ### Datasets (AL com BERT, orçamento pequeno)
 subjectivity  <!-- EinDor2020: já usado por Schroder2022Uncertainty; aqui como um dos 10 conjuntos -->
+
+## Adições da rodada R3 do t5 — AA bayesiano sobre BERT (2026-08-17)
+
+Termos entrados pelo fichamento de `Griesshaber2020`; mesmo commit do fichamento.
+
+### Métodos (R3 t5 — bayesiano)
+bald, dropout-de-monte-carlo, aproximacao-bayesiana-de-incerteza, congelamento-de-camadas  <!-- Griesshaber2020: BALD = Bayesian Active Learning by Disagreement (Houlsby et al. 2011); o dropout de Monte Carlo é o mecanismo que aproxima a incerteza sem trocar de arquitetura -->
+
+### Datasets (R3 t5)
+mnli, qnli, snli  <!-- Griesshaber2020: tarefas do GLUE; glue e sst-2 já registrados na rodada fichar-vizinhos -->
+
+### Métricas (R3 t5)
+delta-de-desbalanceamento-de-classe  <!-- Griesshaber2020, Tab. 3: Δ|T| = max_c |T_c| − min_c |T_c|, a diferença entre a classe mais e a menos representada no conjunto de treino; mede o viés de classe que a aquisição por incerteza introduz -->
+
+### Tarefas (R3 t5)
+inferencia-de-linguagem-natural  <!-- Griesshaber2020: MNLI, QNLI e SNLI são tarefas de implicação textual, não classificação temática -->
