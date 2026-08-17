@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 55,
-  "atualizado_em": "2026-08-17T18:55:00Z",
+  "versao": 56,
+  "atualizado_em": "2026-08-17T19:10:00Z",
   "atualizado_por": "revisor1: Cap. 2 fechado nas rodadas que me cabem — R3 e R4 dos temas t2, t4 e t5; retrospectiva em docs/retrospectiva-cap2-revisor1.md",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -168,7 +168,8 @@
           "nota": "5 temas concluídos; arquivo com 1 travessão (contraste legítimo)"
         },
         "R2": {
-          "status": "pendente"
+          "status": "feito",
+          "nota": "coberta pela mesma varredura do R6: 6 siglas acrescentadas à lista (AA, QBC, ECOICOP, GPT, KNN, SVM), STC removida por não ter uso; verificado pelo principal"
         },
         "R3": {
           "status": "feito",
@@ -183,8 +184,8 @@
           "nota": "32 números levantados; todos os de fonte externa batem com a ficha; único achado (200 caracteres) resolvido pelo autor no PDF do Alsmadi2019 — prosa corrigida, ficha a completar"
         },
         "R6": {
-          "status": "andamento",
-          "nota": "despachado à banca 2026-08-17 (ordem do autor)"
+          "status": "feito",
+          "nota": "banca, commits ebb1f65+12dd24d na main; verificado pelo principal: 0 códigos de experimento, 15 criações da tese só como ponte com ref, glosas na 1ª ocorrência"
         },
         "R7": {
           "status": "andamento",
