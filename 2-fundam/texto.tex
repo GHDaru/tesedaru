@@ -745,29 +745,31 @@ de similaridade e agrava a maldição da dimensionalidade; o \textbf{ruído e a
 informalidade} — erros, abreviações, gírias — que exigem normalização
 \cite{Aliero2023}; e a \textbf{ambiguidade} semântica acentuada pela falta de
 contexto. O pré-processamento usual (tokenização, minúsculas, remoção de
-pontuação e \textit{stopwords}, lematização ou \textit{stemming}, tratamento
+pontuação e palavras funcionais de alta frequência (\textit{stopwords}),
+lematização ou redução ao radical (\textit{stemming}), tratamento
 de ruído específico) mitiga parte do problema, e sua escolha e ordem afetam o
 desempenho final \cite{Naseem2021HateSpeech, Aliero2023}; nesta tese ele é deliberadamente
 mínimo (Capítulo~\ref{ch:metodo}), delegando a variação lexical ao
 classificador. No domínio específico — cupons fiscais de varejo — os textos
-têm 4 a 50 caracteres, caixa alta e abreviações agressivas
+têm 4 a 50 caracteres, caixa alta e abreviações extensas
 (\texttt{CERV BRAHMA LT 350ML}), combinando todos os quatro desafios de uma vez.
 
 \subsection{Representação e classificadores}
 \label{subsec:stc_algoritmos}
 
 As \textbf{representações esparsas} — \textit{one-hot},
-\textit{bag-of-words} nas variantes binária, por frequência e TF--IDF
+\textit{bag-of-words} nas variantes binária, por frequência e por frequência
+do termo ponderada pelo inverso da frequência nos documentos (TF--IDF)
 \citep{Salton1988}, estendidas por $n$-gramas — projetam cada texto num vetor
 de dimensão igual ao vocabulário; a similaridade do cosseno é a métrica de
 comparação usual nesse regime \cite{Baeza2013}. Suas propriedades em
-descrições curtas de produtos em português foram investigadas em profundidade
-na dissertação de mestrado do autor \citep{Daru2024Dissertacao}, que este
+descrições curtas de produtos em português foram investigadas na dissertação de mestrado do autor \citep{Daru2024Dissertacao}, que este
 trabalho toma como ponto de partida: em texto curto a frequência de termos
 satura (quase todo termo ocorre uma única vez por descrição), o que explica a
 vantagem empírica da variante binária sobre TF e TF--IDF — e a configuração
 vencedora lá identificada (binária, uni e bigramas, sem normalização) é a
-adotada pelo classificador leve PVBin desta tese; para o panorama de
+adotada pelo classificador leve desta tese, o PVBin (protótipos de classe
+sobre vetores binários); para o panorama de
 ponderação e representação, ver \citet{Salton1988} e \citet{Naseem2021WordRep}.
 As \textbf{representações densas} mapeiam palavras ou textos para espaços
 contínuos de baixa dimensão: os \textit{embeddings} estáticos — Word2Vec
@@ -777,12 +779,12 @@ contínuos de baixa dimensão: os \textit{embeddings} estáticos — Word2Vec
 representação de cada token à sequência inteira — ELMo \cite{Peters2018}, a
 família GPT \cite{Radford2018, Radford2019} e o BERT \cite{Devlin2019} —,
 resolvendo a polissemia e sustentando o estado da arte em texto curto
-\cite{Ahmed2022, Li2020, Karl2023}. É dessa família o SBERT usado pelo DRI-SL
-e o BERTimbau \cite{Souza2020BERTimbau} usado como classificador forte.
+\cite{Ahmed2022, Li2020, Karl2023}. É dessa família o SBERT \citep{Reimers2019SBERT}, que produz representações
+de sentença comparáveis por cosseno, usado pelo DRI-SL, e o BERTimbau \cite{Souza2020BERTimbau} usado como classificador forte.
 
-Quanto aos \textbf{classificadores}, os algoritmos clássicos — SVM
-\cite{Cortes1995}, Naive Bayes e regressão logística \cite{Murphy2012}, KNN
-\cite{Cover1967}, árvores e \textit{ensembles} \cite{Quinlan1993,
+Quanto aos \textbf{classificadores}, os algoritmos clássicos — máquinas de vetores de
+suporte (SVM) \cite{Cortes1995}, Naive Bayes e regressão logística
+\cite{Murphy2012}, $k$ vizinhos mais próximos (KNN) \cite{Cover1967}, árvores e \textit{ensembles} \cite{Quinlan1993,
 Breiman2001, Dietterich2000} — seguem relevantes como linhas de base
 eficientes sobre representações esparsas \cite{Kowsari2019, Aliero2023};
 arquiteturas profundas convolucionais e recorrentes capturam padrões locais e
@@ -799,9 +801,8 @@ um forte, para a validação final.
 \label{subsec:stc_implicacoes}
 
 Três consequências do regime de texto curto estruturam os experimentos desta
-tese. Primeiro, a cauda longa de classes torna o Macro F1 implacável: com
-centenas de categorias e poucas instâncias nas raras, cada classe descoberta
-tarde custa caro na métrica — e é por isso que a cobertura de classes do
+tese. Primeiro, a cauda longa de classes torna o Macro F1 sensível a classes não cobertas: com
+centenas de categorias e poucas instâncias nas raras, cada classe descoberta tarde reduz o Macro F1 de forma desproporcional — e é por isso que a cobertura de classes do
 conjunto inicial domina o desempenho no regime pequeno
 (Capítulo~\ref{ch:resultados-l0}). Segundo, a partida a frio é mais severa: com
 pouca informação por instância, o modelo inicial precisa de mais exemplos para
@@ -811,7 +812,7 @@ interage com a seleção por incerteza — que tende a concentrar-se nas
 fronteiras das classes majoritárias \cite{Attenberg2010} — e com a própria
 avaliação, como discutido na Seção~\ref{sec:limitacoes_laco}. O domínio de
 descrições de varejo em português \cite{Daru2022} reúne essas três condições
-em escala, o que o torna o laboratório adequado para o framework proposto.
+em escala, o que o torna um caso de teste adequado para o framework proposto.
 
 \section{Estado da arte na interseção e lacuna de pesquisa}
 \label{sec:fund-soa}
@@ -847,11 +848,12 @@ mais próximos foram confrontados.
 
 \textbf{Partida a frio informada.} A linha que antecede os LLMs usa
 representações pré-treinadas para selecionar o conjunto inicial — ALPS
-\cite{Yuan2020} explora a "surpresa" do modelo de linguagem; Ein-Dor et al.
-\cite{EinDor2020} e Griesshaber et al. \cite{Griesshaber2020} adaptam AA ao
+\cite{Yuan2020} seleciona pela surpresa (\textit{surprisal}) que a instância
+causa ao modelo de linguagem, na acepção da teoria da informação; \citet{EinDor2020} e \citet{Griesshaber2020} adaptam AA ao
 BERT — e culmina no DEUCE \cite{Guo2025Deuce}, que combina diversidade
-textual e de classe prevista num grafo duplo-vizinho para evitar o efeito de
-cluster perdido. O DEUCE converge conceitualmente com a Fase 1 do FALCO, mas
+textual e de classe prevista num grafo duplo-vizinho para evitar o que seus autores chamam de efeito
+de agrupamento não coberto (\textit{missed cluster effect}): classes inteiras
+que a amostra inicial deixa de representar. O DEUCE converge conceitualmente com a Fase 1 do FALCO, mas
 não incorpora oráculo LLM nem é avaliado em português ou texto de
 e-commerce.
 
@@ -860,11 +862,11 @@ redefiniu os papéis: seleção informada pelo conhecimento pré-treinado
 (ActiveLLM \cite{Bayer2024ActiveLLM}), rotulagem das instâncias selecionadas
 \cite{Zhang2025}, roteamento híbrido humano--LLM \cite{Rouzegar2024},
 rótulos candidatos com destilação \cite{Xia2025CanDist} e misturas de LLMs
-leves \cite{Qi2026MixtureLLMs}; a survey de \citet{Xia2025} organiza o campo
+leves \cite{Qi2026MixtureLLMs}; a revisão de \citet{Xia2025} organiza o campo
 na progressão "da seleção para a geração". Os desafios transversais são a
 calibração da confiança, o custo por consulta e a propagação de vieses
 \cite{Bayer2024ActiveLLM, Zhang2025}. A pesquisa de comunidade de
-\citet{Romberg2025Reassessing} acrescenta o alerta prático: complexidade de
+\citet{Romberg2025Reassessing} acrescenta uma ressalva de ordem prática: complexidade de
 implantação, incerteza sobre a redução real de custo e ferramental inadequado
 seguem sendo as barreiras à adoção — a viabilidade operacional, não a
 acurácia, é o obstáculo apontado.
@@ -873,10 +875,10 @@ acurácia, é o obstáculo apontado.
 foram detalhadas nas Seções~\ref{sssec:llm_desafios}
 e~\ref{sssec:llm_seletor}; na interseção com o domínio, o estudo de
 \citet{Machado2026RetailPt} — classificação de $\approx 100$ mil títulos de
-supermercados portugueses nas categorias ECOICOP para estatística oficial —
+supermercados portugueses nas categorias da Classificação do Consumo Individual por Finalidade
+(ECOICOP) para estatística oficial —
 corrobora a escolha do BERTimbau como classificador forte (97,0\% de
-acurácia, 94,0\% de Macro F1 após ajuste), mas depende de um fluxo de
-rotulagem humano ad-hoc iniciado com 12 mil rótulos manuais, sem estratégia
+acurácia, 94,0\% de Macro F1 após ajuste), mas depende de um fluxo de rotulagem humano sem protocolo definido iniciado com 12 mil rótulos manuais, sem estratégia
 formal de aprendizado ativo nem oráculo automatizado — exatamente o processo
 que o FALCO formaliza.
 
@@ -932,11 +934,11 @@ instrumentado — é a lacuna que o Capítulo~\ref{ch:metodo} ataca.
 
 O capítulo percorreu uma cadeia: as \emph{métricas} sob desbalanceamento e a
 inferência que as compara (Seção~\ref{sec:fund-super}); o \emph{laço} que
-compra informação e suas duas fraturas — partida a frio e oráculo imperfeito
+compra informação e suas duas limitações — partida a frio e oráculo imperfeito
 (Seção~\ref{sec:fund-al}); o \emph{oráculo LLM} que transforma qualidade,
 custo e instrumento em variáveis de projeto (Seção~\ref{sec:fund-llm}); o
 \emph{domínio} de texto curto que tensiona tudo simultaneamente
 (Seção~\ref{sec:fund-stc}); e o \emph{estado da arte} que resolve cada
-fratura isoladamente, mas não as três em conjunto
+limitação isoladamente, mas não as três em conjunto
 (Seção~\ref{sec:fund-soa}). O Capítulo~\ref{ch:metodo} apresenta o framework
 que ocupa essa interseção — e o programa experimental que o submete à prova.
