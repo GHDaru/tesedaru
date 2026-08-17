@@ -359,8 +359,11 @@ de LLM \citep{Yuan2025NoiseAL}.
 \label{sec:res-e6}
 
 O E6 estende a comparação de seletores para a escala completa da base e
-introduz um instrumento novo, proposto durante a pesquisa: a distinção entre
-avaliação \emph{interna} e \emph{externa}. A base deduplicada é dividida em um
+operacionaliza a distinção entre avaliação \emph{interna} e \emph{externa}.
+O viés estatístico de avaliar em dados coletados ativamente é conhecido da
+literatura \citep{Farquhar2021Bias,Kossen2021ActiveTesting}; a contribuição
+aqui é quantificá-lo em espaço de classes amplo, onde o sinal se revela
+dependente da métrica. A base deduplicada é dividida em um
 \textit{pool} rotulável de 50.000 instâncias (oráculo perfeito, isto é, o
 próprio gabarito) e uma \textbf{população reservada} com todo o restante
 ($\approx 140$ mil instâncias), jamais tocada pela seleção. A cada lote de
@@ -457,7 +460,8 @@ representativa que captura quase todo o ganho.
 enviesada, com sinal dependente da métrica}: no braço aleatório (controle),
 acurácia interna e externa coincidem ($\Delta \approx 0$), validando o
 instrumento; na entropia, a acurácia interna \emph{subestima} a real em até
-14 p.p.\ (o teste interno herda os casos difíceis); e o Macro F1 interno
+14 p.p.\ (o teste interno herda os casos difíceis, o mecanismo previsto por
+\citealp{Kossen2021ActiveTesting}); e o Macro F1 interno
 \emph{superestima} o populacional em todos os seletores (até $+34$ p.p.\ no
 DRI-SL no início da curva), porque a amostra ativa sobre-representa classes
 raras. Nenhuma das duas direções é utilizável como estimativa de implantação:
