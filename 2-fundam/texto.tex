@@ -583,9 +583,12 @@ o survey clássico de \citet{Frenay2014} organiza taxonomias de ruído
 funções de perda corrigidas; e \citet{Song2023NoisyLabels} revisam o estado da
 arte com redes profundas. Dois resultados importam diretamente: redes
 profundas toleram ruído moderado quando há dados suficientes, mas degradam de
-forma acentuada sob ruído estruturado (dependente de classe) — exatamente o
-perfil de erro observado em oráculos LLM, cujas confusões se concentram em
-pares de classes vizinhas. A evidência mais recente acrescenta uma cautela
+forma acentuada sob ruído dependente de classe que desloca fronteiras de
+decisão de modo sistemático. O perfil observado em oráculos LLM é um caso
+particular com estrutura própria: as confusões concentram-se em pares de
+classes semanticamente vizinhas, erros parcialmente defensáveis cujo dano ao
+classificador não se deduz da regra geral — é examinado empiricamente nesta
+tese (RQ3 e E4, Capítulo~\ref{ch:resultados-falco}). A evidência mais recente acrescenta uma cautela
 metodológica: ruído \emph{real} de anotação é substancialmente mais nocivo que
 as corrupções sintéticas usadas em avaliação — demonstrado em reconhecimento
 de entidades pelo NoiseBench \citep{Merdjanovska2024NoiseBench}, que inclui um
@@ -615,10 +618,12 @@ a confiança auto-reportada dos LLMs tende ao excesso, exigindo calibração
 \citep{Tian2023}; as janelas de contexto limitam o lote \citep{Bayer2024}; e a
 resposta do mesmo modelo pode variar entre versões e provedores de
 \textit{serving}, fazendo de cada medição uma fotografia da tripla (modelo,
-provedor, data). A seleção ativa em múltiplos níveis — de instâncias, de
-\textit{prompts} e do próprio oráculo \citep{Wu2022} — é a generalização
-natural desse cenário. O Capítulo~\ref{ch:metodo} instrumenta cada um desses
-componentes; os experimentos E0 e E0-P os quantificam.
+provedor, data). A generalização natural desse cenário é estender a seleção
+ativa para além das instâncias: à escolha dos exemplos que compõem o
+\textit{prompt} de anotação \citep{Diao2023, Margatina2023, Zhang2023LLMaAA} e, passo que
+esta tese dá com os experimentos E0 e E0-P, à escolha do próprio oráculo e de
+sua configuração. O Capítulo~\ref{ch:metodo} instrumenta cada um desses
+componentes.
 
 Em síntese: com um oráculo LLM, qualidade, custo e instrumento de medição
 tornam-se três dimensões \emph{escolhíveis} de projeto — e é nesse espaço de
@@ -645,8 +650,8 @@ conjunto pré-definido de classes a partir de exemplos rotulados
 para sequências de comprimento limitado — tipicamente até 200 caracteres
 \cite{Song2014, Alsmadi2019} —, como \textit{tweets}, títulos de notícias,
 consultas e descrições de produtos \cite{Daru2024Dissertacao}. Quatro
-características tornam o regime difícil \cite{Ahmed2022, Ahmed2023,
-Song2014}: a \textbf{escassez de contexto}, que limita a desambiguação; a
+características tornam o regime difícil \cite{Ahmed2022, Song2014}: a
+\textbf{escassez de contexto}, que limita a desambiguação; a
 \textbf{esparsidade lexical} em alta dimensionalidade, que enfraquece métricas
 de similaridade e agrava a maldição da dimensionalidade; o \textbf{ruído e a
 informalidade} — erros, abreviações, gírias — que exigem normalização

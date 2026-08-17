@@ -175,22 +175,29 @@ def fila_e_represados(plano):
     for c in plano["capitulos"]:
         for rid, cell in c["rodadas"].items():
             if cell.get("status") == "gate":
-                fila.append({"id": f"{c['id']}.{rid}", "tipo": "gate",
+                # rodada de capítulo é sempre revisão de texto — trilha implícita
+                fila.append({"id": f"{c['id']}.{rid}", "tipo": "gate", "trilha": "texto",
                              "titulo": f"Aprovar {c['titulo']} · rodada {rid}",
                              "pontos_destravados": round(pontos_celula(c, rid))})
     for i in plano.get("execucoes", {}).get("itens", []):
         if i.get("dono") == "autor" and i.get("estado") == "aguardando_inicio":
-            fila.append({"id": i["id"], "tipo": "execucao", "titulo": i["o_que"],
-                         "pontos_destravados": round(destrava(i["id"]))})
+            fila.append({"id": i["id"], "tipo": "execucao", "trilha": i.get("trilha"),
+                         "titulo": i["o_que"], "pontos_destravados": round(destrava(i["id"]))})
+        elif i.get("estado") == "gate":
+            # execução em gate espera aprovação do autor independente do dono
+            # do item (plano v29 — pedido do autor: fila agrupada por trilha)
+            fila.append({"id": i["id"], "tipo": "gate", "trilha": i.get("trilha"),
+                         "titulo": i.get("o_que") or i.get("descricao") or i["id"],
+                         "pontos_destravados": 0})
     for g in plano.get("artefatos", []):
         for i in g["itens"]:
             if (i.get("dono") == "autor" and i.get("status") == "pendente"
                     and not bloqueada(i, itens)):
-                fila.append({"id": i["id"], "tipo": "acao", "titulo": i["titulo"],
-                             "pontos_destravados": round(destrava(i["id"]))})
+                fila.append({"id": i["id"], "tipo": "acao", "trilha": i.get("trilha"),
+                             "titulo": i["titulo"], "pontos_destravados": round(destrava(i["id"]))})
     for dp in plano.get("decisoes_pendentes", []):
-        fila.append({"id": dp["id"], "tipo": "decisao", "titulo": dp["titulo"],
-                     "pontos_destravados": 0})
+        fila.append({"id": dp["id"], "tipo": "decisao", "trilha": dp.get("trilha"),
+                     "titulo": dp["titulo"], "pontos_destravados": 0})
     fila.sort(key=lambda x: -x["pontos_destravados"])
     return {"total": len(fila), "itens": fila}, \
            {"pontos": round(max((f["pontos_destravados"] for f in fila), default=0))}
