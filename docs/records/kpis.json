@@ -1,13 +1,13 @@
 {
  "schema": "kpis/v1",
  "computado_em": "2026-08-17",
- "git_sha": "053929f",
+ "git_sha": "871898e",
  "prontidao": {
-  "global_pct": 13.3,
-  "texto_pct": 15.7,
+  "global_pct": 14.1,
+  "texto_pct": 16.6,
   "artefatos_pct": 0.0,
   "pontos_totais": 2032,
-  "pontos_feitos": 318,
+  "pontos_feitos": 338,
   "por_rodada": [
    {
     "id": "R1",
@@ -42,7 +42,7 @@
    {
     "id": "R7",
     "pontos": 150,
-    "feitos": 0
+    "feitos": 20
    }
   ],
   "por_capitulo": [
@@ -54,7 +54,7 @@
    {
     "id": "cap1",
     "pontos": 96,
-    "feitos": 76
+    "feitos": 96
    },
    {
     "id": "cap2",
@@ -89,11 +89,11 @@
   ]
  },
  "ritmo": {
-  "velocidade_pontos_semana": 0.0,
+  "velocidade_pontos_semana": 140.0,
   "janela_dias": 1,
-  "eta_semanas": null,
-  "eta_data": null,
-  "eta_confiavel": false,
+  "eta_semanas": 12.1,
+  "eta_data": "2026-11-09",
+  "eta_confiavel": true,
   "serie": [
    {
     "data": "2026-08-16",
@@ -104,9 +104,9 @@
    },
    {
     "data": "2026-08-17",
-    "commit": "dd2633e",
-    "pontos": 318,
-    "pct": 15.7,
+    "commit": "528029a",
+    "pontos": 338,
+    "pct": 16.6,
     "evento": null
    }
   ]

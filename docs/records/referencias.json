@@ -1,10 +1,10 @@
 {
  "schema": "referencias.v1",
- "computado_em": "2026-08-17 00:56 UTC",
+ "computado_em": "2026-08-17 01:02 UTC",
  "total": 378,
  "citadas": 152,
  "com_link_direto": 146,
- "com_ficha_s2": 29,
+ "com_ficha_s2": 30,
  "referencias": [
   {
    "chave": "alsmadi2019shorttext",
@@ -7661,8 +7661,8 @@
    "venue": "arXiv preprint arXiv:2402.00123",
    "link": "https://arxiv.org/abs/2402.00123",
    "link_tipo": "arxiv",
-   "link_s2": "https://www.semanticscholar.org/search?q=Large%20Language%20Models%20as%20Active%20Learning%20Oracles%3A%20A%20Survey%20and%20Benchmark&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/3161ceafcd5b21e5364d21681ea7120170058206",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
