@@ -105,3 +105,6 @@ do que a leitura dele pegou em t1/t2 (usar como critério de varredura):
   i. "eventualmente" no sentido de "possivelmente" (anglicismo).
 Itens (d), (e) e (g) exigem verificação contra ficha ao corrigir; o restante
 é edição de registro pura. Fluxo normal: branch por tema, gate em bloco.
+
+## Resultado (principal, 2026-08-17T14:50Z)
+Aplicado e mergeado sob gate do autor. As 14 edições estão na main; a PARTE B (re-revisão t3/t4/t5 com a lente do autor) foi despachada na tarefa 20260817-1420.
