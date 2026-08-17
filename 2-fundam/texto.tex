@@ -860,7 +860,9 @@ representações pré-treinadas para selecionar o conjunto inicial: ALPS
 \cite{Yuan2020} seleciona pela surpresa (\textit{surprisal}) que a instância
 causa ao modelo de linguagem, medida como a perda de modelagem mascarada do
 próprio BERT: quanto pior o modelo prevê os tokens escondidos da instância,
-mais informativa ela é, sem exigir nenhum rótulo. Na mesma linha,
+maior a surpresa, sem exigir nenhum rótulo; o ALPS então agrupa as
+instâncias por essa assinatura e seleciona pelos centros, para não sacar
+várias frases surpreendentes pelo mesmo motivo. Na mesma linha,
 \citet{EinDor2020} e \citet{Griesshaber2020} adaptam AA ao
 BERT. A linha culmina no DEUCE \cite{Guo2025Deuce}, que combina diversidade
 textual e de classe prevista num grafo duplo-vizinho para evitar o que seus autores chamam de efeito
