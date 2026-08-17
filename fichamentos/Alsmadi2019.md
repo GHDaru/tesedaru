@@ -10,7 +10,7 @@ paper_type: survey
 pillars: [geral, P1]
 status: fichado
 proposes: [revisao-por-estagios-do-pipeline]
-uses_methods: [selecao-de-atributos, algoritmos-geneticos, soft-computing]
+uses_methods: [selecao-de-atributos, algoritmo-genetico, soft-computing]
 datasets: []
 metrics: []
 tasks: [classificacao-de-texto-curto]

@@ -170,3 +170,5 @@ inferencia-de-linguagem-natural  <!-- Griesshaber2020: MNLI, QNLI e SNLI são ta
 ### Registro de termos já em uso (2026-08-17, ao fechar o R5 do Alsmadi)
 soft-computing  <!-- Alsmadi2019 -->
 classificacao-de-texto-curto  <!-- Alsmadi2019 (tarefa) -->
+selecao-de-atributos  <!-- Alsmadi2019 -->
+revisao-por-estagios-do-pipeline  <!-- Alsmadi2019 -->

@@ -128,9 +128,9 @@
       "label": "selecao-de-atributos"
     },
     {
-      "id": "metodo:algoritmos-geneticos",
+      "id": "metodo:algoritmo-genetico",
       "type": "metodo",
-      "label": "algoritmos-geneticos"
+      "label": "algoritmo-genetico"
     },
     {
       "id": "metodo:soft-computing",
@@ -4991,7 +4991,7 @@
     },
     {
       "source": "Alsmadi2019",
-      "target": "metodo:algoritmos-geneticos",
+      "target": "metodo:algoritmo-genetico",
       "type": "uses_methods"
     },
     {
