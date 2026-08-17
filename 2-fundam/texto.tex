@@ -221,9 +221,9 @@ origens remontam aos trabalhos de \citet{Angluin1988}, sobre aprendizado via
 consultas, e de \citet{Cohn1994Improving}, sobre redução de incerteza; a
 consolidação teórica e a taxonomia de cenários e estratégias devem-se a
 \citet{Settles2012}. O paradigma é a resposta natural aos domínios em que a
-anotação é o gargalo — de imagens médicas que exigem radiologistas a
+anotação é o gargalo (de imagens médicas que exigem radiologistas a
 transcrições cuja anotação custa um múltiplo da duração do áudio
-\cite{Settles2012} —, e ganhou novas camadas com o aprendizado profundo
+\cite{Settles2012}), e ganhou novas camadas com o aprendizado profundo
 \cite{Ren2021} e, mais recentemente, com os LLMs no papel de oráculo ou de
 seletor \cite{Bayer2024ActiveLLM}. Esta seção formaliza o laço, apresenta o catálogo de
 estratégias de seleção e encerra nas duas limitações estruturais que motivam o
@@ -258,9 +258,10 @@ consultas possíveis ao oráculo.
 
 A Tabela~\ref{tab:active-learning-components} resume os componentes; o
 Algoritmo~\ref{alg:active_learning} apresenta o laço \cite{Settles2012,
-Goudjil2018}. Essa notação — $L_0$ para o conjunto inicial, $U$ para o
+Goudjil2018}. Essa notação é a mesma usada em todo o
+Capítulo~\ref{ch:metodo}: $L_0$ para o conjunto inicial, $U$ para o
 \textit{pool}, $S$ para a estratégia, $O$ para o oráculo, $B$ para o
-orçamento — é a mesma usada em todo o Capítulo~\ref{ch:metodo}.
+orçamento.
 
 \begin{table}[ht]
   \centering
@@ -314,8 +315,9 @@ orçamento — é a mesma usada em todo o Capítulo~\ref{ch:metodo}.
 
 O laço admite três cenários clássicos, que diferem em como as instâncias
 chegam ao seletor \cite{Settles2012}: na \textbf{síntese de consultas}, o
-algoritmo gera instâncias artificiais — poderoso em espaços bem definidos, mas
-sujeito a produzir exemplos ininteligíveis para anotadores \cite{Baum1992}; na
+algoritmo gera instâncias artificiais, o que é poderoso em espaços bem
+definidos, mas sujeito a produzir exemplos ininteligíveis para anotadores
+\cite{Baum1992}; na
 \textbf{amostragem seletiva em fluxo}, instâncias chegam uma a uma de uma
 distribuição natural e o algoritmo decide, por um limiar de utilidade, se
 consulta cada uma \cite{Dagan1995}; e no \textbf{aprendizado ativo com acervo
@@ -323,23 +325,23 @@ fixo} (\textit{pool-based}), o cenário desta tese e o mais comum na prática
 \cite{Settles2012}, um conjunto finito $U$ está disponível desde o início e o algoritmo seleciona
 dele as instâncias de maior utilidade \cite{Lewis1994}. Três extensões do
 cenário básico são relevantes aqui: o modo em \textbf{lote}
-(\textit{batch-mode}), que seleciona múltiplas instâncias por iteração —
-inevitável quando o re-treinamento é caro, mas exigindo diversidade dentro do
+(\textit{batch-mode}), que seleciona múltiplas instâncias por iteração, o que é
+inevitável quando o re-treinamento é caro, mas exige diversidade dentro do
 lote \cite{Hoi2006}; o aprendizado ativo \textbf{federado}, que executa a
 seleção localmente em múltiplos clientes preservando privacidade
 \cite{Deng2023fedal}; e o cenário com \textbf{múltiplos oráculos} de custos e
-competências distintos \cite{Yan2011} — historicamente motivado por
+competências distintos \cite{Yan2011}, historicamente motivado por
 \textit{crowdsourcing} e hoje reencarnado no cardápio de LLMs com preços e
-acurácias diferentes, que é precisamente o cenário do FALCO — cardápio e
-preços instrumentados no Capítulo~\ref{ch:metodo}.
+acurácias diferentes, que é precisamente o cenário do FALCO. Esse cardápio e
+seus preços são instrumentados no Capítulo~\ref{ch:metodo}.
 
 \subsection{Estratégias de seleção de instâncias}
 \label{sec:estrategias_selecao}
 
 A estratégia de seleção é o componente que define um algoritmo de aprendizado
 ativo: ela determina quais instâncias valem o custo do oráculo, buscando
-maximizar a informação obtida por consulta \citep{Settles2012} — no espírito
-de \citet{Shannon1948}, buscar ativamente a informação que mais reduz a
+maximizar a informação obtida por consulta \citep{Settles2012}; é o espírito
+de \citet{Shannon1948}: buscar ativamente a informação que mais reduz a
 incerteza. As famílias de estratégias diferem no princípio heurístico e no
 custo computacional; as que esta tese emprega diretamente recebem tratamento
 completo, e as demais, uma síntese com as referências de aprofundamento.
@@ -347,9 +349,9 @@ completo, e as demais, uma síntese com as referências de aprofundamento.
 \paragraph{Amostragem por incerteza (\textit{uncertainty sampling}).}
 A família mais usada na prática \citep{Lewis1994heterogeneous, Settles2012}:
 seleciona as instâncias sobre as quais o modelo corrente está mais incerto,
-requerendo apenas as probabilidades preditas — custo baixo, aplicabilidade
-geral, e relação teórica com a bissecção do espaço de versão em
-classificadores de margem \citep{Tong2000}; permanece linha de base forte em
+requerendo apenas as probabilidades preditas. Reúne custo baixo, aplicabilidade
+geral e relação teórica com a bissecção do espaço de versão em
+classificadores de margem \citep{Tong2000}, e permanece linha de base forte em
 \textit{deep learning} \citep{Gal2017}, com uma ressalva de regime que importa
 a esta tese: em classificação com rótulo extremo (centenas de classes),
 nenhuma estratégia de seleção supera a aleatória de forma consistente
@@ -378,7 +380,7 @@ classes raras ao concentrar-se na fronteira das majoritárias
 \paragraph{Comitês e espaço de versão.} A segunda família seleciona pela
 divergência entre hipóteses plausíveis: o espaço de versão é o subconjunto de
 hipóteses consistentes com $L$ \citep{Mitchell1982}, e consultas que maximizam
-o desacordo entre seus membros eliminam hipóteses mais rapidamente — com
+o desacordo entre seus membros eliminam hipóteses mais rapidamente, com
 garantias teóricas de melhoria exponencial em certos regimes
 \citep{Cohn1994Improving, Hanneke2015}. A implementação prática é a
 \textbf{consulta por comitê} (QBC): um \textit{ensemble} construído por
@@ -394,14 +396,14 @@ perspectiva de teoria da decisão: escolher a consulta que, em expectativa,
 mais reduz o erro de generalização ou a variância preditiva do modelo
 resultante \citep{Roy2001, MacKay1992, Cohn1996}, com tratamento natural de
 lotes via otimização submodular \citep{Guestrin2005, Golovin2011, Krause2014}.
-É a família que se propõe explicitamente a otimizar o objetivo final — e a de custo
-computacional proibitivo no nosso regime: re-treinamento por par
+É a família que se propõe explicitamente a otimizar o objetivo final, mas
+também a de custo computacional proibitivo no nosso regime: re-treinamento por par
 candidato-rótulo ou álgebra matricial que escala mal com a dimensionalidade.
 
 \paragraph{Exploração da estrutura dos dados.} A quarta família incorpora a
 distribuição $P(X)$ das próprias instâncias: seleciona pontos que sejam, além
-de informativos, \textbf{representativos} — em regiões densas ou centrais a
-agrupamentos — mitigando a seleção de \textit{outliers}. A ponderação por
+de informativos, \textbf{representativos} (em regiões densas ou centrais a
+agrupamentos), mitigando a seleção de \textit{outliers}. A ponderação por
 densidade multiplica a utilidade-base por um termo de representatividade,
 \begin{equation}
 x^*_{ID} = \arg\max_x \phi_A(x) \times \left( \text{Representatividade}(x) \right)^\beta ,
@@ -412,8 +414,8 @@ por agrupamento consultam centróides ou amostram hierarquicamente com
 garantias de robustez \citep{Nguyen2004, Dasgupta2008}. Esta família é a base
 conceitual do DRI-SL (Capítulo~\ref{ch:metodo}): densidade semântica e
 variedade lexical como critérios de representatividade computáveis sem nenhum
-rótulo. Sua hipótese de trabalho — estrutura dos dados correlacionada com a
-distribuição dos rótulos — nem sempre vale, e o custo de computar a estrutura
+rótulo. Sua hipótese de trabalho (estrutura dos dados correlacionada com a
+distribuição dos rótulos) nem sempre vale, e o custo de computar a estrutura
 não é desprezível \cite{Wertz2022}.
 
 A Tabela~\ref{tab:estrategias_comparacao_rev} resume o quadro comparativo.
@@ -437,18 +439,19 @@ Exploração da estrutura  & Mitiga \textit{outliers}; funciona sem rótulos.   
 \subsection{Limitações do laço clássico}
 \label{sec:limitacoes_laco}
 
-Duas suposições sustentam o laço da Seção~\ref{sec:formalismo} — e ambas
+Duas suposições sustentam o laço da Seção~\ref{sec:formalismo}, e ambas
 falham exatamente nos regimes que interessam a esta tese.
 
 A primeira é a existência de um modelo inicial capaz de guiar a seleção. As
 estratégias de incerteza e desacordo pressupõem $\theta_0$ treinado em algum
-$L_0$; com $L_0$ minúsculo ou inexistente — a \textbf{partida a frio}
-(\textit{cold start}) — o modelo não sustenta seleções melhores que o acaso
+$L_0$; com $L_0$ minúsculo ou inexistente, situação conhecida como
+\textbf{partida a frio} (\textit{cold start}), o modelo não sustenta seleções
+melhores que o acaso
 \cite{Bayer2024ActiveLLM}, e o problema se agrava em texto curto, onde cada instância
 carrega pouca informação (Seção~\ref{sec:fund-stc}), e com classificadores
 profundos, cujo re-treinamento frequente é caro \cite{Wertz2022}. As respostas da literatura passam pela
-exploração da estrutura dos dados antes de existir modelo — a família da
-Eq.~\eqref{eq:id} — e, mais recentemente, por seletores externos com
+exploração da estrutura dos dados antes de existir modelo (a família da
+Eq.~\eqref{eq:id}) e, mais recentemente, por seletores externos com
 conhecimento pré-treinado (Seção~\ref{sec:fund-llm}).
 
 A segunda é a suposição de \textbf{oráculo perfeito}: $O$ devolve sempre o
@@ -456,25 +459,25 @@ rótulo verdadeiro, a custo unitário constante. Anotadores reais erram, variam
 entre si e cansam; a resposta clássica inclui rotulagem repetida, modelagem da
 qualidade do anotador e roteamento entre anotadores de custos distintos
 \cite{Sheng2008, Snow2008, Donmez2009, Yan2011}. Quando o oráculo passa a ser
-um LLM, essa fratura muda de natureza — o erro torna-se sistemático e
-estruturado \cite{Song2023NoisyLabels}, e o custo, uma função de tokens — e é tratada em profundidade na
-Seção~\ref{sec:fund-llm}.
+um LLM, essa fratura muda de natureza (o erro torna-se sistemático e
+estruturado \cite{Song2023NoisyLabels}, e o custo, uma função de tokens) e é
+tratada em profundidade na Seção~\ref{sec:fund-llm}.
 
 Duas consequências operacionais do laço merecem registro porque reaparecem nos
 experimentos. Primeiro, o \textbf{critério de parada}: o ganho marginal por
 lote decresce ao longo da curva de aprendizado (comportamento que a própria
 curva populacional do E6 exibe, Capítulo~\ref{ch:resultados-falco}), e critérios baseados na
-estagnação do desempenho em um conjunto de validação — como o adotado pelo
-FALCO e formalizado no Apêndice~\ref{ap:parada-drift} — ou em razões de
+estagnação do desempenho em um conjunto de validação (como o adotado pelo
+FALCO e formalizado no Apêndice~\ref{ap:parada-drift}) ou em razões de
 custo-benefício \cite{Rouzegar2024Thesis} evitam pagar rótulos que só compram ruído.
 Segundo, o \textbf{viés de amostragem ativa}: o conjunto rotulado resultante
-não é uma amostra i.i.d.\ da população — a seleção por incerteza
+não é uma amostra i.i.d.\ da população (a seleção por incerteza
 sobre-representa casos difíceis e classes raras \cite{Santos2016Vies,
-Settles2012} —, o que afeta tanto o treinamento (às vezes a favor: o
+Settles2012}), o que afeta tanto o treinamento (às vezes a favor: o
 conjunto fica mais balanceado que a distribuição natural) quanto,
 criticamente, a \emph{avaliação}: métricas calculadas sobre os próprios dados
-coletados não estimam o desempenho populacional, exigindo conjuntos reservados
-— fenômeno quantificado no experimento E6 desta tese
+coletados não estimam o desempenho populacional, exigindo conjuntos
+reservados. O fenômeno é quantificado no experimento E6 desta tese
 (Capítulo~\ref{ch:resultados-falco}).
 
 \section{Modelos de linguagem como oráculos de rotulagem}
