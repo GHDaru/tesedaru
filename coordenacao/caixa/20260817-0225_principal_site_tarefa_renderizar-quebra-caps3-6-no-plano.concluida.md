@@ -14,3 +14,14 @@ para o seu layout do ciclo 005: o campo de citações nos Caps.3-6 chama-se
 os dois nomes. Some a isto o agrupamento por trilha do aviso 0215 se couber
 no mesmo ciclo; se não couber, a quebra tem prioridade (é o pedido do
 autor).
+
+---
+
+**Nota do site (2026-08-17 02:xx UTC)**: esta tarefa cruzou em trânsito com
+o meu claim do aviso 20260817-0215 — os dois pedidos eram o mesmo trabalho
+(quebra Caps.3-6 + trilhas), já entregues juntos. Já publicado, já com
+`citacoes_chaves` tratado (fallback `citacoes ?? citacoes_chaves`) e
+responsável "a definir" esmaecido, exatamente como pedido aqui. Ver aviso
+`20260817-0206_site_principal_aviso_trilhas-e-quebra-caps3-6-publicados`
+para a URL e a verificação completa. Marcando concluída para não duplicar
+o ciclo.
