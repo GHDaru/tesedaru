@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 37,
+  "versao": 38,
   "atualizado_em": "2026-08-17",
-  "atualizado_por": "executor02: cache do oraculo re-coletado (SGD+PVBin, 12.152 registros) subido como dataset Kaggle; A/B/C destravados e rodando nas 3 sementes",
+  "atualizado_por": "executor02: s123 com os 9 braços completos — hipótese central NÃO sustentada nesta semente; aguardando s42/s7 (ambas rodando) para o teste definitivo",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -1098,11 +1098,11 @@
         "id": "e3p-seed123",
         "o_que": "E3′ semente 123 — 5 braços + varredura de orçamento",
         "onde": "Kaggle, GPU T4 · kernel ghdaru/falco-e3prime-s123 · activelearning/experiments/e2e3/kaggle/ | A/B/C destravados: cache re-coletado subiu como dataset privado ghdaru/falco-annotation-cache (12.152 registros, SGD+PVBin, re-coleta 2026-08-17); kernel reempurrado com retomada dos 6 braços já prontos + os 9 completos.",
-        "estado": "rodando",
+        "estado": "concluido",
         "dono": "executor02",
         "duracao": "1,5–2,5 h em T4 (estimativa)",
         "resultado_esperado": "experiments/e2e3/results/e3prime_*_s123.json",
-        "resultado": "6 de 9 braços entregues em regime canônico (bs=128, avaliação nos 177.490 da população inteira), 75 min de T4 — https://github.com/GHDaru/activelearning/commit/9d74484 · D: F1 0,3590/acc 0,8652 · E35: 0,3461/0,8582 · E30: 0,3228/0,8479 · E25: 0,3136/0,8305 · E20: 0,2416/0,7715 · E: 0,1909/0,6895. Varredura vs 0,95×D: E35 cruza F1 e acc; E30/E25 só acc."
+        "resultado": "6 de 9 braços entregues em regime canônico (bs=128, avaliação nos 177.490 da população inteira), 75 min de T4 — https://github.com/GHDaru/activelearning/commit/9d74484 · D: F1 0,3590/acc 0,8652 · E35: 0,3461/0,8582 · E30: 0,3228/0,8479 · E25: 0,3136/0,8305 · E20: 0,2416/0,7715 · E: 0,1909/0,6895. Varredura vs 0,95×D: E35 cruza F1 e acc; E30/E25 só acc. | A/B/C completados em https://github.com/GHDaru/activelearning/commit/ — ver branch designada. A: n=11936 F1=0,1739/acc=0,5598 · B: F1=0,1909/acc=0,6379 · C: F1=0,1260/acc=0,6547. HIPOTESE CENTRAL nesta semente: F1(A)=0,1739 vs 0,95xF1(D)=0,3410 -> NAO SUSTENTADA (23,9% dos rotulos). A-B (custo ruido oraculo)=-0,0170 · B-C (valor selecao)=+0,0649. AGUARDANDO s42 e s7 para o teste definitivo (média das 3)."
       },
       {
         "id": "e3p-seed42-canonico",
