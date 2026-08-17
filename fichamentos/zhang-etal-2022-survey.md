@@ -1,11 +1,11 @@
 ---
-id: zhang2022surveyAL
+id: zhang-etal-2022-survey
 title: "A Survey of Active Learning for Natural Language Processing"
 authors: ["Zhang, Zhisong", "Strubell, Emma", "Hovy, Eduard"]
 year: 2022
 venue: "Proceedings of EMNLP 2022, pp. 6166–6190"
 doi: "10.18653/v1/2022.emnlp-main.414"
-pdf: referencias-pdf/zhang2022surveyAL.pdf
+pdf: referencias-pdf/zhang-etal-2022-survey.pdf
 paper_type: survey
 pillars: [geral, P2, P4]
 status: fichado

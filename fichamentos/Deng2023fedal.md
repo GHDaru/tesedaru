@@ -137,7 +137,7 @@ gate do bib-fix entrar.
   |---|---|---|
   | `Rouzegar2024` | 2 a 4 | sim, com folga |
   | `Deng2023fedal` | 3 | sim, mas por 2,36 pontos de Macro-F1 |
-  | `Fromme2022` | 100 a 739 | **não**, de forma consistente |
+  | `Wertz2022` | 100 a 739 | **não**, de forma consistente |
 
   Três trabalhos independentes, três regimes, uma tendência clara: **a vantagem
   da seleção ativa encolhe conforme o espaço de rótulos cresce**. O FALCO opera

@@ -79,9 +79,9 @@ o que o artigo de fato faz.
 ### A4. Linhas 440-442 — metade da frase fica sem cobertura da citação
 > "o problema se agrava **em texto curto, onde cada instância carrega pouca
 > informação**, e com classificadores profundos, cujo re-treinamento frequente
-> é caro `\cite{Fromme2022}`"
+> é caro `\cite{Wertz2022}`"
 
-`Fromme2022` sustenta a segunda metade e mede o custo com números (Tab. 3,
+`Wertz2022` sustenta a segunda metade e mede o custo com números (Tab. 3,
 p. 4602: de 3,80 s a 123 s por 1.600 textos, e o CVIRS chegando a semanas de
 experimento). Mas **não estuda texto curto**: seus sete conjuntos são EurLex
 (textos jurídicos), arXiv (resumos), NYT (notícias), RCV1, Yelp, AGNews e
@@ -114,14 +114,14 @@ família que se propõe explicitamente a otimizar o objetivo final".
 > distribuição dos rótulos — **nem sempre vale**, e o **custo de computar a
 > estrutura não é desprezível**."
 
-As duas metades são exatamente o que `Fromme2022` mede, e a tese já cita essa
+As duas metades são exatamente o que `Wertz2022` mede, e a tese já cita essa
 chave em outro ponto:
 - "nem sempre vale" → §6.1, p. 4603: o AL só melhora o classificador em
   conjuntos de **baixa co-ocorrência de rótulos**; nos demais a seleção empata
   ou perde para a aleatória;
 - "custo não desprezível" → Tab. 3, p. 4602, com os tempos por estratégia.
 
-**Conserto possível**: acrescentar `\cite{Fromme2022}` ao fim do período. É o
+**Conserto possível**: acrescentar `\cite{Wertz2022}` ao fim do período. É o
 conserto mais barato desta lista — uma chave, sem reescrita.
 
 ### B3. Linha 452 — a natureza do erro do LLM afirmada sem fonte
@@ -166,7 +166,7 @@ precisar de citação externa.
 > "permanece linha de base forte em *deep learning* `\citep{Gal2017}`"
 
 A citação sustenta a afirmação no regime em que `Gal2017` foi feito. Mas
-`Fromme2022`, agora fichado, mostra que em **rótulo extremo** (100 a 739
+`Wertz2022`, agora fichado, mostra que em **rótulo extremo** (100 a 739
 classes) nenhuma estratégia de seleção — a incerteza inclusive — supera a
 seleção aleatória de forma consistente (§7, p. 4604).
 
@@ -211,11 +211,11 @@ evidência for um marcador de pendência.
 | A3 | 461 | atribuição imprecisa | trocar para `Rouzegar2024Thesis` ou reformular | baixo |
 | A4 | 440-442 | atribuição imprecisa | separar "texto curto" de "classificador profundo" | baixo |
 | B1 | 390 | órfã | citar ou abrandar "única" | baixo |
-| B2 | 408-410 | órfã | acrescentar `\cite{Fromme2022}` | **mínimo** |
+| B2 | 408-410 | órfã | acrescentar `\cite{Wertz2022}` | **mínimo** |
 | B3 | 452 | órfã | acrescentar `\cite{Song2023NoisyLabels}` (só taxonomia) | **mínimo** |
 | B4 | 457-458 | órfã | apontar para a curva do E6 ou `Settles2012` | baixo |
 | B5 | 329-330 | órfã | remeter à tabela de modelos do Cap. 3 | baixo |
-| C1 | 348-349 | a qualificar | ressalva de regime com `Fromme2022` | baixo |
+| C1 | 348-349 | a qualificar | ressalva de regime com `Wertz2022` | baixo |
 | C2 | 439 | evidência pendente | completar o fichamento (minha fila) | médio |
 
 **Onze itens em 262 linhas e 41 chaves.** Nenhum é fabricação de fonte; a

@@ -62,4 +62,4 @@ teóricos e fecha com forças/fraquezas práticas e desafios abertos.
 - Definir formalmente o oráculo do FALCO como relaxamento do oráculo de Settles:
   O: X → Y ∪ {⊥} com taxa de erro ε e custo c por consulta (tabela comparativa).
 - Mapear cada fase do FALCO ao framework correspondente de Settles (C3) — mesma
-  tabela sugerida no fichamento do zhang2022surveyAL; unificar.
+  tabela sugerida no fichamento do zhang-etal-2022-survey; unificar.

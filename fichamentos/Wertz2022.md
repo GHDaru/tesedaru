@@ -1,12 +1,12 @@
 ---
 # ===== IDENTIDADE (nó Paper do grafo) =====
-id: Fromme2022
+id: Wertz2022
 title: "Investigating Active Learning Sampling Strategies for Extreme Multi Label Text Classification"
-authors: ["Fromme, Lukas", "Mirylenka, Katsiaryna", "Kuhn, Jonas", "Bogojeska, Jasmina"]
+authors: ["Wertz, Lukas", "Mirylenka, Katsiaryna", "Kuhn, Jonas", "Bogojeska, Jasmina"]
 year: 2022
 venue: "Proceedings of the 13th Language Resources and Evaluation Conference (LREC 2022), Marselha, p. 4597-4605, ELRA"
 doi: "10.63317/48xs9zc3987o"
-pdf: referencias-pdf/Fromme2022.pdf
+pdf: referencias-pdf/Wertz2022.pdf
 
 # ===== CLASSIFICAÇÃO (arestas de tipo) =====
 paper_type: avaliacao
@@ -153,7 +153,7 @@ obra certa em qualquer das duas grafias.
 - **Reportar a co-ocorrência média de classes do nosso conjunto** (métrica da
   Tab. 1) no Cap. 3: é uma linha de estatística descritiva que situa o FALCO na
   condição C3 e dá ao leitor a régua para saber se esperar ganho de seleção.
-- **Par de citações que delimita o regime**: `Fromme2022` (100-739 classes,
+- **Par de citações que delimita o regime**: `Wertz2022` (100-739 classes,
   seleção não bate aleatório) e `Rouzegar2024` (2-4 classes, tudo bate
   aleatório) citados juntos definem em que faixa a seleção ativa compensa —
   e o FALCO, em 621 classes, cai do lado difícil.

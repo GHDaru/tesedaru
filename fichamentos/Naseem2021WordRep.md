@@ -18,7 +18,7 @@ models: []
 extends: []
 compares_with: []
 contradicts: []
-builds_on: [Mikolov2013, Pennington2014, devlin2019bert]
+builds_on: [Mikolov2013, Pennington2014, Devlin2019]
 falco_relation:
   - type: fundamenta
     target: FALCO

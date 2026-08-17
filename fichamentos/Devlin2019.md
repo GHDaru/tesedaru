@@ -1,11 +1,11 @@
 ---
-id: devlin2019bert
+id: Devlin2019
 title: "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding"
 authors: ["Devlin, Jacob", "Chang, Ming-Wei", "Lee, Kenton", "Toutanova, Kristina"]
 year: 2019
 venue: "Proceedings of NAACL-HLT 2019, pp. 4171–4186"
 doi: "10.18653/v1/N19-1423"
-pdf: referencias-pdf/devlin2019bert.pdf
+pdf: referencias-pdf/Devlin2019.pdf
 paper_type: metodo
 pillars: [P4]
 status: fichado

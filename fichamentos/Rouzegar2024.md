@@ -67,7 +67,7 @@ custo — mas o "limiar certo" muda de conjunto para conjunto.
 |---|-------|-----------|-------------|
 | C1 | A confiança auto-reportada do GPT-3.5 correlaciona-se com o erro de anotação: abaixo do limiar a taxa de erro chega a ~50% | §5 (Analysis and Results), parágrafo "The study also delved into the analysis of GPT-3.5's output confidence scores" | Cap. 2 §2.x (oráculo LLM): sustenta tratar confiança como medida de incerteza — e sustenta também a ressalva de calibração |
 | C2 | A taxa de erro global do oráculo LLM cresce com o número de classes: 11% (IMDB, 2 classes), 27% (Fake News, 2 classes), 33% (Movie Genres, 4 classes) | §5, mesmo parágrafo | Cap. 5: referência externa para o ruído do oráculo medido no braço A−B; é o dado que projeta o problema para as 621 classes do FALCO |
-| C3 | Todos os métodos de anotação superam amostragem aleatória de forma consistente na faixa de 2% a 52% de dados de treino | §5 + Figura 1 (Fake News) | Cap. 2: contraponto ao achado inverso de Fromme2022 em rótulo extremo — a vantagem sobre o aleatório depende do número de classes |
+| C3 | Todos os métodos de anotação superam amostragem aleatória de forma consistente na faixa de 2% a 52% de dados de treino | §5 + Figura 1 (Fake News) | Cap. 2: contraponto ao achado inverso de Wertz2022 em rótulo extremo — a vantagem sobre o aleatório depende do número de classes |
 | C4 | O proxy-validation set estima o desempenho no pool sem consumir rótulos de teste | §3.2 (Proxy-Validation Set) | Cap. 3/Cap. 6: alternativa de validação sob orçamento; candidata a trabalho futuro |
 | C5 | O limiar de confiança é ajustado por conjunto (70% no IMDB, 80% nos outros dois) para atingir de 10 a 15% do IMDB e do Movie Genres e ~4% do Fake News | §3.3 e §4 (Confidence Thresholds) | Cap. 2 e Cap. 6: evidência de que o roteamento por confiança tem hiperparâmetro dependente de domínio — custo escondido do método |
 
@@ -124,7 +124,7 @@ fração dos dados usada em treino).
   artigo (2 → 11%, 2 → 27%, 4 → 33%) com o nosso ponto em 621 classes vira
   uma figura de motivação do Cap. 1/2, e transforma "LLM erra mais com muitas
   classes" de intuição em série de dados citável.
-- **Contraste C3 × Fromme2022**: aqui todos os métodos batem o aleatório
+- **Contraste C3 × Wertz2022**: aqui todos os métodos batem o aleatório
   (2-4 classes); em rótulo extremo (100-739 classes) nenhuma estratégia bate o
   aleatório de forma consistente. Os dois achados juntos delimitam a região em
   que a seleção ativa compensa — argumento direto para a discussão do Cap. 5.
