@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 26,
-  "atualizado_em": "2026-08-17T01:20:00Z",
+  "versao": 27,
+  "atualizado_em": "2026-08-17T01:40:00Z",
   "atualizado_por": "revisor1: R3 do tema t2 do Cap. 2 concluído (4 pós-2022 limpas na fonte); t4 e t5 assumidos",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -261,10 +261,8 @@
       "arquivo": "3-metodo/texto.tex",
       "rodadas": {
         "R1": {
-          "status": "andamento",
-          "progresso": 0.0,
-          "dono": "revisor1",
-          "nota": "delegada ao revisor1 em 2026-08-16 (docs/criterio-humanizacao.md); entrega em branch, gate consolidado pelo principal"
+          "status": "feito",
+          "nota": "gate aprovado e mergeado 2026-08-17 (59→4 travessões)"
         },
         "R2": {
           "status": "pendente",
@@ -308,10 +306,8 @@
       "arquivo": "4-resultados-l0/texto.tex",
       "rodadas": {
         "R1": {
-          "status": "andamento",
-          "progresso": 0.0,
-          "dono": "revisor1",
-          "nota": "delegada ao revisor1 em 2026-08-16 (docs/criterio-humanizacao.md); entrega em branch, gate consolidado pelo principal"
+          "status": "feito",
+          "nota": "gate aprovado e mergeado 2026-08-17 (17→3 travessões)"
         },
         "R2": {
           "status": "pendente"
@@ -351,10 +347,8 @@
       "arquivo": "5-resultados-falco/texto.tex",
       "rodadas": {
         "R1": {
-          "status": "andamento",
-          "progresso": 0.0,
-          "dono": "revisor2",
-          "nota": "delegada ao revisor2 em 2026-08-16 (docs/criterio-humanizacao.md)"
+          "status": "feito",
+          "nota": "gate aprovado e mergeado 2026-08-17 (64→6 travessões)"
         },
         "R2": {
           "status": "pendente",
@@ -399,10 +393,8 @@
       "arquivo": "6-conclusao/texto.tex",
       "rodadas": {
         "R1": {
-          "status": "andamento",
-          "progresso": 0.0,
-          "dono": "revisor2",
-          "nota": "delegada ao revisor2 em 2026-08-16 (docs/criterio-humanizacao.md); FECHO (tríade + aforismo) MANTIDO por decisão do autor — não reescrever; revisão futura em aberto no R7"
+          "status": "feito",
+          "nota": "gate aprovado e mergeado 2026-08-17 (40→6 travessões; fecho preservado por ordem do autor)"
         },
         "R2": {
           "status": "pendente"
