@@ -135,3 +135,8 @@ auc  <!-- Deng2023fedal: reportada ao lado de micro-f1 e macro-f1 -->
 
 ### Métodos (adoção prática)
 pesquisa-de-comunidade  <!-- Romberg2025Reassessing: survey com praticantes, não experimento; resultados são percepção auto-relatada -->
+
+### Métodos, datasets e modelos (varejo PT, estatística oficial)
+rotulagem-humano-no-laco  <!-- Machado2026RetailPt: fluxo human-in-the-loop SEM estratégia formal de aprendizado ativo — não confundir com anotacao-hibrida-humano-llm, que roteia por confiança -->
+ecoicop-supermercados-pt  <!-- Machado2026RetailPt: 100 mil títulos de 6 redes portuguesas, SÓ alimentos e bebidas; dados de origem confidenciais -->
+bertimbau  <!-- Machado2026RetailPt, Souza2020BERTimbau -->

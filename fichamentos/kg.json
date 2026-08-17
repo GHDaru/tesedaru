@@ -2166,6 +2166,42 @@
       "cited_in": []
     },
     {
+      "id": "Machado2026RetailPt",
+      "type": "artigo",
+      "label": "Machado2026RetailPt",
+      "title": "Turning web data into official statistics: Classifying Portuguese retail products with NLP models",
+      "year": 2026,
+      "venue": "Statistical Journal of the IAOS, v. 42, n. 1, p. 122-136 (SAGE)",
+      "paper_type": "avaliacao",
+      "status": "a-ler",
+      "pdf": "",
+      "doi": "10.1177/18747655251414407",
+      "url": "https://doi.org/10.1177/18747655251414407",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "metodo:rotulagem-humano-no-laco",
+      "type": "metodo",
+      "label": "rotulagem-humano-no-laco"
+    },
+    {
+      "id": "modelo:bertimbau",
+      "type": "modelo",
+      "label": "bertimbau"
+    },
+    {
+      "id": "modelo:cnn-como-cabeca-de-classificacao",
+      "type": "modelo",
+      "label": "cnn-como-cabeca-de-classificacao"
+    },
+    {
+      "id": "dataset:ecoicop-supermercados-pt",
+      "type": "dataset",
+      "label": "ecoicop-supermercados-pt"
+    },
+    {
       "id": "Marcot2021",
       "type": "artigo",
       "label": "Marcot2021",
@@ -3699,11 +3735,6 @@
       "id": "metodo:pre-treinamento",
       "type": "metodo",
       "label": "pre-treinamento"
-    },
-    {
-      "id": "modelo:bertimbau",
-      "type": "modelo",
-      "label": "bertimbau"
     },
     {
       "id": "modelo:mbert",
@@ -7122,6 +7153,52 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "PDF com encoding corrompido; anotado no bib. Candidato a poda."
+    },
+    {
+      "source": "Machado2026RetailPt",
+      "target": "Souza2020BERTimbau",
+      "type": "builds_on"
+    },
+    {
+      "source": "Machado2026RetailPt",
+      "target": "pilar:P1",
+      "type": "pillars"
+    },
+    {
+      "source": "Machado2026RetailPt",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Machado2026RetailPt",
+      "target": "metodo:rotulagem-humano-no-laco",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Machado2026RetailPt",
+      "target": "modelo:bertimbau",
+      "type": "models"
+    },
+    {
+      "source": "Machado2026RetailPt",
+      "target": "modelo:cnn-como-cabeca-de-classificacao",
+      "type": "models"
+    },
+    {
+      "source": "Machado2026RetailPt",
+      "target": "dataset:ecoicop-supermercados-pt",
+      "type": "datasets"
+    },
+    {
+      "source": "Machado2026RetailPt",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Machado2026RetailPt",
+      "target": "FALCO",
+      "type": "complementa",
+      "note": "É o trabalho mais próximo do FALCO em DOMÍNIO — descrição de produto de varejo em português, classificada em taxonomia oficial — e o mais distante em MÉTODO: rotulagem humana no laço, sem estratégia formal de aprendizado ativo e sem oráculo automatizado. A tese o usa em 2-fundam:793-800 para corroborar a escolha do BERTimbau e para contrastar processo. Ver 'Estado desta ficha' antes de repetir qualquer número."
     },
     {
       "source": "Marcot2021",
