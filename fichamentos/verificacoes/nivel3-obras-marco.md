@@ -34,9 +34,9 @@ sustentam afirmação e não cabem na dispensa. Levei a medição, não a expect
 segunda diz o seguinte (`2-fundam/texto.tex:382`):
 
 > "o cenário com **múltiplos oráculos** de custos e competências distintos
-> \cite{Yan2011}, historicamente motivado por \textit{crowdsourcing} e hoje
-> reencarnado no cardápio de LLMs com preços e acurácias diferentes, **que é
-> precisamente o cenário do FALCO**."
+> \cite{Yan2011}, formulado originalmente para anotadores humanos em
+> \textit{crowdsourcing} e que hoje se repete na oferta de LLMs com preços e
+> acurácias distintos, **que é o cenário do FALCO**."
 
 A frase declara que o cenário desta obra **é o cenário da tese**. Uma afirmação
 dessas não pode repousar em obra não lida: se a formalização de Yan e
