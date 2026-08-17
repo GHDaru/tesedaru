@@ -110,7 +110,10 @@ classes raras. Alternativas com propósito semelhante (acurácia balanceada,
 coeficiente de correlação de Matthews e Kappa de Cohen) são discutidas por
 \citet{Grandini2020} e \citet{Riyanto2023Comparative}; esta tese as dispensa
 porque o par Macro F1 + acurácia global já separa os dois fenômenos de
-interesse (desempenho nas caudas \textit{versus} desempenho agregado). A
+interesse (desempenho nas caudas \textit{versus} desempenho agregado) —
+separação que é operacional, não estética: nos experimentos desta tese as
+duas métricas chegam a divergir em sinal, e uma métrica única mascararia
+precisamente esse contraste (Capítulo~\ref{ch:resultados-falco}). A
 \textbf{matriz de confusão} $K \times K$, cuja entrada $[i,j]$ conta exemplos
 da classe real $i$ preditos como $j$, complementa as métricas agregadas ao
 revelar confusões sistemáticas entre pares de classes \cite{Han2012}; é o
@@ -133,11 +136,12 @@ separado do teste para ajuste de hiperparâmetros, mantendo o teste intocado
 até a avaliação final \cite{Bishop2006}; e (iv) para modelos de aprendizado
 profundo, a \textbf{parada antecipada} (\textit{early stopping}), que
 interrompe o treinamento quando o desempenho em validação cessa de melhorar
-\cite{Prechelt2012, Goodfellow2016}. Uma exigência adicional específica desta
-tese, motivada pela auditoria da base (Capítulo~\ref{ch:metodo}): como
-descrições de produto se repetem, o particionamento deduplica por texto
-normalizado \emph{antes} do sorteio, prevenindo vazamento treino$\to$teste por
-duplicatas exatas.
+\cite{Prechelt2012, Goodfellow2016}. Uma exigência adicional surge em
+bases textuais com instâncias repetidas: uma duplicata exata que atravesse a
+partição coloca a mesma instância no treino e no teste, e o que se mede deixa
+de ser generalização para ser memorização. Por isso, o particionamento desta
+tese deduplica por texto normalizado \emph{antes} do sorteio; a extensão do
+fenômeno na base e o registro da decisão estão no Capítulo~\ref{ch:metodo}.
 
 \subsection{Inferência estatística para comparação de classificadores e oráculos}
 \label{subsec:ml_inferencia}
@@ -149,45 +153,89 @@ Capítulos~\ref{ch:resultados-l0} e~\ref{ch:resultados-falco}, cada qual com a
 referência original e a de uso em aprendizado de máquina.
 
 \textbf{Intervalo de confiança para proporções (Wilson).} Toda acurácia é uma
-proporção estimada em $n$ instâncias. O intervalo usual de Wald
-($\hat{p} \pm z\sqrt{\hat{p}(1-\hat{p})/n}$) tem cobertura errática: oscila
-severamente abaixo do nível nominal mesmo com $n$ grande e $p$ moderado. Já o
-intervalo de \citet{Wilson1927}, que resolve a desigualdade no
-parâmetro em vez de na estimativa, mantém cobertura próxima da nominal em
-toda a faixa de $p$; a análise sistemática de \citet{Brown2001} recomenda-o
-como escolha padrão. Por isso toda acurácia de oráculo desta tese é reportada
-com IC de Wilson a 95\% (Capítulo~\ref{ch:resultados-falco}).
+proporção estimada em $n$ instâncias. Um intervalo de confiança de 95\% deve
+conter o valor verdadeiro em 95\% das repetições do experimento; a fração em
+que isso de fato ocorre é a \emph{cobertura} do intervalo, e os 95\%
+declarados são o seu \emph{nível nominal}. O intervalo usual de Wald
+($\hat{p} \pm z\sqrt{\hat{p}(1-\hat{p})/n}$, com $z$ o quantil da normal
+padrão associado ao nível: $1{,}96$ para 95\%) fica aquém do que declara: sua
+cobertura real cai abaixo do nível nominal e varia de forma imprevisível
+conforme $n$ e $p$ mudam, mesmo com amostras grandes. O intervalo de
+\citet{Wilson1927} evita o defeito partindo da desigualdade do teste,
+$|\hat{p}-p| \le z\sqrt{p(1-p)/n}$, cuja variância usa o parâmetro
+desconhecido $p$ e não a estimativa $\hat{p}$, e resolvendo-a para $p$ como
+equação de segundo grau. As raízes delimitam o intervalo
+\begin{equation}
+\frac{\hat{p} + \frac{z^2}{2n} \pm z\sqrt{\frac{\hat{p}(1-\hat{p})}{n} + \frac{z^2}{4n^2}}}{1 + \frac{z^2}{n}},
+\label{eq:wilson}
+\end{equation}
+cujo centro desloca $\hat{p}$ levemente em direção a $1/2$ e cuja largura
+ganha o termo de correção $z^2/4n^2$; é isso que mantém a cobertura próxima
+do nível nominal em toda a faixa de $p$. A análise sistemática de
+\citet{Brown2001} o recomenda como escolha padrão. Por isso toda acurácia de
+oráculo desta tese é reportada com IC de Wilson a 95\%
+(Capítulo~\ref{ch:resultados-falco}).
 
 \textbf{Comparação pareada na mesma amostra (McNemar).} Quando dois oráculos
 rotulam \emph{as mesmas} instâncias, seus acertos não são independentes, e a
 comparação correta olha apenas os pares discordantes: as $b$ instâncias em
-que só o primeiro acerta e as $c$ em que só o segundo. O teste de
-\citet{McNemar1947} verifica se a assimetria entre $b$ e $c$ excede o que o
-acaso produziria; quando $b+c<25$, usa-se a versão binomial exata. A escolha
-segue \citet{Dietterich1998}, que comparou empiricamente cinco testes e
-concluiu que o McNemar é o adequado quando cada modelo é avaliado uma única
-vez sobre um conjunto comum, que é o regime desta tese. Nesse cenário, as
-alternativas declaram diferenças inexistentes com frequência acima da que
-prometem.
+que só o primeiro acerta e as $c$ em que só o segundo. Sob a hipótese nula de
+desempenhos iguais, cada discordância tem probabilidade $1/2$ de cair para
+cada lado, e o teste de \citet{McNemar1947} verifica se a assimetria
+observada excede o que esse sorteio produziria, pela estatística
+\begin{equation}
+\chi^2 = \frac{(b-c)^2}{b+c},
+\label{eq:mcnemar}
+\end{equation}
+comparada à distribuição qui-quadrado com um grau de liberdade. Quando
+$b+c<25$, a aproximação deixa de ser confiável e usa-se a versão binomial
+exata: sob a nula, $b \sim \mathrm{Binomial}(b+c,\,1/2)$, e o $p$-valor
+bicaudal é $2\,P(X \le \min(b,c))$. A escolha segue \citet{Dietterich1998},
+que comparou empiricamente cinco testes e concluiu que o McNemar é o adequado
+quando cada modelo é avaliado uma única vez sobre um conjunto comum, o regime
+desta tese; nos experimentos daquele estudo, os demais testes apontaram
+diferença onde não existia com frequência maior do que o nível de
+significância prometia.
 
 \textbf{Comparação pareada por semente (Wilcoxon).} Quando duas estratégias
-são executadas com as mesmas sementes, cada semente gera um par de resultados.
-O teste de postos sinalizados de \citet{Wilcoxon1945} compara os pares sem
-supor normalidade, suposição difícil de sustentar para métricas limitadas ao
-intervalo $[0,1]$, como o Macro F1. É também a recomendação de
-\citet{Demsar2006} para comparar dois algoritmos sobre múltiplas condições. Um limite aritmético
-importa ao desenho: com $n$ pares, o menor $p$-valor bicaudal é $2/2^{n}$.
-Seis sementes são o mínimo que alcança significância a 5\% ($p=0{,}031$);
-esta tese adota oito, cujo piso de $p=0{,}0078$ mantém a significância
-alcançável mesmo sob correção para comparações múltiplas sobre as mesmas
-sementes.
+são executadas com as mesmas sementes de aleatorização (o valor que fixa o
+gerador pseudoaleatório e torna cada execução repetível), cada semente gera
+um par de resultados e uma diferença $d_i$. O teste de postos sinalizados de
+\citet{Wilcoxon1945} ordena os valores absolutos $|d_i|$, atribui-lhes postos
+$1,\dots,n$ e soma os postos das diferenças positivas,
+\begin{equation}
+W^{+} = \sum_{i:\; d_i>0} \operatorname{posto}(|d_i|).
+\label{eq:wilcoxon}
+\end{equation}
+Sob a hipótese nula, cada sinal é positivo ou negativo com probabilidade
+$1/2$, o que dá a $W^{+}$ distribuição conhecida sem supor normalidade,
+suposição difícil de sustentar para métricas limitadas ao intervalo $[0,1]$,
+como o Macro F1; é a recomendação de \citet{Demsar2006} para comparar dois
+algoritmos sobre múltiplas condições. Um limite aritmético importa ao
+desenho: o caso mais extremo, todos os $n$ sinais para o mesmo lado, tem
+probabilidade $1/2^{n}$ por cauda, logo o menor $p$-valor bicaudal é
+$2/2^{n}$. Seis sementes são o mínimo que alcança significância a 5\%
+($p=0{,}031$); esta tese adota oito, cujo piso de $p=0{,}0078$ mantém a
+significância alcançável mesmo sob correção para comparações múltiplas sobre
+as mesmas sementes.
 
-\textbf{Intervalos por reamostragem (\textit{bootstrap}).} Alguns funcionais
-não têm distribuição amostral conhecida, caso típico das áreas sob curvas de
-aprendizado usadas para resumir uma execução inteira de aprendizado ativo
-\citep{Guyon2011ALC}. Para eles, o \textit{bootstrap}
-\citep{EfronTibshirani1993} estima o intervalo de confiança reamostrando os
-pares observados com reposição (método do percentil).
+\textbf{Intervalos por reamostragem (\textit{bootstrap}).} Para uma proporção
+existe fórmula fechada de intervalo; para estatísticas que resumem uma curva
+inteira em um único número, como a área sob uma curva de aprendizado
+\citep{Guyon2011ALC}, a distribuição amostral não é conhecida e não há
+fórmula. O \textit{bootstrap} \citep{EfronTibshirani1993} contorna a ausência
+com um procedimento: dos $n$ pares observados, sorteiam-se $n$ com reposição;
+calcula-se a estatística de interesse na reamostra; repete-se o sorteio $B$
+vezes, obtendo as réplicas $\theta^{*}_{1},\dots,\theta^{*}_{B}$; e o
+intervalo de confiança toma os percentis empíricos dessas réplicas,
+\begin{equation}
+\mathrm{IC}_{95\%} = \left[\theta^{*}_{(2{,}5\%)},\; \theta^{*}_{(97{,}5\%)}\right],
+\label{eq:bootstrap}
+\end{equation}
+o chamado método do percentil. Sem conhecer a distribuição populacional, o
+procedimento usa a própria amostra como o melhor retrato disponível dela e
+mede quanto a estatística flutua ao repetir o experimento dentro desse
+retrato.
 
 A Tabela~\ref{tab:inferencia-mapa} resume o mapeamento situação--teste--uso.
 
@@ -203,7 +251,7 @@ A Tabela~\ref{tab:inferencia-mapa} resume o mapeamento situação--teste--uso.
 Precisão de uma proporção estimada & IC de Wilson 95\% \cite{Wilson1927, Brown2001} & toda acurácia de oráculo (Cap.~\ref{ch:resultados-falco}) \\
 Dois oráculos, mesmas instâncias & McNemar; binomial exato se $b{+}c{<}25$ \cite{McNemar1947, Dietterich1998} & pareamentos de oráculos e de variantes de \textit{prompt} (Cap.~\ref{ch:resultados-falco}) \\
 Duas estratégias, mesmas sementes & Wilcoxon de postos sinalizados \cite{Wilcoxon1945, Demsar2006} & duas estratégias sob as mesmas sementes (Cap.~\ref{ch:resultados-falco}) \\
-Funcional sem distribuição conhecida & IC \textit{bootstrap} percentil \cite{EfronTibshirani1993} & comparação de curvas de aprendizado (Cap.~\ref{ch:metodo}) \\
+Estatística de resumo sem distribuição conhecida & IC \textit{bootstrap} percentil \cite{EfronTibshirani1993} & comparação de curvas de aprendizado (Cap.~\ref{ch:metodo}) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -222,9 +270,9 @@ origens remontam aos trabalhos de \citet{Angluin1988}, sobre aprendizado via
 consultas, e de \citet{Cohn1994Improving}, sobre redução de incerteza; a
 consolidação teórica e a taxonomia de cenários e estratégias devem-se a
 \citet{Settles2012}. O paradigma é a resposta natural aos domínios em que a
-anotação é o gargalo — de imagens médicas que exigem radiologistas a
+anotação é o gargalo (de imagens médicas que exigem radiologistas a
 transcrições cuja anotação custa um múltiplo da duração do áudio
-\cite{Settles2012} —, e ganhou novas camadas com o aprendizado profundo
+\cite{Settles2012}), e ganhou novas camadas com o aprendizado profundo
 \cite{Ren2021} e, mais recentemente, com os LLMs no papel de oráculo ou de
 seletor \cite{Bayer2024ActiveLLM}. Esta seção formaliza o laço, apresenta o catálogo de
 estratégias de seleção e encerra nas duas limitações estruturais que motivam o
@@ -259,9 +307,10 @@ consultas possíveis ao oráculo.
 
 A Tabela~\ref{tab:active-learning-components} resume os componentes; o
 Algoritmo~\ref{alg:active_learning} apresenta o laço \cite{Settles2012,
-Goudjil2018}. Essa notação — $L_0$ para o conjunto inicial, $U$ para o
+Goudjil2018}. Essa notação é a mesma usada em todo o
+Capítulo~\ref{ch:metodo}: $L_0$ para o conjunto inicial, $U$ para o
 \textit{pool}, $S$ para a estratégia, $O$ para o oráculo, $B$ para o
-orçamento — é a mesma usada em todo o Capítulo~\ref{ch:metodo}.
+orçamento.
 
 \begin{table}[ht]
   \centering
@@ -315,8 +364,9 @@ orçamento — é a mesma usada em todo o Capítulo~\ref{ch:metodo}.
 
 O laço admite três cenários clássicos, que diferem em como as instâncias
 chegam ao seletor \cite{Settles2012}: na \textbf{síntese de consultas}, o
-algoritmo gera instâncias artificiais — poderoso em espaços bem definidos, mas
-sujeito a produzir exemplos ininteligíveis para anotadores \cite{Baum1992}; na
+algoritmo gera instâncias artificiais, o que é poderoso em espaços bem
+definidos, mas sujeito a produzir exemplos ininteligíveis para anotadores
+\cite{Baum1992}; na
 \textbf{amostragem seletiva em fluxo}, instâncias chegam uma a uma de uma
 distribuição natural e o algoritmo decide, por um limiar de utilidade, se
 consulta cada uma \cite{Dagan1995}; e no \textbf{aprendizado ativo com acervo
@@ -324,23 +374,23 @@ fixo} (\textit{pool-based}), o cenário desta tese e o mais comum na prática
 \cite{Settles2012}, um conjunto finito $U$ está disponível desde o início e o algoritmo seleciona
 dele as instâncias de maior utilidade \cite{Lewis1994}. Três extensões do
 cenário básico são relevantes aqui: o modo em \textbf{lote}
-(\textit{batch-mode}), que seleciona múltiplas instâncias por iteração —
-inevitável quando o re-treinamento é caro, mas exigindo diversidade dentro do
+(\textit{batch-mode}), que seleciona múltiplas instâncias por iteração, o que é
+inevitável quando o re-treinamento é caro, mas exige diversidade dentro do
 lote \cite{Hoi2006}; o aprendizado ativo \textbf{federado}, que executa a
 seleção localmente em múltiplos clientes preservando privacidade
 \cite{Deng2023fedal}; e o cenário com \textbf{múltiplos oráculos} de custos e
-competências distintos \cite{Yan2011} — historicamente motivado por
+competências distintos \cite{Yan2011}, historicamente motivado por
 \textit{crowdsourcing} e hoje reencarnado no cardápio de LLMs com preços e
-acurácias diferentes, que é precisamente o cenário do FALCO — cardápio e
-preços instrumentados no Capítulo~\ref{ch:metodo}.
+acurácias diferentes, que é precisamente o cenário do FALCO. Esse cardápio e
+seus preços são instrumentados no Capítulo~\ref{ch:metodo}.
 
 \subsection{Estratégias de seleção de instâncias}
 \label{sec:estrategias_selecao}
 
 A estratégia de seleção é o componente que define um algoritmo de aprendizado
 ativo: ela determina quais instâncias valem o custo do oráculo, buscando
-maximizar a informação obtida por consulta \citep{Settles2012} — no espírito
-de \citet{Shannon1948}, buscar ativamente a informação que mais reduz a
+maximizar a informação obtida por consulta \citep{Settles2012}, no espírito
+de \citet{Shannon1948}: buscar ativamente a informação que mais reduz a
 incerteza. As famílias de estratégias diferem no princípio heurístico e no
 custo computacional; as que esta tese emprega diretamente recebem tratamento
 completo, e as demais, uma síntese com as referências de aprofundamento.
@@ -348,9 +398,9 @@ completo, e as demais, uma síntese com as referências de aprofundamento.
 \paragraph{Amostragem por incerteza (\textit{uncertainty sampling}).}
 A família mais usada na prática \citep{Lewis1994heterogeneous, Settles2012}:
 seleciona as instâncias sobre as quais o modelo corrente está mais incerto,
-requerendo apenas as probabilidades preditas — custo baixo, aplicabilidade
-geral, e relação teórica com a bissecção do espaço de versão em
-classificadores de margem \citep{Tong2000}; permanece linha de base forte em
+requerendo apenas as probabilidades preditas. Reúne custo baixo, aplicabilidade
+geral e relação teórica com a bissecção do espaço de versão em
+classificadores de margem \citep{Tong2000}, e permanece linha de base forte em
 \textit{deep learning} \citep{Gal2017}, com uma ressalva de regime que importa
 a esta tese: em classificação com rótulo extremo (centenas de classes),
 nenhuma estratégia de seleção supera a aleatória de forma consistente
@@ -379,7 +429,7 @@ classes raras ao concentrar-se na fronteira das majoritárias
 \paragraph{Comitês e espaço de versão.} A segunda família seleciona pela
 divergência entre hipóteses plausíveis: o espaço de versão é o subconjunto de
 hipóteses consistentes com $L$ \citep{Mitchell1982}, e consultas que maximizam
-o desacordo entre seus membros eliminam hipóteses mais rapidamente — com
+o desacordo entre seus membros eliminam hipóteses mais rapidamente, com
 garantias teóricas de melhoria exponencial em certos regimes
 \citep{Cohn1994Improving, Hanneke2015}. A implementação prática é a
 \textbf{consulta por comitê} (QBC): um \textit{ensemble} construído por
@@ -395,14 +445,14 @@ perspectiva de teoria da decisão: escolher a consulta que, em expectativa,
 mais reduz o erro de generalização ou a variância preditiva do modelo
 resultante \citep{Roy2001, MacKay1992, Cohn1996}, com tratamento natural de
 lotes via otimização submodular \citep{Guestrin2005, Golovin2011, Krause2014}.
-É a família que se propõe explicitamente a otimizar o objetivo final — e a de custo
-computacional proibitivo no nosso regime: re-treinamento por par
+É a família que se propõe explicitamente a otimizar o objetivo final, mas
+também a de custo computacional proibitivo no nosso regime: re-treinamento por par
 candidato-rótulo ou álgebra matricial que escala mal com a dimensionalidade.
 
 \paragraph{Exploração da estrutura dos dados.} A quarta família incorpora a
 distribuição $P(X)$ das próprias instâncias: seleciona pontos que sejam, além
-de informativos, \textbf{representativos} — em regiões densas ou centrais a
-agrupamentos — mitigando a seleção de \textit{outliers}. A ponderação por
+de informativos, \textbf{representativos} (em regiões densas ou centrais a
+agrupamentos), mitigando a seleção de \textit{outliers}. A ponderação por
 densidade multiplica a utilidade-base por um termo de representatividade,
 \begin{equation}
 x^*_{ID} = \arg\max_x \phi_A(x) \times \left( \text{Representatividade}(x) \right)^\beta ,
@@ -419,8 +469,8 @@ orçamento baixo de rótulos, e exemplos incertos, sob orçamento alto
 \citep{Hacohen2022TypiClust}. Esta família é a base
 conceitual do DRI-SL (Capítulo~\ref{ch:metodo}): densidade semântica e
 variedade lexical como critérios de representatividade computáveis sem nenhum
-rótulo. Sua hipótese de trabalho — estrutura dos dados correlacionada com a
-distribuição dos rótulos — nem sempre vale, e o custo de computar a estrutura
+rótulo. Sua hipótese de trabalho (estrutura dos dados correlacionada com a
+distribuição dos rótulos) nem sempre vale, e o custo de computar a estrutura
 não é desprezível \cite{Wertz2022}.
 
 A Tabela~\ref{tab:estrategias_comparacao_rev} resume o quadro comparativo.
@@ -444,18 +494,19 @@ Exploração da estrutura  & Mitiga \textit{outliers}; funciona sem rótulos.   
 \subsection{Limitações do laço clássico}
 \label{sec:limitacoes_laco}
 
-Duas suposições sustentam o laço da Seção~\ref{sec:formalismo} — e ambas
+Duas suposições sustentam o laço da Seção~\ref{sec:formalismo}, e ambas
 falham exatamente nos regimes que interessam a esta tese.
 
 A primeira é a existência de um modelo inicial capaz de guiar a seleção. As
 estratégias de incerteza e desacordo pressupõem $\theta_0$ treinado em algum
-$L_0$; com $L_0$ minúsculo ou inexistente — a \textbf{partida a frio}
-(\textit{cold start}) — o modelo não sustenta seleções melhores que o acaso
+$L_0$; com $L_0$ minúsculo ou inexistente, situação conhecida como
+\textbf{partida a frio} (\textit{cold start}), o modelo não sustenta seleções
+melhores que o acaso
 \cite{Bayer2024ActiveLLM}, e o problema se agrava em texto curto, onde cada instância
 carrega pouca informação (Seção~\ref{sec:fund-stc}), e com classificadores
 profundos, cujo re-treinamento frequente é caro \cite{Wertz2022}. As respostas da literatura passam pela
-exploração da estrutura dos dados antes de existir modelo — a família da
-Eq.~\eqref{eq:id} — e, mais recentemente, por seletores externos com
+exploração da estrutura dos dados antes de existir modelo (a família da
+Eq.~\eqref{eq:id}) e, mais recentemente, por seletores externos com
 conhecimento pré-treinado (Seção~\ref{sec:fund-llm}).
 
 A segunda é a suposição de \textbf{oráculo perfeito}: $O$ devolve sempre o
@@ -463,26 +514,26 @@ rótulo verdadeiro, a custo unitário constante. Anotadores reais erram, variam
 entre si e cansam; a resposta clássica inclui rotulagem repetida, modelagem da
 qualidade do anotador e roteamento entre anotadores de custos distintos
 \cite{Sheng2008, Snow2008, Donmez2009, Yan2011}. Quando o oráculo passa a ser
-um LLM, essa fratura muda de natureza — o erro torna-se sistemático e
-estruturado \cite{Song2023NoisyLabels}, e o custo, uma função de tokens — e é tratada em profundidade na
-Seção~\ref{sec:fund-llm}.
+um LLM, essa fratura muda de natureza (o erro torna-se sistemático e
+estruturado \cite{Song2023NoisyLabels}, e o custo, uma função de tokens) e é
+tratada em profundidade na Seção~\ref{sec:fund-llm}.
 
 Duas consequências operacionais do laço merecem registro porque reaparecem nos
 experimentos. Primeiro, o \textbf{critério de parada}: o ganho marginal por
 lote decresce ao longo da curva de aprendizado (comportamento que a própria
 curva populacional do E6 exibe, Capítulo~\ref{ch:resultados-falco}), e critérios baseados na
-estagnação do desempenho em um conjunto de validação — como o adotado pelo
-FALCO e formalizado no Apêndice~\ref{ap:parada-drift} — ou em razões de
+estagnação do desempenho em um conjunto de validação (como o adotado pelo
+FALCO e formalizado no Apêndice~\ref{ap:parada-drift}) ou em razões de
 custo-benefício \cite{Rouzegar2024Thesis} evitam pagar rótulos que só compram ruído.
 Segundo, o \textbf{viés de amostragem ativa}: o conjunto rotulado resultante
-não é uma amostra i.i.d.\ da população — a seleção por incerteza
+não é uma amostra i.i.d.\ da população (a seleção por incerteza
 sobre-representa casos difíceis e classes raras \cite{Santos2016Vies,
-Settles2012} —, o que afeta tanto o treinamento (às vezes a favor: o
+Settles2012}), o que afeta tanto o treinamento (às vezes a favor: o
 conjunto fica mais balanceado que a distribuição natural) quanto,
 criticamente, a \emph{avaliação}: métricas calculadas sobre os próprios dados
 coletados não estimam o desempenho populacional
-\citep{Farquhar2021Bias, Kossen2021ActiveTesting}, exigindo conjuntos reservados
-— fenômeno quantificado no experimento E6 desta tese
+\citep{Farquhar2021Bias, Kossen2021ActiveTesting}, exigindo conjuntos
+reservados. O fenômeno é quantificado no experimento E6 desta tese
 (Capítulo~\ref{ch:resultados-falco}).
 
 \section{Modelos de linguagem como oráculos de rotulagem}

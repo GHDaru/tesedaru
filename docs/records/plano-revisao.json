@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 42,
-  "atualizado_em": "2026-08-17T08:45:00Z",
+  "versao": 49,
+  "atualizado_em": "2026-08-17T14:00:00Z",
   "atualizado_por": "revisor1: Cap. 2 fechado nas rodadas que me cabem — R3 e R4 dos temas t2, t4 e t5; retrospectiva em docs/retrospectiva-cap2-revisor1.md",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -220,9 +220,9 @@
           "travessoes": 27,
           "citacoes": 37,
           "responsavel": "revisor1",
-          "status": "gate",
+          "status": "feito",
           "dono": "revisor1",
-          "nota": "R1 pré-aprovado pelo autor; merge automático após cruzada limpa do revisor2"
+          "nota": "R3+R4+patch banca+R1 completos; mergeado 2026-08-17 (pré-aprovação do autor + cruzada limpa)"
         },
         {
           "id": "t3",
@@ -245,7 +245,7 @@
           "responsavel": "revisor1",
           "status": "r4",
           "dono": "revisor1",
-          "nota": "R3 e R4 CONCLUÍDAS. R3: 28 chaves distintas (627-721), 10 verificadas na fonte primária pela regra de risco, ZERO fabricações de obra. Achado: Xu2017 com 4 prenomes inventados e o 7º autor ausente — corrigido. R4: 6 pontos em docs/r4-cap2-t4-afirmacoes.md. Os DOIS números sobre os nossos dados foram MEDIDOS e conferem: 'textos de 4 a 50 caracteres' é exato (min 4, max 50 em 250.221 descrições) e 'quase todo termo ocorre uma vez' se sustenta com folga (só 2,07% das descrições repetem algum termo). Falta declarar o artefato nos dois. Segunda ocorrência do padrão 'número tirado de fonte que o próprio fichamento declara qualitativa' (Song2014, Alsmadi2019). Correção da prosa é do principal."
+          "nota": "R3 e R4 CONCLUÍDAS. R3: 28 chaves distintas (627-721), 10 verificadas na fonte primária pela regra de risco, ZERO fabricações de obra. Achado: Xu2017 com 4 prenomes inventados e o 7º autor ausente — corrigido. R4: 6 pontos em docs/r4-cap2-t4-afirmacoes.md (RECUPERADO em 2026-08-17T12:35Z: o commit 3401cf5 ficou dangling num force-push meu e o arquivo esteve fora da main por 9h, apesar de o plano ja o citar). Os DOIS números sobre os nossos dados foram MEDIDOS e conferem: 'textos de 4 a 50 caracteres' é exato (min 4, max 50 em 250.221 descrições) e 'quase todo termo ocorre uma vez' se sustenta com folga (só 2,07% das descrições repetem algum termo). Falta declarar o artefato nos dois. Segunda ocorrência do padrão 'número tirado de fonte que o próprio fichamento declara qualitativa' (Song2014, Alsmadi2019). Correção da prosa é do principal."
         },
         {
           "id": "t5",
@@ -1060,14 +1060,14 @@
           "titulo": "Dicionário de dados junto ao dataset (colunas, normalização de rótulos, CategorySchema 620+_rare_=621)",
           "dono": "agente",
           "status": "gate",
-          "nota": "data/DICIONARIO.md na branch (https://github.com/GHDaru/activelearning/tree/claude/tesedaru-activelearning-maestro-bf56y7): colunas, normalize_label, 250.221→231.490/714, schema 620+_rare_=621, pool 50k/649, md5 0682ee5ba077c180fb7a727fb200f154"
+          "nota": "activelearning/data/DICIONARIO.md na branch (https://github.com/GHDaru/activelearning/tree/claude/tesedaru-activelearning-maestro-bf56y7): colunas, normalize_label, 250.221→231.490/714, schema 620+_rare_=621, pool 50k/649, md5 0682ee5ba077c180fb7a727fb200f154"
         },
         {
           "id": "pipeline-reprodutivel",
           "titulo": "Checagem executável: load_base reproduz 231.490 textos/714 classes e o schema 621 a partir do CSV publicado (entra nos dod-scripts)",
           "dono": "agente",
           "status": "gate",
-          "nota": "scripts/check_dataset_invariants.py na branch (https://github.com/GHDaru/activelearning/tree/claude/tesedaru-activelearning-maestro-bf56y7): 12 invariantes verdes com as funções reais; falha provada (CSV truncado ⇒ exit 1)"
+          "nota": "activelearning/scripts/check_dataset_invariants.py na branch (https://github.com/GHDaru/activelearning/tree/claude/tesedaru-activelearning-maestro-bf56y7): 12 invariantes verdes com as funções reais; falha provada (CSV truncado ⇒ exit 1)"
         }
       ]
     }
@@ -1185,14 +1185,14 @@
       "trilha": "processo"
     },
     {
-      "id": "dec-cache-kaggle",
-      "titulo": "AUTOR: subir annotation_cache_nemotron.jsonl como dataset do Kaggle — destrava os braços A/B/C nas 3 sementes (o centro da hipótese F1(A) ≥ 0,95×F1(D)); 3 retomadas curtas, 18 resultados prontos são pulados",
-      "trilha": "experimentos"
-    },
-    {
       "id": "dec-nome-e3",
       "titulo": "Rebatismo do E3': autor incomoda-se com a plica; recomendação do principal = E3' assume o nome E3 (o E3 original nunca teve resultados; exige reescrever o desenho em 3-metodo:443 + renomear ~35 ocorrências + código/artefatos/notebooks via executor01). Autor: 'voltemos com ela' — retomar.",
       "trilha": "experimentos"
+    },
+    {
+      "id": "dec-reforco-cap4",
+      "trilha": "texto",
+      "titulo": "F6 da refatoração (separada por decisão do autor): reforçar o Cap. 4 — hoje com zero citações, embora 6 fichamentos o prometam; exige escrever conteúdo novo (discussão + interlocução com a literatura)"
     }
   ]
 }

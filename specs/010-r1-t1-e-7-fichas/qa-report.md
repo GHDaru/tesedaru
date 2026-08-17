@@ -115,3 +115,40 @@ Não converti a frase: é prosa recém-aprovada do autor e não é minha para
 mexer. Se o gate quiser zerar, a conversão é de uma linha, mas **tem de ser
 vírgula, não dois-pontos** — a frase do autor já usa dois-pontos oito palavras
 depois ("não estética: nos experimentos"), e um segundo travaria a leitura.
+
+## Adendo 2 (2026-08-17T15:00Z) — o pacote de inferência do autor substituiu 8 das 9 conversões
+
+O commit `03d88d5` aplicou na §2.1.4 o pacote de inferência da banca aprovado
+pelo autor: 4 parágrafos novos com as fórmulas de Wilson, McNemar, Wilcoxon e
+bootstrap em display. **Aquela era a região onde viviam 8 das minhas 9
+conversões de travessão.** Trouxe a main para dentro desta branch e resolvi os
+2 conflitos **em favor da main** — texto do autor prevalece sobre humanização
+minha, sem discussão.
+
+O que sobra desta entrega no `.tex`, medido:
+
+| Medida | main `03d88d5` | **esta branch, resolvida** |
+|---|---|---|
+| travessões `—` na §2.1 | 3 | **1** (o do autor, do `e778bda`) |
+| chaves de citação na §2.1 | 32 | **32, idêntico** |
+| rótulos `eq:wilson/mcnemar/wilcoxon/bootstrap` | 4 | **4, intactos** |
+| `\begin{table}` / `\end{table}` | 4 / 4 | **4 / 4** |
+| linhas que esta branch ainda muda no `.tex` | — | **2** |
+
+Ou seja: **a contribuição desta branch ao texto encolheu para UMA conversão** —
+o par de travessões da frase da validação cruzada estratificada virou vírgulas.
+As outras oito foram absorvidas por texto melhor que o meu, escrito pela banca e
+aprovado pelo autor. Registro sem rodeio: o R1 do t1, na parte de prosa da
+inferência, **foi superado e não precisa mais de gate**.
+
+O que ainda justifica esta branch é o resto do ciclo, que o pacote não toca:
+as 4 fichas lidas na fonte (`Grandini2020`, `Nti2021`, `Widodo2022`,
+`Riyanto2023Comparative`), os 4 PDFs em `a_sanear/`, a verificação das 7
+pendências em `fichamentos/verificacoes/pendencias-t1.md` e este relatório.
+
+**Alerta de método, para mim mesmo:** eu só descobri que o pacote havia sido
+aplicado porque fui medir outra coisa. Ele entrou às 13:53, dois minutos antes
+do meu próprio aviso das 13:55, e os meus check-ins seguintes comparavam a main
+contra **o meu último commit** — janela que esconde tudo o que entrou entre o
+meu último fetch e o meu push. Passo a ancorar a janela no último commit que eu
+**verifiquei**, não no que eu escrevi.

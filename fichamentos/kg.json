@@ -1177,6 +1177,58 @@
       "cited_in": []
     },
     {
+      "id": "EfronTibshirani1993",
+      "type": "artigo",
+      "label": "EfronTibshirani1993",
+      "title": "An Introduction to the Bootstrap",
+      "year": 1993,
+      "venue": "Chapman & Hall/CRC",
+      "paper_type": "canonica",
+      "status": "ficha-minima",
+      "pdf": "",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "EinDor2020",
+      "type": "artigo",
+      "label": "EinDor2020",
+      "title": "Active Learning for BERT: An Empirical Study",
+      "year": 2020,
+      "venue": "Proceedings of EMNLP 2020, p. 7949-7962, ACL",
+      "paper_type": "avaliacao",
+      "status": "fichado",
+      "pdf": "referencias-pdf/EinDor2020.pdf",
+      "doi": "10.18653/v1/2020.emnlp-main.638",
+      "url": "https://doi.org/10.18653/v1/2020.emnlp-main.638",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "metodo:menor-confianca",
+      "type": "metodo",
+      "label": "menor-confianca"
+    },
+    {
+      "id": "metodo:core-set-selection",
+      "type": "metodo",
+      "label": "core-set-selection"
+    },
+    {
+      "id": "metodo:discriminative-active-learning",
+      "type": "metodo",
+      "label": "discriminative-active-learning"
+    },
+    {
+      "id": "dataset:subjectivity",
+      "type": "dataset",
+      "label": "subjectivity"
+    },
+    {
       "id": "Farquhar2021Bias",
       "type": "artigo",
       "label": "Farquhar2021Bias",
@@ -1189,6 +1241,7 @@
       "doi": "",
       "url": "",
       "cited_in": [
+        "Cap. 2 — Fundamentação",
         "Cap. 5 — Resultados (FALCO)"
       ]
     },
@@ -1266,6 +1319,54 @@
       "id": "tarefa:avaliacao-de-classificadores",
       "type": "tarefa",
       "label": "avaliacao-de-classificadores"
+    },
+    {
+      "id": "Frenay2014",
+      "type": "artigo",
+      "label": "Frenay2014",
+      "title": "Classification in the Presence of Label Noise: A Survey",
+      "year": 2014,
+      "venue": "IEEE Transactions on Neural Networks and Learning Systems, v. 25, n. 5, p. 845-869",
+      "paper_type": "survey",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Frenay2014.pdf",
+      "doi": "10.1109/TNNLS.2013.2292894",
+      "url": "https://doi.org/10.1109/TNNLS.2013.2292894",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 5 — Resultados (FALCO)",
+        "Cap. 6 — Conclusão"
+      ]
+    },
+    {
+      "id": "conceito:taxonomia-ncar-nar-nnar",
+      "type": "conceito",
+      "label": "taxonomia-ncar-nar-nnar"
+    },
+    {
+      "id": "metodo:ruido-simetrico",
+      "type": "metodo",
+      "label": "ruido-simetrico"
+    },
+    {
+      "id": "metodo:ruido-assimetrico",
+      "type": "metodo",
+      "label": "ruido-assimetrico"
+    },
+    {
+      "id": "metodo:ruido-de-par",
+      "type": "metodo",
+      "label": "ruido-de-par"
+    },
+    {
+      "id": "metodo:ruido-dependente-da-instancia",
+      "type": "metodo",
+      "label": "ruido-dependente-da-instancia"
+    },
+    {
+      "id": "metodo:matriz-de-transicao-de-ruido",
+      "type": "metodo",
+      "label": "matriz-de-transicao-de-ruido"
     },
     {
       "id": "Fushiki2011",
@@ -1415,6 +1516,72 @@
       "label": "selecao-em-lote"
     },
     {
+      "id": "Griesshaber2020",
+      "type": "artigo",
+      "label": "Griesshaber2020",
+      "title": "Fine-tuning BERT for Low-Resource Natural Language Understanding via Active Learning",
+      "year": 2020,
+      "venue": "Proceedings of the 28th International Conference on Computational Linguistics (COLING 2020), p. 1158-1171, Barcelona (online)",
+      "paper_type": "avaliacao",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Griesshaber2020.pdf",
+      "doi": "10.18653/v1/2020.coling-main.100",
+      "url": "https://doi.org/10.18653/v1/2020.coling-main.100",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "metodo:bald",
+      "type": "metodo",
+      "label": "bald"
+    },
+    {
+      "id": "metodo:dropout-de-monte-carlo",
+      "type": "metodo",
+      "label": "dropout-de-monte-carlo"
+    },
+    {
+      "id": "metodo:aproximacao-bayesiana-de-incerteza",
+      "type": "metodo",
+      "label": "aproximacao-bayesiana-de-incerteza"
+    },
+    {
+      "id": "metodo:congelamento-de-camadas",
+      "type": "metodo",
+      "label": "congelamento-de-camadas"
+    },
+    {
+      "id": "metodo:cnn-como-cabeca-de-classificacao",
+      "type": "metodo",
+      "label": "cnn-como-cabeca-de-classificacao"
+    },
+    {
+      "id": "modelo:bert-base-uncased",
+      "type": "modelo",
+      "label": "bert-base-uncased"
+    },
+    {
+      "id": "dataset:mnli",
+      "type": "dataset",
+      "label": "mnli"
+    },
+    {
+      "id": "dataset:qnli",
+      "type": "dataset",
+      "label": "qnli"
+    },
+    {
+      "id": "dataset:snli",
+      "type": "dataset",
+      "label": "snli"
+    },
+    {
+      "id": "tarefa:inferencia-de-linguagem-natural",
+      "type": "tarefa",
+      "label": "inferencia-de-linguagem-natural"
+    },
+    {
       "id": "Gunasekara2018",
       "type": "artigo",
       "label": "Gunasekara2018",
@@ -1515,7 +1682,9 @@
       "pdf": "referencias-pdf/Hacohen2022TypiClust.pdf",
       "doi": "",
       "url": "",
-      "cited_in": []
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:typiclust",
@@ -1980,6 +2149,22 @@
       "label": "MasakhaNER-2.0"
     },
     {
+      "id": "Kohavi1995",
+      "type": "artigo",
+      "label": "Kohavi1995",
+      "title": "A Study of Cross-Validation and Bootstrap for Accuracy Estimation and Model Selection",
+      "year": 1995,
+      "venue": "Proceedings of the 14th International Joint Conference on Artificial Intelligence (IJCAI), v. 2, pp. 1137--1143",
+      "paper_type": "canonica",
+      "status": "ficha-minima",
+      "pdf": "",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
       "id": "Kossen2021ActiveTesting",
       "type": "artigo",
       "label": "Kossen2021ActiveTesting",
@@ -1992,6 +2177,7 @@
       "doi": "",
       "url": "",
       "cited_in": [
+        "Cap. 2 — Fundamentação",
         "Cap. 5 — Resultados (FALCO)"
       ]
     },
@@ -2166,6 +2352,42 @@
       "cited_in": []
     },
     {
+      "id": "Machado2026RetailPt",
+      "type": "artigo",
+      "label": "Machado2026RetailPt",
+      "title": "Turning web data into official statistics: Classifying Portuguese retail products with NLP models",
+      "year": 2026,
+      "venue": "Statistical Journal of the IAOS, v. 42, n. 1, p. 122-136 (SAGE)",
+      "paper_type": "avaliacao",
+      "status": "a-ler",
+      "pdf": "",
+      "doi": "10.1177/18747655251414407",
+      "url": "https://doi.org/10.1177/18747655251414407",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "metodo:rotulagem-humano-no-laco",
+      "type": "metodo",
+      "label": "rotulagem-humano-no-laco"
+    },
+    {
+      "id": "modelo:bertimbau",
+      "type": "modelo",
+      "label": "bertimbau"
+    },
+    {
+      "id": "modelo:cnn-como-cabeca-de-classificacao",
+      "type": "modelo",
+      "label": "cnn-como-cabeca-de-classificacao"
+    },
+    {
+      "id": "dataset:ecoicop-supermercados-pt",
+      "type": "dataset",
+      "label": "ecoicop-supermercados-pt"
+    },
+    {
       "id": "Marcot2021",
       "type": "artigo",
       "label": "Marcot2021",
@@ -2306,6 +2528,23 @@
       "doi": "",
       "url": "",
       "cited_in": []
+    },
+    {
+      "id": "McNemar1947",
+      "type": "artigo",
+      "label": "McNemar1947",
+      "title": "Note on the sampling error of the difference between correlated proportions or percentages",
+      "year": 1947,
+      "venue": "Psychometrika, v. 12, n. 2, pp. 153--157",
+      "paper_type": "canonica",
+      "status": "ficha-minima",
+      "pdf": "",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 3 — Metodologia"
+      ]
     },
     {
       "id": "Merdjanovska2024NoiseBench",
@@ -2858,6 +3097,27 @@
       "cited_in": []
     },
     {
+      "id": "Romberg2025Reassessing",
+      "type": "artigo",
+      "label": "Romberg2025Reassessing",
+      "title": "Reassessing Active Learning Adoption in Contemporary NLP: A Community Survey",
+      "year": 2026,
+      "venue": "Proceedings of EACL 2026 (Long Papers), p. 2621-2647 (preprint arXiv:2503.09701)",
+      "paper_type": "avaliacao",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Romberg2025Reassessing.pdf",
+      "doi": "10.18653/v1/2026.eacl-long.120",
+      "url": "https://doi.org/10.18653/v1/2026.eacl-long.120",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "metodo:pesquisa-de-comunidade",
+      "type": "metodo",
+      "label": "pesquisa-de-comunidade"
+    },
+    {
       "id": "Roumeliotis2025",
       "type": "artigo",
       "label": "Roumeliotis2025",
@@ -2932,11 +3192,6 @@
       "label": "roteamento-por-limiar-de-confianca"
     },
     {
-      "id": "metodo:menor-confianca",
-      "type": "metodo",
-      "label": "menor-confianca"
-    },
-    {
       "id": "metodo:confidence-scoring",
       "type": "metodo",
       "label": "confidence-scoring"
@@ -2978,7 +3233,9 @@
       "pdf": "referencias-pdf/Rouzegar2024Thesis.pdf",
       "doi": "",
       "url": "",
-      "cited_in": []
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:picr-criterio-de-parada",
@@ -3150,11 +3407,6 @@
       "label": "customer-reviews"
     },
     {
-      "id": "dataset:subjectivity",
-      "type": "dataset",
-      "label": "subjectivity"
-    },
-    {
       "id": "ScottMatwin1999",
       "type": "artigo",
       "label": "ScottMatwin1999",
@@ -3180,7 +3432,9 @@
       "pdf": "referencias-pdf/Sener2018.pdf",
       "doi": "",
       "url": "",
-      "cited_in": []
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "conceito:core-set-selection",
@@ -3562,31 +3816,6 @@
       ]
     },
     {
-      "id": "metodo:ruido-simetrico",
-      "type": "metodo",
-      "label": "ruido-simetrico"
-    },
-    {
-      "id": "metodo:ruido-assimetrico",
-      "type": "metodo",
-      "label": "ruido-assimetrico"
-    },
-    {
-      "id": "metodo:ruido-de-par",
-      "type": "metodo",
-      "label": "ruido-de-par"
-    },
-    {
-      "id": "metodo:ruido-dependente-da-instancia",
-      "type": "metodo",
-      "label": "ruido-dependente-da-instancia"
-    },
-    {
-      "id": "metodo:matriz-de-transicao-de-ruido",
-      "type": "metodo",
-      "label": "matriz-de-transicao-de-ruido"
-    },
-    {
       "id": "metodo:efeito-de-memorizacao",
       "type": "metodo",
       "label": "efeito-de-memorizacao"
@@ -3678,11 +3907,6 @@
       "id": "metodo:pre-treinamento",
       "type": "metodo",
       "label": "pre-treinamento"
-    },
-    {
-      "id": "modelo:bertimbau",
-      "type": "modelo",
-      "label": "bertimbau"
     },
     {
       "id": "modelo:mbert",
@@ -3954,19 +4178,9 @@
       "label": "cvirs"
     },
     {
-      "id": "metodo:discriminative-active-learning",
-      "type": "metodo",
-      "label": "discriminative-active-learning"
-    },
-    {
       "id": "metodo:amostragem-por-subpalavras",
       "type": "metodo",
       "label": "amostragem-por-subpalavras"
-    },
-    {
-      "id": "modelo:bert-base-uncased",
-      "type": "modelo",
-      "label": "bert-base-uncased"
     },
     {
       "id": "dataset:eurlex",
@@ -4002,6 +4216,40 @@
       "id": "tarefa:classificacao-multirrotulo-extrema",
       "type": "tarefa",
       "label": "classificacao-multirrotulo-extrema"
+    },
+    {
+      "id": "Wilcoxon1945",
+      "type": "artigo",
+      "label": "Wilcoxon1945",
+      "title": "Individual comparisons by ranking methods",
+      "year": 1945,
+      "venue": "Biometrics Bulletin, v. 1, n. 6, pp. 80--83",
+      "paper_type": "canonica",
+      "status": "ficha-minima",
+      "pdf": "",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 3 — Metodologia"
+      ]
+    },
+    {
+      "id": "Wilson1927",
+      "type": "artigo",
+      "label": "Wilson1927",
+      "title": "Probable inference, the law of succession, and statistical inference",
+      "year": 1927,
+      "venue": "Journal of the American Statistical Association, v. 22, n. 158, pp. 209--212",
+      "paper_type": "canonica",
+      "status": "ficha-minima",
+      "pdf": "",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 3 — Metodologia"
+      ]
     },
     {
       "id": "Wong2015",
@@ -4184,6 +4432,37 @@
       "label": "yahoo-answers"
     },
     {
+      "id": "Yuan2020",
+      "type": "artigo",
+      "label": "Yuan2020",
+      "title": "Cold-start Active Learning through Self-supervised Language Modeling",
+      "year": 2020,
+      "venue": "Proceedings of EMNLP 2020, p. 7935-7948, ACL",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Yuan2020.pdf",
+      "doi": "10.18653/v1/2020.emnlp-main.637",
+      "url": "https://doi.org/10.18653/v1/2020.emnlp-main.637",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "conceito:alps",
+      "type": "conceito",
+      "label": "alps"
+    },
+    {
+      "id": "conceito:surprisal-embeddings",
+      "type": "conceito",
+      "label": "surprisal-embeddings"
+    },
+    {
+      "id": "dataset:pubmed-20k-rct",
+      "type": "dataset",
+      "label": "pubmed-20k-rct"
+    },
+    {
       "id": "Yuan2025NoiseAL",
       "type": "artigo",
       "label": "Yuan2025NoiseAL",
@@ -4298,11 +4577,6 @@
       "label": "llm-como-oraculo"
     },
     {
-      "id": "metodo:core-set-selection",
-      "type": "metodo",
-      "label": "core-set-selection"
-    },
-    {
       "id": "dataset:jigsaw-toxic",
       "type": "dataset",
       "label": "jigsaw-toxic"
@@ -4373,11 +4647,6 @@
       "label": "predicao-estruturada"
     },
     {
-      "id": "Yuan2020",
-      "type": "artigo-pendente",
-      "label": "Yuan2020"
-    },
-    {
       "id": "DRI-SL",
       "type": "tema-falco",
       "label": "DRI-SL"
@@ -4396,6 +4665,11 @@
       "id": "multiplos-oraculos",
       "type": "tema-falco",
       "label": "multiplos-oraculos"
+    },
+    {
+      "id": "LCE",
+      "type": "tema-falco",
+      "label": "LCE"
     },
     {
       "id": "MacKay1992",
@@ -4421,11 +4695,6 @@
       "id": "RQ2-lote",
       "type": "tema-falco",
       "label": "RQ2-lote"
-    },
-    {
-      "id": "LCE",
-      "type": "tema-falco",
-      "label": "LCE"
     },
     {
       "id": "E4-leitura",
@@ -4463,11 +4732,6 @@
       "label": "Margatina2021"
     },
     {
-      "id": "EinDor2020",
-      "type": "artigo-pendente",
-      "label": "EinDor2020"
-    },
-    {
       "id": "Gal2017",
       "type": "artigo-pendente",
       "label": "Gal2017"
@@ -4476,11 +4740,6 @@
       "id": "oraculo-imperfeito",
       "type": "tema-falco",
       "label": "oraculo-imperfeito"
-    },
-    {
-      "id": "Frenay2014",
-      "type": "artigo-pendente",
-      "label": "Frenay2014"
     },
     {
       "id": "Natarajan2013",
@@ -5786,6 +6045,99 @@
       "note": "Reviews de produto: domínio adjacente ao nosso."
     },
     {
+      "source": "EfronTibshirani1993",
+      "target": "LCE",
+      "type": "fundamenta",
+      "note": "Intervalo de confiança bootstrap percentil para funcional sem distribuição conhecida — é como a tese põe barra de erro na diferença de LCE (E3)."
+    },
+    {
+      "source": "EinDor2020",
+      "target": "Sener2018",
+      "type": "builds_on"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "Devlin2019",
+      "type": "builds_on"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "pilar:P1",
+      "type": "pillars"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "metodo:menor-confianca",
+      "type": "uses_methods"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "metodo:core-set-selection",
+      "type": "uses_methods"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "metodo:discriminative-active-learning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "metodo:selecao-aleatoria",
+      "type": "uses_methods"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "modelo:bert",
+      "type": "models"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "dataset:agnews",
+      "type": "datasets"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "dataset:subjectivity",
+      "type": "datasets"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Estudo empírico de referência sobre aprendizado ativo com BERT sob orçamento pequeno e classe rara — as duas condições do FALCO. Dá base externa para esperar ganho da seleção nesse regime."
+    },
+    {
+      "source": "EinDor2020",
+      "target": "LCE",
+      "type": "motiva",
+      "note": "IMPORTANTE, e é o que a R4 do t5 mandou verificar: este trabalho mede ORÇAMENTO em número de anotações, nunca em dinheiro. Não há avaliação de custo financeiro nem de compromisso custo-benefício monetário. Isso não enfraquece a citação da tese — SUSTENTA a lacuna que ela alega. Ver a seção 'Sobre a frase da L813'."
+    },
+    {
       "source": "Farquhar2021Bias",
       "target": "MacKay1992",
       "type": "builds_on"
@@ -5913,6 +6265,63 @@
       "target": "FALCO",
       "type": "fundamenta",
       "note": "Armadilhas de computar F1/AUC em validação cruzada (formas incompatíveis entre papers/software): diretamente aplicável a como agregamos Macro-F1 entre dobras/repetições nos E1–E3. (Arquivo veio rotulado como Forman 2003; identidade corrigida.)"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "pilar:P2",
+      "type": "pillars"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "conceito:taxonomia-ncar-nar-nnar",
+      "type": "proposes"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "metodo:ruido-simetrico",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "metodo:ruido-assimetrico",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "metodo:ruido-de-par",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "metodo:ruido-dependente-da-instancia",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "metodo:matriz-de-transicao-de-ruido",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Frenay2014",
+      "target": "DRI-SL",
+      "type": "fundamenta",
+      "note": "É a fonte formal da taxonomia de ruído de rótulo, anterior e mais rigorosa que o Song2023NoisyLabels: NCAR (uniforme), NAR (dependente da classe verdadeira, que inclui o RUÍDO DE PAR) e NNAR (dependente da instância). O 'ruído estruturado, concentrado em pares vizinhos' que a tese descreve tem nome formal aqui: **pairwise label noise**, caso particular do NAR."
+    },
+    {
+      "source": "Frenay2014",
+      "target": "FALCO",
+      "type": "ameaca",
+      "note": "ATENÇÃO — junto com o Song2023NoisyLabels, esta ficha FECHA a verificação da frase de 5-resultados-falco/texto.tex:143. As duas fontes citadas ali para sustentar que o ruído estruturado é 'menos danoso que o uniforme' foram lidas, e NENHUMA sustenta a afirmação. Este survey diz o oposto na direção que mede, e traz um agravante específico para o nosso caso de 621 classes — ver a seção 'Veredito'."
     },
     {
       "source": "Fushiki2011",
@@ -6080,6 +6489,129 @@
       "target": "FALCO",
       "type": "fundamenta",
       "note": "Já citado no formalismo do Cap.2 (arcabouço do ciclo de AL). Exemplo canônico de AL+SVM com seleção em LOTE guiada por probabilidades — antecedente direto do QueryBatch por incerteza do FALCO."
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "Devlin2019",
+      "type": "builds_on"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "pilar:P1",
+      "type": "pillars"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:bald",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:dropout-de-monte-carlo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:aproximacao-bayesiana-de-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:congelamento-de-camadas",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:cnn-como-cabeca-de-classificacao",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:selecao-aleatoria",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "modelo:bert-base-uncased",
+      "type": "models"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "dataset:glue",
+      "type": "datasets"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "dataset:mnli",
+      "type": "datasets"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "dataset:qnli",
+      "type": "datasets"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "dataset:snli",
+      "type": "datasets"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "dataset:sst-2",
+      "type": "datasets"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "tarefa:inferencia-de-linguagem-natural",
+      "type": "tasks"
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Sexto trabalho da série de regime que venho montando: aprendizado ativo VENCE a seleção aleatória sobre BERT com menos de mil rótulos — mas em tarefas de 2 a 3 classes. Confirma literalmente a frase da L770 da tese ('adaptam AA ao BERT')."
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "LCE",
+      "type": "fundamenta",
+      "note": "CORRIGIDO em 2026-08-17, ver a seção 'Correção'. A §5 e a Tab. 3 documentam que a aquisição por incerteza DESEQUILIBRA as classes do treino, de 4 a 10 vezes a seleção aleatória. Eu havia registrado isso como AMEAÇA ao FALCO; o E6 da própria tese mostra o oposto, e o que a evidência combinada sustenta é uma CONDIÇÃO DE CONTORNO: o sinal do efeito depende de o pool ser balanceado (Griesshaber, GLUE, 2-3 classes: afasta do equilíbrio, prejudicial) ou torto (FALCO, natural, 621 classes: puxa para o equilíbrio, é o ganho)."
+    },
+    {
+      "source": "Griesshaber2020",
+      "target": "DRI-SL",
+      "type": "complementa",
+      "note": "Restringe o pool a um subconjunto de 20 mil elementos por custo computacional, e declara o risco de excluir instâncias relevantes. É precedente publicado para a mesma decisão no FALCO, cujo pool tem 250.221 linhas."
     },
     {
       "source": "Gunasekara2018",
@@ -6849,6 +7381,12 @@
       "note": "Precedente direto da anotação em LOTE no laço de AL com LLM: mostra a amortização do prompt como componente central da economia (>=42x vs humano). Também mede 'output format correctness' — antecipa nosso achado de que erro de formato != erro semântico (taxa de inválidos)."
     },
     {
+      "source": "Kohavi1995",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Protocolo de estimação de acurácia e seleção de modelo: validação cruzada estratificada como prática padrão, essencial sob desbalanceamento — condição do nosso espaço de 621 rótulos."
+    },
+    {
       "source": "Kossen2021ActiveTesting",
       "target": "Farquhar2021Bias",
       "type": "extends"
@@ -7103,6 +7641,52 @@
       "note": "PDF com encoding corrompido; anotado no bib. Candidato a poda."
     },
     {
+      "source": "Machado2026RetailPt",
+      "target": "Souza2020BERTimbau",
+      "type": "builds_on"
+    },
+    {
+      "source": "Machado2026RetailPt",
+      "target": "pilar:P1",
+      "type": "pillars"
+    },
+    {
+      "source": "Machado2026RetailPt",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Machado2026RetailPt",
+      "target": "metodo:rotulagem-humano-no-laco",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Machado2026RetailPt",
+      "target": "modelo:bertimbau",
+      "type": "models"
+    },
+    {
+      "source": "Machado2026RetailPt",
+      "target": "modelo:cnn-como-cabeca-de-classificacao",
+      "type": "models"
+    },
+    {
+      "source": "Machado2026RetailPt",
+      "target": "dataset:ecoicop-supermercados-pt",
+      "type": "datasets"
+    },
+    {
+      "source": "Machado2026RetailPt",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Machado2026RetailPt",
+      "target": "FALCO",
+      "type": "complementa",
+      "note": "É o trabalho mais próximo do FALCO em DOMÍNIO — descrição de produto de varejo em português, classificada em taxonomia oficial — e o mais distante em MÉTODO: rotulagem humana no laço, sem estratégia formal de aprendizado ativo e sem oráculo automatizado. A tese o usa em 2-fundam:793-800 para corroborar a escolha do BERTimbau e para contrastar processo. Ver 'Estado desta ficha' antes de repetir qualquer número."
+    },
+    {
       "source": "Marcot2021",
       "target": "pilar:geral",
       "type": "pillars"
@@ -7328,6 +7912,12 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Mapping study herdado; nota: metadado de ano corrigido no saneamento (2019, não 2020)."
+    },
+    {
+      "source": "McNemar1947",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Teste pareado que opera SÓ sobre os pares discordantes (b e c), usado em toda comparação entre dois oráculos sobre as mesmas instâncias."
     },
     {
       "source": "Merdjanovska2024NoiseBench",
@@ -8077,6 +8667,48 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "SLR periférica herdada; foco em datasets pode apoiar a valorização do nosso dataset público."
+    },
+    {
+      "source": "Romberg2025Reassessing",
+      "target": "Lewis1994",
+      "type": "builds_on"
+    },
+    {
+      "source": "Romberg2025Reassessing",
+      "target": "pilar:P1",
+      "type": "pillars"
+    },
+    {
+      "source": "Romberg2025Reassessing",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Romberg2025Reassessing",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Romberg2025Reassessing",
+      "target": "metodo:pesquisa-de-comunidade",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Romberg2025Reassessing",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Romberg2025Reassessing",
+      "target": "FALCO",
+      "type": "motiva",
+      "note": "Sustenta a afirmação de 2-fundam:785-789 sobre as barreiras práticas à adoção do aprendizado ativo — e sustenta com números, não só qualitativamente. As três barreiras que a tese lista (complexidade de implantação, incerteza sobre redução de custo, ferramental) são exatamente as três do resumo do artigo. A leitura que a tese acrescenta ('a viabilidade operacional, não a acurácia, é o obstáculo') é inferência nossa, mas os números a sustentam na proporção de cerca de 2 para 1 — ver claim C3."
+    },
+    {
+      "source": "Romberg2025Reassessing",
+      "target": "LCE",
+      "type": "fundamenta",
+      "note": "Dá base externa para a tese instrumentar CUSTO como dimensão de primeira classe: a segunda barreira mais citada é justamente a incerteza sobre a redução real de custo, e o artigo mostra que ela persiste há mais de quinze anos sem ser resolvida pela literatura."
     },
     {
       "source": "Roumeliotis2025",
@@ -9845,6 +10477,18 @@
       "note": "Dá base externa para reportar macro F1 e não só micro: §6.2 (p. 4604) argumenta que micro F1 sobe mesmo quando o classificador só melhora nas classes frequentes, e que em rótulo extremo é o macro que mede quantas classes o sistema aprende a discriminar. É o mesmo motivo pelo qual o Cap. 5 elege macro F1 como métrica principal."
     },
     {
+      "source": "Wilcoxon1945",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Teste de postos sinalizados: compara duas estratégias nas mesmas sementes sem supor normalidade — usado nos experimentos E1/E4."
+    },
+    {
+      "source": "Wilson1927",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Intervalo de confiança para proporção binomial obtido resolvendo a desigualdade no parâmetro, e não na estimativa — é o IC de 95% usado em TODA acurácia de oráculo relatada na tese."
+    },
+    {
       "source": "Wong2015",
       "target": "pilar:geral",
       "type": "pillars"
@@ -10176,6 +10820,103 @@
       "target": "FALCO",
       "type": "compara",
       "note": "Como o ActiveLLM (Bayer2024ActiveLLM), põe o modelo de linguagem na fase de SELEÇÃO; o FALCO faz a separação oposta — seleção local barata (DRI-SL) e LLM só na ROTULAGEM — reduzindo chamadas na fase cara e eliminando template/verbalizador por classe."
+    },
+    {
+      "source": "Yuan2020",
+      "target": "Lewis1994",
+      "type": "builds_on"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "Devlin2019",
+      "type": "builds_on"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "pilar:P1",
+      "type": "pillars"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "conceito:alps",
+      "type": "proposes"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "conceito:surprisal-embeddings",
+      "type": "proposes"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "metodo:cold-start",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "metodo:k-means",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "metodo:selecao-por-diversidade",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "metodo:rotulagem-em-lote",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "modelo:bert-base-uncased",
+      "type": "models"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "dataset:agnews",
+      "type": "datasets"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "dataset:imdb",
+      "type": "datasets"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "dataset:pubmed-20k-rct",
+      "type": "datasets"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "dataset:sst-2",
+      "type": "datasets"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "DRI-SL",
+      "type": "fundamenta",
+      "note": "É o antecessor conceitual direto da Fase 1 do FALCO: usa conhecimento PRÉ-TREINADO para escolher o lote inicial sem depender de um modelo treinado nos nossos rótulos. A diferença é a fonte do sinal — o ALPS usa a perda de modelagem de linguagem mascarada do próprio BERT; o DRI-SL usa densidade semântica e variedade lexical. Mesma ideia, instrumentos distintos."
+    },
+    {
+      "source": "Yuan2020",
+      "target": "FALCO",
+      "type": "motiva",
+      "note": "O diagnóstico de abertura é o mesmo da tese: estratégias clássicas de incerteza falham em modelo profundo porque rede neural é mal calibrada, e alta confiança não implica alta correção. É a justificativa externa para o FALCO não depender só de incerteza do classificador."
     },
     {
       "source": "Yuan2025NoiseAL",

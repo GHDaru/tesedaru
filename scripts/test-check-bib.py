@@ -75,6 +75,15 @@ def rodar(bib: str, tex: str = r"\citep{Limpo2021}", fichas: dict[str, str] | No
         raiz = Path(tmp)
         (raiz / "scripts").mkdir()
         shutil.copy(SCRIPT, raiz / "scripts" / "check-bib.py")
+        # O script deixou de ser um arquivo só: desde a integração do ciclo 011
+        # ele IMPORTA `checagens_extra_bib`. Copiar apenas o `check-bib.py`
+        # fazia todos os casos estourarem em ImportError — e um teste que
+        # falha por não montar o ambiente acusa o script errado. Levar os
+        # módulos irmãos junto mantém a caixa-preta funcionando antes e depois
+        # do merge, sem que este arquivo precise saber QUAIS são as importações.
+        for irmao in AQUI.glob("*.py"):
+            if irmao.name not in ("check-bib.py", Path(__file__).name):
+                shutil.copy(irmao, raiz / "scripts" / irmao.name)
         (raiz / "referencias.bib").write_text(bib, encoding="utf-8")
         (raiz / "1-intro").mkdir()
         (raiz / "1-intro" / "texto.tex").write_text(tex, encoding="utf-8")
