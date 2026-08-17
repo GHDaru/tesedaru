@@ -31,7 +31,7 @@ sustentam afirmação e não cabem na dispensa. Levei a medição, não a expect
 ## Por que `Yan2011` não pode ser dispensada
 
 É *Active Learning from Crowds* (ICML 2011). A tese a cita duas vezes, e a
-segunda diz o seguinte (`2-fundam/texto.tex:382`):
+segunda diz o seguinte (§ "Aprendizado ativo"):
 
 > "o cenário com **múltiplos oráculos** de custos e competências distintos
 > \cite{Yan2011}, formulado originalmente para anotadores humanos em
@@ -48,7 +48,7 @@ prioridade equivalente ao nível 1.
 ## Achado: `Xu2017` é obra de texto curto, citada como se fosse genérica
 
 O título é *Self-taught convolutional neural networks for **short text**
-clustering*. A tese a cita assim (`2-fundam/texto.tex:787`):
+clustering*. A tese a cita assim (§ "Classificação de texto curto"):
 
 > "arquiteturas profundas convolucionais e recorrentes capturam padrões locais e
 > sequenciais \cite{Goodfellow2016, Xu2017}, **com benefício limitado em textos
