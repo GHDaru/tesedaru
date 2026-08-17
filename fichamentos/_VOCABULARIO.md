@@ -147,3 +147,6 @@ taxonomia-ncar-nar-nnar  <!-- Frenay2014: NCAR = uniforme, NAR = dependente da c
 ### Métodos e datasets (partida a frio por pré-treinamento)
 surprisal-embeddings  <!-- Yuan2020: perda de modelagem de linguagem mascarada usada como procuração da incerteza, calculável ANTES de existir rótulo; alps já registrado por Wertz2022 -->
 pubmed-20k-rct, sst-2  <!-- Yuan2020: dos 4 conjuntos, todos de 2 a 5 classes -->
+
+### Datasets (AL com BERT, orçamento pequeno)
+subjectivity  <!-- EinDor2020: já usado por Schroder2022Uncertainty; aqui como um dos 10 conjuntos -->

@@ -1177,6 +1177,42 @@
       "cited_in": []
     },
     {
+      "id": "EinDor2020",
+      "type": "artigo",
+      "label": "EinDor2020",
+      "title": "Active Learning for BERT: An Empirical Study",
+      "year": 2020,
+      "venue": "Proceedings of EMNLP 2020, p. 7949-7962, ACL",
+      "paper_type": "avaliacao",
+      "status": "fichado",
+      "pdf": "referencias-pdf/EinDor2020.pdf",
+      "doi": "10.18653/v1/2020.emnlp-main.638",
+      "url": "https://doi.org/10.18653/v1/2020.emnlp-main.638",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "metodo:menor-confianca",
+      "type": "metodo",
+      "label": "menor-confianca"
+    },
+    {
+      "id": "metodo:core-set-selection",
+      "type": "metodo",
+      "label": "core-set-selection"
+    },
+    {
+      "id": "metodo:discriminative-active-learning",
+      "type": "metodo",
+      "label": "discriminative-active-learning"
+    },
+    {
+      "id": "dataset:subjectivity",
+      "type": "dataset",
+      "label": "subjectivity"
+    },
+    {
       "id": "Farquhar2021Bias",
       "type": "artigo",
       "label": "Farquhar2021Bias",
@@ -3037,11 +3073,6 @@
       "label": "roteamento-por-limiar-de-confianca"
     },
     {
-      "id": "metodo:menor-confianca",
-      "type": "metodo",
-      "label": "menor-confianca"
-    },
-    {
       "id": "metodo:confidence-scoring",
       "type": "metodo",
       "label": "confidence-scoring"
@@ -3253,11 +3284,6 @@
       "id": "dataset:customer-reviews",
       "type": "dataset",
       "label": "customer-reviews"
-    },
-    {
-      "id": "dataset:subjectivity",
-      "type": "dataset",
-      "label": "subjectivity"
     },
     {
       "id": "ScottMatwin1999",
@@ -4029,11 +4055,6 @@
       "label": "cvirs"
     },
     {
-      "id": "metodo:discriminative-active-learning",
-      "type": "metodo",
-      "label": "discriminative-active-learning"
-    },
-    {
       "id": "metodo:amostragem-por-subpalavras",
       "type": "metodo",
       "label": "amostragem-por-subpalavras"
@@ -4404,11 +4425,6 @@
       "label": "llm-como-oraculo"
     },
     {
-      "id": "metodo:core-set-selection",
-      "type": "metodo",
-      "label": "core-set-selection"
-    },
-    {
       "id": "dataset:jigsaw-toxic",
       "type": "dataset",
       "label": "jigsaw-toxic"
@@ -4499,6 +4515,11 @@
       "label": "multiplos-oraculos"
     },
     {
+      "id": "LCE",
+      "type": "tema-falco",
+      "label": "LCE"
+    },
+    {
       "id": "MacKay1992",
       "type": "artigo-pendente",
       "label": "MacKay1992"
@@ -4522,11 +4543,6 @@
       "id": "RQ2-lote",
       "type": "tema-falco",
       "label": "RQ2-lote"
-    },
-    {
-      "id": "LCE",
-      "type": "tema-falco",
-      "label": "LCE"
     },
     {
       "id": "E4-leitura",
@@ -4562,11 +4578,6 @@
       "id": "Margatina2021",
       "type": "artigo-pendente",
       "label": "Margatina2021"
-    },
-    {
-      "id": "EinDor2020",
-      "type": "artigo-pendente",
-      "label": "EinDor2020"
     },
     {
       "id": "Gal2017",
@@ -5880,6 +5891,93 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Reviews de produto: domínio adjacente ao nosso."
+    },
+    {
+      "source": "EinDor2020",
+      "target": "Sener2018",
+      "type": "builds_on"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "Devlin2019",
+      "type": "builds_on"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "pilar:P1",
+      "type": "pillars"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "metodo:menor-confianca",
+      "type": "uses_methods"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "metodo:core-set-selection",
+      "type": "uses_methods"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "metodo:discriminative-active-learning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "metodo:selecao-aleatoria",
+      "type": "uses_methods"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "modelo:bert",
+      "type": "models"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "dataset:agnews",
+      "type": "datasets"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "dataset:subjectivity",
+      "type": "datasets"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "EinDor2020",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Estudo empírico de referência sobre aprendizado ativo com BERT sob orçamento pequeno e classe rara — as duas condições do FALCO. Dá base externa para esperar ganho da seleção nesse regime."
+    },
+    {
+      "source": "EinDor2020",
+      "target": "LCE",
+      "type": "motiva",
+      "note": "IMPORTANTE, e é o que a R4 do t5 mandou verificar: este trabalho mede ORÇAMENTO em número de anotações, nunca em dinheiro. Não há avaliação de custo financeiro nem de compromisso custo-benefício monetário. Isso não enfraquece a citação da tese — SUSTENTA a lacuna que ela alega. Ver a seção 'Sobre a frase da L813'."
     },
     {
       "source": "Farquhar2021Bias",
