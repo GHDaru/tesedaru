@@ -1,1197 +1,1198 @@
 {
- "schema": "plano-revisao/v1",
- "versao": 41,
- "atualizado_em": "2026-08-17T07:00:00Z",
- "atualizado_por": "revisor1: Cap. 2 fechado nas rodadas que me cabem — R3 e R4 dos temas t2, t4 e t5; retrospectiva em docs/retrospectiva-cap2-revisor1.md",
- "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
- "ritual": [
-  "Abrir este JSON e ler o campo 'proximo'",
-  "Criar branch do ciclo (uma por capítulo/rodada)",
-  "Toda alteração apresentada com antes/depois na conversa",
-  "Merge somente com gate humano do autor",
-  "Decisão registrada em ADR + linha no decisoes.jsonl",
-  "Atualizar este JSON (status, versao+1, proximo) e dar push",
-  "Republicar o painel: python3 scripts/render-plano-revisao.py e publicar o HTML na mesma URL do artefato",
-  "Cópia online sempre atual: https://ghdaru.github.io/tesedaru/ (GitHub Pages re-renderiza no push — sem passo manual; o Artifact do Claude é o espelho, republicado quando conveniente)"
- ],
- "rodadas": [
-  {
-   "id": "R1",
-   "nome": "Humanização calibrada",
-   "ref": "ADR 0001 · princípio X",
-   "descricao": "Reduzir assinatura de máquina: travessões, fórmulas enumerativas, staccato; preservar registro acadêmico."
+  "schema": "plano-revisao/v1",
+  "versao": 42,
+  "atualizado_em": "2026-08-17T08:45:00Z",
+  "atualizado_por": "revisor1: Cap. 2 fechado nas rodadas que me cabem — R3 e R4 dos temas t2, t4 e t5; retrospectiva em docs/retrospectiva-cap2-revisor1.md",
+  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
+  "ritual": [
+    "Abrir este JSON e ler o campo 'proximo'",
+    "Criar branch do ciclo (uma por capítulo/rodada)",
+    "Toda alteração apresentada com antes/depois na conversa",
+    "Merge somente com gate humano do autor",
+    "Decisão registrada em ADR + linha no decisoes.jsonl",
+    "Atualizar este JSON (status, versao+1, proximo) e dar push",
+    "Republicar o painel: python3 scripts/render-plano-revisao.py e publicar o HTML na mesma URL do artefato",
+    "Cópia online sempre atual: https://ghdaru.github.io/tesedaru/ (GitHub Pages re-renderiza no push — sem passo manual; o Artifact do Claude é o espelho, republicado quando conveniente)"
+  ],
+  "rodadas": [
+    {
+      "id": "R1",
+      "nome": "Humanização calibrada",
+      "ref": "ADR 0001 · princípio X",
+      "descricao": "Reduzir assinatura de máquina: travessões, fórmulas enumerativas, staccato; preservar registro acadêmico."
+    },
+    {
+      "id": "R2",
+      "nome": "Siglas",
+      "ref": "princípio I",
+      "descricao": "Toda sigla aberta na 1ª ocorrência, presente na lista, expansões idênticas."
+    },
+    {
+      "id": "R3",
+      "nome": "Referências × fichamento × fonte",
+      "ref": "princípio II",
+      "descricao": "Cada citação validada contra o fichamento E contra a fonte primária (DOI/página do venue) — obrigatório para entradas pós-2022, onde a amostra do parecer R6 achou ~4 erradas em 12. Zero chaves duplicadas no bib."
+    },
+    {
+      "id": "R4",
+      "nome": "Afirmações fundamentadas",
+      "ref": "princípio III",
+      "descricao": "Nenhuma afirmação órfã: argumento, citação ou dado."
+    },
+    {
+      "id": "R5",
+      "nome": "Números × artefatos + espelhos",
+      "ref": "princípios V e VIII",
+      "descricao": "Todo número resolve para artefato; resumo/abstract/corpo com os mesmos números e vereditos."
+    },
+    {
+      "id": "R6",
+      "nome": "Terminologia em camadas",
+      "ref": "princípio VII",
+      "descricao": "Capítulo legível com o que já foi definido; jargão operacional só do Cap. 3 em diante."
+    },
+    {
+      "id": "R7",
+      "nome": "Leitura final",
+      "ref": "revisão humana + parecer ARS",
+      "descricao": "Fluidez, didática e olhar de banca; reavaliação ARS após todas as rodadas."
+    }
+  ],
+  "status_legenda": {
+    "feito": "mergeado na main com gate",
+    "gate": "na branch, aguardando gate do autor",
+    "andamento": "em execução na branch",
+    "pendente": "não iniciado",
+    "na": "não se aplica"
   },
-  {
-   "id": "R2",
-   "nome": "Siglas",
-   "ref": "princípio I",
-   "descricao": "Toda sigla aberta na 1ª ocorrência, presente na lista, expansões idênticas."
+  "capitulos": [
+    {
+      "id": "pre",
+      "titulo": "Pré-textuais (resumo + abstract)",
+      "arquivo": "0-iniciais/resumo.tex · abstract.tex",
+      "rodadas": {
+        "R1": {
+          "status": "pendente",
+          "nota": "maior densidade de travessões da tese (21–22/1000 palavras)"
+        },
+        "R2": {
+          "status": "pendente",
+          "nota": "abrem FALCO/LLM; auditar todas"
+        },
+        "R3": {
+          "status": "na"
+        },
+        "R4": {
+          "status": "na"
+        },
+        "R5": {
+          "status": "andamento",
+          "nota": "espelhos alinhados em 2026-08 (P4, 250.221); rechecar ao final",
+          "bloqueado_por": [
+            "consolidar-seeds"
+          ]
+        },
+        "R6": {
+          "status": "feito",
+          "nota": "sem jargão de experimento"
+        },
+        "R7": {
+          "status": "pendente"
+        }
+      },
+      "abertura": [
+        "R1: 32 travessões (16 no resumo + 16 no abstract) — maior densidade da tese (21–22/1000 palavras)",
+        "R2: abrir as siglas de forma independente do corpo (FALCO/LLM já abertos; auditar o restante)",
+        "R5: 32 tokens numéricos a rechecar contra o corpo APÓS a consolidação multi-semente"
+      ],
+      "dimensoes": {
+        "travessoes": 32,
+        "citacoes": 0,
+        "tokens": 32
+      }
+    },
+    {
+      "id": "cap1",
+      "titulo": "1 · Introdução",
+      "arquivo": "1-intro/texto.tex",
+      "rodadas": {
+        "R1": {
+          "status": "feito",
+          "nota": "gate 2026-08-16, merge 2effcfc (mudanças 2,3,3a + A,B)"
+        },
+        "R2": {
+          "status": "feito",
+          "nota": "FALCO, DRI-SL, LLM, BERT, TF abertos; merge be4074d"
+        },
+        "R3": {
+          "status": "feito",
+          "nota": "fechado: 8/8 com fichamento; Bayer2024ActiveLLM e Zhang2025 conferidos contra PDF real (sanear/pdfs-e-bib); entrada bib do Bayer completa na limpeza final do bib (revisor1)"
+        },
+        "R4": {
+          "status": "feito",
+          "nota": "mergeado e70389d (gate do autor 2026-08-16); lock liberado no mesmo commit"
+        },
+        "R5": {
+          "status": "feito",
+          "nota": "mergeado e70389d junto com o R4"
+        },
+        "R6": {
+          "status": "feito",
+          "nota": "banca: capítulo auto-suficiente; ressalva única resolvida no item 3 do R4"
+        },
+        "R7": {
+          "status": "feito",
+          "nota": "leitura final do autor concluída em 2026-08-17 (declarada em sessão). Cap.1: R1-R7 completos; resta só a ressalva do R3 (refichar as 5 chaves repontuadas quando os PDFs subirem)"
+        }
+      },
+      "abertura": [
+        "FEITOS com gate: R1 (5 mudanças), R2 (5 siglas abertas), R6 (hipótese sem jargão)",
+        "R3: 8 citações distintas a validar contra fichamento",
+        "R4: varrer afirmações não citadas (poucas: capítulo curto)",
+        "R5: critério 30%/95% deve espelhar Cap. 3 e Cap. 5"
+      ],
+      "dimensoes": {
+        "travessoes": 6,
+        "citacoes": 8,
+        "tokens": 2
+      },
+      "encerrado": "2026-08-17 — todas as rodadas R1-R7 concluídas; ressalva do R3 fechada (Bayer2024ActiveLLM e Zhang2025 conferidos contra PDF real no gate do saneamento); declarado encerrado pelo autor"
+    },
+    {
+      "id": "cap2",
+      "titulo": "2 · Fundamentação",
+      "arquivo": "2-fundam/texto.tex",
+      "rodadas": {
+        "R1": {
+          "status": "andamento",
+          "nota": "lote 1 mergeado; t2 RECONCILIADO com a main em humanize/cap2-t2 @389f978 (28->0 travessoes; citacoes IDENTICAS a main, incluindo Sener2018/TypiClust/Farquhar/Kossen/Guyon que entraram depois do corte) e t3 em humanize/cap2-t3; ambas aguardam verificacao cruzada e gate em bloco; restam t4 e t5"
+        },
+        "R2": {
+          "status": "pendente"
+        },
+        "R3": {
+          "status": "andamento",
+          "nota": "por tema (ver quebra); absorve a tarefa r3-acoplada do revisor1; verificação cruzada entre revisores antes de cada gate"
+        },
+        "R4": {
+          "status": "andamento",
+          "nota": "t1/t2/t3 mergeados (gate 2026-08-17); t4/t5 pendentes; pacote t1 da banca em consolidação com o principal"
+        },
+        "R5": {
+          "status": "pendente"
+        },
+        "R6": {
+          "status": "pendente"
+        },
+        "R7": {
+          "status": "pendente"
+        }
+      },
+      "abertura": [
+        "R1: lote 1/5 em gate (9 conversões); restam ~92 travessões em 4 lotes temáticos",
+        "R3: 132 citações distintas — a maior rodada de fichamento da tese, fazer por seção",
+        "R4: capítulo de fundamentação = maior risco de afirmação órfã",
+        "R5: 48 tokens numéricos (números de terceiros: conferir contra fichamento, não artefato)"
+      ],
+      "dimensoes": {
+        "travessoes": 92,
+        "citacoes": 132,
+        "tokens": 48
+      },
+      "sequencia_rodadas": "Decisão do autor 2026-08-16: por TEMA, R3 (fontes×fichamento×bib) ANTES de qualquer reescrita; depois R4, depois R1; R6 na leitura de fechamento do capítulo. Nenhum tema entra em R1 com R3 aberto.",
+      "quebra": [
+        {
+          "id": "t1",
+          "tema": "2.1 Aprendizado supervisionado (métricas, validação, inferência)",
+          "linhas": "28-209",
+          "palavras": 1318,
+          "travessoes": 13,
+          "citacoes": 31,
+          "responsavel": "revisor2",
+          "status": "r1",
+          "nota": "R3+R4+pacote da leitura do autor mergeados; R1 destravado (revisor2, após t3)"
+        },
+        {
+          "id": "t2",
+          "tema": "2.2 Aprendizado ativo (formalização, estratégias, limitações)",
+          "linhas": "210-471",
+          "palavras": 1860,
+          "travessoes": 27,
+          "citacoes": 37,
+          "responsavel": "revisor1",
+          "status": "gate",
+          "dono": "revisor1",
+          "nota": "R1 pré-aprovado pelo autor; merge automático após cruzada limpa do revisor2"
+        },
+        {
+          "id": "t3",
+          "tema": "2.3 LLMs como oráculos (capacidades, integração, ruído, custo)",
+          "linhas": "472-626",
+          "palavras": 1205,
+          "travessoes": 20,
+          "citacoes": 29,
+          "responsavel": "revisor2",
+          "status": "feito",
+          "nota": "R3+R4+R1 completos; mergeado 2026-08-17"
+        },
+        {
+          "id": "t4",
+          "tema": "2.4 Classificação de texto curto (desafios, representação, domínio)",
+          "linhas": "627-721",
+          "palavras": 764,
+          "travessoes": 22,
+          "citacoes": 30,
+          "responsavel": "revisor1",
+          "status": "r4",
+          "dono": "revisor1",
+          "nota": "R3 e R4 CONCLUÍDAS. R3: 28 chaves distintas (627-721), 10 verificadas na fonte primária pela regra de risco, ZERO fabricações de obra. Achado: Xu2017 com 4 prenomes inventados e o 7º autor ausente — corrigido. R4: 6 pontos em docs/r4-cap2-t4-afirmacoes.md. Os DOIS números sobre os nossos dados foram MEDIDOS e conferem: 'textos de 4 a 50 caracteres' é exato (min 4, max 50 em 250.221 descrições) e 'quase todo termo ocorre uma vez' se sustenta com folga (só 2,07% das descrições repetem algum termo). Falta declarar o artefato nos dois. Segunda ocorrência do padrão 'número tirado de fonte que o próprio fichamento declara qualitativa' (Song2014, Alsmadi2019). Correção da prosa é do principal."
+        },
+        {
+          "id": "t5",
+          "tema": "2.5 Estado da arte e lacuna (escopo, síntese, lacuna, conclusão)",
+          "linhas": "722-848",
+          "palavras": 982,
+          "travessoes": 14,
+          "citacoes": 24,
+          "responsavel": "revisor1",
+          "status": "r4",
+          "dono": "revisor1",
+          "nota": "R3 e R4 CONCLUÍDAS. R3: 17 chaves, 12 verificadas na fonte. R4: 8 pontos em docs/r4-cap2-t5-afirmacoes.md — a seção que sustenta a lacuna, revisada com peso extra. Exemplar e a NÃO mexer: a 2.5.1 declara ser revisão narrativa e não sistemática, com Kitchenham2004. Ponto principal: a alegação de lacuna (L845-847) não está delimitada pela busca — como está, afirma que a combinação NÃO EXISTE, quando o que a revisão sustenta é que não foi encontrada na busca descrita na 2.5.1; um contraexemplo derruba a versão atual. Machado2026RetailPt: 2 dos 4 números verificados no resumo (100 mil títulos, 94,0% Macro F1), 2 não (97,0% de acurácia, 12 mil rótulos) e a obra sem fichamento; o escopo é alimentos e bebidas, não o catálogo inteiro — dizer isso FORTALECE o contraste com as 621 classes do FALCO. Tabela de lacunas = 45 afirmações sobre trabalhos alheios; 8 das 9 obras têm ficha."
+        }
+      ]
+    },
+    {
+      "id": "cap3",
+      "titulo": "3 · Método",
+      "arquivo": "3-metodo/texto.tex",
+      "rodadas": {
+        "R1": {
+          "status": "feito",
+          "nota": "gate aprovado e mergeado 2026-08-17 (59→4 travessões)"
+        },
+        "R2": {
+          "status": "pendente",
+          "nota": "define a maioria das siglas — conferir 1ª ocorrência de cada"
+        },
+        "R3": {
+          "status": "pendente"
+        },
+        "R4": {
+          "status": "pendente"
+        },
+        "R5": {
+          "status": "andamento",
+          "nota": "particionamento executado + 621/714 + 50k justificado em 2026-08 (a4617e8); resta varrer o capítulo inteiro"
+        },
+        "R6": {
+          "status": "pendente",
+          "nota": "ANOTADO: conferir se a 1ª aparição de E3' explica o nome (corte do E3)"
+        },
+        "R7": {
+          "status": "pendente"
+        }
+      },
+      "abertura": [
+        "R5-IMEDIATO: racional do gate invertido ('85% um desvio acima de 89,56%'); '8 sementes é o mínimo para p<0,05' é falso (n=6 dá 0,031); tabela do programa sem E0-P/E5/E6/E3′",
+        "R1: 59 travessões + 5 aberturas enumerativas + 1 muleta",
+        "R2: capítulo que DEFINE a maioria das siglas — conferir 1ª ocorrência real de cada",
+        "R3: 18 citações distintas",
+        "R5: 105 tokens numéricos; particionamento/621-714/50k já revisados (a4617e8)",
+        "R6: explicar o nome E3′ (corte do E3) na 1ª aparição — anotado no ciclo do Cap. 1"
+      ],
+      "dimensoes": {
+        "travessoes": 59,
+        "citacoes": 18,
+        "tokens": 105
+      },
+      "quebra": [
+        {
+          "id": "c3t1",
+          "tema": "Desenho da pesquisa",
+          "linhas": "21-57",
+          "palavras": 251,
+          "travessoes": 0,
+          "citacoes_chaves": 2,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t2",
+          "tema": "Conjunto de dados",
+          "linhas": "58-176",
+          "palavras": 971,
+          "travessoes": 0,
+          "citacoes_chaves": 2,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t3",
+          "tema": "Classificadores da tarefa",
+          "linhas": "177-212",
+          "palavras": 257,
+          "travessoes": 0,
+          "citacoes_chaves": 5,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t4",
+          "tema": "Métricas de avaliação e análise estatística",
+          "linhas": "213-255",
+          "palavras": 342,
+          "travessoes": 0,
+          "citacoes_chaves": 5,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t5",
+          "tema": "Pilar P1: composição do conjunto inicial \\texorpdfstring{$L_0$",
+          "linhas": "256-293",
+          "palavras": 284,
+          "travessoes": 0,
+          "citacoes_chaves": 2,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t6",
+          "tema": "Pilar P2: \\textit{cold start",
+          "linhas": "294-310",
+          "palavras": 154,
+          "travessoes": 1,
+          "citacoes_chaves": 1,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t7",
+          "tema": "Pilar P3: LLMs como oráculo de rotulagem (experimento E0)",
+          "linhas": "311-393",
+          "palavras": 720,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t8",
+          "tema": "Pilar P4: o framework FALCO e sua avaliação (experimentos E1--E4)",
+          "linhas": "394-487",
+          "palavras": 882,
+          "travessoes": 3,
+          "citacoes_chaves": 2,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t9",
+          "tema": "Ameaças à validade",
+          "linhas": "488-536",
+          "palavras": 440,
+          "travessoes": 0,
+          "citacoes_chaves": 3,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t10",
+          "tema": "Reprodutibilidade e ambiente",
+          "linhas": "537-564",
+          "palavras": 259,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        }
+      ],
+      "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor."
+    },
+    {
+      "id": "cap4",
+      "titulo": "4 · Resultados P1/P2",
+      "arquivo": "4-resultados-l0/texto.tex",
+      "rodadas": {
+        "R1": {
+          "status": "feito",
+          "nota": "gate aprovado e mergeado 2026-08-17 (17→3 travessões)"
+        },
+        "R2": {
+          "status": "pendente"
+        },
+        "R3": {
+          "status": "pendente"
+        },
+        "R4": {
+          "status": "pendente"
+        },
+        "R5": {
+          "status": "pendente",
+          "nota": "tab:replay-vs-original referenciada em 2026-08; varrer números"
+        },
+        "R6": {
+          "status": "pendente"
+        },
+        "R7": {
+          "status": "pendente"
+        }
+      },
+      "abertura": [
+        "R5-IMEDIATO: linha I=100 divergente entre as duas tabelas do AG",
+        "R1: 17 travessões — capítulo leve",
+        "R3: citações raras (resultados próprios); validar as poucas que houver",
+        "R5: 185 tokens numéricos × artefatos do repositório legado (activetextclassification) + replays"
+      ],
+      "dimensoes": {
+        "travessoes": 17,
+        "citacoes": 0,
+        "tokens": 185
+      },
+      "quebra": [
+        {
+          "id": "c4t1",
+          "tema": "Sensibilidade à composição e ao tamanho de \\texorpdfstring{$L_0$",
+          "linhas": "17-59",
+          "palavras": 269,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c4t2",
+          "tema": "Limites por otimização evolutiva",
+          "linhas": "60-99",
+          "palavras": 280,
+          "travessoes": 3,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c4t3",
+          "tema": "DRI-SL \\textit{versus",
+          "linhas": "100-136",
+          "palavras": 252,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c4t4",
+          "tema": "Reexecução independente e efeito da circularidade",
+          "linhas": "137-196",
+          "palavras": 452,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c4t5",
+          "tema": "Síntese do capítulo",
+          "linhas": "197-207",
+          "palavras": 96,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        }
+      ],
+      "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor."
+    },
+    {
+      "id": "cap5",
+      "titulo": "5 · Resultados P3/P4",
+      "arquivo": "5-resultados-falco/texto.tex",
+      "rodadas": {
+        "R1": {
+          "status": "feito",
+          "nota": "gate aprovado e mergeado 2026-08-17 (64→6 travessões)"
+        },
+        "R2": {
+          "status": "pendente",
+          "nota": "NIM/MaaS aparecem aqui — abrir na 1ª ocorrência"
+        },
+        "R3": {
+          "status": "pendente"
+        },
+        "R4": {
+          "status": "pendente"
+        },
+        "R5": {
+          "status": "andamento",
+          "nota": "varredura marcada post hoc (a4617e8); ATENÇÃO: multi-semente E3' vai reescrever números deste capítulo",
+          "bloqueado_por": [
+            "consolidar-seeds"
+          ]
+        },
+        "R6": {
+          "status": "pendente"
+        },
+        "R7": {
+          "status": "pendente"
+        }
+      },
+      "abertura": [
+        "R5-IMEDIATO: população reservada ≈140 mil × 177.490 do Cap. 3 (aritmética só fecha com 177.490); E2 prometido e nunca reportado + E5 fantasma",
+        "R1: 64 travessões + 6 frases telegráficas ('Três leituras.')",
+        "R2: NIM e MaaS aparecem aqui — abrir na 1ª ocorrência",
+        "R3: 6 citações distintas",
+        "R5: 455 tokens numéricos — a maior rodada de números; EXECUTAR APÓS multi-semente do E3′"
+      ],
+      "dimensoes": {
+        "travessoes": 64,
+        "citacoes": 6,
+        "tokens": 455
+      },
+      "quebra": [
+        {
+          "id": "c5t1",
+          "tema": "E0: avaliação fatorial de oráculos LLM",
+          "linhas": "17-180",
+          "palavras": 1268,
+          "travessoes": 6,
+          "citacoes_chaves": 4,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c5t2",
+          "tema": "E0-P: o prompt como variável do instrumento",
+          "linhas": "181-235",
+          "palavras": 425,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c5t3",
+          "tema": "E1: estratégias de seleção com oráculo perfeito",
+          "linhas": "236-293",
+          "palavras": 498,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c5t4",
+          "tema": "E4: robustez do aprendizado ao ruído do oráculo",
+          "linhas": "294-357",
+          "palavras": 499,
+          "travessoes": 0,
+          "citacoes_chaves": 4,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c5t5",
+          "tema": "E6: seletores em escala populacional e o viés da autoavaliação",
+          "linhas": "358-466",
+          "palavras": 996,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c5t6",
+          "tema": "E3': o classificador forte julga o pipeline e a hipótese central",
+          "linhas": "467-595",
+          "palavras": 1038,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c5t7",
+          "tema": "Decisão do gate e configuração do FALCO",
+          "linhas": "596-615",
+          "palavras": 183,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        }
+      ],
+      "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor."
+    },
+    {
+      "id": "cap6",
+      "titulo": "6 · Conclusão",
+      "arquivo": "6-conclusao/texto.tex",
+      "rodadas": {
+        "R1": {
+          "status": "feito",
+          "nota": "gate aprovado e mergeado 2026-08-17 (40→6 travessões; fecho preservado por ordem do autor)"
+        },
+        "R2": {
+          "status": "pendente"
+        },
+        "R3": {
+          "status": "pendente"
+        },
+        "R4": {
+          "status": "pendente"
+        },
+        "R5": {
+          "status": "pendente",
+          "bloqueado_por": [
+            "consolidar-seeds"
+          ]
+        },
+        "R6": {
+          "status": "pendente"
+        },
+        "R7": {
+          "status": "pendente"
+        }
+      },
+      "abertura": [
+        "R1+MÉRITO: fecho (tríade+aforismo) tem 2 trechos que bloqueiam Accept no ARS (DA-C1/C2/C3 do parecer R6) — decisão do autor · unificar ---/—",
+        "R3: 18 citações distintas",
+        "R5: 48 tokens numéricos, todos espelhos de números dos Caps. 4-5"
+      ],
+      "dimensoes": {
+        "travessoes": 35,
+        "citacoes": 18,
+        "tokens": 48
+      },
+      "quebra": [
+        {
+          "id": "c6t1",
+          "tema": "Síntese dos achados",
+          "linhas": "4-69",
+          "palavras": 611,
+          "travessoes": 5,
+          "citacoes_chaves": 1,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c6t2",
+          "tema": "Discussão",
+          "linhas": "70-110",
+          "palavras": 380,
+          "travessoes": 0,
+          "citacoes_chaves": 6,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c6t3",
+          "tema": "Contribuições",
+          "linhas": "111-133",
+          "palavras": 186,
+          "travessoes": 0,
+          "citacoes_chaves": 2,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c6t4",
+          "tema": "Limitações",
+          "linhas": "134-147",
+          "palavras": 107,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c6t5",
+          "tema": "Trabalhos futuros",
+          "linhas": "148-184",
+          "palavras": 318,
+          "travessoes": 0,
+          "citacoes_chaves": 9,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c6t6",
+          "tema": "Conclusão",
+          "linhas": "185-210",
+          "palavras": 264,
+          "travessoes": 1,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        }
+      ],
+      "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor."
+    },
+    {
+      "id": "ap",
+      "titulo": "Apêndices A1–A7",
+      "arquivo": "a1-lce … a7-parada-drift/texto.tex",
+      "rodadas": {
+        "R1": {
+          "status": "pendente",
+          "nota": "26 travessões em 7 apêndices — leve"
+        },
+        "R2": {
+          "status": "pendente",
+          "nota": "prompts/schemas cheios de siglas técnicas (A5) — conferir contra a lista"
+        },
+        "R3": {
+          "status": "pendente",
+          "nota": "3 citações distintas"
+        },
+        "R4": {
+          "status": "pendente"
+        },
+        "R5": {
+          "status": "pendente",
+          "nota": "973 tokens numéricos — 2ª maior R5 da tese; tabelas do A6 são espelho do Cap. 4; A7 espelha política de parada"
+        },
+        "R6": {
+          "status": "pendente"
+        },
+        "R7": {
+          "status": "pendente"
+        }
+      },
+      "abertura": [
+        "R5: 973 tokens numéricos (tabelas A6 = espelho do Cap. 4; princípio VIII vale para apêndice↔corpo)",
+        "A7 tem item próprio no grupo melhorias-r6: atualizar política de parada pós-E3′ (hoje ensina a política refutada)",
+        "R2: A5-prompts usa o CategorySchema — expansões devem bater com a lista de siglas"
+      ],
+      "dimensoes": {
+        "travessoes": 26,
+        "citacoes": 3,
+        "tokens": 973
+      }
+    }
+  ],
+  "artefatos": [
+    {
+      "id": "experimentos",
+      "nome": "Experimentos (robustez E3′)",
+      "itens": [
+        {
+          "id": "seed7",
+          "titulo": "Rodar semente 7 no Colab (notebook e3prime_colab, 1 sessão)",
+          "dono": "autor",
+          "status": "pendente"
+        },
+        {
+          "id": "seed123",
+          "titulo": "Rodar semente 123 no Colab",
+          "dono": "autor",
+          "status": "pendente"
+        },
+        {
+          "id": "consolidar-seeds",
+          "titulo": "Consolidar média±desvio e atualizar Cap. 5 + resumo/abstract",
+          "dono": "agente",
+          "status": "pendente",
+          "bloqueado_por": [
+            "seed7",
+            "seed123"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "publicacoes",
+      "nome": "Publicações e deploys",
+      "itens": [
+        {
+          "id": "kaggle-licenca",
+          "titulo": "Definir licença do dataset no Kaggle (recomendado CC BY 4.0) — bloqueante do artigo a5 · PAR OBRIGATÓRIO: parágrafo de proveniência/LGPD no Cap. 3 (agente)",
+          "dono": "autor",
+          "status": "pendente"
+        },
+        {
+          "id": "pypi-release",
+          "titulo": "Criar Release no GitHub → publica falco-active-learning no PyPI (workflow pronto)",
+          "dono": "autor",
+          "status": "pendente"
+        },
+        {
+          "id": "zenodo",
+          "titulo": "Ativar webhook Zenodo e gerar DOI (metadados prontos) · ao obter DOI: inserir URL+DOI no artigo A4 e no Cap. 3 (tese hoje não tem URL de repositório)",
+          "dono": "autor",
+          "status": "pendente"
+        },
+        {
+          "id": "pwc",
+          "titulo": "Papers with Code (precisa de URL de paper público)",
+          "dono": "autor",
+          "status": "pendente",
+          "bloqueado_por": [
+            "zenodo"
+          ]
+        },
+        {
+          "id": "vercel",
+          "titulo": "Deploy Vercel do FlowBuilder (nome 'activelearning' já ocupado por terceiro — usar outro)",
+          "dono": "autor",
+          "status": "pendente"
+        },
+        {
+          "id": "chaves",
+          "titulo": "Rotacionar as 5 chaves de API (OpenAI, OpenRouter, MaaS, Neon, NVIDIA — a NVIDIA foi exposta em conversa)",
+          "dono": "autor",
+          "status": "pendente"
+        }
+      ]
+    },
+    {
+      "id": "artigos",
+      "nome": "Artigos derivados (a1–a5)",
+      "itens": [
+        {
+          "id": "a5-classes",
+          "titulo": "Corrigir a5: '649 raw classes' → 714 (649 é a contagem no pool de 50k) + resolver TODOs de licença/versão",
+          "dono": "agente",
+          "status": "pendente"
+        },
+        {
+          "id": "artigos-revisao",
+          "titulo": "Rodada de revisão dos 5 artigos após texto final da tese",
+          "dono": "agente",
+          "status": "pendente"
+        },
+        {
+          "id": "autoria-ordem",
+          "titulo": "Definir autoria/ordem dos 5 artigos",
+          "dono": "autor",
+          "status": "pendente"
+        }
+      ]
+    },
+    {
+      "id": "defesa",
+      "nome": "Defesa",
+      "itens": [
+        {
+          "id": "slides-sync",
+          "titulo": "Sincronizar defesa.tex com o texto final (números pós multi-semente)",
+          "dono": "agente",
+          "status": "pendente",
+          "bloqueado_por": [
+            "consolidar-seeds"
+          ]
+        },
+        {
+          "id": "arguicao-sync",
+          "titulo": "Atualizar arguicao.md com vereditos finais",
+          "dono": "agente",
+          "status": "pendente"
+        }
+      ]
+    },
+    {
+      "id": "governanca",
+      "nome": "Governança e qualidade",
+      "itens": [
+        {
+          "id": "fichamento-audit",
+          "titulo": "Auditoria citações × fichamentos: 150 chaves citadas vs 142 fichamentos (gap mínimo de 8) — relatório referência a referência",
+          "dono": "agente",
+          "status": "pendente"
+        },
+        {
+          "id": "dod-scripts",
+          "titulo": "Scripts de DoD do princípio IX: checar siglas do diff, compilação e espelhos como gate + deduplicar 17 títulos duplicados no referencias.bib (verificado: ActiveLLM 3x, zhang2022 3x, Settles2008 3x…)",
+          "dono": "agente",
+          "status": "pendente"
+        },
+        {
+          "id": "ars-final",
+          "titulo": "Reavaliação ARS final — âncora: parecer R6 de sessão paralela alega 85,8 com roadmap de 20 itens; AGUARDA push de docs/parecer-ars-r6.md para o número virar artefato (princípio V)",
+          "dono": "agente",
+          "status": "pendente"
+        }
+      ]
+    },
+    {
+      "id": "biblioteca",
+      "nome": "Biblioteca e software (concluídos recentes)",
+      "itens": [
+        {
+          "id": "wheel-fix",
+          "titulo": "Pacote pip: create_app sem config não quebra mais (33d0f50)",
+          "dono": "agente",
+          "status": "feito"
+        },
+        {
+          "id": "multiseed-infra",
+          "titulo": "E3′ multi-semente: --seed/--out-dir + notebook Colab/Databricks (7dbe5d9)",
+          "dono": "agente",
+          "status": "feito"
+        },
+        {
+          "id": "docs-pages",
+          "titulo": "Documentação MkDocs no GitHub Pages (86/86 testes verdes)",
+          "dono": "agente",
+          "status": "feito"
+        }
+      ]
+    },
+    {
+      "id": "melhorias-r6",
+      "nome": "Melhorias do parecer R6 (agente executa, gate seu)",
+      "itens": [
+        {
+          "id": "a7-parada",
+          "titulo": "Atualizar Apêndice A7: política de parada pós-E3′ (hoje ensina a política refutada)",
+          "dono": "agente",
+          "status": "pendente"
+        },
+        {
+          "id": "custo-latencia",
+          "titulo": "Tabela de custo: acrescentar latência/vazão e tokens por rótulo (dados já instrumentados)",
+          "dono": "agente",
+          "status": "pendente"
+        },
+        {
+          "id": "etica",
+          "titulo": "Subseção curta de ética no Cap. 3",
+          "dono": "agente",
+          "status": "pendente"
+        },
+        {
+          "id": "decl-ia",
+          "titulo": "Declaração de IA: tirar RASCUNHO, nomear ferramenta, incluir E1/E2",
+          "dono": "agente",
+          "status": "pendente"
+        },
+        {
+          "id": "ppgmne-intro",
+          "titulo": "Parágrafo de ancoragem ao PPGMNE na Introdução",
+          "dono": "agente",
+          "status": "pendente"
+        },
+        {
+          "id": "fig-arq-a4",
+          "titulo": "Figura de arquitetura no artigo A4",
+          "dono": "agente",
+          "status": "pendente"
+        },
+        {
+          "id": "fichar-vizinhos",
+          "titulo": "Fichar 11 vizinhos faltantes (FreeAL, LLMaAA, TypiClust, coreset, PATRON, Farquhar21, Kossen21, Wang21, Pangakis23, Schröder22, Bengar22) + FreeAL/LLMaAA na tabela de lacunas — PRÉ-REQUISITO do R3 do Cap. 2",
+          "dono": "agente",
+          "status": "gate",
+          "nota": "11 fichamentos validados na fonte primária em DUAS branches (colisão r1×r2): r2 (https://github.com/GHDaru/tesedaru/tree/claude/tesedaru-activelearning-maestro-bf56y7: um commit/artigo com bib de 9 chaves novas + vocabulário + KG 523 nós + ciclo Maestro spec 001) × r1 (claude/maestro-cycles-statistical-analysis-fwla6a: mesmos 11, slugs diferentes, sem bib/vocab). Verificação cruzada 11/11 idênticos (docs/verificacao-cruzada-revisor2.md na branch r2) — AUTOR ESCOLHE UMA; mergear as duas duplica"
+        }
+      ]
+    },
+    {
+      "id": "encerramento",
+      "nome": "Encerramento e aprovação final",
+      "itens": [
+        {
+          "id": "normas-ufpr",
+          "titulo": "Conformidade com o padrão UFPR/PPGMNE (template ppginf.cls): pré-textuais obrigatórios, ficha catalográfica, folha de aprovação, listas, citações/referências na norma, numeração e margens",
+          "dono": "agente",
+          "status": "gate",
+          "nota": "LEVANTAMENTO entregue em duas versões complementares: r2 docs/relatorio-nao-conformidades-ufpr.md (Manual UFPR 2024 lido na fonte; 11 nao-conformes/15 pendências) × r1 docs/relatorio-conformidade-ufpr-ppgmne.md (~40 itens, 5 bloqueantes). Correções continuam sendo ciclos de texto gateados (dod-final segue bloqueado)"
+        },
+        {
+          "id": "dod-final",
+          "titulo": "DoD final verificável: compila 0/0, siglas e números do diff verdes, todas as células da matriz em 'feito'",
+          "dono": "agente",
+          "status": "pendente",
+          "bloqueado_por": [
+            "normas-ufpr"
+          ]
+        },
+        {
+          "id": "ars-fechamento",
+          "titulo": "Parecer ARS de fechamento (após R7 de todos os capítulos)",
+          "dono": "agente",
+          "status": "pendente",
+          "bloqueado_por": [
+            "dod-final"
+          ]
+        },
+        {
+          "id": "aprovacao-orientador",
+          "titulo": "Revisão e aprovação do orientador (Prof. Gustavo)",
+          "dono": "autor",
+          "status": "pendente",
+          "bloqueado_por": [
+            "ars-fechamento"
+          ]
+        },
+        {
+          "id": "gate-final",
+          "titulo": "GATE FINAL DO AUTOR: aprovação explícita do texto completo para depósito",
+          "dono": "autor",
+          "status": "pendente",
+          "bloqueado_por": [
+            "aprovacao-orientador"
+          ]
+        },
+        {
+          "id": "deposito",
+          "titulo": "Depósito e agendamento da defesa",
+          "dono": "autor",
+          "status": "pendente",
+          "bloqueado_por": [
+            "gate-final"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dados",
+      "nome": "Dados (auditoria e publicação)",
+      "itens": [
+        {
+          "id": "md5-versao",
+          "titulo": "Registrar no Cap. 3 o hash md5 e a versão exata do CSV usado + changelog Kaggle 250.365→250.221 (TODO herdado do artigo a5)",
+          "dono": "agente",
+          "status": "pendente",
+          "nota": "PROSA do Cap. 3 (fica com o principal): md5 0682ee5ba077c180fb7a727fb200f154 e changelog 250.365→250.221 já documentados em activelearning/data/CORRECTIONS.md + DICIONARIO.md — falta só o registro no texto"
+        },
+        {
+          "id": "dicionario-dados",
+          "titulo": "Dicionário de dados junto ao dataset (colunas, normalização de rótulos, CategorySchema 620+_rare_=621)",
+          "dono": "agente",
+          "status": "gate",
+          "nota": "data/DICIONARIO.md na branch (https://github.com/GHDaru/activelearning/tree/claude/tesedaru-activelearning-maestro-bf56y7): colunas, normalize_label, 250.221→231.490/714, schema 620+_rare_=621, pool 50k/649, md5 0682ee5ba077c180fb7a727fb200f154"
+        },
+        {
+          "id": "pipeline-reprodutivel",
+          "titulo": "Checagem executável: load_base reproduz 231.490 textos/714 classes e o schema 621 a partir do CSV publicado (entra nos dod-scripts)",
+          "dono": "agente",
+          "status": "gate",
+          "nota": "scripts/check_dataset_invariants.py na branch (https://github.com/GHDaru/activelearning/tree/claude/tesedaru-activelearning-maestro-bf56y7): 12 invariantes verdes com as funções reais; falha provada (CSV truncado ⇒ exit 1)"
+        }
+      ]
+    }
+  ],
+  "proximo": {
+    "descricao": "Cap.1 FECHADO em R1-R6 (gate e70389d); faltam refichamento das 5 chaves repontuadas (autor sobe PDFs) e R7 (leitura final do autor, com a banca nos pontos finais). FRENTE PRINCIPAL: Cap.2 quebrado em 5 temas (ver capitulos.cap2.quebra) — revisor1: t2/t4/t5, revisor2: t1/t3; ordem por tema: R3→R4→R1, bib antes de reescrita. Executor01: auditoria de rastreabilidade números→experimento→código→evidência + padronização de notebooks Kaggle. Executor02: s42 canônica e recomputo McNemar/bootstrap. Site: página Referências. Prosa fix/cap2-prosa-619-648 em gate aguardando fichamento Margatina2023.",
+    "fila": [
+      "revisor1: bib lote 0 (em curso) -> bib lote 2 -> humanização Caps. 3 e 4",
+      "revisor2: bib lotes 1 e 3 -> humanização Caps. 5 e 6",
+      "banca: lote 4 (verificação do bib) + re-checagem do veredito mergeado",
+      "executor01/02: sementes 7 e 123 (Kaggle) -> consolidação estatística",
+      "principal: lotes 2 e 3 do mínimo-banca (números R5-imediato, declaração de IA) + Cap. 2 lotes 2-5 após o bib",
+      "site: fatia 2 (kanban + página de Resultados)",
+      "depois: R2 siglas · R5 números × artefatos · R3 fichamento · R4 · R6 · R7 + ARS final"
+    ]
   },
-  {
-   "id": "R3",
-   "nome": "Referências × fichamento × fonte",
-   "ref": "princípio II",
-   "descricao": "Cada citação validada contra o fichamento E contra a fonte primária (DOI/página do venue) — obrigatório para entradas pós-2022, onde a amostra do parecer R6 achou ~4 erradas em 12. Zero chaves duplicadas no bib."
+  "execucoes": {
+    "descricao": "Controle do que está rodando fora do texto (treinos, jobs, deploys). Estados: aguardando_inicio | rodando | concluido | falhou. Atualizar ao iniciar e ao terminar, com link do resultado. Execuções longas passam a rodar em sessões dedicadas (executor01/executor02), que reportam ao principal; ver coordenacao/PROTOCOLO.md.",
+    "itens": [
+      {
+        "id": "e3p-seed7",
+        "o_que": "E3′ semente 7 — 5 braços + varredura de orçamento",
+        "onde": "Kaggle, GPU T4 · kernel ghdaru/falco-e3-semente-7 (executor01) · resultados publicados na main pelo executor02",
+        "estado": "bloqueado",
+        "dono": "executor02",
+        "duracao": "1,5–2,5 h",
+        "resultado_esperado": "experiments/e2e3/results/e3prime_*_s7.json",
+        "resultado": "6 de 9 braços, regime canônico, produzidos pelo executor01 (branch claude/e3prime-seed-7-bx08ks@2f7d26f) e publicados na main em https://github.com/GHDaru/activelearning/commit/ebd1797 após verificação independente (conteúdo == saída do kernel; regime conferido). D: F1 0,3771/acc 0,8678 · E35: 0,3440/0,8592 · E30: 0,3239/0,8443 · E25: 0,3058/0,8310 · E20: 0,2533/0,7826 · E: 0,2050/0,7005. Varredura vs 0,95×D: NENHUM braço cruza o F1 nesta semente; E25/E30/E35 cruzam acurácia. Handoff: executor01 passou o item ao executor02 (mensagem 2130 na branch dele) e assumiu notebooks-auditáveis.",
+        "bloqueio": "A, B e C aguardam o annotation_cache_nemotron.jsonl como dataset do Kaggle — mesmos três braços pendentes nas sementes 42, 7 e 123."
+      },
+      {
+        "id": "e3p-seed123",
+        "o_que": "E3′ semente 123 — 5 braços + varredura de orçamento",
+        "onde": "Kaggle, GPU T4 · kernel ghdaru/falco-e3prime-s123 · activelearning/experiments/e2e3/kaggle/",
+        "estado": "bloqueado",
+        "dono": "executor02",
+        "duracao": "1,5–2,5 h em T4 (estimativa)",
+        "resultado_esperado": "experiments/e2e3/results/e3prime_*_s123.json",
+        "bloqueio": "A, B e C aguardam o annotation_cache_nemotron.jsonl como dataset do Kaggle (fora do repositório). Reexecução pula os 6 prontos.",
+        "resultado": "6 de 9 braços entregues em regime canônico (bs=128, avaliação nos 177.490 da população inteira), 75 min de T4 — https://github.com/GHDaru/activelearning/commit/9d74484 · D: F1 0,3590/acc 0,8652 · E35: 0,3461/0,8582 · E30: 0,3228/0,8479 · E25: 0,3136/0,8305 · E20: 0,2416/0,7715 · E: 0,1909/0,6895. Varredura vs 0,95×D: E35 cruza F1 e acc; E30/E25 só acc."
+      },
+      {
+        "id": "e3p-seed42-canonico",
+        "o_que": "E3′ semente 42 REFEITA em regime canônico — decisão do autor (2026-08-16, sessão executor02): mais barato que refazer 7 e 123 em pareado. Regime antigo preservado em results/legacy_s42_bs16_eval20k/ (activelearning@176f703); mcnemar/bootstrap _s42 referem-se ao regime antigo e precisarão ser refeitos.",
+        "onde": "Kaggle, GPU T4 · kernel ghdaru/falco-e3prime-s42 · mesma receita",
+        "estado": "concluido",
+        "dono": "executor02",
+        "duracao": "~1,3 h (medido na semente 123)",
+        "resultado_esperado": "experiments/e2e3/results/e3prime_*_s42.json (canônicos, 6 braços)",
+        "resultado": "6 braços entregues — https://github.com/GHDaru/activelearning/commit/4b685d4 · D: F1 0,3691/acc 0,8694 · E35: 0,3660/0,8656 · E30: 0,3231/0,8395 · E25: 0,2989/0,8228 · E20: 0,2651/0,7702 · E: 0,2088/0,6997. FECHA AS 3 SEMENTES CANÔNICAS — média±desvio (k=3): D F1 0,3684±0,0091/acc 0,8675±0,0021 · E35 0,3520±0,0121/0,8610±0,0040 · E30 0,3233±0,0006/0,8439±0,0042 · E25 0,3061±0,0074/0,8281±0,0046 · E20 0,2533±0,0118/0,7748±0,0068 · E 0,2016±0,0094/0,6966±0,0061. Piso de orçamento: E35 cruza 0,95×F1(D) em 2 de 3 sementes (média cruza por 0,002, dentro do desvio) — fica NO limiar; em acurácia E30/E35 cruzam nas 3. McNemar/bootstrap _s42 seguem do regime antigo, a refazer."
+      },
+      {
+        "id": "mcnemar-pares",
+        "o_que": "McNemar pareado A–B, B–C, E35–D sobre predições persistidas (_s42)",
+        "onde": "CPU local · experiments/e2e3/results/",
+        "estado": "concluido",
+        "dono": "agente",
+        "duracao": "minutos",
+        "resultado_esperado": "experiments/e2e3/results/mcnemar_s42.json",
+        "resultado": "https://github.com/GHDaru/activelearning/blob/main/experiments/e2e3/results/mcnemar_s42.json — A–B: b=1263/c=2143, p≈8e-52 (ruído do oráculo custa acurácia); B–C: b=1198/c=1788, p≈3e-27 (itens selecionados PIORAM acurácia vs aleatório, embora melhorem Macro F1); E35–D: b=618/c=561, p=0,103 (35k ≈ 50k, sem diferença detectável)"
+      },
+      {
+        "id": "bootstrap-f1",
+        "o_que": "IC bootstrap das diferenças de Macro F1 entre braços",
+        "onde": "CPU local · mesmas predições",
+        "estado": "concluido",
+        "dono": "agente",
+        "duracao": "minutos",
+        "resultado_esperado": "experiments/e2e3/results/bootstrap_f1_s42.json",
+        "resultado": "https://github.com/GHDaru/activelearning/blob/main/experiments/e2e3/results/bootstrap_f1_s42.json — ΔF1 (10k réplicas pareadas, IC95 percentil): A–B +0,0332 [0,0268; 0,0367]; B–C +0,0204 [0,0135; 0,0235]; E35–D +0,0117 [0,0022; 0,0177] — três ICs excluem zero"
+      },
+      {
+        "id": "fix-cap2-prosa-619-648",
+        "descricao": "Reescrita das frases com citações fabricadas (Wu2022 ~:618, Ahmed2023 ~:648) do Cap.2; provisória até a busca acadêmica do revisor2 (tarefa 20260816-2110)",
+        "branch": "fix/cap2-prosa-619-648",
+        "commit": "43f6fae",
+        "estado": "feito",
+        "responsavel": "principal",
+        "bloqueado_por": "busca acadêmica revisor2 (tarefa 20260816-2110)",
+        "aprovacao_previa_autor": "2026-08-16: autor de acordo com o texto do antes/depois; aguardar a busca acadêmica do revisor2 (tarefa 20260816-2110) e reapresentar consolidado antes do merge",
+        "nota": "mergeado pelo gate do autor em 2026-08-17, com Margatina2023 citada e fichada"
+      },
+      {
+        "id": "fix-cap2-ruido-estruturado",
+        "descricao": "Correção da soldagem ruído estruturado (Cap.2:585) — decisão (a) do autor; antes/depois apresentado",
+        "branch": "fix/cap2-ruido-estruturado",
+        "commit": "a0e20c9",
+        "estado": "feito",
+        "responsavel": "principal",
+        "trilha": "texto",
+        "nota": "mergeado pelo gate do autor em 2026-08-17"
+      }
+    ]
   },
-  {
-   "id": "R4",
-   "nome": "Afirmações fundamentadas",
-   "ref": "princípio III",
-   "descricao": "Nenhuma afirmação órfã: argumento, citação ou dado."
-  },
-  {
-   "id": "R5",
-   "nome": "Números × artefatos + espelhos",
-   "ref": "princípios V e VIII",
-   "descricao": "Todo número resolve para artefato; resumo/abstract/corpo com os mesmos números e vereditos."
-  },
-  {
-   "id": "R6",
-   "nome": "Terminologia em camadas",
-   "ref": "princípio VII",
-   "descricao": "Capítulo legível com o que já foi definido; jargão operacional só do Cap. 3 em diante."
-  },
-  {
-   "id": "R7",
-   "nome": "Leitura final",
-   "ref": "revisão humana + parecer ARS",
-   "descricao": "Fluidez, didática e olhar de banca; reavaliação ARS após todas as rodadas."
-  }
- ],
- "status_legenda": {
-  "feito": "mergeado na main com gate",
-  "gate": "na branch, aguardando gate do autor",
-  "andamento": "em execução na branch",
-  "pendente": "não iniciado",
-  "na": "não se aplica"
- },
- "capitulos": [
-  {
-   "id": "pre",
-   "titulo": "Pré-textuais (resumo + abstract)",
-   "arquivo": "0-iniciais/resumo.tex · abstract.tex",
-   "rodadas": {
-    "R1": {
-     "status": "pendente",
-     "nota": "maior densidade de travessões da tese (21–22/1000 palavras)"
+  "gate": "NADA entra na main sem gate humano do autor: toda rodada roda em branch, apresenta antes/depois na conversa e só mergeia com aprovação explícita. Vale para texto, código e plano.",
+  "decisoes_pendentes": [
+    {
+      "id": "dec-fecho-cap6",
+      "titulo": "Fecho do Cap. 6: manter tríade+aforismo (estilo) sabendo que 2 trechos são apontados como mérito (DA-C1/C2/C3), ou reescrever",
+      "trilha": "texto"
     },
-    "R2": {
-     "status": "pendente",
-     "nota": "abrem FALCO/LLM; auditar todas"
+    {
+      "id": "dec-gate-85",
+      "titulo": "Gate de 85%: justificativa diz 'um desvio acima' de 89,56% quando está 4,6 p.p. abaixo; configuração final derivada sem oráculo atingir o limiar e sem declarar violação do pré-registro (parecer R3/R4/R6)",
+      "trilha": "texto"
     },
-    "R3": {
-     "status": "na"
+    {
+      "id": "dec-politica-parada",
+      "titulo": "Política de parada: dois racionais incompatíveis (fator ~20) para a mesma constante — causa-raiz atribuída ao resultado negativo (parecer R3/R4/R6)",
+      "trilha": "texto"
     },
-    "R4": {
-     "status": "na"
+    {
+      "id": "dec-divida-vocabulario",
+      "titulo": "Dívida antiga: 342 entidades fora do vocabulário controlado nos 140 fichamentos legados — entra no plano ou fica como está? (retirada do DoD do lote 5)",
+      "trilha": "processo"
     },
-    "R5": {
-     "status": "andamento",
-     "nota": "espelhos alinhados em 2026-08 (P4, 250.221); rechecar ao final",
-     "bloqueado_por": [
-      "consolidar-seeds"
-     ]
+    {
+      "id": "dec-cache-kaggle",
+      "titulo": "AUTOR: subir annotation_cache_nemotron.jsonl como dataset do Kaggle — destrava os braços A/B/C nas 3 sementes (o centro da hipótese F1(A) ≥ 0,95×F1(D)); 3 retomadas curtas, 18 resultados prontos são pulados",
+      "trilha": "experimentos"
     },
-    "R6": {
-     "status": "feito",
-     "nota": "sem jargão de experimento"
-    },
-    "R7": {
-     "status": "pendente"
+    {
+      "id": "dec-nome-e3",
+      "titulo": "Rebatismo do E3': autor incomoda-se com a plica; recomendação do principal = E3' assume o nome E3 (o E3 original nunca teve resultados; exige reescrever o desenho em 3-metodo:443 + renomear ~35 ocorrências + código/artefatos/notebooks via executor01). Autor: 'voltemos com ela' — retomar.",
+      "trilha": "experimentos"
     }
-   },
-   "abertura": [
-    "R1: 32 travessões (16 no resumo + 16 no abstract) — maior densidade da tese (21–22/1000 palavras)",
-    "R2: abrir as siglas de forma independente do corpo (FALCO/LLM já abertos; auditar o restante)",
-    "R5: 32 tokens numéricos a rechecar contra o corpo APÓS a consolidação multi-semente"
-   ],
-   "dimensoes": {
-    "travessoes": 32,
-    "citacoes": 0,
-    "tokens": 32
-   }
-  },
-  {
-   "id": "cap1",
-   "titulo": "1 · Introdução",
-   "arquivo": "1-intro/texto.tex",
-   "rodadas": {
-    "R1": {
-     "status": "feito",
-     "nota": "gate 2026-08-16, merge 2effcfc (mudanças 2,3,3a + A,B)"
-    },
-    "R2": {
-     "status": "feito",
-     "nota": "FALCO, DRI-SL, LLM, BERT, TF abertos; merge be4074d"
-    },
-    "R3": {
-     "status": "feito",
-     "nota": "fechado: 8/8 com fichamento; Bayer2024ActiveLLM e Zhang2025 conferidos contra PDF real (sanear/pdfs-e-bib); entrada bib do Bayer completa na limpeza final do bib (revisor1)"
-    },
-    "R4": {
-     "status": "feito",
-     "nota": "mergeado e70389d (gate do autor 2026-08-16); lock liberado no mesmo commit"
-    },
-    "R5": {
-     "status": "feito",
-     "nota": "mergeado e70389d junto com o R4"
-    },
-    "R6": {
-     "status": "feito",
-     "nota": "banca: capítulo auto-suficiente; ressalva única resolvida no item 3 do R4"
-    },
-    "R7": {
-     "status": "feito",
-     "nota": "leitura final do autor concluída em 2026-08-17 (declarada em sessão). Cap.1: R1-R7 completos; resta só a ressalva do R3 (refichar as 5 chaves repontuadas quando os PDFs subirem)"
-    }
-   },
-   "abertura": [
-    "FEITOS com gate: R1 (5 mudanças), R2 (5 siglas abertas), R6 (hipótese sem jargão)",
-    "R3: 8 citações distintas a validar contra fichamento",
-    "R4: varrer afirmações não citadas (poucas: capítulo curto)",
-    "R5: critério 30%/95% deve espelhar Cap. 3 e Cap. 5"
-   ],
-   "dimensoes": {
-    "travessoes": 6,
-    "citacoes": 8,
-    "tokens": 2
-   },
-   "encerrado": "2026-08-17 — todas as rodadas R1-R7 concluídas; ressalva do R3 fechada (Bayer2024ActiveLLM e Zhang2025 conferidos contra PDF real no gate do saneamento); declarado encerrado pelo autor"
-  },
-  {
-   "id": "cap2",
-   "titulo": "2 · Fundamentação",
-   "arquivo": "2-fundam/texto.tex",
-   "rodadas": {
-    "R1": {
-     "status": "andamento",
-     "nota": "lote 1 mergeado; t2 RECONCILIADO com a main em humanize/cap2-t2 @389f978 (28->0 travessoes; citacoes IDENTICAS a main, incluindo Sener2018/TypiClust/Farquhar/Kossen/Guyon que entraram depois do corte) e t3 em humanize/cap2-t3; ambas aguardam verificacao cruzada e gate em bloco; restam t4 e t5"
-    },
-    "R2": {
-     "status": "pendente"
-    },
-    "R3": {
-     "status": "andamento",
-     "nota": "por tema (ver quebra); absorve a tarefa r3-acoplada do revisor1; verificação cruzada entre revisores antes de cada gate"
-    },
-    "R4": {
-     "status": "andamento",
-     "nota": "t1/t2/t3 mergeados (gate 2026-08-17); t4/t5 pendentes; pacote t1 da banca em consolidação com o principal"
-    },
-    "R5": {
-     "status": "pendente"
-    },
-    "R6": {
-     "status": "pendente"
-    },
-    "R7": {
-     "status": "pendente"
-    }
-   },
-   "abertura": [
-    "R1: lote 1/5 em gate (9 conversões); restam ~92 travessões em 4 lotes temáticos",
-    "R3: 132 citações distintas — a maior rodada de fichamento da tese, fazer por seção",
-    "R4: capítulo de fundamentação = maior risco de afirmação órfã",
-    "R5: 48 tokens numéricos (números de terceiros: conferir contra fichamento, não artefato)"
-   ],
-   "dimensoes": {
-    "travessoes": 92,
-    "citacoes": 132,
-    "tokens": 48
-   },
-   "sequencia_rodadas": "Decisão do autor 2026-08-16: por TEMA, R3 (fontes×fichamento×bib) ANTES de qualquer reescrita; depois R4, depois R1; R6 na leitura de fechamento do capítulo. Nenhum tema entra em R1 com R3 aberto.",
-   "quebra": [
-    {
-     "id": "t1",
-     "tema": "2.1 Aprendizado supervisionado (métricas, validação, inferência)",
-     "linhas": "28-209",
-     "palavras": 1318,
-     "travessoes": 13,
-     "citacoes": 31,
-     "responsavel": "revisor2",
-     "status": "r1",
-     "nota": "R3+R4+pacote da leitura do autor mergeados; R1 destravado (revisor2, após t3)"
-    },
-    {
-     "id": "t2",
-     "tema": "2.2 Aprendizado ativo (formalização, estratégias, limitações)",
-     "linhas": "210-471",
-     "palavras": 1860,
-     "travessoes": 27,
-     "citacoes": 37,
-     "responsavel": "revisor1",
-     "status": "r1-reconciliado",
-     "dono": "revisor1",
-     "nota": "R3 e R4 do t2 CONCLUÍDOS. Recontagem verificada: 41 chaves distintas nas linhas 210-471 (a nota anterior dizia 42; a tarefa estimava 37 — regex diferentes). R3: as 4 pós-2022 conferidas na fonte primária, zero fabricação de autoria; Rouzegar2024, Fromme2022 e Song2023NoisyLabels fichados em claude/maestro-cycles-statistical-analysis-fwla6a @79bf6c3, aguardando gate (a chave da obra da LREC 2022 é Fromme2022, não \"Wertz2022\"). Deng2023fedal BLOQUEADA: o arXiv ID da entrada (2303.09753) resolve para outro artigo; o correto é 2406.11310, publicado em JID v.145 n.2 p.303-311 (2025), DOI 10.1016/j.jid.2024.05.023 — a correção muda o ano impresso e depende de autorização. R4: 11 afirmações órfãs ou mal atribuídas levantadas em docs/r4-cap2-t2-afirmacoes-orfas.md — 4 atribuições imprecisas (L222, L319, L461, L440-442), 5 órfãs (L390, L408-410, L452, L457-458, L329-330) e 2 a qualificar (L348-349, L439). Nenhuma é fabricação de fonte; 5 consertam-se acrescentando uma chave que a tese já possui. Correção da prosa é do principal. Pendência do princípio II: 29 das 41 chaves sem fichamento após o gate, todas pré-2022. R1 ENTREGUE em humanize/cap2-t2: 28 travessoes -> 0 nas linhas 213-482, 18 conversoes (1 do grupo 1, 9 do grupo 2, 6 do grupo 3, 2 do grupo 4). Checagens executaveis: travessoes do arquivo inteiro 99->71 (exatamente -28, nenhum introduzido fora do t2); multiconjunto de chaves de citacao IDENTICO; multiconjunto de tokens numericos IDENTICO; todos os hunks dentro de 224-479; delimitadores balanceados. NAO compilado (sem pdflatex no container) - verificacao estrutural, nao prova de compilacao. Falta verificacao cruzada do revisor2."
-    },
-    {
-     "id": "t3",
-     "tema": "2.3 LLMs como oráculos (capacidades, integração, ruído, custo)",
-     "linhas": "472-626",
-     "palavras": 1205,
-     "travessoes": 20,
-     "citacoes": 29,
-     "responsavel": "revisor2",
-     "status": "r1"
-    },
-    {
-     "id": "t4",
-     "tema": "2.4 Classificação de texto curto (desafios, representação, domínio)",
-     "linhas": "627-721",
-     "palavras": 764,
-     "travessoes": 22,
-     "citacoes": 30,
-     "responsavel": "revisor1",
-     "status": "r4",
-     "dono": "revisor1",
-     "nota": "R3 e R4 CONCLUÍDAS. R3: 28 chaves distintas (627-721), 10 verificadas na fonte primária pela regra de risco, ZERO fabricações de obra. Achado: Xu2017 com 4 prenomes inventados e o 7º autor ausente — corrigido. R4: 6 pontos em docs/r4-cap2-t4-afirmacoes.md. Os DOIS números sobre os nossos dados foram MEDIDOS e conferem: 'textos de 4 a 50 caracteres' é exato (min 4, max 50 em 250.221 descrições) e 'quase todo termo ocorre uma vez' se sustenta com folga (só 2,07% das descrições repetem algum termo). Falta declarar o artefato nos dois. Segunda ocorrência do padrão 'número tirado de fonte que o próprio fichamento declara qualitativa' (Song2014, Alsmadi2019). Correção da prosa é do principal."
-    },
-    {
-     "id": "t5",
-     "tema": "2.5 Estado da arte e lacuna (escopo, síntese, lacuna, conclusão)",
-     "linhas": "722-848",
-     "palavras": 982,
-     "travessoes": 14,
-     "citacoes": 24,
-     "responsavel": "revisor1",
-     "status": "r4",
-     "dono": "revisor1",
-     "nota": "R3 e R4 CONCLUÍDAS. R3: 17 chaves, 12 verificadas na fonte. R4: 8 pontos em docs/r4-cap2-t5-afirmacoes.md — a seção que sustenta a lacuna, revisada com peso extra. Exemplar e a NÃO mexer: a 2.5.1 declara ser revisão narrativa e não sistemática, com Kitchenham2004. Ponto principal: a alegação de lacuna (L845-847) não está delimitada pela busca — como está, afirma que a combinação NÃO EXISTE, quando o que a revisão sustenta é que não foi encontrada na busca descrita na 2.5.1; um contraexemplo derruba a versão atual. Machado2026RetailPt: 2 dos 4 números verificados no resumo (100 mil títulos, 94,0% Macro F1), 2 não (97,0% de acurácia, 12 mil rótulos) e a obra sem fichamento; o escopo é alimentos e bebidas, não o catálogo inteiro — dizer isso FORTALECE o contraste com as 621 classes do FALCO. Tabela de lacunas = 45 afirmações sobre trabalhos alheios; 8 das 9 obras têm ficha."
-    }
-   ]
-  },
-  {
-   "id": "cap3",
-   "titulo": "3 · Método",
-   "arquivo": "3-metodo/texto.tex",
-   "rodadas": {
-    "R1": {
-     "status": "feito",
-     "nota": "gate aprovado e mergeado 2026-08-17 (59→4 travessões)"
-    },
-    "R2": {
-     "status": "pendente",
-     "nota": "define a maioria das siglas — conferir 1ª ocorrência de cada"
-    },
-    "R3": {
-     "status": "pendente"
-    },
-    "R4": {
-     "status": "pendente"
-    },
-    "R5": {
-     "status": "andamento",
-     "nota": "particionamento executado + 621/714 + 50k justificado em 2026-08 (a4617e8); resta varrer o capítulo inteiro"
-    },
-    "R6": {
-     "status": "pendente",
-     "nota": "ANOTADO: conferir se a 1ª aparição de E3' explica o nome (corte do E3)"
-    },
-    "R7": {
-     "status": "pendente"
-    }
-   },
-   "abertura": [
-    "R5-IMEDIATO: racional do gate invertido ('85% um desvio acima de 89,56%'); '8 sementes é o mínimo para p<0,05' é falso (n=6 dá 0,031); tabela do programa sem E0-P/E5/E6/E3′",
-    "R1: 59 travessões + 5 aberturas enumerativas + 1 muleta",
-    "R2: capítulo que DEFINE a maioria das siglas — conferir 1ª ocorrência real de cada",
-    "R3: 18 citações distintas",
-    "R5: 105 tokens numéricos; particionamento/621-714/50k já revisados (a4617e8)",
-    "R6: explicar o nome E3′ (corte do E3) na 1ª aparição — anotado no ciclo do Cap. 1"
-   ],
-   "dimensoes": {
-    "travessoes": 59,
-    "citacoes": 18,
-    "tokens": 105
-   },
-   "quebra": [
-    {
-     "id": "c3t1",
-     "tema": "Desenho da pesquisa",
-     "linhas": "21-57",
-     "palavras": 251,
-     "travessoes": 0,
-     "citacoes_chaves": 2,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c3t2",
-     "tema": "Conjunto de dados",
-     "linhas": "58-176",
-     "palavras": 971,
-     "travessoes": 0,
-     "citacoes_chaves": 2,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c3t3",
-     "tema": "Classificadores da tarefa",
-     "linhas": "177-212",
-     "palavras": 257,
-     "travessoes": 0,
-     "citacoes_chaves": 5,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c3t4",
-     "tema": "Métricas de avaliação e análise estatística",
-     "linhas": "213-255",
-     "palavras": 342,
-     "travessoes": 0,
-     "citacoes_chaves": 5,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c3t5",
-     "tema": "Pilar P1: composição do conjunto inicial \\texorpdfstring{$L_0$",
-     "linhas": "256-293",
-     "palavras": 284,
-     "travessoes": 0,
-     "citacoes_chaves": 2,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c3t6",
-     "tema": "Pilar P2: \\textit{cold start",
-     "linhas": "294-310",
-     "palavras": 154,
-     "travessoes": 1,
-     "citacoes_chaves": 1,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c3t7",
-     "tema": "Pilar P3: LLMs como oráculo de rotulagem (experimento E0)",
-     "linhas": "311-393",
-     "palavras": 720,
-     "travessoes": 0,
-     "citacoes_chaves": 0,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c3t8",
-     "tema": "Pilar P4: o framework FALCO e sua avaliação (experimentos E1--E4)",
-     "linhas": "394-487",
-     "palavras": 882,
-     "travessoes": 3,
-     "citacoes_chaves": 2,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c3t9",
-     "tema": "Ameaças à validade",
-     "linhas": "488-536",
-     "palavras": 440,
-     "travessoes": 0,
-     "citacoes_chaves": 3,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c3t10",
-     "tema": "Reprodutibilidade e ambiente",
-     "linhas": "537-564",
-     "palavras": 259,
-     "travessoes": 0,
-     "citacoes_chaves": 0,
-     "responsavel": "a definir",
-     "status": "aberto"
-    }
-   ],
-   "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor."
-  },
-  {
-   "id": "cap4",
-   "titulo": "4 · Resultados P1/P2",
-   "arquivo": "4-resultados-l0/texto.tex",
-   "rodadas": {
-    "R1": {
-     "status": "feito",
-     "nota": "gate aprovado e mergeado 2026-08-17 (17→3 travessões)"
-    },
-    "R2": {
-     "status": "pendente"
-    },
-    "R3": {
-     "status": "pendente"
-    },
-    "R4": {
-     "status": "pendente"
-    },
-    "R5": {
-     "status": "pendente",
-     "nota": "tab:replay-vs-original referenciada em 2026-08; varrer números"
-    },
-    "R6": {
-     "status": "pendente"
-    },
-    "R7": {
-     "status": "pendente"
-    }
-   },
-   "abertura": [
-    "R5-IMEDIATO: linha I=100 divergente entre as duas tabelas do AG",
-    "R1: 17 travessões — capítulo leve",
-    "R3: citações raras (resultados próprios); validar as poucas que houver",
-    "R5: 185 tokens numéricos × artefatos do repositório legado (activetextclassification) + replays"
-   ],
-   "dimensoes": {
-    "travessoes": 17,
-    "citacoes": 0,
-    "tokens": 185
-   },
-   "quebra": [
-    {
-     "id": "c4t1",
-     "tema": "Sensibilidade à composição e ao tamanho de \\texorpdfstring{$L_0$",
-     "linhas": "17-59",
-     "palavras": 269,
-     "travessoes": 0,
-     "citacoes_chaves": 0,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c4t2",
-     "tema": "Limites por otimização evolutiva",
-     "linhas": "60-99",
-     "palavras": 280,
-     "travessoes": 3,
-     "citacoes_chaves": 0,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c4t3",
-     "tema": "DRI-SL \\textit{versus",
-     "linhas": "100-136",
-     "palavras": 252,
-     "travessoes": 0,
-     "citacoes_chaves": 0,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c4t4",
-     "tema": "Reexecução independente e efeito da circularidade",
-     "linhas": "137-196",
-     "palavras": 452,
-     "travessoes": 0,
-     "citacoes_chaves": 0,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c4t5",
-     "tema": "Síntese do capítulo",
-     "linhas": "197-207",
-     "palavras": 96,
-     "travessoes": 0,
-     "citacoes_chaves": 0,
-     "responsavel": "a definir",
-     "status": "aberto"
-    }
-   ],
-   "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor."
-  },
-  {
-   "id": "cap5",
-   "titulo": "5 · Resultados P3/P4",
-   "arquivo": "5-resultados-falco/texto.tex",
-   "rodadas": {
-    "R1": {
-     "status": "feito",
-     "nota": "gate aprovado e mergeado 2026-08-17 (64→6 travessões)"
-    },
-    "R2": {
-     "status": "pendente",
-     "nota": "NIM/MaaS aparecem aqui — abrir na 1ª ocorrência"
-    },
-    "R3": {
-     "status": "pendente"
-    },
-    "R4": {
-     "status": "pendente"
-    },
-    "R5": {
-     "status": "andamento",
-     "nota": "varredura marcada post hoc (a4617e8); ATENÇÃO: multi-semente E3' vai reescrever números deste capítulo",
-     "bloqueado_por": [
-      "consolidar-seeds"
-     ]
-    },
-    "R6": {
-     "status": "pendente"
-    },
-    "R7": {
-     "status": "pendente"
-    }
-   },
-   "abertura": [
-    "R5-IMEDIATO: população reservada ≈140 mil × 177.490 do Cap. 3 (aritmética só fecha com 177.490); E2 prometido e nunca reportado + E5 fantasma",
-    "R1: 64 travessões + 6 frases telegráficas ('Três leituras.')",
-    "R2: NIM e MaaS aparecem aqui — abrir na 1ª ocorrência",
-    "R3: 6 citações distintas",
-    "R5: 455 tokens numéricos — a maior rodada de números; EXECUTAR APÓS multi-semente do E3′"
-   ],
-   "dimensoes": {
-    "travessoes": 64,
-    "citacoes": 6,
-    "tokens": 455
-   },
-   "quebra": [
-    {
-     "id": "c5t1",
-     "tema": "E0: avaliação fatorial de oráculos LLM",
-     "linhas": "17-180",
-     "palavras": 1268,
-     "travessoes": 6,
-     "citacoes_chaves": 4,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c5t2",
-     "tema": "E0-P: o prompt como variável do instrumento",
-     "linhas": "181-235",
-     "palavras": 425,
-     "travessoes": 0,
-     "citacoes_chaves": 0,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c5t3",
-     "tema": "E1: estratégias de seleção com oráculo perfeito",
-     "linhas": "236-293",
-     "palavras": 498,
-     "travessoes": 0,
-     "citacoes_chaves": 0,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c5t4",
-     "tema": "E4: robustez do aprendizado ao ruído do oráculo",
-     "linhas": "294-357",
-     "palavras": 499,
-     "travessoes": 0,
-     "citacoes_chaves": 4,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c5t5",
-     "tema": "E6: seletores em escala populacional e o viés da autoavaliação",
-     "linhas": "358-466",
-     "palavras": 996,
-     "travessoes": 0,
-     "citacoes_chaves": 0,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c5t6",
-     "tema": "E3': o classificador forte julga o pipeline e a hipótese central",
-     "linhas": "467-595",
-     "palavras": 1038,
-     "travessoes": 0,
-     "citacoes_chaves": 0,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c5t7",
-     "tema": "Decisão do gate e configuração do FALCO",
-     "linhas": "596-615",
-     "palavras": 183,
-     "travessoes": 0,
-     "citacoes_chaves": 0,
-     "responsavel": "a definir",
-     "status": "aberto"
-    }
-   ],
-   "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor."
-  },
-  {
-   "id": "cap6",
-   "titulo": "6 · Conclusão",
-   "arquivo": "6-conclusao/texto.tex",
-   "rodadas": {
-    "R1": {
-     "status": "feito",
-     "nota": "gate aprovado e mergeado 2026-08-17 (40→6 travessões; fecho preservado por ordem do autor)"
-    },
-    "R2": {
-     "status": "pendente"
-    },
-    "R3": {
-     "status": "pendente"
-    },
-    "R4": {
-     "status": "pendente"
-    },
-    "R5": {
-     "status": "pendente",
-     "bloqueado_por": [
-      "consolidar-seeds"
-     ]
-    },
-    "R6": {
-     "status": "pendente"
-    },
-    "R7": {
-     "status": "pendente"
-    }
-   },
-   "abertura": [
-    "R1+MÉRITO: fecho (tríade+aforismo) tem 2 trechos que bloqueiam Accept no ARS (DA-C1/C2/C3 do parecer R6) — decisão do autor · unificar ---/—",
-    "R3: 18 citações distintas",
-    "R5: 48 tokens numéricos, todos espelhos de números dos Caps. 4-5"
-   ],
-   "dimensoes": {
-    "travessoes": 35,
-    "citacoes": 18,
-    "tokens": 48
-   },
-   "quebra": [
-    {
-     "id": "c6t1",
-     "tema": "Síntese dos achados",
-     "linhas": "4-69",
-     "palavras": 611,
-     "travessoes": 5,
-     "citacoes_chaves": 1,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c6t2",
-     "tema": "Discussão",
-     "linhas": "70-110",
-     "palavras": 380,
-     "travessoes": 0,
-     "citacoes_chaves": 6,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c6t3",
-     "tema": "Contribuições",
-     "linhas": "111-133",
-     "palavras": 186,
-     "travessoes": 0,
-     "citacoes_chaves": 2,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c6t4",
-     "tema": "Limitações",
-     "linhas": "134-147",
-     "palavras": 107,
-     "travessoes": 0,
-     "citacoes_chaves": 0,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c6t5",
-     "tema": "Trabalhos futuros",
-     "linhas": "148-184",
-     "palavras": 318,
-     "travessoes": 0,
-     "citacoes_chaves": 9,
-     "responsavel": "a definir",
-     "status": "aberto"
-    },
-    {
-     "id": "c6t6",
-     "tema": "Conclusão",
-     "linhas": "185-210",
-     "palavras": 264,
-     "travessoes": 1,
-     "citacoes_chaves": 0,
-     "responsavel": "a definir",
-     "status": "aberto"
-    }
-   ],
-   "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor."
-  },
-  {
-   "id": "ap",
-   "titulo": "Apêndices A1–A7",
-   "arquivo": "a1-lce … a7-parada-drift/texto.tex",
-   "rodadas": {
-    "R1": {
-     "status": "pendente",
-     "nota": "26 travessões em 7 apêndices — leve"
-    },
-    "R2": {
-     "status": "pendente",
-     "nota": "prompts/schemas cheios de siglas técnicas (A5) — conferir contra a lista"
-    },
-    "R3": {
-     "status": "pendente",
-     "nota": "3 citações distintas"
-    },
-    "R4": {
-     "status": "pendente"
-    },
-    "R5": {
-     "status": "pendente",
-     "nota": "973 tokens numéricos — 2ª maior R5 da tese; tabelas do A6 são espelho do Cap. 4; A7 espelha política de parada"
-    },
-    "R6": {
-     "status": "pendente"
-    },
-    "R7": {
-     "status": "pendente"
-    }
-   },
-   "abertura": [
-    "R5: 973 tokens numéricos (tabelas A6 = espelho do Cap. 4; princípio VIII vale para apêndice↔corpo)",
-    "A7 tem item próprio no grupo melhorias-r6: atualizar política de parada pós-E3′ (hoje ensina a política refutada)",
-    "R2: A5-prompts usa o CategorySchema — expansões devem bater com a lista de siglas"
-   ],
-   "dimensoes": {
-    "travessoes": 26,
-    "citacoes": 3,
-    "tokens": 973
-   }
-  }
- ],
- "artefatos": [
-  {
-   "id": "experimentos",
-   "nome": "Experimentos (robustez E3′)",
-   "itens": [
-    {
-     "id": "seed7",
-     "titulo": "Rodar semente 7 no Colab (notebook e3prime_colab, 1 sessão)",
-     "dono": "autor",
-     "status": "pendente"
-    },
-    {
-     "id": "seed123",
-     "titulo": "Rodar semente 123 no Colab",
-     "dono": "autor",
-     "status": "pendente"
-    },
-    {
-     "id": "consolidar-seeds",
-     "titulo": "Consolidar média±desvio e atualizar Cap. 5 + resumo/abstract",
-     "dono": "agente",
-     "status": "pendente",
-     "bloqueado_por": [
-      "seed7",
-      "seed123"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "publicacoes",
-   "nome": "Publicações e deploys",
-   "itens": [
-    {
-     "id": "kaggle-licenca",
-     "titulo": "Definir licença do dataset no Kaggle (recomendado CC BY 4.0) — bloqueante do artigo a5 · PAR OBRIGATÓRIO: parágrafo de proveniência/LGPD no Cap. 3 (agente)",
-     "dono": "autor",
-     "status": "pendente"
-    },
-    {
-     "id": "pypi-release",
-     "titulo": "Criar Release no GitHub → publica falco-active-learning no PyPI (workflow pronto)",
-     "dono": "autor",
-     "status": "pendente"
-    },
-    {
-     "id": "zenodo",
-     "titulo": "Ativar webhook Zenodo e gerar DOI (metadados prontos) · ao obter DOI: inserir URL+DOI no artigo A4 e no Cap. 3 (tese hoje não tem URL de repositório)",
-     "dono": "autor",
-     "status": "pendente"
-    },
-    {
-     "id": "pwc",
-     "titulo": "Papers with Code (precisa de URL de paper público)",
-     "dono": "autor",
-     "status": "pendente",
-     "bloqueado_por": [
-      "zenodo"
-     ]
-    },
-    {
-     "id": "vercel",
-     "titulo": "Deploy Vercel do FlowBuilder (nome 'activelearning' já ocupado por terceiro — usar outro)",
-     "dono": "autor",
-     "status": "pendente"
-    },
-    {
-     "id": "chaves",
-     "titulo": "Rotacionar as 5 chaves de API (OpenAI, OpenRouter, MaaS, Neon, NVIDIA — a NVIDIA foi exposta em conversa)",
-     "dono": "autor",
-     "status": "pendente"
-    }
-   ]
-  },
-  {
-   "id": "artigos",
-   "nome": "Artigos derivados (a1–a5)",
-   "itens": [
-    {
-     "id": "a5-classes",
-     "titulo": "Corrigir a5: '649 raw classes' → 714 (649 é a contagem no pool de 50k) + resolver TODOs de licença/versão",
-     "dono": "agente",
-     "status": "pendente"
-    },
-    {
-     "id": "artigos-revisao",
-     "titulo": "Rodada de revisão dos 5 artigos após texto final da tese",
-     "dono": "agente",
-     "status": "pendente"
-    },
-    {
-     "id": "autoria-ordem",
-     "titulo": "Definir autoria/ordem dos 5 artigos",
-     "dono": "autor",
-     "status": "pendente"
-    }
-   ]
-  },
-  {
-   "id": "defesa",
-   "nome": "Defesa",
-   "itens": [
-    {
-     "id": "slides-sync",
-     "titulo": "Sincronizar defesa.tex com o texto final (números pós multi-semente)",
-     "dono": "agente",
-     "status": "pendente",
-     "bloqueado_por": [
-      "consolidar-seeds"
-     ]
-    },
-    {
-     "id": "arguicao-sync",
-     "titulo": "Atualizar arguicao.md com vereditos finais",
-     "dono": "agente",
-     "status": "pendente"
-    }
-   ]
-  },
-  {
-   "id": "governanca",
-   "nome": "Governança e qualidade",
-   "itens": [
-    {
-     "id": "fichamento-audit",
-     "titulo": "Auditoria citações × fichamentos: 150 chaves citadas vs 142 fichamentos (gap mínimo de 8) — relatório referência a referência",
-     "dono": "agente",
-     "status": "pendente"
-    },
-    {
-     "id": "dod-scripts",
-     "titulo": "Scripts de DoD do princípio IX: checar siglas do diff, compilação e espelhos como gate + deduplicar 17 títulos duplicados no referencias.bib (verificado: ActiveLLM 3x, zhang2022 3x, Settles2008 3x…)",
-     "dono": "agente",
-     "status": "pendente"
-    },
-    {
-     "id": "ars-final",
-     "titulo": "Reavaliação ARS final — âncora: parecer R6 de sessão paralela alega 85,8 com roadmap de 20 itens; AGUARDA push de docs/parecer-ars-r6.md para o número virar artefato (princípio V)",
-     "dono": "agente",
-     "status": "pendente"
-    }
-   ]
-  },
-  {
-   "id": "biblioteca",
-   "nome": "Biblioteca e software (concluídos recentes)",
-   "itens": [
-    {
-     "id": "wheel-fix",
-     "titulo": "Pacote pip: create_app sem config não quebra mais (33d0f50)",
-     "dono": "agente",
-     "status": "feito"
-    },
-    {
-     "id": "multiseed-infra",
-     "titulo": "E3′ multi-semente: --seed/--out-dir + notebook Colab/Databricks (7dbe5d9)",
-     "dono": "agente",
-     "status": "feito"
-    },
-    {
-     "id": "docs-pages",
-     "titulo": "Documentação MkDocs no GitHub Pages (86/86 testes verdes)",
-     "dono": "agente",
-     "status": "feito"
-    }
-   ]
-  },
-  {
-   "id": "melhorias-r6",
-   "nome": "Melhorias do parecer R6 (agente executa, gate seu)",
-   "itens": [
-    {
-     "id": "a7-parada",
-     "titulo": "Atualizar Apêndice A7: política de parada pós-E3′ (hoje ensina a política refutada)",
-     "dono": "agente",
-     "status": "pendente"
-    },
-    {
-     "id": "custo-latencia",
-     "titulo": "Tabela de custo: acrescentar latência/vazão e tokens por rótulo (dados já instrumentados)",
-     "dono": "agente",
-     "status": "pendente"
-    },
-    {
-     "id": "etica",
-     "titulo": "Subseção curta de ética no Cap. 3",
-     "dono": "agente",
-     "status": "pendente"
-    },
-    {
-     "id": "decl-ia",
-     "titulo": "Declaração de IA: tirar RASCUNHO, nomear ferramenta, incluir E1/E2",
-     "dono": "agente",
-     "status": "pendente"
-    },
-    {
-     "id": "ppgmne-intro",
-     "titulo": "Parágrafo de ancoragem ao PPGMNE na Introdução",
-     "dono": "agente",
-     "status": "pendente"
-    },
-    {
-     "id": "fig-arq-a4",
-     "titulo": "Figura de arquitetura no artigo A4",
-     "dono": "agente",
-     "status": "pendente"
-    },
-    {
-     "id": "fichar-vizinhos",
-     "titulo": "Fichar 11 vizinhos faltantes (FreeAL, LLMaAA, TypiClust, coreset, PATRON, Farquhar21, Kossen21, Wang21, Pangakis23, Schröder22, Bengar22) + FreeAL/LLMaAA na tabela de lacunas — PRÉ-REQUISITO do R3 do Cap. 2",
-     "dono": "agente",
-     "status": "gate",
-     "nota": "11 fichamentos validados na fonte primária em DUAS branches (colisão r1×r2): r2 (https://github.com/GHDaru/tesedaru/tree/claude/tesedaru-activelearning-maestro-bf56y7: um commit/artigo com bib de 9 chaves novas + vocabulário + KG 523 nós + ciclo Maestro spec 001) × r1 (claude/maestro-cycles-statistical-analysis-fwla6a: mesmos 11, slugs diferentes, sem bib/vocab). Verificação cruzada 11/11 idênticos (docs/verificacao-cruzada-revisor2.md na branch r2) — AUTOR ESCOLHE UMA; mergear as duas duplica"
-    }
-   ]
-  },
-  {
-   "id": "encerramento",
-   "nome": "Encerramento e aprovação final",
-   "itens": [
-    {
-     "id": "normas-ufpr",
-     "titulo": "Conformidade com o padrão UFPR/PPGMNE (template ppginf.cls): pré-textuais obrigatórios, ficha catalográfica, folha de aprovação, listas, citações/referências na norma, numeração e margens",
-     "dono": "agente",
-     "status": "gate",
-     "nota": "LEVANTAMENTO entregue em duas versões complementares: r2 docs/relatorio-nao-conformidades-ufpr.md (Manual UFPR 2024 lido na fonte; 11 nao-conformes/15 pendências) × r1 docs/relatorio-conformidade-ufpr-ppgmne.md (~40 itens, 5 bloqueantes). Correções continuam sendo ciclos de texto gateados (dod-final segue bloqueado)"
-    },
-    {
-     "id": "dod-final",
-     "titulo": "DoD final verificável: compila 0/0, siglas e números do diff verdes, todas as células da matriz em 'feito'",
-     "dono": "agente",
-     "status": "pendente",
-     "bloqueado_por": [
-      "normas-ufpr"
-     ]
-    },
-    {
-     "id": "ars-fechamento",
-     "titulo": "Parecer ARS de fechamento (após R7 de todos os capítulos)",
-     "dono": "agente",
-     "status": "pendente",
-     "bloqueado_por": [
-      "dod-final"
-     ]
-    },
-    {
-     "id": "aprovacao-orientador",
-     "titulo": "Revisão e aprovação do orientador (Prof. Gustavo)",
-     "dono": "autor",
-     "status": "pendente",
-     "bloqueado_por": [
-      "ars-fechamento"
-     ]
-    },
-    {
-     "id": "gate-final",
-     "titulo": "GATE FINAL DO AUTOR: aprovação explícita do texto completo para depósito",
-     "dono": "autor",
-     "status": "pendente",
-     "bloqueado_por": [
-      "aprovacao-orientador"
-     ]
-    },
-    {
-     "id": "deposito",
-     "titulo": "Depósito e agendamento da defesa",
-     "dono": "autor",
-     "status": "pendente",
-     "bloqueado_por": [
-      "gate-final"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "dados",
-   "nome": "Dados (auditoria e publicação)",
-   "itens": [
-    {
-     "id": "md5-versao",
-     "titulo": "Registrar no Cap. 3 o hash md5 e a versão exata do CSV usado + changelog Kaggle 250.365→250.221 (TODO herdado do artigo a5)",
-     "dono": "agente",
-     "status": "pendente",
-     "nota": "PROSA do Cap. 3 (fica com o principal): md5 0682ee5ba077c180fb7a727fb200f154 e changelog 250.365→250.221 já documentados em activelearning/data/CORRECTIONS.md + DICIONARIO.md — falta só o registro no texto"
-    },
-    {
-     "id": "dicionario-dados",
-     "titulo": "Dicionário de dados junto ao dataset (colunas, normalização de rótulos, CategorySchema 620+_rare_=621)",
-     "dono": "agente",
-     "status": "gate",
-     "nota": "data/DICIONARIO.md na branch (https://github.com/GHDaru/activelearning/tree/claude/tesedaru-activelearning-maestro-bf56y7): colunas, normalize_label, 250.221→231.490/714, schema 620+_rare_=621, pool 50k/649, md5 0682ee5ba077c180fb7a727fb200f154"
-    },
-    {
-     "id": "pipeline-reprodutivel",
-     "titulo": "Checagem executável: load_base reproduz 231.490 textos/714 classes e o schema 621 a partir do CSV publicado (entra nos dod-scripts)",
-     "dono": "agente",
-     "status": "gate",
-     "nota": "scripts/check_dataset_invariants.py na branch (https://github.com/GHDaru/activelearning/tree/claude/tesedaru-activelearning-maestro-bf56y7): 12 invariantes verdes com as funções reais; falha provada (CSV truncado ⇒ exit 1)"
-    }
-   ]
-  }
- ],
- "proximo": {
-  "descricao": "Cap.1 FECHADO em R1-R6 (gate e70389d); faltam refichamento das 5 chaves repontuadas (autor sobe PDFs) e R7 (leitura final do autor, com a banca nos pontos finais). FRENTE PRINCIPAL: Cap.2 quebrado em 5 temas (ver capitulos.cap2.quebra) — revisor1: t2/t4/t5, revisor2: t1/t3; ordem por tema: R3→R4→R1, bib antes de reescrita. Executor01: auditoria de rastreabilidade números→experimento→código→evidência + padronização de notebooks Kaggle. Executor02: s42 canônica e recomputo McNemar/bootstrap. Site: página Referências. Prosa fix/cap2-prosa-619-648 em gate aguardando fichamento Margatina2023.",
-  "fila": [
-   "revisor1: bib lote 0 (em curso) -> bib lote 2 -> humanização Caps. 3 e 4",
-   "revisor2: bib lotes 1 e 3 -> humanização Caps. 5 e 6",
-   "banca: lote 4 (verificação do bib) + re-checagem do veredito mergeado",
-   "executor01/02: sementes 7 e 123 (Kaggle) -> consolidação estatística",
-   "principal: lotes 2 e 3 do mínimo-banca (números R5-imediato, declaração de IA) + Cap. 2 lotes 2-5 após o bib",
-   "site: fatia 2 (kanban + página de Resultados)",
-   "depois: R2 siglas · R5 números × artefatos · R3 fichamento · R4 · R6 · R7 + ARS final"
   ]
- },
- "execucoes": {
-  "descricao": "Controle do que está rodando fora do texto (treinos, jobs, deploys). Estados: aguardando_inicio | rodando | concluido | falhou. Atualizar ao iniciar e ao terminar, com link do resultado. Execuções longas passam a rodar em sessões dedicadas (executor01/executor02), que reportam ao principal; ver coordenacao/PROTOCOLO.md.",
-  "itens": [
-   {
-    "id": "e3p-seed7",
-    "o_que": "E3′ semente 7 — 5 braços + varredura de orçamento",
-    "onde": "Kaggle, GPU T4 · kernel ghdaru/falco-e3-semente-7 (executor01) · resultados publicados na main pelo executor02",
-    "estado": "bloqueado",
-    "dono": "executor02",
-    "duracao": "1,5–2,5 h",
-    "resultado_esperado": "experiments/e2e3/results/e3prime_*_s7.json",
-    "resultado": "6 de 9 braços, regime canônico, produzidos pelo executor01 (branch claude/e3prime-seed-7-bx08ks@2f7d26f) e publicados na main em https://github.com/GHDaru/activelearning/commit/ebd1797 após verificação independente (conteúdo == saída do kernel; regime conferido). D: F1 0,3771/acc 0,8678 · E35: 0,3440/0,8592 · E30: 0,3239/0,8443 · E25: 0,3058/0,8310 · E20: 0,2533/0,7826 · E: 0,2050/0,7005. Varredura vs 0,95×D: NENHUM braço cruza o F1 nesta semente; E25/E30/E35 cruzam acurácia. Handoff: executor01 passou o item ao executor02 (mensagem 2130 na branch dele) e assumiu notebooks-auditáveis.",
-    "bloqueio": "A, B e C aguardam o annotation_cache_nemotron.jsonl como dataset do Kaggle — mesmos três braços pendentes nas sementes 42, 7 e 123."
-   },
-   {
-    "id": "e3p-seed123",
-    "o_que": "E3′ semente 123 — 5 braços + varredura de orçamento",
-    "onde": "Kaggle, GPU T4 · kernel ghdaru/falco-e3prime-s123 · activelearning/experiments/e2e3/kaggle/",
-    "estado": "bloqueado",
-    "dono": "executor02",
-    "duracao": "1,5–2,5 h em T4 (estimativa)",
-    "resultado_esperado": "experiments/e2e3/results/e3prime_*_s123.json",
-    "bloqueio": "A, B e C aguardam o annotation_cache_nemotron.jsonl como dataset do Kaggle (fora do repositório). Reexecução pula os 6 prontos.",
-    "resultado": "6 de 9 braços entregues em regime canônico (bs=128, avaliação nos 177.490 da população inteira), 75 min de T4 — https://github.com/GHDaru/activelearning/commit/9d74484 · D: F1 0,3590/acc 0,8652 · E35: 0,3461/0,8582 · E30: 0,3228/0,8479 · E25: 0,3136/0,8305 · E20: 0,2416/0,7715 · E: 0,1909/0,6895. Varredura vs 0,95×D: E35 cruza F1 e acc; E30/E25 só acc."
-   },
-   {
-    "id": "e3p-seed42-canonico",
-    "o_que": "E3′ semente 42 REFEITA em regime canônico — decisão do autor (2026-08-16, sessão executor02): mais barato que refazer 7 e 123 em pareado. Regime antigo preservado em results/legacy_s42_bs16_eval20k/ (activelearning@176f703); mcnemar/bootstrap _s42 referem-se ao regime antigo e precisarão ser refeitos.",
-    "onde": "Kaggle, GPU T4 · kernel ghdaru/falco-e3prime-s42 · mesma receita",
-    "estado": "concluido",
-    "dono": "executor02",
-    "duracao": "~1,3 h (medido na semente 123)",
-    "resultado_esperado": "experiments/e2e3/results/e3prime_*_s42.json (canônicos, 6 braços)",
-    "resultado": "6 braços entregues — https://github.com/GHDaru/activelearning/commit/4b685d4 · D: F1 0,3691/acc 0,8694 · E35: 0,3660/0,8656 · E30: 0,3231/0,8395 · E25: 0,2989/0,8228 · E20: 0,2651/0,7702 · E: 0,2088/0,6997. FECHA AS 3 SEMENTES CANÔNICAS — média±desvio (k=3): D F1 0,3684±0,0091/acc 0,8675±0,0021 · E35 0,3520±0,0121/0,8610±0,0040 · E30 0,3233±0,0006/0,8439±0,0042 · E25 0,3061±0,0074/0,8281±0,0046 · E20 0,2533±0,0118/0,7748±0,0068 · E 0,2016±0,0094/0,6966±0,0061. Piso de orçamento: E35 cruza 0,95×F1(D) em 2 de 3 sementes (média cruza por 0,002, dentro do desvio) — fica NO limiar; em acurácia E30/E35 cruzam nas 3. McNemar/bootstrap _s42 seguem do regime antigo, a refazer."
-   },
-   {
-    "id": "mcnemar-pares",
-    "o_que": "McNemar pareado A–B, B–C, E35–D sobre predições persistidas (_s42)",
-    "onde": "CPU local · experiments/e2e3/results/",
-    "estado": "concluido",
-    "dono": "agente",
-    "duracao": "minutos",
-    "resultado_esperado": "experiments/e2e3/results/mcnemar_s42.json",
-    "resultado": "https://github.com/GHDaru/activelearning/blob/main/experiments/e2e3/results/mcnemar_s42.json — A–B: b=1263/c=2143, p≈8e-52 (ruído do oráculo custa acurácia); B–C: b=1198/c=1788, p≈3e-27 (itens selecionados PIORAM acurácia vs aleatório, embora melhorem Macro F1); E35–D: b=618/c=561, p=0,103 (35k ≈ 50k, sem diferença detectável)"
-   },
-   {
-    "id": "bootstrap-f1",
-    "o_que": "IC bootstrap das diferenças de Macro F1 entre braços",
-    "onde": "CPU local · mesmas predições",
-    "estado": "concluido",
-    "dono": "agente",
-    "duracao": "minutos",
-    "resultado_esperado": "experiments/e2e3/results/bootstrap_f1_s42.json",
-    "resultado": "https://github.com/GHDaru/activelearning/blob/main/experiments/e2e3/results/bootstrap_f1_s42.json — ΔF1 (10k réplicas pareadas, IC95 percentil): A–B +0,0332 [0,0268; 0,0367]; B–C +0,0204 [0,0135; 0,0235]; E35–D +0,0117 [0,0022; 0,0177] — três ICs excluem zero"
-   },
-   {
-    "id": "fix-cap2-prosa-619-648",
-    "descricao": "Reescrita das frases com citações fabricadas (Wu2022 ~:618, Ahmed2023 ~:648) do Cap.2; provisória até a busca acadêmica do revisor2 (tarefa 20260816-2110)",
-    "branch": "fix/cap2-prosa-619-648",
-    "commit": "43f6fae",
-    "estado": "feito",
-    "responsavel": "principal",
-    "bloqueado_por": "busca acadêmica revisor2 (tarefa 20260816-2110)",
-    "aprovacao_previa_autor": "2026-08-16: autor de acordo com o texto do antes/depois; aguardar a busca acadêmica do revisor2 (tarefa 20260816-2110) e reapresentar consolidado antes do merge",
-    "nota": "mergeado pelo gate do autor em 2026-08-17, com Margatina2023 citada e fichada"
-   },
-   {
-    "id": "fix-cap2-ruido-estruturado",
-    "descricao": "Correção da soldagem ruído estruturado (Cap.2:585) — decisão (a) do autor; antes/depois apresentado",
-    "branch": "fix/cap2-ruido-estruturado",
-    "commit": "a0e20c9",
-    "estado": "feito",
-    "responsavel": "principal",
-    "trilha": "texto",
-    "nota": "mergeado pelo gate do autor em 2026-08-17"
-   }
-  ]
- },
- "gate": "NADA entra na main sem gate humano do autor: toda rodada roda em branch, apresenta antes/depois na conversa e só mergeia com aprovação explícita. Vale para texto, código e plano.",
- "decisoes_pendentes": [
-  {
-   "id": "dec-fecho-cap6",
-   "titulo": "Fecho do Cap. 6: manter tríade+aforismo (estilo) sabendo que 2 trechos são apontados como mérito (DA-C1/C2/C3), ou reescrever",
-   "trilha": "texto"
-  },
-  {
-   "id": "dec-gate-85",
-   "titulo": "Gate de 85%: justificativa diz 'um desvio acima' de 89,56% quando está 4,6 p.p. abaixo; configuração final derivada sem oráculo atingir o limiar e sem declarar violação do pré-registro (parecer R3/R4/R6)",
-   "trilha": "texto"
-  },
-  {
-   "id": "dec-politica-parada",
-   "titulo": "Política de parada: dois racionais incompatíveis (fator ~20) para a mesma constante — causa-raiz atribuída ao resultado negativo (parecer R3/R4/R6)",
-   "trilha": "texto"
-  },
-  {
-   "id": "dec-divida-vocabulario",
-   "titulo": "Dívida antiga: 342 entidades fora do vocabulário controlado nos 140 fichamentos legados — entra no plano ou fica como está? (retirada do DoD do lote 5)",
-   "trilha": "processo"
-  },
-  {
-   "id": "dec-cache-kaggle",
-   "titulo": "AUTOR: subir annotation_cache_nemotron.jsonl como dataset do Kaggle — destrava os braços A/B/C nas 3 sementes (o centro da hipótese F1(A) ≥ 0,95×F1(D)); 3 retomadas curtas, 18 resultados prontos são pulados",
-   "trilha": "experimentos"
-  },
-  {
-   "id": "dec-nome-e3",
-   "titulo": "Rebatismo do E3': autor incomoda-se com a plica; recomendação do principal = E3' assume o nome E3 (o E3 original nunca teve resultados; exige reescrever o desenho em 3-metodo:443 + renomear ~35 ocorrências + código/artefatos/notebooks via executor01). Autor: 'voltemos com ela' — retomar.",
-   "trilha": "experimentos"
-  }
- ]
 }

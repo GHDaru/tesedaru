@@ -490,11 +490,12 @@ coletados não estimam o desempenho populacional
 
 O surgimento dos \textit{Large Language Models} (LLMs) altera os dois lados do
 laço de aprendizado ativo: eles podem selecionar instâncias e podem
-rotulá-las. Esta seção examina a evidência empírica dessas capacidades, as
-arquiteturas de integração propostas na literatura, o regime de treinamento
-com rótulos ruidosos que o oráculo LLM inaugura e — dimensão que esta tese
-toma como objeto de instrumentação — a estrutura de custo e de medição que
-passa a existir quando o oráculo é um serviço pago por token.
+rotulá-las. Esta seção examina quatro aspectos dessa mudança: a evidência
+empírica dessas capacidades, as arquiteturas de integração propostas na
+literatura, o regime de treinamento com rótulos ruidosos que o oráculo LLM
+inaugura e a estrutura de custo e de medição que passa a existir quando o
+oráculo é um serviço pago por token. Este último aspecto é o que esta tese
+toma como objeto de instrumentação.
 
 \subsection{Capacidades e evidência empírica}
 \label{sssec:llm_substituto}
@@ -505,21 +506,25 @@ escala \citep{zhang-etal-2022-survey}. A evidência seminal é o estudo de
 \citet{Gilardi2023}: o ChatGPT em modo \textit{zero-shot} superou anotadores
 de \textit{crowdsourcing} em cerca de 25 pontos percentuais de acurácia média,
 com maior concordância intercodificador e custo por anotação aproximadamente
-30 vezes menor. As vantagens estruturais que o estudo ilustra — escalabilidade
+30 vezes menor. O estudo ilustra quatro vantagens estruturais: escalabilidade
 sem fadiga, consistência entre anotações, velocidade e custo
-\citep{Gilardi2023} — convivem com limitações documentadas: a validação
-sistemática de \citet{Pangakis2023Validation} mostra desempenho altamente
-contingente à tarefa — em um terço de 27 tarefas testadas, precisão ou
-revocação ficaram abaixo de 0,5 — o que exige validar o oráculo por tarefa
-antes de usá-lo; vieses herdados do pré-treinamento, alucinação e
-conhecimento datado entram nesta tese como parte do perfil de erro a medir,
-não como pressuposto (E0, Capítulo~\ref{ch:resultados-falco}). Cabe a
-ressalva central para esta tese: os resultados positivos concentram-se em
-tarefas com poucas classes; os estudos recentes de classificação de produtos
-operam com dezenas a algumas centenas de categorias — 248 no comparativo
-zero-shot de \citet{Roumeliotis2025}, 370 folhas nos testes de robustez de
-\citet{Gholamian2024}, que também mostram LLMs mais resilientes que modelos
-supervisionados sob abreviação e truncamento de títulos. A transferência
+\citep{Gilardi2023}.
+
+Essas vantagens convivem com limitações documentadas. A validação sistemática
+de \citet{Pangakis2023Validation} mostra desempenho altamente contingente à
+tarefa: em um terço de 27 tarefas testadas, precisão ou revocação ficaram
+abaixo de 0,5. Daí a exigência de validar o oráculo por tarefa antes de
+usá-lo. Já os vieses herdados do pré-treinamento, a alucinação e o
+conhecimento datado entram nesta tese como parte do perfil de erro a medir, e
+não como pressuposto (Capítulo~\ref{ch:resultados-falco}).
+
+Cabe ainda a ressalva central para esta tese: os resultados positivos
+concentram-se em tarefas com poucas classes. Os estudos recentes de
+classificação de produtos operam com dezenas a algumas centenas de
+categorias: 248 no comparativo zero-shot de \citet{Roumeliotis2025} e 370
+folhas nos testes de robustez de \citet{Gholamian2024}, que também mostram
+LLMs mais resilientes que modelos supervisionados sob abreviação e truncamento
+de títulos. A transferência
 desse desempenho para espaços fechados com centenas de categorias em
 português não é automática e constitui uma das perguntas experimentais do
 Capítulo~\ref{ch:metodo}.
@@ -534,8 +539,8 @@ Como \textbf{anotador}, o LLM substitui o oráculo humano: \citet{Zhang2025}
 rotulam com GPT as instâncias selecionadas por estratégias clássicas de
 incerteza e diversidade, treinando um modelo compacto \textit{cross-task} a
 custo muito inferior ao de classificar todo o conjunto com o LLM;
-\citet{Rouzegar2024} introduzem roteamento por limiar de confiança — o LLM
-anota quando confia, casos difíceis vão ao humano — aproximando o F1 da
+\citet{Rouzegar2024} introduzem roteamento por limiar de confiança, em que o
+LLM anota quando confia e os casos difíceis vão ao humano, aproximando o F1 da
 anotação inteiramente humana a custo reduzido. Em línguas de baixo recurso,
 \citet{Kholodna2024} acrescentam duas práticas operacionais que esta tese
 incorpora: a \emph{seleção prévia do anotador} entre LLMs candidatos e a
@@ -549,10 +554,10 @@ escolher instâncias informativas em regime \textit{few-shot}, sem depender de
 um classificador inicial, superando estratégias tradicionais e técnicas
 específicas de poucos exemplos; a arquitetura conceitual está na
 Figura~\ref{fig:activellm_arch}. O desempenho do seletor depende da engenharia
-do \textit{prompt} — instruções claras de papel, encadeamento de pensamento
+do \textit{prompt}: instruções claras de papel, encadeamento de pensamento
 \citep{Wei2022}, controle do tamanho do lote e recapitulação das seleções
-anteriores \citep{Bayer2024ActiveLLM} —, e a própria escolha de \textit{prompts} pode
-ser ativa \citep{Diao2023, Schick2023}.
+anteriores \citep{Bayer2024ActiveLLM}. A própria escolha de \textit{prompts}
+pode ser ativa \citep{Diao2023, Schick2023}.
 
 \begin{figure}[htbp]
     \centering
@@ -573,34 +578,36 @@ ser ativa \citep{Diao2023, Schick2023}.
         \draw[seta, dashed] (modelo) -| node[pos=0.25, below, font=\footnotesize] {recapitulação das seleções anteriores} (llm);
     \end{tikzpicture}
     \caption{Arquitetura conceitual do ActiveLLM: o LLM atua como \emph{seletor} de
-    instâncias informativas — mitigando o \textit{cold start} — enquanto a rotulagem
+    instâncias informativas, mitigando o \textit{cold start}, enquanto a rotulagem
     permanece com um oráculo e o aprendizado com um modelo sucessor. Adaptado de
     \citet{Bayer2024ActiveLLM}.}
     \label{fig:activellm_arch}
 \end{figure}
 
 Como \textbf{componente de sistemas compostos}, quatro desenhos recentes
-importam ao posicionamento desta tese: a \emph{destilação ativa de
-conhecimento}, em que o LLM-professor rotula para um estudante compacto
-\citep{Xiao2023FreeAL} — e, quando a aquisição é guiada por incerteza no
-laço ativo, o estudante treinado com poucas centenas de rótulos passa a
-superar o próprio LLM anotador \citep{Zhang2023LLMaAA} —, com a variante de
-\emph{rótulos candidatos} de
-\citet{Xia2025CanDist} — quando incerto, o LLM emite um conjunto de hipóteses
-que o estudante destila, convertendo incerteza em informação; os
-\emph{sistemas híbridos humano--LLM}, que roteiam casos difíceis ao humano
-\citep{Margatina2023}; a \emph{mistura de LLMs} de \citet{Qi2026MixtureLLMs},
-que substitui o anotador único por um comitê de modelos leves locais com
-mecanismos de discrepância e aprendizado negativo; e o paradigma
-\emph{dual-expert} para taxonomias amplas de produtos
-\citep{Cheng2024DualExpert}, em que um especialista de domínio contrai o
-espaço a $K$ candidatos e o LLM generalista decide entre eles.
+importam ao posicionamento desta tese.
+
+O primeiro é a \emph{destilação ativa de conhecimento}, em que o LLM-professor
+rotula para um estudante compacto \citep{Xiao2023FreeAL}. Quando a aquisição é
+guiada por incerteza no laço ativo, o estudante treinado com poucas centenas
+de rótulos passa a superar o próprio LLM anotador \citep{Zhang2023LLMaAA}. Sua
+variante de \emph{rótulos candidatos} \citep{Xia2025CanDist} faz o LLM emitir,
+quando incerto, um conjunto de hipóteses que o estudante destila, convertendo
+incerteza em informação.
+
+O segundo são os \emph{sistemas híbridos humano--LLM}, que roteiam casos
+difíceis ao humano \citep{Margatina2023}. O terceiro é a \emph{mistura de
+LLMs} de \citet{Qi2026MixtureLLMs}, que substitui o anotador único por um
+comitê de modelos leves locais com mecanismos de discrepância e aprendizado
+negativo. O quarto é o paradigma \emph{dual-expert} para taxonomias amplas de
+produtos \citep{Cheng2024DualExpert}, em que um especialista de domínio contrai
+o espaço a $K$ candidatos e o LLM generalista decide entre eles.
 
 \subsection{Rótulos ruidosos e seu efeito no treinamento}
 \label{sssec:llm_desafios}
 
 Quando o LLM assume o papel de oráculo, o classificador da tarefa passa a ser
-treinado com \emph{rótulos ruidosos} — regime com literatura própria e madura:
+treinado com \emph{rótulos ruidosos}, regime com literatura própria e madura:
 o survey clássico de \citet{Frenay2014} organiza taxonomias de ruído
 (aleatório, dependente de classe, dependente de instância) e seus efeitos;
 \citet{Natarajan2013} estabelecem garantias de aprendizado sob ruído com
@@ -611,33 +618,36 @@ profundas toleram ruído moderado quando há dados suficientes, mas degradam de
 forma acentuada sob ruído dependente de classe que desloca fronteiras de
 decisão de modo sistemático. O perfil observado em oráculos LLM é um caso
 particular com estrutura própria: as confusões concentram-se em pares de
-classes semanticamente vizinhas, erros parcialmente defensáveis cujo dano ao
-classificador não se deduz da regra geral — é examinado empiricamente nesta
-tese (RQ3 e E4, Capítulo~\ref{ch:resultados-falco}). A evidência mais recente acrescenta uma cautela
-metodológica: ruído \emph{real} de anotação é substancialmente mais nocivo que
-as corrupções sintéticas usadas em avaliação — demonstrado em reconhecimento
-de entidades pelo NoiseBench \citep{Merdjanovska2024NoiseBench}, que inclui um
+classes semanticamente vizinhas. São erros parcialmente defensáveis, e o dano
+que causam ao classificador não se deduz da regra geral, sendo por isso
+examinado empiricamente nesta tese
+(Capítulo~\ref{ch:resultados-falco}). A evidência mais recente acrescenta uma
+cautela metodológica: ruído \emph{real} de anotação é substancialmente mais
+nocivo que as corrupções sintéticas usadas em avaliação. Isso foi demonstrado
+em reconhecimento de entidades pelo NoiseBench
+\citep{Merdjanovska2024NoiseBench}, que inclui um
 braço explícito de ruído gerado por LLM, e em classificação de produtos em
 larga escala pelo AlleNoise \citep{Raczkowska2024AlleNoise}, meio milhão de
 títulos em 5.692 categorias com 15\% de ruído real de \textit{marketplace}.
 Estratégias que combinam filtragem por modelos pequenos com consulta seletiva
 ao LLM apenas nos casos suspeitos \citep{Yuan2025NoiseAL} apontam o caminho de
-integração. O experimento E4 desta tese (Capítulo~\ref{ch:metodo}) quantifica
-a degradação sob ruído controlado no domínio de interesse.
+integração. Esta tese quantifica a degradação sob ruído controlado no domínio
+de interesse (Capítulo~\ref{ch:metodo}).
 
 \subsection{Custo, instrumentação e reprodutibilidade da medição}
 \label{sssec:llm_custo}
 
 O oráculo LLM introduz uma economia e uma metrologia próprias, que esta
-tese instrumenta de ponta a ponta (E0 e Capítulo~\ref{ch:metodo}). O \textbf{custo} deixa de ser por item e passa a
+tese instrumenta de ponta a ponta (Capítulo~\ref{ch:metodo}). O
+\textbf{custo} deixa de ser por item e passa a
 ser por \emph{token}, com três alavancas operacionais: o tamanho do lote de
 anotação, que amortiza o prefixo comum do \textit{prompt} entre instâncias
 \citep{Kholodna2024}; o \textit{cache} de prefixo oferecido por provedores,
 que reduz o preço da porção repetida; e os limites de vazão (requisições por
 minuto, cotas diárias), que definem o tempo de parede independentemente do
 preço. A \textbf{medição} também muda: parte do erro aparente de um LLM
-anotador é erro de \emph{formato} — resposta fora do espaço de classes ou
-inconsumível automaticamente — e não de semântica \citep{Kholodna2024}, o que
+anotador é erro de \emph{formato}, e não de semântica \citep{Kholodna2024}:
+resposta fora do espaço de classes ou inconsumível automaticamente. É o que
 torna a restrição da saída ao espaço fechado de rótulos parte do instrumento;
 a confiança auto-reportada dos LLMs tende ao excesso, exigindo calibração
 \citep{Tian2023}; as janelas de contexto limitam o lote \citep{Bayer2024ActiveLLM}; e a
@@ -645,13 +655,13 @@ resposta do mesmo modelo pode variar entre versões e provedores de
 \textit{serving}, fazendo de cada medição uma fotografia da tripla (modelo,
 provedor, data). A generalização natural desse cenário é estender a seleção
 ativa para além das instâncias: à escolha dos exemplos que compõem o
-\textit{prompt} de anotação \citep{Diao2023, Margatina2023, Zhang2023LLMaAA} e, passo que
-esta tese dá com os experimentos E0 e E0-P, à escolha do próprio oráculo e de
-sua configuração. O Capítulo~\ref{ch:metodo} instrumenta cada um desses
-componentes.
+\textit{prompt} de anotação \citep{Diao2023, Margatina2023, Zhang2023LLMaAA} e
+à escolha do próprio oráculo e de sua configuração, passo que esta tese dá no
+Capítulo~\ref{ch:resultados-falco}. O Capítulo~\ref{ch:metodo} instrumenta
+cada um desses componentes.
 
 Em síntese: com um oráculo LLM, qualidade, custo e instrumento de medição
-tornam-se três dimensões \emph{escolhíveis} de projeto — e é nesse espaço de
+tornam-se três dimensões \emph{escolhíveis} de projeto. É nesse espaço de
 decisão que o FALCO opera.
 
 \section{Classificação de texto curto}
