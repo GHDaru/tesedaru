@@ -1,13 +1,13 @@
 {
  "schema": "kpis/v1",
  "computado_em": "2026-08-17",
- "git_sha": "a7d2aaf",
+ "git_sha": "3213ca9",
  "prontidao": {
-  "global_pct": 21.5,
-  "texto_pct": 25.2,
+  "global_pct": 21.9,
+  "texto_pct": 25.7,
   "artefatos_pct": 0.0,
   "pontos_totais": 2032,
-  "pontos_feitos": 513,
+  "pontos_feitos": 523,
   "por_rodada": [
    {
     "id": "R1",
@@ -27,7 +27,7 @@
    {
     "id": "R4",
     "pontos": 140,
-    "feitos": 20
+    "feitos": 30
    },
    {
     "id": "R5",
@@ -59,7 +59,7 @@
    {
     "id": "cap2",
     "pontos": 506,
-    "feitos": 211
+    "feitos": 221
    },
    {
     "id": "cap3",
@@ -89,7 +89,7 @@
   ]
  },
  "ritmo": {
-  "velocidade_pontos_semana": 1365.0,
+  "velocidade_pontos_semana": 1435.0,
   "janela_dias": 1,
   "eta_semanas": 1.1,
   "eta_data": "2026-08-24",
@@ -104,15 +104,15 @@
    },
    {
     "data": "2026-08-17",
-    "commit": "e0df0bf",
-    "pontos": 513,
-    "pct": 25.2,
+    "commit": "d7889cc",
+    "pontos": 523,
+    "pct": 25.7,
     "evento": null
    }
   ]
  },
  "fila_autor": {
-  "total": 16,
+  "total": 14,
   "itens": [
    {
     "id": "seed7",
@@ -134,20 +134,6 @@
     "trilha": null,
     "titulo": "Ativar webhook Zenodo e gerar DOI (metadados prontos) · ao obter DOI: inserir URL+DOI no artigo A4 e no Cap. 3 (tese hoje não tem URL de repositório)",
     "pontos_destravados": 10
-   },
-   {
-    "id": "fix-cap2-prosa-619-648",
-    "tipo": "gate",
-    "trilha": null,
-    "titulo": "Reescrita das frases com citações fabricadas (Wu2022 ~:618, Ahmed2023 ~:648) do Cap.2; provisória até a busca acadêmica do revisor2 (tarefa 20260816-2110)",
-    "pontos_destravados": 0
-   },
-   {
-    "id": "fix-cap2-ruido-estruturado",
-    "tipo": "gate",
-    "trilha": "texto",
-    "titulo": "Correção da soldagem ruído estruturado (Cap.2:585) — decisão (a) do autor; antes/depois apresentado",
-    "pontos_destravados": 0
    },
    {
     "id": "kaggle-licenca",
@@ -234,7 +220,7 @@
  "divida_fundamentacao": {
   "citacoes_pendentes": 177,
   "chaves_citadas": 151,
-  "fichamentos": 153,
+  "fichamentos": 163,
   "chaves_sem_fichamento": 0
  },
  "meta_saida": {

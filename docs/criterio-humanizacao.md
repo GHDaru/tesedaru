@@ -39,3 +39,14 @@ Branch `humanize/capN`, um commit por seção ou lote temático, e uma mensagem
 de conclusão ao `principal` com: nº de travessões antes/depois, quantas
 conversões por grupo, e 3 exemplos de antes/depois representativos. O
 principal consolida e leva ao gate do autor — nunca peça gate direto.
+
+
+## Regra de compilação (obrigatória, 2026-08-17)
+
+Em TÍTULOS de \chapter/\section/\subsection e em \caption, o travessão
+permanece como `---` (ligadura ASCII do TeX), NUNCA como o caractere Unicode
+`—`. Motivo comprovado: a classe da UFPR maiusculiza títulos no sumário, o que
+parte o caractere multibyte e grava U+0080 no .toc — o PDF inteiro deixa de
+compilar (6 builds vermelhos em 2026-08-17, causa raiz na unificação
+tipográfica que converteu um título). No corpo do texto a unificação `---`→`—`
+segue valendo; a exceção é exclusiva de títulos e captions.

@@ -832,11 +832,16 @@ function card(m) {
   let rodape = `há ${idade(m.idade_horas)}`;
   if (m.prazo) rodape += ` · prazo ${prazoFmt(m.prazo)}`;
   const agDot = AGENTES.includes(m.de) ? `<span class="k-ag-dot" data-ag="${esc(m.de)}" aria-hidden="true"></span>` : '';
+  // parte da tese: achado por texto (referência/ação/slug), não um dado
+  // estruturado — só ~1/4 das mensagens citam o capítulo explicitamente,
+  // por isso o selo só aparece quando detectado, nunca "—" para o resto
+  const parte = m.parte_detectada
+    ? `<span class="k-parte" title="Parte detectada a partir do texto da mensagem — nem toda mensagem cita a parte">${esc(m.parte_detectada)}</span>` : '';
   return `<article class="k-card${paraVoce ? ' para-voce' : ''}${atrasado ? ' atrasado' : ''}"
       data-de="${esc(m.de)}" data-para="${esc(m.para)}" data-tipo="${esc(m.tipo)}">
     ${paraVoce ? '<span class="k-badge">para você</span>' : ''}
     <p class="k-titulo" title="${titulo}">${titulo}</p>
-    <p class="k-rota"><strong>${agDot}${esc(m.de)} → ${esc(m.para)}</strong> <span class="k-tipo">${esc(TIPO_LABEL[m.tipo] || m.tipo)}</span></p>
+    <p class="k-rota"><strong>${agDot}${esc(m.de)} → ${esc(m.para)}</strong> <span class="k-tipo">${esc(TIPO_LABEL[m.tipo] || m.tipo)}</span>${parte}</p>
     <p class="k-rodape">${rodape}${atrasado ? ' <strong class="k-atrasado">⚠ atrasado</strong>' : ''}</p>
     ${ref ? `<p class="k-ref" title="${ref}">${ref}</p>` : ''}
   </article>`;
@@ -877,9 +882,30 @@ function renderFiltros() {
     const dot = grupo === 'agente' ? `<span class="k-ag-dot" data-ag="${esc(val)}" aria-hidden="true"></span>` : '';
     return `<button type="button" class="pilula on" data-grupo="${grupo}" data-val="${esc(val)}" aria-pressed="true">${dot}${esc(label)}</button>`;
   };
+  // "nenhum"/"todos" por grupo: isolar um só valor hoje exige clicar em
+  // todos os outros para desligar — pedido direto do autor
+  const grupoHtml = (nome, rotulo, valores, labelGetter) => `
+    <div class="pilulas-grupo">
+      <div class="pilulas-topo">
+        <span class="pilulas-rotulo">${esc(rotulo)}</span>
+        <button type="button" class="pilulas-acao" data-grupo="${nome}" data-acao="nenhum">nenhum</button>
+        <span aria-hidden="true">·</span>
+        <button type="button" class="pilulas-acao" data-grupo="${nome}" data-acao="todos">todos</button>
+      </div>
+      <div class="pilulas" aria-label="Filtrar por ${esc(rotulo)}">${valores.map(v => pill(nome, v, labelGetter(v))).join('')}</div>
+    </div>`;
   wrap.innerHTML =
-    `<div class="pilulas" aria-label="Filtrar por agente">` + AGENTES.map(a => pill('agente', a, a)).join('') + `</div>` +
-    `<div class="pilulas" aria-label="Filtrar por tipo">` + TIPOS.map(t => pill('tipo', t, TIPO_LABEL[t])).join('') + `</div>`;
+    grupoHtml('agente', 'Agente', AGENTES, a => a) +
+    grupoHtml('tipo', 'Tipo', TIPOS, t => TIPO_LABEL[t]);
+  wrap.querySelectorAll('.pilulas-acao').forEach(btn => btn.addEventListener('click', () => {
+    const g = btn.dataset.grupo, ligar = btn.dataset.acao === 'todos';
+    Object.keys(filtroState[g]).forEach(k => filtroState[g][k] = ligar);
+    wrap.querySelectorAll(`.pilula[data-grupo="${g}"]`).forEach(p => {
+      p.classList.toggle('on', ligar);
+      p.setAttribute('aria-pressed', String(ligar));
+    });
+    renderBoard();
+  }));
   wrap.querySelectorAll('.pilula').forEach(btn => btn.addEventListener('click', () => {
     const grupo = btn.dataset.grupo, val = btn.dataset.val;
     filtroState[grupo][val] = !filtroState[grupo][val];
@@ -927,6 +953,12 @@ document.getElementById('saude').textContent = doente
 .pilula{border:1px solid var(--border); background:var(--panel); color:var(--muted); border-radius:99px;
   padding:.25rem .7rem; font-size:var(--fs-2); cursor:pointer}
 .pilula.on{border-color:var(--accent); color:var(--accent); background:var(--accent-soft); font-weight:600}
+.pilulas-grupo{display:flex; flex-direction:column; gap:.35rem}
+.pilulas-topo{display:flex; align-items:center; gap:.35rem; font-size:var(--fs-1)}
+.pilulas-rotulo{font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin-right:.2rem}
+.pilulas-acao{background:none; border:none; color:var(--accent); cursor:pointer; padding:0;
+  font-size:var(--fs-1); text-decoration:underline; text-underline-offset:2px}
+.pilulas-topo span[aria-hidden]{color:var(--muted)}
 /* ux-design.md §2/§5: o board tem altura ~constante (raia limitada); quem
    rola é cada coluna (.k-cards), nunca a página inteira por causa de N cartões */
 .k-board{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--sp-4); align-items:start}
@@ -956,6 +988,8 @@ document.getElementById('saude').textContent = doente
 .k-rota{margin:0; font-size:var(--fs-1)}
 .k-rota strong{font-weight:600}
 .k-tipo{color:var(--muted); font-size:var(--fs-1)}
+.k-parte{color:var(--muted); font-size:var(--fs-1); margin-left:.4em; padding:.02rem .45rem;
+  border:1px solid var(--border); border-radius:99px; cursor:help}
 .k-rodape{margin:0; color:var(--muted); font-size:var(--fs-1)}
 .k-atrasado{color:var(--atencao)}
 .k-ref{margin:0; color:var(--muted); font-size:var(--fs-1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
