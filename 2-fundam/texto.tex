@@ -552,7 +552,8 @@ toma como objeto de instrumentação.
 A anotação humana é cara, lenta e sujeita a inconsistências
 \cite{Settles2012}; LLMs surgem como pseudo-oráculos capazes de rotular em
 escala \citep{zhang-etal-2022-survey}. A evidência seminal é o estudo de
-\citet{Gilardi2023}: o ChatGPT em modo \textit{zero-shot} superou anotadores
+\citet{Gilardi2023}: o ChatGPT em modo \textit{zero-shot} (sem nenhum exemplo
+rotulado da tarefa no \textit{prompt}) superou anotadores
 de \textit{crowdsourcing} em cerca de 25 pontos percentuais de acurácia média,
 com maior concordância intercodificador e custo por anotação aproximadamente
 30 vezes menor. O estudo ilustra quatro vantagens estruturais: escalabilidade
@@ -586,7 +587,8 @@ LLM no laço.
 
 Como \textbf{anotador}, o LLM substitui o oráculo humano: \citet{Zhang2025}
 rotulam com GPT as instâncias selecionadas por estratégias clássicas de
-incerteza e diversidade, treinando um modelo compacto \textit{cross-task} a
+incerteza e diversidade, treinando um único modelo compacto que atende várias
+tarefas (\textit{cross-task}) a
 custo muito inferior ao de classificar todo o conjunto com o LLM;
 \citet{Rouzegar2024} introduzem roteamento por limiar de confiança, em que o
 LLM anota quando confia e os casos difíceis vão ao humano, aproximando o F1 da
@@ -599,7 +601,8 @@ anotação humana.
 
 Como \textbf{seletor}, o LLM ataca a partida a frio: o ActiveLLM
 \citep{Bayer2024ActiveLLM} usa o conhecimento pré-treinado de modelos como o GPT-4 para
-escolher instâncias informativas em regime \textit{few-shot}, sem depender de
+escolher instâncias informativas em regime \textit{few-shot} (com poucos
+exemplos da tarefa no \textit{prompt}), sem depender de
 um classificador inicial, superando estratégias tradicionais e técnicas
 específicas de poucos exemplos; a arquitetura conceitual está na
 Figura~\ref{fig:activellm_arch}. O desempenho do seletor depende da engenharia
@@ -660,7 +663,7 @@ o espaço a $K$ candidatos e o LLM generalista decide entre eles.
 
 Quando o LLM assume o papel de oráculo, o classificador da tarefa passa a ser
 treinado com \emph{rótulos ruidosos}, regime com literatura própria e madura:
-o survey clássico de \citet{Frenay2014} organiza taxonomias de ruído
+a revisão clássica de \citet{Frenay2014} organiza taxonomias de ruído
 (aleatório, dependente de classe, dependente de instância) e seus efeitos;
 \citet{Natarajan2013} estabelecem garantias de aprendizado sob ruído com
 funções de perda corrigidas; e \citet{Song2023NoisyLabels} revisam o estado da
@@ -696,8 +699,8 @@ ser por \emph{token}, com três alavancas operacionais: o tamanho do lote de
 anotação, que amortiza o prefixo comum do \textit{prompt} entre instâncias
 \citep{Kholodna2024}; o \textit{cache} de prefixo oferecido por provedores,
 que reduz o preço da porção repetida; e os limites de vazão (requisições por
-minuto, cotas diárias), que definem o tempo de parede independentemente do
-preço. A \textbf{medição} também muda: parte do erro aparente de um LLM
+minuto, cotas diárias), que definem o tempo total de execução
+(\textit{wall-clock}) independentemente do preço. A \textbf{medição} também muda: parte do erro aparente de um LLM
 anotador é erro de \emph{formato}, e não de semântica \citep{Kholodna2024}:
 resposta fora do espaço de classes ou inconsumível automaticamente. É o que
 torna a restrição da saída ao espaço fechado de rótulos parte do instrumento;
@@ -705,7 +708,7 @@ a confiança auto-reportada dos LLMs tende ao excesso \citep{Diao2023},
 exigindo calibração \citep{Tian2023}; as janelas de contexto limitam o lote
 \citep{Bayer2024ActiveLLM}; e a
 resposta do mesmo modelo pode variar entre versões e provedores de
-\textit{serving}, fazendo de cada medição uma fotografia da tripla (modelo,
+\textit{serving}, fazendo com que cada medição valha para a tripla (modelo,
 provedor, data). A generalização natural desse cenário é estender a seleção
 ativa para além das instâncias: à escolha dos exemplos que compõem o
 \textit{prompt} de anotação \citep{Diao2023, Margatina2023, Zhang2023LLMaAA} e
