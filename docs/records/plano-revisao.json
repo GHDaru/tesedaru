@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 38,
+  "versao": 39,
   "atualizado_em": "2026-08-17",
-  "atualizado_por": "executor02: s123 com os 9 braços completos — hipótese central NÃO sustentada nesta semente; aguardando s42/s7 (ambas rodando) para o teste definitivo",
+  "atualizado_por": "executor02: E3′ multi-semente FECHADO — hipótese central testada nas 3 sementes canônicas, NÃO sustentada em nenhuma; robustez confirmada (mesmo padrão nas 3), não é ruído de execução",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -1088,11 +1088,11 @@
         "id": "e3p-seed7",
         "o_que": "E3′ semente 7 — 5 braços + varredura de orçamento",
         "onde": "Kaggle, GPU T4 · kernel ghdaru/falco-e3-semente-7 (executor01) · resultados publicados na main pelo executor02 | A/B/C destravados: cache re-coletado subiu como dataset privado ghdaru/falco-annotation-cache (12.152 registros, SGD+PVBin, re-coleta 2026-08-17); kernel reempurrado com retomada dos 6 braços já prontos + os 9 completos.",
-        "estado": "rodando",
+        "estado": "concluido",
         "dono": "executor02",
         "duracao": "1,5–2,5 h",
         "resultado_esperado": "experiments/e2e3/results/e3prime_*_s7.json",
-        "resultado": "6 de 9 braços, regime canônico, produzidos pelo executor01 (branch claude/e3prime-seed-7-bx08ks@2f7d26f) e publicados na main em https://github.com/GHDaru/activelearning/commit/ebd1797 após verificação independente (conteúdo == saída do kernel; regime conferido). D: F1 0,3771/acc 0,8678 · E35: 0,3440/0,8592 · E30: 0,3239/0,8443 · E25: 0,3058/0,8310 · E20: 0,2533/0,7826 · E: 0,2050/0,7005. Varredura vs 0,95×D: NENHUM braço cruza o F1 nesta semente; E25/E30/E35 cruzam acurácia. Handoff: executor01 passou o item ao executor02 (mensagem 2130 na branch dele) e assumiu notebooks-auditáveis."
+        "resultado": "9 braços completos — https://github.com/GHDaru/activelearning/commit/a8dfeb7 . A: n=11936 F1=0,1421/acc=0,5663 · B: F1=0,1630/acc=0,6366 · C: F1=0,1255/acc=0,6679. F1(A)=0,1421 vs 0,95×F1(D)=0,3582 -> NÃO sustentada."
       },
       {
         "id": "e3p-seed123",
@@ -1118,10 +1118,21 @@
         "id": "e3p-seed42-abc",
         "o_que": "E3′ semente 42 — braços A/B/C (rótulos do oráculo re-coletado)",
         "onde": "Kaggle, GPU T4 · kernel ghdaru/falco-e3prime-s42 · dataset ghdaru/falco-annotation-cache · retomada dos 6 braços já prontos",
-        "estado": "rodando",
+        "estado": "concluido",
         "dono": "executor02",
         "duracao": "~30–45 min (braços A/B/C são pequenos)",
-        "resultado_esperado": "experiments/e2e3/results/e3prime_{A,B,C}_s42.json"
+        "resultado_esperado": "experiments/e2e3/results/e3prime_{A,B,C}_s42.json",
+        "resultado": "A/B/C completos — https://github.com/GHDaru/activelearning/commit/a8dfeb7 . A: n=11936 F1=0,1496/acc=0,5438 · B: F1=0,1255/acc=0,5662 · C: F1=0,1375/acc=0,6776. F1(A)=0,1496 vs 0,95×F1(D)=0,3506 -> NÃO sustentada."
+      },
+      {
+        "id": "e3p-hipotese-central",
+        "o_que": "Teste da hipótese central F1(A)>=0,95×F1(D), média±desvio das 3 sementes canônicas (42, 7, 123), 9 braços cada — item nº 1 do parecer da banca",
+        "onde": "Consolidação de experiments/e2e3/results/*_s{42,7,123}.json na main do activelearning",
+        "estado": "concluido",
+        "dono": "executor02",
+        "duracao": "—",
+        "resultado_esperado": "—",
+        "resultado": "https://github.com/GHDaru/activelearning/commit/a8dfeb7 . NENHUMA das 3 sementes sustenta a hipótese (s42: F1(A)=0,1496 vs 0,3506; s7: 0,1421 vs 0,3582; s123: 0,1739 vs 0,3410). Média±desvio (k=3): A F1=0,1552±0,0166/acc=0,5566±0,0116 · B F1=0,1598±0,0328/acc=0,6136±0,0410 · C F1=0,1297±0,0068/acc=0,6667±0,0115 · D F1=0,3684±0,0091/acc=0,8675±0,0021. VEREDITO: F1(A)=0,1552 vs 0,95×F1(D)=0,3500 -> NÃO SUSTENTADA, com 23,9% dos rótulos; déficit de 0,195 pontos de F1 (A fica a 52,9% do teto D, não a 95%). A-B=-0,0046 (o oráculo não é o problema — rótulos gold no mesmo conjunto quase empatam); B-C=+0,0301 (a seleção do laço AINDA bate o aleatório — o mecanismo do FALCO funciona; o que falha é o patamar absoluto perto do teto). Cobertura de classes quase igual entre A e D (643 vs 649 de 715) — a lacuna é profundidade por classe (~18 exemplos/classe em A vs ~77 em D), não classe ausente. RESSALVA: cache é re-coleta de 2026-08-17, não os dados originais de julho (perdidos) — ver experiments/e5cycle/results/recoleta-20260817/."
       },
       {
         "id": "mcnemar-pares",
