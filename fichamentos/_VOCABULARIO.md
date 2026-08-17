@@ -79,3 +79,56 @@ perplexidade  <!-- Margatina2023 -->
 auc-curva-de-aprendizado  <!-- Schroder2022Uncertainty -->
 l1-score-balanceamento  <!-- Bengar2022ClassBalanced -->
 f1  <!-- Yu2023Patron: o paper reporta "F1 score" sem especificar macro/micro; não normalizar para macro-f1 -->
+
+## Adições da rodada R3 do t2 — pós-2022 do Cap. 2 (2026-08-17)
+
+Termos entrados pelos fichamentos dos artigos pós-2022 citados no bloco t2 do
+Cap. 2; mesmo commit do fichamento que os introduz.
+
+### Métodos (R3 t2)
+anotacao-hibrida-humano-llm, confidence-scoring, proxy-validation-set, roteamento-por-limiar-de-confianca  <!-- Rouzegar2024 (os dois primeiros já em uso por Rouzegar2024Thesis, aqui registrados) -->
+
+### Datasets (R3 t2)
+fake-news, movie-genres  <!-- Rouzegar2024: nomes como o artigo os chama; "Movie Genres" é tarefa de 4 classes apesar de o resumo dizer multirrótulo -->
+
+### Modelos (R3 t2)
+gpt-3.5, regressao-logistica  <!-- Rouzegar2024: gpt-3.5 já em uso por Rouzegar2024Thesis, aqui registrado; a regressão logística é o classificador que gera a incerteza -->
+
+### Métodos (R3 t2 — rótulo extremo)
+alps, cvirs, discriminative-active-learning, amostragem-por-subpalavras, selecao-aleatoria, limiar-variavel-multirrotulo, cnn-como-cabeca-de-classificacao  <!-- Wertz2022 -->
+
+### Tarefas (R3 t2)
+classificacao-multirrotulo-extrema  <!-- Wertz2022: XMTC, centenas a milhões de classes com vários rótulos por texto -->
+
+### Datasets (R3 t2 — rótulo extremo)
+eurlex, arxiv-xmtc, nyt, rcv1, yelp-xmtc, toxic  <!-- Wertz2022: compilados PELOS AUTORES a partir de tarefas hierárquicas; yelp-xmtc (580 classes) NÃO é o yelp-full (5 estrelas) de Yu2023Patron -->
+
+### Métricas (R3 t2)
+micro-f1  <!-- Wertz2022: reportado lado a lado com macro-f1; não são intercambiáveis em rótulo desbalanceado -->
+
+### Modelos (R3 t2 — rótulo extremo)
+bert-base-uncased  <!-- Wertz2022: variante exata; usar em vez do genérico bert quando o paper a fixa -->
+## Adições da rodada do ruído estruturado (2026-08-17)
+
+Termos entrados pelo fichamento do survey de ruído de rótulo (tarefa 20260817-0215).
+
+### Métodos (ruído de rótulo)
+ruido-simetrico, ruido-assimetrico, ruido-de-par, ruido-dependente-da-instancia, matriz-de-transicao-de-ruido, efeito-de-memorizacao, small-loss-trick, selecao-de-amostras, correcao-de-perda, co-teaching, aprendizado-multi-rodada  <!-- Song2023NoisyLabels: a taxonomia simetrico/assimetrico/dependente-da-instancia e a que a tese deve usar para nomear o ruido do oraculo LLM (o nosso e assimetrico) -->
+
+### Datasets (ruído de rótulo)
+clothing1m, animal-10n, food-101n, webvision, cifar-10n, cifar-100n, imagenet  <!-- Song2023NoisyLabels: conjuntos com ruido REAL (taxas de 8% a 40%), distintos dos conjuntos limpos corrompidos artificialmente -->
+
+### Métricas (ruído de rótulo)
+precisao-de-rotulo, revocacao-de-rotulo  <!-- Song2023NoisyLabels: metricas especificas da familia "selecao de amostras" -->
+
+### Modelos (ruído de rótulo)
+wideresnet  <!-- Song2023NoisyLabels: ja registrado por Kossen2021ActiveTesting; repetido aqui so como referencia cruzada -->
+
+### Métodos (R3 t2 — federado)
+aprendizado-ativo-federado, entropia-de-ensemble, aprendizado-federado  <!-- Deng2023fedal: o comitê é o par modelo local + modelo global, que já existem no laço federado — incerteza sem custo extra -->
+
+### Datasets (R3 t2 — federado)
+ham10k, msk-isic  <!-- Deng2023fedal: 10.490 imagens dermatoscópicas repartidas em 4 hospitais com distribuição não-IID -->
+
+### Métricas (R3 t2 — federado)
+auc  <!-- Deng2023fedal: reportada ao lado de micro-f1 e macro-f1 -->
