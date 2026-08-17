@@ -821,8 +821,8 @@
       "paper_type": "dissertacao",
       "status": "fichado",
       "pdf": "referencias-pdf/Daru2024Dissertacao.pdf",
-      "doi": "",
-      "url": "",
+      "doi": "10.11606/D.55.2024.tde-07012025-171839",
+      "url": "https://doi.org/10.11606/D.55.2024.tde-07012025-171839",
       "cited_in": [
         "Cap. 1 — Introdução",
         "Cap. 2 — Fundamentação",
@@ -834,11 +834,6 @@
       "id": "conceito:argmax-binary",
       "type": "conceito",
       "label": "argmax-binary"
-    },
-    {
-      "id": "conceito:metrica-unificada-acc-macrof1",
-      "type": "conceito",
-      "label": "metrica-unificada-acc-macrof1"
     },
     {
       "id": "metodo:n-gramas",
@@ -2718,6 +2713,73 @@
       "label": "8-subconjuntos-248-categorias"
     },
     {
+      "id": "Rouzegar2024",
+      "type": "artigo",
+      "label": "Rouzegar2024",
+      "title": "Enhancing Text Classification through LLM-Driven Active Learning and Human Annotation",
+      "year": 2024,
+      "venue": "arXiv:2406.12114v1 [cs.CL], 17 jun. 2024 (6 pp. + apêndice)",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Rouzegar2024.pdf",
+      "doi": "10.48550/arXiv.2406.12114",
+      "url": "https://doi.org/10.48550/arXiv.2406.12114",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 6 — Conclusão"
+      ]
+    },
+    {
+      "id": "conceito:anotacao-hibrida-humano-llm",
+      "type": "conceito",
+      "label": "anotacao-hibrida-humano-llm"
+    },
+    {
+      "id": "conceito:proxy-validation-set",
+      "type": "conceito",
+      "label": "proxy-validation-set"
+    },
+    {
+      "id": "conceito:roteamento-por-limiar-de-confianca",
+      "type": "conceito",
+      "label": "roteamento-por-limiar-de-confianca"
+    },
+    {
+      "id": "metodo:menor-confianca",
+      "type": "metodo",
+      "label": "menor-confianca"
+    },
+    {
+      "id": "metodo:confidence-scoring",
+      "type": "metodo",
+      "label": "confidence-scoring"
+    },
+    {
+      "id": "modelo:gpt-3.5",
+      "type": "modelo",
+      "label": "gpt-3.5"
+    },
+    {
+      "id": "modelo:regressao-logistica",
+      "type": "modelo",
+      "label": "regressao-logistica"
+    },
+    {
+      "id": "dataset:imdb",
+      "type": "dataset",
+      "label": "imdb"
+    },
+    {
+      "id": "dataset:fake-news",
+      "type": "dataset",
+      "label": "fake-news"
+    },
+    {
+      "id": "dataset:movie-genres",
+      "type": "dataset",
+      "label": "movie-genres"
+    },
+    {
       "id": "Rouzegar2024Thesis",
       "type": "artigo",
       "label": "Rouzegar2024Thesis",
@@ -2737,24 +2799,9 @@
       "label": "picr-criterio-de-parada"
     },
     {
-      "id": "conceito:anotacao-hibrida-humano-llm",
-      "type": "conceito",
-      "label": "anotacao-hibrida-humano-llm"
-    },
-    {
       "id": "conceito:role-based-prompting",
       "type": "conceito",
       "label": "role-based-prompting"
-    },
-    {
-      "id": "metodo:confidence-scoring",
-      "type": "metodo",
-      "label": "confidence-scoring"
-    },
-    {
-      "id": "modelo:gpt-3.5",
-      "type": "modelo",
-      "label": "gpt-3.5"
     },
     {
       "id": "Salton1988",
@@ -2884,11 +2931,6 @@
       "doi": "10.18653/v1/2022.findings-acl.172",
       "url": "https://doi.org/10.18653/v1/2022.findings-acl.172",
       "cited_in": []
-    },
-    {
-      "id": "metodo:menor-confianca",
-      "type": "metodo",
-      "label": "menor-confianca"
     },
     {
       "id": "metodo:fine-tuning",
@@ -3691,11 +3733,6 @@
       "label": "simcse"
     },
     {
-      "id": "dataset:imdb",
-      "type": "dataset",
-      "label": "imdb"
-    },
-    {
       "id": "dataset:yelp-full",
       "type": "dataset",
       "label": "yelp-full"
@@ -4077,6 +4114,11 @@
       "id": "claim-granularidade-e-E0",
       "type": "tema-falco",
       "label": "claim-granularidade-e-E0"
+    },
+    {
+      "id": "Seung1992",
+      "type": "artigo-pendente",
+      "label": "Seung1992"
     },
     {
       "id": "Margatina2021",
@@ -5018,11 +5060,6 @@
     {
       "source": "Daru2024Dissertacao",
       "target": "conceito:argmax-binary",
-      "type": "proposes"
-    },
-    {
-      "source": "Daru2024Dissertacao",
-      "target": "conceito:metrica-unificada-acc-macrof1",
       "type": "proposes"
     },
     {
@@ -7499,6 +7536,138 @@
       "target": "claim-granularidade-e-E0",
       "type": "suporta",
       "note": "Zero-shot puro em taxonomia fechada de produtos: 248 categorias em 8 subconjuntos (~31 cada), 20 amostras/categoria, 4 LLMs comerciais. Achado central: desempenho varia bastante ENTRE modelos mesmo em espaço fechado — reforça a necessidade do benchmarking por catálogo que o E0 instrumenta. Sem AL, sem custo instrumentado, sem PT-BR."
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "Lewis1994",
+      "type": "builds_on"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "Seung1992",
+      "type": "builds_on"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "Settles2009",
+      "type": "builds_on"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "Gilardi2023",
+      "type": "builds_on"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "Yu2023Patron",
+      "type": "builds_on"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "conceito:anotacao-hibrida-humano-llm",
+      "type": "proposes"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "conceito:proxy-validation-set",
+      "type": "proposes"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "conceito:roteamento-por-limiar-de-confianca",
+      "type": "proposes"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "metodo:menor-confianca",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "metodo:llm-como-oraculo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "metodo:confidence-scoring",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "metodo:few-shot",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "metodo:zero-shot",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "modelo:gpt-3.5",
+      "type": "models"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "modelo:regressao-logistica",
+      "type": "models"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "dataset:imdb",
+      "type": "datasets"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "dataset:fake-news",
+      "type": "datasets"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "dataset:movie-genres",
+      "type": "datasets"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "FALCO",
+      "type": "compara",
+      "note": "Versão de conferência (6 pp.) da dissertação já fichada em Rouzegar2024Thesis — é ESTA que o texto da tese cita (5 ocorrências no Cap. 2 e 1 no Cap. 6). Mesmo problema do FALCO (custo de rótulo em AL com oráculo LLM), topologia diferente: roteia por CONFIANÇA entre humano e LLM dentro da mesma iteração, enquanto o FALCO faz o oráculo EVOLUIR entre fases. Espaço de rótulos de 2 a 4 classes contra as 621 do FALCO."
+    },
+    {
+      "source": "Rouzegar2024",
+      "target": "DRI-SL",
+      "type": "fundamenta",
+      "note": "Fornece a medida externa que faltava para o ruído do oráculo LLM: 11% de anotações incorretas em tarefa binária e 33% em tarefa de 4 classes (§5). É evidência publicada de que a taxa de erro cresce com o número de classes — exatamente a premissa que motiva o DRI-SL e a decomposição A−B do Cap. 5."
     },
     {
       "source": "Rouzegar2024Thesis",

@@ -72,3 +72,17 @@ svhn  <!-- Sener2018 -->
 auc-curva-de-aprendizado  <!-- Schroder2022Uncertainty -->
 l1-score-balanceamento  <!-- Bengar2022ClassBalanced -->
 f1  <!-- Yu2023Patron: o paper reporta "F1 score" sem especificar macro/micro; não normalizar para macro-f1 -->
+
+## Adições da rodada R3 do t2 — pós-2022 do Cap. 2 (2026-08-17)
+
+Termos entrados pelos fichamentos dos artigos pós-2022 citados no bloco t2 do
+Cap. 2; mesmo commit do fichamento que os introduz.
+
+### Métodos (R3 t2)
+anotacao-hibrida-humano-llm, confidence-scoring, proxy-validation-set, roteamento-por-limiar-de-confianca  <!-- Rouzegar2024 (os dois primeiros já em uso por Rouzegar2024Thesis, aqui registrados) -->
+
+### Datasets (R3 t2)
+fake-news, movie-genres  <!-- Rouzegar2024: nomes como o artigo os chama; "Movie Genres" é tarefa de 4 classes apesar de o resumo dizer multirrótulo -->
+
+### Modelos (R3 t2)
+gpt-3.5, regressao-logistica  <!-- Rouzegar2024: gpt-3.5 já em uso por Rouzegar2024Thesis, aqui registrado; a regressão logística é o classificador que gera a incerteza -->
