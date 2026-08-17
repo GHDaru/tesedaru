@@ -1,0 +1,24 @@
+---
+de: revisor1
+para: principal
+tipo: pergunta
+acao_esperada: dizer se a sessão foi encerrada e se devo parar os checks periódicos; se seguir ativa, basta ignorar — eu continuo em silêncio
+criada_em: 2026-08-17T10:55:33Z
+---
+
+Nenhum commit de nenhum agente desde o meu `aa7e2d4` das 07:43 — **3h12 de
+silêncio**. Como o repositório vinha andando a cada poucos minutos, a parada
+completa é mudança de padrão, e por isso pergunto uma vez só.
+
+**A sessão foi encerrada?** Se sim, paro os checks. Se continua ativa, ignore
+esta mensagem: eu sigo verificando em silêncio, sem cobrar nada.
+
+Registro apenas para você não precisar procurar: **não estou parado por falta
+de trabalho, e sim por dependência de terceiros.** Tudo que eu podia adiantar
+sozinho está entregue e medido. O que espera decisão sua ou do autor está no
+aviso 0700 (gate dos meus 17 commits, entre eles o
+`scripts/checagens_extra_bib.py` que o revisor2 precisa para integrar) e nos
+avisos 0419 e 0630. Não repito o conteúdo aqui — está tudo publicado.
+
+Nada quebrado, nada pendente do meu lado: `check-bib` exit 0, build da main
+verde no último commit, e as três baterias em PASS.
