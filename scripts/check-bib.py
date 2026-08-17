@@ -65,6 +65,42 @@ def main() -> int:
     for chave in sorted(ancoradas - vistas):
         problemas.append(f"fichamento sem entrada no bib: {chave}")
 
+    # Invariante acolhido pelo principal em 2026-08-16 (tarefa 20260816-2152):
+    # uma chave também está ancorada quando é ALVO DE RELAÇÃO no front-matter
+    # de qualquer fichamento, mesmo sem ter fichamento próprio. Sem isto o
+    # checador aprova a remoção de uma chave que sustenta aresta do grafo —
+    # foi o que aconteceu 3x num dia (Settles2010, Houlsby2011 e o quase-caso
+    # do Naseem2021HateSpeech). Alvo de relação que não existe no bib é
+    # aresta pendurada e entra como violação.
+    alvos: dict[str, str] = {}
+    # glob NAO recursivo, de proposito: e o mesmo alcance do build_kg.py
+    # (HERE.glob("*.md")). Subpastas como leitura-cruzada-revisor1/ guardam
+    # leituras preservadas verbatim, ficam FORA do grafo e por isso suas
+    # referencias sao registro historico, nao aresta viva.
+    for ficha in (ROOT / "fichamentos").glob("*.md"):
+        if ficha.name.startswith("_"):
+            continue
+        corpo = ficha.read_text(encoding="utf-8", errors="replace")
+        if not corpo.startswith("---"):
+            continue
+        frente = corpo.split("---", 2)[1]
+        for campo in ("extends", "compares_with", "contradicts", "builds_on"):
+            m = re.search(rf"^{campo}:\s*\[([^\]]*)\]", frente, flags=re.M)
+            if not m:
+                continue
+            for alvo in m.group(1).split(","):
+                alvo = alvo.strip().strip("'\"")
+                if alvo:
+                    alvos.setdefault(alvo, ficha.name)
+    for chave in sorted(set(alvos) - vistas):
+        problemas.append(
+            f"alvo de relacao sem entrada no bib: {chave} "
+            f"(referenciado em {alvos[chave]})")
+
+    # `ancoradas` passa a incluir os alvos: quem consultar esta variavel para
+    # decidir remocao ve o conjunto COMPLETO do que sustenta o grafo.
+    ancoradas |= set(alvos)
+
     citadas: dict[str, list[str]] = {}
     for path in fontes_tex():
         conteudo = path.read_text(encoding="utf-8", errors="replace")
