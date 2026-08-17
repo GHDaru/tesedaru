@@ -110,7 +110,10 @@ classes raras. Alternativas com propósito semelhante (acurácia balanceada,
 coeficiente de correlação de Matthews e Kappa de Cohen) são discutidas por
 \citet{Grandini2020} e \citet{Riyanto2023Comparative}; esta tese as dispensa
 porque o par Macro F1 + acurácia global já separa os dois fenômenos de
-interesse (desempenho nas caudas \textit{versus} desempenho agregado). A
+interesse (desempenho nas caudas \textit{versus} desempenho agregado) —
+separação que é operacional, não estética: nos experimentos desta tese as
+duas métricas chegam a divergir em sinal, e uma métrica única mascararia
+precisamente esse contraste (Capítulo~\ref{ch:resultados-falco}). A
 \textbf{matriz de confusão} $K \times K$, cuja entrada $[i,j]$ conta exemplos
 da classe real $i$ preditos como $j$, complementa as métricas agregadas ao
 revelar confusões sistemáticas entre pares de classes \cite{Han2012}; é o
@@ -133,11 +136,12 @@ separado do teste para ajuste de hiperparâmetros, mantendo o teste intocado
 até a avaliação final \cite{Bishop2006}; e (iv) para modelos de aprendizado
 profundo, a \textbf{parada antecipada} (\textit{early stopping}), que
 interrompe o treinamento quando o desempenho em validação cessa de melhorar
-\cite{Prechelt2012, Goodfellow2016}. Uma exigência adicional específica desta
-tese, motivada pela auditoria da base (Capítulo~\ref{ch:metodo}): como
-descrições de produto se repetem, o particionamento deduplica por texto
-normalizado \emph{antes} do sorteio, prevenindo vazamento treino$\to$teste por
-duplicatas exatas.
+\cite{Prechelt2012, Goodfellow2016}. Uma exigência adicional surge em
+bases textuais com instâncias repetidas: uma duplicata exata que atravesse a
+partição coloca a mesma instância no treino e no teste, e o que se mede deixa
+de ser generalização para ser memorização. Por isso, o particionamento desta
+tese deduplica por texto normalizado \emph{antes} do sorteio; a extensão do
+fenômeno na base e o registro da decisão estão no Capítulo~\ref{ch:metodo}.
 
 \subsection{Inferência estatística para comparação de classificadores e oráculos}
 \label{subsec:ml_inferencia}
