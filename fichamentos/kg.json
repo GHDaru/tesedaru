@@ -1087,82 +1087,6 @@
       "label": "compreensao-de-linguagem"
     },
     {
-      "id": "Diao2023",
-      "type": "artigo",
-      "label": "Diao2023",
-      "title": "Active Prompting with Chain-of-Thought for Large Language Models",
-      "year": 2024,
-      "venue": "ACL 2024 (Long Papers), pp. 1330-1350",
-      "paper_type": "metodo",
-      "status": "fichado",
-      "pdf": "referencias-pdf/Diao2023.pdf",
-      "doi": "10.18653/v1/2024.acl-long.73",
-      "url": "https://doi.org/10.18653/v1/2024.acl-long.73",
-      "cited_in": [
-        "Cap. 2 — Fundamentação"
-      ]
-    },
-    {
-      "id": "conceito:prompting-ativo",
-      "type": "conceito",
-      "label": "prompting-ativo"
-    },
-    {
-      "id": "metodo:query-by-committee",
-      "type": "metodo",
-      "label": "query-by-committee"
-    },
-    {
-      "id": "metodo:cadeia-de-pensamento",
-      "type": "metodo",
-      "label": "cadeia-de-pensamento"
-    },
-    {
-      "id": "metodo:aprendizado-em-contexto",
-      "type": "metodo",
-      "label": "aprendizado-em-contexto"
-    },
-    {
-      "id": "metodo:selecao-de-demonstracoes",
-      "type": "metodo",
-      "label": "selecao-de-demonstracoes"
-    },
-    {
-      "id": "metodo:zero-shot",
-      "type": "metodo",
-      "label": "zero-shot"
-    },
-    {
-      "id": "modelo:gpt-3.5-turbo",
-      "type": "modelo",
-      "label": "gpt-3.5-turbo"
-    },
-    {
-      "id": "modelo:code-davinci-002",
-      "type": "modelo",
-      "label": "code-davinci-002"
-    },
-    {
-      "id": "dataset:gsm8k",
-      "type": "dataset",
-      "label": "gsm8k"
-    },
-    {
-      "id": "tarefa:raciocinio-aritmetico",
-      "type": "tarefa",
-      "label": "raciocinio-aritmetico"
-    },
-    {
-      "id": "tarefa:raciocinio-de-senso-comum",
-      "type": "tarefa",
-      "label": "raciocinio-de-senso-comum"
-    },
-    {
-      "id": "tarefa:raciocinio-simbolico",
-      "type": "tarefa",
-      "label": "raciocinio-simbolico"
-    },
-    {
       "id": "Dietterich1998",
       "type": "artigo",
       "label": "Dietterich1998",
@@ -1459,62 +1383,6 @@
       "cited_in": []
     },
     {
-      "id": "Gal2017",
-      "type": "artigo",
-      "label": "Gal2017",
-      "title": "Deep Bayesian Active Learning with Image Data",
-      "year": 2017,
-      "venue": "ICML 2017 (PMLR v70), pp. 1183-1192",
-      "paper_type": "metodo",
-      "status": "fichado",
-      "pdf": "referencias-pdf/Gal2017.pdf",
-      "doi": "",
-      "url": "",
-      "cited_in": [
-        "Cap. 2 — Fundamentação"
-      ]
-    },
-    {
-      "id": "conceito:dropout-monte-carlo",
-      "type": "conceito",
-      "label": "dropout-monte-carlo"
-    },
-    {
-      "id": "metodo:bald",
-      "type": "metodo",
-      "label": "bald"
-    },
-    {
-      "id": "metodo:razao-de-variacao",
-      "type": "metodo",
-      "label": "razao-de-variacao"
-    },
-    {
-      "id": "metodo:desvio-padrao-medio",
-      "type": "metodo",
-      "label": "desvio-padrao-medio"
-    },
-    {
-      "id": "metodo:rede-neural-bayesiana",
-      "type": "metodo",
-      "label": "rede-neural-bayesiana"
-    },
-    {
-      "id": "modelo:vgg-16-bayesiano",
-      "type": "modelo",
-      "label": "vgg-16-bayesiano"
-    },
-    {
-      "id": "dataset:isic-2016",
-      "type": "dataset",
-      "label": "isic-2016"
-    },
-    {
-      "id": "tarefa:diagnostico-de-melanoma",
-      "type": "tarefa",
-      "label": "diagnostico-de-melanoma"
-    },
-    {
       "id": "Gandomi2015",
       "type": "artigo",
       "label": "Gandomi2015",
@@ -1593,6 +1461,11 @@
       "label": "llm-como-oraculo"
     },
     {
+      "id": "metodo:zero-shot",
+      "type": "metodo",
+      "label": "zero-shot"
+    },
+    {
       "id": "modelo:chatgpt",
       "type": "modelo",
       "label": "chatgpt"
@@ -1643,22 +1516,6 @@
       "label": "selecao-em-lote"
     },
     {
-      "id": "Grandini2020",
-      "type": "artigo",
-      "label": "Grandini2020",
-      "title": "Metrics for Multi-Class Classification: an Overview",
-      "year": 2020,
-      "venue": "White paper, arXiv:2008.05756 (CRIF S.p.A. e Universidade de Bolonha)",
-      "paper_type": "survey",
-      "status": "fichado",
-      "pdf": "a_sanear/Grandini2020.pdf",
-      "doi": "",
-      "url": "",
-      "cited_in": [
-        "Cap. 2 — Fundamentação"
-      ]
-    },
-    {
       "id": "Griesshaber2020",
       "type": "artigo",
       "label": "Griesshaber2020",
@@ -1673,6 +1530,11 @@
       "cited_in": [
         "Cap. 2 — Fundamentação"
       ]
+    },
+    {
+      "id": "metodo:bald",
+      "type": "metodo",
+      "label": "bald"
     },
     {
       "id": "metodo:dropout-de-monte-carlo",
@@ -1793,53 +1655,6 @@
       "id": "dataset:TREC",
       "type": "dataset",
       "label": "TREC"
-    },
-    {
-      "id": "Guyon2011ALC",
-      "type": "artigo",
-      "label": "Guyon2011ALC",
-      "title": "Results of the Active Learning Challenge",
-      "year": 2011,
-      "venue": "JMLR Workshop and Conference Proceedings, v. 16 (Active Learning and Experimental Design Workshop, AISTATS 2010), pp. 19--45",
-      "paper_type": "benchmark",
-      "status": "fichado",
-      "pdf": "referencias-pdf/Guyon2011ALC.pdf",
-      "doi": "",
-      "url": "",
-      "cited_in": [
-        "Cap. 2 — Fundamentação",
-        "Cap. 3 — Metodologia"
-      ]
-    },
-    {
-      "id": "conceito:ALC",
-      "type": "conceito",
-      "label": "ALC"
-    },
-    {
-      "id": "conceito:global-score-normalizado",
-      "type": "conceito",
-      "label": "global-score-normalizado"
-    },
-    {
-      "id": "metodo:curva-de-aprendizado",
-      "type": "metodo",
-      "label": "curva-de-aprendizado"
-    },
-    {
-      "id": "metodo:AUC",
-      "type": "metodo",
-      "label": "AUC"
-    },
-    {
-      "id": "dataset:seis-bases-do-desafio-A-F",
-      "type": "dataset",
-      "label": "seis-bases-do-desafio-A-F"
-    },
-    {
-      "id": "tarefa:classificacao-binaria",
-      "type": "tarefa",
-      "label": "classificacao-binaria"
     },
     {
       "id": "Guzella2009",
@@ -2608,6 +2423,16 @@
       "label": "selecao-por-similaridade"
     },
     {
+      "id": "metodo:aprendizado-em-contexto",
+      "type": "metodo",
+      "label": "aprendizado-em-contexto"
+    },
+    {
+      "id": "metodo:selecao-de-demonstracoes",
+      "type": "metodo",
+      "label": "selecao-de-demonstracoes"
+    },
+    {
       "id": "modelo:gpt-2",
       "type": "modelo",
       "label": "gpt-2"
@@ -2889,48 +2714,6 @@
       "label": "taxonomia-de-representacoes"
     },
     {
-      "id": "Natarajan2013",
-      "type": "artigo",
-      "label": "Natarajan2013",
-      "title": "Learning with Noisy Labels",
-      "year": 2013,
-      "venue": "Advances in Neural Information Processing Systems 26 (NIPS), pp. 1196-1204",
-      "paper_type": "metodo",
-      "status": "fichado",
-      "pdf": "referencias-pdf/Natarajan2013.pdf",
-      "doi": "",
-      "url": "",
-      "cited_in": [
-        "Cap. 2 — Fundamentação",
-        "Cap. 6 — Conclusão"
-      ]
-    },
-    {
-      "id": "conceito:estimador-nao-viesado-de-perda",
-      "type": "conceito",
-      "label": "estimador-nao-viesado-de-perda"
-    },
-    {
-      "id": "conceito:perda-corrigida",
-      "type": "conceito",
-      "label": "perda-corrigida"
-    },
-    {
-      "id": "metodo:minimizacao-de-risco-empirico",
-      "type": "metodo",
-      "label": "minimizacao-de-risco-empirico"
-    },
-    {
-      "id": "metodo:ruido-dependente-de-classe",
-      "type": "metodo",
-      "label": "ruido-dependente-de-classe"
-    },
-    {
-      "id": "modelo:svm",
-      "type": "modelo",
-      "label": "svm"
-    },
-    {
       "id": "Ni2020",
       "type": "artigo",
       "label": "Ni2020",
@@ -2943,22 +2726,6 @@
       "doi": "",
       "url": "",
       "cited_in": []
-    },
-    {
-      "id": "Nti2021",
-      "type": "artigo",
-      "label": "Nti2021",
-      "title": "Performance of Machine Learning Algorithms with Different K Values in K-fold Cross-Validation",
-      "year": 2021,
-      "venue": "International Journal of Information Technology and Computer Science (MECS), v. 13, n. 6, pp. 61--71",
-      "paper_type": "empirico",
-      "status": "fichado",
-      "pdf": "a_sanear/Nti2021.pdf",
-      "doi": "10.5815/ijitcs.2021.06.05",
-      "url": "https://doi.org/10.5815/ijitcs.2021.06.05",
-      "cited_in": [
-        "Cap. 2 — Fundamentação"
-      ]
     },
     {
       "id": "Olsson2009",
@@ -3330,22 +3097,6 @@
       "cited_in": []
     },
     {
-      "id": "Riyanto2023Comparative",
-      "type": "artigo",
-      "label": "Riyanto2023Comparative",
-      "title": "Comparative Analysis using Various Performance Metrics in Imbalanced Data for Multi-class Text Classification",
-      "year": 2023,
-      "venue": "International Journal of Advanced Computer Science and Applications (IJACSA), v. 14, n. 6, pp. 1082--1090",
-      "paper_type": "empirico",
-      "status": "fichado",
-      "pdf": "a_sanear/Riyanto2023Comparative.pdf",
-      "doi": "",
-      "url": "",
-      "cited_in": [
-        "Cap. 2 — Fundamentação"
-      ]
-    },
-    {
       "id": "Romberg2025Reassessing",
       "type": "artigo",
       "label": "Romberg2025Reassessing",
@@ -3555,37 +3306,6 @@
       "label": "meta-aprendizado"
     },
     {
-      "id": "Schick2023",
-      "type": "artigo",
-      "label": "Schick2023",
-      "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
-      "year": 2023,
-      "venue": "arXiv preprint arXiv:2302.04761",
-      "paper_type": "metodo",
-      "status": "fichado",
-      "pdf": "referencias-pdf/Schick2023.pdf",
-      "doi": "",
-      "url": "",
-      "cited_in": [
-        "Cap. 2 — Fundamentação"
-      ]
-    },
-    {
-      "id": "conceito:uso-de-ferramentas",
-      "type": "conceito",
-      "label": "uso-de-ferramentas"
-    },
-    {
-      "id": "modelo:gpt-3",
-      "type": "modelo",
-      "label": "gpt-3"
-    },
-    {
-      "id": "tarefa:resposta-a-perguntas",
-      "type": "tarefa",
-      "label": "resposta-a-perguntas"
-    },
-    {
       "id": "Schmidt2016",
       "type": "artigo",
       "label": "Schmidt2016",
@@ -3660,6 +3380,11 @@
       "id": "modelo:distilroberta",
       "type": "modelo",
       "label": "distilroberta"
+    },
+    {
+      "id": "modelo:svm",
+      "type": "modelo",
+      "label": "svm"
     },
     {
       "id": "modelo:kimcnn",
@@ -3779,6 +3504,11 @@
       "id": "conceito:frameworks-de-selecao-de-consulta",
       "type": "conceito",
       "label": "frameworks-de-selecao-de-consulta"
+    },
+    {
+      "id": "metodo:query-by-committee",
+      "type": "metodo",
+      "label": "query-by-committee"
     },
     {
       "id": "metodo:densidade",
@@ -4299,52 +4029,6 @@
       "cited_in": []
     },
     {
-      "id": "Tian2023",
-      "type": "artigo",
-      "label": "Tian2023",
-      "title": "Just Ask for Calibration: Strategies for Eliciting Calibrated Confidence Scores from Language Models Fine-Tuned with Human Feedback",
-      "year": 2023,
-      "venue": "EMNLP 2023",
-      "paper_type": "avaliacao",
-      "status": "fichado",
-      "pdf": "referencias-pdf/Tian2023.pdf",
-      "doi": "10.18653/v1/2023.emnlp-main.330",
-      "url": "https://doi.org/10.18653/v1/2023.emnlp-main.330",
-      "cited_in": [
-        "Cap. 2 — Fundamentação"
-      ]
-    },
-    {
-      "id": "conceito:confianca-verbalizada",
-      "type": "conceito",
-      "label": "confianca-verbalizada"
-    },
-    {
-      "id": "metodo:calibracao",
-      "type": "metodo",
-      "label": "calibracao"
-    },
-    {
-      "id": "modelo:llama-2",
-      "type": "modelo",
-      "label": "llama-2"
-    },
-    {
-      "id": "dataset:triviaqa",
-      "type": "dataset",
-      "label": "triviaqa"
-    },
-    {
-      "id": "dataset:sciq",
-      "type": "dataset",
-      "label": "sciq"
-    },
-    {
-      "id": "dataset:truthfulqa",
-      "type": "dataset",
-      "label": "truthfulqa"
-    },
-    {
       "id": "Tu2018",
       "type": "artigo",
       "label": "Tu2018",
@@ -4458,37 +4142,6 @@
       "label": "dbpedia"
     },
     {
-      "id": "Wei2022",
-      "type": "artigo",
-      "label": "Wei2022",
-      "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
-      "year": 2022,
-      "venue": "Advances in Neural Information Processing Systems 35, pp. 24824-24837",
-      "paper_type": "metodo",
-      "status": "fichado",
-      "pdf": "referencias-pdf/Wei2022.pdf",
-      "doi": "",
-      "url": "",
-      "cited_in": [
-        "Cap. 2 — Fundamentação"
-      ]
-    },
-    {
-      "id": "conceito:cadeia-de-pensamento",
-      "type": "conceito",
-      "label": "cadeia-de-pensamento"
-    },
-    {
-      "id": "modelo:palm-540b",
-      "type": "modelo",
-      "label": "palm-540b"
-    },
-    {
-      "id": "modelo:lamda",
-      "type": "modelo",
-      "label": "lamda"
-    },
-    {
       "id": "Wertz2022",
       "type": "artigo",
       "label": "Wertz2022",
@@ -4563,22 +4216,6 @@
       "id": "tarefa:classificacao-multirrotulo-extrema",
       "type": "tarefa",
       "label": "classificacao-multirrotulo-extrema"
-    },
-    {
-      "id": "Widodo2022",
-      "type": "artigo",
-      "label": "Widodo2022",
-      "title": "Stratified K-fold cross validation optimization on machine learning for prediction",
-      "year": 2022,
-      "venue": "Sinkron: Jurnal dan Penelitian Teknik Informatika, v. 7, n. 4, pp. 2407--2414",
-      "paper_type": "empirico",
-      "status": "fichado",
-      "pdf": "a_sanear/Widodo2022.pdf",
-      "doi": "10.33395/sinkron.v7i4.11792",
-      "url": "https://doi.org/10.33395/sinkron.v7i4.11792",
-      "cited_in": [
-        "Cap. 2 — Fundamentação"
-      ]
     },
     {
       "id": "Wilcoxon1945",
@@ -4725,6 +4362,11 @@
       "id": "metodo:destilacao-ativa",
       "type": "metodo",
       "label": "destilacao-ativa"
+    },
+    {
+      "id": "modelo:gpt-3.5-turbo",
+      "type": "modelo",
+      "label": "gpt-3.5-turbo"
     },
     {
       "id": "modelo:roberta-base",
@@ -4908,6 +4550,11 @@
       "label": "saida-estruturada"
     },
     {
+      "id": "modelo:gpt-3",
+      "type": "modelo",
+      "label": "gpt-3"
+    },
+    {
       "id": "Zhang2025",
       "type": "artigo",
       "label": "Zhang2025",
@@ -5015,16 +4662,6 @@
       "label": "FALCO-futuros"
     },
     {
-      "id": "llm-como-oraculo",
-      "type": "tema-falco",
-      "label": "llm-como-oraculo"
-    },
-    {
-      "id": "oraculo-progressivo",
-      "type": "tema-falco",
-      "label": "oraculo-progressivo"
-    },
-    {
       "id": "multiplos-oraculos",
       "type": "tema-falco",
       "label": "multiplos-oraculos"
@@ -5045,11 +4682,6 @@
       "label": "Houlsby2011"
     },
     {
-      "id": "amostragem-por-incerteza",
-      "type": "tema-falco",
-      "label": "amostragem-por-incerteza"
-    },
-    {
       "id": "claim-granularidade",
       "type": "tema-falco",
       "label": "claim-granularidade"
@@ -5068,6 +4700,11 @@
       "id": "E4-leitura",
       "type": "tema-falco",
       "label": "E4-leitura"
+    },
+    {
+      "id": "oraculo-progressivo",
+      "type": "tema-falco",
+      "label": "oraculo-progressivo"
     },
     {
       "id": "FALCO-fases",
@@ -5095,14 +4732,19 @@
       "label": "Margatina2021"
     },
     {
+      "id": "Gal2017",
+      "type": "artigo-pendente",
+      "label": "Gal2017"
+    },
+    {
       "id": "oraculo-imperfeito",
       "type": "tema-falco",
       "label": "oraculo-imperfeito"
     },
     {
-      "id": "llm-como-seletor",
-      "type": "tema-falco",
-      "label": "llm-como-seletor"
+      "id": "Natarajan2013",
+      "type": "artigo-pendente",
+      "label": "Natarajan2013"
     },
     {
       "id": "Cap2-revisao",
@@ -6329,124 +5971,6 @@
       "note": "Base arquitetural do classificador-alvo: BERTimbau (usado nos E2/E3 via HuggingFace) é um BERT pré-treinado em português. O paradigma pré-treino + fine-tuning é o que torna o AL viável com poucos rótulos."
     },
     {
-      "source": "Diao2023",
-      "target": "Wei2022",
-      "type": "extends"
-    },
-    {
-      "source": "Diao2023",
-      "target": "Wei2022",
-      "type": "builds_on"
-    },
-    {
-      "source": "Diao2023",
-      "target": "pilar:P3",
-      "type": "pillars"
-    },
-    {
-      "source": "Diao2023",
-      "target": "pilar:P4",
-      "type": "pillars"
-    },
-    {
-      "source": "Diao2023",
-      "target": "conceito:prompting-ativo",
-      "type": "proposes"
-    },
-    {
-      "source": "Diao2023",
-      "target": "metodo:aprendizado-ativo",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Diao2023",
-      "target": "metodo:amostragem-por-incerteza",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Diao2023",
-      "target": "metodo:entropia",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Diao2023",
-      "target": "metodo:query-by-committee",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Diao2023",
-      "target": "metodo:cadeia-de-pensamento",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Diao2023",
-      "target": "metodo:aprendizado-em-contexto",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Diao2023",
-      "target": "metodo:selecao-de-demonstracoes",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Diao2023",
-      "target": "metodo:few-shot",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Diao2023",
-      "target": "metodo:zero-shot",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Diao2023",
-      "target": "modelo:gpt-3.5-turbo",
-      "type": "models"
-    },
-    {
-      "source": "Diao2023",
-      "target": "modelo:code-davinci-002",
-      "type": "models"
-    },
-    {
-      "source": "Diao2023",
-      "target": "dataset:gsm8k",
-      "type": "datasets"
-    },
-    {
-      "source": "Diao2023",
-      "target": "tarefa:raciocinio-aritmetico",
-      "type": "tasks"
-    },
-    {
-      "source": "Diao2023",
-      "target": "tarefa:raciocinio-de-senso-comum",
-      "type": "tasks"
-    },
-    {
-      "source": "Diao2023",
-      "target": "tarefa:raciocinio-simbolico",
-      "type": "tasks"
-    },
-    {
-      "source": "Diao2023",
-      "target": "llm-como-oraculo",
-      "type": "fundamenta",
-      "note": "sustenta a frase da §2.3 de que a própria escolha de prompts pode ser ativa: o paper aplica incerteza de aprendizado ativo para decidir QUAIS perguntas anotar com cadeia de pensamento"
-    },
-    {
-      "source": "Diao2023",
-      "target": "FALCO",
-      "type": "complementa",
-      "note": "é a generalização da seleção ativa para além das instâncias (escolha dos exemplos do prompt), citada na §2.3 como extensão natural do cenário desta tese"
-    },
-    {
-      "source": "Diao2023",
-      "target": "oraculo-progressivo",
-      "type": "fundamenta",
-      "note": "observa que a autoconfiança do LLM falha como métrica de incerteza porque o modelo é excessivamente confiante — evidência direta para a cautela desta tese com confiança auto-reportada"
-    },
-    {
       "source": "Dietterich1998",
       "target": "pilar:transversal",
       "type": "pillars"
@@ -6811,103 +6335,6 @@
       "note": "Lastro estatístico do k-fold usado nos protocolos da tese."
     },
     {
-      "source": "Gal2017",
-      "target": "Houlsby2011",
-      "type": "builds_on"
-    },
-    {
-      "source": "Gal2017",
-      "target": "pilar:P4",
-      "type": "pillars"
-    },
-    {
-      "source": "Gal2017",
-      "target": "conceito:dropout-monte-carlo",
-      "type": "proposes"
-    },
-    {
-      "source": "Gal2017",
-      "target": "metodo:aprendizado-ativo",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Gal2017",
-      "target": "metodo:pool-based",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Gal2017",
-      "target": "metodo:amostragem-por-incerteza",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Gal2017",
-      "target": "metodo:entropia",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Gal2017",
-      "target": "metodo:bald",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Gal2017",
-      "target": "metodo:razao-de-variacao",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Gal2017",
-      "target": "metodo:desvio-padrao-medio",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Gal2017",
-      "target": "metodo:rede-neural-bayesiana",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Gal2017",
-      "target": "metodo:fine-tuning",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Gal2017",
-      "target": "modelo:vgg-16-bayesiano",
-      "type": "models"
-    },
-    {
-      "source": "Gal2017",
-      "target": "dataset:mnist",
-      "type": "datasets"
-    },
-    {
-      "source": "Gal2017",
-      "target": "dataset:isic-2016",
-      "type": "datasets"
-    },
-    {
-      "source": "Gal2017",
-      "target": "tarefa:classificacao-de-imagens",
-      "type": "tasks"
-    },
-    {
-      "source": "Gal2017",
-      "target": "tarefa:diagnostico-de-melanoma",
-      "type": "tasks"
-    },
-    {
-      "source": "Gal2017",
-      "target": "amostragem-por-incerteza",
-      "type": "fundamenta",
-      "note": "sustenta a §2.2: a entropia preditiva segue entre as funções de aquisição avaliadas em aprendizado profundo, e todas as avaliadas superam a aquisição aleatória"
-    },
-    {
-      "source": "Gal2017",
-      "target": "FALCO",
-      "type": "ameaca",
-      "note": "regime distinto — 10 classes em imagem, não rótulo extremo em texto curto; é exatamente a ressalva de regime que a tese enuncia na frase seguinte à citação"
-    },
-    {
       "source": "Gandomi2015",
       "target": "pilar:geral",
       "type": "pillars"
@@ -7062,12 +6489,6 @@
       "target": "FALCO",
       "type": "fundamenta",
       "note": "Já citado no formalismo do Cap.2 (arcabouço do ciclo de AL). Exemplo canônico de AL+SVM com seleção em LOTE guiada por probabilidades — antecedente direto do QueryBatch por incerteza do FALCO."
-    },
-    {
-      "source": "Grandini2020",
-      "target": "FALCO",
-      "type": "fundamenta",
-      "note": "É a fonte que descreve as métricas multiclasse alternativas (acurácia balanceada, coeficiente de Matthews, Kappa de Cohen) que a tese cita para, em seguida, dispensar de forma justificada."
     },
     {
       "source": "Griesshaber2020",
@@ -7258,57 +6679,6 @@
       "target": "DRI-SL",
       "type": "compete",
       "note": "Referência mais forte de cold start em classificação textual: combina diversidade TEXTUAL e diversidade de CLASSE PREVISTA num grafo dual, contra o 'missed cluster effect'. Seeds de 32/64/128. O DRI-SL difere: sem PLM, custo linear, novidade LEXICAL explícita, e validado contra envelope evolutivo em 100..5000. A DRI-SL-C (grupos = classes previstas) aproxima-se do espírito class-aware do DEUCE."
-    },
-    {
-      "source": "Guyon2011ALC",
-      "target": "pilar:geral",
-      "type": "pillars"
-    },
-    {
-      "source": "Guyon2011ALC",
-      "target": "pilar:P4",
-      "type": "pillars"
-    },
-    {
-      "source": "Guyon2011ALC",
-      "target": "conceito:ALC",
-      "type": "proposes"
-    },
-    {
-      "source": "Guyon2011ALC",
-      "target": "conceito:global-score-normalizado",
-      "type": "proposes"
-    },
-    {
-      "source": "Guyon2011ALC",
-      "target": "metodo:curva-de-aprendizado",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Guyon2011ALC",
-      "target": "metodo:AUC",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Guyon2011ALC",
-      "target": "metodo:aprendizado-ativo",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Guyon2011ALC",
-      "target": "dataset:seis-bases-do-desafio-A-F",
-      "type": "datasets"
-    },
-    {
-      "source": "Guyon2011ALC",
-      "target": "tarefa:classificacao-binaria",
-      "type": "tasks"
-    },
-    {
-      "source": "Guyon2011ALC",
-      "target": "LCE",
-      "type": "fundamenta",
-      "note": "Conceito-mãe da LCE: a ALC (área sob a curva de aprendizado) é a métrica consagrada pela literatura para resumir uma execução inteira de aprendizado ativo em um único número. A LCE da tese descende dela; o Cap. 2 cita a ALC como o conceito da literatura e a LCE nasce no capítulo de método (padrão de camadas do Cap. 2)."
     },
     {
       "source": "Guzella2009",
@@ -8762,53 +8132,6 @@
       "note": "Survey guarda-chuva da linha de representação (clássico → contextual): citação única que cobre o espectro completo na seção de vetorização do Cap.2, permitindo condensar o texto herdado."
     },
     {
-      "source": "Natarajan2013",
-      "target": "pilar:P4",
-      "type": "pillars"
-    },
-    {
-      "source": "Natarajan2013",
-      "target": "conceito:estimador-nao-viesado-de-perda",
-      "type": "proposes"
-    },
-    {
-      "source": "Natarajan2013",
-      "target": "conceito:perda-corrigida",
-      "type": "proposes"
-    },
-    {
-      "source": "Natarajan2013",
-      "target": "metodo:minimizacao-de-risco-empirico",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Natarajan2013",
-      "target": "metodo:ruido-dependente-de-classe",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Natarajan2013",
-      "target": "modelo:svm",
-      "type": "models"
-    },
-    {
-      "source": "Natarajan2013",
-      "target": "tarefa:classificacao-binaria",
-      "type": "tasks"
-    },
-    {
-      "source": "Natarajan2013",
-      "target": "oraculo-progressivo",
-      "type": "fundamenta",
-      "note": "sustenta a frase da §2.3 de que há garantias de aprendizado sob ruído com funções de perda corrigidas — é o alicerce teórico de treinar com rótulos de oráculo imperfeito"
-    },
-    {
-      "source": "Natarajan2013",
-      "target": "FALCO",
-      "type": "fundamenta",
-      "note": "citado no Cap. 6 junto a Frenay2014 e Song2023NoisyLabels para sustentar que erro estruturado é o cenário benigno da literatura de ruído"
-    },
-    {
       "source": "Ni2020",
       "target": "pilar:geral",
       "type": "pillars"
@@ -8818,12 +8141,6 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Periférico; herança do draft."
-    },
-    {
-      "source": "Nti2021",
-      "target": "FALCO",
-      "type": "fundamenta",
-      "note": "Sustenta a frase do Cap. 2 sobre k tipicamente 5 ou 10 como equilíbrio entre viés, variância e custo — e, de quebra, mostra que a escolha é convenção da literatura, não regra formal."
     },
     {
       "source": "Olsson2009",
@@ -9352,12 +8669,6 @@
       "note": "SLR periférica herdada; foco em datasets pode apoiar a valorização do nosso dataset público."
     },
     {
-      "source": "Riyanto2023Comparative",
-      "target": "FALCO",
-      "type": "fundamenta",
-      "note": "Vizinho direto da decisão métrica da tese: compara métricas em dados desbalanceados de classificação de texto MULTICLASSE e conclui que o F1 é a métrica que importa nesse regime."
-    },
-    {
       "source": "Romberg2025Reassessing",
       "target": "Lewis1994",
       "type": "builds_on"
@@ -9719,57 +9030,6 @@
       "target": "FALCO",
       "type": "fundamenta",
       "note": "Tese ICMC-USP sobre o VIÉS que a amostragem ativa introduz (a amostra rotulada deixa de ser i.i.d.): fundamento para discutir por que curvas de aprendizado com AL exigem avaliação em conjunto de teste independente e aleatório — como fazemos nos E1–E3."
-    },
-    {
-      "source": "Schick2023",
-      "target": "pilar:P3",
-      "type": "pillars"
-    },
-    {
-      "source": "Schick2023",
-      "target": "conceito:uso-de-ferramentas",
-      "type": "proposes"
-    },
-    {
-      "source": "Schick2023",
-      "target": "metodo:auto-supervisao",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Schick2023",
-      "target": "metodo:few-shot",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Schick2023",
-      "target": "metodo:zero-shot",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Schick2023",
-      "target": "metodo:fine-tuning",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Schick2023",
-      "target": "modelo:gpt-j",
-      "type": "models"
-    },
-    {
-      "source": "Schick2023",
-      "target": "modelo:gpt-3",
-      "type": "models"
-    },
-    {
-      "source": "Schick2023",
-      "target": "tarefa:resposta-a-perguntas",
-      "type": "tasks"
-    },
-    {
-      "source": "Schick2023",
-      "target": "llm-como-oraculo",
-      "type": "complementa",
-      "note": "mostra que um LLM pode aprender, por auto-supervisão, a decidir QUAIS ferramentas chamar, quando e com que argumentos — é a família dos sistemas compostos discutida na §2.3, não a seleção ativa de prompts"
     },
     {
       "source": "Schmidt2016",
@@ -10936,78 +10196,6 @@
       "note": "Review herdado da cadeia da dissertação; rastreabilidade."
     },
     {
-      "source": "Tian2023",
-      "target": "pilar:P3",
-      "type": "pillars"
-    },
-    {
-      "source": "Tian2023",
-      "target": "conceito:confianca-verbalizada",
-      "type": "proposes"
-    },
-    {
-      "source": "Tian2023",
-      "target": "metodo:calibracao",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Tian2023",
-      "target": "metodo:zero-shot",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Tian2023",
-      "target": "metodo:few-shot",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Tian2023",
-      "target": "modelo:gpt-3.5-turbo",
-      "type": "models"
-    },
-    {
-      "source": "Tian2023",
-      "target": "modelo:gpt-4",
-      "type": "models"
-    },
-    {
-      "source": "Tian2023",
-      "target": "modelo:llama-2",
-      "type": "models"
-    },
-    {
-      "source": "Tian2023",
-      "target": "dataset:triviaqa",
-      "type": "datasets"
-    },
-    {
-      "source": "Tian2023",
-      "target": "dataset:sciq",
-      "type": "datasets"
-    },
-    {
-      "source": "Tian2023",
-      "target": "dataset:truthfulqa",
-      "type": "datasets"
-    },
-    {
-      "source": "Tian2023",
-      "target": "tarefa:resposta-a-perguntas",
-      "type": "tasks"
-    },
-    {
-      "source": "Tian2023",
-      "target": "oraculo-progressivo",
-      "type": "fundamenta",
-      "note": "sustenta a metade 'exige calibração' da frase da §2.3: a confiança de um LLM não pode ser tomada como probabilidade sem tratamento"
-    },
-    {
-      "source": "Tian2023",
-      "target": "llm-como-oraculo",
-      "type": "complementa",
-      "note": "mostra que pedir a confiança em texto pode ser MELHOR calibrado que a probabilidade interna — relevante porque no nosso regime (APIs) a log-probabilidade em geral não está disponível"
-    },
-    {
       "source": "Tu2018",
       "target": "pilar:geral",
       "type": "pillars"
@@ -11167,78 +10355,6 @@
       "note": "Primeiro trabalho (auto-declarado) a ANALISAR O CUSTO do LLM como rotulador e o mix LLM+humano sob orçamento fixo — é o ancestral direto do eixo custo-por-rótulo do P3. A 'active labeling' deles (humano re-rotula os casos de menor confiança do GPT-3) é o dual do FALCO (LLM anota o que o seletor pede). Fundamenta a moldura de AL como alocação de recursos sob orçamento (ancoragem PPGMNE) e a tabela de custo do Cap. 5."
     },
     {
-      "source": "Wei2022",
-      "target": "pilar:P3",
-      "type": "pillars"
-    },
-    {
-      "source": "Wei2022",
-      "target": "conceito:cadeia-de-pensamento",
-      "type": "proposes"
-    },
-    {
-      "source": "Wei2022",
-      "target": "metodo:few-shot",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Wei2022",
-      "target": "metodo:aprendizado-em-contexto",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Wei2022",
-      "target": "metodo:selecao-de-demonstracoes",
-      "type": "uses_methods"
-    },
-    {
-      "source": "Wei2022",
-      "target": "modelo:palm-540b",
-      "type": "models"
-    },
-    {
-      "source": "Wei2022",
-      "target": "modelo:lamda",
-      "type": "models"
-    },
-    {
-      "source": "Wei2022",
-      "target": "modelo:gpt-3",
-      "type": "models"
-    },
-    {
-      "source": "Wei2022",
-      "target": "dataset:gsm8k",
-      "type": "datasets"
-    },
-    {
-      "source": "Wei2022",
-      "target": "tarefa:raciocinio-aritmetico",
-      "type": "tasks"
-    },
-    {
-      "source": "Wei2022",
-      "target": "tarefa:raciocinio-de-senso-comum",
-      "type": "tasks"
-    },
-    {
-      "source": "Wei2022",
-      "target": "tarefa:raciocinio-simbolico",
-      "type": "tasks"
-    },
-    {
-      "source": "Wei2022",
-      "target": "llm-como-seletor",
-      "type": "fundamenta",
-      "note": "sustenta a §2.3: o encadeamento de pensamento é um dos elementos de engenharia de prompt de que o desempenho do seletor LLM depende"
-    },
-    {
-      "source": "Wei2022",
-      "target": "llm-como-oraculo",
-      "type": "ameaca",
-      "note": "o ganho é condicionado à ESCALA do modelo e a tarefas de raciocínio em múltiplos passos; a rotulagem de texto curto desta tese é de passo único, então o mecanismo não se transfere automaticamente"
-    },
-    {
       "source": "Wertz2022",
       "target": "Devlin2019",
       "type": "builds_on"
@@ -11359,12 +10475,6 @@
       "target": "LCE",
       "type": "fundamenta",
       "note": "Dá base externa para reportar macro F1 e não só micro: §6.2 (p. 4604) argumenta que micro F1 sobe mesmo quando o classificador só melhora nas classes frequentes, e que em rótulo extremo é o macro que mede quantas classes o sistema aprende a discriminar. É o mesmo motivo pelo qual o Cap. 5 elege macro F1 como métrica principal."
-    },
-    {
-      "source": "Widodo2022",
-      "target": "FALCO",
-      "type": "fundamenta",
-      "note": "Sustenta a afirmação do Cap. 2 de que a estratificação das dobras é essencial sob desbalanceamento: no estudo, é exatamente o recurso adotado para lidar com classe-alvo desbalanceada."
     },
     {
       "source": "Wilcoxon1945",
