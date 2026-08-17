@@ -17,11 +17,20 @@ explicação quando necessário, e DEVE constar na lista de siglas
 (`0-iniciais/acronimos.tex`). A expansão na lista e a expansão no corpo DEVEM ser
 idênticas. Resumo/abstract abrem suas siglas de forma independente do corpo.
 
-### II. Referências validadas contra fichamento (ditado pelo autor)
+### II. Referências validadas contra fichamento (ditado pelo autor; emenda ADR 0012)
 Toda referência citada DEVE ser validada e checada contra seu fichamento
 (`fichamentos/`). Citação sem fichamento correspondente é pendência: ou se ficha a
 obra, ou se remove a citação. O fichamento é a evidência de que a obra foi lida e de
 que a afirmação atribuída a ela existe nela.
+
+**Exceção — REFERÊNCIA CANÔNICA (ADR 0012, aprovada pelo autor em 2026-08-17)**:
+obra clássica (tipo livro OU publicada antes de 2010) citada para
+definição/resultado consagrado dispensa o fichamento integral; exige-se entrada
+bibliográfica correta e verificável por script. Adendo obrigatório: obras de
+método estatístico usadas nos resultados (ex.: Wilson1927, McNemar1947,
+Wilcoxon1945, EfronTibshirani1993, Kohavi1995) ganham FICHA MÍNIMA de uma linha
+registrando qual resultado da obra a tese usa e onde. Afirmação que dependa do
+conteúdo específico da obra (não da sua existência) devolve a obra à regra cheia.
 
 ### III. Afirmações fundamentadas (ditado pelo autor)
 Toda afirmação DEVE ser fundamentada: justificada por argumento explícito,

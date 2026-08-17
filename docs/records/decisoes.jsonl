@@ -27,3 +27,4 @@
 {"id":"gate-sanear-pdfs","data":"2026-08-17","titulo":"Gate aprovado: saneamento dos PDFs (Bayer 3 autores TACL v.14 + DOI; Zhang2025; Margatina)","status":"aceita","registro":"merge de sanear/pdfs-e-bib @ bef7566"}
 {"id":"dec-livro-icidca-birunda","data":"2026-08-17","titulo":"Livro ICIDCA vira o PDF canonico do Birunda2021 (capitulo avulso excluido) - decisao do autor ciente do repositorio publico","status":"aceita","registro":"referencias-pdf/Birunda2021.pdf substituido pelo volume"}
 {"id":"cap1-encerrado","data":"2026-08-17","titulo":"Capitulo 1 ENCERRADO pelo autor: R1-R7 completos, refichamentos conferidos","status":"aceita","registro":"plano (capitulos.cap1.encerrado)"}
+{"id":"adr-0012-referencia-canonica","data":"2026-08-17","titulo":"Emenda ao principio II: referencia canonica (livro OU pre-2010) dispensa fichamento integral; ficha minima para as 5 estatisticas","status":"aceita","registro":"docs/adr/0012 + constituicao v1.3"}
