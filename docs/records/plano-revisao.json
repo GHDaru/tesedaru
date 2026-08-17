@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 24,
-  "atualizado_em": "2026-08-17T00:45:00Z",
-  "atualizado_por": "executor02 sobre a v21 do principal (conflito de lock resolvido a favor da base dele): s42 canônica concluída — 3 sementes comparáveis fechadas",
+  "versao": 25,
+  "atualizado_em": "2026-08-17T00:50:00Z",
+  "atualizado_por": "revisor1: R3 do tema t2 do Cap. 2 concluído (4 pós-2022 limpas na fonte); t4 e t5 assumidos",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -217,7 +217,9 @@
           "travessoes": 27,
           "citacoes": 37,
           "responsavel": "revisor1",
-          "status": "aberto"
+          "status": "r3",
+          "dono": "revisor1",
+          "nota": "R3 do t2 CONCLUÍDO: 42 chaves distintas (a tarefa estimava 37); as 4 pós-2022 conferidas na fonte e limpas (Bayer2024ActiveLLM, Deng2023fedal, Rouzegar2024, Wertz2022). Zero fabricação. Pendência do princípio II: 30 das 42 sem fichamento, das quais 3 são pós-2022 e dependem dos PDFs que o autor vai subir."
         },
         {
           "id": "t3",
@@ -237,7 +239,8 @@
           "travessoes": 22,
           "citacoes": 30,
           "responsavel": "revisor1",
-          "status": "aberto"
+          "status": "aberto",
+          "dono": "revisor1"
         },
         {
           "id": "t5",
@@ -247,7 +250,8 @@
           "travessoes": 14,
           "citacoes": 24,
           "responsavel": "revisor1",
-          "status": "aberto"
+          "status": "aberto",
+          "dono": "revisor1"
         }
       ]
     },
