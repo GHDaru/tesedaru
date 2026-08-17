@@ -1,13 +1,13 @@
 {
  "schema": "kpis/v1",
  "computado_em": "2026-08-17",
- "git_sha": "3213ca9",
+ "git_sha": "0e7abdf",
  "prontidao": {
-  "global_pct": 21.9,
-  "texto_pct": 25.7,
+  "global_pct": 30.0,
+  "texto_pct": 35.3,
   "artefatos_pct": 0.0,
   "pontos_totais": 2032,
-  "pontos_feitos": 523,
+  "pontos_feitos": 718,
   "por_rodada": [
    {
     "id": "R1",
@@ -22,12 +22,12 @@
    {
     "id": "R3",
     "pontos": 468,
-    "feitos": 185
+    "feitos": 350
    },
    {
     "id": "R4",
     "pontos": 140,
-    "feitos": 30
+    "feitos": 40
    },
    {
     "id": "R5",
@@ -42,7 +42,7 @@
    {
     "id": "R7",
     "pontos": 150,
-    "feitos": 20
+    "feitos": 40
    }
   ],
   "por_capitulo": [
@@ -59,7 +59,7 @@
    {
     "id": "cap2",
     "pontos": 506,
-    "feitos": 221
+    "feitos": 416
    },
    {
     "id": "cap3",
@@ -104,7 +104,7 @@
    },
    {
     "data": "2026-08-17",
-    "commit": "d7889cc",
+    "commit": "6f6a05e",
     "pontos": 523,
     "pct": 25.7,
     "evento": null
@@ -199,17 +199,17 @@
     "pontos_destravados": 0
    },
    {
-    "id": "dec-cache-kaggle",
-    "tipo": "decisao",
-    "trilha": "experimentos",
-    "titulo": "AUTOR: subir annotation_cache_nemotron.jsonl como dataset do Kaggle — destrava os braços A/B/C nas 3 sementes (o centro da hipótese F1(A) ≥ 0,95×F1(D)); 3 retomadas curtas, 18 resultados prontos são pulados",
-    "pontos_destravados": 0
-   },
-   {
     "id": "dec-nome-e3",
     "tipo": "decisao",
     "trilha": "experimentos",
     "titulo": "Rebatismo do E3': autor incomoda-se com a plica; recomendação do principal = E3' assume o nome E3 (o E3 original nunca teve resultados; exige reescrever o desenho em 3-metodo:443 + renomear ~35 ocorrências + código/artefatos/notebooks via executor01). Autor: 'voltemos com ela' — retomar.",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-reforco-cap4",
+    "tipo": "decisao",
+    "trilha": "texto",
+    "titulo": "F6 da refatoração (separada por decisão do autor): reforçar o Cap. 4 — hoje com zero citações, embora 6 fichamentos o prometam; exige escrever conteúdo novo (discussão + interlocução com a literatura)",
     "pontos_destravados": 0
    }
   ]
@@ -218,9 +218,9 @@
   "pontos": 234
  },
  "divida_fundamentacao": {
-  "citacoes_pendentes": 177,
+  "citacoes_pendentes": 45,
   "chaves_citadas": 151,
-  "fichamentos": 163,
+  "fichamentos": 170,
   "chaves_sem_fichamento": 0
  },
  "meta_saida": {

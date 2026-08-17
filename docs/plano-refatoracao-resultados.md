@@ -218,6 +218,24 @@ sumário), e a F2 já permite ao autor julgar se o tom dos títulos está certo
 antes de investir nas fatias grandes. **A F6 é a única que exige escrever
 conteúdo novo** e pode ir por último, ou virar tarefa separada.
 
+**Atualizações de estado (2026-08-17):**
+
+- **F1+F2: MERGEADAS** — gate aprovado pelo autor (`6db220a`), com veredito
+  dele sobre o tom dos sete títulos (`e72ebca`: nominal, sem pergunta).
+- **F7 (os 2 códigos E6 do Cap. 2): DESCONTADA** — saíram da prosa na própria
+  main por autorização nominal do autor, aplicada pela banca (`a7e8b91`,
+  aviso 1210). Sem nome novo de experimento: as duas frases não precisarão
+  mudar quando a nomenclatura da Opção 2 for definida. Fase 2 restante:
+  **F3, F4, F5** + F6 condicionada à decisão do autor.
+- **F3: ENTREGUE** (`refatora/resultados-f3` @9d4a751, aguarda gate) — prosa
+  do Cap. 5 com 28→0 códigos; labels idênticos, +12 refs ganhos, nenhum
+  perdido; guarda do travessão verde (a branch inclui o conserto 4609830 do
+  revisor2). Escopo re-medido: eram 28 em prosa, não as ~60 estimadas — a F2
+  já havia limpado os primeiros parágrafos. As 13 ocorrências em
+  legenda/célula de tabela do Cap. 5 ficam para fatia própria (migração para
+  a tabela-mapa), a ser julgada em gate separado. RQ1–RQ4 intocada (decisão
+  do autor pendente).
+
 ---
 
 ## 6. DoD executável da Fase 2

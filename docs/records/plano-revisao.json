@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 51,
-  "atualizado_em": "2026-08-17T16:30:00Z",
+  "versao": 54,
+  "atualizado_em": "2026-08-17T18:30:00Z",
   "atualizado_por": "revisor1: Cap. 2 fechado nas rodadas que me cabem — R3 e R4 dos temas t2, t4 e t5; retrospectiva em docs/retrospectiva-cap2-revisor1.md",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -142,7 +142,7 @@
         },
         "R7": {
           "status": "feito",
-          "nota": "leitura final do autor concluída em 2026-08-17 (declarada em sessão). Cap.1: R1-R7 completos; resta só a ressalva do R3 (refichar as 5 chaves repontuadas quando os PDFs subirem)"
+          "nota": "leitura final do autor aprovada em 2026-08-17"
         }
       },
       "abertura": [
@@ -164,28 +164,31 @@
       "arquivo": "2-fundam/texto.tex",
       "rodadas": {
         "R1": {
-          "status": "andamento",
-          "nota": "lote 1 mergeado; t2 RECONCILIADO com a main em humanize/cap2-t2 @389f978 (28->0 travessoes; citacoes IDENTICAS a main, incluindo Sener2018/TypiClust/Farquhar/Kossen/Guyon que entraram depois do corte) e t3 em humanize/cap2-t3; ambas aguardam verificacao cruzada e gate em bloco; restam t4 e t5"
+          "status": "feito",
+          "nota": "5 temas concluídos; arquivo com 1 travessão (contraste legítimo)"
         },
         "R2": {
           "status": "pendente"
         },
         "R3": {
-          "status": "andamento",
-          "nota": "por tema (ver quebra); absorve a tarefa r3-acoplada do revisor1; verificação cruzada entre revisores antes de cada gate"
+          "status": "feito",
+          "nota": "5 temas com fontes verificadas; cobertura efetiva 82,6% (73 fichadas + 41 canônicas ADR 0012); 24 pendências reais em execução, nível 1 concluído"
         },
         "R4": {
-          "status": "andamento",
-          "nota": "t1/t2/t3 mergeados (gate 2026-08-17); t4/t5 pendentes; pacote t1 da banca em consolidação com o principal"
+          "status": "feito",
+          "nota": "t1/t2/t3 (17 achados) + t4/t5 (23 itens de registro) aplicados e mergeados"
         },
         "R5": {
-          "status": "pendente"
+          "status": "andamento",
+          "nota": "principal iniciou 2026-08-17 (ordem do autor)"
         },
         "R6": {
-          "status": "pendente"
+          "status": "andamento",
+          "nota": "despachado à banca 2026-08-17 (ordem do autor)"
         },
         "R7": {
-          "status": "pendente"
+          "status": "andamento",
+          "nota": "CORRIGIDO 18:30 — leitura do autor é POR TEMA: t1 e t2 aprovados em 2026-08-17; t3 iniciando agora; t4 e t5 pendentes"
         }
       },
       "abertura": [
@@ -209,8 +212,8 @@
           "travessoes": 13,
           "citacoes": 31,
           "responsavel": "revisor2",
-          "status": "r1",
-          "nota": "R3+R4+pacote da leitura do autor mergeados; R1 destravado (revisor2, após t3)"
+          "status": "feito",
+          "nota": "R3+R4+pacote da leitura do autor mergeados; R1 destravado (revisor2, após t3) · R7 do autor aprovado"
         },
         {
           "id": "t2",
@@ -222,7 +225,7 @@
           "responsavel": "revisor1",
           "status": "feito",
           "dono": "revisor1",
-          "nota": "R3+R4+patch banca+R1+leitura do autor (14 edições) mergeados 2026-08-17"
+          "nota": "R3+R4+patch banca+R1+leitura do autor (14 edições) mergeados 2026-08-17 · R7 do autor aprovado"
         },
         {
           "id": "t3",
@@ -233,7 +236,7 @@
           "citacoes": 29,
           "responsavel": "revisor2",
           "status": "feito",
-          "nota": "R3+R4+R1 completos; mergeado 2026-08-17"
+          "nota": "R3+R4+R1+3 achados de citação (Tian/Diao/Schick) resolvidos; encerrado · R7 do autor EM CURSO"
         },
         {
           "id": "t4",
@@ -243,9 +246,9 @@
           "travessoes": 22,
           "citacoes": 30,
           "responsavel": "revisor1",
-          "status": "r4",
+          "status": "feito",
           "dono": "revisor1",
-          "nota": "R3 e R4 CONCLUÍDAS. R3: 28 chaves distintas (627-721), 10 verificadas na fonte primária pela regra de risco, ZERO fabricações de obra. Achado: Xu2017 com 4 prenomes inventados e o 7º autor ausente — corrigido. R4: 6 pontos em docs/r4-cap2-t4-afirmacoes.md (RECUPERADO em 2026-08-17T12:35Z: o commit 3401cf5 ficou dangling num force-push meu e o arquivo esteve fora da main por 9h, apesar de o plano ja o citar). Os DOIS números sobre os nossos dados foram MEDIDOS e conferem: 'textos de 4 a 50 caracteres' é exato (min 4, max 50 em 250.221 descrições) e 'quase todo termo ocorre uma vez' se sustenta com folga (só 2,07% das descrições repetem algum termo). Falta declarar o artefato nos dois. Segunda ocorrência do padrão 'número tirado de fonte que o próprio fichamento declara qualitativa' (Song2014, Alsmadi2019). Correção da prosa é do principal."
+          "nota": "R3+R4+registro+R1 completos; aguarda R7 do autor"
         },
         {
           "id": "t5",
@@ -255,9 +258,9 @@
           "travessoes": 14,
           "citacoes": 24,
           "responsavel": "revisor1",
-          "status": "r4",
+          "status": "feito",
           "dono": "revisor1",
-          "nota": "R3 e R4 CONCLUÍDAS. R3: 17 chaves, 12 verificadas na fonte. R4: 8 pontos em docs/r4-cap2-t5-afirmacoes.md — a seção que sustenta a lacuna, revisada com peso extra. Exemplar e a NÃO mexer: a 2.5.1 declara ser revisão narrativa e não sistemática, com Kitchenham2004. Ponto principal: a alegação de lacuna (L845-847) não está delimitada pela busca — como está, afirma que a combinação NÃO EXISTE, quando o que a revisão sustenta é que não foi encontrada na busca descrita na 2.5.1; um contraexemplo derruba a versão atual. Machado2026RetailPt: 2 dos 4 números verificados no resumo (100 mil títulos, 94,0% Macro F1), 2 não (97,0% de acurácia, 12 mil rótulos) e a obra sem fichamento; o escopo é alimentos e bebidas, não o catálogo inteiro — dizer isso FORTALECE o contraste com as 621 classes do FALCO. Tabela de lacunas = 45 afirmações sobre trabalhos alheios; 8 das 9 obras têm ficha."
+          "nota": "R3+R4+registro+R1 completos; aguarda R7 do autor"
         }
       ]
     },
@@ -1073,7 +1076,7 @@
     }
   ],
   "proximo": {
-    "descricao": "Cap.1 FECHADO em R1-R6 (gate e70389d); faltam refichamento das 5 chaves repontuadas (autor sobe PDFs) e R7 (leitura final do autor, com a banca nos pontos finais). FRENTE PRINCIPAL: Cap.2 quebrado em 5 temas (ver capitulos.cap2.quebra) — revisor1: t2/t4/t5, revisor2: t1/t3; ordem por tema: R3→R4→R1, bib antes de reescrita. Executor01: auditoria de rastreabilidade números→experimento→código→evidência + padronização de notebooks Kaggle. Executor02: s42 canônica e recomputo McNemar/bootstrap. Site: página Referências. Prosa fix/cap2-prosa-619-648 em gate aguardando fichamento Margatina2023.",
+    "descricao": "Caps. 1 e 2 com LEITURA DO AUTOR APROVADA (R7). Cap.1 encerrado. Cap.2: falta apenas o R1 de forma em t1/t4/t5 (travessões; conteúdo já aprovado), mais R2/R6 da banca e R5 do principal. Frente crítica: estatísticas canônicas do executor02 (mudam conclusões do Cap.5); re-coleta E5 em curso destrava os braços A/B/C. Refatoração: F1+F2 mergeadas com os títulos escolhidos pelo autor; F3/F4/F5 atrás do fechamento do Cap.2.",
     "fila": [
       "revisor1: bib lote 0 (em curso) -> bib lote 2 -> humanização Caps. 3 e 4",
       "revisor2: bib lotes 1 e 3 -> humanização Caps. 5 e 6",

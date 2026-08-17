@@ -1711,6 +1711,22 @@
       "label": "selecao-em-lote"
     },
     {
+      "id": "Grandini2020",
+      "type": "artigo",
+      "label": "Grandini2020",
+      "title": "Metrics for Multi-Class Classification: an Overview",
+      "year": 2020,
+      "venue": "White paper, arXiv:2008.05756 (CRIF S.p.A. e Universidade de Bolonha)",
+      "paper_type": "survey",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Grandini2020.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
       "id": "Griesshaber2020",
       "type": "artigo",
       "label": "Griesshaber2020",
@@ -3018,6 +3034,22 @@
       "cited_in": []
     },
     {
+      "id": "Nti2021",
+      "type": "artigo",
+      "label": "Nti2021",
+      "title": "Performance of Machine Learning Algorithms with Different K Values in K-fold Cross-Validation",
+      "year": 2021,
+      "venue": "International Journal of Information Technology and Computer Science (MECS), v. 13, n. 6, pp. 61--71",
+      "paper_type": "empirico",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Nti2021.pdf",
+      "doi": "10.5815/ijitcs.2021.06.05",
+      "url": "https://doi.org/10.5815/ijitcs.2021.06.05",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
       "id": "Olsson2009",
       "type": "artigo",
       "label": "Olsson2009",
@@ -3454,6 +3486,22 @@
       "doi": "",
       "url": "",
       "cited_in": []
+    },
+    {
+      "id": "Riyanto2023Comparative",
+      "type": "artigo",
+      "label": "Riyanto2023Comparative",
+      "title": "Comparative Analysis using Various Performance Metrics in Imbalanced Data for Multi-class Text Classification",
+      "year": 2023,
+      "venue": "International Journal of Advanced Computer Science and Applications (IJACSA), v. 14, n. 6, pp. 1082--1090",
+      "paper_type": "empirico",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Riyanto2023Comparative.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "Romberg2025Reassessing",
@@ -4673,6 +4721,22 @@
       "id": "tarefa:classificacao-multirrotulo-extrema",
       "type": "tarefa",
       "label": "classificacao-multirrotulo-extrema"
+    },
+    {
+      "id": "Widodo2022",
+      "type": "artigo",
+      "label": "Widodo2022",
+      "title": "Stratified K-fold cross validation optimization on machine learning for prediction",
+      "year": 2022,
+      "venue": "Sinkron: Jurnal dan Penelitian Teknik Informatika, v. 7, n. 4, pp. 2407--2414",
+      "paper_type": "empirico",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Widodo2022.pdf",
+      "doi": "10.33395/sinkron.v7i4.11792",
+      "url": "https://doi.org/10.33395/sinkron.v7i4.11792",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "Wilcoxon1945",
@@ -7293,6 +7357,12 @@
       "note": "Já citado no formalismo do Cap.2 (arcabouço do ciclo de AL). Exemplo canônico de AL+SVM com seleção em LOTE guiada por probabilidades — antecedente direto do QueryBatch por incerteza do FALCO."
     },
     {
+      "source": "Grandini2020",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "É a fonte que descreve as métricas multiclasse alternativas (acurácia balanceada, coeficiente de Matthews, Kappa de Cohen) que a tese cita para, em seguida, dispensar de forma justificada."
+    },
+    {
       "source": "Griesshaber2020",
       "target": "Devlin2019",
       "type": "builds_on"
@@ -9064,6 +9134,12 @@
       "note": "Periférico; herança do draft."
     },
     {
+      "source": "Nti2021",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Sustenta a frase do Cap. 2 sobre k tipicamente 5 ou 10 como equilíbrio entre viés, variância e custo — e, de quebra, mostra que a escolha é convenção da literatura, não regra formal."
+    },
+    {
       "source": "Olsson2009",
       "target": "Settles2012",
       "type": "compares_with"
@@ -9652,6 +9728,12 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "SLR periférica herdada; foco em datasets pode apoiar a valorização do nosso dataset público."
+    },
+    {
+      "source": "Riyanto2023Comparative",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Vizinho direto da decisão métrica da tese: compara métricas em dados desbalanceados de classificação de texto MULTICLASSE e conclui que o F1 é a métrica que importa nesse regime."
     },
     {
       "source": "Romberg2025Reassessing",
@@ -11655,6 +11737,12 @@
       "target": "LCE",
       "type": "fundamenta",
       "note": "Dá base externa para reportar macro F1 e não só micro: §6.2 (p. 4604) argumenta que micro F1 sobe mesmo quando o classificador só melhora nas classes frequentes, e que em rótulo extremo é o macro que mede quantas classes o sistema aprende a discriminar. É o mesmo motivo pelo qual o Cap. 5 elege macro F1 como métrica principal."
+    },
+    {
+      "source": "Widodo2022",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Sustenta a afirmação do Cap. 2 de que a estratificação das dobras é essencial sob desbalanceamento: no estudo, é exatamente o recurso adotado para lidar com classe-alvo desbalanceada."
     },
     {
       "source": "Wilcoxon1945",
