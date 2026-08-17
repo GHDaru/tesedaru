@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 29,
-  "atualizado_em": "2026-08-17T02:10:00Z",
+  "versao": 30,
+  "atualizado_em": "2026-08-17T02:35:00Z",
   "atualizado_por": "revisor1: fichamentos dos pós-2022 do t2 entregues (Rouzegar2024, Fromme2022); Deng2023fedal bloqueada por arXiv ID errado; contagem do t2 recontada e corrigida para 41",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -1148,9 +1148,10 @@
         "descricao": "Correção da soldagem ruído estruturado (Cap.2:585) — decisão (a) do autor; antes/depois apresentado",
         "branch": "fix/cap2-ruido-estruturado",
         "commit": "a0e20c9",
-        "estado": "gate",
+        "estado": "feito",
         "responsavel": "principal",
-        "trilha": "texto"
+        "trilha": "texto",
+        "nota": "mergeado pelo gate do autor em 2026-08-17"
       }
     ]
   },
