@@ -20,8 +20,8 @@ perfeito. A Seção~\ref{sec:fund-llm} examina o que muda quando o oráculo é u
 modelo de linguagem de grande porte: capacidades, arquiteturas de integração,
 ruído de rótulo e a estrutura de custo e medição que passa a existir. A
 Seção~\ref{sec:fund-stc} caracteriza o domínio de aplicação, a classificação
-de texto curto em português, e mostra por que ele tensiona simultaneamente as
-métricas, o \textit{cold start} e o oráculo. A Seção~\ref{sec:fund-soa}
+de texto curto em português, e mostra por que ele agrava, ao mesmo tempo, os
+desafios de métrica, de \textit{cold start} e de oráculo. A Seção~\ref{sec:fund-soa}
 fecha o capítulo com a revisão sistemática da interseção dessas frentes e a
 lacuna de pesquisa que o Capítulo~\ref{ch:metodo} ocupa.
 
@@ -729,9 +729,9 @@ decisão que o FALCO opera.
 
 O domínio de aplicação desta tese, descrições de produtos de varejo em
 português, pertence à classificação de texto curto (\textit{short text
-classification}), subcampo com desafios próprios que tensionam tanto as
+classification}), subcampo com desafios próprios que afetam ao mesmo tempo as
 métricas da Seção~\ref{sec:fund-super} quanto o laço da
-Seção~\ref{sec:fund-al}. Textos curtos abundam em plataformas digitais
+Seção~\ref{sec:fund-al}. Textos curtos são comuns em plataformas digitais
 (consultas de busca, mensagens, títulos) e sua classificação sustenta
 aplicações de análise de sentimento a categorização de catálogos
 \cite{Ahmed2022, Song2014}.
@@ -811,9 +811,9 @@ um forte, para a validação final.
 Três consequências do regime de texto curto estruturam os experimentos desta
 tese. Primeiro, a cauda longa de classes torna o Macro F1 sensível a classes não cobertas: com
 centenas de categorias e poucas instâncias nas raras, cada classe descoberta
-tarde reduz o Macro F1 de forma desproporcional; é por isso que a cobertura de classes do
-conjunto inicial domina o desempenho no regime pequeno
-(Capítulo~\ref{ch:resultados-l0}). Segundo, a partida a frio é mais severa: com
+tarde reduz o Macro F1 de forma desproporcional; o quanto a cobertura de
+classes do conjunto inicial pesa nesse regime é examinado no
+Capítulo~\ref{ch:resultados-l0}. Segundo, a partida a frio é mais severa: com
 pouca informação por instância, o modelo inicial precisa de mais exemplos para
 sustentar seleções informadas, elevando o valor de heurísticas de
 representatividade que operam sem rótulos. Terceiro, o desbalanceamento
@@ -948,7 +948,7 @@ inferência que as compara (Seção~\ref{sec:fund-super}); o \emph{laço} que
 compra informação e suas duas limitações, partida a frio e oráculo imperfeito
 (Seção~\ref{sec:fund-al}); o \emph{oráculo LLM} que transforma qualidade,
 custo e instrumento em variáveis de projeto (Seção~\ref{sec:fund-llm}); o
-\emph{domínio} de texto curto que tensiona tudo simultaneamente
+\emph{domínio} de texto curto que agrava todos esses desafios ao mesmo tempo
 (Seção~\ref{sec:fund-stc}); e o \emph{estado da arte} que resolve cada
 limitação isoladamente, mas não as três em conjunto
 (Seção~\ref{sec:fund-soa}). O Capítulo~\ref{ch:metodo} apresenta o framework
