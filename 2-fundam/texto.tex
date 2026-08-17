@@ -183,7 +183,7 @@ que fundamenta o mínimo de oito sementes adotado no Capítulo~\ref{ch:metodo}.
 distribuição amostral conhecida — como a diferença de LCE entre estratégias —,
 o \textit{bootstrap} \citep{EfronTibshirani1993} estima o intervalo de
 confiança reamostrando os pares observados com reposição (método do
-percentil), permanecendo informativo mesmo com poucas repetições.
+percentil).
 
 A Tabela~\ref{tab:inferencia-mapa} resume o mapeamento situação--teste--uso.
 
@@ -316,8 +316,8 @@ sujeito a produzir exemplos ininteligíveis para anotadores \cite{Baum1992}; na
 \textbf{amostragem seletiva em fluxo}, instâncias chegam uma a uma de uma
 distribuição natural e o algoritmo decide, por um limiar de utilidade, se
 consulta cada uma \cite{Dagan1995}; e no \textbf{aprendizado ativo com acervo
-fixo} (\textit{pool-based}), o cenário desta tese e o mais comum na prática,
-um conjunto finito $U$ está disponível desde o início e o algoritmo seleciona
+fixo} (\textit{pool-based}), o cenário desta tese e o mais comum na prática
+\cite{Settles2012}, um conjunto finito $U$ está disponível desde o início e o algoritmo seleciona
 dele as instâncias de maior utilidade \cite{Lewis1994}. Três extensões do
 cenário básico são relevantes aqui: o modo em \textbf{lote}
 (\textit{batch-mode}), que seleciona múltiplas instâncias por iteração —
@@ -327,7 +327,8 @@ seleção localmente em múltiplos clientes preservando privacidade
 \cite{Deng2023fedal}; e o cenário com \textbf{múltiplos oráculos} de custos e
 competências distintos \cite{Yan2011} — historicamente motivado por
 \textit{crowdsourcing} e hoje reencarnado no cardápio de LLMs com preços e
-acurácias diferentes, que é precisamente o cenário do FALCO.
+acurácias diferentes, que é precisamente o cenário do FALCO — cardápio e
+preços instrumentados no Capítulo~\ref{ch:metodo}.
 
 \subsection{Estratégias de seleção de instâncias}
 \label{sec:estrategias_selecao}
@@ -346,7 +347,10 @@ seleciona as instâncias sobre as quais o modelo corrente está mais incerto,
 requerendo apenas as probabilidades preditas — custo baixo, aplicabilidade
 geral, e relação teórica com a bissecção do espaço de versão em
 classificadores de margem \citep{Tong2000}; permanece linha de base forte em
-\textit{deep learning} \citep{Gal2017}. Suas três medidas canônicas são
+\textit{deep learning} \citep{Gal2017}, com uma ressalva de regime que importa
+a esta tese: em classificação com rótulo extremo (centenas de classes),
+nenhuma estratégia de seleção supera a aleatória de forma consistente
+\citep{Wertz2022}. Suas três medidas canônicas são
 usadas nos experimentos desta tese:
 \begin{equation}
 x^*_{LC} = \arg\max_x \left[ 1 - P_\theta(\hat{y}|x) \right]
@@ -387,7 +391,7 @@ perspectiva de teoria da decisão: escolher a consulta que, em expectativa,
 mais reduz o erro de generalização ou a variância preditiva do modelo
 resultante \citep{Roy2001, MacKay1992, Cohn1996}, com tratamento natural de
 lotes via otimização submodular \citep{Guestrin2005, Golovin2011, Krause2014}.
-É a única família que otimiza diretamente o objetivo final — e a de custo
+É a família que se propõe explicitamente a otimizar o objetivo final — e a de custo
 computacional proibitivo no nosso regime: re-treinamento por par
 candidato-rótulo ou álgebra matricial que escala mal com a dimensionalidade.
 
@@ -407,7 +411,7 @@ conceitual do DRI-SL (Capítulo~\ref{ch:metodo}): densidade semântica e
 variedade lexical como critérios de representatividade computáveis sem nenhum
 rótulo. Sua hipótese de trabalho — estrutura dos dados correlacionada com a
 distribuição dos rótulos — nem sempre vale, e o custo de computar a estrutura
-não é desprezível.
+não é desprezível \cite{Wertz2022}.
 
 A Tabela~\ref{tab:estrategias_comparacao_rev} resume o quadro comparativo.
 
@@ -438,8 +442,8 @@ estratégias de incerteza e desacordo pressupõem $\theta_0$ treinado em algum
 $L_0$; com $L_0$ minúsculo ou inexistente — a \textbf{partida a frio}
 (\textit{cold start}) — o modelo não sustenta seleções melhores que o acaso
 \cite{Bayer2024ActiveLLM}, e o problema se agrava em texto curto, onde cada instância
-carrega pouca informação, e com classificadores profundos, cujo re-treinamento
-frequente é caro \cite{Wertz2022}. As respostas da literatura passam pela
+carrega pouca informação (Seção~\ref{sec:fund-stc}), e com classificadores
+profundos, cujo re-treinamento frequente é caro \cite{Wertz2022}. As respostas da literatura passam pela
 exploração da estrutura dos dados antes de existir modelo — a família da
 Eq.~\eqref{eq:id} — e, mais recentemente, por seletores externos com
 conhecimento pré-treinado (Seção~\ref{sec:fund-llm}).
@@ -450,15 +454,16 @@ entre si e cansam; a resposta clássica inclui rotulagem repetida, modelagem da
 qualidade do anotador e roteamento entre anotadores de custos distintos
 \cite{Sheng2008, Snow2008, Donmez2009, Yan2011}. Quando o oráculo passa a ser
 um LLM, essa fratura muda de natureza — o erro torna-se sistemático e
-estruturado, e o custo, uma função de tokens — e é tratada em profundidade na
+estruturado \cite{Song2023NoisyLabels}, e o custo, uma função de tokens — e é tratada em profundidade na
 Seção~\ref{sec:fund-llm}.
 
 Duas consequências operacionais do laço merecem registro porque reaparecem nos
 experimentos. Primeiro, o \textbf{critério de parada}: o ganho marginal por
-lote decresce ao longo da curva de aprendizado, e critérios baseados na
+lote decresce ao longo da curva de aprendizado (comportamento que a própria
+curva populacional do E6 exibe, Capítulo~\ref{ch:resultados-falco}), e critérios baseados na
 estagnação do desempenho em um conjunto de validação — como o adotado pelo
 FALCO e formalizado no Apêndice~\ref{ap:parada-drift} — ou em razões de
-custo-benefício \cite{Rouzegar2024} evitam pagar rótulos que só compram ruído.
+custo-benefício \cite{Rouzegar2024Thesis} evitam pagar rótulos que só compram ruído.
 Segundo, o \textbf{viés de amostragem ativa}: o conjunto rotulado resultante
 não é uma amostra i.i.d.\ da população — a seleção por incerteza
 sobre-representa casos difíceis e classes raras \cite{Santos2016Vies,
@@ -476,9 +481,9 @@ O surgimento dos \textit{Large Language Models} (LLMs) altera os dois lados do
 laço de aprendizado ativo: eles podem selecionar instâncias e podem
 rotulá-las. Esta seção examina a evidência empírica dessas capacidades, as
 arquiteturas de integração propostas na literatura, o regime de treinamento
-com rótulos ruidosos que o oráculo LLM inaugura e — dimensão raramente tratada
-de forma sistemática — a estrutura de custo e de medição que passa a existir
-quando o oráculo é um serviço pago por token.
+com rótulos ruidosos que o oráculo LLM inaugura e — dimensão que esta tese
+toma como objeto de instrumentação — a estrutura de custo e de medição que
+passa a existir quando o oráculo é um serviço pago por token.
 
 \subsection{Capacidades e evidência empírica}
 \label{sssec:llm_substituto}
@@ -489,14 +494,15 @@ escala \citep{zhang-etal-2022-survey}. A evidência seminal é o estudo de
 \citet{Gilardi2023}: o ChatGPT em modo \textit{zero-shot} superou anotadores
 de \textit{crowdsourcing} em cerca de 25 pontos percentuais de acurácia média,
 com maior concordância intercodificador e custo por anotação aproximadamente
-30 vezes menor. As vantagens estruturais — escalabilidade sem fadiga,
-consistência entre anotações, velocidade — convivem com limitações
-conhecidas: qualidade inferior à de especialistas em domínios de nuance,
-vieses herdados do pré-treinamento, alucinação e conhecimento datado; a
-validação sistemática de \citet{Pangakis2023Validation} mostra que o
-desempenho do anotador LLM é altamente contingente à tarefa — em um terço de
-27 tarefas testadas, precisão ou revocação ficaram abaixo de 0,5 — o que
-exige validar o oráculo por tarefa antes de usá-lo. Cabe a
+30 vezes menor. As vantagens estruturais que o estudo ilustra — escalabilidade
+sem fadiga, consistência entre anotações, velocidade e custo
+\citep{Gilardi2023} — convivem com limitações documentadas: a validação
+sistemática de \citet{Pangakis2023Validation} mostra desempenho altamente
+contingente à tarefa — em um terço de 27 tarefas testadas, precisão ou
+revocação ficaram abaixo de 0,5 — o que exige validar o oráculo por tarefa
+antes de usá-lo; vieses herdados do pré-treinamento, alucinação e
+conhecimento datado entram nesta tese como parte do perfil de erro a medir,
+não como pressuposto (E0, Capítulo~\ref{ch:resultados-falco}). Cabe a
 ressalva central para esta tese: os resultados positivos concentram-se em
 tarefas com poucas classes; os estudos recentes de classificação de produtos
 operam com dezenas a algumas centenas de categorias — 248 no comparativo
@@ -588,7 +594,8 @@ o survey clássico de \citet{Frenay2014} organiza taxonomias de ruído
 (aleatório, dependente de classe, dependente de instância) e seus efeitos;
 \citet{Natarajan2013} estabelecem garantias de aprendizado sob ruído com
 funções de perda corrigidas; e \citet{Song2023NoisyLabels} revisam o estado da
-arte com redes profundas. Dois resultados importam diretamente: redes
+arte com redes profundas. Dois resultados dessa literatura importam diretamente
+\citep{Frenay2014, Song2023NoisyLabels}: redes
 profundas toleram ruído moderado quando há dados suficientes, mas degradam de
 forma acentuada sob ruído dependente de classe que desloca fronteiras de
 decisão de modo sistemático. O perfil observado em oráculos LLM é um caso
@@ -610,8 +617,8 @@ a degradação sob ruído controlado no domínio de interesse.
 \subsection{Custo, instrumentação e reprodutibilidade da medição}
 \label{sssec:llm_custo}
 
-O oráculo LLM introduz uma economia e uma metrologia próprias, raramente
-instrumentadas na literatura. O \textbf{custo} deixa de ser por item e passa a
+O oráculo LLM introduz uma economia e uma metrologia próprias, que esta
+tese instrumenta de ponta a ponta (E0 e Capítulo~\ref{ch:metodo}). O \textbf{custo} deixa de ser por item e passa a
 ser por \emph{token}, com três alavancas operacionais: o tamanho do lote de
 anotação, que amortiza o prefixo comum do \textit{prompt} entre instâncias
 \citep{Kholodna2024}; o \textit{cache} de prefixo oferecido por provedores,
