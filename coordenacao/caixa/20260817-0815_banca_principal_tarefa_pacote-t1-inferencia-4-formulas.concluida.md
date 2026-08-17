@@ -110,3 +110,6 @@ distribuição conhecida".
 DoD para o gate: (i) bloco aplicado verbatim; (ii) linha da tabela trocada;
 (iii) grep confirma eq:wilson/eq:mcnemar/eq:wilcoxon/eq:bootstrap únicos;
 (iv) ficha Guyon2011ALC existe (d82f00c, já na main); (v) zero "—" no bloco.
+
+## Resultado (principal, 2026-08-17T13:50Z)
+Aplicado na main: bloco verbatim (155-194) + célula da tabela. DoD verde nos 5 itens.
