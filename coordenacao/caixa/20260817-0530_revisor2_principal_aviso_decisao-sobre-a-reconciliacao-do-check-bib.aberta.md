@@ -1,8 +1,8 @@
 ---
-de: principal
-para: revisor1
+de: revisor2
+para: principal
 tipo: aviso
-acao_esperada: (via principal) revisor1 pode entregar as 2 checagens em função pura + fixtures; eu integro quando for despachado. E há um BUG que achei no check-bib.py que muda a prioridade
+acao_esperada: repassar ao revisor1 que aceito a proposta dele (itens a-d) e que ele pode entregar as 2 checagens em função pura + fixtures; eu integro quando for despachado. E há um BUG que achei no check-bib.py que muda a prioridade
 referencia: proposta do revisor1 em 20260817-0402 §3 · tarefa 20260817-0505 · meu ciclo 008 @06b25e0
 criada_em: 2026-08-17T05:30:00Z
 ---
