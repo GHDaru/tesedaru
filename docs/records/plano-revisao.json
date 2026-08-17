@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 34,
-  "atualizado_em": "2026-08-17T03:55:00Z",
-  "atualizado_por": "revisor1: R4 do t2 do Cap. 2 concluída (11 afirmações levantadas); R3 do t2 fechado com 3 fichamentos em gate",
+  "versao": 44,
+  "atualizado_em": "2026-08-17T12:10:00Z",
+  "atualizado_por": "revisor1: Cap. 2 fechado nas rodadas que me cabem — R3 e R4 dos temas t2, t4 e t5; retrospectiva em docs/retrospectiva-cap2-revisor1.md",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -165,7 +165,7 @@
       "rodadas": {
         "R1": {
           "status": "andamento",
-          "nota": "lote 1 mergeado (110→92 travessões); lotes seguintes POR TEMA, somente após o R3 do tema fechar"
+          "nota": "lote 1 mergeado; t2 RECONCILIADO com a main em humanize/cap2-t2 @389f978 (28->0 travessoes; citacoes IDENTICAS a main, incluindo Sener2018/TypiClust/Farquhar/Kossen/Guyon que entraram depois do corte) e t3 em humanize/cap2-t3; ambas aguardam verificacao cruzada e gate em bloco; restam t4 e t5"
         },
         "R2": {
           "status": "pendente"
@@ -175,7 +175,8 @@
           "nota": "por tema (ver quebra); absorve a tarefa r3-acoplada do revisor1; verificação cruzada entre revisores antes de cada gate"
         },
         "R4": {
-          "status": "pendente"
+          "status": "andamento",
+          "nota": "t1/t2/t3 mergeados (gate 2026-08-17); t4/t5 pendentes; pacote t1 da banca em consolidação com o principal"
         },
         "R5": {
           "status": "pendente"
@@ -208,7 +209,8 @@
           "travessoes": 13,
           "citacoes": 31,
           "responsavel": "revisor2",
-          "status": "aberto"
+          "status": "r1",
+          "nota": "R3+R4+pacote da leitura do autor mergeados; R1 destravado (revisor2, após t3)"
         },
         {
           "id": "t2",
@@ -218,9 +220,9 @@
           "travessoes": 27,
           "citacoes": 37,
           "responsavel": "revisor1",
-          "status": "r4",
+          "status": "feito",
           "dono": "revisor1",
-          "nota": "R3 e R4 do t2 CONCLUÍDOS. Recontagem verificada: 41 chaves distintas nas linhas 210-471 (a nota anterior dizia 42; a tarefa estimava 37 — regex diferentes). R3: as 4 pós-2022 conferidas na fonte primária, zero fabricação de autoria; Rouzegar2024, Fromme2022 e Song2023NoisyLabels fichados em claude/maestro-cycles-statistical-analysis-fwla6a @79bf6c3, aguardando gate (a chave da obra da LREC 2022 é Fromme2022, não \"Wertz2022\"). Deng2023fedal BLOQUEADA: o arXiv ID da entrada (2303.09753) resolve para outro artigo; o correto é 2406.11310, publicado em JID v.145 n.2 p.303-311 (2025), DOI 10.1016/j.jid.2024.05.023 — a correção muda o ano impresso e depende de autorização. R4: 11 afirmações órfãs ou mal atribuídas levantadas em docs/r4-cap2-t2-afirmacoes-orfas.md — 4 atribuições imprecisas (L222, L319, L461, L440-442), 5 órfãs (L390, L408-410, L452, L457-458, L329-330) e 2 a qualificar (L348-349, L439). Nenhuma é fabricação de fonte; 5 consertam-se acrescentando uma chave que a tese já possui. Correção da prosa é do principal. Pendência do princípio II: 29 das 41 chaves sem fichamento após o gate, todas pré-2022."
+          "nota": "R3+R4+patch banca+R1 completos; mergeado 2026-08-17 (pré-aprovação do autor + cruzada limpa)"
         },
         {
           "id": "t3",
@@ -230,7 +232,8 @@
           "travessoes": 20,
           "citacoes": 29,
           "responsavel": "revisor2",
-          "status": "aberto"
+          "status": "feito",
+          "nota": "R3+R4+R1 completos; mergeado 2026-08-17"
         },
         {
           "id": "t4",
@@ -240,8 +243,9 @@
           "travessoes": 22,
           "citacoes": 30,
           "responsavel": "revisor1",
-          "status": "aberto",
-          "dono": "revisor1"
+          "status": "r4",
+          "dono": "revisor1",
+          "nota": "R3 e R4 CONCLUÍDAS. R3: 28 chaves distintas (627-721), 10 verificadas na fonte primária pela regra de risco, ZERO fabricações de obra. Achado: Xu2017 com 4 prenomes inventados e o 7º autor ausente — corrigido. R4: 6 pontos em docs/r4-cap2-t4-afirmacoes.md. Os DOIS números sobre os nossos dados foram MEDIDOS e conferem: 'textos de 4 a 50 caracteres' é exato (min 4, max 50 em 250.221 descrições) e 'quase todo termo ocorre uma vez' se sustenta com folga (só 2,07% das descrições repetem algum termo). Falta declarar o artefato nos dois. Segunda ocorrência do padrão 'número tirado de fonte que o próprio fichamento declara qualitativa' (Song2014, Alsmadi2019). Correção da prosa é do principal."
         },
         {
           "id": "t5",
@@ -251,8 +255,9 @@
           "travessoes": 14,
           "citacoes": 24,
           "responsavel": "revisor1",
-          "status": "aberto",
-          "dono": "revisor1"
+          "status": "r4",
+          "dono": "revisor1",
+          "nota": "R3 e R4 CONCLUÍDAS. R3: 17 chaves, 12 verificadas na fonte. R4: 8 pontos em docs/r4-cap2-t5-afirmacoes.md — a seção que sustenta a lacuna, revisada com peso extra. Exemplar e a NÃO mexer: a 2.5.1 declara ser revisão narrativa e não sistemática, com Kitchenham2004. Ponto principal: a alegação de lacuna (L845-847) não está delimitada pela busca — como está, afirma que a combinação NÃO EXISTE, quando o que a revisão sustenta é que não foi encontrada na busca descrita na 2.5.1; um contraexemplo derruba a versão atual. Machado2026RetailPt: 2 dos 4 números verificados no resumo (100 mil títulos, 94,0% Macro F1), 2 não (97,0% de acurácia, 12 mil rótulos) e a obra sem fichamento; o escopo é alimentos e bebidas, não o catálogo inteiro — dizer isso FORTALECE o contraste com as 621 classes do FALCO. Tabela de lacunas = 45 afirmações sobre trabalhos alheios; 8 das 9 obras têm ficha."
         }
       ]
     },
@@ -1178,11 +1183,6 @@
       "id": "dec-divida-vocabulario",
       "titulo": "Dívida antiga: 342 entidades fora do vocabulário controlado nos 140 fichamentos legados — entra no plano ou fica como está? (retirada do DoD do lote 5)",
       "trilha": "processo"
-    },
-    {
-      "id": "dec-cache-kaggle",
-      "titulo": "AUTOR: subir annotation_cache_nemotron.jsonl como dataset do Kaggle — destrava os braços A/B/C nas 3 sementes (o centro da hipótese F1(A) ≥ 0,95×F1(D)); 3 retomadas curtas, 18 resultados prontos são pulados",
-      "trilha": "experimentos"
     },
     {
       "id": "dec-nome-e3",

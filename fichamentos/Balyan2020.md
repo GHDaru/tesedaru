@@ -40,7 +40,7 @@ Aplica PLN e classificação hierárquica ao problema educacional de dificuldade
 
 ## Crítica / limitações (minha leitura)
 - Review periférico do lote herdado da dissertação; preferir os surveys de
-  referência (Kowsari2019, Minaee2022, zhang2022surveyAL) em citações novas.
+  referência (Kowsari2019, Minaee2022, zhang-etal-2022-survey) em citações novas.
 
 ## Ideias que gera para a tese
 - Manter apenas se já citado por herança; candidato a poda na revisão final.

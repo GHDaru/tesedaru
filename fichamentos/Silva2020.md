@@ -38,7 +38,7 @@ com corpus próprio.
 ## Claims relevantes
 | # | Claim | Evidência | Uso na tese |
 |---|-------|-----------|-------------|
-| C1 | Classificação de texto em português com corpus dedicado é linha ativa nacional | Escopo | Cap.2: bloco de PLN em português (com Souza2020BERTimbau, Souza2022Embedding, Bard) |
+| C1 | Classificação de texto em português com corpus dedicado é linha ativa nacional | Escopo | Cap.2: bloco de PLN em português (com Souza2020BERTimbau, Souza2023, Bard) |
 
 ## Números que posso citar
 - (Fora do nosso domínio; qualitativo.)

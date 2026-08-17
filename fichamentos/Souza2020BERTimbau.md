@@ -15,10 +15,10 @@ datasets: [brwac, assin2, harem]
 metrics: [f1]
 tasks: [similaridade-textual, inferencia-textual, ner]
 models: [bertimbau, bert, mbert]
-extends: [devlin2019bert]
+extends: [Devlin2019]
 compares_with: []
 contradicts: []
-builds_on: [devlin2019bert]
+builds_on: [Devlin2019]
 falco_relation:
   - type: usa
     target: FALCO

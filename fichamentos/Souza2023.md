@@ -1,11 +1,11 @@
 ---
-id: Souza2022Embedding
+id: Souza2023
 title: "Embedding generation for text classification of Brazilian Portuguese user reviews: from bag-of-words to transformers"
 authors: ["Souza, Frederico Dias", "Souza Filho, João Baptista de Oliveira e"]
 year: 2023
 venue: "Neural Computing and Applications, 35, pp. 9393–9406"
 doi: "10.1007/s00521-022-08068-6"
-pdf: referencias-pdf/Souza2022Embedding.pdf
+pdf: referencias-pdf/Souza2023.pdf
 paper_type: avaliacao
 pillars: [geral, P4]
 status: fichado

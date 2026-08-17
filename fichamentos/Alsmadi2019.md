@@ -1,11 +1,11 @@
 ---
-id: alsmadi2019shorttext
+id: Alsmadi2019
 title: "Review of short-text classification"
 authors: ["Alsmadi, Issa", "Gan, Keng Hoon"]
 year: 2019
 venue: "International Journal of Web Information Systems"
 doi: "10.1108/IJWIS-12-2017-0083"
-pdf: referencias-pdf/alsmadi2019shorttext.pdf
+pdf: referencias-pdf/Alsmadi2019.pdf
 paper_type: survey
 pillars: [geral, P1]
 status: fichado
@@ -15,10 +15,10 @@ datasets: []
 metrics: []
 tasks: [classificacao-de-texto-curto]
 models: []
-extends: [song2014shorttext]
+extends: [Song2014]
 compares_with: []
 contradicts: []
-builds_on: [song2014shorttext]
+builds_on: [Song2014]
 falco_relation:
   - type: fundamenta
     target: FALCO

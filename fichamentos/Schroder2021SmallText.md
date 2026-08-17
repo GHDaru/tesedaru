@@ -18,7 +18,7 @@ models: [transformer]
 extends: []
 compares_with: []
 contradicts: []
-builds_on: [Lewis1994, zhang2022surveyAL]
+builds_on: [Lewis1994, zhang-etal-2022-survey]
 falco_relation:
   - type: compara-ferramenta
     target: FALCO
