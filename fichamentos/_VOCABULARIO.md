@@ -37,6 +37,7 @@ Termos entrados pelos fichamentos dos 11 vizinhos (parecer R6, Bloco C); mesmo c
 
 ### Tarefas (fichar-vizinhos)
 classificacao-de-texto  <!-- Xiao2023FreeAL -->
+classificacao-binaria  <!-- Natarajan2013 -->
 regressao  <!-- Farquhar2021Bias -->
 classificacao-de-imagens  <!-- Hacohen2022TypiClust -->
 
