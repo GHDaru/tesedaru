@@ -1,11 +1,12 @@
 {
   "schema": "rastreabilidade/v1",
   "gerado_por": "executor01 · notebooks/auditoria/build_rastreabilidade.py",
-  "cobertura": "Cap. 5 (E0, E6, E3′) + Cap. 4 (P1). Faltam: E0-P, E1, E4, seção do gate, Caps. 3 e 6, apêndices, pré-textuais",
+  "cobertura": "Cap. 5 completo menos a seção do gate (E0, E0-P, E1, E4, E6, E3′) + Cap. 4 (P1/P2) + a nota do Cap. 3 sobre execuções auditadas. Faltam: seção do gate, Caps. 3 e 6, apêndices, pré-textuais",
   "resumo": {
-    "rastreado": 28,
+    "rastreado": 52,
     "divergente": 9,
-    "legado": 1
+    "legado": 1,
+    "sem-evidencia": 3
   },
   "legenda": {
     "rastreado": "o número sai do artefato citado",
@@ -393,6 +394,276 @@
       "notebook_kaggle": "",
       "status": "legado",
       "nota": "0.891 está na saída gravada da célula 4. Evidência existe mas em repositório somente leitura e sem referência cruzada; o REPRODUCIBILITY.md aponta para 'Tese-Vers-o-Draft', que não é este repositório"
+    },
+    {
+      "numero": "E0-P rand v3: acurácia 60.4%",
+      "onde": "5-resultados-falco/texto.tex#tab:e0p",
+      "experimento": "efeito-do-prompt",
+      "artefato": "experiments/e0p/results/analysis.json",
+      "codigo": "experiments/e0p/run_e0p.py + analyze_e0p.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E0-P rand v4a: acurácia 64.2% · discordantes 50/31 · p 0.045",
+      "onde": "5-resultados-falco/texto.tex#tab:e0p",
+      "experimento": "efeito-do-prompt",
+      "artefato": "experiments/e0p/results/analysis.json",
+      "codigo": "experiments/e0p/run_e0p.py + analyze_e0p.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E0-P rand v4b: acurácia 65.0% · discordantes 50/27 · p 0.012",
+      "onde": "5-resultados-falco/texto.tex#tab:e0p",
+      "experimento": "efeito-do-prompt",
+      "artefato": "experiments/e0p/results/analysis.json",
+      "codigo": "experiments/e0p/run_e0p.py + analyze_e0p.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E0-P strat v3: acurácia 51.8%",
+      "onde": "5-resultados-falco/texto.tex#tab:e0p",
+      "experimento": "efeito-do-prompt",
+      "artefato": "experiments/e0p/results/analysis.json",
+      "codigo": "experiments/e0p/run_e0p.py + analyze_e0p.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E0-P strat v4a: acurácia 44.8% · discordantes 20/55 · p 0.001",
+      "onde": "5-resultados-falco/texto.tex#tab:e0p",
+      "experimento": "efeito-do-prompt",
+      "artefato": "experiments/e0p/results/analysis.json",
+      "codigo": "experiments/e0p/run_e0p.py + analyze_e0p.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E0-P strat v4b: acurácia 41.0% · discordantes 14/68 · p 0.001",
+      "onde": "5-resultados-falco/texto.tex#tab:e0p",
+      "experimento": "efeito-do-prompt",
+      "artefato": "experiments/e0p/results/analysis.json",
+      "codigo": "experiments/e0p/run_e0p.py + analyze_e0p.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E0-P: v4b piora sobre v4a na S-strat com p=0,0013",
+      "onde": "5-resultados-falco/texto.tex#tab:e0p",
+      "experimento": "efeito-do-prompt",
+      "artefato": "experiments/e0p/results/analysis.json",
+      "codigo": "experiments/e0p/run_e0p.py + analyze_e0p.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "artefato p=0.001319"
+    },
+    {
+      "numero": "teto supervisionado do pool completo: Macro F1 = 0,540",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "artefato: 0.5398"
+    },
+    {
+      "numero": "E1 menor margem: LCE 0.528±0.013 · F1 final 0.418±0.013",
+      "onde": "5-resultados-falco/texto.tex#tab:e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E1 menor confiança: LCE 0.518±0.01 · F1 final 0.421±0.009",
+      "onde": "5-resultados-falco/texto.tex#tab:e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E1 entropia: LCE 0.493±0.006 · F1 final 0.398±0.008",
+      "onde": "5-resultados-falco/texto.tex#tab:e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E1 híbrida: LCE 0.476±0.014 · F1 final 0.379±0.008",
+      "onde": "5-resultados-falco/texto.tex#tab:e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E1 aleatória: LCE 0.444±0.011 · F1 final 0.339±0.006",
+      "onde": "5-resultados-falco/texto.tex#tab:e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "a melhor célula recupera 78% do teto supervisionado com 15% dos rótulos",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "conta: 78.1%"
+    },
+    {
+      "numero": "E1b ablação de lote b50: LCE 0.492±0.009",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "artefato: 0.4924±0.009"
+    },
+    {
+      "numero": "E1b ablação de lote b100: LCE 0.493±0.006",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "artefato: 0.4932±0.0055"
+    },
+    {
+      "numero": "E1b ablação de lote b200: LCE 0.481±0.012",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "artefato: 0.4814±0.0124"
+    },
+    {
+      "numero": "E4 ε=0.1 entropia: F1 0.347±0.008 · retenção 87.2%",
+      "onde": "5-resultados-falco/texto.tex#tab:e4",
+      "experimento": "robustez-ao-ruido",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E4 ε=0.1 aleatória: F1 0.294±0.006 · retenção 86.7%",
+      "onde": "5-resultados-falco/texto.tex#tab:e4",
+      "experimento": "robustez-ao-ruido",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E4 ε=0.2 entropia: F1 0.294±0.006 · retenção 74.0%",
+      "onde": "5-resultados-falco/texto.tex#tab:e4",
+      "experimento": "robustez-ao-ruido",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E4 ε=0.2 aleatória: F1 0.252±0.006 · retenção 74.4%",
+      "onde": "5-resultados-falco/texto.tex#tab:e4",
+      "experimento": "robustez-ao-ruido",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E4 ε=0.4 entropia: F1 0.215±0.01 · retenção 54.1%",
+      "onde": "5-resultados-falco/texto.tex#tab:e4",
+      "experimento": "robustez-ao-ruido",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E4 ε=0.4 aleatória: F1 0.186±0.006 · retenção 54.8%",
+      "onde": "5-resultados-falco/texto.tex#tab:e4",
+      "experimento": "robustez-ao-ruido",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "a vantagem da entropia sobrevive com p=0,0078 em todo ε",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e4",
+      "experimento": "robustez-ao-ruido",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "artefato: [0.007812, 0.007812, 0.007812]"
+    },
+    {
+      "numero": "as 104 células do E1/E1b/E4",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/sweeps.jsonl",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "sem-evidencia",
+      "nota": "o REPRODUCIBILITY.md lista sweeps.jsonl como artefato do experimento, mas ele não está no repositório: só o analysis.json e o baseline.json. As conclusões estão versionadas, o dado por célula não. Casa com a linha 7 do .gitignore"
+    },
+    {
+      "numero": "figuras do Cap. 4 e do Cap. 5 geradas por script",
+      "onde": "experiments/plots/",
+      "experimento": "todos",
+      "artefato": "experiments/plots/figures/*.{pdf,png}",
+      "codigo": "experiments/plots/make_figures.py",
+      "notebook_kaggle": "",
+      "status": "sem-evidencia",
+      "nota": "o script existe e nenhuma figura está versionada em experiments/plots/. As figuras publicadas vivem em tesedaru/N-*/imagens/, desacopladas do gerador — não há garantia de que a figura da tese corresponda ao artefato atual"
+    },
+    {
+      "numero": "replays de auditoria de P1 e P2 (a base do 'execuções já auditadas')",
+      "onde": "3-metodo/texto.tex#tab:metodo-experimentos",
+      "experimento": "conjunto-inicial",
+      "artefato": "experiments/p1/results/replay_l0.jsonl e replay_ga.jsonl",
+      "codigo": "experiments/p1/{replay_l0_sensitivity.py,replay_ga.py}",
+      "notebook_kaggle": "",
+      "status": "sem-evidencia",
+      "nota": "docs/convergencia-replays.md declara estes dois arquivos como artefatos-fonte da auditoria (convergência de 0,7 p.p. e inflação de circularidade de 6,3 p.p.), mas git log --all mostra que NUNCA foram commitados. A afirmação 'execuções já realizadas e auditadas' do Cap. 3 é hoje inverificável"
     }
   ]
 }
