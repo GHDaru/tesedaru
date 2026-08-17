@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 31,
-  "atualizado_em": "2026-08-17T03:05:00Z",
-  "atualizado_por": "revisor1: fichamentos dos pós-2022 do t2 entregues (Rouzegar2024, Fromme2022); Deng2023fedal bloqueada por arXiv ID errado; contagem do t2 recontada e corrigida para 41",
+  "versao": 32,
+  "atualizado_em": "2026-08-17T02:55:00Z",
+  "atualizado_por": "revisor1: R4 do t2 do Cap. 2 concluída (11 afirmações levantadas); R3 do t2 fechado com 3 fichamentos em gate",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -217,9 +217,9 @@
           "travessoes": 27,
           "citacoes": 37,
           "responsavel": "revisor1",
-          "status": "r3",
+          "status": "r4",
           "dono": "revisor1",
-          "nota": "R3 do t2 CONCLUÍDO. Recontagem verificada em 2026-08-17: 41 chaves distintas nas linhas 210-471 (a nota anterior dizia 42 e a tarefa do principal estimava 37; os 3 números vinham de regex diferentes — o de agora captura \\cite, \\citep e \\citet com opções e chaves múltiplas). As 4 pós-2022 foram conferidas na fonte primária: zero fabricação de autoria. Fichamentos dos pós-2022 (tarefa 20260817-0125): Rouzegar2024 e Fromme2022 fichados em claude/maestro-cycles-statistical-analysis-fwla6a @1a8cf9f, aguardando gate — a chave da obra da LREC 2022 é Fromme2022, não \"Wertz2022\" como constava aqui. Deng2023fedal BLOQUEADA: o arXiv ID da entrada (2303.09753) resolve para outro artigo; o correto é 2406.11310, com versão publicada em JID v.145 n.2 p.303-311 (2025), DOI 10.1016/j.jid.2024.05.023 — a correção depende de autorização porque muda o ano impresso. Pendência do princípio II: 29 das 41 chaves seguem sem fichamento depois do gate, todas pré-2022."
+          "nota": "R3 e R4 do t2 CONCLUÍDOS. Recontagem verificada: 41 chaves distintas nas linhas 210-471 (a nota anterior dizia 42; a tarefa estimava 37 — regex diferentes). R3: as 4 pós-2022 conferidas na fonte primária, zero fabricação de autoria; Rouzegar2024, Fromme2022 e Song2023NoisyLabels fichados em claude/maestro-cycles-statistical-analysis-fwla6a @79bf6c3, aguardando gate (a chave da obra da LREC 2022 é Fromme2022, não \"Wertz2022\"). Deng2023fedal BLOQUEADA: o arXiv ID da entrada (2303.09753) resolve para outro artigo; o correto é 2406.11310, publicado em JID v.145 n.2 p.303-311 (2025), DOI 10.1016/j.jid.2024.05.023 — a correção muda o ano impresso e depende de autorização. R4: 11 afirmações órfãs ou mal atribuídas levantadas em docs/r4-cap2-t2-afirmacoes-orfas.md — 4 atribuições imprecisas (L222, L319, L461, L440-442), 5 órfãs (L390, L408-410, L452, L457-458, L329-330) e 2 a qualificar (L348-349, L439). Nenhuma é fabricação de fonte; 5 consertam-se acrescentando uma chave que a tese já possui. Correção da prosa é do principal. Pendência do princípio II: 29 das 41 chaves sem fichamento após o gate, todas pré-2022."
         },
         {
           "id": "t3",
