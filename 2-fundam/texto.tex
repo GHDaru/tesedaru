@@ -289,8 +289,8 @@ $U=\{x_j\}_{j=1}^{m}$ com $L\cap U=\varnothing$, e a cada iteração uma
 escolhe um lote $Q_t$ a ser consultado; o oráculo rotula $Q_t$, os pares
 entram em $L_t$, e o processo segue até esgotar o orçamento $B$ ou satisfazer
 um critério de parada. Entre as formulações existentes
-\cite{Settles2012, Roy2001, Goudjil2018}, adapta-se aqui o arcabouço de Cohn,
-Ghahramani e Jordan, ampliado por Hanneke \cite{Cohn1996, Hanneke2015}.
+\cite{Settles2012, Roy2001, Goudjil2018}, adapta-se aqui o arcabouço de \citet{Cohn1996}, ampliado por
+\citet{Hanneke2015}.
 
 \begin{definicao}[Aprendizado Ativo]
 Aprendizado ativo é representado, neste trabalho, pela sêxtupla
@@ -301,8 +301,7 @@ em que $L$ é um conjunto de exemplos rotulados, $U$ um conjunto de exemplos
 não rotulados, $\theta$ denota o estado do modelo supervisionado atualizado a
 partir de $L$, $S$ é uma regra de seleção que indica os exemplos de $U$ a
 serem consultados, $O$ é o oráculo que fornece o rótulo correto para cada
-instância, e $B$ corresponde ao orçamento, eventualmente infinito, de
-consultas possíveis ao oráculo.
+instância, e $B$ corresponde ao orçamento, possivelmente infinito, de consultas possíveis ao oráculo.
 \end{definicao}
 
 A Tabela~\ref{tab:active-learning-components} resume os componentes; o
@@ -364,9 +363,8 @@ orçamento.
 
 O laço admite três cenários clássicos, que diferem em como as instâncias
 chegam ao seletor \cite{Settles2012}: na \textbf{síntese de consultas}, o
-algoritmo gera instâncias artificiais, o que é poderoso em espaços bem
-definidos, mas sujeito a produzir exemplos ininteligíveis para anotadores
-\cite{Baum1992}; na
+algoritmo gera instâncias artificiais, o que funciona quando o espaço de entrada tem estrutura conhecida, mas pode
+produzir exemplos ininteligíveis para anotadores humanos \cite{Baum1992}; na
 \textbf{amostragem seletiva em fluxo}, instâncias chegam uma a uma de uma
 distribuição natural e o algoritmo decide, por um limiar de utilidade, se
 consulta cada uma \cite{Dagan1995}; e no \textbf{aprendizado ativo com acervo
@@ -374,14 +372,13 @@ fixo} (\textit{pool-based}), o cenário desta tese e o mais comum na prática
 \cite{Settles2012}, um conjunto finito $U$ está disponível desde o início e o algoritmo seleciona
 dele as instâncias de maior utilidade \cite{Lewis1994}. Três extensões do
 cenário básico são relevantes aqui: o modo em \textbf{lote}
-(\textit{batch-mode}), que seleciona múltiplas instâncias por iteração, o que é
-inevitável quando o re-treinamento é caro, mas exige diversidade dentro do
-lote \cite{Hoi2006}; o aprendizado ativo \textbf{federado}, que executa a
+(\textit{batch-mode}), que seleciona múltiplas instâncias por iteração, necessário na prática quando cada re-treinamento é caro, ao custo de exigir
+diversidade dentro do lote \cite{Hoi2006}; o aprendizado ativo \textbf{federado}, que executa a
 seleção localmente em múltiplos clientes preservando privacidade
 \cite{Deng2023fedal}; e o cenário com \textbf{múltiplos oráculos} de custos e
-competências distintos \cite{Yan2011}, historicamente motivado por
-\textit{crowdsourcing} e hoje reencarnado no cardápio de LLMs com preços e
-acurácias diferentes, que é precisamente o cenário do FALCO. Esse cardápio e
+competências distintos \cite{Yan2011}, formulado originalmente para anotadores humanos em \textit{crowdsourcing} e
+que hoje se repete na oferta de LLMs com preços e acurácias distintos, que é o
+cenário do FALCO. Esse cardápio e
 seus preços são instrumentados no Capítulo~\ref{ch:metodo}.
 
 \subsection{Estratégias de seleção de instâncias}
@@ -389,9 +386,7 @@ seus preços são instrumentados no Capítulo~\ref{ch:metodo}.
 
 A estratégia de seleção é o componente que define um algoritmo de aprendizado
 ativo: ela determina quais instâncias valem o custo do oráculo, buscando
-maximizar a informação obtida por consulta \citep{Settles2012}, no espírito
-de \citet{Shannon1948}: buscar ativamente a informação que mais reduz a
-incerteza. As famílias de estratégias diferem no princípio heurístico e no
+maximizar a informação obtida por consulta \citep{Settles2012}. As famílias de estratégias diferem no princípio heurístico e no
 custo computacional; as que esta tese emprega diretamente recebem tratamento
 completo, e as demais, uma síntese com as referências de aprofundamento.
 
@@ -420,7 +415,8 @@ seleciona pela \textbf{menor margem} entre as duas classes mais prováveis; e
 x^*_{H} = \arg\max_x \left[ -\sum_y P_\theta(y|x) \log P_\theta(y|x) \right]
 \label{eq:entropy}
 \end{equation}
-seleciona pela \textbf{entropia} da distribuição completa. As limitações da
+seleciona pela \textbf{entropia} da distribuição completa, a medida de
+incerteza de \citet{Shannon1948}. As limitações da
 família são conhecidas: é míope (confia num modelo possivelmente ruim, em
 especial no início), suscetível a \textit{outliers}, e pode negligenciar
 classes raras ao concentrar-se na fronteira das majoritárias
@@ -431,22 +427,20 @@ divergência entre hipóteses plausíveis: o espaço de versão é o subconjunto
 hipóteses consistentes com $L$ \citep{Mitchell1982}, e consultas que maximizam
 o desacordo entre seus membros eliminam hipóteses mais rapidamente, com
 garantias teóricas de melhoria exponencial em certos regimes
-\citep{Cohn1994Improving, Hanneke2015}. A implementação prática é a
-\textbf{consulta por comitê} (QBC): um \textit{ensemble} construído por
+\citep{Cohn1994Improving, Hanneke2015}. A implementação prática é a \textbf{consulta por comitê} (QBC, de \textit{query-by-committee}): um \textit{ensemble} construído por
 amostragem bayesiana, \textit{bagging}, \textit{boosting} ou múltiplas visões
 \citep{Seung1992, Freund1997, McCallum1998, Abe1998, Muslea2000, Blum1998}
 vota, e as instâncias de maior desacordo (medido por entropia de votos ou
 divergência de Kullback--Leibler) são consultadas; a diversidade do comitê é
-determinante \citep{Melville2004}. O custo de manter múltiplos modelos torna a
-família menos atraente quando o classificador é re-treinado a cada lote.
+determinante \citep{Melville2004}. O custo de manter múltiplos modelos torna a família menos adequada quando o classificador é re-treinado a cada
+lote.
 
 \paragraph{Redução de erro ou variância esperados.} A terceira família adota a
 perspectiva de teoria da decisão: escolher a consulta que, em expectativa,
 mais reduz o erro de generalização ou a variância preditiva do modelo
 resultante \citep{Roy2001, MacKay1992, Cohn1996}, com tratamento natural de
 lotes via otimização submodular \citep{Guestrin2005, Golovin2011, Krause2014}.
-É a família que se propõe explicitamente a otimizar o objetivo final, mas
-também a de custo computacional proibitivo no nosso regime: re-treinamento por par
+É a família que se propõe explicitamente a otimizar o objetivo final, mas também a de custo computacional proibitivo no regime desta tese: re-treinamento por par
 candidato-rótulo ou álgebra matricial que escala mal com a dimensionalidade.
 
 \paragraph{Exploração da estrutura dos dados.} A quarta família incorpora a
@@ -460,13 +454,14 @@ x^*_{ID} = \arg\max_x \phi_A(x) \times \left( \text{Representatividade}(x) \righ
 \end{equation}
 com $\beta$ controlando o peso da densidade \citep{Settles2008}; as variantes
 por agrupamento consultam centróides ou amostram hierarquicamente com
-garantias de robustez \citep{Nguyen2004, Dasgupta2008}. A linhagem moderna da
-família formaliza a seleção por cobertura como \textit{core-set}, cuja
-garantia teórica degrada à medida que cresce o número de classes
-\citep{Sener2018}, e explora a tipicidade com agrupamento no TypiClust, que
-evidencia uma transição de regime: exemplos representativos vencem sob
-orçamento baixo de rótulos, e exemplos incertos, sob orçamento alto
-\citep{Hacohen2022TypiClust}. Esta família é a base
+garantias de robustez \citep{Nguyen2004, Dasgupta2008}. Dois desenvolvimentos recentes da família importam aqui. \citet{Sener2018}
+formalizam a seleção como a busca de um conjunto-núcleo (\textit{core-set}), o
+subconjunto que melhor cobre o espaço das instâncias; sua garantia teórica,
+porém, degrada à medida que cresce o número de classes. E o algoritmo
+TypiClust, de \citet{Hacohen2022TypiClust}, seleciona exemplos típicos, de
+alta densidade, dentro de agrupamentos; seus experimentos evidenciam uma
+transição de regime: exemplos representativos vencem quando o orçamento de
+rótulos é baixo, e exemplos incertos, quando é alto. Esta família é a base
 conceitual do DRI-SL (Capítulo~\ref{ch:metodo}): densidade semântica e
 variedade lexical como critérios de representatividade computáveis sem nenhum
 rótulo. Sua hipótese de trabalho (estrutura dos dados correlacionada com a
@@ -504,19 +499,20 @@ $L_0$; com $L_0$ minúsculo ou inexistente, situação conhecida como
 melhores que o acaso
 \cite{Bayer2024ActiveLLM}, e o problema se agrava em texto curto, onde cada instância
 carrega pouca informação (Seção~\ref{sec:fund-stc}), e com classificadores
-profundos, cujo re-treinamento frequente é caro \cite{Wertz2022}. As respostas da literatura passam pela
-exploração da estrutura dos dados antes de existir modelo (a família da
-Eq.~\eqref{eq:id}) e, mais recentemente, por seletores externos com
-conhecimento pré-treinado (Seção~\ref{sec:fund-llm}).
+profundos, cujo re-treinamento frequente é caro \cite{Wertz2022}. As respostas da literatura passam pela exploração da estrutura dos dados antes
+de existir modelo (a família da Eq.~\eqref{eq:id};
+\citealp{Hacohen2022TypiClust}) e, mais recentemente, por seletores externos
+com conhecimento pré-treinado \citep{Bayer2024ActiveLLM} (Seção~\ref{sec:fund-
+llm}).
 
 A segunda é a suposição de \textbf{oráculo perfeito}: $O$ devolve sempre o
 rótulo verdadeiro, a custo unitário constante. Anotadores reais erram, variam
 entre si e cansam; a resposta clássica inclui rotulagem repetida, modelagem da
 qualidade do anotador e roteamento entre anotadores de custos distintos
-\cite{Sheng2008, Snow2008, Donmez2009, Yan2011}. Quando o oráculo passa a ser
-um LLM, essa fratura muda de natureza (o erro torna-se sistemático e
-estruturado \cite{Song2023NoisyLabels}, e o custo, uma função de tokens) e é
-tratada em profundidade na Seção~\ref{sec:fund-llm}.
+\cite{Sheng2008, Snow2008, Donmez2009, Yan2011}. Quando o oráculo passa a ser um LLM, a violação da suposição muda de natureza:
+o erro torna-se sistemático e estruturado \cite{Song2023NoisyLabels}, e o
+custo, uma função de tokens; o tratamento aprofundado está na
+Seção~\ref{sec:fund-llm}.
 
 Duas consequências operacionais do laço merecem registro porque reaparecem nos
 experimentos. Primeiro, o \textbf{critério de parada}: o ganho marginal por
@@ -524,7 +520,8 @@ lote decresce ao longo da curva de aprendizado (comportamento que a própria
 curva populacional do E6 exibe, Capítulo~\ref{ch:resultados-falco}), e critérios baseados na
 estagnação do desempenho em um conjunto de validação (como o adotado pelo
 FALCO e formalizado no Apêndice~\ref{ap:parada-drift}) ou em razões de
-custo-benefício \cite{Rouzegar2024Thesis} evitam pagar rótulos que só compram ruído.
+custo-benefício \cite{Rouzegar2024Thesis} evitam gastar orçamento em
+rótulos que já não melhoram o modelo.
 Segundo, o \textbf{viés de amostragem ativa}: o conjunto rotulado resultante
 não é uma amostra i.i.d.\ da população (a seleção por incerteza
 sobre-representa casos difíceis e classes raras \cite{Santos2016Vies,
