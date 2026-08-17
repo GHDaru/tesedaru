@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 36,
-  "atualizado_em": "2026-08-17T04:18:00Z",
+  "versao": 37,
+  "atualizado_em": "2026-08-17T06:30:00Z",
   "atualizado_por": "revisor1: Cap. 2 fechado nas rodadas que me cabem — R3 e R4 dos temas t2, t4 e t5; retrospectiva em docs/retrospectiva-cap2-revisor1.md",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -175,7 +175,8 @@
           "nota": "por tema (ver quebra); absorve a tarefa r3-acoplada do revisor1; verificação cruzada entre revisores antes de cada gate"
         },
         "R4": {
-          "status": "pendente"
+          "status": "andamento",
+          "nota": "t1/t2/t3 mergeados (gate 2026-08-17); t4/t5 pendentes; pacote t1 da banca em consolidação com o principal"
         },
         "R5": {
           "status": "pendente"
@@ -208,7 +209,7 @@
           "travessoes": 13,
           "citacoes": 31,
           "responsavel": "revisor2",
-          "status": "aberto"
+          "status": "r1"
         },
         {
           "id": "t2",
@@ -218,7 +219,7 @@
           "travessoes": 27,
           "citacoes": 37,
           "responsavel": "revisor1",
-          "status": "r4",
+          "status": "r1",
           "dono": "revisor1",
           "nota": "R3 e R4 do t2 CONCLUÍDOS. Recontagem verificada: 41 chaves distintas nas linhas 210-471 (a nota anterior dizia 42; a tarefa estimava 37 — regex diferentes). R3: as 4 pós-2022 conferidas na fonte primária, zero fabricação de autoria; Rouzegar2024, Fromme2022 e Song2023NoisyLabels fichados em claude/maestro-cycles-statistical-analysis-fwla6a @79bf6c3, aguardando gate (a chave da obra da LREC 2022 é Fromme2022, não \"Wertz2022\"). Deng2023fedal BLOQUEADA: o arXiv ID da entrada (2303.09753) resolve para outro artigo; o correto é 2406.11310, publicado em JID v.145 n.2 p.303-311 (2025), DOI 10.1016/j.jid.2024.05.023 — a correção muda o ano impresso e depende de autorização. R4: 11 afirmações órfãs ou mal atribuídas levantadas em docs/r4-cap2-t2-afirmacoes-orfas.md — 4 atribuições imprecisas (L222, L319, L461, L440-442), 5 órfãs (L390, L408-410, L452, L457-458, L329-330) e 2 a qualificar (L348-349, L439). Nenhuma é fabricação de fonte; 5 consertam-se acrescentando uma chave que a tese já possui. Correção da prosa é do principal. Pendência do princípio II: 29 das 41 chaves sem fichamento após o gate, todas pré-2022."
         },
@@ -230,7 +231,7 @@
           "travessoes": 20,
           "citacoes": 29,
           "responsavel": "revisor2",
-          "status": "aberto"
+          "status": "r1"
         },
         {
           "id": "t4",
