@@ -820,8 +820,8 @@ em escala, o que o torna um caso de teste adequado para o framework proposto.
 \label{sec:fund-soa}
 
 As três seções anteriores revisaram as frentes isoladamente; esta seção
-examina sua interseção — aprendizado ativo com oráculos LLM para classificação
-de texto curto — na literatura de 2020 ao primeiro semestre de 2026, e
+examina sua interseção (aprendizado ativo com oráculos LLM para classificação
+de texto curto) na literatura de 2020 ao primeiro semestre de 2026, e
 delimita a lacuna que o restante da tese ocupa.
 
 \subsection{Escopo e método da revisão}
@@ -839,7 +839,7 @@ focou em identificar tendências na aplicação de LLMs em AA, abordagens para a
 partida a frio e as lacunas remanescentes. Registre-se o estatuto
 metodológico: trata-se de uma \emph{revisão narrativa focada} na interseção
 das frentes, e não de uma revisão sistemática completa com protocolo
-registrado e fluxo de seleção documentado \citep{Kitchenham2004} — escolha
+registrado e fluxo de seleção documentado \citep{Kitchenham2004}, escolha
 adequada ao papel do capítulo (fundamentar a lacuna, não inventariar um
 campo), cuja contrapartida é a tabela de lacunas
 (Tabela~\ref{tab:lacunas}) explicitar os critérios pelos quais os trabalhos
@@ -849,10 +849,11 @@ mais próximos foram confrontados.
 \label{sec:integracao_llm_al}
 
 \textbf{Partida a frio informada.} A linha que antecede os LLMs usa
-representações pré-treinadas para selecionar o conjunto inicial — ALPS
+representações pré-treinadas para selecionar o conjunto inicial: ALPS
 \cite{Yuan2020} seleciona pela surpresa (\textit{surprisal}) que a instância
-causa ao modelo de linguagem, na acepção da teoria da informação; \citet{EinDor2020} e \citet{Griesshaber2020} adaptam AA ao
-BERT — e culmina no DEUCE \cite{Guo2025Deuce}, que combina diversidade
+causa ao modelo de linguagem, na acepção da teoria da informação, e
+\citet{EinDor2020} e \citet{Griesshaber2020} adaptam AA ao
+BERT. A linha culmina no DEUCE \cite{Guo2025Deuce}, que combina diversidade
 textual e de classe prevista num grafo duplo-vizinho para evitar o que seus autores chamam de efeito
 de agrupamento não coberto (\textit{missed cluster effect}): classes inteiras
 que a amostra inicial deixa de representar. O DEUCE converge conceitualmente com a Fase 1 do FALCO, mas
@@ -870,18 +871,18 @@ calibração da confiança, o custo por consulta e a propagação de vieses
 \cite{Bayer2024ActiveLLM, Zhang2025}. A pesquisa de comunidade de
 \citet{Romberg2025Reassessing} acrescenta uma ressalva de ordem prática: complexidade de
 implantação, incerteza sobre a redução real de custo e ferramental inadequado
-seguem sendo as barreiras à adoção — a viabilidade operacional, não a
+seguem sendo as barreiras à adoção: a viabilidade operacional, não a
 acurácia, é o obstáculo apontado.
 
 \textbf{Robustez a ruído e produto/e-commerce.} As duas frentes restantes
 foram detalhadas nas Seções~\ref{sssec:llm_desafios}
 e~\ref{sssec:llm_seletor}; na interseção com o domínio, o estudo de
-\citet{Machado2026RetailPt} — classificação de $\approx 100$ mil títulos de
+\citet{Machado2026RetailPt}, que classifica $\approx 100$ mil títulos de
 supermercados portugueses nas categorias da Classificação do Consumo Individual por Finalidade
-(ECOICOP) para estatística oficial —
+(ECOICOP) para estatística oficial,
 corrobora a escolha do BERTimbau como classificador forte (97,0\% de
 acurácia, 94,0\% de Macro F1 após ajuste), mas depende de um fluxo de rotulagem humano sem protocolo definido iniciado com 12 mil rótulos manuais, sem estratégia
-formal de aprendizado ativo nem oráculo automatizado — exatamente o processo
+formal de aprendizado ativo nem oráculo automatizado: exatamente o processo
 que o FALCO formaliza.
 
 \subsection{Lacuna de pesquisa}
@@ -893,7 +894,7 @@ pré-treinado de LLMs para informar a seleção inicial ou fornecer rótulos na
 partida a frio; (ii) adapte as estratégias de seleção para considerar,
 além do classificador em treinamento, a confiança e o custo do oráculo LLM;
 (iii) seja otimizado para as características do texto curto; e (iv) balanceie
-explicitamente o custo financeiro das consultas com o ganho de informação —
+explicitamente o custo financeiro das consultas com o ganho de informação,
 com avaliação rigorosa desse \textit{trade-off}, ainda rara mesmo nos
 trabalhos que tocam o custo \cite{Zhang2025, EinDor2020}. A
 Tabela~\ref{tab:lacunas} cruza os trabalhos mais próximos com as cinco
@@ -927,20 +928,20 @@ Dual-expert \cite{Cheng2024DualExpert} & \xmark & \cmark & \xmark & $\sim$ & \xm
 A leitura da tabela confirma que a lacuna permanece após a atualização
 2025--2026: DEUCE cobre a partida a frio sem oráculo LLM; a mistura de LLMs
 cobre a robustez do anotador sem progressão de custo; os estudos de produto
-cobrem o domínio sem aprendizado ativo. A ausência combinada — partida a
+cobrem o domínio sem aprendizado ativo. A ausência combinada (partida a
 frio informada + oráculo LLM progressivo + texto curto em português + custo
-instrumentado — é a lacuna que o Capítulo~\ref{ch:metodo} ataca.
+instrumentado) é a lacuna que o Capítulo~\ref{ch:metodo} ataca.
 
 \subsection{Conclusão do capítulo}
 \label{sec:fund-conclusao}
 
 O capítulo percorreu uma cadeia: as \emph{métricas} sob desbalanceamento e a
 inferência que as compara (Seção~\ref{sec:fund-super}); o \emph{laço} que
-compra informação e suas duas limitações — partida a frio e oráculo imperfeito
+compra informação e suas duas limitações, partida a frio e oráculo imperfeito
 (Seção~\ref{sec:fund-al}); o \emph{oráculo LLM} que transforma qualidade,
 custo e instrumento em variáveis de projeto (Seção~\ref{sec:fund-llm}); o
 \emph{domínio} de texto curto que tensiona tudo simultaneamente
 (Seção~\ref{sec:fund-stc}); e o \emph{estado da arte} que resolve cada
 limitação isoladamente, mas não as três em conjunto
 (Seção~\ref{sec:fund-soa}). O Capítulo~\ref{ch:metodo} apresenta o framework
-que ocupa essa interseção — e o programa experimental que o submete à prova.
+que ocupa essa interseção, e o programa experimental que o submete à prova.
