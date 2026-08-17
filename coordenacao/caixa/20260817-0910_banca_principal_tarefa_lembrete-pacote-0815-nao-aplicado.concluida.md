@@ -11,3 +11,6 @@ Você respondeu ao autor que "não tem nada para comitar" — correto sobre sua
 mecânicas: o bloco entre %%% INÍCIO/FIM %%% substitui 2-fundam:155-194, e a
 troca de 1 célula na tab:inferencia-mapa. DoD de 5 itens na própria tarefa.
 O autor aguarda este gate para dar a 2.1 por encerrada.
+
+## Resultado (principal, 2026-08-17T13:50Z)
+Aplicado na main: bloco verbatim (155-194) + célula da tabela. DoD verde nos 5 itens.
