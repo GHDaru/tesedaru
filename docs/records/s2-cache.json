@@ -1,0 +1,145 @@
+{
+ "resolvidos": {
+  "Aggarwal2012": {
+   "metodo": "doi",
+   "paper_id": "5c89852b90a1e9e506d237749c745bf42ac0f737"
+  },
+  "Ahmed2022": {
+   "metodo": "doi",
+   "paper_id": "42ff9337a806c81ba9e013f9716201a14d7f787e"
+  },
+  "Alsmadi2019": {
+   "metodo": "doi",
+   "paper_id": "432d3f7eb86ab6e6c20e30689f0a732283ff20f7"
+  },
+  "Ash2019": {
+   "metodo": "arxiv",
+   "paper_id": "cf5a21684aefb1b8db6e0490167636d245396095"
+  },
+  "Attenberg2010": {
+   "metodo": "doi",
+   "paper_id": "767d99508f8716430359d04fbbc1551ffc05e7e7"
+  },
+  "Bayer2024": {
+   "metodo": "arxiv",
+   "paper_id": "b94ecba2348841cccb649f36eb81f5f6c98e532b"
+  },
+  "Budd2021": {
+   "metodo": "doi",
+   "paper_id": "755774c14c6b344596ae5025e00e678c08136b4c"
+  },
+  "Fonseca2015": {
+   "metodo": "doi",
+   "paper_id": "d3ad4bd049e3111f2bc28b6f904c06f2eab97acd"
+  },
+  "Gilardi2023": {
+   "metodo": "doi",
+   "paper_id": "a9e155fda1d97baa2b8712f580cc61887cc64e9b"
+  },
+  "Goudjil2018": {
+   "metodo": "doi",
+   "paper_id": "c72b9ec87d0c5a1bb4f2a0d79dd514b0e61069ec"
+  },
+  "Karl2023": {
+   "metodo": "doi",
+   "paper_id": "28f46b4054ef42897f1e9cae75c709deb8b1e934"
+  },
+  "Liu2017": {
+   "metodo": "doi",
+   "paper_id": "1a0365567850837931d04126714ae6e2cbfc6270"
+  },
+  "Moher2009": {
+   "metodo": "doi",
+   "paper_id": "422eb72108ce3cef7e66514720b99af04a46ae57"
+  },
+  "Nguyen2022": {
+   "metodo": "arxiv",
+   "paper_id": "740c9a2e0d337377f27467c3be4e61c9d5d70a02"
+  },
+  "Nti2021": {
+   "metodo": "doi",
+   "paper_id": "ad4d6dc646767741cdd8e8e13b0923d5d54ba2b0"
+  },
+  "Orengo2001": {
+   "metodo": "doi",
+   "paper_id": "b41c301e6294b28d7f7c57251ee2138dc562fb55"
+  },
+  "Pereira2021": {
+   "metodo": "doi",
+   "paper_id": "9e3cdb944c0b376398a48511d49c7b70ce21b091"
+  },
+  "Pranckevicius2017": {
+   "metodo": "doi",
+   "paper_id": "e853f8827a2b9c596296de296b482e1175f9713f"
+  },
+  "Prechelt2012": {
+   "metodo": "nao-encontrado",
+   "paper_id": null
+  },
+  "Qi2020FLAL": {
+   "metodo": "doi",
+   "paper_id": "68587c4085b08c0773890aa1767f0eaf2b82b6eb"
+  },
+  "Ren2021": {
+   "metodo": "nao-encontrado",
+   "paper_id": null
+  },
+  "Reusens2024": {
+   "metodo": "doi",
+   "paper_id": "6535134e1e83af5d2d7fa73848f3b894faa8a167"
+  },
+  "Schick2023": {
+   "metodo": "arxiv",
+   "paper_id": "53d128ea815bcc0526856eb5a9c42cc977cb36a7"
+  },
+  "Silva2020": {
+   "metodo": "doi",
+   "paper_id": "ffa03b8a16c259c5768044eff5bfcc08ee6a93b5"
+  },
+  "Sinoara2019": {
+   "metodo": "nao-encontrado",
+   "paper_id": null
+  },
+  "Song2014": {
+   "metodo": "doi",
+   "paper_id": "f3aa07fd19627898ab3001bfbffd76537b3c6702"
+  },
+  "Souza2018": {
+   "metodo": "doi",
+   "paper_id": "98367779da1d31e3ba210cfc7e6e6ec99a398da7"
+  },
+  "Souza2023": {
+   "metodo": "doi",
+   "paper_id": "8508e377ac08f9f740cd071478016a04f2b5b557"
+  },
+  "Uysal2014": {
+   "metodo": "doi",
+   "paper_id": "991e93ca9a97a1c5a5d41a2f3495da4fb75bef21"
+  },
+  "Wang2017": {
+   "metodo": "nao-encontrado",
+   "paper_id": null
+  },
+  "Widodo2022": {
+   "metodo": "doi",
+   "paper_id": "913b7950e276de8df8a5e5fd2f2f31cd802eea16"
+  },
+  "activellm2024": {
+   "metodo": "arxiv",
+   "paper_id": "b94ecba2348841cccb649f36eb81f5f6c98e532b"
+  },
+  "alsmadi2019shorttext": {
+   "metodo": "doi",
+   "paper_id": "432d3f7eb86ab6e6c20e30689f0a732283ff20f7"
+  },
+  "zhang-etal-2022-survey": {
+   "metodo": "nao-encontrado",
+   "paper_id": null
+  },
+  "zhang2022surveyAL": {
+   "metodo": "nao-encontrado",
+   "paper_id": null
+  }
+ },
+ "schema": "s2-cache/v1"
+}

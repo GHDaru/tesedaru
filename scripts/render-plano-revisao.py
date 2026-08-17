@@ -1106,9 +1106,14 @@ function ondeCell(r){
     (r.total_ocorrencias > 1 ? ` <span class="ref-badge">${r.total_ocorrencias}×</span>` : '') + `</span>`;
 }
 
+const LINK_LABEL = {doi: 'doi', arxiv: 'arxiv', url: 'link', busca: 'buscar'};
 function linkCell(r){
-  return r.link ? `<a href="${esc(r.link)}" target="_blank" rel="noopener">${esc(r.link_tipo || 'link')} ↗</a>`
-                : '<span class="vazia">—</span>';
+  if (!r.link) return '<span class="vazia">—</span>';
+  const busca = r.link_tipo === 'busca';
+  // honestidade visual (tarefa 20260817-0055): link direto vs. busca pronta
+  // nunca se confundem — rótulo próprio + classe própria, nunca só cor
+  return `<a class="${busca ? 'ref-link-busca' : ''}" href="${esc(r.link)}" target="_blank" rel="noopener"
+    title="${busca ? 'Sem identificador direto — busca pronta no Google Scholar' : ''}">${esc(LINK_LABEL[r.link_tipo] || 'link')} ↗</a>`;
 }
 
 function badge(ok){
@@ -1119,6 +1124,13 @@ function passaFiltro(r){
   if (!filtro) return true;
   const alvo = (r.titulo + ' ' + (r.autores||[]).join(' ') + ' ' + r.chave).toLowerCase();
   return alvo.includes(filtro);
+}
+
+function s2Line(r){
+  if (!r.link_s2) return '';
+  const busca = r.link_s2_tipo !== 'direto';
+  return `<p class="ref-s2"><a class="${busca ? 'ref-link-busca' : ''}" href="${esc(r.link_s2)}" target="_blank" rel="noopener">
+    Ficha S2 ${busca ? '(buscar)' : ''} ↗</a></p>`;
 }
 
 function linha(r){
@@ -1135,7 +1147,7 @@ function linha(r){
     <td><button type="button" class="ref-det-btn" data-target="${detId}" aria-expanded="false">ver</button></td>
   </tr>
   <tr id="${detId}" class="ref-det-row" hidden>
-    <td colspan="9">${r.detalhes_html ? r.detalhes_html : '<p class="vazia">Ainda não fichada.</p>'}</td>
+    <td colspan="9">${r.detalhes_html || ''}${s2Line(r)}</td>
   </tr>`;
 }
 
@@ -1183,6 +1195,10 @@ render();
   text-transform:uppercase; letter-spacing:.06em; font-weight:600; cursor:pointer; padding:0; white-space:nowrap}
 .ref-th-btn:hover{color:var(--accent)}
 .ref-badge{color:var(--muted); font-size:var(--fs-1)}
+/* link direto vs. busca pronta: rótulo já distingue (doi/arxiv/link vs.
+   buscar) — o tracejado é reforço visual, nunca o único canal */
+.ref-link-busca{color:var(--muted); border-bottom:1px dashed var(--muted)}
+.ref-s2{margin:.6rem 0 0; padding-top:.5rem; border-top:1px dashed var(--border)}
 .ref-det-btn{background:none; border:1px solid var(--border); color:var(--accent); border-radius:6px;
   padding:.15rem .5rem; font-size:var(--fs-1); cursor:pointer}
 .ref-det-row td{background:var(--ground); padding:var(--sp-4)}

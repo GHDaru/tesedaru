@@ -5,16 +5,24 @@ se está fichada (fichamentos/<chave>.md) e se o PDF existe no repositório.
 
 Uso:  python3 scripts/compute-referencias.py
 
-Sem dependências além de PyYAML (já usada por fichamentos/build_kg.py).
-Nenhum parser de BibTeX/Markdown de terceiros: os dois são pequenos e
-específicos o bastante para não justificar uma dependência nova (o
-gerador do site não pode depender de rede no momento do build).
+Sem dependências além de PyYAML (já usada por fichamentos/build_kg.py) e da
+biblioteca padrão. Nenhum parser de BibTeX/Markdown de terceiros: os dois
+são pequenos e específicos o bastante para não justificar uma dependência
+nova. Única exceção à regra de "sem rede no build": a resolução da ficha no
+Semantic Scholar (pedido do autor, tarefa 20260817-0055/0110) — com cache
+persistente em docs/records/s2-cache.json e degradação graciosa total: sem
+rede, sem chave de API válida ou com a API fora do ar, o build segue e só
+não preenche o link direto do S2 (cai no link de busca, nunca quebra).
 """
 from __future__ import annotations
 
 import json
 import re
 import sys
+import time
+import urllib.error
+import urllib.parse
+import urllib.request
 from pathlib import Path
 
 import yaml
@@ -25,6 +33,12 @@ PRINCIPAL_TEX = ROOT / "principal.tex"
 FICHAMENTOS_DIR = ROOT / "fichamentos"
 PDF_DIR = ROOT / "referencias-pdf"
 OUT_PATH = ROOT / "docs/records/referencias.json"
+S2_CACHE_PATH = ROOT / "docs/records/s2-cache.json"
+S2_API_BASE = "https://api.semanticscholar.org/graph/v1/paper"
+S2_MAX_LOOKUPS_PER_RUN = int(__import__("os").environ.get("S2_MAX_LOOKUPS", "50"))
+S2_TIMEOUT_S = 6
+S2_DELAY_S = 1.05  # API pública sem chave: ~1 req/s é o limite documentado
+S2_MAX_CONSECUTIVE_TRANSIENT_FAILURES = 3  # rede fora do ar: desiste cedo, não trava o build
 
 
 # --------------------------------------------------------------------------
@@ -131,19 +145,28 @@ def parse_bib(path: Path) -> dict[str, dict]:
         doi = fields.get("doi", "")
         eprint = fields.get("eprint", "")
         url = fields.get("url", "")
+        arxiv_id = eprint
+        if not arxiv_id and "arxiv.org" in url.lower():
+            m_arxiv = re.search(r"arxiv\.org/abs/([\w.]+)", url, re.I)
+            arxiv_id = m_arxiv.group(1) if m_arxiv else ""
         link, link_tipo = None, None
         if doi:
             link, link_tipo = f"https://doi.org/{doi}", "doi"
-        elif eprint or "arxiv.org" in url.lower():
-            arxiv_id = eprint or re.search(r"arxiv\.org/abs/([\w.]+)", url, re.I).group(1)
+        elif arxiv_id:
             link, link_tipo = f"https://arxiv.org/abs/{arxiv_id}", "arxiv"
         elif url:
             link, link_tipo = url, "url"
         entries[key] = {
             "titulo": fields.get("title", key),
             "autores": _authors(fields.get("author", "")),
+            "autores_completos": _authors_full(fields.get("author", "")),
             "ano": fields.get("year", ""),
             "venue": venue,
+            "volume": fields.get("volume", ""),
+            "numero": fields.get("number", ""),
+            "paginas": fields.get("pages", ""),
+            "doi": doi,
+            "arxiv_id": arxiv_id,
             "link": link,
             "link_tipo": link_tipo,
         }
@@ -160,6 +183,24 @@ def _authors(raw: str) -> list[str]:
             continue
         surname = piece.split(",")[0].strip() if "," in piece else piece.split()[-1]
         out.append(surname)
+    return out
+
+
+def _authors_full(raw: str) -> list[str]:
+    """Nome por extenso (não só sobrenome) — usado na ficha básica das
+    obras sem fichamento, onde o pedido do autor foi 'autores por extenso'."""
+    if not raw:
+        return []
+    out = []
+    for piece in raw.split(" and "):
+        piece = piece.strip()
+        if not piece or piece.lower() == "others":
+            continue
+        if "," in piece:
+            last, first = piece.split(",", 1)
+            out.append(f"{first.strip()} {last.strip()}".strip())
+        else:
+            out.append(piece)
     return out
 
 
@@ -351,12 +392,142 @@ def load_fichamentos() -> dict[str, dict]:
 
 
 # --------------------------------------------------------------------------
-# 5. Monta o JSON final
+# 5. Link de busca pronta — fallback honesto para quem não tem DOI/arXiv/URL
+#    (pedido do autor: nunca um botão/link morto; tarefa 20260817-0055).
+# --------------------------------------------------------------------------
+def busca_fallback_link(titulo: str, autores: list[str]) -> str:
+    partes = [f'"{titulo}"'] if titulo else []
+    if autores:
+        partes.append(autores[0])
+    query = " ".join(partes) or titulo or ""
+    return f"https://scholar.google.com/scholar?q={urllib.parse.quote(query)}"
+
+
+# --------------------------------------------------------------------------
+# 6. Ficha básica — gerada dos metadados do bib para obras SEM fichamento,
+#    para que o botão "Detalhes" nunca fique morto (tarefa 20260817-0055).
+# --------------------------------------------------------------------------
+def ficha_basica_html(b: dict | None, autores_completos: list[str], ocorrencias: list[dict], chave: str) -> str:
+    b = b or {}
+    partes = [
+        '<p class="vazia">📄 Ficha básica gerada a partir dos metadados da '
+        "bibliografia — esta obra ainda não foi fichada academicamente.</p>",
+        f"<p><strong>Título</strong>: {_esc(b.get('titulo') or chave)}</p>",
+    ]
+    if autores_completos:
+        partes.append(f"<p><strong>Autores</strong>: {_esc(', '.join(autores_completos))}</p>")
+    if b.get("venue"):
+        partes.append(f"<p><strong>Veículo</strong>: {_esc(b['venue'])}</p>")
+    if b.get("ano"):
+        partes.append(f"<p><strong>Ano</strong>: {_esc(str(b['ano']))}</p>")
+    vol_pag = []
+    if b.get("volume"):
+        vol_pag.append(f"vol. {b['volume']}")
+    if b.get("numero"):
+        vol_pag.append(f"n. {b['numero']}")
+    if b.get("paginas"):
+        vol_pag.append(f"p. {b['paginas']}")
+    if vol_pag:
+        partes.append(f"<p><strong>Volume/Páginas</strong>: {_esc(', '.join(vol_pag))}</p>")
+    if b.get("doi"):
+        partes.append(f"<p><strong>DOI</strong>: {_esc(b['doi'])}</p>")
+    elif b.get("arxiv_id"):
+        partes.append(f"<p><strong>arXiv</strong>: {_esc(b['arxiv_id'])}</p>")
+    if ocorrencias:
+        rotulos: list[str] = []
+        for o in ocorrencias:
+            rotulo = o["capitulo"] + (f" § {o['secao']}" if o.get("secao") else "")
+            if rotulo not in rotulos:
+                rotulos.append(rotulo)
+        partes.append(f"<p><strong>Citada em</strong>: {_esc('; '.join(rotulos))}</p>")
+    else:
+        partes.append('<p class="vazia">Não citada no texto da tese.</p>')
+    return "\n".join(partes)
+
+
+# --------------------------------------------------------------------------
+# 7. Ficha no Semantic Scholar — resolvida via API pública por DOI/arXiv,
+#    com cache persistente (a API tem limite de taxa; cada build só resolve
+#    entradas novas, pedido do principal na tarefa 20260817-0110). Falha de
+#    rede/timeout NUNCA vira "não encontrado" permanente — só uma resposta
+#    real da API (achou ou 404) é definitiva e vai para o cache.
+# --------------------------------------------------------------------------
+def load_s2_cache() -> dict:
+    if S2_CACHE_PATH.exists():
+        try:
+            data = json.loads(S2_CACHE_PATH.read_text(encoding="utf-8"))
+            if isinstance(data.get("resolvidos"), dict):
+                return data
+        except (json.JSONDecodeError, OSError):
+            pass
+    return {"schema": "s2-cache/v1", "resolvidos": {}}
+
+
+def save_s2_cache(cache: dict) -> None:
+    S2_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    S2_CACHE_PATH.write_text(
+        json.dumps(cache, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8"
+    )
+
+
+def _s2_fetch(identifier: str) -> tuple[str | None, bool]:
+    """Retorna (paper_id, definitivo). definitivo=True só quando a API de
+    fato respondeu (achou ou 404) — nesse caso, e só nesse caso, o
+    resultado pode ser cacheado para sempre."""
+    url = f"{S2_API_BASE}/{identifier}?fields=paperId"
+    req = urllib.request.Request(url, headers={"User-Agent": "tesedaru-site-build (github.com/GHDaru/tesedaru)"})
+    try:
+        with urllib.request.urlopen(req, timeout=S2_TIMEOUT_S) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            return data.get("paperId"), True
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            return None, True
+        return None, False
+    except Exception:
+        return None, False
+
+
+def resolve_s2(bib: dict[str, dict]) -> dict[str, dict]:
+    cache = load_s2_cache()
+    resolvidos = cache["resolvidos"]
+    budget = S2_MAX_LOOKUPS_PER_RUN
+    consecutive_failures = 0
+    changed = False
+    for chave, b in bib.items():
+        if chave in resolvidos or budget <= 0:
+            continue
+        doi, arxiv_id = b.get("doi"), b.get("arxiv_id")
+        if not (doi or arxiv_id):
+            continue
+        ident = f"DOI:{doi}" if doi else f"ARXIV:{arxiv_id}"
+        paper_id, definitivo = _s2_fetch(ident)
+        budget -= 1
+        if definitivo:
+            consecutive_failures = 0
+            changed = True
+            resolvidos[chave] = {
+                "paper_id": paper_id,
+                "metodo": ("doi" if doi else "arxiv") if paper_id else "nao-encontrado",
+            }
+        else:
+            consecutive_failures += 1
+            if consecutive_failures >= S2_MAX_CONSECUTIVE_TRANSIENT_FAILURES:
+                break  # rede indisponível nesta rodada — tenta de novo no próximo build
+        time.sleep(S2_DELAY_S)
+    if changed:
+        save_s2_cache(cache)
+    return resolvidos
+
+
+# --------------------------------------------------------------------------
+# 8. Monta o JSON final
 # --------------------------------------------------------------------------
 def main() -> None:
     bib = parse_bib(BIB_PATH)
     citacoes = scan_citations()
     fichamentos = load_fichamentos()
+    s2_resolvidos = resolve_s2(bib)
 
     chaves = set(bib) | set(citacoes)
     referencias = []
@@ -369,21 +540,48 @@ def main() -> None:
         # percorre os arquivos na ordem real do \include e, dentro de cada
         # um, da primeira à última linha — a lista nasce ordenada.
         primeira = cit["ocorrencias"][0] if cit["ocorrencias"] else None
+
+        titulo = (b or {}).get("titulo") or (fic["meta"].get("title") if fic else None) or chave
+        autores = (b or {}).get("autores") or (fic["meta"].get("authors") if fic else None) or []
+        autores_completos = (b or {}).get("autores_completos") or autores
+
+        # link direto (DOI > arXiv > URL); se nenhum, busca pronta — nunca
+        # um link morto (tarefa 20260817-0055, pedido literal do autor)
+        link = (b or {}).get("link")
+        link_tipo = (b or {}).get("link_tipo")
+        doi_fic = fic["meta"].get("doi") if fic else ""
+        if not link and doi_fic:
+            link, link_tipo = f"https://doi.org/{doi_fic}", "doi"
+        if not link:
+            link, link_tipo = busca_fallback_link(titulo, autores), "busca"
+
+        # ficha no Semantic Scholar: link direto se resolvido, senão busca
+        # pronta no próprio site do S2 (tarefa 20260817-0110)
+        s2 = s2_resolvidos.get(chave)
+        if s2 and s2.get("paper_id"):
+            link_s2, link_s2_tipo = f"https://www.semanticscholar.org/paper/{s2['paper_id']}", "direto"
+        else:
+            link_s2 = f"https://www.semanticscholar.org/search?q={urllib.parse.quote(titulo)}&sort=relevance"
+            link_s2_tipo = "busca"
+
         referencias.append({
             "chave": chave,
             "sort_key": list(cit["ordem"]) if cit["ordem"] else None,
-            "titulo": (b or {}).get("titulo") or (fic["meta"].get("title") if fic else None) or chave,
-            "autores": (b or {}).get("autores") or (fic["meta"].get("authors") if fic else None) or [],
+            "titulo": titulo,
+            "autores": autores,
             "ano": (b or {}).get("ano") or (fic["meta"].get("year") if fic else None) or "",
             "venue": (b or {}).get("venue") or (fic["meta"].get("venue") if fic else None) or "",
-            "link": (b or {}).get("link") or (f"https://doi.org/{fic['meta'].get('doi')}" if fic and fic["meta"].get("doi") else None),
+            "link": link,
+            "link_tipo": link_tipo,
+            "link_s2": link_s2,
+            "link_s2_tipo": link_s2_tipo,
             "sem_entrada_bib": b is None,
             "primeira_aparicao": primeira,
             "ocorrencias": cit["ocorrencias"],
             "total_ocorrencias": len(cit["ocorrencias"]),
             "pdf": pdf_existe,
             "fichado": fic is not None,
-            "detalhes_html": fic["detalhes_html"] if fic else None,
+            "detalhes_html": fic["detalhes_html"] if fic else ficha_basica_html(b, autores_completos, cit["ocorrencias"], chave),
         })
 
     # ordem do livro: quem foi citado primeiro, na ordem real; não citadas por último
@@ -397,11 +595,14 @@ def main() -> None:
         "computado_em": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
         "total": len(referencias),
         "citadas": sum(1 for r in referencias if r["ordem"] is not None),
+        "com_link_direto": sum(1 for r in referencias if r["link_tipo"] != "busca"),
+        "com_ficha_s2": sum(1 for r in referencias if r["link_s2_tipo"] == "direto"),
         "referencias": referencias,
     }
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUT_PATH.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(f"ok: {OUT_PATH}  {out['total']} referências ({out['citadas']} citadas no livro)")
+    print(f"ok: {OUT_PATH}  {out['total']} referências ({out['citadas']} citadas · "
+          f"{out['com_link_direto']} com link direto · {out['com_ficha_s2']} com ficha S2)")
 
 
 if __name__ == "__main__":
