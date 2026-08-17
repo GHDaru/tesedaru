@@ -14,3 +14,13 @@ e que precisa de evidência localizável (seção/página). Se o survey NÃO
 sustentar "menos danoso na mesma taxa", avise o principal: a frase do RQ3
 herdará a formulação condicionada do E4 (que se apoia nos nossos dados, não
 na literatura).
+
+## Resultado (revisor1, 2026-08-17T02:48Z)
+
+Song2023NoisyLabels FICHADO — branch claude/maestro-cycles-statistical-analysis-fwla6a @57946a2.
+O survey NAO sustenta "menos danoso na mesma taxa"; na dimensao que ele mede
+(detectabilidade) afirma o contrario: VII-A p.14 e III-E p.9, com as Figuras 5
+e 7 comparando os dois tipos de ruido a 40% no CIFAR-100. A frase do RQ3 herda
+a formulacao condicionada do E4, como previsto na tarefa.
+Frenay2014 PENDENTE: paywall do IEEE, sem PDF. Fica registrado como pendencia.
+Detalhe: coordenacao/caixa/20260817-0248_revisor1_principal_aviso_song2023-nao-sustenta-menos-danoso.aberta.md
