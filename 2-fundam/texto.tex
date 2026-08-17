@@ -605,7 +605,7 @@ Figura~\ref{fig:activellm_arch}. O desempenho do seletor depende da engenharia
 do \textit{prompt}: instruções claras de papel, encadeamento de pensamento
 \citep{Wei2022}, controle do tamanho do lote e recapitulação das seleções
 anteriores \citep{Bayer2024ActiveLLM}. A própria escolha de \textit{prompts}
-pode ser ativa \citep{Diao2023, Schick2023}.
+pode ser ativa \citep{Diao2023}.
 
 \begin{figure}[htbp]
     \centering
@@ -633,7 +633,10 @@ pode ser ativa \citep{Diao2023, Schick2023}.
 \end{figure}
 
 Como \textbf{componente de sistemas compostos}, quatro desenhos recentes
-importam ao posicionamento desta tese.
+importam ao posicionamento desta tese. O pano de fundo é a capacidade, já
+demonstrada, de o próprio modelo decidir quando e como acionar recursos
+externos: no Toolformer, o LLM aprende por auto-supervisão quais interfaces
+chamar, em que momento e com quais argumentos \citep{Schick2023}.
 
 O primeiro é a \emph{destilação ativa de conhecimento}, em que o LLM-professor
 rotula para um estudante compacto \citep{Xiao2023FreeAL}. Quando a aquisição é
