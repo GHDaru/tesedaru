@@ -203,3 +203,6 @@ llama-2  <!-- Tian2023 -->
 ### Métodos (nível 2 do Cap. 2)
 normalizacao-de-texto  <!-- Aliero2023 -->
 selecao-conjunta-instancia-anotador, modelagem-de-competencia-do-anotador  <!-- Yan2011 -->
+stc2, reducao-de-dimensionalidade  <!-- Xu2017 -->
+agrupamento-de-texto-curto  <!-- Xu2017 (tarefa) -->
+searchsnippets, stackoverflow, biomedical  <!-- Xu2017 (datasets) -->
