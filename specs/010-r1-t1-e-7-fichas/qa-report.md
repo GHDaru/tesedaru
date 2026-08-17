@@ -83,3 +83,35 @@ contra o texto da fonte, com seção e página em cada claim:
 - `BERT` sem expansão no diagrama TikZ da figura do ActiveLLM (faixa do t3):
   é critério do **R2 (siglas)**, registrado e não corrigido.
 - Título e página do `Widodo2022` no `.bib`: superfície do **revisor1**.
+
+## Adendo (2026-08-17T12:06Z) — a main mexeu na minha faixa e o número mudou
+
+O commit `e778bda` da main aplicou as edições 1 e 2 da leitura do autor dentro
+da §2.1, **depois** desta medição. Refiz tudo por seção sobre a main
+`2d174ea`; abaixo o que é medido, não julgado:
+
+| Medida | main `2d174ea` | branch `e122b4d` | **merge simulado** |
+|---|---|---|---|
+| travessões `—` na §2.1 | **10** | **0** | **1** |
+| chaves de citação na §2.1 | 32 | 32 | **32** |
+| `git merge --no-commit` | — | — | **exit 0**, sem conflito |
+
+Leituras que interessam ao gate:
+
+1. **O merge é limpo e as duas edições do autor sobrevivem literais** — conferi
+   "divergir em sinal", "deixa de ser generalização para ser memorização" e
+   "deduplica por texto normalizado" no texto mesclado, e reli os dois
+   parágrafos inteiros: nenhuma frase duplicada ou truncada.
+2. **O travessão que resta é do autor, não regressão da branch.** Ele nasceu em
+   `e778bda` ("desempenho agregado) — separação que é operacional…"). A main
+   foi de 9 para 10 travessões na seção; a branch zera os 9 antigos e não
+   toca no novo. Portanto o DoD deste ciclo passa de `0` para `1`, e a causa
+   é texto novo aprovado pelo autor.
+3. **Não afeta o build.** O travessão está em corpo de texto, não em
+   `\section`/`\subsection`/`\caption` — o aviso 0815 segue respeitado (medido:
+   nenhum travessão em título ou legenda no merge).
+
+Não converti a frase: é prosa recém-aprovada do autor e não é minha para
+mexer. Se o gate quiser zerar, a conversão é de uma linha, mas **tem de ser
+vírgula, não dois-pontos** — a frase do autor já usa dois-pontos oito palavras
+depois ("não estética: nos experimentos"), e um segundo travaria a leitura.
