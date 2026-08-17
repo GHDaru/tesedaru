@@ -25,7 +25,7 @@ models: [rede-neural-bayesiana, regressao-linear]
 extends: []
 compares_with: []
 contradicts: []
-builds_on: [MacKay1992, Lewis1994, Settles2010, Houlsby2011]
+builds_on: [MacKay1992, Lewis1994, Settles2009, Houlsby2011]
 
 # ===== RELAÇÃO COM A TESE (arestas para nós do FALCO) =====
 falco_relation:

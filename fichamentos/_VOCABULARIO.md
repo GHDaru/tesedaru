@@ -36,7 +36,7 @@ nós `Claim` ligados por `asserts` (paper→claim) e `evidences` (claim→locali
 Termos entrados pelos fichamentos dos 11 vizinhos (parecer R6, Bloco C); mesmo commit do fichamento que os introduz.
 
 ### Tarefas (fichar-vizinhos)
-classificacao-de-texto  <!-- FreeAL2023 -->
+classificacao-de-texto  <!-- Xiao2023FreeAL -->
 regressao  <!-- Farquhar2021Bias -->
 classificacao-de-imagens  <!-- Hacohen2022TypiClust -->
 
@@ -44,6 +44,7 @@ classificacao-de-imagens  <!-- Hacohen2022TypiClust -->
 gpt-2, gpt-j, gpt-neox, opt, sentence-bert  <!-- Margatina2023 -->
 gpt-4o  <!-- Zhang2025 -->
 biomed-roberta-base, gpt-3.5-turbo, roberta-base  <!-- FreeAL2023 -->
+biomed-roberta-base, gpt-3.5-turbo, roberta-base  <!-- Xiao2023FreeAL -->
 resnet101, resnet18  <!-- Bengar2022ClassBalanced -->
 distilroberta, kimcnn, svm  <!-- Schroder2022Uncertainty -->
 processo-gaussiano, random-forest, resnet, wideresnet  <!-- Kossen2021ActiveTesting -->

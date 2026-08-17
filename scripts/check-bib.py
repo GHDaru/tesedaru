@@ -1,0 +1,176 @@
+#!/usr/bin/env python3
+"""Checagem executável do referencias.bib (princípios II e IX da constituição).
+
+Dono: revisor2 (ciclo bib-fix, lotes 1 e 3 — tarefa do principal 2026-08-16).
+
+Transforma o DoD do parecer de auditoria em comandos. Verifica:
+
+  1. toda chave citada em `\\cite*{...}` nos capítulos e apêndices existe no
+     `referencias.bib` (evita "citação indefinida" na compilação);
+  2. nenhuma chave duplicada no arquivo;
+  3. nenhuma chave morta pelo ciclo bib-fix reaparece citada (lista abaixo);
+  4. nenhum campo `note` com resíduo de conversa de modelo de linguagem
+     (o parecer achou 2 vazando para o PDF);
+  5. nenhum campo `key = {...}` residual (artefato que confunde o BibTeX);
+  6. toda entrada citada com `year >= 2020` tem `doi` ou `url`.
+
+O item 6 é o critério do DoD §5 do parecer. Entradas não citadas ficam de fora
+dele de propósito: o que não é citado não entra no PDF.
+
+Uso:  python3 scripts/check-bib.py
+Exit 0 = verde; exit 1 = imprime cada violação. Sem dependências externas.
+"""
+from __future__ import annotations
+
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+BIB = ROOT / "referencias.bib"
+
+# Chaves removidas pelo ciclo bib-fix — nenhuma pode voltar a ser citada.
+MORTAS = {
+    "Su2023", "FreeAL2023",        # -> Xiao2023FreeAL
+    "Bayer2024", "activellm2024",  # -> Bayer2024ActiveLLM
+    "Zhang2025LLMAL",              # -> Zhang2025
+    "Yusuf2023",                   # obra fabricada; a real é Riyanto2023Comparative
+    "Jung2021",                    # obra fabricada; a real é Nti2021
+    # bloco de linha única: fabricadas por sequestro de identificador —
+    # o DOI/arXiv declarado resolve, mas para artigo de OUTRA obra/área.
+    "Yu2022", "Zhang2020", "Liang2024LLMActive", "Qi2020FLAL",
+}
+
+def fontes_tex() -> list[Path]:
+    """Capítulos, pré-textuais e apêndices — não inclui artigos/ (bib próprio)."""
+    return [p for p in ROOT.glob("*/texto.tex")] + list((ROOT / "0-iniciais").glob("*.tex"))
+
+def main() -> int:
+    texto = BIB.read_text(encoding="utf-8", errors="replace")
+    problemas: list[str] = []
+
+    chaves = re.findall(r"^@\w+\{\s*([^,\s]+)\s*,", texto, flags=re.M)
+    vistas: set[str] = set()
+    for c in chaves:
+        if c in vistas:
+            problemas.append(f"chave duplicada no bib: {c}")
+        vistas.add(c)
+
+    # Chaves ancoradas por fichamento: são nós do grafo de conhecimento e
+    # NÃO são órfãs, mesmo sem \cite na prosa — remover uma quebraria o KG e
+    # o check-fichamentos.py. (Achado do ciclo bib-fix: a regra "matar órfã"
+    # do parecer, aplicada cegamente, mataria Sener2018 e Shen2018.)
+    ancoradas = {p.stem for p in (ROOT / "fichamentos").glob("*.md")
+                 if not p.name.startswith("_")}
+    for chave in sorted(ancoradas - vistas):
+        problemas.append(f"fichamento sem entrada no bib: {chave}")
+
+    # Invariante acolhido pelo principal em 2026-08-16 (tarefa 20260816-2152):
+    # uma chave também está ancorada quando é ALVO DE RELAÇÃO no front-matter
+    # de qualquer fichamento, mesmo sem ter fichamento próprio. Sem isto o
+    # checador aprova a remoção de uma chave que sustenta aresta do grafo —
+    # foi o que aconteceu 3x num dia (Settles2010, Houlsby2011 e o quase-caso
+    # do Naseem2021HateSpeech). Alvo de relação que não existe no bib é
+    # aresta pendurada e entra como violação.
+    alvos: dict[str, str] = {}
+    # glob NAO recursivo, de proposito: e o mesmo alcance do build_kg.py
+    # (HERE.glob("*.md")). Subpastas como leitura-cruzada-revisor1/ guardam
+    # leituras preservadas verbatim, ficam FORA do grafo e por isso suas
+    # referencias sao registro historico, nao aresta viva.
+    for ficha in (ROOT / "fichamentos").glob("*.md"):
+        if ficha.name.startswith("_"):
+            continue
+        corpo = ficha.read_text(encoding="utf-8", errors="replace")
+        if not corpo.startswith("---"):
+            continue
+        frente = corpo.split("---", 2)[1]
+        for campo in ("extends", "compares_with", "contradicts", "builds_on"):
+            m = re.search(rf"^{campo}:\s*\[([^\]]*)\]", frente, flags=re.M)
+            if not m:
+                continue
+            for alvo in m.group(1).split(","):
+                alvo = alvo.strip().strip("'\"")
+                if alvo:
+                    alvos.setdefault(alvo, ficha.name)
+    for chave in sorted(set(alvos) - vistas):
+        problemas.append(
+            f"alvo de relacao sem entrada no bib: {chave} "
+            f"(referenciado em {alvos[chave]})")
+
+    # `ancoradas` passa a incluir os alvos: quem consultar esta variavel para
+    # decidir remocao ve o conjunto COMPLETO do que sustenta o grafo.
+    ancoradas |= set(alvos)
+
+    # DOI repetido = a MESMA obra cadastrada sob duas chaves. Foi o defeito do
+    # ciclo em 2 ocorrencias no mesmo dia: ao corrigir metadado fabricado
+    # apontando para a obra real, a obra real ja estava no arquivo sob outra
+    # chave (Naseem2021 x Naseem2021HateSpeech; Selva2021 x Birunda2021).
+    # A regra que faltava: antes de RECONSTRUIR uma entrada, perguntar se a
+    # obra corrigida ja existe. Isto verifica isso mecanicamente.
+    por_doi: dict[str, list[str]] = {}
+    for m in re.finditer(r"@\w+\{\s*([^,\s]+)\s*,", texto):
+        chave = m.group(1)
+        i, prof = m.end(), 1
+        while i < len(texto) and prof:
+            if texto[i] == "{":
+                prof += 1
+            elif texto[i] == "}":
+                prof -= 1
+            i += 1
+        doi = re.search(r"doi\s*=\s*\{([^}]*)\}", texto[m.start():i], re.I)
+        if doi:
+            por_doi.setdefault(doi.group(1).strip().lower(), []).append(chave)
+    for doi, chaves_doi in sorted(por_doi.items()):
+        if len(chaves_doi) > 1:
+            problemas.append(
+                f"mesmo DOI em {len(chaves_doi)} chaves: {doi} -> "
+                f"{', '.join(sorted(chaves_doi))}")
+
+    citadas: dict[str, list[str]] = {}
+    for path in fontes_tex():
+        conteudo = path.read_text(encoding="utf-8", errors="replace")
+        for grupo in re.findall(r"\\[a-zA-Z]*cite[a-zA-Z]*\*?(?:\[[^\]]*\])*\{([^}]*)\}", conteudo):
+            for chave in (k.strip() for k in grupo.split(",")):
+                if chave:
+                    citadas.setdefault(chave, []).append(path.name)
+
+    for chave, onde in sorted(citadas.items()):
+        if chave not in vistas:
+            problemas.append(f"citada mas ausente do bib: {chave} (em {', '.join(sorted(set(onde)))})")
+        if chave in MORTAS:
+            problemas.append(f"chave morta pelo bib-fix voltou a ser citada: {chave}")
+
+    if re.search(r"note\s*=\s*\{[^}]*(?:as an AI|language model|I cannot|Não posso|As an AI)", texto, re.I):
+        problemas.append("campo note com resíduo de conversa de modelo de linguagem")
+    for m in re.finditer(r"^\s*key\s*=\s*\{", texto, flags=re.M):
+        problemas.append(f"campo 'key = {{...}}' residual na posição {m.start()}")
+
+    for m in re.finditer(r"^@\w+\{\s*([^,\s]+)\s*,", texto, flags=re.M):
+        chave = m.group(1)
+        if chave not in citadas:
+            continue
+        i = m.start(); j = texto.index("{", i); d = 0
+        for k in range(j, len(texto)):
+            if texto[k] == "{": d += 1
+            elif texto[k] == "}":
+                d -= 1
+                if d == 0:
+                    corpo = texto[i:k + 1]; break
+        ano = re.search(r"year\s*=\s*\{?\s*(\d{4})", corpo)
+        if ano and int(ano.group(1)) >= 2020:
+            # sem âncora de linha: há entradas escritas em linha única, em que
+            # o campo não começa a linha (falso positivo pego na execução).
+            if not re.search(r"[\s,{](doi|url)\s*=", corpo, flags=re.I):
+                problemas.append(f"citada, year={ano.group(1)}, sem doi nem url: {chave}")
+
+    print(f"entradas no bib: {len(chaves)} · chaves citadas nos .tex: {len(citadas)}")
+    if problemas:
+        print(f"PROBLEMAS ({len(problemas)}):")
+        for p in problemas:
+            print(f"  - {p}")
+        return 1
+    print("PROBLEMAS: nenhum")
+    return 0
+
+if __name__ == "__main__":
+    raise SystemExit(main())

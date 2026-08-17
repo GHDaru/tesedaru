@@ -16,9 +16,9 @@ metrics: [acuracia]
 tasks: [classificacao-de-texto-curto]
 models: []
 extends: []
-compares_with: [song2014shorttext]
+compares_with: [Song2014]
 contradicts: []
-builds_on: [song2014shorttext, Mikolov2013]
+builds_on: [Song2014, Mikolov2013]
 falco_relation:
   - type: contextualiza
     target: FALCO

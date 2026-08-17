@@ -18,7 +18,7 @@ models: []
 extends: []
 compares_with: []
 contradicts: []
-builds_on: [zhang2022surveyAL]
+builds_on: [zhang-etal-2022-survey]
 falco_relation:
   - type: fundamenta
     target: FALCO
@@ -44,7 +44,7 @@ otimizando o processo de AL como um todo.
 ## Claims relevantes
 | # | Claim | Evidência | Uso na tese |
 |---|-------|-----------|-------------|
-| C1 | O cold start influencia fortemente a eficiência/acurácia das iterações seguintes de AL | Abstract | Cap.1: motivação do P1; converge com zhang2022surveyAL §5.1 |
+| C1 | O cold start influencia fortemente a eficiência/acurácia das iterações seguintes de AL | Abstract | Cap.1: motivação do P1; converge com zhang-etal-2022-survey §5.1 |
 | C2 | A fase de cold start permanece subexplorada em classificação de texto (2023) | Abstract | Cap.2: sustenta a atualidade da lacuna que o L0-ótimo via AG preenche |
 | C3 | Cenário industrial: não-rotulados abundantes, anotação cara — o caso de uso é real, não acadêmico | Abstract | Cap.1: paralelo com nosso cenário de varejo |
 

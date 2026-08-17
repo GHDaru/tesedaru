@@ -16,7 +16,7 @@ metrics: [acuracia, macro-f1]
 tasks: [classificacao-de-texto]
 models: [gpt-4, bert]
 extends: []
-compares_with: [Yuan2020]   # ALPS = Yuan, Lin & Boyd-Graber (EMNLP 2020)
+compares_with: [Yuan2020]   # ALPS = Yuan, Lin & Boyd-Graber (EMNLP 2020); chave correta no bib
 contradicts: []
 builds_on: [Settles2012]
 falco_relation:

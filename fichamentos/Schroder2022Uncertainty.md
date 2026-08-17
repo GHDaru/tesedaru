@@ -19,7 +19,7 @@ models: [bert, distilroberta, svm, kimcnn]
 extends: []
 compares_with: [Margatina2021, EinDor2020]
 contradicts: []
-builds_on: [Schroder2020DNNSurvey, Schroder2021SmallText, Lewis1994, devlin2019bert]
+builds_on: [Schroder2020DNNSurvey, Schroder2021SmallText, Lewis1994, Devlin2019]
 falco_relation:
   - type: fundamenta
     target: FALCO

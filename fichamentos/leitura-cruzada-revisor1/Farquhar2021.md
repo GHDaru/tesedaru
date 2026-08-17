@@ -18,7 +18,7 @@ models: []
 extends: []
 compares_with: []
 contradicts: []
-builds_on: [Lewis1994, Settles2010, Houlsby2011]
+builds_on: [Lewis1994, Settles2009, Houlsby2011]
 falco_relation:
   - type: fundamenta
     target: instrumentacao-estatistica
