@@ -3,10 +3,10 @@
   "gerado_por": "executor01 · notebooks/auditoria/build_rastreabilidade.py",
   "cobertura": "Cap. 5 completo menos a seção do gate (E0, E0-P, E1, E4, E6, E3′) + Cap. 4 (P1/P2) + a nota do Cap. 3 sobre execuções auditadas. Faltam: seção do gate, Caps. 3 e 6, apêndices, pré-textuais",
   "resumo": {
-    "rastreado": 52,
-    "divergente": 9,
+    "rastreado": 59,
+    "divergente": 10,
     "legado": 1,
-    "sem-evidencia": 3
+    "sem-evidencia": 2
   },
   "legenda": {
     "rastreado": "o número sai do artefato citado",
@@ -656,14 +656,84 @@
       "nota": "o script existe e nenhuma figura está versionada em experiments/plots/. As figuras publicadas vivem em tesedaru/N-*/imagens/, desacopladas do gerador — não há garantia de que a figura da tese corresponda ao artefato atual"
     },
     {
-      "numero": "replays de auditoria de P1 e P2 (a base do 'execuções já auditadas')",
-      "onde": "3-metodo/texto.tex#tab:metodo-experimentos",
+      "numero": "P1 sensibilidade |L0|=10: acurácia 6.7%",
+      "onde": "4-resultados-l0/texto.tex#sec:res-l0-sens",
       "experimento": "conjunto-inicial",
-      "artefato": "experiments/p1/results/replay_l0.jsonl e replay_ga.jsonl",
-      "codigo": "experiments/p1/{replay_l0_sensitivity.py,replay_ga.py}",
-      "notebook_kaggle": "",
-      "status": "sem-evidencia",
-      "nota": "docs/convergencia-replays.md declara estes dois arquivos como artefatos-fonte da auditoria (convergência de 0,7 p.p. e inflação de circularidade de 6,3 p.p.), mas git log --all mostra que NUNCA foram commitados. A afirmação 'execuções já realizadas e auditadas' do Cap. 3 é hoje inverificável"
+      "artefato": "experiments/p1/results/replay_l0.jsonl",
+      "codigo": "experiments/p1/replay_l0_sensitivity.py",
+      "notebook_kaggle": "notebooks/auditoria/conjunto-inicial.ipynb",
+      "status": "rastreado",
+      "nota": "replay: 6.6% (Δ -0.1 p.p., dentro de 1,0 p.p. de folga)"
+    },
+    {
+      "numero": "P1 sensibilidade |L0|=100: acurácia 24.7%",
+      "onde": "4-resultados-l0/texto.tex#sec:res-l0-sens",
+      "experimento": "conjunto-inicial",
+      "artefato": "experiments/p1/results/replay_l0.jsonl",
+      "codigo": "experiments/p1/replay_l0_sensitivity.py",
+      "notebook_kaggle": "notebooks/auditoria/conjunto-inicial.ipynb",
+      "status": "rastreado",
+      "nota": "replay: 24.0% (Δ -0.7 p.p., dentro de 1,0 p.p. de folga)"
+    },
+    {
+      "numero": "P1 sensibilidade |L0|=1000: acurácia 55.9%",
+      "onde": "4-resultados-l0/texto.tex#sec:res-l0-sens",
+      "experimento": "conjunto-inicial",
+      "artefato": "experiments/p1/results/replay_l0.jsonl",
+      "codigo": "experiments/p1/replay_l0_sensitivity.py",
+      "notebook_kaggle": "notebooks/auditoria/conjunto-inicial.ipynb",
+      "status": "rastreado",
+      "nota": "replay: 55.5% (Δ -0.4 p.p., dentro de 1,0 p.p. de folga)"
+    },
+    {
+      "numero": "P1 sensibilidade |L0|=10000: acurácia 76.9%",
+      "onde": "4-resultados-l0/texto.tex#sec:res-l0-sens",
+      "experimento": "conjunto-inicial",
+      "artefato": "experiments/p1/results/replay_l0.jsonl",
+      "codigo": "experiments/p1/replay_l0_sensitivity.py",
+      "notebook_kaggle": "notebooks/auditoria/conjunto-inicial.ipynb",
+      "status": "rastreado",
+      "nota": "replay: 76.4% (Δ -0.5 p.p., dentro de 1,0 p.p. de folga)"
+    },
+    {
+      "numero": "P1 sensibilidade |L0|=200000: acurácia 89.1%",
+      "onde": "4-resultados-l0/texto.tex#sec:res-l0-sens",
+      "experimento": "conjunto-inicial",
+      "artefato": "experiments/p1/results/replay_l0.jsonl",
+      "codigo": "experiments/p1/replay_l0_sensitivity.py",
+      "notebook_kaggle": "notebooks/auditoria/conjunto-inicial.ipynb",
+      "status": "rastreado",
+      "nota": "replay: 88.8% (Δ -0.3 p.p., dentro de 1,0 p.p. de folga)"
+    },
+    {
+      "numero": "P1 amplitude em |L0|=100: 6,4 p.p. entre repetições",
+      "onde": "4-resultados-l0/texto.tex#sec:res-l0-sens",
+      "experimento": "conjunto-inicial",
+      "artefato": "experiments/p1/results/replay_l0.jsonl",
+      "codigo": "experiments/p1/replay_l0_sensitivity.py",
+      "notebook_kaggle": "notebooks/auditoria/conjunto-inicial.ipynb",
+      "status": "rastreado",
+      "nota": "replay (10 reps, vs. 30 originais): 4,8 p.p. — mesmo fenômeno, amplitude menor por ter menos repetições, não é refutação"
+    },
+    {
+      "numero": "P2 inflação de circularidade em max_f1 |L0|=500: +6,3 p.p.",
+      "onde": "docs/convergencia-replays.md#C2",
+      "experimento": "conjunto-inicial",
+      "artefato": "experiments/p1/results/replay_ga.jsonl",
+      "codigo": "experiments/p1/replay_ga.py",
+      "notebook_kaggle": "notebooks/auditoria/conjunto-inicial.ipynb",
+      "status": "rastreado",
+      "nota": "replay REPRODUZ EXATAMENTE: +6,3 p.p. (19,4% partição de aptidão vs. 13,1% teste intocado, valores idênticos ao relatório que estava sem artefato)"
+    },
+    {
+      "numero": "P2 ganho do AG sobre a média aleatória em |L0|=50: +5,2 p.p.",
+      "onde": "docs/convergencia-replays.md#C2",
+      "experimento": "conjunto-inicial",
+      "artefato": "experiments/p1/results/replay_ga.jsonl",
+      "codigo": "experiments/p1/replay_ga.py",
+      "notebook_kaggle": "notebooks/auditoria/conjunto-inicial.ipynb",
+      "status": "divergente",
+      "nota": "replay dá +1,3 p.p. — MESMA DIREÇÃO (o AG vence), magnitude ~4x menor. Não é arredondamento; é divergência de grau que merece decisão do principal sobre investigar"
     }
   ]
 }
