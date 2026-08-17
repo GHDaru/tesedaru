@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 43,
-  "atualizado_em": "2026-08-17T09:00:00Z",
+  "versao": 44,
+  "atualizado_em": "2026-08-17T12:10:00Z",
   "atualizado_por": "revisor1: Cap. 2 fechado nas rodadas que me cabem — R3 e R4 dos temas t2, t4 e t5; retrospectiva em docs/retrospectiva-cap2-revisor1.md",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -1183,11 +1183,6 @@
       "id": "dec-divida-vocabulario",
       "titulo": "Dívida antiga: 342 entidades fora do vocabulário controlado nos 140 fichamentos legados — entra no plano ou fica como está? (retirada do DoD do lote 5)",
       "trilha": "processo"
-    },
-    {
-      "id": "dec-cache-kaggle",
-      "titulo": "AUTOR: subir annotation_cache_nemotron.jsonl como dataset do Kaggle — destrava os braços A/B/C nas 3 sementes (o centro da hipótese F1(A) ≥ 0,95×F1(D)); 3 retomadas curtas, 18 resultados prontos são pulados",
-      "trilha": "experimentos"
     },
     {
       "id": "dec-nome-e3",
