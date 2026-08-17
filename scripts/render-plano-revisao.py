@@ -239,6 +239,19 @@ summary{cursor:pointer; font-size:var(--fs-2); font-weight:600}
 .atalho .n{font-size:var(--fs-5); font-weight:700; color:var(--accent)}
 .atalho .l{font-size:var(--fs-2); color:var(--muted)}
 @media (prefers-reduced-motion: no-preference){ .kpi.hero .v{transition:color .3s} }
+/* identidade por agente: pontinho colorido + nome por extenso ao lado —
+   nunca só a cor (mesma régua de estado do site inteiro). Decisão de UX
+   (ciclo do kanban): tag pequena, não o elemento inteiro pintado — pintar o
+   elemento inteiro competiria com outros sinais de cor já em uso (âmbar de
+   "para você"/"atrasado", pills de status). Compartilhado entre páginas
+   (Coordenação e Plano) — papel reutilizável, não específico do kanban. */
+.k-ag-dot{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:.35em;
+  vertical-align:middle; flex:none}
+.k-ag-dot[data-ag="principal"]{background:var(--ag-principal)}
+.k-ag-dot[data-ag="banca"]{background:var(--ag-banca)}
+.k-ag-dot[data-ag="revisor1"]{background:var(--ag-revisor1)}
+.k-ag-dot[data-ag="revisor2"]{background:var(--ag-revisor2)}
+.k-ag-dot[data-ag="autor"]{background:var(--ag-autor)}
 """
 
 SHARED_JS = """
@@ -473,6 +486,14 @@ def build_plano() -> tuple[str, str]:
   <div id="aberturas"></div>
 </section>
 
+<section class="card" id="quebra-card">
+  <h2>Quebra por tema</h2>
+  <p class="vazia">Capítulos grandes demais para uma rodada só viram frentes
+  menores — cada tema segue sua própria sequência R3→R4→R1 antes de entrar
+  na reescrita do capítulo inteiro.</p>
+  <div id="quebras"></div>
+</section>
+
 <section class="card">
   <details><summary>Execuções fora do texto</summary>
     <div id="exec"></div>
@@ -599,14 +620,64 @@ def build_plano() -> tuple[str, str]:
     <details><summary>${{c.titulo}} — o que abre esta frente</summary>
       <ul class="notes">${{c.abertura.map(a => `<li>${{esc(a)}}</li>`).join('')}}</ul></details>` : '').join('');
 
+  // quebra por tema: capítulos grandes demais para uma rodada só (hoje só o
+  // Cap.2) viram frentes menores, cada uma com sua própria sequência de
+  // etapas — ver capitulos[].quebra / sequencia_rodadas no plano
+  const STAGE_ORDER = ['aberto', 'r3', 'r4', 'r1', 'gate', 'feito'];
+  const STAGE_CLASS = {{aberto: 'pendente', r3: 'andamento', r4: 'andamento', r1: 'andamento', gate: 'gate', feito: 'feito'}};
+  const capsComQuebra = P.capitulos.filter(c => (c.quebra || []).length);
+  if (capsComQuebra.length) {{
+    el('quebras').innerHTML = capsComQuebra.map(c => {{
+      const temas = c.quebra;
+      const pct = Math.round(100 * temas.reduce((s, t) => s + STAGE_ORDER.indexOf(t.status), 0)
+        / (temas.length * (STAGE_ORDER.length - 1)));
+      const cards = temas.map(t => {{
+        const cls = STAGE_CLASS[t.status] || 'pendente';
+        return `<div class="tema-card">
+          <div class="tema-top">
+            <span class="pill ${{cls}}">${{GLIFO[cls]}} ${{esc(t.status)}}</span>
+            <span class="tema-resp"><span class="k-ag-dot" data-ag="${{esc(t.responsavel)}}" aria-hidden="true"></span>${{esc(t.responsavel)}}</span>
+          </div>
+          <p class="tema-nome">${{esc(t.tema)}}</p>
+          <p class="tema-dim">linhas ${{esc(t.linhas)}} · ${{t.palavras}} palavras · ${{t.travessoes}} travessões · ${{t.citacoes}} citações</p>
+        </div>`;
+      }}).join('');
+      return `<div class="quebra-cap">
+        <div class="quebra-cap-head"><h3>${{esc(c.titulo)}}</h3>
+          <span class="quebra-pct">${{pct}}% <small>(ponderado pela etapa de cada tema)</small></span></div>
+        <div class="progress" role="progressbar" aria-valuenow="${{pct}}" aria-valuemin="0" aria-valuemax="100"
+          aria-label="Progresso por tema de ${{esc(c.titulo)}}"><div class="progress-bar" style="width:${{pct}}%"></div></div>
+        ${{c.sequencia_rodadas ? `<p class="quebra-seq">${{esc(c.sequencia_rodadas)}}</p>` : ''}}
+        <div class="temas-grid">${{cards}}</div>
+      </div>`;
+    }}).join('');
+  }} else {{
+    el('quebra-card').style.display = 'none';
+  }}
+
+  // dois formatos convivem em execucoes.itens: experimentos (o_que/onde/
+  // duracao/resultado_esperado/dono) e itens de texto em gate (descricao/
+  // branch/commit/responsavel/bloqueado_por) — normaliza os dois aqui
   const EX = {{aguardando_inicio:['pendente','aguardando início'], rodando:['andamento','rodando'],
-              concluido:['feito','concluído'], falhou:['gate','falhou']}};
+              concluido:['feito','concluído'], falhou:['gate','falhou'],
+              gate:['gate','gate'], bloqueado:['pendente','bloqueado']}};
   const exec = P.execucoes?.itens || [];
   el('exec').innerHTML = exec.length ? exec.map(i => {{
     const [cls, lab] = EX[i.estado] || ['pendente', i.estado];
-    return `<div class="item"><span class="pill ${{cls}}">${{lab}}</span>
-      <span class="t">${{esc(i.o_que)}} <small style="color:var(--muted)">· ${{esc(i.onde)}} · ~${{i.duracao}} · → ${{esc(i.resultado_esperado)}}</small></span>
-      <span class="who">${{i.dono}}</span></div>`; }}).join('')
+    const oque = i.o_que || i.descricao || '';
+    const dono = i.dono || i.responsavel || '';
+    const bloqPor = Array.isArray(i.bloqueado_por) ? i.bloqueado_por.join(', ') : i.bloqueado_por;
+    const extras = [
+      i.onde || (i.branch ? `branch ${{i.branch}}${{i.commit ? ' @ ' + i.commit : ''}}` : ''),
+      i.duracao ? `~${{i.duracao}}` : '',
+      i.resultado_esperado ? `→ ${{i.resultado_esperado}}` : '',
+      bloqPor ? `bloqueado por: ${{bloqPor}}` : '',
+    ].filter(Boolean).map(esc).join(' · ');
+    const aprov = i.aprovacao_previa_autor
+      ? ` <span class="pill andamento" title="${{esc(i.aprovacao_previa_autor)}}">✓ aprovação prévia do autor</span>` : '';
+    return `<div class="item"><span class="pill ${{cls}}">${{lab}}</span>${{aprov}}
+      <span class="t">${{esc(oque)}}${{extras ? ' <small style="color:var(--muted)">· ' + extras + '</small>' : ''}}</span>
+      <span class="who">${{esc(dono)}}</span></div>`; }}).join('')
     : '<p class="vazia">0 execuções ativas</p>';
 
   el('grupos').innerHTML = P.artefatos.map(g => {{
@@ -625,7 +696,23 @@ def build_plano() -> tuple[str, str]:
     .map(([k, v]) => `<span class="pill ${{k}}" title="${{esc(v)}}">${{GLIFO[k] || ''}} ${{k}}</span>`).join('');
   el('meta-saida').textContent = `Meta de saída: parecer ARS ${{K.meta_saida.parecer_ars}} → ${{K.meta_saida.alvo}}.`;
 }})();
-</script>"""
+</script>
+<style>
+.quebra-cap{{border-top:1px dashed var(--border); padding:var(--sp-4) 0}}
+.quebra-cap:first-of-type{{border-top:none; padding-top:0}}
+.quebra-cap-head{{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:var(--sp-3)}}
+.quebra-cap-head h3{{margin:0; font-size:var(--fs-3); min-width:0}}
+.quebra-pct{{font-weight:700; color:var(--accent); min-width:0}}
+.quebra-pct small{{font-weight:400; color:var(--muted); font-size:var(--fs-1)}}
+.quebra-seq{{margin:var(--sp-2) 0 0; color:var(--muted); font-size:var(--fs-2)}}
+.temas-grid{{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:var(--sp-3); margin-top:var(--sp-3)}}
+.tema-card{{background:var(--ground); border:1px solid var(--border); border-radius:8px; padding:var(--sp-3);
+  display:flex; flex-direction:column; gap:var(--sp-1)}}
+.tema-top{{display:flex; align-items:center; justify-content:space-between; gap:var(--sp-2)}}
+.tema-resp{{font-size:var(--fs-1); color:var(--muted); display:inline-flex; align-items:center}}
+.tema-nome{{margin:0; font-size:var(--fs-2); font-weight:600}}
+.tema-dim{{margin:0; font-size:var(--fs-1); color:var(--muted)}}
+</style>"""
     return body, script
 
 
@@ -837,18 +924,6 @@ document.getElementById('saude').textContent = doente
 .k-rodape{margin:0; color:var(--muted); font-size:var(--fs-1)}
 .k-atrasado{color:var(--atencao)}
 .k-ref{margin:0; color:var(--muted); font-size:var(--fs-1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-/* identidade por agente: pontinho colorido + nome por extenso ao lado —
-   nunca só a cor (mesma régua de estado do site inteiro). Decisão de UX:
-   tag pequena, não o cartão inteiro pintado — o cartão inteiro competiria
-   com o sinal de "para você"/"atrasado" (âmbar), que precisa continuar
-   sendo o mais saliente da tela. */
-.k-ag-dot{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:.35em;
-  vertical-align:middle; flex:none}
-.k-ag-dot[data-ag="principal"]{background:var(--ag-principal)}
-.k-ag-dot[data-ag="banca"]{background:var(--ag-banca)}
-.k-ag-dot[data-ag="revisor1"]{background:var(--ag-revisor1)}
-.k-ag-dot[data-ag="revisor2"]{background:var(--ag-revisor2)}
-.k-ag-dot[data-ag="autor"]{background:var(--ag-autor)}
 .pilula .k-ag-dot{margin-right:.4em}
 .estado{display:inline-flex; gap:.35rem; align-items:center; white-space:nowrap; font-weight:600}
 td.quando{white-space:nowrap; color:var(--muted)}

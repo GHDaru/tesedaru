@@ -1,18 +1,18 @@
 {
  "schema": "kpis/v1",
- "computado_em": "2026-08-16",
- "git_sha": "38d345b",
+ "computado_em": "2026-08-17",
+ "git_sha": "f55915b",
  "prontidao": {
-  "global_pct": 3.4,
-  "texto_pct": 4.0,
+  "global_pct": 13.3,
+  "texto_pct": 15.7,
   "artefatos_pct": 0.0,
   "pontos_totais": 2032,
-  "pontos_feitos": 80,
+  "pontos_feitos": 318,
   "por_rodada": [
    {
     "id": "R1",
     "pontos": 331,
-    "feitos": 24
+    "feitos": 52
    },
    {
     "id": "R2",
@@ -22,17 +22,17 @@
    {
     "id": "R3",
     "pontos": 468,
-    "feitos": 0
+    "feitos": 185
    },
    {
     "id": "R4",
     "pontos": 140,
-    "feitos": 0
+    "feitos": 20
    },
    {
     "id": "R5",
     "pontos": 743,
-    "feitos": 21
+    "feitos": 26
    },
    {
     "id": "R6",
@@ -54,12 +54,12 @@
    {
     "id": "cap1",
     "pontos": 96,
-    "feitos": 31
+    "feitos": 76
    },
    {
     "id": "cap2",
     "pontos": 506,
-    "feitos": 18
+    "feitos": 211
    },
    {
     "id": "cap3",
@@ -89,35 +89,42 @@
   ]
  },
  "ritmo": {
-  "velocidade_pontos_semana": null,
-  "janela_dias": 14,
+  "velocidade_pontos_semana": 0.0,
+  "janela_dias": 1,
   "eta_semanas": null,
   "eta_data": null,
   "eta_confiavel": false,
   "serie": [
    {
     "data": "2026-08-16",
-    "commit": "62e9f95",
-    "pontos": 80,
-    "pct": 3.9,
+    "commit": "07bd867",
+    "pontos": 318,
+    "pct": 15.7,
+    "evento": null
+   },
+   {
+    "data": "2026-08-17",
+    "commit": "ad80d3d",
+    "pontos": 318,
+    "pct": 15.7,
     "evento": null
    }
   ]
  },
  "fila_autor": {
-  "total": 10,
+  "total": 16,
   "itens": [
    {
     "id": "seed7",
     "tipo": "acao",
     "titulo": "Rodar semente 7 no Colab (notebook e3prime_colab, 1 sessão)",
-    "pontos_destravados": 239
+    "pontos_destravados": 234
    },
    {
     "id": "seed123",
     "tipo": "acao",
     "titulo": "Rodar semente 123 no Colab",
-    "pontos_destravados": 239
+    "pontos_destravados": 234
    },
    {
     "id": "zenodo",
@@ -156,24 +163,60 @@
     "pontos_destravados": 0
    },
    {
-    "id": "dec-fila",
-    "tipo": "decisao",
-    "titulo": "Ordem da fila: manter (lotes 2–5 do Cap. 2 primeiro) OU adotar a do parecer R6 (bib-audit → veredito+pré-textuais → lotes 2–5)? Humanizar antes de mexer nas citações = editar a mesma superfície duas vezes",
-    "pontos_destravados": 0
-   },
-   {
     "id": "dec-fecho-cap6",
     "tipo": "decisao",
     "titulo": "Fecho do Cap. 6: manter tríade+aforismo (estilo) sabendo que 2 trechos são apontados como mérito (DA-C1/C2/C3), ou reescrever",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-ruido-estruturado",
+    "tipo": "decisao",
+    "titulo": "Contradição interna: Cap.2 (:585) diz que ruído estruturado degrada acentuadamente; Cap.5 (:143) diz que é o regime benigno, com as mesmas citações. Decidir a leitura correta e sustentá-la com o fichamento (parecer R3/R4/R6; autor decidiu tratar depois do Cap.1)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-gate-85",
+    "tipo": "decisao",
+    "titulo": "Gate de 85%: justificativa diz 'um desvio acima' de 89,56% quando está 4,6 p.p. abaixo; configuração final derivada sem oráculo atingir o limiar e sem declarar violação do pré-registro (parecer R3/R4/R6)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-politica-parada",
+    "tipo": "decisao",
+    "titulo": "Política de parada: dois racionais incompatíveis (fator ~20) para a mesma constante — causa-raiz atribuída ao resultado negativo (parecer R3/R4/R6)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-divida-vocabulario",
+    "tipo": "decisao",
+    "titulo": "Dívida antiga: 342 entidades fora do vocabulário controlado nos 140 fichamentos legados — entra no plano ou fica como está? (retirada do DoD do lote 5)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-obras-fichadas-nao-citadas",
+    "tipo": "decisao",
+    "titulo": "7 obras já fichadas e não citadas (LLMaAA, TypiClust, Farquhar, Kossen, Pangakis, Sener, Vaswani): autorizar citação no próximo lote de prosa do principal? (banca: trabalho barato de alto impacto)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-cache-kaggle",
+    "tipo": "decisao",
+    "titulo": "AUTOR: subir annotation_cache_nemotron.jsonl como dataset do Kaggle — destrava os braços A/B/C nas 3 sementes (o centro da hipótese F1(A) ≥ 0,95×F1(D)); 3 retomadas curtas, 18 resultados prontos são pulados",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-nome-e3",
+    "tipo": "decisao",
+    "titulo": "Rebatismo do E3': autor incomoda-se com a plica; recomendação do principal = E3' assume o nome E3 (o E3 original nunca teve resultados; exige reescrever o desenho em 3-metodo:443 + renomear ~35 ocorrências + código/artefatos/notebooks via executor01). Autor: 'voltemos com ela' — retomar.",
     "pontos_destravados": 0
    }
   ]
  },
  "represados": {
-  "pontos": 239
+  "pontos": 234
  },
  "divida_fundamentacao": {
-  "citacoes_pendentes": 185,
+  "citacoes_pendentes": 177,
   "chaves_citadas": 151,
   "fichamentos": 153,
   "chaves_sem_fichamento": 0
