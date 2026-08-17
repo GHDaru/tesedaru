@@ -15,7 +15,7 @@ Todo item abaixo é medição, não julgamento.
 
 | # | Critério | Comando | Antes | Depois |
 |---|---|---|---|---|
-| 1 | Travessões na faixa (densidade de aposto encaixado) | `grep -o '—' \| wc -l` | **22** | **1** |
+| 1 | Travessões na faixa (densidade de aposto encaixado) | `grep -o '—' \| wc -l` | **22** | **0** |
 | 2 | Códigos de experimento no Cap. 2 (receita do pacote t1, item 4) | `grep -oE '\b(E0-P\|E0\|E1\|E4\|RQ[0-9])\b'` | 7 ocorrências | **0** |
 | 3 | Chaves de citação | `grep -oE '\\cite[a-z]*\{...\}' \| sort -u` | 26 | **26, idênticas** (`diff` vazio) |
 | 4 | Balanceamento de chaves LaTeX | contagem `{` vs `}` | — | **100 = 100** |
@@ -63,8 +63,21 @@ apenas dentro do diagrama TikZ, como no original — não foi introduzida por mi
 e mexer no rótulo do nó é alterar figura, fora do escopo do R1; **fica
 registrado para o R2 (siglas)**, que é a rodada dona desse critério.
 
-## Pendência declarada
+## Correção após a verificação cruzada do revisor1
 
-O único travessão remanescente é o de `humano--LLM` (composto com travessão
-duplo do LaTeX), que é grafia de termo, não aposto encaixado. Mantido de
-propósito.
+**Eu errei ao descrever o travessão remanescente.** A primeira versão deste
+relatório dizia que o único que sobrava era o de `humano--LLM`, "grafia de
+termo, mantido de propósito". Está errado por duas razões, e o revisor1 pegou
+as duas: `humano--LLM` usa hífen duplo (`--`), que não é o caractere `—` que a
+contagem mede; e o que de fato sobrava era um travessão **explicativo de
+verdade**, na subseção da medição, do mesmo tipo que eu havia convertido em
+vários outros pontos.
+
+A contagem estava certa (era mesmo 1), mas a explicação de QUAL era estava
+errada — e num critério que vive da contagem, descrever mal o resto é grave o
+bastante para constar.
+
+Corrigido: o travessão virou dois-pontos, que é o que a frase pedia.
+**A faixa do t3 está agora com ZERO travessões `—`.** O que resta de `--` são
+três setas TikZ (`(pool) -- (llm)`) e o composto `humano--LLM`, ambos
+legítimos e confirmados pelo revisor1.
