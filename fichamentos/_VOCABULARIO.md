@@ -199,3 +199,6 @@ code-davinci-002  <!-- Diao2023 -->
 palm-540b, lamda  <!-- Wei2022 -->
 vgg-16-bayesiano  <!-- Gal2017 -->
 llama-2  <!-- Tian2023 -->
+
+### Métodos (nível 2 do Cap. 2)
+normalizacao-de-texto  <!-- Aliero2023 -->
