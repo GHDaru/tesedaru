@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 28,
-  "atualizado_em": "2026-08-17T02:40:00Z",
+  "versao": 29,
+  "atualizado_em": "2026-08-17T02:10:00Z",
   "atualizado_por": "revisor1: fichamentos dos pós-2022 do t2 entregues (Rouzegar2024, Fromme2022); Deng2023fedal bloqueada por arXiv ID errado; contagem do t2 recontada e corrigida para 41",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -298,7 +298,110 @@
         "travessoes": 59,
         "citacoes": 18,
         "tokens": 105
-      }
+      },
+      "quebra": [
+        {
+          "id": "c3t1",
+          "tema": "Desenho da pesquisa",
+          "linhas": "21-57",
+          "palavras": 251,
+          "travessoes": 0,
+          "citacoes_chaves": 2,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t2",
+          "tema": "Conjunto de dados",
+          "linhas": "58-176",
+          "palavras": 971,
+          "travessoes": 0,
+          "citacoes_chaves": 2,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t3",
+          "tema": "Classificadores da tarefa",
+          "linhas": "177-212",
+          "palavras": 257,
+          "travessoes": 0,
+          "citacoes_chaves": 5,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t4",
+          "tema": "Métricas de avaliação e análise estatística",
+          "linhas": "213-255",
+          "palavras": 342,
+          "travessoes": 0,
+          "citacoes_chaves": 5,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t5",
+          "tema": "Pilar P1: composição do conjunto inicial \\texorpdfstring{$L_0$",
+          "linhas": "256-293",
+          "palavras": 284,
+          "travessoes": 0,
+          "citacoes_chaves": 2,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t6",
+          "tema": "Pilar P2: \\textit{cold start",
+          "linhas": "294-310",
+          "palavras": 154,
+          "travessoes": 1,
+          "citacoes_chaves": 1,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t7",
+          "tema": "Pilar P3: LLMs como oráculo de rotulagem (experimento E0)",
+          "linhas": "311-393",
+          "palavras": 720,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t8",
+          "tema": "Pilar P4: o framework FALCO e sua avaliação (experimentos E1--E4)",
+          "linhas": "394-487",
+          "palavras": 882,
+          "travessoes": 3,
+          "citacoes_chaves": 2,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t9",
+          "tema": "Ameaças à validade",
+          "linhas": "488-536",
+          "palavras": 440,
+          "travessoes": 0,
+          "citacoes_chaves": 3,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c3t10",
+          "tema": "Reprodutibilidade e ambiente",
+          "linhas": "537-564",
+          "palavras": 259,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        }
+      ],
+      "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor."
     },
     {
       "id": "cap4",
@@ -339,7 +442,60 @@
         "travessoes": 17,
         "citacoes": 0,
         "tokens": 185
-      }
+      },
+      "quebra": [
+        {
+          "id": "c4t1",
+          "tema": "Sensibilidade à composição e ao tamanho de \\texorpdfstring{$L_0$",
+          "linhas": "17-59",
+          "palavras": 269,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c4t2",
+          "tema": "Limites por otimização evolutiva",
+          "linhas": "60-99",
+          "palavras": 280,
+          "travessoes": 3,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c4t3",
+          "tema": "DRI-SL \\textit{versus",
+          "linhas": "100-136",
+          "palavras": 252,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c4t4",
+          "tema": "Reexecução independente e efeito da circularidade",
+          "linhas": "137-196",
+          "palavras": 452,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c4t5",
+          "tema": "Síntese do capítulo",
+          "linhas": "197-207",
+          "palavras": 96,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        }
+      ],
+      "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor."
     },
     {
       "id": "cap5",
@@ -385,7 +541,80 @@
         "travessoes": 64,
         "citacoes": 6,
         "tokens": 455
-      }
+      },
+      "quebra": [
+        {
+          "id": "c5t1",
+          "tema": "E0: avaliação fatorial de oráculos LLM",
+          "linhas": "17-180",
+          "palavras": 1268,
+          "travessoes": 6,
+          "citacoes_chaves": 4,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c5t2",
+          "tema": "E0-P: o prompt como variável do instrumento",
+          "linhas": "181-235",
+          "palavras": 425,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c5t3",
+          "tema": "E1: estratégias de seleção com oráculo perfeito",
+          "linhas": "236-293",
+          "palavras": 498,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c5t4",
+          "tema": "E4: robustez do aprendizado ao ruído do oráculo",
+          "linhas": "294-357",
+          "palavras": 499,
+          "travessoes": 0,
+          "citacoes_chaves": 4,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c5t5",
+          "tema": "E6: seletores em escala populacional e o viés da autoavaliação",
+          "linhas": "358-466",
+          "palavras": 996,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c5t6",
+          "tema": "E3': o classificador forte julga o pipeline e a hipótese central",
+          "linhas": "467-595",
+          "palavras": 1038,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c5t7",
+          "tema": "Decisão do gate e configuração do FALCO",
+          "linhas": "596-615",
+          "palavras": 183,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        }
+      ],
+      "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor."
     },
     {
       "id": "cap6",
@@ -427,7 +656,70 @@
         "travessoes": 35,
         "citacoes": 18,
         "tokens": 48
-      }
+      },
+      "quebra": [
+        {
+          "id": "c6t1",
+          "tema": "Síntese dos achados",
+          "linhas": "4-69",
+          "palavras": 611,
+          "travessoes": 5,
+          "citacoes_chaves": 1,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c6t2",
+          "tema": "Discussão",
+          "linhas": "70-110",
+          "palavras": 380,
+          "travessoes": 0,
+          "citacoes_chaves": 6,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c6t3",
+          "tema": "Contribuições",
+          "linhas": "111-133",
+          "palavras": 186,
+          "travessoes": 0,
+          "citacoes_chaves": 2,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c6t4",
+          "tema": "Limitações",
+          "linhas": "134-147",
+          "palavras": 107,
+          "travessoes": 0,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c6t5",
+          "tema": "Trabalhos futuros",
+          "linhas": "148-184",
+          "palavras": 318,
+          "travessoes": 0,
+          "citacoes_chaves": 9,
+          "responsavel": "a definir",
+          "status": "aberto"
+        },
+        {
+          "id": "c6t6",
+          "tema": "Conclusão",
+          "linhas": "185-210",
+          "palavras": 264,
+          "travessoes": 1,
+          "citacoes_chaves": 0,
+          "responsavel": "a definir",
+          "status": "aberto"
+        }
+      ],
+      "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor."
     },
     {
       "id": "ap",
@@ -850,6 +1142,15 @@
         "responsavel": "principal",
         "bloqueado_por": "busca acadêmica revisor2 (tarefa 20260816-2110)",
         "aprovacao_previa_autor": "2026-08-16: autor de acordo com o texto do antes/depois; aguardar a busca acadêmica do revisor2 (tarefa 20260816-2110) e reapresentar consolidado antes do merge"
+      },
+      {
+        "id": "fix-cap2-ruido-estruturado",
+        "descricao": "Correção da soldagem ruído estruturado (Cap.2:585) — decisão (a) do autor; antes/depois apresentado",
+        "branch": "fix/cap2-ruido-estruturado",
+        "commit": "a0e20c9",
+        "estado": "gate",
+        "responsavel": "principal",
+        "trilha": "texto"
       }
     ]
   },
@@ -857,35 +1158,33 @@
   "decisoes_pendentes": [
     {
       "id": "dec-fecho-cap6",
-      "titulo": "Fecho do Cap. 6: manter tríade+aforismo (estilo) sabendo que 2 trechos são apontados como mérito (DA-C1/C2/C3), ou reescrever"
-    },
-    {
-      "id": "dec-ruido-estruturado",
-      "titulo": "Contradição interna: Cap.2 (:585) diz que ruído estruturado degrada acentuadamente; Cap.5 (:143) diz que é o regime benigno, com as mesmas citações. Decidir a leitura correta e sustentá-la com o fichamento (parecer R3/R4/R6; autor decidiu tratar depois do Cap.1)"
+      "titulo": "Fecho do Cap. 6: manter tríade+aforismo (estilo) sabendo que 2 trechos são apontados como mérito (DA-C1/C2/C3), ou reescrever",
+      "trilha": "texto"
     },
     {
       "id": "dec-gate-85",
-      "titulo": "Gate de 85%: justificativa diz 'um desvio acima' de 89,56% quando está 4,6 p.p. abaixo; configuração final derivada sem oráculo atingir o limiar e sem declarar violação do pré-registro (parecer R3/R4/R6)"
+      "titulo": "Gate de 85%: justificativa diz 'um desvio acima' de 89,56% quando está 4,6 p.p. abaixo; configuração final derivada sem oráculo atingir o limiar e sem declarar violação do pré-registro (parecer R3/R4/R6)",
+      "trilha": "texto"
     },
     {
       "id": "dec-politica-parada",
-      "titulo": "Política de parada: dois racionais incompatíveis (fator ~20) para a mesma constante — causa-raiz atribuída ao resultado negativo (parecer R3/R4/R6)"
+      "titulo": "Política de parada: dois racionais incompatíveis (fator ~20) para a mesma constante — causa-raiz atribuída ao resultado negativo (parecer R3/R4/R6)",
+      "trilha": "texto"
     },
     {
       "id": "dec-divida-vocabulario",
-      "titulo": "Dívida antiga: 342 entidades fora do vocabulário controlado nos 140 fichamentos legados — entra no plano ou fica como está? (retirada do DoD do lote 5)"
-    },
-    {
-      "id": "dec-obras-fichadas-nao-citadas",
-      "titulo": "7 obras já fichadas e não citadas (LLMaAA, TypiClust, Farquhar, Kossen, Pangakis, Sener, Vaswani): autorizar citação no próximo lote de prosa do principal? (banca: trabalho barato de alto impacto)"
+      "titulo": "Dívida antiga: 342 entidades fora do vocabulário controlado nos 140 fichamentos legados — entra no plano ou fica como está? (retirada do DoD do lote 5)",
+      "trilha": "processo"
     },
     {
       "id": "dec-cache-kaggle",
-      "titulo": "AUTOR: subir annotation_cache_nemotron.jsonl como dataset do Kaggle — destrava os braços A/B/C nas 3 sementes (o centro da hipótese F1(A) ≥ 0,95×F1(D)); 3 retomadas curtas, 18 resultados prontos são pulados"
+      "titulo": "AUTOR: subir annotation_cache_nemotron.jsonl como dataset do Kaggle — destrava os braços A/B/C nas 3 sementes (o centro da hipótese F1(A) ≥ 0,95×F1(D)); 3 retomadas curtas, 18 resultados prontos são pulados",
+      "trilha": "experimentos"
     },
     {
       "id": "dec-nome-e3",
-      "titulo": "Rebatismo do E3': autor incomoda-se com a plica; recomendação do principal = E3' assume o nome E3 (o E3 original nunca teve resultados; exige reescrever o desenho em 3-metodo:443 + renomear ~35 ocorrências + código/artefatos/notebooks via executor01). Autor: 'voltemos com ela' — retomar."
+      "titulo": "Rebatismo do E3': autor incomoda-se com a plica; recomendação do principal = E3' assume o nome E3 (o E3 original nunca teve resultados; exige reescrever o desenho em 3-metodo:443 + renomear ~35 ocorrências + código/artefatos/notebooks via executor01). Autor: 'voltemos com ela' — retomar.",
+      "trilha": "experimentos"
     }
   ]
 }
