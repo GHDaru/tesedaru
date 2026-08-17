@@ -48,7 +48,30 @@ soft computing/lógica fuzzy.
 | C3 | Algoritmos genéticos são apontados como solução poderosa de otimização em STC | Abstract (Findings) | Respaldo bibliográfico do P1 (AG para otimizar o conjunto inicial L0) — a literatura de STC já apontava AG como direção |
 
 ## Números que posso citar
-- (Revisão qualitativa; 89 referências.)
+
+- **Limiar de 200 caracteres** para texto curto, com a condição exata: a
+  afirmação é sobre **publicações e comentários de redes sociais**, e o 140 é o
+  exemplo do Twitter à época do artigo.
+
+  > "Millions of short text are produced daily in the form of posts or comments.
+  > This type of document tends to have a length of no more than 200
+  > characters; for example, Twitter posts consists of up to 140 characters."
+  > (§1, Introdução, **p. 2** de 29)
+
+  Usado em `2-fundam/texto.tex:737`, na definição de texto curto. **Condição que
+  a tese precisa respeitar ao citar:** o número descreve microblog, e o corpus
+  desta tese é **descrição de produto de varejo** — o limiar transfere como
+  ordem de grandeza da literatura, não como propriedade medida da nossa base. A
+  contagem da nossa base é do Capítulo~\ref{ch:metodo} e não depende desta obra.
+
+- (No mais, revisão qualitativa; 89 referências.)
+
+**Procedência deste registro:** o R5 do principal acusou o número como sem
+lastro na ficha; o autor localizou a passagem no PDF e o principal me despachou
+o registro (tarefa 20260817-1855). **Eu confirmei a passagem e a página abrindo
+o PDF** — não a copiei do relato: a busca no arquivo devolve a frase na p. 2, e
+o contexto ao redor (redes sociais, posts e comentários) é o que fixa a condição
+acima.
 
 ## Crítica / limitações (minha leitura)
 - Foco em redes sociais/microblogs, não em descrições de produto; pré-BERT (2019,
