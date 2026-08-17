@@ -202,3 +202,4 @@ llama-2  <!-- Tian2023 -->
 
 ### Métodos (nível 2 do Cap. 2)
 normalizacao-de-texto  <!-- Aliero2023 -->
+selecao-conjunta-instancia-anotador, modelagem-de-competencia-do-anotador  <!-- Yan2011 -->

@@ -4724,6 +4724,32 @@
       "cited_in": []
     },
     {
+      "id": "Yan2011",
+      "type": "artigo",
+      "label": "Yan2011",
+      "title": "Active Learning from Crowds",
+      "year": 2011,
+      "venue": "28th International Conference on Machine Learning (ICML), pp. 1161-1168",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Yan2011.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "conceito:selecao-conjunta-instancia-anotador",
+      "type": "conceito",
+      "label": "selecao-conjunta-instancia-anotador"
+    },
+    {
+      "id": "metodo:modelagem-de-competencia-do-anotador",
+      "type": "metodo",
+      "label": "modelagem-de-competencia-do-anotador"
+    },
+    {
       "id": "Yu2023Patron",
       "type": "artigo",
       "label": "Yu2023Patron",
@@ -11569,6 +11595,68 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Relações entre rótulos: direção futura para o espaço de 621 categorias."
+    },
+    {
+      "source": "Yan2011",
+      "target": "Sheng2008",
+      "type": "builds_on"
+    },
+    {
+      "source": "Yan2011",
+      "target": "Donmez2009",
+      "type": "builds_on"
+    },
+    {
+      "source": "Yan2011",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Yan2011",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Yan2011",
+      "target": "conceito:selecao-conjunta-instancia-anotador",
+      "type": "proposes"
+    },
+    {
+      "source": "Yan2011",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yan2011",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yan2011",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yan2011",
+      "target": "metodo:modelagem-de-competencia-do-anotador",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yan2011",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Yan2011",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "é a formalização do cenário que a tese declara ser o seu: não existe oráculo único que saiba a verdade, e a consulta passa a ter DUAS dimensões — qual instância rotular e QUAL anotador consultar"
+    },
+    {
+      "source": "Yan2011",
+      "target": "oraculo-progressivo",
+      "type": "fundamenta",
+      "note": "modela a competência do anotador como variável aprendida, e não constante — é o análogo do nosso cardápio de LLMs com acurácias diferentes"
     },
     {
       "source": "Yu2023Patron",
