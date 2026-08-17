@@ -42,7 +42,7 @@ Três padrões estruturam a leitura:
   classes minoritárias.
   \item \textbf{Variabilidade decrescente}: o desvio-padrão da acurácia cai de
   $0{,}024$ ($I=10$) para menos de $0{,}001$ ($I=200.000$); para $I=100$, a
-  acurácia entre repetições variou de $21{,}7\%$ a $28{,}1\%$ — uma amplitude
+  acurácia entre repetições variou de $21{,}7\%$ a $28{,}1\%$, uma amplitude
   de $6{,}4$ pontos percentuais causada exclusivamente pela composição do
   sorteio. É a evidência direta da hipótese de variabilidade: \emph{existem}
   $L_0$ bons e ruins de mesmo tamanho.
@@ -53,7 +53,7 @@ Três padrões estruturam a leitura:
 \end{enumerate}
 
 Esses resultados fundamentam o P2: se a composição importa tanto no regime
-pequeno — exatamente o regime do \textit{cold start} do aprendizado ativo —,
+pequeno (exatamente o regime do \textit{cold start} do aprendizado ativo),
 então construir $L_0$ deliberadamente (em vez de sorteá-lo) é a alavanca
 disponível antes de existir qualquer rótulo.
 
@@ -70,7 +70,7 @@ cenários de acurácia.
 \begin{table}[htb]
 \centering
 \caption{Evolução do AG (1\textsuperscript{a} vs.\ 100\textsuperscript{a}
-geração) — cenários de Acurácia. Envelope entre minimização e maximização.}
+geração): cenários de Acurácia. Envelope entre minimização e maximização.}
 \label{tab:ag-evolucao}
 \small
 \begin{tabular}{r rrr rrr}
@@ -93,8 +93,7 @@ geração) — cenários de Acurácia. Envelope entre minimização e maximizaç
 
 Duas leituras: o envelope é \textbf{largo no regime pequeno} (em $I=100$, a
 distância entre pior e melhor indivíduo da última geração chega a
-$25{,}9$ pontos percentuais de acurácia) e \textbf{estreita com o tamanho} —
-coerente com a Seção~\ref{sec:res-l0-sens}: quanto maior o $L_0$, menos a
+$25{,}9$ pontos percentuais de acurácia) e \textbf{estreita com o tamanho}, coerente com a Seção~\ref{sec:res-l0-sens}: quanto maior o $L_0$, menos a
 composição importa. O ganho evolutivo sobre a 1\textsuperscript{a} geração
 (coluna $\Delta$) confirma que o AG explora estrutura real, não flutuação.
 
@@ -128,11 +127,11 @@ O resultado central do P2: \textbf{o DRI-SL supera não só a amostragem
 aleatória média, mas o próprio melhor indivíduo encontrado pelo AG} em todos os
 tamanhos de 100 a 5.000 (ex.: $I=1.000$: $67{,}4\%$ vs.\ $62{,}2\%$ de
 acurácia). Uma heurística construtiva de custo linear e sem acesso a rótulos
-supera um otimizador evolutivo com 5.000 avaliações supervisionadas — forte
+supera um otimizador evolutivo com 5.000 avaliações supervisionadas, forte
 indício de que densidade semântica + variedade lexical capturam exatamente a
 estrutura que torna um $L_0$ informativo. Há uma ressalva metodológica: os
 valores do AG aqui reportados herdam o protocolo original (aptidão e relato na
-mesma partição), inflacionado por construção — a quantificação está na seção
+mesma partição), inflacionado por construção; a quantificação está na seção
 seguinte, e reforça a conclusão.
 
 \section{Reexecução independente e efeito da circularidade}
@@ -141,12 +140,12 @@ seguinte, e reforça a conclusão.
 A reexecução na biblioteca \texttt{activelearning} usa grade reduzida de
 15 tamanhos $\times$ 10 repetições (artefatos em
 \texttt{experiments/p1/results/}): os 15 tamanhos são log-espaçados cobrindo
-todo o intervalo original ($10$ a $2 \times 10^5$) — a forma da curva, e não a
-sua densidade, é o objeto da validação — e 10 repetições estimam a média com
+todo o intervalo original ($10$ a $2 \times 10^5$), pois a forma da curva, e não a
+sua densidade, é o objeto da validação, e 10 repetições estimam a média com
 erro-padrão inferior à divergência que se pretende detectar (a amplitude
 entre repetições do original), a um nono do custo computacional das $47
 \times 30$ células originais. A reexecução reproduz a estrutura completa do
-estudo original com protocolo mais rigoroso — deduplicação por texto
+estudo original com protocolo mais rigoroso: deduplicação por texto
 normalizado \emph{antes} do particionamento e teste fixo de 20.000 instâncias.
 
 \begin{table}[htb]
@@ -169,25 +168,25 @@ independente (10 rep., protocolo com deduplicação). Acurácia média.}
 \end{tabular}
 \end{table}
 
-A concordância entre as duas execuções (Tabela~\ref{tab:replay-vs-original}) ---
-diferença $\le 0{,}7$ p.p.\ em todos os tamanhos, sempre no
-sentido esperado, pois o protocolo com deduplicação é ligeiramente mais difícil ---
+A concordância entre as duas execuções (Tabela~\ref{tab:replay-vs-original})
 valida de forma independente tanto o estudo original quanto o porte do
-classificador para a biblioteca nova, cuja fidelidade foi adicionalmente
+classificador para a biblioteca nova: a diferença fica em $\le 0{,}7$ p.p.\ em
+todos os tamanhos, sempre no sentido esperado, pois o protocolo com deduplicação
+é ligeiramente mais difícil. A fidelidade do porte foi adicionalmente
 verificada por igualdade exata das matrizes de escore entre implementações.
 
 A reexecução do AG usou 2 tamanhos $\times$ 2 cenários com $N_{pop}=30$ e 40
-gerações — a menor configuração que reproduz o \emph{mecanismo} (a aptidão
+gerações, a menor configuração que reproduz o \emph{mecanismo} (a aptidão
 estabiliza bem antes da 40\textsuperscript{a} geração em todas as células),
 pois o objetivo aqui é validar o fenômeno e quantificar a circularidade, não
-re-estimar o envelope completo, que permanece o do estudo original — e
-aplicou o protocolo anticircularidade da Seção~\ref{sec:metodo-l0-ag}: aptidão
+re-estimar o envelope completo, que permanece o do estudo original. A
+reexecução aplicou ainda o protocolo anticircularidade da Seção~\ref{sec:metodo-l0-ag}: aptidão
 medida em partição de aferição, indivíduo final \emph{reavaliado} no teste
 intocado. O mecanismo se reproduz (melhor indivíduo evolui $+5{,}2$ p.p.\ de
 acurácia em $I=50$; envelope acima da média aleatória em todos os casos), mas a
 reavaliação honesta revela a inflação da circularidade: para maximização de
 Macro F1 com $I=500$, a aptidão final é $19{,}4\%$, mas o mesmo indivíduo mede
-$13{,}1\%$ no teste intocado — $6{,}3$ pontos percentuais de superajuste ao
+$13{,}1\%$ no teste intocado, isto é, $6{,}3$ pontos percentuais de superajuste ao
 conjunto de aferição. Para acurácia a inflação é menor ($\approx 1$ p.p.).
 Conclusão metodológica incorporada à tese: \textbf{envelopes evolutivos devem
 ser reportados exclusivamente em partição não usada como aptidão}; os valores
@@ -202,7 +201,7 @@ conservadora.
 (amplitude de $6{,}4$ p.p.\ em $I=100$ só por sorteio), decaindo com o tamanho;
 (ii) o envelope evolutivo confirma espaço explorável de dezenas de pontos
 percentuais entre composições boas e ruins; (iii) o DRI-SL captura esse espaço
-sem usar rótulos, superando o melhor indivíduo do AG até $I=5.000$ — e é por
+sem usar rótulos, superando o melhor indivíduo do AG até $I=5.000$, e é por
 isso a estratégia da Fase~1 do FALCO; (iv) a reexecução independente reproduz
 os três achados e quantifica o viés de circularidade do protocolo original de
 AG, corrigido nesta tese.

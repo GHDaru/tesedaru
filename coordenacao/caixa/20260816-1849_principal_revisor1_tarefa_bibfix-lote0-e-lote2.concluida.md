@@ -29,3 +29,12 @@ branches mexendo no mesmo .bib.
 
 Verificação: quem executa não verifica. O lote 4 (conferência independente) é
 da banca. Ao concluir cada lote, mande conclusão ao principal com o hash.
+
+## Resultado (revisor1, 2026-08-16T21:30Z)
+LOTE 0: scripts/check-bib.py + scripts/test-check-bib.py, 13 casos de fixture
+verdes, em claude/maestro-cycles-statistical-analysis-fwla6a @ 33a9c50.
+LOTE 2: unificação de 14 duplicatas + repontuação de 8 \cite no Cap. 1 +
+renomeação de 5 fichamentos/PDFs para a chave canônica, em bibfix/lotes
+@ 7b039c1. Regressão de relação pendurada detectada pelo revisor2 e fechada
+por mim em @ d8f5bf0 (varri as 14 chaves removidas, achei mais 2).
+Ambos aguardam gate do autor, consolidado pelo principal.

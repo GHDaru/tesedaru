@@ -860,8 +860,8 @@
       "paper_type": "dissertacao",
       "status": "fichado",
       "pdf": "referencias-pdf/Daru2024Dissertacao.pdf",
-      "doi": "",
-      "url": "",
+      "doi": "10.11606/D.55.2024.tde-07012025-171839",
+      "url": "https://doi.org/10.11606/D.55.2024.tde-07012025-171839",
       "cited_in": [
         "Cap. 1 — Introdução",
         "Cap. 2 — Fundamentação",
@@ -873,11 +873,6 @@
       "id": "conceito:argmax-binary",
       "type": "conceito",
       "label": "argmax-binary"
-    },
-    {
-      "id": "conceito:metrica-unificada-acc-macrof1",
-      "type": "conceito",
-      "label": "metrica-unificada-acc-macrof1"
     },
     {
       "id": "metodo:n-gramas",
@@ -2118,6 +2113,67 @@
       "doi": "",
       "url": "",
       "cited_in": []
+    },
+    {
+      "id": "Margatina2023",
+      "type": "artigo",
+      "label": "Margatina2023",
+      "title": "Active Learning Principles for In-Context Learning with Large Language Models",
+      "year": 2023,
+      "venue": "Findings of the Association for Computational Linguistics: EMNLP 2023, pp. 5011--5034",
+      "paper_type": "avaliacao",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Margatina2023.pdf",
+      "doi": "10.18653/v1/2023.findings-emnlp.334",
+      "url": "https://doi.org/10.18653/v1/2023.findings-emnlp.334",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "metodo:selecao-por-similaridade",
+      "type": "metodo",
+      "label": "selecao-por-similaridade"
+    },
+    {
+      "id": "metodo:aprendizado-em-contexto",
+      "type": "metodo",
+      "label": "aprendizado-em-contexto"
+    },
+    {
+      "id": "metodo:selecao-de-demonstracoes",
+      "type": "metodo",
+      "label": "selecao-de-demonstracoes"
+    },
+    {
+      "id": "modelo:gpt-2",
+      "type": "modelo",
+      "label": "gpt-2"
+    },
+    {
+      "id": "modelo:gpt-j",
+      "type": "modelo",
+      "label": "gpt-j"
+    },
+    {
+      "id": "modelo:gpt-neox",
+      "type": "modelo",
+      "label": "gpt-neox"
+    },
+    {
+      "id": "modelo:opt",
+      "type": "modelo",
+      "label": "opt"
+    },
+    {
+      "id": "modelo:sentence-bert",
+      "type": "modelo",
+      "label": "sentence-bert"
+    },
+    {
+      "id": "dataset:crossfit",
+      "type": "dataset",
+      "label": "crossfit"
     },
     {
       "id": "MaslejKresnakova2020",
@@ -3910,7 +3966,9 @@
       "pdf": "referencias-pdf/Zhang2023LLMaAA.pdf",
       "doi": "10.18653/v1/2023.findings-emnlp.872",
       "url": "https://doi.org/10.18653/v1/2023.findings-emnlp.872",
-      "cited_in": []
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "metodo:saida-estruturada",
@@ -4060,6 +4118,11 @@
       "label": "RQ2-lote"
     },
     {
+      "id": "LCE",
+      "type": "tema-falco",
+      "label": "LCE"
+    },
+    {
       "id": "E4-leitura",
       "type": "tema-falco",
       "label": "E4-leitura"
@@ -4093,11 +4156,6 @@
       "id": "EinDor2020",
       "type": "artigo-pendente",
       "label": "EinDor2020"
-    },
-    {
-      "id": "LCE",
-      "type": "tema-falco",
-      "label": "LCE"
     },
     {
       "id": "Gal2017",
@@ -5070,11 +5128,6 @@
     {
       "source": "Daru2024Dissertacao",
       "target": "conceito:argmax-binary",
-      "type": "proposes"
-    },
-    {
-      "source": "Daru2024Dissertacao",
-      "target": "conceito:metrica-unificada-acc-macrof1",
       "type": "proposes"
     },
     {
@@ -6653,6 +6706,124 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Referência para justificar o k dos nossos protocolos sem discussão longa."
+    },
+    {
+      "source": "Margatina2023",
+      "target": "Settles2009",
+      "type": "builds_on"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "Lewis1994",
+      "type": "builds_on"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "pilar:P3",
+      "type": "pillars"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "pilar:geral",
+      "type": "pillars"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "metodo:selecao-por-diversidade",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "metodo:selecao-por-similaridade",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "metodo:k-means",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "metodo:few-shot",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "metodo:aprendizado-em-contexto",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "metodo:selecao-de-demonstracoes",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "modelo:gpt-2",
+      "type": "models"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "modelo:gpt-j",
+      "type": "models"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "modelo:gpt-neox",
+      "type": "models"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "modelo:opt",
+      "type": "models"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "modelo:sentence-bert",
+      "type": "models"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "dataset:crossfit",
+      "type": "datasets"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Margatina2023",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "Sustenta a frase do Cap. 2 que estende a seleção ativa para além das instâncias, até os exemplos que compõem o prompt de anotação: é o trabalho que formula explicitamente a escolha de demonstrações como problema de aprendizado ativo baseado em pool."
+    },
+    {
+      "source": "Margatina2023",
+      "target": "DRI-SL",
+      "type": "ameaca",
+      "note": "Achado incômodo e útil: amostragem por incerteza, forte no aprendizado ativo supervisionado, tem o PIOR desempenho no aprendizado em contexto (§4, p. 5014). Vale como limite declarado de escopo — a incerteza que o FALCO usa opera sobre classificador treinado no laço, não sobre demonstrações de prompt."
+    },
+    {
+      "source": "Margatina2023",
+      "target": "LCE",
+      "type": "fundamenta",
+      "note": "A §5.5 (p. 5017) mostra que o RANKING dos métodos muda conforme a métrica (F1 × acurácia) — apoio externo direto à prática da tese de reportar acurácia e Macro F1 lado a lado e de não fechar veredito por uma métrica só."
     },
     {
       "source": "MaslejKresnakova2020",

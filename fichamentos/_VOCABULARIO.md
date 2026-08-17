@@ -41,6 +41,7 @@ regressao  <!-- Farquhar2021Bias -->
 classificacao-de-imagens  <!-- Hacohen2022TypiClust -->
 
 ### Modelos (fichar-vizinhos)
+gpt-2, gpt-j, gpt-neox, opt, sentence-bert  <!-- Margatina2023 -->
 biomed-roberta-base, gpt-3.5-turbo, roberta-base  <!-- Xiao2023FreeAL -->
 resnet101, resnet18  <!-- Bengar2022ClassBalanced -->
 distilroberta, kimcnn, svm  <!-- Schroder2022Uncertainty -->
@@ -54,6 +55,7 @@ gpt-3, gpt-4  <!-- Zhang2023LLMaAA (gpt-3 = família, quando o paper não fixa a
 bert  <!-- Zhang2023LLMaAA, Schroder2022Uncertainty (família; use a variante exata quando o paper a fixar) -->
 
 ### Métodos (fichar-vizinhos)
+aprendizado-em-contexto, selecao-de-demonstracoes, selecao-por-similaridade  <!-- Margatina2023 -->
 auto-supervisao, k-means, selecao-por-diversidade, tipicidade, transicao-de-fase-de-orcamento, typiclust  <!-- Hacohen2022TypiClust -->
 aprendizado-ativo-balanceado-por-classe, otimizacao-binaria  <!-- Bengar2022ClassBalanced -->
 teste-ativo  <!-- Kossen2021ActiveTesting -->
@@ -62,6 +64,7 @@ partition-then-rewrite, patron, propagacao-de-incerteza  <!-- Yu2023Patron -->
 core-set-selection, k-center-greedy, robust-k-center  <!-- Sener2018 -->
 
 ### Datasets (fichar-vizinhos)
+crossfit  <!-- Margatina2023 -->
 cifar-10, cifar-100, imagenet-subconjuntos, tiny-imagenet  <!-- Hacohen2022TypiClust -->
 customer-reviews, movie-reviews, subjectivity  <!-- Schroder2022Uncertainty -->
 fashion-mnist, mnist  <!-- Farquhar2021Bias -->
@@ -69,6 +72,7 @@ dbpedia, yahoo-answers, yelp-full  <!-- Yu2023Patron -->
 svhn  <!-- Sener2018 -->
 
 ### Métricas (fichar-vizinhos)
+perplexidade  <!-- Margatina2023 -->
 auc-curva-de-aprendizado  <!-- Schroder2022Uncertainty -->
 l1-score-balanceamento  <!-- Bengar2022ClassBalanced -->
 f1  <!-- Yu2023Patron: o paper reporta "F1 score" sem especificar macro/micro; não normalizar para macro-f1 -->

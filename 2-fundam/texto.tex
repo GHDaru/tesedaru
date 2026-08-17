@@ -11,13 +11,13 @@ Este capítulo estabelece a base teórica sobre a qual o framework FALCO,
 proposto no Capítulo~\ref{ch:metodo}, é construído, e o faz na ordem em que os
 conceitos se encadeiam no argumento da tese. A Seção~\ref{sec:fund-super}
 apresenta o instrumental de aprendizado supervisionado do qual todos os
-capítulos seguintes dependem — a tarefa multiclasse, as métricas sob
+capítulos seguintes dependem: a tarefa multiclasse, as métricas sob
 desbalanceamento, as estratégias de validação e os testes estatísticos usados
 nas comparações. A Seção~\ref{sec:fund-al} formaliza o aprendizado ativo, o
 laço que compra rótulos seletivamente, e identifica as duas limitações do laço
 clássico que o FALCO ataca: a partida a frio e a suposição de oráculo
 perfeito. A Seção~\ref{sec:fund-llm} examina o que muda quando o oráculo é um
-modelo de linguagem de grande porte — capacidades, arquiteturas de integração,
+modelo de linguagem de grande porte: capacidades, arquiteturas de integração,
 ruído de rótulo e a estrutura de custo e medição que passa a existir. A
 Seção~\ref{sec:fund-stc} caracteriza o domínio de aplicação, a classificação
 de texto curto em português, e mostra por que ele tensiona simultaneamente as
@@ -46,18 +46,18 @@ há rótulos: o algoritmo identifica estruturas latentes, como agrupamentos ou
 direções de maior variância \cite{Murphy2012}. O \textbf{semi-supervisionado}
 combina uma pequena parcela rotulada com muitos exemplos não rotulados,
 explorando a estrutura destes para melhorar a generalização
-\cite{Chapelle2006}. O \textbf{aprendizado ativo} — objeto desta tese,
-formalizado na Seção~\ref{sec:fund-al} — ataca o mesmo gargalo do
+\cite{Chapelle2006}. O \textbf{aprendizado ativo}, objeto desta tese e
+formalizado na Seção~\ref{sec:fund-al}, ataca o mesmo gargalo do
 semi-supervisionado (o custo do rótulo) por via oposta: o próprio algoritmo
 escolhe, de forma interativa, quais instâncias submeter a um oráculo,
 priorizando as de maior benefício esperado \cite{Settles2009}. A distinção
-importa porque o desempenho passa a depender de duas políticas acopladas — a
-de seleção de instâncias e a de obtenção de rótulos — exatamente os dois
+importa porque o desempenho passa a depender de duas políticas acopladas: a
+de seleção de instâncias e a de obtenção de rótulos, exatamente os dois
 eixos que o FALCO instrumenta.
 
 A tarefa-alvo é a \textbf{classificação}: aprender $f: X \to Y$ com $Y$
-discreto \cite{Duda2001} — aqui, atribuir a cada descrição de produto uma
-dentre centenas de categorias. Com $K>2$ classes, classificadores binários
+discreto \cite{Duda2001}, o que aqui significa atribuir a cada descrição de
+produto uma dentre centenas de categorias. Com $K>2$ classes, classificadores binários
 podem ser combinados (um-contra-todos, um-contra-um) \cite{Rifkin2004}, mas os
 modelos usados nesta tese são multiclasse diretos: produzem um vetor de
 escores $(z_1,\dots,z_K)$ convertido em distribuição de probabilidade pela
@@ -70,11 +70,11 @@ treinados com perda de entropia cruzada \cite{Bishop2006, Murphy2012}. Essa
 distribuição $p$ é duplamente essencial no aprendizado ativo: além de fornecer
 a predição ($\arg\max_i p_i$), é dela que as estratégias de seleção por
 incerteza (Seção~\ref{sec:estrategias_selecao}) derivam seus escores. Os
-classificadores empregados nos experimentos — dois modelos vetoriais leves (um
-baseado em protótipos de classe e uma regressão logística multinomial, ambos
-sobre representação \textit{bag-of-words}) e o BERTimbau ajustado com uma camada
-de classificação \cite{Souza2020BERTimbau} — são detalhados no
-Capítulo~\ref{ch:metodo}.
+classificadores empregados nos experimentos são detalhados no
+Capítulo~\ref{ch:metodo}: dois modelos vetoriais leves (um baseado em
+protótipos de classe e uma regressão logística multinomial, ambos sobre
+representação \textit{bag-of-words}) e o BERTimbau ajustado com uma camada de
+classificação \cite{Souza2020BERTimbau}.
 
 \subsection{Métricas para classes desbalanceadas}
 \label{subsec:ml_evaluation}
@@ -104,16 +104,16 @@ No cenário multiclasse, a agregação \textbf{macro} calcula a métrica por
 classe e tira a média aritmética, dando peso igual a todas as classes; a
 agregação \textbf{micro} soma $TP$, $FP$ e $FN$ globais antes de aplicar a
 fórmula, refletindo sobretudo as classes majoritárias \cite{Sokolova2009}. Em
-bases com forte desbalanceamento — caso do conjunto de dados desta tese — o
+bases com forte desbalanceamento (caso do conjunto de dados desta tese), o
 \textbf{Macro F1-Score} é a métrica principal, por expor o desempenho nas
-classes raras. Alternativas com propósito semelhante — acurácia balanceada,
-coeficiente de correlação de Matthews e Kappa de Cohen — são discutidas por
+classes raras. Alternativas com propósito semelhante (acurácia balanceada,
+coeficiente de correlação de Matthews e Kappa de Cohen) são discutidas por
 \citet{Grandini2020} e \citet{Riyanto2023Comparative}; esta tese as dispensa
 porque o par Macro F1 + acurácia global já separa os dois fenômenos de
 interesse (desempenho nas caudas \textit{versus} desempenho agregado). A
 \textbf{matriz de confusão} $K \times K$, cuja entrada $[i,j]$ conta exemplos
 da classe real $i$ preditos como $j$, complementa as métricas agregadas ao
-revelar confusões sistemáticas entre pares de classes \cite{Han2012} —
+revelar confusões sistemáticas entre pares de classes \cite{Han2012}; é o
 instrumento usado no Capítulo~\ref{ch:metodo} para caracterizar o perfil de
 erro dos oráculos LLM.
 
@@ -583,9 +583,12 @@ o survey clássico de \citet{Frenay2014} organiza taxonomias de ruído
 funções de perda corrigidas; e \citet{Song2023NoisyLabels} revisam o estado da
 arte com redes profundas. Dois resultados importam diretamente: redes
 profundas toleram ruído moderado quando há dados suficientes, mas degradam de
-forma acentuada sob ruído estruturado (dependente de classe) — exatamente o
-perfil de erro observado em oráculos LLM, cujas confusões se concentram em
-pares de classes vizinhas. A evidência mais recente acrescenta uma cautela
+forma acentuada sob ruído dependente de classe que desloca fronteiras de
+decisão de modo sistemático. O perfil observado em oráculos LLM é um caso
+particular com estrutura própria: as confusões concentram-se em pares de
+classes semanticamente vizinhas, erros parcialmente defensáveis cujo dano ao
+classificador não se deduz da regra geral — é examinado empiricamente nesta
+tese (RQ3 e E4, Capítulo~\ref{ch:resultados-falco}). A evidência mais recente acrescenta uma cautela
 metodológica: ruído \emph{real} de anotação é substancialmente mais nocivo que
 as corrupções sintéticas usadas em avaliação — demonstrado em reconhecimento
 de entidades pelo NoiseBench \citep{Merdjanovska2024NoiseBench}, que inclui um
@@ -615,10 +618,12 @@ a confiança auto-reportada dos LLMs tende ao excesso, exigindo calibração
 \citep{Tian2023}; as janelas de contexto limitam o lote \citep{Bayer2024ActiveLLM}; e a
 resposta do mesmo modelo pode variar entre versões e provedores de
 \textit{serving}, fazendo de cada medição uma fotografia da tripla (modelo,
-provedor, data). A seleção ativa em múltiplos níveis — de instâncias, de
-\textit{prompts} e do próprio oráculo \citep{Wu2022} — é a generalização
-natural desse cenário. O Capítulo~\ref{ch:metodo} instrumenta cada um desses
-componentes; os experimentos E0 e E0-P os quantificam.
+provedor, data). A generalização natural desse cenário é estender a seleção
+ativa para além das instâncias: à escolha dos exemplos que compõem o
+\textit{prompt} de anotação \citep{Diao2023, Margatina2023, Zhang2023LLMaAA} e, passo que
+esta tese dá com os experimentos E0 e E0-P, à escolha do próprio oráculo e de
+sua configuração. O Capítulo~\ref{ch:metodo} instrumenta cada um desses
+componentes.
 
 Em síntese: com um oráculo LLM, qualidade, custo e instrumento de medição
 tornam-se três dimensões \emph{escolhíveis} de projeto — e é nesse espaço de
@@ -645,8 +650,8 @@ conjunto pré-definido de classes a partir de exemplos rotulados
 para sequências de comprimento limitado — tipicamente até 200 caracteres
 \cite{Song2014, Alsmadi2019} —, como \textit{tweets}, títulos de notícias,
 consultas e descrições de produtos \cite{Daru2024Dissertacao}. Quatro
-características tornam o regime difícil \cite{Ahmed2022, Ahmed2023,
-Song2014}: a \textbf{escassez de contexto}, que limita a desambiguação; a
+características tornam o regime difícil \cite{Ahmed2022, Song2014}: a
+\textbf{escassez de contexto}, que limita a desambiguação; a
 \textbf{esparsidade lexical} em alta dimensionalidade, que enfraquece métricas
 de similaridade e agrava a maldição da dimensionalidade; o \textbf{ruído e a
 informalidade} — erros, abreviações, gírias — que exigem normalização

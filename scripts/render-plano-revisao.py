@@ -36,8 +36,14 @@ out_dir.mkdir(parents=True, exist_ok=True)
 plano = json.loads((ROOT / "docs/records/plano-revisao.json").read_text(encoding="utf-8"))
 kpis_path = ROOT / "docs/records/kpis.json"
 mens_path = ROOT / "docs/records/mensagens.json"
+resultados_path = ROOT / "docs/records/resultados.json"
+referencias_path = ROOT / "docs/records/referencias.json"
+kg_path = ROOT / "fichamentos/kg.json"
 kpis = json.loads(kpis_path.read_text(encoding="utf-8")) if kpis_path.exists() else {}
 mens = json.loads(mens_path.read_text(encoding="utf-8")) if mens_path.exists() else {}
+resultados = json.loads(resultados_path.read_text(encoding="utf-8")) if resultados_path.exists() else {}
+referencias = json.loads(referencias_path.read_text(encoding="utf-8")) if referencias_path.exists() else {}
+kg = json.loads(kg_path.read_text(encoding="utf-8")) if kg_path.exists() else {}
 
 
 def as_json_script(elem_id: str, data) -> str:
@@ -65,6 +71,10 @@ SHARED_CSS = """
   --st-pendente:#7C8378; --st-pendente-bg:#EFF1EC;
   --st-na:#B6BCB0; --st-na-bg:#F5F6F3;
   --grid:#ECEEE9;
+  /* identidade por agente (kanban, ciclo 004b) — 5 matizes que não colidem
+     com accent/atencao/st-andamento, que já carregam outro significado */
+  --ag-principal:#6E42C1; --ag-banca:#0E7C86; --ag-revisor1:#B15C2E;
+  --ag-revisor2:#9C3F76; --ag-autor:#4A4E9E;
   /* tipografia: escala fixa 12/13/15/20/28/44 — nunca tamanho arbitrário */
   --fs-1:12px; --fs-2:13px; --fs-3:15px; --fs-4:20px; --fs-5:28px; --fs-6:44px;
   /* espaço em múltiplos de 4px */
@@ -82,6 +92,8 @@ SHARED_CSS = """
     --st-pendente:#9AA294; --st-pendente-bg:#232823;
     --st-na:#5C635A; --st-na-bg:#1D221E;
     --grid:#242A25;
+    --ag-principal:#B79AF0; --ag-banca:#7FDBE0; --ag-revisor1:#E3A67A;
+    --ag-revisor2:#E091C4; --ag-autor:#A7ABE8;
   }
 }
 :root[data-theme="dark"]{
@@ -94,6 +106,8 @@ SHARED_CSS = """
   --st-pendente:#9AA294; --st-pendente-bg:#232823;
   --st-na:#5C635A; --st-na-bg:#1D221E;
   --grid:#242A25;
+  --ag-principal:#B79AF0; --ag-banca:#7FDBE0; --ag-revisor1:#E3A67A;
+  --ag-revisor2:#E091C4; --ag-autor:#A7ABE8;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -179,6 +193,14 @@ a{color:var(--accent)}
 .fila .item:first-of-type{border-top:none}
 .fila .pts{margin-left:auto; white-space:nowrap; font-weight:700; color:var(--atencao)}
 .fila .tipo{font-size:var(--fs-1); color:var(--atencao); white-space:nowrap}
+/* trilha: o autor quer avaliar em sessões focadas (só texto, só
+   experimentos...) — cada trilha vira uma seção com contagem própria,
+   sempre visível de uma vez (sem abas escondendo itens) */
+.fila-trilha{margin-top:var(--sp-3)}
+.fila-trilha:first-child{margin-top:0}
+.fila-trilha-h{margin:0 0 .1rem; font-size:var(--fs-1); text-transform:uppercase; letter-spacing:.06em;
+  color:var(--atencao); display:flex; align-items:center; gap:.4rem; font-weight:700}
+.fila-trilha-n{background:var(--panel); border-radius:99px; padding:0 .5rem; font-weight:700}
 .vazia{font-size:var(--fs-3); color:var(--muted)}
 .chart-wrap{position:relative}
 svg text{fill:var(--muted); font:11px system-ui}
@@ -225,6 +247,23 @@ summary{cursor:pointer; font-size:var(--fs-2); font-weight:600}
 .atalho .n{font-size:var(--fs-5); font-weight:700; color:var(--accent)}
 .atalho .l{font-size:var(--fs-2); color:var(--muted)}
 @media (prefers-reduced-motion: no-preference){ .kpi.hero .v{transition:color .3s} }
+/* identidade por agente: pontinho colorido + nome por extenso ao lado —
+   nunca só a cor (mesma régua de estado do site inteiro). Decisão de UX
+   (ciclo do kanban): tag pequena, não o elemento inteiro pintado — pintar o
+   elemento inteiro competiria com outros sinais de cor já em uso (âmbar de
+   "para você"/"atrasado", pills de status). Compartilhado entre páginas
+   (Coordenação e Plano) — papel reutilizável, não específico do kanban. */
+.k-ag-dot{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:.35em;
+  vertical-align:middle; flex:none}
+.k-ag-dot[data-ag="principal"]{background:var(--ag-principal)}
+.k-ag-dot[data-ag="banca"]{background:var(--ag-banca)}
+.k-ag-dot[data-ag="revisor1"]{background:var(--ag-revisor1)}
+.k-ag-dot[data-ag="revisor2"]{background:var(--ag-revisor2)}
+.k-ag-dot[data-ag="autor"]{background:var(--ag-autor)}
+/* responsável ainda não atribuído ("a definir") — pontinho oco, nunca
+   invisível: a ausência de cor já é informação (ninguém assumiu ainda) */
+.k-ag-dot:not([data-ag="principal"]):not([data-ag="banca"]):not([data-ag="revisor1"]):not([data-ag="revisor2"]):not([data-ag="autor"]){
+  background:transparent; border:1px solid var(--muted)}
 """
 
 SHARED_JS = """
@@ -276,6 +315,9 @@ NAV = [
     ("plano.html", "Plano", "▤"),
     ("mensagens.html", "Coordenação", "✉"),
     ("resultados.html", "Resultados", "★"),
+    ("referencias.html", "Referências", "❐"),
+    ("grafo.html", "Grafo", "⬡"),
+    ("bibliometria.html", "Bibliometria", "◫"),
 ]
 
 
@@ -417,11 +459,28 @@ def build_controle() -> tuple[str, str]:
   el('fila-titulo').textContent = fila.length
     ? `🔒 Aguardando você — ${{fila.length}} ${{fila.length === 1 ? 'item' : 'itens'}}`
     : 'Nada espera você';
-  el('fila').innerHTML = fila.length ? fila.map(f => `
-    <div class="item"><span class="tipo">${{({{gate:'GATE', execucao:'RODAR', acao:'AÇÃO', decisao:'DECISÃO', mensagem:'MSG', processo:'SAÚDE'}})[f.tipo] || f.tipo}}</span>
+
+  // agrupada por trilha (plano v29, pedido do autor: avaliar em sessões
+  // focadas — só texto, só experimentos, etc.); item sem trilha cai em
+  // "Geral", sempre por último
+  const TIPO_LABEL = {{gate:'GATE', execucao:'RODAR', acao:'AÇÃO', decisao:'DECISÃO', mensagem:'MSG', processo:'SAÚDE'}};
+  const TRILHA_LABEL = {{texto:'Texto', bibliografia:'Bibliografia', experimentos:'Experimentos', processo:'Processo', geral:'Geral'}};
+  const TRILHA_ORDEM = ['texto', 'bibliografia', 'experimentos', 'processo', 'geral'];
+  const itemHtml = f => `
+    <div class="item"><span class="tipo">${{TIPO_LABEL[f.tipo] || f.tipo}}</span>
       <span class="t">${{esc(f.titulo)}}</span>
-      <span class="pts">${{f.pontos_destravados ? '+' + f.pontos_destravados + ' pts' : ''}}</span></div>`).join('')
-    : `<p class="vazia">O agente segue no próximo passo abaixo. ✓</p>`;
+      <span class="pts">${{f.pontos_destravados ? '+' + f.pontos_destravados + ' pts' : ''}}</span></div>`;
+  if (!fila.length) {{
+    el('fila').innerHTML = `<p class="vazia">O agente segue no próximo passo abaixo. ✓</p>`;
+  }} else {{
+    const grupos = {{}};
+    for (const f of fila) (grupos[f.trilha || 'geral'] ??= []).push(f);
+    el('fila').innerHTML = TRILHA_ORDEM.filter(t => grupos[t]?.length).map(t => `
+      <div class="fila-trilha">
+        <h3 class="fila-trilha-h">${{TRILHA_LABEL[t]}} <span class="fila-trilha-n">${{grupos[t].length}}</span></h3>
+        ${{grupos[t].map(itemHtml).join('')}}
+      </div>`).join('');
+  }}
 
   el('proximo-desc').textContent = (P.proximo && P.proximo.descricao) || 'indefinido — definir no ritual';
 }})();
@@ -454,6 +513,14 @@ def build_plano() -> tuple[str, str]:
     <caption>✓ feito · 🔒 em gate (espera você) · ◐ andamento · ○ pendente · – não se aplica · ⛓ bloqueado</caption>
   </table></div>
   <div id="aberturas"></div>
+</section>
+
+<section class="card" id="quebra-card">
+  <h2>Quebra por tema</h2>
+  <p class="vazia">Capítulos grandes demais para uma rodada só viram frentes
+  menores — cada tema segue sua própria sequência R3→R4→R1 antes de entrar
+  na reescrita do capítulo inteiro.</p>
+  <div id="quebras"></div>
 </section>
 
 <section class="card">
@@ -582,14 +649,69 @@ def build_plano() -> tuple[str, str]:
     <details><summary>${{c.titulo}} — o que abre esta frente</summary>
       <ul class="notes">${{c.abertura.map(a => `<li>${{esc(a)}}</li>`).join('')}}</ul></details>` : '').join('');
 
+  // quebra por tema: capítulos grandes demais para uma rodada só (hoje só o
+  // Cap.2) viram frentes menores, cada uma com sua própria sequência de
+  // etapas — ver capitulos[].quebra / sequencia_rodadas no plano
+  const STAGE_ORDER = ['aberto', 'r3', 'r4', 'r1', 'gate', 'feito'];
+  const STAGE_CLASS = {{aberto: 'pendente', r3: 'andamento', r4: 'andamento', r1: 'andamento', gate: 'gate', feito: 'feito'}};
+  const capsComQuebra = P.capitulos.filter(c => (c.quebra || []).length);
+  if (capsComQuebra.length) {{
+    el('quebras').innerHTML = capsComQuebra.map(c => {{
+      const temas = c.quebra;
+      const pct = Math.round(100 * temas.reduce((s, t) => s + STAGE_ORDER.indexOf(t.status), 0)
+        / (temas.length * (STAGE_ORDER.length - 1)));
+      const cards = temas.map(t => {{
+        const cls = STAGE_CLASS[t.status] || 'pendente';
+        const semDef = t.responsavel === 'a definir';
+        // Cap.2 usa "citacoes", Caps.3-6 usam "citacoes_chaves" — mesmo dado,
+        // nome de campo diferente entre capítulos no plano; aceita os dois
+        const citacoes = t.citacoes ?? t.citacoes_chaves;
+        const note = t.nota ? ` title="${{esc(t.nota)}}"` : '';
+        return `<div class="tema-card">
+          <div class="tema-top">
+            <span class="pill ${{cls}}${{t.nota ? ' has-note' : ''}}"${{note}}>${{GLIFO[cls]}} ${{esc(t.status)}}</span>
+            <span class="tema-resp${{semDef ? ' tema-resp-indef' : ''}}"><span class="k-ag-dot" data-ag="${{esc(t.responsavel)}}" aria-hidden="true"></span>${{esc(t.responsavel)}}</span>
+          </div>
+          <p class="tema-nome">${{esc(t.tema)}}</p>
+          <p class="tema-dim">linhas ${{esc(t.linhas)}} · ${{t.palavras}} palavras · ${{t.travessoes}} travessões · ${{citacoes ?? '—'}} citações</p>
+        </div>`;
+      }}).join('');
+      return `<div class="quebra-cap">
+        <div class="quebra-cap-head"><h3>${{esc(c.titulo)}}</h3>
+          <span class="quebra-pct">${{pct}}% <small>(ponderado pela etapa de cada tema)</small></span></div>
+        <div class="progress" role="progressbar" aria-valuenow="${{pct}}" aria-valuemin="0" aria-valuemax="100"
+          aria-label="Progresso por tema de ${{esc(c.titulo)}}"><div class="progress-bar" style="width:${{pct}}%"></div></div>
+        ${{c.sequencia_rodadas ? `<p class="quebra-seq">${{esc(c.sequencia_rodadas)}}</p>` : ''}}
+        <div class="temas-grid">${{cards}}</div>
+      </div>`;
+    }}).join('');
+  }} else {{
+    el('quebra-card').style.display = 'none';
+  }}
+
+  // dois formatos convivem em execucoes.itens: experimentos (o_que/onde/
+  // duracao/resultado_esperado/dono) e itens de texto em gate (descricao/
+  // branch/commit/responsavel/bloqueado_por) — normaliza os dois aqui
   const EX = {{aguardando_inicio:['pendente','aguardando início'], rodando:['andamento','rodando'],
-              concluido:['feito','concluído'], falhou:['gate','falhou']}};
+              concluido:['feito','concluído'], falhou:['gate','falhou'],
+              gate:['gate','gate'], bloqueado:['pendente','bloqueado']}};
   const exec = P.execucoes?.itens || [];
   el('exec').innerHTML = exec.length ? exec.map(i => {{
     const [cls, lab] = EX[i.estado] || ['pendente', i.estado];
-    return `<div class="item"><span class="pill ${{cls}}">${{lab}}</span>
-      <span class="t">${{esc(i.o_que)}} <small style="color:var(--muted)">· ${{esc(i.onde)}} · ~${{i.duracao}} · → ${{esc(i.resultado_esperado)}}</small></span>
-      <span class="who">${{i.dono}}</span></div>`; }}).join('')
+    const oque = i.o_que || i.descricao || '';
+    const dono = i.dono || i.responsavel || '';
+    const bloqPor = Array.isArray(i.bloqueado_por) ? i.bloqueado_por.join(', ') : i.bloqueado_por;
+    const extras = [
+      i.onde || (i.branch ? `branch ${{i.branch}}${{i.commit ? ' @ ' + i.commit : ''}}` : ''),
+      i.duracao ? `~${{i.duracao}}` : '',
+      i.resultado_esperado ? `→ ${{i.resultado_esperado}}` : '',
+      bloqPor ? `bloqueado por: ${{bloqPor}}` : '',
+    ].filter(Boolean).map(esc).join(' · ');
+    const aprov = i.aprovacao_previa_autor
+      ? ` <span class="pill andamento" title="${{esc(i.aprovacao_previa_autor)}}">✓ aprovação prévia do autor</span>` : '';
+    return `<div class="item"><span class="pill ${{cls}}">${{lab}}</span>${{aprov}}
+      <span class="t">${{esc(oque)}}${{extras ? ' <small style="color:var(--muted)">· ' + extras + '</small>' : ''}}</span>
+      <span class="who">${{esc(dono)}}</span></div>`; }}).join('')
     : '<p class="vazia">0 execuções ativas</p>';
 
   el('grupos').innerHTML = P.artefatos.map(g => {{
@@ -608,100 +730,753 @@ def build_plano() -> tuple[str, str]:
     .map(([k, v]) => `<span class="pill ${{k}}" title="${{esc(v)}}">${{GLIFO[k] || ''}} ${{k}}</span>`).join('');
   el('meta-saida').textContent = `Meta de saída: parecer ARS ${{K.meta_saida.parecer_ars}} → ${{K.meta_saida.alvo}}.`;
 }})();
-</script>"""
+</script>
+<style>
+.quebra-cap{{border-top:1px dashed var(--border); padding:var(--sp-4) 0}}
+.quebra-cap:first-of-type{{border-top:none; padding-top:0}}
+.quebra-cap-head{{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:var(--sp-3)}}
+.quebra-cap-head h3{{margin:0; font-size:var(--fs-3); min-width:0}}
+.quebra-pct{{font-weight:700; color:var(--accent); min-width:0}}
+.quebra-pct small{{font-weight:400; color:var(--muted); font-size:var(--fs-1)}}
+.quebra-seq{{margin:var(--sp-2) 0 0; color:var(--muted); font-size:var(--fs-2)}}
+.temas-grid{{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:var(--sp-3); margin-top:var(--sp-3)}}
+.tema-card{{background:var(--ground); border:1px solid var(--border); border-radius:8px; padding:var(--sp-3);
+  display:flex; flex-direction:column; gap:var(--sp-1)}}
+.tema-top{{display:flex; align-items:center; justify-content:space-between; gap:var(--sp-2)}}
+.tema-resp{{font-size:var(--fs-1); color:var(--muted); display:inline-flex; align-items:center}}
+.tema-resp-indef{{opacity:.6; font-style:italic}}
+.tema-nome{{margin:0; font-size:var(--fs-2); font-weight:600}}
+.tema-dim{{margin:0; font-size:var(--fs-1); color:var(--muted)}}
+</style>"""
     return body, script
 
 
 # --------------------------------------------------------------------------
-# Coordenação (mensagens.html) — Fatia 1: renderização em tabela (o kanban é
-# Fatia 2); mantém a função íntegra dentro do novo casco de navegação.
+# Coordenação (mensagens.html) — Fatia 2: board kanban somente-leitura
+# (Aberta · Em andamento · Concluída), filtros por agente/tipo, arquivadas
+# recolhidas abaixo, locks + saúde da coordenação.
 # --------------------------------------------------------------------------
 def build_coordenacao() -> tuple[str, str]:
     body = """
 <header class="page-head"><h1>Coordenação</h1>
   <span class="meta" id="meta"></span></header>
 
-<section class="card"><h2 id="t-ativas">Ativas</h2>
-  <div class="scroll"><table id="ativas"></table></div></section>
-<section class="card"><h2 id="t-conc">Concluídas</h2>
-  <div class="scroll"><table id="concluidas"></table></div></section>
-<section class="card"><details><summary id="t-arq">Arquivadas</summary>
+<section class="card">
+  <p class="ro-nota">🔒 quadro somente leitura — o estado muda pelos agentes no repositório (renomeação do arquivo é a reserva atômica do protocolo)</p>
+  <div class="filtros" id="filtros" aria-label="Filtros do quadro"></div>
+</section>
+
+<div id="board-status" class="sr-only" role="status" aria-live="polite"></div>
+<section class="k-board" id="board" aria-label="Quadro de coordenação"></section>
+
+<section class="card"><details id="arq-det"><summary id="t-arq">Arquivadas</summary>
   <div class="scroll"><table id="arquivadas"></table></div></details></section>
+
 <section class="card"><h2>Locks de superfície</h2><div id="locks"></div></section>
+
+<section class="card"><h2>Saúde da coordenação</h2><p id="saude" class="vazia"></p></section>
 """
     json_blocks = as_json_script('mensagens', mens)
-    script = json_blocks + f"""
+    script = json_blocks + """
 <script>
-(function(){{
+(function(){
 const M = JSON.parse(document.getElementById('mensagens').textContent);
-const esc = s => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
-const GL = {{aberta:'○ aberta', 'em-andamento':'◐ em andamento', concluida:'● concluída'}};
-const fmts = ts => `${{ts.slice(6,8)}}/${{ts.slice(4,6)}} ${{ts.slice(9,11)}}:${{ts.slice(11,13)}} UTC`;
-const idade = h => h < 1 ? `${{Math.round(h*60)}} min` : h < 48 ? `${{Math.round(h)}} h` : `${{Math.round(h/24)}} dias`;
-document.getElementById('meta').textContent = `Atualizada em ${{M.computado_em}} · fonte: coordenacao/ no repositório`;
+const esc = s => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const idade = h => h < 1 ? `${Math.round(h*60)} min` : h < 48 ? `${Math.round(h)} h` : `${Math.round(h/24)} dias`;
+document.getElementById('meta').textContent = `Atualizada em ${M.computado_em} · fonte: coordenacao/ no repositório`;
+
+const AGENTES = ['principal', 'banca', 'revisor1', 'revisor2', 'autor'];
+const TIPOS = ['tarefa', 'pergunta', 'aviso'];
+const TIPO_LABEL = {tarefa: 'tarefa', pergunta: 'pergunta', aviso: 'aviso'};
+const COLS = [
+  {estado: 'aberta', nome: 'Aberta', glifo: '○'},
+  {estado: 'em-andamento', nome: 'Em andamento', glifo: '◐'},
+  {estado: 'concluida', nome: 'Concluída', glifo: '●'},
+];
+
+const todas = (M.mensagens || []).slice().sort((a, b) => b.ts.localeCompare(a.ts));
+const ativas = todas.filter(m => !m.arquivada);
+const arquivadas = todas.filter(m => m.arquivada);
+
+// estado dos filtros: tudo ativo por padrão (mostra tudo até o usuário desligar algo)
+const filtroState = {agente: Object.fromEntries(AGENTES.map(a => [a, true])),
+                      tipo: Object.fromEntries(TIPOS.map(t => [t, true]))};
+
+function hoje() { return new Date(); }
+function prazoVencido(prazo) {
+  if (!prazo) return false;
+  const d = new Date(prazo);
+  return !isNaN(d) && d < hoje();
+}
+function prazoFmt(prazo) { return esc(String(prazo).slice(0, 10)); }
+
+// ux-design.md §4: fila priorizada dentro da raia — o essencial fica
+// visível no topo mesmo sem rolar (atrasado+para-você > para-você > atrasado > recência)
+function prioridade(m) {
+  const pv = m.para === 'autor', atr = prazoVencido(m.prazo);
+  if (pv && atr) return 0;
+  if (pv) return 1;
+  if (atr) return 2;
+  return 3;
+}
+function ordenarPorPrioridade(itens) {
+  return itens.slice().sort((a, b) => prioridade(a) - prioridade(b) || b.ts.localeCompare(a.ts));
+}
+
+function card(m) {
+  const paraVoce = m.para === 'autor';
+  const atrasado = prazoVencido(m.prazo);
+  const tituloTxt = m.acao_esperada || m.slug.replace(/-/g, ' ');
+  const titulo = esc(tituloTxt);
+  const ref = m.referencia ? esc(m.referencia) : '';
+  let rodape = `há ${idade(m.idade_horas)}`;
+  if (m.prazo) rodape += ` · prazo ${prazoFmt(m.prazo)}`;
+  const agDot = AGENTES.includes(m.de) ? `<span class="k-ag-dot" data-ag="${esc(m.de)}" aria-hidden="true"></span>` : '';
+  return `<article class="k-card${paraVoce ? ' para-voce' : ''}${atrasado ? ' atrasado' : ''}"
+      data-de="${esc(m.de)}" data-para="${esc(m.para)}" data-tipo="${esc(m.tipo)}">
+    ${paraVoce ? '<span class="k-badge">para você</span>' : ''}
+    <p class="k-titulo" title="${titulo}">${titulo}</p>
+    <p class="k-rota"><strong>${agDot}${esc(m.de)} → ${esc(m.para)}</strong> <span class="k-tipo">${esc(TIPO_LABEL[m.tipo] || m.tipo)}</span></p>
+    <p class="k-rodape">${rodape}${atrasado ? ' <strong class="k-atrasado">⚠ atrasado</strong>' : ''}</p>
+    ${ref ? `<p class="k-ref" title="${ref}">${ref}</p>` : ''}
+  </article>`;
+}
+
+function passaFiltro(m) {
+  const agOk = filtroState.agente[m.de] || filtroState.agente[m.para] ||
+    (!AGENTES.includes(m.de) && !AGENTES.includes(m.para));
+  const tpOk = filtroState.tipo[m.tipo] !== undefined ? filtroState.tipo[m.tipo] : true;
+  return agOk && tpOk;
+}
+
+function renderBoard() {
+  const board = document.getElementById('board');
+  const resumo = [];
+  board.innerHTML = COLS.map(c => {
+    const totalColuna = ativas.filter(m => m.estado === c.estado).length;
+    const itens = ordenarPorPrioridade(ativas.filter(m => m.estado === c.estado && passaFiltro(m)));
+    resumo.push(`${c.nome}: ${itens.length}`);
+    const vazio = totalColuna === 0
+      ? '<p class="vazia">Nada aqui</p>'
+      : '<p class="vazia">Nada aqui com os filtros atuais</p>';
+    const hId = `k-col-h-${c.estado}`;
+    return `<div class="k-col" role="region" aria-labelledby="${hId}">
+      <h2 class="k-col-h" id="${hId}">${c.glifo} ${c.nome} <span class="k-count">${itens.length}</span></h2>
+      <div class="k-cards" tabindex="0" aria-label="Coluna ${esc(c.nome)}, ${itens.length} ${itens.length === 1 ? 'item' : 'itens'}">
+        ${itens.length ? itens.map(card).join('') : vazio}
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('board-status').textContent = resumo.join(' · ');
+  // somente leitura: sem draggable, sem dragover/drop — arrastar não faz nada
+}
+
+function renderFiltros() {
+  const wrap = document.getElementById('filtros');
+  const pill = (grupo, val, label) => {
+    const dot = grupo === 'agente' ? `<span class="k-ag-dot" data-ag="${esc(val)}" aria-hidden="true"></span>` : '';
+    return `<button type="button" class="pilula on" data-grupo="${grupo}" data-val="${esc(val)}" aria-pressed="true">${dot}${esc(label)}</button>`;
+  };
+  wrap.innerHTML =
+    `<div class="pilulas" aria-label="Filtrar por agente">` + AGENTES.map(a => pill('agente', a, a)).join('') + `</div>` +
+    `<div class="pilulas" aria-label="Filtrar por tipo">` + TIPOS.map(t => pill('tipo', t, TIPO_LABEL[t])).join('') + `</div>`;
+  wrap.querySelectorAll('.pilula').forEach(btn => btn.addEventListener('click', () => {
+    const grupo = btn.dataset.grupo, val = btn.dataset.val;
+    filtroState[grupo][val] = !filtroState[grupo][val];
+    btn.classList.toggle('on', filtroState[grupo][val]);
+    btn.setAttribute('aria-pressed', String(filtroState[grupo][val]));
+    renderBoard();
+  }));
+}
+
+renderFiltros();
+renderBoard();
+
+// arquivadas: recolhidas, não são coluna do board
+const cab = '<thead><tr><th>Quando</th><th>De → Para</th><th>Assunto e ação esperada</th></tr></thead>';
+const fmts = ts => `${ts.slice(6,8)}/${ts.slice(4,6)} ${ts.slice(9,11)}:${ts.slice(11,13)} UTC`;
 const linha = m => `<tr>
-  <td><span class="estado ${{m.estado}}">${{GL[m.estado]}}</span></td>
-  <td class="quando">${{fmts(m.ts)}}<br><small>há ${{idade(m.idade_horas)}}</small></td>
-  <td class="rota">${{esc(m.de)}} → ${{esc(m.para)}}<small>${{esc(m.tipo)}}</small></td>
-  <td class="assunto"><strong>${{esc(m.slug.replace(/-/g,' '))}}</strong>
-    <small>${{esc(m.acao_esperada)}}${{m.prazo ? ' · prazo ' + esc(m.prazo).slice(0,10) : ''}}
-    ${{m.referencia ? '<br>ref: ' + esc(m.referencia) : ''}}</small></td></tr>`;
-const cab = '<thead><tr><th>Estado</th><th>Quando</th><th>De → Para</th><th>Assunto e ação esperada</th></tr></thead>';
-const tab = (id, lista, vazioTxt) => {{
-  const el = document.getElementById(id);
-  el.innerHTML = lista.length ? cab + '<tbody>' + lista.map(linha).join('') + '</tbody>' : '';
-  if (!lista.length) el.outerHTML = `<p class="vazia">${{vazioTxt}}</p>`;
-  return lista.length;
-}};
-const ms = (M.mensagens||[]).slice().sort((a,b)=> b.ts.localeCompare(a.ts));
-const ativas = ms.filter(m => m.estado !== 'concluida' && !m.arquivada);
-const conc   = ms.filter(m => m.estado === 'concluida' && !m.arquivada);
-const arq    = ms.filter(m => m.arquivada);
-document.getElementById('t-ativas').textContent = `Ativas (${{ativas.length}})`;
-document.getElementById('t-conc').textContent = `Concluídas (${{conc.length}})`;
-document.getElementById('t-arq').textContent = `Arquivadas (${{arq.length}})`;
-tab('ativas', ativas, 'Sem mensagens ativas.');
-tab('concluidas', conc, 'Nenhuma concluída ainda na caixa.');
-tab('arquivadas', arq, 'Nada arquivado ainda.');
+  <td class="quando">${fmts(m.ts)}<br><small>há ${idade(m.idade_horas)}</small></td>
+  <td class="rota">${esc(m.de)} → ${esc(m.para)}<small>${esc(m.tipo)}</small></td>
+  <td class="assunto"><strong>${esc(m.slug.replace(/-/g,' '))}</strong>
+    <small>${esc(m.acao_esperada)}${m.referencia ? '<br>ref: ' + esc(m.referencia) : ''}</small></td></tr>`;
+document.getElementById('t-arq').textContent = `Arquivadas (${arquivadas.length})`;
+const arqTab = document.getElementById('arquivadas');
+arqTab.innerHTML = arquivadas.length ? cab + '<tbody>' + arquivadas.map(linha).join('') + '</tbody>' : '';
+if (!arquivadas.length) arqTab.outerHTML = '<p class="vazia">Nada arquivado ainda.</p>';
+
 const locks = M.locks || [];
 document.getElementById('locks').innerHTML = locks.length ? locks.map(l => `
-  <p style="margin:.25rem 0">${{l.vencido ? '✕' : '●'}} <code>${{esc(l.superficie)}}</code>
-   · dono ${{esc(l.dono)}} · ${{l.vencido ? 'vencido — quebrável' : 'renovado há ' + l.renovado_ha_min + ' min'}}</p>`).join('')
+  <p style="margin:.25rem 0">${l.vencido ? '✕' : '●'} <code>${esc(l.superficie)}</code>
+   · dono ${esc(l.dono)} · ${l.vencido ? 'vencido — quebrável' : 'renovado há ' + l.renovado_ha_min + ' min'}</p>`).join('')
   : '<p class="vazia">Nenhuma superfície travada.</p>';
-}})();
+
+const s = M.saude || {};
+const doente = s.bloqueio_mais_antigo_h > 48 || s.locks_vencidos > 0;
+document.getElementById('saude').textContent = doente
+  ? `✕ Doente — bloqueio mais antigo ${s.bloqueio_mais_antigo_h}h · locks vencidos ${s.locks_vencidos} · mensagens ativas ${s.mensagens_ativas}`
+  : `✓ Saudável — mensagens ativas ${s.mensagens_ativas} · para o autor (abertas) ${s.para_autor_abertas} · locks ativos ${s.locks_ativos}`;
+})();
 </script>
 <style>
-.estado{{display:inline-flex; gap:.35rem; align-items:center; white-space:nowrap; font-weight:600}}
-.estado.aberta{{color:var(--atencao)}}
-.estado.em-andamento{{color:var(--accent)}}
-.estado.concluida{{color:var(--muted)}}
-td.quando{{white-space:nowrap; color:var(--muted)}}
-td.rota{{white-space:nowrap; font-weight:600}}
-td.rota small{{display:block; font-weight:400; color:var(--muted)}}
-td.assunto strong{{display:block}}
-td.assunto small{{color:var(--muted)}}
+.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+  clip:rect(0,0,0,0); white-space:nowrap; border:0}
+.ro-nota{margin:0 0 var(--sp-3); color:var(--muted); font-size:var(--fs-2)}
+.filtros{display:flex; flex-wrap:wrap; gap:var(--sp-4)}
+.pilulas{display:flex; flex-wrap:wrap; gap:var(--sp-2)}
+.pilula{border:1px solid var(--border); background:var(--panel); color:var(--muted); border-radius:99px;
+  padding:.25rem .7rem; font-size:var(--fs-2); cursor:pointer}
+.pilula.on{border-color:var(--accent); color:var(--accent); background:var(--accent-soft); font-weight:600}
+/* ux-design.md §2/§5: o board tem altura ~constante (raia limitada); quem
+   rola é cada coluna (.k-cards), nunca a página inteira por causa de N cartões */
+.k-board{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--sp-4); align-items:start}
+.k-col{background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:var(--sp-3); display:flex;
+  flex-direction:column; gap:var(--sp-2); min-width:0}
+/* as duas media queries vêm DEPOIS das regras base — min-width:260px do
+   breakpoint intermediário precisa vencer o min-width:0 da regra base na
+   cascata (mesma especificidade; quem aparece por último ganha) */
+@media (max-width:1099px) and (min-width:601px){
+  .k-board{display:flex; overflow-x:auto; overscroll-behavior-x:contain; padding-bottom:var(--sp-2)}
+  .k-col{min-width:260px; flex:1 0 260px}
+}
+@media (max-width:600px){ .k-board{grid-template-columns:1fr} }
+.k-col-h{font-size:var(--fs-3); display:flex; align-items:center; gap:var(--sp-2); margin:0 0 var(--sp-1)}
+.k-count{margin-left:auto; color:var(--muted); font-size:var(--fs-1); font-weight:400}
+.k-cards{display:flex; flex-direction:column; gap:var(--sp-2); min-width:0;
+  max-height:clamp(320px,58vh,640px); overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; padding-right:var(--sp-1)}
+.k-card{background:var(--ground); border:1px solid var(--border); border-radius:8px; padding:var(--sp-2) var(--sp-3);
+  cursor:default; position:relative; display:flex; flex-direction:column; gap:var(--sp-1); line-height:1.3; min-width:0}
+.k-card.para-voce{border-color:var(--atencao-borda); box-shadow:inset 3px 0 0 var(--atencao)}
+.k-badge{align-self:flex-start; background:var(--atencao-bg); color:var(--atencao); border:1px solid var(--atencao-borda);
+  border-radius:99px; padding:.05rem .55rem; font-size:var(--fs-1); font-weight:700}
+/* fonte um pouco menor no cartão inteiro (pedido do autor) — título sai de
+   --fs-3 para --fs-2, o resto já estava no piso da escala (--fs-1) */
+.k-titulo{margin:0; font-size:var(--fs-2); font-weight:600; line-height:1.25;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+.k-rota{margin:0; font-size:var(--fs-1)}
+.k-rota strong{font-weight:600}
+.k-tipo{color:var(--muted); font-size:var(--fs-1)}
+.k-rodape{margin:0; color:var(--muted); font-size:var(--fs-1)}
+.k-atrasado{color:var(--atencao)}
+.k-ref{margin:0; color:var(--muted); font-size:var(--fs-1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.pilula .k-ag-dot{margin-right:.4em}
+.estado{display:inline-flex; gap:.35rem; align-items:center; white-space:nowrap; font-weight:600}
+td.quando{white-space:nowrap; color:var(--muted)}
+td.rota{white-space:nowrap; font-weight:600}
+td.rota small{display:block; font-weight:400; color:var(--muted)}
+td.assunto strong{display:block}
+td.assunto small{color:var(--muted)}
 </style>"""
     return body, script
 
 
 # --------------------------------------------------------------------------
-# Resultados (resultados.html) — stub de navegação nesta fatia; o conteúdo
-# real (achados por pilar, entregas, experimentos) é a Fatia 2.
+# Resultados (resultados.html) — Fatia 2: o que a tese já produziu, para o
+# autor e a banca. Três blocos com papéis diferentes: achados (conclusão
+# científica sustentada por evidência), entregas (artefato que existe) e
+# experimentos executados. Conteúdo lido de docs/records/resultados.json —
+# outro agente aprofunda; esta função só entrega a estrutura + os exemplos
+# reais já carregados no JSON.
 # --------------------------------------------------------------------------
 def build_resultados() -> tuple[str, str]:
     body = """
 <header class="page-head"><h1>Resultados</h1>
-  <span class="meta">o que a tese já produziu</span></header>
+  <span class="meta" id="meta"></span></header>
 
 <section class="card">
-  <p class="vazia">Esta página chega na próxima entrega: achados por pilar
-  (P1–P4) com evidência, entregas da tese (artigos, biblioteca, dataset,
-  fichamentos) e a tabela de experimentos executados. A estrutura de
-  navegação já está pronta — o conteúdo é preenchido a partir de
-  <code>docs/records/resultados.json</code>.</p>
+  <p class="vazia">O que a tese já produziu, com a evidência que sustenta cada
+  número — vitrine para o autor e a banca, sem afirmação sem fonte.</p>
+</section>
+
+<section aria-label="Achados por pilar">
+  <div id="achados-pilares"></div>
+</section>
+
+<section class="card">
+  <h2>Entregas</h2>
+  <div class="entregas" id="entregas"></div>
+</section>
+
+<section class="card">
+  <h2>Experimentos executados</h2>
+  <div class="scroll"><table id="experimentos"></table></div>
 </section>
 """
-    return body, ""
+    json_blocks = as_json_script('resultados', resultados)
+    script = json_blocks + """
+<script>
+(function(){
+const R = JSON.parse(document.getElementById('resultados').textContent || '{}');
+const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+document.getElementById('meta').textContent = R.atualizado_em ? `atualizado em ${R.atualizado_em}` : '';
+
+const pilares = R.pilares || {};
+const achados = R.achados || [];
+document.getElementById('achados-pilares').innerHTML = Object.entries(pilares).map(([id, nome]) => {
+  const itens = achados.filter(a => a.pilar === id);
+  const corpo = itens.length ? itens.map(a => `
+    <div class="achado">
+      <p class="achado-afirmacao">${esc(a.afirmacao)}</p>
+      <p class="achado-numero">${esc(a.numero)}</p>
+      <p class="achado-evidencia">${esc(a.evidencia)}</p>
+      ${a.detalhe ? `<p class="achado-detalhe">${esc(a.detalhe)}</p>` : ''}
+    </div>`).join('') : '<p class="vazia">Sem achados registrados nesta versão.</p>';
+  return `<div class="card" style="margin-bottom:var(--sp-4)">
+    <h2>${esc(id)} — ${esc(nome)}</h2>
+    ${corpo}
+  </div>`;
+}).join('');
+
+const entregas = R.entregas || [];
+document.getElementById('entregas').innerHTML = entregas.length ? entregas.map(e => {
+  const isLink = /^https?:\\/\\/|^doi\\.org\\//.test(e.link_ou_caminho || '');
+  const alvo = isLink
+    ? `<a href="${/^https?:\\/\\//.test(e.link_ou_caminho) ? esc(e.link_ou_caminho) : 'https://' + esc(e.link_ou_caminho)}">${esc(e.link_ou_caminho)}</a>`
+    : `<code>${esc(e.link_ou_caminho || '')}</code>`;
+  return `<div class="entrega">
+    <p class="entrega-nome">${esc(e.nome)}</p>
+    <p class="entrega-descricao">${esc(e.descricao)}</p>
+    <p class="entrega-link">${alvo}</p>
+  </div>`;
+}).join('') : '<p class="vazia">Nenhuma entrega registrada ainda.</p>';
+
+const experimentos = R.experimentos || [];
+const cab = '<thead><tr><th>Experimento</th><th>Pergunta</th><th>Resultado</th><th>Artefato</th></tr></thead>';
+const linha = x => `<tr>
+  <td class="chap">${esc(x.id)}</td>
+  <td>${x.pergunta ? esc(x.pergunta) : '<span class="vazia">—</span>'}</td>
+  <td>${x.resultado ? esc(x.resultado) : '<span class="vazia">pendente' + (x.nota ? ': ' + esc(x.nota) : '') + '</span>'}</td>
+  <td class="tot">${x.artefato ? esc(x.artefato) : '—'}</td></tr>`;
+const expTab = document.getElementById('experimentos');
+expTab.innerHTML = experimentos.length ? cab + '<tbody>' + experimentos.map(linha).join('') + '</tbody>' : '';
+if (!experimentos.length) expTab.outerHTML = '<p class="vazia">Nenhum experimento registrado ainda.</p>';
+})();
+</script>
+<style>
+.achado{border-top:1px dashed var(--border); padding:var(--sp-3) 0}
+.achado:first-of-type{border-top:none; padding-top:0}
+.achado-afirmacao{margin:0 0 var(--sp-1); font-size:var(--fs-3)}
+.achado-numero{margin:0; font-size:var(--fs-5); font-weight:700; color:var(--accent)}
+.achado-evidencia{margin:.2rem 0 0; color:var(--muted); font-size:var(--fs-1)}
+.achado-detalhe{margin:.3rem 0 0; color:var(--muted); font-size:var(--fs-2)}
+.entregas{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:var(--sp-3)}
+.entrega{border:1px solid var(--border); border-radius:8px; padding:var(--sp-3); background:var(--ground)}
+.entrega-nome{margin:0; font-weight:600; font-size:var(--fs-3)}
+.entrega-descricao{margin:.25rem 0; color:var(--muted); font-size:var(--fs-2)}
+.entrega-link{margin:0; font-size:var(--fs-1); word-break:break-word}
+</style>"""
+    return body, script
+
+
+# --------------------------------------------------------------------------
+# Referências (referencias.html) — tabela ordenável de tudo o que a tese
+# cita, cruzado com fichamento e PDF. Pedido literal do autor (tarefa do
+# principal 20260816-2110). ux-design.md do ciclo 003 explica os porquês.
+# --------------------------------------------------------------------------
+def build_referencias() -> tuple[str, str]:
+    body = """
+<header class="page-head"><h1>Referências</h1>
+  <span class="meta" id="meta"></span></header>
+
+<section class="card">
+  <input type="search" id="ref-busca" class="ref-busca"
+    placeholder="Buscar por título, autor ou chave…" aria-label="Buscar referência">
+</section>
+
+<section class="card">
+  <div class="scroll"><table id="ref-tabela"></table></div>
+</section>
+"""
+    json_blocks = as_json_script('referencias', referencias)
+    script = json_blocks + """
+<script>
+(function(){
+const R = JSON.parse(document.getElementById('referencias').textContent || '{}');
+const refs = R.referencias || [];
+const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+document.getElementById('meta').textContent = R.computado_em
+  ? `${R.total} referências · ${R.citadas} citadas no livro · atualizado em ${R.computado_em}` : '';
+
+const COLS = [
+  {key:'ordem',    label:'#',            kind:'num',  get:r=>r.ordem},
+  {key:'titulo',   label:'Título',       kind:'str',  get:r=>r.titulo},
+  {key:'autores',  label:'Autores',      kind:'str',  get:r=>(r.autores[0]||'')},
+  {key:'ano',      label:'Ano',          kind:'num',  get:r=>(r.ano ? parseInt(r.ano,10) : null)},
+  {key:'onde',     label:'Onde citada',  kind:'num',  get:r=>r.ordem},
+  {key:'link',     label:'Link',         kind:'str',  get:r=>(r.link_tipo||'')},
+  {key:'pdf',      label:'PDF',          kind:'bool', get:r=>r.pdf},
+  {key:'fichado',  label:'Fichado',      kind:'bool', get:r=>r.fichado},
+  {key:'detalhes', label:'Detalhes',     sortable:false},
+];
+
+let sortState = {campo:'ordem', dir:1};
+let filtro = '';
+
+function cmp(a, b, col, dir){
+  const va = col.get(a), vb = col.get(b);
+  if (va == null && vb == null) return 0;
+  if (va == null) return 1;
+  if (vb == null) return -1;
+  let res;
+  if (col.kind === 'num') res = va - vb;
+  else if (col.kind === 'bool') res = (vb?1:0) - (va?1:0);
+  else res = String(va).localeCompare(String(vb), 'pt-BR');
+  return dir * res;
+}
+
+function shortCap(capStr){ return capStr ? capStr.split(' — ')[0] : ''; }
+
+function autoresTxt(autores){
+  if (!autores || !autores.length) return '—';
+  if (autores.length <= 3) return esc(autores.join(', '));
+  return `<span title="${esc(autores.join(', '))}">${esc(autores[0])} et al.</span>`;
+}
+
+function ondeCell(r){
+  if (!r.primeira_aparicao) return '<span class="vazia">não citada</span>';
+  const cap = shortCap(r.primeira_aparicao.capitulo);
+  const sec = r.primeira_aparicao.secao;
+  const tip = r.ocorrencias.map(o => `${o.capitulo}${o.secao ? ' § ' + o.secao : ''}`).join('\\n');
+  return `<span title="${esc(tip)}">${esc(cap)}${sec ? ' §' + esc(sec) : ''}` +
+    (r.total_ocorrencias > 1 ? ` <span class="ref-badge">${r.total_ocorrencias}×</span>` : '') + `</span>`;
+}
+
+const LINK_LABEL = {doi: 'doi', arxiv: 'arxiv', url: 'link', busca: 'buscar'};
+function linkCell(r){
+  if (!r.link) return '<span class="vazia">—</span>';
+  const busca = r.link_tipo === 'busca';
+  // honestidade visual (tarefa 20260817-0055): link direto vs. busca pronta
+  // nunca se confundem — rótulo próprio + classe própria, nunca só cor
+  return `<a class="${busca ? 'ref-link-busca' : ''}" href="${esc(r.link)}" target="_blank" rel="noopener"
+    title="${busca ? 'Sem identificador direto — busca pronta no Google Scholar' : ''}">${esc(LINK_LABEL[r.link_tipo] || 'link')} ↗</a>`;
+}
+
+function badge(ok){
+  return ok ? '<span class="pill feito">✓ sim</span>' : '<span class="pill pendente">✕ não</span>';
+}
+
+function passaFiltro(r){
+  if (!filtro) return true;
+  const alvo = (r.titulo + ' ' + (r.autores||[]).join(' ') + ' ' + r.chave).toLowerCase();
+  return alvo.includes(filtro);
+}
+
+function s2Line(r){
+  if (!r.link_s2) return '';
+  const busca = r.link_s2_tipo !== 'direto';
+  return `<p class="ref-s2"><a class="${busca ? 'ref-link-busca' : ''}" href="${esc(r.link_s2)}" target="_blank" rel="noopener">
+    Ficha S2 ${busca ? '(buscar)' : ''} ↗</a></p>`;
+}
+
+function linha(r){
+  const detId = `det-${r.chave}`;
+  return `<tr>
+    <td class="tot">${r.ordem ?? '<span class="vazia">não citada</span>'}</td>
+    <td>${esc(r.titulo)}</td>
+    <td>${autoresTxt(r.autores)}</td>
+    <td class="tot">${r.ano ? esc(r.ano) : '<span class="vazia">—</span>'}</td>
+    <td>${ondeCell(r)}</td>
+    <td>${linkCell(r)}</td>
+    <td>${badge(r.pdf)}</td>
+    <td>${badge(r.fichado)}</td>
+    <td><button type="button" class="ref-det-btn" data-target="${detId}" aria-expanded="false">ver</button></td>
+  </tr>
+  <tr id="${detId}" class="ref-det-row" hidden>
+    <td colspan="9">${r.detalhes_html || ''}${s2Line(r)}</td>
+  </tr>`;
+}
+
+function headerCell(col){
+  if (col.sortable === false) return `<th scope="col">${esc(col.label)}</th>`;
+  const ativo = sortState.campo === col.key;
+  const seta = ativo ? (sortState.dir === 1 ? ' ▲' : ' ▼') : '';
+  return `<th scope="col"><button type="button" class="ref-th-btn" data-col="${col.key}" aria-sort="${ativo ? (sortState.dir===1?'ascending':'descending') : 'none'}">${esc(col.label)}${seta}</button></th>`;
+}
+
+function render(){
+  const col = COLS.find(c => c.key === sortState.campo) || COLS[0];
+  const visiveis = refs.filter(passaFiltro).slice().sort((a,b) => cmp(a,b,col,sortState.dir));
+  const tab = document.getElementById('ref-tabela');
+  tab.innerHTML = '<thead><tr>' + COLS.map(headerCell).join('') + '</tr></thead>' +
+    '<tbody>' + (visiveis.length ? visiveis.map(linha).join('') : '<tr><td colspan="9" class="vazia">Nenhuma referência encontrada.</td></tr>') + '</tbody>';
+  tab.querySelectorAll('.ref-th-btn').forEach(btn => btn.addEventListener('click', () => {
+    const key = btn.dataset.col;
+    if (sortState.campo !== key) sortState = {campo: key, dir: 1};
+    else if (sortState.dir === 1) sortState.dir = -1;
+    else sortState = {campo: 'ordem', dir: 1};
+    render();
+  }));
+  tab.querySelectorAll('.ref-det-btn').forEach(btn => btn.addEventListener('click', () => {
+    const row = document.getElementById(btn.dataset.target);
+    const aberto = !row.hidden;
+    row.hidden = aberto;
+    btn.setAttribute('aria-expanded', String(!aberto));
+    btn.textContent = aberto ? 'ver' : 'fechar';
+  }));
+}
+
+document.getElementById('ref-busca').addEventListener('input', e => {
+  filtro = e.target.value.trim().toLowerCase();
+  render();
+});
+
+render();
+})();
+</script>
+<style>
+.ref-busca{width:100%; max-width:420px; padding:.4rem .6rem; border:1px solid var(--border);
+  border-radius:6px; background:var(--panel); color:var(--ink); font-size:var(--fs-3)}
+.ref-th-btn{background:none; border:none; color:var(--muted); font-size:var(--fs-1);
+  text-transform:uppercase; letter-spacing:.06em; font-weight:600; cursor:pointer; padding:0; white-space:nowrap}
+.ref-th-btn:hover{color:var(--accent)}
+.ref-badge{color:var(--muted); font-size:var(--fs-1)}
+/* link direto vs. busca pronta: rótulo já distingue (doi/arxiv/link vs.
+   buscar) — o tracejado é reforço visual, nunca o único canal */
+.ref-link-busca{color:var(--muted); border-bottom:1px dashed var(--muted)}
+.ref-s2{margin:.6rem 0 0; padding-top:.5rem; border-top:1px dashed var(--border)}
+.ref-det-btn{background:none; border:1px solid var(--border); color:var(--accent); border-radius:6px;
+  padding:.15rem .5rem; font-size:var(--fs-1); cursor:pointer}
+.ref-det-row td{background:var(--ground); padding:var(--sp-4)}
+.ref-det-row h2, .ref-det-row h3{font-size:var(--fs-3); margin:.8rem 0 .3rem}
+.ref-det-row h2:first-child, .ref-det-row h3:first-child{margin-top:0}
+.ref-det-row p{margin:.3rem 0}
+.ref-det-row table{margin:.4rem 0}
+#ref-tabela td, #ref-tabela th{vertical-align:top}
+</style>"""
+    return body, script
+
+
+# --------------------------------------------------------------------------
+# Grafo (grafo.html) — janela para o instrumento externo já existente
+# (fichamentos/kg_template.html, canvas de física de força). Embutido via
+# iframe, nunca reimplementado — ux-design.md do ciclo 004 explica o porquê
+# (é outro sistema, com identidade visual própria, não um componente nativo).
+# --------------------------------------------------------------------------
+def build_grafo() -> tuple[str, str]:
+    n_nos = len(kg.get("nodes", []))
+    n_arestas = len(kg.get("edges", []))
+    body = f"""
+<header class="page-head"><h1>Grafo</h1>
+  <span class="meta">{n_nos} nós · {n_arestas} arestas</span></header>
+
+<section class="card">
+  <p class="vazia">Mapa de argumentação e grafo de conhecimento fichado —
+  as relações (estende, compara, contradiz, sustenta-se em) foram lidas e
+  registradas por quem fichou cada obra, não inferidas automaticamente.
+  Não é uma rede de co-citação bibliométrica. Instrumento separado do
+  site: física de força, filtros por tipo de nó e um painel de detalhe ao
+  clicar — leva alguns segundos para os nós convergirem.
+  <a href="grafo-embed.html" target="_blank" rel="noopener">abrir em nova aba ↗</a></p>
+</section>
+
+<div class="grafo-frame-wrap">
+  <iframe id="grafo-iframe" class="grafo-frame" src="grafo-embed.html"
+    title="Grafo de conhecimento da tese FALCO — instrumento interativo separado, {n_nos} nós e {n_arestas} arestas"
+    loading="lazy"></iframe>
+</div>
+"""
+    script = """
+<style>
+.grafo-frame-wrap{max-width:none; margin:0 calc(-1 * var(--sp-5))}
+@media (max-width:767px){ .grafo-frame-wrap{margin:0 calc(-1 * var(--sp-4))} }
+.grafo-frame{width:100%; height:calc(100vh - 260px); min-height:520px;
+  border:1px solid var(--border); border-radius:8px; display:block; background:var(--panel)}
+</style>"""
+    return body, script
+
+
+# --------------------------------------------------------------------------
+# Bibliometria (bibliometria.html) — perfil descritivo da bibliografia da
+# tese (não uma bibliometria de campo: sem citação externa, sem busca
+# sistemática — só o que este autor leu e citou). ux-design.md do ciclo 004
+# registra, com um especialista em bibliometria acadêmica, o que é honesto
+# de medir aqui e o que NÃO é (Lotka/Bradford/h-index ficam fora, com razão
+# documentada em qa-report.md).
+# --------------------------------------------------------------------------
+def build_bibliometria() -> tuple[str, str]:
+    refs_list = referencias.get("referencias", [])
+    pilares_nomes = resultados.get("pilares", {})
+
+    pilar_counts: dict[str, int] = {}
+    for e in kg.get("edges", []):
+        if e.get("type") == "pillars":
+            target = str(e.get("target", "")).removeprefix("pilar:")
+            pilar_counts[target] = pilar_counts.get(target, 0) + 1
+
+    total = referencias.get("total", len(refs_list))
+    citadas = referencias.get("citadas", sum(1 for r in refs_list if r.get("ordem")))
+    fichadas = sum(1 for r in refs_list if r.get("fichado"))
+    com_pdf = sum(1 for r in refs_list if r.get("pdf"))
+
+    body = """
+<header class="page-head"><h1>Bibliometria</h1>
+  <span class="meta" id="meta"></span></header>
+
+<section class="card">
+  <p class="vazia">Como a revisão de literatura desta tese foi conduzida —
+  composição, atualidade e distribuição da bibliografia. <strong>Não</strong>
+  é o que a pesquisa descobriu (isso está em Resultados) nem uma
+  bibliometria do campo científico: sem citação externa, sem afiliação,
+  sem busca sistemática de base — só o que este autor leu e citou.</p>
+</section>
+
+<section class="kpis" id="kpis-bib" aria-label="Indicadores da bibliografia"></section>
+
+<section class="card">
+  <span class="label">Quando a literatura consultada nesta tese foi publicada</span>
+  <h2>Publicações por ano</h2>
+  <div id="chart-anos"></div>
+  <details><summary>Ver dados em tabela</summary>
+    <div class="scroll"><table id="tab-anos"></table></div>
+  </details>
+</section>
+
+<div class="groups">
+  <section class="card">
+    <span class="label">Autores mais presentes nesta bibliografia — não citação externa ao campo</span>
+    <h2>Top 10 autores</h2>
+    <div id="rank-autores"></div>
+  </section>
+  <section class="card">
+    <span class="label">Veículos mais presentes nesta bibliografia</span>
+    <h2>Top 10 veículos</h2>
+    <div id="rank-venues"></div>
+  </section>
+  <section class="card">
+    <span class="label">Frequência de citação dentro do texto da tese — não impacto externo</span>
+    <h2>Top 10 mais citadas no texto</h2>
+    <div id="rank-citadas"></div>
+  </section>
+  <section class="card">
+    <span class="label">Referências fichadas por pilar (P1–P4) — uma obra pode contar em mais de um pilar</span>
+    <h2>Distribuição por pilar</h2>
+    <div id="rank-pilares"></div>
+  </section>
+</div>
+"""
+    json_blocks = (
+        as_json_script('bib-refs', refs_list) + "\n"
+        + as_json_script('bib-pilares', {'nomes': pilares_nomes, 'contagens': pilar_counts})
+    )
+    script = json_blocks + """
+<script>
+(function(){
+const REFS = JSON.parse(document.getElementById('bib-refs').textContent || '[]');
+const PILARES = JSON.parse(document.getElementById('bib-pilares').textContent || '{}');
+const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const el = id => document.getElementById(id);
+
+const total = REFS.length;
+const citadas = REFS.filter(r => r.ordem).length;
+const fichadas = REFS.filter(r => r.fichado).length;
+const comPdf = REFS.filter(r => r.pdf).length;
+
+el('meta').textContent = `${total} referências · ${citadas} citadas · ${fichadas} fichadas`;
+el('kpis-bib').innerHTML = `
+  <div class="kpi hero"><span class="label">Total na bibliografia</span><span class="v">${total}</span>
+    <span class="ctx">${citadas} citadas de fato no texto</span></div>
+  <div class="kpi"><span class="label">Fichadas</span><span class="v">${fichadas}</span>
+    <span class="ctx">${(fichadas/total*100).toFixed(0)}% do total processado</span></div>
+  <div class="kpi"><span class="label">Com PDF</span><span class="v">${comPdf}</span>
+    <span class="ctx">${(comPdf/total*100).toFixed(0)}% com arquivo físico</span></div>`;
+
+// ---- barra de ranking reutilizável: rótulo + barra proporcional + valor sempre visível ----
+function hbar(containerId, itens) {
+  const max = Math.max(...itens.map(i => i.valor), 1);
+  el(containerId).innerHTML = itens.map(it => {
+    const pct = (it.valor / max * 100).toFixed(1);
+    const rotulo = `${it.label}: ${it.valor}`;
+    return `<div class="hbar-row">
+      <span class="hbar-label" title="${esc(it.label)}">${esc(it.label)}</span>
+      <svg class="hbar-track" viewBox="0 0 100 14" preserveAspectRatio="none" role="img" aria-label="${esc(rotulo)}">
+        <rect x="0" y="0" width="100" height="14" fill="var(--grid)" rx="2"/>
+        <rect x="0" y="0" width="${pct}" height="14" fill="var(--accent)" rx="2"><title>${esc(rotulo)}</title></rect>
+      </svg>
+      <span class="hbar-valor">${it.valor}</span>
+    </div>`;
+  }).join('') || '<p class="vazia">Sem dados.</p>';
+}
+
+function topN(getter, n) {
+  const contagem = new Map();
+  for (const r of REFS) {
+    const vals = getter(r);
+    for (const v of (Array.isArray(vals) ? vals : [vals])) {
+      if (!v) continue;
+      contagem.set(v, (contagem.get(v) || 0) + 1);
+    }
+  }
+  return [...contagem.entries()].sort((a,b) => b[1]-a[1]).slice(0, n).map(([label,valor]) => ({label, valor}));
+}
+
+hbar('rank-autores', topN(r => r.autores, 10));
+hbar('rank-venues', topN(r => r.venue, 10));
+hbar('rank-citadas', REFS.filter(r => r.total_ocorrencias > 0)
+  .sort((a,b) => b.total_ocorrencias - a.total_ocorrencias).slice(0,10)
+  .map(r => ({label: r.titulo, valor: r.total_ocorrencias})));
+
+const nomesPilar = PILARES.nomes || {};
+const contagensPilar = PILARES.contagens || {};
+const ORDEM_PILAR = ['P1','P2','P3','P4'];
+const itensPilar = ORDEM_PILAR.filter(p => contagensPilar[p]).map(p =>
+  ({label: `${p} — ${nomesPilar[p] || ''}`, valor: contagensPilar[p]}));
+const outros = Object.entries(contagensPilar).filter(([k]) => !ORDEM_PILAR.includes(k))
+  .reduce((s,[,v]) => s+v, 0);
+if (outros) itensPilar.push({label: 'Geral / transversal', valor: outros});
+hbar('rank-pilares', itensPilar);
+
+// ---- publicações por ano: bucket <2000 + barra por ano 2000..max ----
+(function chartAnos(){
+  const CORTE = 2000;
+  const porAno = new Map();
+  let antes = 0;
+  for (const r of REFS) {
+    const a = parseInt(r.ano, 10);
+    if (!a) continue;
+    if (a < CORTE) { antes++; continue; }
+    porAno.set(a, (porAno.get(a) || 0) + 1);
+  }
+  if (porAno.size === 0 && !antes) { el('chart-anos').innerHTML = '<p class="vazia">Sem dados de ano.</p>'; return; }
+  const anoMax = Math.max(...porAno.keys());
+  const dados = [{rotulo: `≤${CORTE-1}`, valor: antes, bucket: true}];
+  for (let a = CORTE; a <= anoMax; a++) dados.push({rotulo: String(a), valor: porAno.get(a) || 0, bucket: false});
+
+  const W = 980, H = 240, mL = 32, mR = 12, mT = 10, mB = 30;
+  const n = dados.length;
+  const bw = (W - mL - mR) / n;
+  const max = Math.max(...dados.map(d => d.valor), 1);
+  const Y = v => mT + (H - mT - mB) * (1 - v / max);
+  const passo = Math.max(1, Math.round(n / 10));
+  const barras = dados.map((d, i) => {
+    const x = mL + i * bw, y = Y(d.valor), h = (H - mT - mB) - (y - mT);
+    const rotula = i === 0 || i === n - 1 || i % passo === 0;
+    return `<g><rect x="${(x+1).toFixed(1)}" y="${y.toFixed(1)}" width="${Math.max(bw-2,0.5).toFixed(1)}" height="${h.toFixed(1)}"
+        fill="var(--accent)" ${d.bucket ? 'opacity="0.55"' : ''}><title>${esc(d.rotulo)}: ${d.valor} referência(s)</title></rect>
+      ${rotula ? `<text x="${(x+bw/2).toFixed(1)}" y="${H-mB+14}" text-anchor="middle">${esc(d.rotulo)}</text>` : ''}</g>`;
+  }).join('');
+  const gMax = Math.max(1, max);
+  const grid = [0, Math.round(gMax/2), gMax].map(g =>
+    `<line x1="${mL}" x2="${W-mR}" y1="${Y(g).toFixed(1)}" y2="${Y(g).toFixed(1)}" stroke="var(--grid)"/>
+     <text x="2" y="${(Y(g)+4).toFixed(1)}">${g}</text>`).join('');
+  const picoIdx = dados.reduce((best,d,i) => d.valor > dados[best].valor ? i : best, 0);
+  el('chart-anos').innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" style="width:100%"
+      aria-label="Publicações por ano: de ${dados[0].rotulo} a ${dados.at(-1).rotulo}, pico de ${dados[picoIdx].valor} em ${dados[picoIdx].rotulo}.">
+    ${grid}${barras}</svg>`;
+  el('tab-anos').innerHTML = '<thead><tr><th>Período</th><th>Referências</th></tr></thead><tbody>' +
+    dados.filter(d => d.valor > 0).map(d => `<tr><td>${esc(d.rotulo)}</td><td>${d.valor}</td></tr>`).join('') + '</tbody>';
+})();
+})();
+</script>
+<style>
+.hbar-row{display:grid; grid-template-columns:minmax(0,180px) 1fr auto; gap:var(--sp-3);
+  align-items:center; padding:var(--sp-1) 0}
+.hbar-label{font-size:var(--fs-2); color:var(--ink); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.hbar-track{height:14px; width:100%; display:block}
+.hbar-valor{font-size:var(--fs-1); color:var(--muted); font-variant-numeric:tabular-nums;
+  text-align:right; min-width:2.2em}
+#chart-anos text{font-size:10px}
+</style>"""
+    return body, script
 
 
 def main() -> None:
@@ -710,14 +1485,19 @@ def main() -> None:
         "plano.html": build_plano,
         "mensagens.html": build_coordenacao,
         "resultados.html": build_resultados,
+        "referencias.html": build_referencias,
+        "grafo.html": build_grafo,
+        "bibliometria.html": build_bibliometria,
     }
     titles = {"index.html": "Controle", "plano.html": "Plano",
-              "mensagens.html": "Coordenação", "resultados.html": "Resultados"}
+              "mensagens.html": "Coordenação", "resultados.html": "Resultados",
+              "referencias.html": "Referências", "grafo.html": "Grafo",
+              "bibliometria.html": "Bibliometria"}
     for fname, builder in pages.items():
         body, script = builder()
         html = page_shell(titles[fname], fname, FOOTER_TEXT, body, script)
         (out_dir / fname).write_text(html, encoding="utf-8")
-    print(f"ok: {out_dir}/ (index, plano, mensagens, resultados)  "
+    print(f"ok: {out_dir}/ ({', '.join(titles.values())})  "
           f"plano v{plano['versao']}, PGP {kpis.get('prontidao', {}).get('global_pct', '?')}%")
 
 

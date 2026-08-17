@@ -1,18 +1,18 @@
 {
  "schema": "kpis/v1",
- "computado_em": "2026-08-16",
- "git_sha": "c3abc4e",
+ "computado_em": "2026-08-17",
+ "git_sha": "a7d2aaf",
  "prontidao": {
-  "global_pct": 3.5,
-  "texto_pct": 4.1,
+  "global_pct": 21.5,
+  "texto_pct": 25.2,
   "artefatos_pct": 0.0,
-  "pontos_totais": 2050,
-  "pontos_feitos": 84,
+  "pontos_totais": 2032,
+  "pontos_feitos": 513,
   "por_rodada": [
    {
     "id": "R1",
-    "pontos": 349,
-    "feitos": 28
+    "pontos": 331,
+    "feitos": 227
    },
    {
     "id": "R2",
@@ -22,17 +22,17 @@
    {
     "id": "R3",
     "pontos": 468,
-    "feitos": 0
+    "feitos": 185
    },
    {
     "id": "R4",
     "pontos": 140,
-    "feitos": 0
+    "feitos": 20
    },
    {
     "id": "R5",
     "pontos": 743,
-    "feitos": 21
+    "feitos": 26
    },
    {
     "id": "R6",
@@ -42,7 +42,7 @@
    {
     "id": "R7",
     "pontos": 150,
-    "feitos": 0
+    "feitos": 20
    }
   ],
   "por_capitulo": [
@@ -54,32 +54,32 @@
    {
     "id": "cap1",
     "pontos": 96,
-    "feitos": 31
+    "feitos": 96
    },
    {
     "id": "cap2",
-    "pontos": 524,
-    "feitos": 22
+    "pontos": 506,
+    "feitos": 211
    },
    {
     "id": "cap3",
     "pontos": 211,
-    "feitos": 21
+    "feitos": 80
    },
    {
     "id": "cap4",
     "pontos": 161,
-    "feitos": 0
+    "feitos": 17
    },
    {
     "id": "cap5",
     "pontos": 326,
-    "feitos": 0
+    "feitos": 64
    },
    {
     "id": "cap6",
     "pontos": 164,
-    "feitos": 0
+    "feitos": 35
    },
    {
     "id": "ap",
@@ -89,112 +89,153 @@
   ]
  },
  "ritmo": {
-  "velocidade_pontos_semana": null,
-  "janela_dias": 14,
-  "eta_semanas": null,
-  "eta_data": null,
-  "eta_confiavel": false,
+  "velocidade_pontos_semana": 1365.0,
+  "janela_dias": 1,
+  "eta_semanas": 1.1,
+  "eta_data": "2026-08-24",
+  "eta_confiavel": true,
   "serie": [
    {
     "data": "2026-08-16",
-    "commit": "8bed730",
-    "pontos": 84,
-    "pct": 4.1,
+    "commit": "07bd867",
+    "pontos": 318,
+    "pct": 15.7,
+    "evento": null
+   },
+   {
+    "data": "2026-08-17",
+    "commit": "e0df0bf",
+    "pontos": 513,
+    "pct": 25.2,
     "evento": null
    }
   ]
  },
  "fila_autor": {
-  "total": 13,
+  "total": 16,
   "itens": [
    {
     "id": "seed7",
     "tipo": "acao",
+    "trilha": null,
     "titulo": "Rodar semente 7 no Colab (notebook e3prime_colab, 1 sessão)",
-    "pontos_destravados": 239
+    "pontos_destravados": 234
    },
    {
     "id": "seed123",
     "tipo": "acao",
+    "trilha": null,
     "titulo": "Rodar semente 123 no Colab",
-    "pontos_destravados": 239
-   },
-   {
-    "id": "cap2.R1",
-    "tipo": "gate",
-    "titulo": "Aprovar 2 · Fundamentação · rodada R1",
-    "pontos_destravados": 110
+    "pontos_destravados": 234
    },
    {
     "id": "zenodo",
     "tipo": "acao",
+    "trilha": null,
     "titulo": "Ativar webhook Zenodo e gerar DOI (metadados prontos) · ao obter DOI: inserir URL+DOI no artigo A4 e no Cap. 3 (tese hoje não tem URL de repositório)",
     "pontos_destravados": 10
    },
    {
-    "id": "e3p-seed7",
-    "tipo": "execucao",
-    "titulo": "E3′ semente 7 — 5 braços + varredura de orçamento",
+    "id": "fix-cap2-prosa-619-648",
+    "tipo": "gate",
+    "trilha": null,
+    "titulo": "Reescrita das frases com citações fabricadas (Wu2022 ~:618, Ahmed2023 ~:648) do Cap.2; provisória até a busca acadêmica do revisor2 (tarefa 20260816-2110)",
     "pontos_destravados": 0
    },
    {
-    "id": "e3p-seed123",
-    "tipo": "execucao",
-    "titulo": "E3′ semente 123 — 5 braços + varredura de orçamento",
+    "id": "fix-cap2-ruido-estruturado",
+    "tipo": "gate",
+    "trilha": "texto",
+    "titulo": "Correção da soldagem ruído estruturado (Cap.2:585) — decisão (a) do autor; antes/depois apresentado",
     "pontos_destravados": 0
    },
    {
     "id": "kaggle-licenca",
     "tipo": "acao",
+    "trilha": null,
     "titulo": "Definir licença do dataset no Kaggle (recomendado CC BY 4.0) — bloqueante do artigo a5 · PAR OBRIGATÓRIO: parágrafo de proveniência/LGPD no Cap. 3 (agente)",
     "pontos_destravados": 0
    },
    {
     "id": "pypi-release",
     "tipo": "acao",
+    "trilha": null,
     "titulo": "Criar Release no GitHub → publica falco-active-learning no PyPI (workflow pronto)",
     "pontos_destravados": 0
    },
    {
     "id": "vercel",
     "tipo": "acao",
+    "trilha": null,
     "titulo": "Deploy Vercel do FlowBuilder (nome 'activelearning' já ocupado por terceiro — usar outro)",
     "pontos_destravados": 0
    },
    {
     "id": "chaves",
     "tipo": "acao",
+    "trilha": null,
     "titulo": "Rotacionar as 5 chaves de API (OpenAI, OpenRouter, MaaS, Neon, NVIDIA — a NVIDIA foi exposta em conversa)",
     "pontos_destravados": 0
    },
    {
     "id": "autoria-ordem",
     "tipo": "acao",
+    "trilha": null,
     "titulo": "Definir autoria/ordem dos 5 artigos",
-    "pontos_destravados": 0
-   },
-   {
-    "id": "dec-fila",
-    "tipo": "decisao",
-    "titulo": "Ordem da fila: manter (lotes 2–5 do Cap. 2 primeiro) OU adotar a do parecer R6 (bib-audit → veredito+pré-textuais → lotes 2–5)? Humanizar antes de mexer nas citações = editar a mesma superfície duas vezes",
     "pontos_destravados": 0
    },
    {
     "id": "dec-fecho-cap6",
     "tipo": "decisao",
+    "trilha": "texto",
     "titulo": "Fecho do Cap. 6: manter tríade+aforismo (estilo) sabendo que 2 trechos são apontados como mérito (DA-C1/C2/C3), ou reescrever",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-gate-85",
+    "tipo": "decisao",
+    "trilha": "texto",
+    "titulo": "Gate de 85%: justificativa diz 'um desvio acima' de 89,56% quando está 4,6 p.p. abaixo; configuração final derivada sem oráculo atingir o limiar e sem declarar violação do pré-registro (parecer R3/R4/R6)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-politica-parada",
+    "tipo": "decisao",
+    "trilha": "texto",
+    "titulo": "Política de parada: dois racionais incompatíveis (fator ~20) para a mesma constante — causa-raiz atribuída ao resultado negativo (parecer R3/R4/R6)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-divida-vocabulario",
+    "tipo": "decisao",
+    "trilha": "processo",
+    "titulo": "Dívida antiga: 342 entidades fora do vocabulário controlado nos 140 fichamentos legados — entra no plano ou fica como está? (retirada do DoD do lote 5)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-cache-kaggle",
+    "tipo": "decisao",
+    "trilha": "experimentos",
+    "titulo": "AUTOR: subir annotation_cache_nemotron.jsonl como dataset do Kaggle — destrava os braços A/B/C nas 3 sementes (o centro da hipótese F1(A) ≥ 0,95×F1(D)); 3 retomadas curtas, 18 resultados prontos são pulados",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-nome-e3",
+    "tipo": "decisao",
+    "trilha": "experimentos",
+    "titulo": "Rebatismo do E3': autor incomoda-se com a plica; recomendação do principal = E3' assume o nome E3 (o E3 original nunca teve resultados; exige reescrever o desenho em 3-metodo:443 + renomear ~35 ocorrências + código/artefatos/notebooks via executor01). Autor: 'voltemos com ela' — retomar.",
     "pontos_destravados": 0
    }
   ]
  },
  "represados": {
-  "pontos": 239
+  "pontos": 234
  },
  "divida_fundamentacao": {
-  "citacoes_pendentes": 185,
+  "citacoes_pendentes": 177,
   "chaves_citadas": 151,
-  "fichamentos": 142,
-  "chaves_sem_fichamento": 9
+  "fichamentos": 153,
+  "chaves_sem_fichamento": 0
  },
  "meta_saida": {
   "parecer_ars": 83.6,

@@ -15,24 +15,24 @@ repetições, reproduzida de forma independente com divergência $\le 0{,}7$
 p.p.) mostra amplitude de $6{,}4$ p.p.\ de acurácia em $|L_0|=100$ causada só
 pelo sorteio, decaindo até a irrelevância em $|L_0| \ge 10^5$. O envelope
 evolutivo confirma dezenas de pontos percentuais entre composições boas e
-ruins no regime pequeno — o regime do \textit{cold start}.
+ruins no regime pequeno, que é o regime do \textit{cold start}.
 
 \textbf{P2 — é possível capturar esse espaço sem nenhum rótulo.} O DRI-SL,
 heurística determinística de densidade semântica + variedade lexical, superou
 o \emph{melhor indivíduo} encontrado pelo algoritmo genético supervisionado em
-todos os tamanhos de 100 a 5.000 — e a reexecução com protocolo
+todos os tamanhos de 100 a 5.000, e a reexecução com protocolo
 anticircularidade mostrou que essa comparação é conservadora, pois o envelope
 do AG estava inflacionado em até $6{,}3$ p.p.\ pela avaliação na própria
 partição de aptidão.
 
 \textbf{P3 — oráculos LLM são viáveis, baratos e erram de forma estruturada.}
 No espaço fechado de 621 categorias, os melhores oráculos zero-shot atingem
-77--83\% de acurácia (v4-pro: $82{,}6\%$ na S-strat) — a $\approx 7$ p.p.\ do
-teto supervisionado com 250 mil rótulos — a custos entre US\$~0,035 e
+77--83\% de acurácia (v4-pro: $82{,}6\%$ na S-strat), a $\approx 7$ p.p.\ do
+teto supervisionado com 250 mil rótulos, a custos entre US\$~0,035 e
 US\$~0,92 por mil rótulos, ordens de grandeza abaixo da anotação humana
 \citep{Gilardi2023}. O Macro F1 zero-shot ($\approx 0{,}79$) supera o do
 baseline supervisionado leve ($0{,}70$): o LLM é \emph{melhor nas classes
-raras} e pior nas convenções do catálogo — quase metade dos seus erros são
+raras} e pior nas convenções do catálogo, pois quase metade dos seus erros são
 fronteiras entre categorias-irmãs e política de classes guarda-chuva,
 aprendíveis apenas com exemplos. O efeito do instrumento de medição (RQ4)
 confirmou-se: sem restrição de saída, 6,8\% das respostas viram falsos erros
@@ -54,18 +54,17 @@ $-2{,}9$~p.p.\ em acurácia, McNemar $p<10^{-26}$; amostra pareada de 20.092
 instâncias da população reservada): a parada por
 estagnação do classificador leve encerra o laço muito antes do ponto em que
 o BERTimbau para de converter rótulos em cobertura de cauda. A varredura de
-orçamento — achado \textit{post hoc}, executada com rótulos de
-\emph{gabarito}, não do oráculo da hipótese pré-registrada — quantifica a
-correção: o critério passa a ser atendido com 20 mil rótulos ($40\%$ do
+orçamento quantifica a correção (achado \textit{post hoc}, executado com
+rótulos de \emph{gabarito}, não do oráculo da hipótese pré-registrada): o critério passa a ser atendido com 20 mil rótulos ($40\%$ do
 \textit{pool}) em acurácia e 25 mil ($50\%$) em Macro F1, e com 35 mil
 rótulos selecionados por entropia o modelo forte \emph{supera} a supervisão
 completa do \textit{pool} em Macro F1 (E35--D: $+0{,}012$, IC 95\%
-$[0{,}002;0{,}018]$) e a \emph{empata} em acurácia (McNemar, $p=0{,}10$) ---
+$[0{,}002;0{,}018]$) e a \emph{empata} em acurácia (McNemar, $p=0{,}10$):
 a vantagem de cobertura do ``menos é mais'' do E6 reaparece no transformer.
 O veredito que os dados sustentam: \textbf{refutada no orçamento
 pré-registrado}; o critério torna-se alcançável a partir de $\approx 50\%$
-do \textit{pool} com política de parada ancorada no modelo forte — orçamento
-e política identificados e medidos, restando a confirmação com rótulos de
+do \textit{pool} com política de parada ancorada no modelo forte, com
+orçamento e política identificados e medidos, restando a confirmação com rótulos de
 oráculo como trabalho futuro imediato.
 
 \section{Discussão}
@@ -75,29 +74,29 @@ oráculo como trabalho futuro imediato.
 minimiza \emph{contagem de rótulos} assumindo oráculo correto
 \citep{Settles2012,Olsson2009}; a com custos reais mostra que contagem não é
 custo \citep{SettlesCravenFriedland2008}. Com oráculo LLM, a moeda muda duas
-vezes: o custo vira função de tokens (e do \textit{cache}, e do lote — a
-instrumentação desta tese mede os três) e a qualidade vira parâmetro escolhível num
+vezes: o custo vira função de tokens (e do \textit{cache}, e do lote, os três
+medidos pela instrumentação desta tese) e a qualidade vira parâmetro escolhível num
 cardápio com uma ordem de grandeza de variação de preço. A decisão
-``qual oráculo em qual fase'' — o coração do FALCO — só faz sentido nesse
+``qual oráculo em qual fase'', que é o coração do FALCO, só faz sentido nesse
 regime novo, e os dados do E0 mostram que ela não é trivial: o modelo mais
 caro (gpt-4o) não é o mais acurado, e o segundo mais barato entrega 96\% da
 acurácia do melhor por 8,5\% do custo.
 
-\textbf{Erro estruturado é menos grave que erro uniforme — e é o que temos.}
+\textbf{Erro estruturado é menos grave que erro uniforme, e é o que temos.}
 O perfil de erro do RQ3 (confusões concentradas em pares vizinhos e classes
 guarda-chuva) é o cenário benigno da literatura de rótulos ruidosos
 \citep{Frenay2014,Natarajan2013,Song2023NoisyLabels}: parte do ``erro'' do
 oráculo é inclusive defensável semanticamente (a análise multi-gold mostrou
-que o gabarito também erra). Isso sugere que o E4 com ruído \emph{uniforme} —
-o desenho adotado — é um teste \emph{mais duro} que a realidade, o que fortalece
+que o gabarito também erra). Isso sugere que o E4 com ruído \emph{uniforme},
+o desenho adotado, é um teste \emph{mais duro} que a realidade, o que fortalece
 qualquer resultado positivo obtido nele.
 
-\textbf{Mais rótulo não é sempre melhor — e a autoavaliação engana.} O E6
+\textbf{Mais rótulo não é sempre melhor, e a autoavaliação engana.} O E6
 acrescenta dois avisos operacionais ao quadro: treinar com o subconjunto
 ativamente selecionado pode superar o treino com \emph{todos} os rótulos em
 métrica macro (a amostra ativa é mais balanceada que a distribuição natural),
 e a avaliação feita sobre os próprios dados coletados é enviesada em direções
-opostas conforme a métrica — subestima a acurácia, superestima o Macro F1.
+opostas conforme a métrica: subestima a acurácia e superestima o Macro F1.
 Ambos reforçam o mesmo princípio de desenho do FALCO: parar cedo pelo
 critério de estagnação e medir sempre em conjunto reservado.
 
@@ -112,20 +111,20 @@ quantificação do seu próprio erro.
 \section{Contribuições}
 \label{sec:conc-contribuicoes}
 
-(i) O framework FALCO — fases com oráculo LLM progressivo e \textit{cold
-start} informado — com implementação aberta, testada e reprodutível;
-(ii) o algoritmo DRI-SL — e a evidência de que supera o envelope evolutivo
-supervisionado no regime de interesse — acompanhado da análise honesta do
+(i) O framework FALCO, com fases de oráculo LLM progressivo e \textit{cold
+start} informado, em implementação aberta, testada e reprodutível;
+(ii) o algoritmo DRI-SL, com a evidência de que supera o envelope evolutivo
+supervisionado no regime de interesse, acompanhado da análise honesta do
 seu limite: no regime contínuo, a ablação da variante guiada pelo
 classificador (DRI-SL-C) mostrou que o ganho vem do agrupamento pelas
 classes previstas, não da novidade lexical, apontando a estratificação por
 predição como política representativa de referência;
 (iii) a avaliação instrumentada de
-oráculos LLM para português com 621 classes — granularidade muito acima da
+oráculos LLM para português com 621 classes, granularidade muito acima da
 usual na literatura de LLM-como-anotador, cujos estudos zero-shot recentes de
 classificação de produtos operam com dezenas a $\approx 250$ categorias
 \citep{Roumeliotis2025}, chegando a 370 folhas nos testes de robustez com
-catálogos públicos \citep{Gholamian2024} — incluindo custo real com
+catálogos públicos \citep{Gholamian2024}, incluindo custo real com
 \textit{cache} e lote; (iv) a métrica LCE (com posicionamento explícito frente
 à ALC); (v) o conjunto de dados público auditado, com censo de conflitos e
 análise de sensibilidade; e (vi) a biblioteca \texttt{activelearning} e o
@@ -139,12 +138,12 @@ As ameaças à validade estão detalhadas na Seção~\ref{sec:metodo-validade};
 as principais: um único conjunto de dados, criado pelo autor (mitigado por
 protocolo replicável e achados de mecanismo); o E3$'$ executado em
 configuração uniforme mas econômica (3 épocas, contexto de 32
-\textit{tokens}, semente única, CPU) — a régua absoluta do BERTimbau pode
+\textit{tokens}, semente única, CPU), pois a régua absoluta do BERTimbau pode
 subir com mais épocas e contexto, o que tornaria o critério \emph{mais}
 exigente, não menos, preservando o sentido do veredito; custos de API
 datados (as \emph{razões} entre modelos são mais estáveis que os valores);
-e regras de fronteira do E0-P derivadas do perfil de erro do próprio domínio
-— generalizam o método, não as regras.
+e regras de fronteira do E0-P derivadas do perfil de erro do próprio domínio,
+que generalizam o método, não as regras.
 
 \section{Trabalhos futuros}
 \label{sec:conc-futuro}
@@ -156,15 +155,15 @@ ajustes finos periódicos do BERTimbau em pontos de verificação da
 trajetória, ou por um piso de orçamento de $\approx 50\%$ do \textit{pool}
 (o ponto medido em que o Macro F1 cruza o critério), e formalizar a regra de
 liberação daí decorrente. Demais direções: \textbf{(i)} composição de
-oráculos — comparar a progressão sequencial do FALCO com
+oráculos, comparando a progressão sequencial do FALCO com
 \textit{mixture-of-LLMs} paralelo \citep{Qi2026MixtureLLMs} e com roteamento
 por confiança \citep{Rouzegar2024}, idealmente formulando a escolha de oráculo
 por fase como problema de \textit{bandit} com custo
 \citep{BlumMansour2007,Baykal2021}; \textbf{(ii)} \textit{prompt} como
-componente otimizável — o E0-P abre a porta; as extensões naturais são gerar
+componente otimizável, para o que o E0-P abre a porta; as extensões naturais são gerar
 regras de fronteira automaticamente a partir da matriz de confusão de uma
 rodada anterior e permitir que o oráculo emita \emph{rótulos candidatos}
-quando incerto, destilados pelo classificador leve \citep{Xia2025CanDist} —
+quando incerto, destilados pelo classificador leve \citep{Xia2025CanDist},
 o que também endereça os 2--4\% de respostas inválidas observadas; a
 contração prévia do espaço de classes por top-$K$ do classificador de domínio
 \citep{Cheng2024DualExpert} é o desenho complementar para as 621 categorias;
@@ -172,34 +171,34 @@ contração prévia do espaço de classes por top-$K$ do classificador de domín
 (\texttt{expanded\_description}) como atributo auxiliar do classificador
 \citep{Sharma2015}; \textbf{(iv)} réplica em benchmark público de produtos
 (STOPS, \citealp{Karl2023}; e \textbf{AlleNoise}, 500 mil títulos em 5.692
-categorias com ruído \emph{real} de marketplace, \citealp{Raczkowska2024AlleNoise}
-— o teste externo ideal para o E4) e extensão a taxonomias hierárquicas
-\citep{Sun2003,Tan2020}; e \textbf{(v)} o ciclo de vida pós-treinamento — o
+categorias com ruído \emph{real} de marketplace, \citealp{Raczkowska2024AlleNoise},
+o teste externo ideal para o E4) e extensão a taxonomias hierárquicas
+\citep{Sun2003,Tan2020}; e \textbf{(v)} o ciclo de vida pós-treinamento: o
 critério de parada do laço (estagnação em validação) já está implementado e
 formalizado, mas a decisão de \emph{liberação} do modelo e o monitoramento de
 \textit{drift} em produção merecem tratamento próprio: o oráculo LLM barato
 da Fase Inicial vira instrumento de auditoria contínua (verificação amostral
 periódica a custo desprezível), e sinais sem rótulo (taxa de vocabulário
-novo, deriva da confiança predita) antecipam o gatilho de retreino — desenho
+novo, deriva da confiança predita) antecipam o gatilho de retreino, com desenho
 detalhado na documentação operacional da biblioteca.
 
 \section{Conclusão}
 \label{sec:conc-conclusao}
 
 No estado atual da evidência: o custo de rotulagem em classificação de textos
-curtos em português pode ser atacado nas três frentes que o FALCO integra —
+curtos em português pode ser atacado nas três frentes que o FALCO integra:
 começar bem (DRI-SL supera até o envelope evolutivo), perguntar bem
 (estratégias de incerteza sobre classificador barato) e pagar bem (oráculos
 LLM com 78--83\% de acurácia por centavos de dólar o milhar, com erro
-majoritariamente estruturado). A hipótese quantitativa central — $\ge 95\%$
+majoritariamente estruturado). A hipótese quantitativa central ($\ge 95\%$
 do Macro F1 de supervisão completa com $\le 30\%$ dos rótulos via oráculo
-LLM — foi submetida ao teste pré-registrado (E3$'$): \textbf{refutada no
+LLM) foi submetida ao teste pré-registrado (E3$'$): \textbf{refutada no
 orçamento de $30\%$ originalmente fixado, tornando-se alcançável a partir de
 $50\%$ do \textit{pool} em varredura \textit{post hoc} com rótulos de
-gabarito}, com o diagnóstico identificando a causa --- não o ruído
+gabarito}, com o diagnóstico identificando a causa — não o ruído
 do oráculo nem a seleção, e sim o critério de parada herdado do
 classificador leve, que subestima o apetite do classificador forte por
-cobertura de cauda. A varredura de orçamento — \textit{post hoc}, com rótulos de gabarito —
+cobertura de cauda. A varredura de orçamento (\textit{post hoc}, com rótulos de gabarito)
 mediu os pisos ($40\%$ dos rótulos para a acurácia, $50\%$ para o Macro F1)
 e revelou que $70\%$ dos rótulos ativamente selecionados superam a
 supervisão completa do \textit{pool} em Macro F1 (IC 95\%
