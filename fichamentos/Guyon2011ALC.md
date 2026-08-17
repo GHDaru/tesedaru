@@ -5,6 +5,7 @@ authors: ["Guyon, Isabelle", "Cawley, Gavin", "Dror, Gideon", "Lemaire, Vincent"
 year: 2011
 venue: "JMLR Workshop and Conference Proceedings, v. 16 (Active Learning and Experimental Design Workshop, AISTATS 2010), pp. 19--45"
 url: "https://proceedings.mlr.press/v16/guyon11a.html"
+pdf: referencias-pdf/Guyon2011ALC.pdf
 paper_type: benchmark
 pillars: [geral, P4]
 status: fichado
