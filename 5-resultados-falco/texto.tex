@@ -14,7 +14,7 @@ versionados no repositório \texttt{activelearning}
 (\texttt{experiments/e0}, \texttt{e0p}, \texttt{e1e4}, \texttt{e6population},
 \texttt{e2e3}).
 
-\section{Qual modelo de linguagem serve como oráculo, e a que custo}
+\section{Avaliação fatorial de oráculos LLM}
 \label{sec:res-e0}
 
 \subsection{RQ1 --- assertividade}
@@ -233,7 +233,7 @@ barato na distribuição de produção existe e justifica a direção de trabalh
 futuro de gerar regras automaticamente a partir da matriz de confusão
 (Seção~\ref{sec:conc-futuro}), desde que com salvaguarda estratificada.
 
-\section{Seleção sob oráculo perfeito: limite superior do método}
+\section{Estratégias de seleção com oráculo perfeito}
 \label{sec:res-e1}
 
 Esta seção varre as cinco estratégias de seleção (entropia, menor confiança, menor
@@ -291,7 +291,7 @@ medido com o classificador leve e deve ser revalidado com BERTimbau no E3:
 probabilidades mais calibradas do \textit{transformer} podem reordenar
 entropia e margens.
 
-\section{Quanto ruído do oráculo o aprendizado tolera}
+\section{Robustez do aprendizado ao ruído do oráculo}
 \label{sec:res-e4}
 
 Esta seção injeta ruído uniforme $\varepsilon \in \{0{,}1;\, 0{,}2;\, 0{,}4\}$ no
@@ -356,7 +356,7 @@ inferior do desempenho esperável com os oráculos reais do E0; e a extensão
 natural do desenho é a correção colaborativa de rótulos ruidosos com apoio
 de LLM \citep{Yuan2025NoiseAL}.
 
-\section{Escala populacional e o viés de avaliar no que se coletou}
+\section{Seletores em escala populacional e o viés da autoavaliação}
 \label{sec:res-e6}
 
 Esta seção estende a comparação de seletores para a escala completa da base e
