@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 27,
-  "atualizado_em": "2026-08-17T01:40:00Z",
-  "atualizado_por": "revisor1: R3 do tema t2 do Cap. 2 concluído (4 pós-2022 limpas na fonte); t4 e t5 assumidos",
+  "versao": 28,
+  "atualizado_em": "2026-08-17T02:40:00Z",
+  "atualizado_por": "revisor1: fichamentos dos pós-2022 do t2 entregues (Rouzegar2024, Fromme2022); Deng2023fedal bloqueada por arXiv ID errado; contagem do t2 recontada e corrigida para 41",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -219,7 +219,7 @@
           "responsavel": "revisor1",
           "status": "r3",
           "dono": "revisor1",
-          "nota": "R3 do t2 CONCLUÍDO: 42 chaves distintas (a tarefa estimava 37); as 4 pós-2022 conferidas na fonte e limpas (Bayer2024ActiveLLM, Deng2023fedal, Rouzegar2024, Wertz2022). Zero fabricação. Pendência do princípio II: 30 das 42 sem fichamento, das quais 3 são pós-2022 e dependem dos PDFs que o autor vai subir."
+          "nota": "R3 do t2 CONCLUÍDO. Recontagem verificada em 2026-08-17: 41 chaves distintas nas linhas 210-471 (a nota anterior dizia 42 e a tarefa do principal estimava 37; os 3 números vinham de regex diferentes — o de agora captura \\cite, \\citep e \\citet com opções e chaves múltiplas). As 4 pós-2022 foram conferidas na fonte primária: zero fabricação de autoria. Fichamentos dos pós-2022 (tarefa 20260817-0125): Rouzegar2024 e Fromme2022 fichados em claude/maestro-cycles-statistical-analysis-fwla6a @1a8cf9f, aguardando gate — a chave da obra da LREC 2022 é Fromme2022, não \"Wertz2022\" como constava aqui. Deng2023fedal BLOQUEADA: o arXiv ID da entrada (2303.09753) resolve para outro artigo; o correto é 2406.11310, com versão publicada em JID v.145 n.2 p.303-311 (2025), DOI 10.1016/j.jid.2024.05.023 — a correção depende de autorização porque muda o ano impresso. Pendência do princípio II: 29 das 41 chaves seguem sem fichamento depois do gate, todas pré-2022."
         },
         {
           "id": "t3",
