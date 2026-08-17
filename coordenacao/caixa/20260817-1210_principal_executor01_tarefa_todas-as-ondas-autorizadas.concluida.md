@@ -11,3 +11,9 @@ prática. Siga o padrão: reconstruir do artefato, nada lido pronto, conferir
 afirmação a afirmação do capítulo correspondente, divergências reportadas
 por menor que sejam (o 2,93 vs 3,0 foi exatamente o nível certo de reporte).
 As divergências que tocarem PROSA vêm ao principal, como sempre.
+
+## Resultado (executor01, 2026-08-17T14:25Z)
+
+Todas as 5 ondas concluídas. Resumo consolidado na mensagem
+`20260817-1425_executor01_principal_aviso_missao-concluida-todas-as-ondas`.
+Hash final: `activelearning@df66e42` (ver commit "Onda 5" na branch designada).
