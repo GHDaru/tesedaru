@@ -4259,6 +4259,37 @@
       "label": "yahoo-answers"
     },
     {
+      "id": "Yuan2020",
+      "type": "artigo",
+      "label": "Yuan2020",
+      "title": "Cold-start Active Learning through Self-supervised Language Modeling",
+      "year": 2020,
+      "venue": "Proceedings of EMNLP 2020, p. 7935-7948, ACL",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Yuan2020.pdf",
+      "doi": "10.18653/v1/2020.emnlp-main.637",
+      "url": "https://doi.org/10.18653/v1/2020.emnlp-main.637",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "conceito:alps",
+      "type": "conceito",
+      "label": "alps"
+    },
+    {
+      "id": "conceito:surprisal-embeddings",
+      "type": "conceito",
+      "label": "surprisal-embeddings"
+    },
+    {
+      "id": "dataset:pubmed-20k-rct",
+      "type": "dataset",
+      "label": "pubmed-20k-rct"
+    },
+    {
       "id": "Yuan2025NoiseAL",
       "type": "artigo",
       "label": "Yuan2025NoiseAL",
@@ -4446,11 +4477,6 @@
       "id": "tarefa:predicao-estruturada",
       "type": "tarefa",
       "label": "predicao-estruturada"
-    },
-    {
-      "id": "Yuan2020",
-      "type": "artigo-pendente",
-      "label": "Yuan2020"
     },
     {
       "id": "DRI-SL",
@@ -10391,6 +10417,103 @@
       "target": "FALCO",
       "type": "compara",
       "note": "Como o ActiveLLM (Bayer2024ActiveLLM), põe o modelo de linguagem na fase de SELEÇÃO; o FALCO faz a separação oposta — seleção local barata (DRI-SL) e LLM só na ROTULAGEM — reduzindo chamadas na fase cara e eliminando template/verbalizador por classe."
+    },
+    {
+      "source": "Yuan2020",
+      "target": "Lewis1994",
+      "type": "builds_on"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "Devlin2019",
+      "type": "builds_on"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "pilar:P1",
+      "type": "pillars"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "conceito:alps",
+      "type": "proposes"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "conceito:surprisal-embeddings",
+      "type": "proposes"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "metodo:cold-start",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "metodo:k-means",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "metodo:selecao-por-diversidade",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "metodo:rotulagem-em-lote",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "modelo:bert-base-uncased",
+      "type": "models"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "dataset:agnews",
+      "type": "datasets"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "dataset:imdb",
+      "type": "datasets"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "dataset:pubmed-20k-rct",
+      "type": "datasets"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "dataset:sst-2",
+      "type": "datasets"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Yuan2020",
+      "target": "DRI-SL",
+      "type": "fundamenta",
+      "note": "É o antecessor conceitual direto da Fase 1 do FALCO: usa conhecimento PRÉ-TREINADO para escolher o lote inicial sem depender de um modelo treinado nos nossos rótulos. A diferença é a fonte do sinal — o ALPS usa a perda de modelagem de linguagem mascarada do próprio BERT; o DRI-SL usa densidade semântica e variedade lexical. Mesma ideia, instrumentos distintos."
+    },
+    {
+      "source": "Yuan2020",
+      "target": "FALCO",
+      "type": "motiva",
+      "note": "O diagnóstico de abertura é o mesmo da tese: estratégias clássicas de incerteza falham em modelo profundo porque rede neural é mal calibrada, e alta confiança não implica alta correção. É a justificativa externa para o FALCO não depender só de incerteza do classificador."
     },
     {
       "source": "Yuan2025NoiseAL",

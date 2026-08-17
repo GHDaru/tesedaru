@@ -143,3 +143,7 @@ bertimbau  <!-- Machado2026RetailPt, Souza2020BERTimbau -->
 
 ### Métodos (taxonomia formal de ruído)
 taxonomia-ncar-nar-nnar  <!-- Frenay2014: NCAR = uniforme, NAR = dependente da classe (inclui o ruído de par), NNAR = dependente da instância. É a fonte formal; o Song2023NoisyLabels usa a mesma estrutura com outros nomes -->
+
+### Métodos e datasets (partida a frio por pré-treinamento)
+surprisal-embeddings  <!-- Yuan2020: perda de modelagem de linguagem mascarada usada como procuração da incerteza, calculável ANTES de existir rótulo; alps já registrado por Wertz2022 -->
+pubmed-20k-rct, sst-2  <!-- Yuan2020: dos 4 conjuntos, todos de 2 a 5 classes -->
