@@ -193,6 +193,14 @@ a{color:var(--accent)}
 .fila .item:first-of-type{border-top:none}
 .fila .pts{margin-left:auto; white-space:nowrap; font-weight:700; color:var(--atencao)}
 .fila .tipo{font-size:var(--fs-1); color:var(--atencao); white-space:nowrap}
+/* trilha: o autor quer avaliar em sessões focadas (só texto, só
+   experimentos...) — cada trilha vira uma seção com contagem própria,
+   sempre visível de uma vez (sem abas escondendo itens) */
+.fila-trilha{margin-top:var(--sp-3)}
+.fila-trilha:first-child{margin-top:0}
+.fila-trilha-h{margin:0 0 .1rem; font-size:var(--fs-1); text-transform:uppercase; letter-spacing:.06em;
+  color:var(--atencao); display:flex; align-items:center; gap:.4rem; font-weight:700}
+.fila-trilha-n{background:var(--panel); border-radius:99px; padding:0 .5rem; font-weight:700}
 .vazia{font-size:var(--fs-3); color:var(--muted)}
 .chart-wrap{position:relative}
 svg text{fill:var(--muted); font:11px system-ui}
@@ -252,6 +260,10 @@ summary{cursor:pointer; font-size:var(--fs-2); font-weight:600}
 .k-ag-dot[data-ag="revisor1"]{background:var(--ag-revisor1)}
 .k-ag-dot[data-ag="revisor2"]{background:var(--ag-revisor2)}
 .k-ag-dot[data-ag="autor"]{background:var(--ag-autor)}
+/* responsável ainda não atribuído ("a definir") — pontinho oco, nunca
+   invisível: a ausência de cor já é informação (ninguém assumiu ainda) */
+.k-ag-dot:not([data-ag="principal"]):not([data-ag="banca"]):not([data-ag="revisor1"]):not([data-ag="revisor2"]):not([data-ag="autor"]){
+  background:transparent; border:1px solid var(--muted)}
 """
 
 SHARED_JS = """
@@ -447,11 +459,28 @@ def build_controle() -> tuple[str, str]:
   el('fila-titulo').textContent = fila.length
     ? `🔒 Aguardando você — ${{fila.length}} ${{fila.length === 1 ? 'item' : 'itens'}}`
     : 'Nada espera você';
-  el('fila').innerHTML = fila.length ? fila.map(f => `
-    <div class="item"><span class="tipo">${{({{gate:'GATE', execucao:'RODAR', acao:'AÇÃO', decisao:'DECISÃO', mensagem:'MSG', processo:'SAÚDE'}})[f.tipo] || f.tipo}}</span>
+
+  // agrupada por trilha (plano v29, pedido do autor: avaliar em sessões
+  // focadas — só texto, só experimentos, etc.); item sem trilha cai em
+  // "Geral", sempre por último
+  const TIPO_LABEL = {{gate:'GATE', execucao:'RODAR', acao:'AÇÃO', decisao:'DECISÃO', mensagem:'MSG', processo:'SAÚDE'}};
+  const TRILHA_LABEL = {{texto:'Texto', bibliografia:'Bibliografia', experimentos:'Experimentos', processo:'Processo', geral:'Geral'}};
+  const TRILHA_ORDEM = ['texto', 'bibliografia', 'experimentos', 'processo', 'geral'];
+  const itemHtml = f => `
+    <div class="item"><span class="tipo">${{TIPO_LABEL[f.tipo] || f.tipo}}</span>
       <span class="t">${{esc(f.titulo)}}</span>
-      <span class="pts">${{f.pontos_destravados ? '+' + f.pontos_destravados + ' pts' : ''}}</span></div>`).join('')
-    : `<p class="vazia">O agente segue no próximo passo abaixo. ✓</p>`;
+      <span class="pts">${{f.pontos_destravados ? '+' + f.pontos_destravados + ' pts' : ''}}</span></div>`;
+  if (!fila.length) {{
+    el('fila').innerHTML = `<p class="vazia">O agente segue no próximo passo abaixo. ✓</p>`;
+  }} else {{
+    const grupos = {{}};
+    for (const f of fila) (grupos[f.trilha || 'geral'] ??= []).push(f);
+    el('fila').innerHTML = TRILHA_ORDEM.filter(t => grupos[t]?.length).map(t => `
+      <div class="fila-trilha">
+        <h3 class="fila-trilha-h">${{TRILHA_LABEL[t]}} <span class="fila-trilha-n">${{grupos[t].length}}</span></h3>
+        ${{grupos[t].map(itemHtml).join('')}}
+      </div>`).join('');
+  }}
 
   el('proximo-desc').textContent = (P.proximo && P.proximo.descricao) || 'indefinido — definir no ritual';
 }})();
@@ -633,13 +662,18 @@ def build_plano() -> tuple[str, str]:
         / (temas.length * (STAGE_ORDER.length - 1)));
       const cards = temas.map(t => {{
         const cls = STAGE_CLASS[t.status] || 'pendente';
+        const semDef = t.responsavel === 'a definir';
+        // Cap.2 usa "citacoes", Caps.3-6 usam "citacoes_chaves" — mesmo dado,
+        // nome de campo diferente entre capítulos no plano; aceita os dois
+        const citacoes = t.citacoes ?? t.citacoes_chaves;
+        const note = t.nota ? ` title="${{esc(t.nota)}}"` : '';
         return `<div class="tema-card">
           <div class="tema-top">
-            <span class="pill ${{cls}}">${{GLIFO[cls]}} ${{esc(t.status)}}</span>
-            <span class="tema-resp"><span class="k-ag-dot" data-ag="${{esc(t.responsavel)}}" aria-hidden="true"></span>${{esc(t.responsavel)}}</span>
+            <span class="pill ${{cls}}${{t.nota ? ' has-note' : ''}}"${{note}}>${{GLIFO[cls]}} ${{esc(t.status)}}</span>
+            <span class="tema-resp${{semDef ? ' tema-resp-indef' : ''}}"><span class="k-ag-dot" data-ag="${{esc(t.responsavel)}}" aria-hidden="true"></span>${{esc(t.responsavel)}}</span>
           </div>
           <p class="tema-nome">${{esc(t.tema)}}</p>
-          <p class="tema-dim">linhas ${{esc(t.linhas)}} · ${{t.palavras}} palavras · ${{t.travessoes}} travessões · ${{t.citacoes}} citações</p>
+          <p class="tema-dim">linhas ${{esc(t.linhas)}} · ${{t.palavras}} palavras · ${{t.travessoes}} travessões · ${{citacoes ?? '—'}} citações</p>
         </div>`;
       }}).join('');
       return `<div class="quebra-cap">
@@ -710,6 +744,7 @@ def build_plano() -> tuple[str, str]:
   display:flex; flex-direction:column; gap:var(--sp-1)}}
 .tema-top{{display:flex; align-items:center; justify-content:space-between; gap:var(--sp-2)}}
 .tema-resp{{font-size:var(--fs-1); color:var(--muted); display:inline-flex; align-items:center}}
+.tema-resp-indef{{opacity:.6; font-style:italic}}
 .tema-nome{{margin:0; font-size:var(--fs-2); font-weight:600}}
 .tema-dim{{margin:0; font-size:var(--fs-1); color:var(--muted)}}
 </style>"""
