@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 53,
-  "atualizado_em": "2026-08-17T17:45:00Z",
+  "versao": 54,
+  "atualizado_em": "2026-08-17T18:30:00Z",
   "atualizado_por": "revisor1: Cap. 2 fechado nas rodadas que me cabem — R3 e R4 dos temas t2, t4 e t5; retrospectiva em docs/retrospectiva-cap2-revisor1.md",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -164,8 +164,8 @@
       "arquivo": "2-fundam/texto.tex",
       "rodadas": {
         "R1": {
-          "status": "andamento",
-          "nota": "t2 e t3 feitos; t1, t4 e t5 em execução — conversão de travessões apenas (forma), leitura do autor já aprovada sobre o conteúdo"
+          "status": "feito",
+          "nota": "5 temas concluídos; arquivo com 1 travessão (contraste legítimo)"
         },
         "R2": {
           "status": "pendente"
@@ -179,14 +179,16 @@
           "nota": "t1/t2/t3 (17 achados) + t4/t5 (23 itens de registro) aplicados e mergeados"
         },
         "R5": {
-          "status": "pendente"
+          "status": "andamento",
+          "nota": "principal iniciou 2026-08-17 (ordem do autor)"
         },
         "R6": {
-          "status": "pendente"
+          "status": "andamento",
+          "nota": "despachado à banca 2026-08-17 (ordem do autor)"
         },
         "R7": {
-          "status": "feito",
-          "nota": "leitura final do autor aprovada em 2026-08-17 (declarada em sessão), junto com a do Cap.1"
+          "status": "andamento",
+          "nota": "CORRIGIDO 18:30 — leitura do autor é POR TEMA: t1 e t2 aprovados em 2026-08-17; t3 iniciando agora; t4 e t5 pendentes"
         }
       },
       "abertura": [
@@ -210,8 +212,8 @@
           "travessoes": 13,
           "citacoes": 31,
           "responsavel": "revisor2",
-          "status": "r1",
-          "nota": "R3+R4+pacote da leitura do autor mergeados; R1 destravado (revisor2, após t3)"
+          "status": "feito",
+          "nota": "R3+R4+pacote da leitura do autor mergeados; R1 destravado (revisor2, após t3) · R7 do autor aprovado"
         },
         {
           "id": "t2",
@@ -223,7 +225,7 @@
           "responsavel": "revisor1",
           "status": "feito",
           "dono": "revisor1",
-          "nota": "R3+R4+patch banca+R1+leitura do autor (14 edições) mergeados 2026-08-17"
+          "nota": "R3+R4+patch banca+R1+leitura do autor (14 edições) mergeados 2026-08-17 · R7 do autor aprovado"
         },
         {
           "id": "t3",
@@ -234,7 +236,7 @@
           "citacoes": 29,
           "responsavel": "revisor2",
           "status": "feito",
-          "nota": "R3+R4+R1+3 achados de citação (Tian/Diao/Schick) resolvidos; encerrado"
+          "nota": "R3+R4+R1+3 achados de citação (Tian/Diao/Schick) resolvidos; encerrado · R7 do autor EM CURSO"
         },
         {
           "id": "t4",
@@ -244,9 +246,9 @@
           "travessoes": 22,
           "citacoes": 30,
           "responsavel": "revisor1",
-          "status": "r4",
+          "status": "feito",
           "dono": "revisor1",
-          "nota": "R3+R4+re-revisão de registro (23 itens) mergeados 2026-08-17; falta apenas o R1 (travessões)"
+          "nota": "R3+R4+registro+R1 completos; aguarda R7 do autor"
         },
         {
           "id": "t5",
@@ -256,9 +258,9 @@
           "travessoes": 14,
           "citacoes": 24,
           "responsavel": "revisor1",
-          "status": "r4",
+          "status": "feito",
           "dono": "revisor1",
-          "nota": "R3+R4+re-revisão de registro (23 itens) mergeados 2026-08-17; falta apenas o R1 (travessões)"
+          "nota": "R3+R4+registro+R1 completos; aguarda R7 do autor"
         }
       ]
     },
