@@ -583,9 +583,12 @@ o survey clássico de \citet{Frenay2014} organiza taxonomias de ruído
 funções de perda corrigidas; e \citet{Song2023NoisyLabels} revisam o estado da
 arte com redes profundas. Dois resultados importam diretamente: redes
 profundas toleram ruído moderado quando há dados suficientes, mas degradam de
-forma acentuada sob ruído estruturado (dependente de classe) — exatamente o
-perfil de erro observado em oráculos LLM, cujas confusões se concentram em
-pares de classes vizinhas. A evidência mais recente acrescenta uma cautela
+forma acentuada sob ruído dependente de classe que desloca fronteiras de
+decisão de modo sistemático. O perfil observado em oráculos LLM é um caso
+particular com estrutura própria: as confusões concentram-se em pares de
+classes semanticamente vizinhas, erros parcialmente defensáveis cujo dano ao
+classificador não se deduz da regra geral — é examinado empiricamente nesta
+tese (RQ3 e E4, Capítulo~\ref{ch:resultados-falco}). A evidência mais recente acrescenta uma cautela
 metodológica: ruído \emph{real} de anotação é substancialmente mais nocivo que
 as corrupções sintéticas usadas em avaliação — demonstrado em reconhecimento
 de entidades pelo NoiseBench \citep{Merdjanovska2024NoiseBench}, que inclui um
