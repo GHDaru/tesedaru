@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 57,
-  "atualizado_em": "2026-08-17T20:00:00Z",
+  "versao": 58,
+  "atualizado_em": "2026-08-17T21:15:00Z",
   "atualizado_por": "revisor1: Cap. 2 fechado nas rodadas que me cabem — R3 e R4 dos temas t2, t4 e t5; retrospectiva em docs/retrospectiva-cap2-revisor1.md",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -188,8 +188,8 @@
           "nota": "banca, commits ebb1f65+12dd24d na main; verificado pelo principal: 0 códigos de experimento, 15 criações da tese só como ponte com ref, glosas na 1ª ocorrência"
         },
         "R7": {
-          "status": "andamento",
-          "nota": "leitura por tema: t1, t2 e t3 aprovados (t3 com 6 edições aplicadas pela banca, commit 16a92e5); faltam t4 e t5"
+          "status": "feito",
+          "nota": "leitura do autor concluída nos 5 temas em 2026-08-17 (t1,t2 · t3 6 edições · t4 5 edições · t5 6 edições + conserto do ALPS)"
         }
       },
       "abertura": [
@@ -263,7 +263,8 @@
           "dono": "revisor1",
           "nota": "R3+R4+registro+R1 completos; aguarda R7 do autor"
         }
-      ]
+      ],
+      "encerrado": "2026-08-17 — R1 a R7 completas nos cinco temas; último conserto: descrição do ALPS (achado do revisor2, verificado por ambos na fonte)"
     },
     {
       "id": "cap3",
