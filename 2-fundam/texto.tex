@@ -561,8 +561,8 @@ sem fadiga, consistência entre anotações, velocidade e custo
 \citep{Gilardi2023}.
 
 Essas vantagens convivem com limitações documentadas. A validação sistemática
-de \citet{Pangakis2023Validation} mostra desempenho altamente contingente à
-tarefa: em um terço de 27 tarefas testadas, precisão ou revocação ficaram
+de \citet{Pangakis2023Validation} mostra que o desempenho varia fortemente de
+tarefa para tarefa: em um terço de 27 tarefas testadas, precisão ou revocação ficaram
 abaixo de 0,5. Daí a exigência de validar o oráculo por tarefa antes de
 usá-lo. Já os vieses herdados do pré-treinamento, a alucinação e o
 conhecimento datado entram nesta tese como parte do perfil de erro a medir, e
@@ -572,8 +572,9 @@ Cabe ainda a ressalva central para esta tese: os resultados positivos
 concentram-se em tarefas com poucas classes. Os estudos recentes de
 classificação de produtos operam com dezenas a algumas centenas de
 categorias: 248 no comparativo zero-shot de \citet{Roumeliotis2025} e 370
-folhas nos testes de robustez de \citet{Gholamian2024}, que também mostram
-LLMs mais resilientes que modelos supervisionados sob abreviação e truncamento
+categorias terminais (as \emph{folhas} da taxonomia) nos testes de robustez
+de \citet{Gholamian2024}, que também mostram
+LLMs mais robustos que modelos supervisionados sob abreviação e truncamento
 de títulos. A transferência
 desse desempenho para espaços fechados com centenas de categorias em
 português não é automática e constitui uma das perguntas experimentais do
@@ -596,8 +597,9 @@ LLM anota quando confia e os casos difíceis vão ao humano, aproximando o F1 da
 anotação inteiramente humana a custo reduzido. Em línguas de baixo recurso,
 \citet{Kholodna2024} acrescentam duas práticas operacionais que esta tese
 incorpora: a \emph{seleção prévia do anotador} entre LLMs candidatos e a
-\emph{anotação em lote}, que amortiza o prefixo do \textit{prompt} entre
-várias instâncias, com economia estimada superior a 42 vezes frente à
+\emph{anotação em lote}, que dilui entre várias instâncias o custo fixo da
+parte inicial do \textit{prompt} (instruções e exemplos da tarefa, idênticos
+em cada chamada), com economia estimada superior a 42 vezes frente à
 anotação humana.
 
 Como \textbf{seletor}, o LLM ataca a partida a frio: o ActiveLLM
@@ -628,7 +630,7 @@ pode ser ativa \citep{Diao2023}.
         \draw[seta] (llm) -- (sel);
         \draw[seta] (sel) -- (orac);
         \draw[seta] (orac) |- (modelo);
-        \draw[seta, dashed] (modelo) -| node[pos=0.25, below, font=\footnotesize] {recapitulação das seleções anteriores} (llm);
+        \draw[seta, dashed] (modelo) -| node[pos=0.85, left, align=center, font=\footnotesize] {recapitulação das\\seleções anteriores} (llm);
     \end{tikzpicture}
     \caption{Arquitetura conceitual do ActiveLLM: o LLM atua como \emph{seletor} de
     instâncias informativas, mitigando o \textit{cold start}, enquanto a rotulagem
@@ -654,8 +656,9 @@ incerteza em informação.
 O segundo são os \emph{sistemas híbridos humano--LLM}, que roteiam casos
 difíceis ao humano \citep{Margatina2023}. O terceiro é a \emph{mistura de
 LLMs} de \citet{Qi2026MixtureLLMs}, que substitui o anotador único por um
-comitê de modelos leves locais com mecanismos de discrepância e aprendizado
-negativo. O quarto é o paradigma \emph{dual-expert} para taxonomias amplas de
+comitê de modelos leves locais com mecanismos de discrepância e de
+\emph{aprendizado negativo}: treinar também com os rótulos que a instância
+provavelmente \emph{não} tem, uma informação mais confiável sob ruído. O quarto é o paradigma \emph{dual-expert} para taxonomias amplas de
 produtos \citep{Cheng2024DualExpert}, em que um especialista de domínio contrai
 o espaço a $K$ candidatos e o LLM generalista decide entre eles.
 
@@ -697,8 +700,8 @@ O oráculo LLM introduz uma economia e uma metrologia próprias, que esta
 tese instrumenta de ponta a ponta (Capítulo~\ref{ch:metodo}). O
 \textbf{custo} deixa de ser por item e passa a
 ser por \emph{token}, com três alavancas operacionais: o tamanho do lote de
-anotação, que amortiza o prefixo comum do \textit{prompt} entre instâncias
-\citep{Kholodna2024}; o \textit{cache} de prefixo oferecido por provedores,
+anotação, que dilui entre as instâncias do lote o custo fixo da parte
+inicial do \textit{prompt} \citep{Kholodna2024}; o \textit{cache} de prefixo oferecido por provedores,
 que reduz o preço da porção repetida; e os limites de vazão (requisições por
 minuto, cotas diárias), que definem o tempo total de execução
 (\textit{wall-clock}) independentemente do preço. A \textbf{medição} também muda: parte do erro aparente de um LLM
