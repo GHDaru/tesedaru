@@ -55,16 +55,36 @@ O critério 4 do DoD existe por causa desse erro e o mantém morto.
 
 ## Números do acervo, medidos (princípio V)
 
-- 378 entradas no `.bib`; 155 chaves citadas nos 30 arquivos `.tex`; 152 fichamentos.
-- 96 citadas sem fichamento → **47 canônicas** (dispensadas pela ADR 0012) e
-  **49 pendências reais** (aviso A1). As 49 são do repositório inteiro, não só
-  do t1 — a ADR fala em 7 porque o recorte dela é o tema t1.
-- **126 órfãs** (aviso A2): no `.bib`, sem citação, sem ficha e sem ser alvo de
-  relação. Três delas são as duplicatas de chave descritas na verificação.
+**Medição refeita após o gate do bib (`7f8e2b2`), que levou o arquivo de 378 a
+337 entradas.** Os números da primeira medição estão registrados ao lado porque
+a diferença entre eles é o efeito do saneamento, não um erro de contagem.
+
+| Medida | Antes do gate do bib | **Agora (base `7f8e2b2`)** |
+|---|---|---|
+| entradas no `.bib` | 378 | **337** |
+| fichamentos | 152 | **161** |
+| aviso A1 (citada, sem ficha, não canônica) | 49 | **35** |
+| aviso A2 (órfã) | 126 | **95** |
+| reprovações do invariante 7 | 0 | **0** |
+
+As pendências A1 são do repositório inteiro, não só do t1 — a ADR fala em 7
+porque o recorte dela é o tema t1.
+
+Rebase feito sobre `7f8e2b2`; as 5 fichas mínimas seguem verdes e o invariante 7
+continua sem acusar nada no acervo saneado.
 
 ## Para o gate do autor
 
-O que pede decisão sua não está neste diff: são os achados de `referencias.bib`,
-que não editei por respeito ao lock do revisor1. O mais sério é o
-**`Reusens2024`, cujo DOI abre um artigo sobre proteínas** — detalhe e correção
-em `fichamentos/verificacoes/pendencias-t1.md`.
+Os achados de `referencias.bib` que este ciclo levantou **já foram quase todos
+corrigidos** no gate do bib aprovado em `ac31dcf`/`7f8e2b2` — confirmei um a um
+contra o arquivo saneado:
+
+| Achado | Situação |
+|---|---|
+| `Reusens2024` com DOI que abria outro artigo | **corrigido** — DOI, volume 254, páginas 124302 e URL agora corretos |
+| `Kohavi1995` declarada como `@article` | **corrigido** — virou `@inproceedings` |
+| Duplicatas `Devlin2019`/`devlin2019bert`, `Bayer2024`/`Bayer2024ActiveLLM`, `Zhang2025`/`Zhang2025LLMAL` | **resolvidas** — sobrou uma chave por obra |
+| `Widodo2022`: última página e grafia do título | **ABERTO** — ainda `2407--2413` (correto: **2414**) e ainda "optimation" (correto: "optimi**z**ation"), ambos conferidos na Crossref pelo DOI `10.33395/sinkron.v7i4.11792` |
+
+Ou seja, resta **um** item de bibliografia, pequeno e verificado. Não o corrigi
+aqui porque o `referencias.bib` não é a minha superfície.
