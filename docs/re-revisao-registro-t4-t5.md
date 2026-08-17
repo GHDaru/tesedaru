@@ -14,6 +14,22 @@ Faixas medidas na `main` de 2026-08-17T15:30Z: **t4 = linhas 715-810**,
 
 ## Antes da lista: um item (c) que é meu, e está fora de t4/t5
 
+> **FECHADO em 2026-08-17T16:01Z — não precisa de ação.** Verifiquei na `main`
+> depois do gate do t2 (`00baaed`, as 14 edições da leitura do autor): o autor
+> **já resolveu**, e pela segunda alternativa sugerida abaixo. A evocação saiu
+> por inteiro da linha 389 (ficou "…por consulta `\citep{Settles2012}.`") e
+> Shannon foi **realocado para a Eq. `eq:entropy`**, linha 419: "seleciona pela
+> **entropia** da distribuição completa, a medida de incerteza de
+> `\citet{Shannon1948}`". É a régua do item (c) aplicada — a citação passou a
+> estar onde o conceito é tecnicamente exato, porque a entropia de Shannon é
+> literalmente a quantidade dentro daquela equação. **Total do relatório
+> permanece 23**: este item nunca esteve na contagem (é de t2, não de t4/t5).
+> Deixo o registro abaixo intacto porque a história dele — dois revisores
+> discutindo a preposição quando a pergunta era se a citação devia existir —
+> continua sendo o argumento de por que o checklist do autor pega o que nós
+> não pegávamos.
+
+
 O item **(c) autoridade decorativa — "no espírito de X"** descreve exatamente
 uma frase **que eu escrevi hoje**, no t2:
 

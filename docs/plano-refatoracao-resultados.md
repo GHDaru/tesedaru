@@ -266,3 +266,75 @@ EOF
 - **A escolha entre as opções é do autor.** Recomendo a 2, mas as três estão
   medidas com o mesmo cuidado justamente para ele poder discordar com base.
 - **Os títulos propostos são rascunho de tom**, não redação final.
+
+---
+
+## 7. Régua de tom do autor — VINCULANTE para todas as fatias
+
+**Origem**: as 5 edições que o autor fez no pacote t2 (tarefa 1005 da banca), em
+frases da própria humanização do R1. Ordem dele em 2026-08-17: *"nos gates de
+retrabalho do Capítulo 5, já passe as diretrizes, senão terá retrabalho depois"*.
+Por isso a régua deixa de ser observação e vira **critério de aceite**.
+
+| Ele trocou | Por | Regra que isso fixa |
+|---|---|---|
+| "poderoso" | "funciona **quando** o espaço de entrada tem estrutura conhecida" | **adjetivo avaliativo → condição em que vale** |
+| "inevitável" | "necessário na prática" | **absoluto → qualificado** |
+| "cardápio de LLMs" | "oferta de LLMs" | **metáfora → termo literal** |
+| "eventualmente" | "possivelmente" | **falso amigo**: em português "eventualmente" é *de vez em quando* |
+
+### As quatro regras, na forma em que serão verificadas
+
+1. **Sem metáfora DECORATIVA.** Nada de "cardápio", "veredito", "espinha
+   dorsal" no texto da tese: são figuras que substituem o termo próprio.
+
+   **Distinção que a régua precisa fazer, e que eu quase errei**: *"teto"* NÃO
+   entra na lista. Ao varrer o Cap. 5 encontrei 11 ocorrências e ia proibi-las
+   — mas fui olhar, e todas são **termo técnico estabelecido**: "teto
+   supervisionado", "teto de medição ($\approx 99{,}3\%$)", "teto de
+   significância". Limite superior de uma medida se chama teto em português
+   técnico, e trocar isso empobreceria o texto em nome de uma regra.
+
+   **O critério não é a palavra, é a função**: figura que substitui o termo
+   próprio sai; termo consagrado do campo fica. Uma lista de palavras proibidas
+   aplicada sem esse filtro produz exatamente a classe de falso positivo que
+   venho perseguindo nos checadores.
+2. **Sem adjetivo avaliativo sozinho.** Se algo é "poderoso", "notável",
+   "impressionante", diga **sob que condição** e com que medida.
+3. **Sem absoluto não sustentado.** "inevitável", "sempre", "nunca", "qualquer"
+   só com evidência que os sustente; senão, qualifique.
+4. **Sem falso amigo.** "eventualmente" (≠ *eventually*), "assumir" no sentido
+   de supor, "endereçar" no sentido de tratar, "suportar" no sentido de admitir.
+
+### Aplicação retroativa já feita (F2)
+
+Três títulos que eu havia proposto violavam a régua e **foram trocados antes do
+gate**, por ordem do autor:
+
+| Proposto | Aplicado | Regra |
+|---|---|---|
+| O *prompt* é parte do instrumento, **não um detalhe de implementação** | O *prompt* como variável do instrumento de medição | 1, 2 |
+| Seleção sob oráculo perfeito: **o teto do que o método pode render** | Seleção sob oráculo perfeito: limite superior do método | 1 |
+| **O veredito** do classificador forte sobre a hipótese central | Avaliação da hipótese central com o classificador forte | 1 |
+
+A mesma troca foi propagada a mais dois pontos que a varredura revelou:
+
+- a linha do E3$'$ na **tabela-mapa do Cap. 3**, que repetia "veredito" —
+  inconsistência que só apareceu porque apliquei a régua aos dois arquivos, e
+  não só onde eu esperava;
+- a frase de abertura do resultado do E3$'$ (Cap. 5), que dizia *"O **veredito**
+  da hipótese central é negativo"* e passou a *"A hipótese central **não se
+  confirma** na configuração executada"*. Estava a dois parágrafos do título que
+  eu acabara de limpar; deixá-la seria trocar a metáfora de lugar, não removê-la.
+
+### Efeito no DoD das fatias F3, F4, F5 e F7
+
+Ao critério executável já definido acrescenta-se uma **leitura dirigida** — esta
+não é automatizável e eu declaro isso em vez de fingir que é: cada trecho novo
+ou reescrito passa pelas quatro regras acima antes de entrar no commit, e a
+mensagem de entrega declara quais delas foram acionadas.
+
+O que **é** automatizável fica no `check-codigos-experimento.py` (fatia F1, se
+despachado): a lista de metáforas proibidas do item 1 vira `grep`, porque é
+vocabulário fechado. Os itens 2 a 4 dependem de julgamento e ficam explicitamente
+fora da checagem — **checagem que promete julgar tom é checagem que mente**.
