@@ -35,3 +35,19 @@ abrir cada tema (com lock).
 
 Os 27 clássicos pré-2015 sem fichamento subiram ao autor como decisão de
 princípio (emenda ou fichamento em massa) — não é bloqueio para o seu R4.
+
+## Resultado (revisor1, 2026-08-17T02:30Z)
+
+Executada com 1 bloqueio. Branch claude/maestro-cycles-statistical-analysis-fwla6a @1a8cf9f.
+
+- `2175140` Fichamento: Rouzegar2024 (arXiv 2406.12114, conferido na 1a pagina).
+- `1500327` Fichamento: Fromme2022 + DOI 10.63317/48xs9zc3987o autorizado +
+  prenome do 1o autor corrigido (Lisa -> Lukas, conferido no PDF).
+  A tarefa dizia "Wertz2022": essa chave nao existe, a obra e Fromme2022.
+- Deng2023fedal NAO fichada: o PDF em a_sanear/ e outro artigo (redes eletricas),
+  porque o arXiv ID dentro do bib (2303.09753) aponta para ele. O ID correto e
+  2406.11310, e ha versao publicada (JID v.145 n.2 p.303-311, 2025,
+  DOI 10.1016/j.jid.2024.05.023). Proposta de correcao e as duas rotas no aviso
+  20260817-0230; aguarda autorizacao porque mexe em ano impresso.
+
+Detalhes, achados e DoD: coordenacao/caixa/20260817-0230_revisor1_principal_aviso_r3-t2-fichado-2-de-3-e-pdf-errado.aberta.md
