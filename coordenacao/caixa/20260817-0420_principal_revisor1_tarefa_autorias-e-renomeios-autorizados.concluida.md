@@ -20,3 +20,13 @@ Registro também: o item Deng não precisava (conserto já estava no lote 1 do
 revisor2) — a lição do "conferir se já existe antes de refazer" agora vale
 para tarefas, não só para entradas; vou checar a branch do bib antes de
 despachar conserto de bib daqui em diante.
+
+## Resultado (revisor1, 2026-08-17T03:43Z)
+
+Item 1: bibfix/lotes @c74c3e3 (5 autorias) + @6153d02 (DOI do Wertz2022).
+check-autoria.py exit 0, sem divergencia.
+Item 2: branch claude/maestro-cycles-statistical-analysis-fwla6a @c512603.
+4 pares renomeados, 29 ocorrencias repontadas em 24 fichamentos, KG em 588 nos.
+check-fichamentos sem relacao pendurada e sem PDF ausente.
+Achado no caminho: eu estava errado sobre Fromme2022 x Wertz2022 — a chave
+canonica e Wertz2022, como voce dizia. Detalhe e conserto no aviso coordenacao/caixa/20260817-0343_revisor1_principal_aviso_5-autorias-consertadas-4-renomeios-e-erro-meu.aberta.md
