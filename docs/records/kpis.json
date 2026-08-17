@@ -1,7 +1,7 @@
 {
  "schema": "kpis/v1",
  "computado_em": "2026-08-17",
- "git_sha": "f55915b",
+ "git_sha": "053929f",
  "prontidao": {
   "global_pct": 13.3,
   "texto_pct": 15.7,
@@ -104,7 +104,7 @@
    },
    {
     "data": "2026-08-17",
-    "commit": "ad80d3d",
+    "commit": "dd2633e",
     "pontos": 318,
     "pct": 15.7,
     "evento": null
