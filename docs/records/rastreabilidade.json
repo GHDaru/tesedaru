@@ -3,10 +3,10 @@
   "gerado_por": "executor01 · notebooks/auditoria/build_rastreabilidade.py",
   "cobertura": "Cap. 5 completo menos a seção do gate (E0, E0-P, E1, E4, E6, E3′) + Cap. 4 (P1/P2) + a nota do Cap. 3 sobre execuções auditadas. Faltam: seção do gate, Caps. 3 e 6, apêndices, pré-textuais",
   "resumo": {
-    "rastreado": 59,
+    "rastreado": 62,
     "divergente": 10,
     "legado": 1,
-    "sem-evidencia": 2
+    "sem-evidencia": 1
   },
   "legenda": {
     "rastreado": "o número sai do artefato citado",
@@ -396,6 +396,26 @@
       "nota": "0.891 está na saída gravada da célula 4. Evidência existe mas em repositório somente leitura e sem referência cruzada; o REPRODUCIBILITY.md aponta para 'Tese-Vers-o-Draft', que não é este repositório"
     },
     {
+      "numero": "pipeline do E0 é reprodutível ponta a ponta do dado bruto",
+      "onde": "experiments/e0/analyze_e0.py",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json + experiments/e0/results/e0_mcnemar.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "notebooks/auditoria/escolha-do-oraculo.ipynb",
+      "status": "rastreado",
+      "nota": "reanálise completa (13/13 linhas da tabela, 43/43 pares de McNemar) roda zero-custo sobre as anotações já versionadas e reproduz os artefatos exatamente — inclusive a AUSÊNCIA de b=43/c=16 em qualquer par"
+    },
+    {
+      "numero": "pipeline do E0-P é reprodutível ponta a ponta do dado bruto",
+      "onde": "experiments/e0p/analyze_e0p.py",
+      "experimento": "efeito-do-prompt",
+      "artefato": "experiments/e0p/results/analysis.json",
+      "codigo": "experiments/e0p/run_e0p.py + analyze_e0p.py",
+      "notebook_kaggle": "notebooks/auditoria/efeito-do-prompt.ipynb",
+      "status": "rastreado",
+      "nota": "reanálise completa (6/6 acurácias, 6/6 pares de McNemar) roda zero-custo e reproduz o analysis.json publicado exatamente"
+    },
+    {
       "numero": "E0-P rand v3: acurácia 60.4%",
       "onde": "5-resultados-falco/texto.tex#tab:e0p",
       "experimento": "efeito-do-prompt",
@@ -636,14 +656,14 @@
       "nota": "artefato: [0.007812, 0.007812, 0.007812]"
     },
     {
-      "numero": "as 104 células do E1/E1b/E4",
+      "numero": "as 104 células do E1/E1b/E4 (sweeps.jsonl)",
       "onde": "5-resultados-falco/texto.tex#sec:res-e1",
       "experimento": "estrategias-de-selecao",
       "artefato": "experiments/e1e4/results/sweeps.jsonl",
       "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
-      "notebook_kaggle": "",
-      "status": "sem-evidencia",
-      "nota": "o REPRODUCIBILITY.md lista sweeps.jsonl como artefato do experimento, mas ele não está no repositório: só o analysis.json e o baseline.json. As conclusões estão versionadas, o dado por célula não. Casa com a linha 7 do .gitignore"
+      "notebook_kaggle": "notebooks/auditoria/estrategias-e-robustez.ipynb",
+      "status": "rastreado",
+      "nota": "reexecutado na Onda 4 (run_sweeps.py roda de novo, não é reanálise — o dado bruto nunca esteve versionado). Pool determinístico (semente 7 fixa no script): a reprodução do E1 e do E4 bateu quase exata (3ª/4ª casa decimal) com os agregados publicados. git add -f — casa com a linha 7 do .gitignore"
     },
     {
       "numero": "figuras do Cap. 4 e do Cap. 5 geradas por script",
