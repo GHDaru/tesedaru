@@ -83,8 +83,16 @@ com precisão; `Schick2023` sustenta **outra** afirmação, verdadeira e útil, 
 própria §2.3 já faz alguns parágrafos antes: a dos sistemas compostos, em que o
 LLM orquestra recursos externos.
 
-Portanto a recomendação **não** é remover a obra — é movê-la para a afirmação que
-ela sustenta. Levado ao principal; não editei prosa.
+Portanto a recomendação **não** era remover a obra — era movê-la para a afirmação
+que ela sustenta.
+
+**RESOLVIDO (commit `72ec7ea`, decisão do autor):** a chave saiu da frase da
+escolha de \textit{prompts} (que ficou só com `Diao2023`) e entrou na abertura
+dos sistemas compostos, hoje em `2-fundam/texto.tex:636-639`: "no Toolformer, o
+LLM aprende por auto-supervisão quais interfaces chamar, em que momento e com
+quais argumentos". Conferi contra o resumo da fonte — *"which APIs to call, when
+to call them, what arguments to pass"* — e a redação é fiel; "interfaces" no
+lugar de "APIs" é escolha de registro do autor, não mudança de fato.
 
 Limite adicional: é pré-impressão de 2023 sem DOI, e a `paper_type` foi marcada
 como `metodo` porque é o que descreve — mas cabe registrar que não passou por
