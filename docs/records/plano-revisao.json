@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 48,
-  "atualizado_em": "2026-08-17T13:50:00Z",
+  "versao": 49,
+  "atualizado_em": "2026-08-17T14:00:00Z",
   "atualizado_por": "revisor1: Cap. 2 fechado nas rodadas que me cabem — R3 e R4 dos temas t2, t4 e t5; retrospectiva em docs/retrospectiva-cap2-revisor1.md",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -1190,9 +1190,9 @@
       "trilha": "experimentos"
     },
     {
-      "id": "dec-refatoracao-resultados",
+      "id": "dec-reforco-cap4",
       "trilha": "texto",
-      "titulo": "Refatoração estrutural (ordem do autor): (A) dois capítulos de resultados assimétricos (Cap.4 = 1.442 palavras/zero citações × Cap.5 = 4.973) — unificar ou reforçar?; (B) expurgo da notação EXXX da prosa (224 ocorrências) preservando rastreabilidade em tabela do Cap.3 + apêndice. Fase 1 (plano) com revisor1"
+      "titulo": "F6 da refatoração (separada por decisão do autor): reforçar o Cap. 4 — hoje com zero citações, embora 6 fichamentos o prometam; exige escrever conteúdo novo (discussão + interlocução com a literatura)"
     }
   ]
 }
