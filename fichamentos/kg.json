@@ -547,9 +547,11 @@
       "paper_type": "survey",
       "status": "fichado",
       "pdf": "referencias-pdf/Birunda2021.pdf",
-      "doi": "",
-      "url": "",
-      "cited_in": []
+      "doi": "10.1007/978-981-15-9651-3_23",
+      "url": "https://doi.org/10.1007/978-981-15-9651-3_23",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
     },
     {
       "id": "metodo:embeddings",

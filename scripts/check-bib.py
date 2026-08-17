@@ -101,6 +101,31 @@ def main() -> int:
     # decidir remocao ve o conjunto COMPLETO do que sustenta o grafo.
     ancoradas |= set(alvos)
 
+    # DOI repetido = a MESMA obra cadastrada sob duas chaves. Foi o defeito do
+    # ciclo em 2 ocorrencias no mesmo dia: ao corrigir metadado fabricado
+    # apontando para a obra real, a obra real ja estava no arquivo sob outra
+    # chave (Naseem2021 x Naseem2021HateSpeech; Selva2021 x Birunda2021).
+    # A regra que faltava: antes de RECONSTRUIR uma entrada, perguntar se a
+    # obra corrigida ja existe. Isto verifica isso mecanicamente.
+    por_doi: dict[str, list[str]] = {}
+    for m in re.finditer(r"@\w+\{\s*([^,\s]+)\s*,", texto):
+        chave = m.group(1)
+        i, prof = m.end(), 1
+        while i < len(texto) and prof:
+            if texto[i] == "{":
+                prof += 1
+            elif texto[i] == "}":
+                prof -= 1
+            i += 1
+        doi = re.search(r"doi\s*=\s*\{([^}]*)\}", texto[m.start():i], re.I)
+        if doi:
+            por_doi.setdefault(doi.group(1).strip().lower(), []).append(chave)
+    for doi, chaves_doi in sorted(por_doi.items()):
+        if len(chaves_doi) > 1:
+            problemas.append(
+                f"mesmo DOI em {len(chaves_doi)} chaves: {doi} -> "
+                f"{', '.join(sorted(chaves_doi))}")
+
     citadas: dict[str, list[str]] = {}
     for path in fontes_tex():
         conteudo = path.read_text(encoding="utf-8", errors="replace")

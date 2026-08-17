@@ -4,7 +4,7 @@ title: "A Review on Word Embedding Techniques for Text Classification"
 authors: ["Selva Birunda, S.", "Kanniga Devi, R."]
 year: 2021
 venue: "Innovative Data Communication Technologies and Application (ICIDCA 2020), Springer, pp. 267–281"
-doi: ""
+doi: "10.1007/978-981-15-9651-3_23"
 pdf: referencias-pdf/Birunda2021.pdf
 paper_type: survey
 pillars: [geral]
