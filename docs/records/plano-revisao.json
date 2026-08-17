@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 51,
-  "atualizado_em": "2026-08-17T16:30:00Z",
+  "versao": 52,
+  "atualizado_em": "2026-08-17T17:20:00Z",
   "atualizado_por": "revisor1: Cap. 2 fechado nas rodadas que me cabem — R3 e R4 dos temas t2, t4 e t5; retrospectiva em docs/retrospectiva-cap2-revisor1.md",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -233,7 +233,7 @@
           "citacoes": 29,
           "responsavel": "revisor2",
           "status": "feito",
-          "nota": "R3+R4+R1 completos; mergeado 2026-08-17"
+          "nota": "R3+R4+R1+3 achados de citação (Tian/Diao/Schick) resolvidos; encerrado"
         },
         {
           "id": "t4",
@@ -245,7 +245,7 @@
           "responsavel": "revisor1",
           "status": "r4",
           "dono": "revisor1",
-          "nota": "R3 e R4 CONCLUÍDAS. R3: 28 chaves distintas (627-721), 10 verificadas na fonte primária pela regra de risco, ZERO fabricações de obra. Achado: Xu2017 com 4 prenomes inventados e o 7º autor ausente — corrigido. R4: 6 pontos em docs/r4-cap2-t4-afirmacoes.md (RECUPERADO em 2026-08-17T12:35Z: o commit 3401cf5 ficou dangling num force-push meu e o arquivo esteve fora da main por 9h, apesar de o plano ja o citar). Os DOIS números sobre os nossos dados foram MEDIDOS e conferem: 'textos de 4 a 50 caracteres' é exato (min 4, max 50 em 250.221 descrições) e 'quase todo termo ocorre uma vez' se sustenta com folga (só 2,07% das descrições repetem algum termo). Falta declarar o artefato nos dois. Segunda ocorrência do padrão 'número tirado de fonte que o próprio fichamento declara qualitativa' (Song2014, Alsmadi2019). Correção da prosa é do principal."
+          "nota": "R3+R4+re-revisão de registro (23 itens) mergeados 2026-08-17; falta apenas o R1 (travessões)"
         },
         {
           "id": "t5",
@@ -257,7 +257,7 @@
           "responsavel": "revisor1",
           "status": "r4",
           "dono": "revisor1",
-          "nota": "R3 e R4 CONCLUÍDAS. R3: 17 chaves, 12 verificadas na fonte. R4: 8 pontos em docs/r4-cap2-t5-afirmacoes.md — a seção que sustenta a lacuna, revisada com peso extra. Exemplar e a NÃO mexer: a 2.5.1 declara ser revisão narrativa e não sistemática, com Kitchenham2004. Ponto principal: a alegação de lacuna (L845-847) não está delimitada pela busca — como está, afirma que a combinação NÃO EXISTE, quando o que a revisão sustenta é que não foi encontrada na busca descrita na 2.5.1; um contraexemplo derruba a versão atual. Machado2026RetailPt: 2 dos 4 números verificados no resumo (100 mil títulos, 94,0% Macro F1), 2 não (97,0% de acurácia, 12 mil rótulos) e a obra sem fichamento; o escopo é alimentos e bebidas, não o catálogo inteiro — dizer isso FORTALECE o contraste com as 621 classes do FALCO. Tabela de lacunas = 45 afirmações sobre trabalhos alheios; 8 das 9 obras têm ficha."
+          "nota": "R3+R4+re-revisão de registro (23 itens) mergeados 2026-08-17; falta apenas o R1 (travessões)"
         }
       ]
     },
