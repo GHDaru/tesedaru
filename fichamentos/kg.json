@@ -2401,6 +2401,32 @@
       "cited_in": []
     },
     {
+      "id": "Loshchilov2019AdamW",
+      "type": "artigo",
+      "label": "Loshchilov2019AdamW",
+      "title": "Decoupled Weight Decay Regularization",
+      "year": 2019,
+      "venue": "International Conference on Learning Representations (ICLR)",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Loshchilov2019AdamW.pdf",
+      "doi": "",
+      "url": "",
+      "cited_in": [
+        "Cap. 3 — Metodologia"
+      ]
+    },
+    {
+      "id": "conceito:adamw",
+      "type": "conceito",
+      "label": "adamw"
+    },
+    {
+      "id": "conceito:decaimento-de-peso-desacoplado",
+      "type": "conceito",
+      "label": "decaimento-de-peso-desacoplado"
+    },
+    {
       "id": "Mabrouk2017",
       "type": "artigo",
       "label": "Mabrouk2017",
@@ -3129,6 +3155,33 @@
       "doi": "",
       "url": "",
       "cited_in": []
+    },
+    {
+      "id": "Reimers2019SBERT",
+      "type": "artigo",
+      "label": "Reimers2019SBERT",
+      "title": "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks",
+      "year": 2019,
+      "venue": "EMNLP-IJCNLP 2019",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Reimers2019SBERT.pdf",
+      "doi": "10.18653/v1/D19-1410",
+      "url": "https://doi.org/10.18653/v1/D19-1410",
+      "cited_in": [
+        "Cap. 2 — Fundamentação",
+        "Cap. 3 — Metodologia"
+      ]
+    },
+    {
+      "id": "conceito:sentence-bert",
+      "type": "conceito",
+      "label": "sentence-bert"
+    },
+    {
+      "id": "modelo:roberta",
+      "type": "modelo",
+      "label": "roberta"
     },
     {
       "id": "Ren2021",
@@ -4363,6 +4416,22 @@
       ]
     },
     {
+      "id": "Wolf2020Transformers",
+      "type": "artigo",
+      "label": "Wolf2020Transformers",
+      "title": "Transformers: State-of-the-Art Natural Language Processing",
+      "year": 2020,
+      "venue": "EMNLP 2020 (System Demonstrations)",
+      "paper_type": "dataset",
+      "status": "ficha-minima",
+      "pdf": "referencias-pdf/Wolf2020Transformers.pdf",
+      "doi": "10.18653/v1/2020.emnlp-demos.6",
+      "url": "https://doi.org/10.18653/v1/2020.emnlp-demos.6",
+      "cited_in": [
+        "Cap. 3 — Metodologia"
+      ]
+    },
+    {
       "id": "Wong2015",
       "type": "artigo",
       "label": "Wong2015",
@@ -4432,11 +4501,6 @@
       "id": "conceito:destilacao-teacher-student",
       "type": "conceito",
       "label": "destilacao-teacher-student"
-    },
-    {
-      "id": "modelo:roberta",
-      "type": "modelo",
-      "label": "roberta"
     },
     {
       "id": "dataset:MedicalAbstract",
@@ -7798,6 +7862,32 @@
       "note": "SSL em grafos com rótulos ruidosos: paralelo conceitual do nosso problema de oráculo ruidoso."
     },
     {
+      "source": "Loshchilov2019AdamW",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Loshchilov2019AdamW",
+      "target": "conceito:adamw",
+      "type": "proposes"
+    },
+    {
+      "source": "Loshchilov2019AdamW",
+      "target": "conceito:decaimento-de-peso-desacoplado",
+      "type": "proposes"
+    },
+    {
+      "source": "Loshchilov2019AdamW",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Loshchilov2019AdamW",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "é a referência do otimizador do ajuste fino do BERTimbau no Cap. 3; a escolha de AdamW com decaimento de peso 0,01 só faz sentido sob a formulação desacoplada que este artigo propõe"
+    },
+    {
       "source": "Mabrouk2017",
       "target": "pilar:geral",
       "type": "pillars"
@@ -8779,6 +8869,62 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Tutorial de referência para o protocolo de avaliação; cobre McNemar que usamos no E0."
+    },
+    {
+      "source": "Reimers2019SBERT",
+      "target": "Devlin2019",
+      "type": "builds_on"
+    },
+    {
+      "source": "Reimers2019SBERT",
+      "target": "pilar:P1",
+      "type": "pillars"
+    },
+    {
+      "source": "Reimers2019SBERT",
+      "target": "pilar:P2",
+      "type": "pillars"
+    },
+    {
+      "source": "Reimers2019SBERT",
+      "target": "conceito:sentence-bert",
+      "type": "proposes"
+    },
+    {
+      "source": "Reimers2019SBERT",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Reimers2019SBERT",
+      "target": "metodo:selecao-por-similaridade",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Reimers2019SBERT",
+      "target": "modelo:sentence-bert",
+      "type": "models"
+    },
+    {
+      "source": "Reimers2019SBERT",
+      "target": "modelo:bert",
+      "type": "models"
+    },
+    {
+      "source": "Reimers2019SBERT",
+      "target": "modelo:roberta",
+      "type": "models"
+    },
+    {
+      "source": "Reimers2019SBERT",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Reimers2019SBERT",
+      "target": "DRI-SL",
+      "type": "fundamenta",
+      "note": "é o codificador de sentenças da densidade semântica: o DRI-SL projeta as instâncias com SBERT e agrupa por k-médias, o que só é viável porque este artigo torna a similaridade de sentenças comparável por cosseno"
     },
     {
       "source": "Ren2021",
@@ -10673,6 +10819,27 @@
       "target": "FALCO",
       "type": "fundamenta",
       "note": "Intervalo de confiança para proporção binomial obtido resolvendo a desigualdade no parâmetro, e não na estimativa — é o IC de 95% usado em TODA acurácia de oráculo relatada na tese."
+    },
+    {
+      "source": "Wolf2020Transformers",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Wolf2020Transformers",
+      "target": "metodo:fine-tuning",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Wolf2020Transformers",
+      "target": "modelo:bert",
+      "type": "models"
+    },
+    {
+      "source": "Wolf2020Transformers",
+      "target": "FALCO",
+      "type": "fundamenta",
+      "note": "é a implementação declarada do ajuste fino do BERTimbau no Cap. 3 — citação de ferramenta, que sustenta reprodutibilidade e não afirmação sobre a literatura"
     },
     {
       "source": "Wong2015",

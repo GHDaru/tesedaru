@@ -166,3 +166,8 @@ delta-de-desbalanceamento-de-classe  <!-- Griesshaber2020, Tab. 3: Δ|T| = max_c
 
 ### Tarefas (R3 t5)
 inferencia-de-linguagem-natural  <!-- Griesshaber2020: MNLI, QNLI e SNLI são tarefas de implicação textual, não classificação temática -->
+
+### Adições do R3 do Cap. 3 (2026-08-17, tarefa 20260817-1940)
+adamw, decaimento-de-peso-desacoplado  <!-- Loshchilov2019AdamW -->
+sentence-bert  <!-- Reimers2019SBERT (metodo e modelo) -->
+roberta  <!-- Reimers2019SBERT -->
