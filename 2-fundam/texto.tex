@@ -128,9 +128,9 @@ Avaliar um modelo nos mesmos dados de treino superestima seu desempenho
 \cite{Kohavi1995}. As práticas empregadas nesta tese são: (i)
 \textbf{hold-out}, separação treino/teste, adequada a bases grandes como a
 desta tese; (ii) \textbf{validação cruzada $k$-fold estratificada}, que
-particiona os dados em $k$ dobras preservando as proporções de classe —
+particiona os dados em $k$ dobras preservando as proporções de classe, o que é
 essencial sob desbalanceamento \cite{Kohavi1995, Forman2010, James2013,
-Widodo2022} — com $k$ tipicamente 5 ou 10, equilíbrio entre viés, variância e
+Widodo2022}, com $k$ tipicamente 5 ou 10, equilíbrio entre viés, variância e
 custo \cite{Nti2021, Reusens2024}; (iii) um conjunto de \textbf{validação}
 separado do teste para ajuste de hiperparâmetros, mantendo o teste intocado
 até a avaliação final \cite{Bishop2006}; e (iv) para modelos de aprendizado
