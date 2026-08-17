@@ -2858,6 +2858,27 @@
       "cited_in": []
     },
     {
+      "id": "Romberg2025Reassessing",
+      "type": "artigo",
+      "label": "Romberg2025Reassessing",
+      "title": "Reassessing Active Learning Adoption in Contemporary NLP: A Community Survey",
+      "year": 2026,
+      "venue": "Proceedings of EACL 2026 (Long Papers), p. 2621-2647 (preprint arXiv:2503.09701)",
+      "paper_type": "avaliacao",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Romberg2025Reassessing.pdf",
+      "doi": "10.18653/v1/2026.eacl-long.120",
+      "url": "https://doi.org/10.18653/v1/2026.eacl-long.120",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "metodo:pesquisa-de-comunidade",
+      "type": "metodo",
+      "label": "pesquisa-de-comunidade"
+    },
+    {
       "id": "Roumeliotis2025",
       "type": "artigo",
       "label": "Roumeliotis2025",
@@ -8077,6 +8098,48 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "SLR periférica herdada; foco em datasets pode apoiar a valorização do nosso dataset público."
+    },
+    {
+      "source": "Romberg2025Reassessing",
+      "target": "Lewis1994",
+      "type": "builds_on"
+    },
+    {
+      "source": "Romberg2025Reassessing",
+      "target": "pilar:P1",
+      "type": "pillars"
+    },
+    {
+      "source": "Romberg2025Reassessing",
+      "target": "pilar:P4",
+      "type": "pillars"
+    },
+    {
+      "source": "Romberg2025Reassessing",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Romberg2025Reassessing",
+      "target": "metodo:pesquisa-de-comunidade",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Romberg2025Reassessing",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Romberg2025Reassessing",
+      "target": "FALCO",
+      "type": "motiva",
+      "note": "Sustenta a afirmação de 2-fundam:785-789 sobre as barreiras práticas à adoção do aprendizado ativo — e sustenta com números, não só qualitativamente. As três barreiras que a tese lista (complexidade de implantação, incerteza sobre redução de custo, ferramental) são exatamente as três do resumo do artigo. A leitura que a tese acrescenta ('a viabilidade operacional, não a acurácia, é o obstáculo') é inferência nossa, mas os números a sustentam na proporção de cerca de 2 para 1 — ver claim C3."
+    },
+    {
+      "source": "Romberg2025Reassessing",
+      "target": "LCE",
+      "type": "fundamenta",
+      "note": "Dá base externa para a tese instrumentar CUSTO como dimensão de primeira classe: a segunda barreira mais citada é justamente a incerteza sobre a redução real de custo, e o artigo mostra que ela persiste há mais de quinze anos sem ser resolvida pela literatura."
     },
     {
       "source": "Roumeliotis2025",

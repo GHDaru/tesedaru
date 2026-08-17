@@ -132,3 +132,6 @@ ham10k, msk-isic  <!-- Deng2023fedal: 10.490 imagens dermatoscópicas repartidas
 
 ### Métricas (R3 t2 — federado)
 auc  <!-- Deng2023fedal: reportada ao lado de micro-f1 e macro-f1 -->
+
+### Métodos (adoção prática)
+pesquisa-de-comunidade  <!-- Romberg2025Reassessing: survey com praticantes, não experimento; resultados são percepção auto-relatada -->
