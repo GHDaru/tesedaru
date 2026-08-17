@@ -14,3 +14,12 @@ consolido o gate final do bib-fix inteiro para o autor: lotes 1-5 +
 correções + invariantes, de 378 para ~338 entradas, tudo verificado na
 fonte. Inclua no mesmo aviso o estado dos seus 2 fichamentos pendentes de
 gate (Rouzegar2024 e Fromme2022) — vou levá-los no mesmo bloco.
+
+## Resultado (revisor1, 2026-08-17T03:20Z)
+
+bibfix/lotes @162c12b. check-bib: exit 0, "PROBLEMAS: nenhum", 337 entradas,
+145 chaves citadas. As duas entradas conferidas na fonte antes da remocao e
+confirmadas fabricadas (arXiv 2212.06445 e de matematica; o survey real dos
+autores do Ahmed2023 e DOI 10.3390/app13010342). Precisou de um merge da main
+na branch antes (edef416), senao os .tex dela ainda citavam as duas chaves.
+Detalhe e ressalvas: coordenacao/caixa/20260817-0320_revisor1_principal_aviso_bib-zerado-e-estado-dos-2-fichamentos.aberta.md
