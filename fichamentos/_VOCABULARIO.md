@@ -41,6 +41,7 @@ regressao  <!-- Farquhar2021Bias -->
 classificacao-de-imagens  <!-- Hacohen2022TypiClust -->
 
 ### Modelos (fichar-vizinhos)
+gpt-4o  <!-- Zhang2025 -->
 biomed-roberta-base, gpt-3.5-turbo, roberta-base  <!-- FreeAL2023 -->
 resnet101, resnet18  <!-- Bengar2022ClassBalanced -->
 distilroberta, kimcnn, svm  <!-- Schroder2022Uncertainty -->
@@ -62,6 +63,7 @@ partition-then-rewrite, patron, propagacao-de-incerteza  <!-- Yu2023Patron -->
 core-set-selection, k-center-greedy, robust-k-center  <!-- Sener2018 -->
 
 ### Datasets (fichar-vizinhos)
+glue, jigsaw-toxic, sst-2  <!-- Bayer2024ActiveLLM, Zhang2025 -->
 cifar-10, cifar-100, imagenet-subconjuntos, tiny-imagenet  <!-- Hacohen2022TypiClust -->
 customer-reviews, movie-reviews, subjectivity  <!-- Schroder2022Uncertainty -->
 fashion-mnist, mnist  <!-- Farquhar2021Bias -->

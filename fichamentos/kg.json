@@ -325,10 +325,10 @@
       "label": "Bayer2024ActiveLLM",
       "title": "ActiveLLM: Large Language Model-based Active Learning for Textual Few-Shot Scenarios",
       "year": 2026,
-      "venue": "Transactions of the ACL",
+      "venue": "Transactions of the Association for Computational Linguistics, vol. 14, pp. 1--22 (publicado 1/2026)",
       "paper_type": "metodo",
       "status": "fichado",
-      "pdf": "referencias-pdf/bayer-activellm.pdf",
+      "pdf": "referencias-pdf/Bayer2024ActiveLLM.pdf",
       "doi": "10.1162/TACL.a.63",
       "url": "https://doi.org/10.1162/TACL.a.63",
       "cited_in": [
@@ -360,6 +360,21 @@
       "id": "modelo:bert",
       "type": "modelo",
       "label": "bert"
+    },
+    {
+      "id": "dataset:agnews",
+      "type": "dataset",
+      "label": "agnews"
+    },
+    {
+      "id": "dataset:glue",
+      "type": "dataset",
+      "label": "glue"
+    },
+    {
+      "id": "dataset:sst-2",
+      "type": "dataset",
+      "label": "sst-2"
     },
     {
       "id": "Baykal2021",
@@ -821,8 +836,8 @@
       "paper_type": "dissertacao",
       "status": "fichado",
       "pdf": "referencias-pdf/Daru2024Dissertacao.pdf",
-      "doi": "",
-      "url": "",
+      "doi": "10.11606/D.55.2024.tde-07012025-171839",
+      "url": "https://doi.org/10.11606/D.55.2024.tde-07012025-171839",
       "cited_in": [
         "Cap. 1 — Introdução",
         "Cap. 2 — Fundamentação",
@@ -834,11 +849,6 @@
       "id": "conceito:argmax-binary",
       "type": "conceito",
       "label": "argmax-binary"
-    },
-    {
-      "id": "conceito:metrica-unificada-acc-macrof1",
-      "type": "conceito",
-      "label": "metrica-unificada-acc-macrof1"
     },
     {
       "id": "metodo:n-gramas",
@@ -2911,11 +2921,6 @@
       "label": "kimcnn"
     },
     {
-      "id": "dataset:agnews",
-      "type": "dataset",
-      "label": "agnews"
-    },
-    {
       "id": "dataset:movie-reviews",
       "type": "dataset",
       "label": "movie-reviews"
@@ -3799,10 +3804,10 @@
       "id": "Zhang2025",
       "type": "artigo",
       "label": "Zhang2025",
-      "title": "Applying LLMs to Active Learning: Towards Cost-Efficient Cross-Task Text Classification without Manually Labeled Data",
+      "title": "Applying LLMs to Active Learning: Toward Cost-Efficient Cross-Task Text Classification Without Manually Labeled Data",
       "year": 2025,
-      "venue": "International Journal of Intelligent Systems (Wiley)",
-      "paper_type": "periodico",
+      "venue": "International Journal of Intelligent Systems (Wiley), vol. 2025, artigo 6472544, 14 pp.",
+      "paper_type": "metodo",
       "status": "fichado",
       "pdf": "referencias-pdf/Zhang2025.pdf",
       "doi": "10.1155/int/6472544",
@@ -3812,9 +3817,19 @@
       ]
     },
     {
-      "id": "metodo:diversidade",
+      "id": "conceito:llm-como-oraculo",
+      "type": "conceito",
+      "label": "llm-como-oraculo"
+    },
+    {
+      "id": "metodo:core-set-selection",
       "type": "metodo",
-      "label": "diversidade"
+      "label": "core-set-selection"
+    },
+    {
+      "id": "dataset:jigsaw-toxic",
+      "type": "dataset",
+      "label": "jigsaw-toxic"
     },
     {
       "id": "Zhao2017DeepALShortText",
@@ -3922,11 +3937,6 @@
       "label": "pre-treinamento-nao-supervisionado"
     },
     {
-      "id": "dataset:glue",
-      "type": "dataset",
-      "label": "glue"
-    },
-    {
       "id": "dataset:squad",
       "type": "dataset",
       "label": "squad"
@@ -3999,9 +4009,9 @@
       "label": "predicao-estruturada"
     },
     {
-      "id": "Yuan2020ALPS",
+      "id": "Yuan2020",
       "type": "artigo-pendente",
-      "label": "Yuan2020ALPS"
+      "label": "Yuan2020"
     },
     {
       "id": "DRI-SL",
@@ -4112,11 +4122,6 @@
       "id": "E0P-invalidos-futuros",
       "type": "tema-falco",
       "label": "E0P-invalidos-futuros"
-    },
-    {
-      "id": "Yuan2020",
-      "type": "artigo-pendente",
-      "label": "Yuan2020"
     },
     {
       "id": "E4-futuros",
@@ -4455,7 +4460,7 @@
     },
     {
       "source": "Bayer2024ActiveLLM",
-      "target": "Yuan2020ALPS",
+      "target": "Yuan2020",
       "type": "compares_with"
     },
     {
@@ -4502,6 +4507,21 @@
       "source": "Bayer2024ActiveLLM",
       "target": "modelo:bert",
       "type": "models"
+    },
+    {
+      "source": "Bayer2024ActiveLLM",
+      "target": "dataset:agnews",
+      "type": "datasets"
+    },
+    {
+      "source": "Bayer2024ActiveLLM",
+      "target": "dataset:glue",
+      "type": "datasets"
+    },
+    {
+      "source": "Bayer2024ActiveLLM",
+      "target": "dataset:sst-2",
+      "type": "datasets"
     },
     {
       "source": "Bayer2024ActiveLLM",
@@ -5018,11 +5038,6 @@
     {
       "source": "Daru2024Dissertacao",
       "target": "conceito:argmax-binary",
-      "type": "proposes"
-    },
-    {
-      "source": "Daru2024Dissertacao",
-      "target": "conceito:metrica-unificada-acc-macrof1",
       "type": "proposes"
     },
     {
@@ -9221,6 +9236,11 @@
     },
     {
       "source": "Zhang2025",
+      "target": "Settles2009",
+      "type": "builds_on"
+    },
+    {
+      "source": "Zhang2025",
       "target": "pilar:P3",
       "type": "pillars"
     },
@@ -9231,7 +9251,17 @@
     },
     {
       "source": "Zhang2025",
-      "target": "metodo:llm-como-oraculo",
+      "target": "conceito:llm-como-oraculo",
+      "type": "proposes"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "metodo:pool-based",
       "type": "uses_methods"
     },
     {
@@ -9241,14 +9271,85 @@
     },
     {
       "source": "Zhang2025",
-      "target": "metodo:diversidade",
+      "target": "metodo:query-by-committee",
       "type": "uses_methods"
     },
     {
       "source": "Zhang2025",
+      "target": "metodo:entropia",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "metodo:selecao-por-diversidade",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "metodo:core-set-selection",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "metodo:saida-estruturada",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "metodo:rotulagem-em-lote",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "modelo:gpt-4o",
+      "type": "models"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "modelo:roberta-base",
+      "type": "models"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "modelo:svm",
+      "type": "models"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "modelo:random-forest",
+      "type": "models"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "dataset:imdb",
+      "type": "datasets"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "dataset:agnews",
+      "type": "datasets"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "dataset:jigsaw-toxic",
+      "type": "datasets"
+    },
+    {
+      "source": "Zhang2025",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Zhang2025",
       "target": "FALCO",
-      "type": "compete",
-      "note": "Linha direta 'LLM rotula o que o AL seleciona': GPT como oráculo das instâncias escolhidas por incerteza/diversidade, treinando modelo pequeno cross-task com custo muito menor que rotular tudo com o LLM. FALCO difere: fases com PROGRESSÃO de oráculos, espaço fechado de 621 classes, gate pré-registrado e instrumentação de custo/medição."
+      "type": "compara",
+      "note": "Vizinho mais próximo na frente 'anotador': o LLM substitui o humano dentro do laço de aprendizado ativo, rotulando o que a estratégia de seleção escolheu, e um modelo pequeno é treinado com esses rótulos. O FALCO difere em três pontos: progressão de oráculos entre fases, espaço fechado de 621 rótulos imposto na saída, e gate de parada pré-registrado com instrumentação de custo."
+    },
+    {
+      "source": "Zhang2025",
+      "target": "LCE",
+      "type": "fundamenta",
+      "note": "Traz a conta que a tese também persegue: reter mais de 93% do desempenho gastando cerca de 6% do tempo e do dinheiro (Resumo, p. 1)."
     },
     {
       "source": "Zhao2017DeepALShortText",
