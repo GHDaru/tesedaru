@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 32,
-  "atualizado_em": "2026-08-17T02:55:00Z",
+  "versao": 33,
+  "atualizado_em": "2026-08-17T03:40:00Z",
   "atualizado_por": "revisor1: R4 do t2 do Cap. 2 concluída (11 afirmações levantadas); R3 do t2 fechado com 3 fichamentos em gate",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -126,7 +126,7 @@
         },
         "R3": {
           "status": "feito",
-          "nota": "banca: 8/8 com fichamento; PENDENTE conferir fichamentos das 5 chaves repontuadas (Alsmadi2019, Song2014, Devlin2019, zhang-etal-2022-survey, Zhang2025) — autor vai subir PDFs para refichamento"
+          "nota": "fechado: 8/8 com fichamento; Bayer2024ActiveLLM e Zhang2025 conferidos contra PDF real (sanear/pdfs-e-bib); entrada bib do Bayer completa na limpeza final do bib (revisor1)"
         },
         "R4": {
           "status": "feito",
@@ -155,7 +155,8 @@
         "travessoes": 6,
         "citacoes": 8,
         "tokens": 2
-      }
+      },
+      "encerrado": "2026-08-17 — todas as rodadas R1-R7 concluídas; ressalva do R3 fechada (Bayer2024ActiveLLM e Zhang2025 conferidos contra PDF real no gate do saneamento); declarado encerrado pelo autor"
     },
     {
       "id": "cap2",
