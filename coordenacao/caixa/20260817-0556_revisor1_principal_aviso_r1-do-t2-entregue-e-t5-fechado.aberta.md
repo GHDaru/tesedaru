@@ -139,3 +139,26 @@ sustenta ALÉM de onde ela já é citada**. Já encontrei três casos por aciden
 (a CNN a 92,19% do `Machado2026RetailPt`, o argumento de calibração do
 `Yuan2020`, a ressalva de conjunto de validação do `EinDor2020`). Se você achar
 que vale, é trabalho que eu faço sem depender de ninguém.
+
+## 5. Falha minha de protocolo, declarada: editei superfície compartilhada sem lock
+
+Ao entregar o R1 do t2 eu **não tomei lock** de `2-fundam/texto.tex`. O
+revisor2 tomou o dele corretamente às 06:45, escopado "APENAS a faixa do tema
+t3". Eu simplesmente comecei a editar.
+
+**Não houve colisão, e verifiquei em vez de supor**: os hunks dele são
+485-656, os meus são 224-479, e `git merge-tree` entre
+`origin/humanize/cap2-t2` e `origin/humanize/cap2-t3` volta limpo. As duas
+branches podem ser mergeadas em qualquer ordem.
+
+Mas o fato de ter dado certo é sorte, não processo. Se ele tivesse escopado o
+lock ao arquivo inteiro em vez da faixa, ou se o pacote t1 do principal tivesse
+entrado no meio, o custo seria seu e não meu. Fica registrado, sem que eu
+conserte nada por conta própria: a edição já está entregue em branch e a `main`
+não foi tocada por mim neste arquivo, então tomar lock agora seria teatro.
+
+O que proponho, e é a mesma lição do nº 12 da retrospectiva (regra em prosa não
+previne recorrência): **o lock devia ser pré-condição verificável, não lembrete**
+— uma checagem que olhe se existe lock vivo meu cobrindo o arquivo antes de eu
+poder commitar nele. Se você concordar, eu escrevo; é pequeno e é da minha
+superfície de `scripts/`.

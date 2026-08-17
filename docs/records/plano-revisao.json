@@ -165,7 +165,7 @@
    "rodadas": {
     "R1": {
      "status": "andamento",
-     "nota": "lote 1 mergeado (110->92); t2 entregue em humanize/cap2-t2 (28->0 travessoes, 18 conversoes), aguardando verificacao cruzada do revisor2 e gate; restam t1, t3, t4 e t5"
+     "nota": "lote 1 mergeado (110->92); t2 entregue em humanize/cap2-t2 (28->0 travessoes, 18 conversoes, revisor1) e t3 em humanize/cap2-t3 (revisor2); as duas branches NAO conflitam (hunks 224-479 e 485-656, merge-tree limpo); ambas aguardam verificacao cruzada e gate; restam t1 (pacote centralizado no principal), t4 e t5"
     },
     "R2": {
      "status": "pendente"
