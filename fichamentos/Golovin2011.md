@@ -44,7 +44,7 @@ afirmação**, não é citada por existência.
 
 | # | Claim | Evidência | Uso na tese |
 |---|-------|-----------|-------------|
-| C1 | Se o problema satisfaz **submodularidade adaptativa**, um algoritmo guloso adaptativo simples é **garantidamente competitivo com a política ótima** | Resumo, p. 1 | §2.2 (`2-fundam/texto.tex:447`) — sustenta "tratamento natural de lotes via otimização submodular" |
+| C1 | Se o problema satisfaz **submodularidade adaptativa**, um algoritmo guloso adaptativo simples é **garantidamente competitivo com a política ótima** | Resumo, p. 1 | § "Aprendizado ativo" — sustenta "tratamento natural de lotes via otimização submodular" |
 | C2 | **Aprendizado ativo é uma das três aplicações** que o artigo desenvolve (ao lado de gestão de sensores e marketing viral); a §1 dedica um bloco a ela | Resumo (p. 1) e §1, terceira aplicação (p. ~4) | §2.2 — mostra que a ponte submodularidade → aprendizado ativo é do próprio artigo, não nossa |
 | C3 | A propriedade permite acelerar drasticamente o guloso por **avaliações preguiçosas** | Resumo, p. 1 | §2.2 e Cap. 3 — relevante ao custo computacional, que é o motivo declarado pelo qual esta tese **não** adota a família |
 

@@ -44,8 +44,8 @@ aberto do IJCA (12 pp.).
 
 | # | Claim | Evidência | Uso na tese |
 |---|-------|-----------|-------------|
-| C1 | Normalização de texto é "corrigir erros de grafia, expandir abreviações, resolver contrações, normalizar pontuação e capitalização", com o fim de reduzir a variação lexical e ortográfica | Resumo, p. 1 | §2.3 (`2-fundam/texto.tex:741`) — sustenta "ruído e informalidade — erros, abreviações, gírias — que exigem normalização" |
-| C2 | A normalização **melhora o desempenho da tarefa a jusante** de PLN, e é passo crítico de pré-processamento | Resumo, p. 1 | §2.3 (`2-fundam/texto.tex:745`) — sustenta que a escolha e a ordem do pré-processamento afetam o desempenho final |
+| C1 | Normalização de texto é "corrigir erros de grafia, expandir abreviações, resolver contrações, normalizar pontuação e capitalização", com o fim de reduzir a variação lexical e ortográfica | Resumo, p. 1 | § "Classificação de texto curto" — sustenta "ruído e informalidade — erros, abreviações, gírias — que exigem normalização" |
+| C2 | A normalização **melhora o desempenho da tarefa a jusante** de PLN, e é passo crítico de pré-processamento | Resumo, p. 1 | § "Classificação de texto curto" — sustenta que a escolha e a ordem do pré-processamento afetam o desempenho final |
 | C3 | As técnicas existentes **não são diretamente transferíveis** entre línguas e domínios: "text normalization is not a one size fits all task" | Introdução, p. 1 | §2.3 e Cap. 3 — reforça por que o tratamento de ruído desta tese é específico do domínio (descrição de produto em português) |
 
 ## Leitura crítica em uma linha

@@ -75,7 +75,7 @@ GPT-3 muito maior em várias tarefas de tiro zero.
 
 **Achado de citação, verificado.** A §2.3 cita esta obra ao lado de `Diao2023`
 para sustentar que "a própria escolha de \textit{prompts} pode ser ativa"
-(l. 611). Medi: a expressão "active learning" aparece **zero** vezes neste
+(§ "Modelos de linguagem como oráculos de rotulagem". Medi: a expressão "active learning" aparece **zero** vezes neste
 paper. O que o Toolformer decide ativamente é **qual ferramenta chamar**, não
 qual \textit{prompt} ou qual exemplo anotar; e o critério é auto-supervisão por
 perplexidade, não incerteza de aprendizado ativo. `Diao2023` sustenta a frase
@@ -88,7 +88,7 @@ que ela sustenta.
 
 **RESOLVIDO (commit `72ec7ea`, decisão do autor):** a chave saiu da frase da
 escolha de \textit{prompts} (que ficou só com `Diao2023`) e entrou na abertura
-dos sistemas compostos, hoje em `2-fundam/texto.tex:636-639`: "no Toolformer, o
+dos sistemas compostos, hoje em § "Modelos de linguagem como oráculos de rotulagem"-639`: "no Toolformer, o
 LLM aprende por auto-supervisão quais interfaces chamar, em que momento e com
 quais argumentos". Conferi contra o resumo da fonte — *"which APIs to call, when
 to call them, what arguments to pass"* — e a redação é fiel; "interfaces" no

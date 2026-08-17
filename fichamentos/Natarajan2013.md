@@ -57,7 +57,7 @@ apenas teorema.
 
 | # | Claim | Evidência | Uso na tese |
 |---|-------|-----------|-------------|
-| C1 | Existe estimador **não viesado** de qualquer função de perda sob ruído, com limites de desempenho para minimização de risco empírico em dados ruidosos | Resumo (p. 1) e §3 "Method of Unbiased Estimators" (p. 3) | §2.3 — sustenta "garantias de aprendizado sob ruído com funções de perda corrigidas" (l. 664) |
+| C1 | Existe estimador **não viesado** de qualquer função de perda sob ruído, com limites de desempenho para minimização de risco empírico em dados ruidosos | Resumo (p. 1) e §3 "Method of Unbiased Estimators" (p. 3) | §2.3 — sustenta "garantias de aprendizado sob ruído com funções de perda corrigidas" (§ "Modelos de linguagem como oráculos de rotulagem" |
 | C2 | Sob condição simples de simetria, a perda substituta permanece **convexa** — vale para Huber, logística e quadrática; a \textit{hinge} não satisfaz | §2 (p. 2) | §2.3 e Cap. 3 — justifica por que a correção é operacional, não só teórica |
 | C3 | O minimizador empírico calculado sobre a distribuição **ruidosa** tem risco de classificação que se aproxima do risco de Bayes da distribuição **verdadeira** | §3, discussão do Teorema (p. 4) | Cap. 6 — o argumento de que treinar com rótulo de oráculo imperfeito não condena o resultado |
 | C4 | Método alternativo por custos dependentes do rótulo: quando $\rho_{+1} \neq \rho_{-1}$, o classificador de Bayes da distribuição ruidosa usa apenas um **limiar diferente de 1/2** | §4 (p. 5) e Teorema 11 (p. 6) | Cap. 2 — mostra que ruído assimétrico é tratável por reponderação |

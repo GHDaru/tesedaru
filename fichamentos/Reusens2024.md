@@ -48,7 +48,7 @@ onde. Lida na versão de acesso aberto do repositório institucional da KU Leuve
 
 ## ACHADO: a citação atual não é sustentada por esta obra
 
-A §2.1 (`2-fundam/texto.tex:134`) cita esta obra ao lado de `Nti2021` para
+A seção "Aprendizado supervisionado: conceitos, métricas e validação" cita esta obra ao lado de `Nti2021` para
 afirmar "com $k$ tipicamente 5 ou 10, equilíbrio entre viés, variância e custo".
 **Medi no PDF: a palavra "fold" aparece uma única vez em todo o artigo, dentro da
 expressão "threefold"** (uso retórico, p. ~28), e a seção 3 (Metodologia) trata

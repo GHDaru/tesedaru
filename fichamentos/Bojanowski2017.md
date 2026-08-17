@@ -44,7 +44,7 @@ integral.
 
 | | |
 |---|---|
-| **Afirma** | que a tese cita esta obra em `2-fundam/texto.tex:773` como **exemplo nomeado** de \textit{embedding} estático (FastText) |
+| **Afirma** | que a tese cita esta obra em § "Classificação de texto curto" como **exemplo nomeado** de \textit{embedding} estático (FastText) |
 | | que a **afirmação** daquela sentença é sustentada por Birunda2021 e Goldberg2017, e não por esta obra |
 | **NÃO afirma** | nada sobre o conteúdo do artigo — **eu não o li na fonte** |
 

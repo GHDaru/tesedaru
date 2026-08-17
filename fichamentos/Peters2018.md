@@ -44,7 +44,7 @@ integral.
 
 | | |
 |---|---|
-| **Afirma** | que a tese cita esta obra em `2-fundam/texto.tex:775` como **exemplo nomeado** de \textit{embedding} contextual (ELMo) |
+| **Afirma** | que a tese cita esta obra em § "Classificação de texto curto" como **exemplo nomeado** de \textit{embedding} contextual (ELMo) |
 | | que a **afirmação** daquela sentença é sustentada por Ahmed2022, Li2020 e Karl2023, e não por esta obra |
 | **NÃO afirma** | nada sobre o conteúdo do artigo — **eu não o li na fonte** |
 

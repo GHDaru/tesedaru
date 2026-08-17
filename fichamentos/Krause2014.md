@@ -43,7 +43,7 @@ conferida.
 
 | # | Claim | Evidência | Uso na tese |
 |---|-------|-----------|-------------|
-| C1 | Submodularidade é propriedade de funções de conjunto com consequências teóricas profundas; o texto introduz a propriedade, suas generalizações e **algoritmos de otimização com garantia** | Abertura, p. 1 | §2.2 (`2-fundam/texto.tex:447`) — é a referência da definição usada na frase dos lotes |
+| C1 | Submodularidade é propriedade de funções de conjunto com consequências teóricas profundas; o texto introduz a propriedade, suas generalizações e **algoritmos de otimização com garantia** | Abertura, p. 1 | § "Aprendizado ativo" — é a referência da definição usada na frase dos lotes |
 | C2 | A submodularidade pode ser explorada algoritmicamente para implementar uma versão **acelerada** do guloso quando a avaliação da função é custosa | §sobre algoritmos acelerados, p. ~10 | Cap. 2 — mesma leitura do `Golovin2011`: o custo é problema tratado, não ignorado |
 
 ## ACHADO de bibliografia: o tipo da entrada está errado
