@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 44,
-  "atualizado_em": "2026-08-17T12:10:00Z",
+  "versao": 46,
+  "atualizado_em": "2026-08-17T12:45:00Z",
   "atualizado_por": "revisor1: Cap. 2 fechado nas rodadas que me cabem — R3 e R4 dos temas t2, t4 e t5; retrospectiva em docs/retrospectiva-cap2-revisor1.md",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -245,7 +245,7 @@
           "responsavel": "revisor1",
           "status": "r4",
           "dono": "revisor1",
-          "nota": "R3 e R4 CONCLUÍDAS. R3: 28 chaves distintas (627-721), 10 verificadas na fonte primária pela regra de risco, ZERO fabricações de obra. Achado: Xu2017 com 4 prenomes inventados e o 7º autor ausente — corrigido. R4: 6 pontos em docs/r4-cap2-t4-afirmacoes.md. Os DOIS números sobre os nossos dados foram MEDIDOS e conferem: 'textos de 4 a 50 caracteres' é exato (min 4, max 50 em 250.221 descrições) e 'quase todo termo ocorre uma vez' se sustenta com folga (só 2,07% das descrições repetem algum termo). Falta declarar o artefato nos dois. Segunda ocorrência do padrão 'número tirado de fonte que o próprio fichamento declara qualitativa' (Song2014, Alsmadi2019). Correção da prosa é do principal."
+          "nota": "R3 e R4 CONCLUÍDAS. R3: 28 chaves distintas (627-721), 10 verificadas na fonte primária pela regra de risco, ZERO fabricações de obra. Achado: Xu2017 com 4 prenomes inventados e o 7º autor ausente — corrigido. R4: 6 pontos em docs/r4-cap2-t4-afirmacoes.md (RECUPERADO em 2026-08-17T12:35Z: o commit 3401cf5 ficou dangling num force-push meu e o arquivo esteve fora da main por 9h, apesar de o plano ja o citar). Os DOIS números sobre os nossos dados foram MEDIDOS e conferem: 'textos de 4 a 50 caracteres' é exato (min 4, max 50 em 250.221 descrições) e 'quase todo termo ocorre uma vez' se sustenta com folga (só 2,07% das descrições repetem algum termo). Falta declarar o artefato nos dois. Segunda ocorrência do padrão 'número tirado de fonte que o próprio fichamento declara qualitativa' (Song2014, Alsmadi2019). Correção da prosa é do principal."
         },
         {
           "id": "t5",
@@ -1188,6 +1188,11 @@
       "id": "dec-nome-e3",
       "titulo": "Rebatismo do E3': autor incomoda-se com a plica; recomendação do principal = E3' assume o nome E3 (o E3 original nunca teve resultados; exige reescrever o desenho em 3-metodo:443 + renomear ~35 ocorrências + código/artefatos/notebooks via executor01). Autor: 'voltemos com ela' — retomar.",
       "trilha": "experimentos"
+    },
+    {
+      "id": "dec-refatoracao-resultados",
+      "trilha": "texto",
+      "titulo": "Refatoração estrutural (ordem do autor): (A) dois capítulos de resultados assimétricos (Cap.4 = 1.442 palavras/zero citações × Cap.5 = 4.973) — unificar ou reforçar?; (B) expurgo da notação EXXX da prosa (224 ocorrências) preservando rastreabilidade em tabela do Cap.3 + apêndice. Fase 1 (plano) com revisor1"
     }
   ]
 }
