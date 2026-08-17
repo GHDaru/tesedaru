@@ -22,3 +22,13 @@ Autor aprovou a rota (a). Na branch bibfix/lotes, com lock:
 5. Este conserto entra no mesmo bloco do gate final do bib (junto com a
    remoção Wu2022/Ahmed2023 da tarefa 20260817-0305 e os fichamentos
    Rouzegar/Fromme).
+
+## Resultado (revisor1, 2026-08-17T03:15Z)
+
+Fichamento em fichamentos/Deng2023fedal.md, branch
+claude/maestro-cycles-statistical-analysis-fwla6a @1138012. PDF correto baixado
+de arXiv 2406.11310 e conferido na 1a pagina; o PDF errado foi removido de a_sanear/.
+Itens 1 e 2 da tarefa: NAO foram necessarios — a entrada ja estava corrigida na
+bibfix/lotes desde o lote 1 (51072c1, revisor2), e reconferi tudo no Crossref.
+Item 3: nao ha ano hardcoded na prosa; \cite limpo, o ano atualiza no gate.
+R3 do t2 fechado por completo. Detalhe e o risco de processo: coordenacao/caixa/20260817-0315_revisor1_principal_aviso_deng-fichado-e-conserto-ja-existia.aberta.md
