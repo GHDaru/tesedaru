@@ -23,6 +23,33 @@ RE_NOME = re.compile(
     r"_(?P<tipo>aviso|tarefa|pergunta)_(?P<slug>[a-z0-9-]+)"
     r"\.(?P<estado>aberta|em-andamento|concluida)\.md$")
 
+# a que parte da tese a mensagem se refere — best-effort a partir do texto
+# livre (referencia/acao_esperada/slug), nunca um dado estruturado: cobre só
+# as mensagens que citam o capítulo/apêndice explicitamente (achado real:
+# ~1/4 das mensagens correntes). Cobertura completa exigiria um campo
+# `trilha`/`parte` no front-matter, adotado pelos 4 agentes — mudança de
+# protocolo, decisão do principal, não do site.
+_PARTE_DIRS = {
+    "1-intro": "Cap. 1", "2-fundam": "Cap. 2", "3-metodo": "Cap. 3",
+    "4-resultados-l0": "Cap. 4", "5-resultados-falco": "Cap. 5", "6-conclusao": "Cap. 6",
+    "a1-lce": "Ap. A1", "a2-ag": "Ap. A2", "a3-drisl": "Ap. A3",
+    "a4-biblioteca": "Ap. A4", "a5-prompts": "Ap. A5", "a6-tabelas": "Ap. A6",
+    "a7-parada-drift": "Ap. A7",
+}
+_PARTE_DIR_RE = re.compile(
+    r"\b(" + "|".join(re.escape(k) for k in _PARTE_DIRS) + r")\b")
+_PARTE_CAPNUM_RE = re.compile(r"\bcap\.?\s*([1-6])\b", re.I)
+
+
+def detecta_parte(blob: str) -> str | None:
+    m = _PARTE_DIR_RE.search(blob)
+    if m:
+        return _PARTE_DIRS[m.group(1)]
+    m = _PARTE_CAPNUM_RE.search(blob)
+    if m:
+        return f"Cap. {m.group(1)}"
+    return None
+
 
 def front_matter(texto: str) -> dict:
     m = re.match(r"---\n(.*?)\n---", texto, re.S)
@@ -56,12 +83,15 @@ def main():
         if not m:
             continue
         fm = front_matter(f.read_text(errors="replace"))
+        acao_esperada = fm.get("acao_esperada", "")
+        referencia = fm.get("referencia", "")
         mensagens.append({
             "arquivo": f.name, **m.groupdict(), "arquivada": arquivada,
             "idade_horas": idade_horas(m.group("ts")),
-            "acao_esperada": fm.get("acao_esperada", ""),
-            "referencia": fm.get("referencia", ""),
+            "acao_esperada": acao_esperada,
+            "referencia": referencia,
             "prazo": fm.get("prazo") or None,
+            "parte_detectada": detecta_parte(f"{referencia} {acao_esperada} {m.group('slug')}"),
         })
     locks = []
     agora = datetime.now(timezone.utc)
