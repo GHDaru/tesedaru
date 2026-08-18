@@ -166,3 +166,29 @@ delta-de-desbalanceamento-de-classe  <!-- Griesshaber2020, Tab. 3: Δ|T| = max_c
 
 ### Tarefas (R3 t5)
 inferencia-de-linguagem-natural  <!-- Griesshaber2020: MNLI, QNLI e SNLI são tarefas de implicação textual, não classificação temática -->
+
+## Adições da rodada Donmez2008 — custo distinto por oráculo (2026-08-18)
+
+Termos entrados pelo fichamento de `Donmez2008`; mesmo commit do fichamento.
+
+### Métodos (aprendizado proativo)
+aprendizado-proativo  <!-- Donmez2008: generalização do AA que relaxa as quatro suposições do oráculo (infalível, incansável, individual, insensível a custo) -->
+selecao-conjunta-instancia-oraculo  <!-- Donmez2008, eq. (2): a decisão da rodada é o PAR (x*, k*) — qual instância E a qual oráculo perguntar; é o antecedente formal da progressão de fases do FALCO -->
+restricao-de-orcamento  <!-- Donmez2008: o laço é limitado por um envelope de orçamento, não por número de instâncias — sustenta comparar por custo em vez de contagem de rótulos -->
+oraculo-relutante  <!-- Donmez2008, cenário 1: responde nem sempre, mas quando responde acerta -->
+oraculo-falivel  <!-- Donmez2008, cenário 2: sempre responde, às vezes erra; a probabilidade de acerto cai perto da fronteira de decisão. NÃO confundir com o ruído do oráculo LLM, que é assimétrico (ver taxonomia-ncar-nar-nnar) -->
+custo-nao-uniforme  <!-- Donmez2008, cenário 3: o preço do rótulo varia com a dificuldade da instância — o oráculo cobra pelo que a instância vale ao aprendiz -->
+agrupamento-por-k-medias  <!-- Donmez2008, §4.1: fase inicial de agrupamento, com sub-orçamento próprio (B_C), antes do laço proativo -->
+
+### Datasets (aprendizado proativo)
+face, spambase, adult, uci-letter  <!-- Donmez2008, Tab. 2: os quatro são BINÁRIOS e pequenos (1.550 a 4.601 instâncias) — registro aqui porque o limite de escopo é o que impede atribuir a essa obra qualquer coisa sobre espaço amplo de classes -->
+
+### Métricas (aprendizado proativo)
+erro-de-classificacao  <!-- Donmez2008: as curvas do artigo são erro × custo total, não acurácia × número de rótulos -->
+custo-total  <!-- Donmez2008: eixo horizontal das curvas; é a unidade de comparação quando os oráculos têm preços diferentes -->
+
+### Tarefas (aprendizado proativo)
+classificacao-binaria  <!-- Donmez2008: as quatro bases são de duas classes; distinto de classificacao-de-texto, já registrado -->
+
+### Métodos (dívida preexistente da Donmez2009, quitada nesta rodada)
+iethresh, estimacao-de-acuracia-de-anotadores, selecao-de-anotador  <!-- Donmez2009: os três estavam declarados na ficha desde o ciclo de vizinhos e nunca entraram aqui — o verificador acusava 3 problemas na main. Registro na rodada da obra irmã (2008), porque é a mesma linha de pesquisa: 2008 formula o custo por oráculo, 2009 estima a acurácia de cada fonte durante o laço -->

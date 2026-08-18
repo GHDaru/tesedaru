@@ -1127,6 +1127,90 @@
       "cited_in": []
     },
     {
+      "id": "Donmez2008",
+      "type": "artigo",
+      "label": "Donmez2008",
+      "title": "Proactive Learning: Cost-Sensitive Active Learning with Multiple Imperfect Oracles",
+      "year": 2008,
+      "venue": "CIKM 2008, pp. 619-628",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Donmez2008.pdf",
+      "doi": "10.1145/1458082.1458165",
+      "url": "https://doi.org/10.1145/1458082.1458165",
+      "cited_in": []
+    },
+    {
+      "id": "pilar:p3-oraculo",
+      "type": "pilar",
+      "label": "p3-oraculo"
+    },
+    {
+      "id": "conceito:aprendizado-proativo",
+      "type": "conceito",
+      "label": "aprendizado-proativo"
+    },
+    {
+      "id": "conceito:selecao-conjunta-instancia-oraculo",
+      "type": "conceito",
+      "label": "selecao-conjunta-instancia-oraculo"
+    },
+    {
+      "id": "conceito:restricao-de-orcamento",
+      "type": "conceito",
+      "label": "restricao-de-orcamento"
+    },
+    {
+      "id": "conceito:oraculo-relutante",
+      "type": "conceito",
+      "label": "oraculo-relutante"
+    },
+    {
+      "id": "conceito:oraculo-falivel",
+      "type": "conceito",
+      "label": "oraculo-falivel"
+    },
+    {
+      "id": "conceito:custo-nao-uniforme",
+      "type": "conceito",
+      "label": "custo-nao-uniforme"
+    },
+    {
+      "id": "metodo:agrupamento-por-k-medias",
+      "type": "metodo",
+      "label": "agrupamento-por-k-medias"
+    },
+    {
+      "id": "modelo:regressao-logistica",
+      "type": "modelo",
+      "label": "regressao-logistica"
+    },
+    {
+      "id": "dataset:face",
+      "type": "dataset",
+      "label": "face"
+    },
+    {
+      "id": "dataset:spambase",
+      "type": "dataset",
+      "label": "spambase"
+    },
+    {
+      "id": "dataset:adult",
+      "type": "dataset",
+      "label": "adult"
+    },
+    {
+      "id": "dataset:uci-letter",
+      "type": "dataset",
+      "label": "uci-letter"
+    },
+    {
+      "id": "tarefa:classificacao-binaria",
+      "type": "tarefa",
+      "label": "classificacao-binaria"
+    },
+    {
       "id": "Donmez2009",
       "type": "artigo",
       "label": "Donmez2009",
@@ -1141,11 +1225,6 @@
       "cited_in": [
         "Cap. 2 — Fundamentação"
       ]
-    },
-    {
-      "id": "pilar:p3-oraculo",
-      "type": "pilar",
-      "label": "p3-oraculo"
     },
     {
       "id": "conceito:iethresh",
@@ -1713,11 +1792,6 @@
       "id": "dataset:seis-bases-do-desafio-A-F",
       "type": "dataset",
       "label": "seis-bases-do-desafio-A-F"
-    },
-    {
-      "id": "tarefa:classificacao-binaria",
-      "type": "tarefa",
-      "label": "classificacao-binaria"
     },
     {
       "id": "Guzella2009",
@@ -3297,11 +3371,6 @@
       "label": "gpt-3.5"
     },
     {
-      "id": "modelo:regressao-logistica",
-      "type": "modelo",
-      "label": "regressao-logistica"
-    },
-    {
       "id": "dataset:imdb",
       "type": "dataset",
       "label": "imdb"
@@ -4773,6 +4842,11 @@
       "label": "FALCO-futuros"
     },
     {
+      "id": "oraculo-progressivo",
+      "type": "tema-falco",
+      "label": "oraculo-progressivo"
+    },
+    {
       "id": "multiplos-oraculos",
       "type": "tema-falco",
       "label": "multiplos-oraculos"
@@ -4811,11 +4885,6 @@
       "id": "E4-leitura",
       "type": "tema-falco",
       "label": "E4-leitura"
-    },
-    {
-      "id": "oraculo-progressivo",
-      "type": "tema-falco",
-      "label": "oraculo-progressivo"
     },
     {
       "id": "FALCO-fases",
@@ -6117,6 +6186,108 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Review de processo; sobreposto a Minaee2022/Gasparetto2022."
+    },
+    {
+      "source": "Donmez2008",
+      "target": "pilar:p3-oraculo",
+      "type": "pillars"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "conceito:aprendizado-proativo",
+      "type": "proposes"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "conceito:selecao-conjunta-instancia-oraculo",
+      "type": "proposes"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "conceito:restricao-de-orcamento",
+      "type": "proposes"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "conceito:oraculo-relutante",
+      "type": "proposes"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "conceito:oraculo-falivel",
+      "type": "proposes"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "conceito:custo-nao-uniforme",
+      "type": "proposes"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "metodo:agrupamento-por-k-medias",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "modelo:regressao-logistica",
+      "type": "models"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "dataset:face",
+      "type": "datasets"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "dataset:spambase",
+      "type": "datasets"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "dataset:adult",
+      "type": "datasets"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "dataset:uci-letter",
+      "type": "datasets"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "tarefa:classificacao-binaria",
+      "type": "tasks"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "oraculo-progressivo",
+      "type": "fundamenta",
+      "note": "É a formulação de origem do problema que o FALCO instancia: quando existem VÁRIOS oráculos com custos e confiabilidades diferentes, a decisão do laço deixa de ser 'qual instância rotular' e passa a ser o PAR 'qual instância, com qual oráculo', sob restrição de orçamento e não de número de rótulos. É o antecedente formal da progressão de fases (LLM barata → LLM cara → humano) e do orçamento como unidade de comparação no lugar da contagem de rótulos."
+    },
+    {
+      "source": "Donmez2008",
+      "target": "multiplos-oraculos",
+      "type": "fundamenta",
+      "note": "Nomeia as quatro suposições que o oráculo clássico carrega — infalível, incansável, individual e insensível a custo — e relaxa as quatro. A Seção 2.2.3 da tese trata as três primeiras com Sheng2008/Snow2008/Donmez2009/Yan2011; ESTA é a que sustenta a quarta (custo distinto por oráculo), hoje sem lastro no texto."
+    },
+    {
+      "source": "Donmez2009",
+      "target": "Donmez2008",
+      "type": "builds_on"
     },
     {
       "source": "Donmez2009",
