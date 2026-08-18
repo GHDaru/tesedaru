@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 58,
-  "atualizado_em": "2026-08-17T21:15:00Z",
+  "versao": 59,
+  "atualizado_em": "2026-08-17T22:15:00Z",
   "atualizado_por": "revisor1: Cap. 2 fechado nas rodadas que me cabem — R3 e R4 dos temas t2, t4 e t5; retrospectiva em docs/retrospectiva-cap2-revisor1.md",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -287,7 +287,7 @@
         },
         "R5": {
           "status": "andamento",
-          "nota": "particionamento executado + 621/714 + 50k justificado em 2026-08 (a4617e8); resta varrer o capítulo inteiro"
+          "nota": "principal: aritmética interna 100% correta (5 relações conferidas); achado maior = divergência de população entre E3' e E6 (dec-populacao-e6-vs-e3prime); aguarda a rastreabilidade do executor01 para os demais números"
         },
         "R6": {
           "status": "pendente",
@@ -1198,6 +1198,11 @@
       "id": "dec-reforco-cap4",
       "trilha": "texto",
       "titulo": "F6 da refatoração (separada por decisão do autor): reforçar o Cap. 4 — hoje com zero citações, embora 6 fichamentos o prometam; exige escrever conteúdo novo (discussão + interlocução com a literatura)"
+    },
+    {
+      "id": "dec-populacao-e6-vs-e3prime",
+      "trilha": "experimentos",
+      "titulo": "R5 do Cap.3 achou: E3' usa população 177.490 (exclui o holdout de 4k, confere com o Cap.3) e o E6 usa 181.490 (não exclui) — o E6 avalia em 4.000 instâncias que o ciclo usa para parar; e o Cap.5 escreve '≈140 mil', que não bate com nenhum. Saídas: (a) declarar a diferença, (b) reexecutar o E6, (c) limitação declarada"
     }
   ]
 }
