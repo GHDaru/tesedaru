@@ -1908,6 +1908,47 @@
       "label": "catalogo-varejo"
     },
     {
+      "id": "Hanneke2015",
+      "type": "artigo",
+      "label": "Hanneke2015",
+      "title": "Theory of Disagreement-Based Active Learning",
+      "year": 2014,
+      "venue": "Foundations and Trends in Machine Learning 7(2-3), pp. 131-309",
+      "paper_type": "survey",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Hanneke2015.pdf",
+      "doi": "10.1561/2200000037",
+      "url": "https://doi.org/10.1561/2200000037",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "pilar:p1-selecao",
+      "type": "pilar",
+      "label": "p1-selecao"
+    },
+    {
+      "id": "metodo:aprendizado-baseado-em-desacordo",
+      "type": "metodo",
+      "label": "aprendizado-baseado-em-desacordo"
+    },
+    {
+      "id": "metodo:espaco-de-versao",
+      "type": "metodo",
+      "label": "espaco-de-versao"
+    },
+    {
+      "id": "metodo:cal",
+      "type": "metodo",
+      "label": "cal"
+    },
+    {
+      "id": "metodo:coeficiente-de-desacordo",
+      "type": "metodo",
+      "label": "coeficiente-de-desacordo"
+    },
+    {
       "id": "He2021",
       "type": "artigo",
       "label": "He2021",
@@ -4877,6 +4918,11 @@
       "label": "Hacohen2019"
     },
     {
+      "id": "aprendizado-ativo",
+      "type": "tema-falco",
+      "label": "aprendizado-ativo"
+    },
+    {
       "id": "RQ2-lote",
       "type": "tema-falco",
       "label": "RQ2-lote"
@@ -7217,6 +7263,63 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Espectro probabilístico→neural no MESMO problema de varejo: espelha a progressão de classificadores da tese (PVBin probabilístico → BERTimbau neural) em literatura independente."
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "Cohn1994Improving",
+      "type": "builds_on"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "pilar:p1-selecao",
+      "type": "pillars"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "metodo:aprendizado-baseado-em-desacordo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "metodo:espaco-de-versao",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "metodo:cal",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "metodo:coeficiente-de-desacordo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "tarefa:classificacao-binaria",
+      "type": "tasks"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "aprendizado-ativo",
+      "type": "fundamenta",
+      "note": "É a fonte teórica da promessa do AA: sob condições explícitas, a complexidade de rótulos cai de O(1/ε) para O(log(1/ε)) — a 'melhoria exponencial' que a Seção 2.1 da tese invoca. Vale como fundamento do que se ESPERA do laço, e como delimitação honesta de quando isso NÃO vale (ver 'o que não sustenta')."
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "FALCO",
+      "type": "ameaca",
+      "note": "A própria obra registra que a estratégia por desacordo 'às vezes não é ótima' (Cap. 1) e que a dependência logarítmica em 1/ε some sob ruído com α<1 (Cap. 2). Isto é: a promessa teórica do AA é condicional, e as condições não são verificáveis no cenário da tese (714 classes, ruído assimétrico de LLM). É argumento a favor de medir empiricamente, como a tese faz — e contra prometer ganho por autoridade teórica."
     },
     {
       "source": "He2021",

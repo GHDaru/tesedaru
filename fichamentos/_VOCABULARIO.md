@@ -192,3 +192,7 @@ classificacao-binaria  <!-- Donmez2008: as quatro bases são de duas classes; di
 
 ### Métodos (dívida preexistente da Donmez2009, quitada nesta rodada)
 iethresh, estimacao-de-acuracia-de-anotadores, selecao-de-anotador  <!-- Donmez2009: os três estavam declarados na ficha desde o ciclo de vizinhos e nunca entraram aqui — o verificador acusava 3 problemas na main. Registro na rodada da obra irmã (2008), porque é a mesma linha de pesquisa: 2008 formula o custo por oráculo, 2009 estima a acurácia de cada fonte durante o laço -->
+
+### Métodos e métricas (teoria do AA baseado em desacordo)
+aprendizado-baseado-em-desacordo, espaco-de-versao, cal, coeficiente-de-desacordo  <!-- Hanneke2015: DBAL = consultar apenas na região onde as hipóteses plausíveis discordam; CAL = o algoritmo de Cohn, Atlas & Ladner (1994) que a monografia analisa; o coeficiente de desacordo é a grandeza que governa o ganho (introduzido por Hanneke em 2007, revisado aqui) -->
+complexidade-de-rotulos  <!-- Hanneke2015: número de rótulos necessários para atingir erro ε; é a métrica em que a "melhoria exponencial" do AA é enunciada -->
