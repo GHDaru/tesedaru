@@ -16,6 +16,10 @@
    "metodo": "doi",
    "paper_id": "fa181c444428d8595d74c9def3a3b6d55665a993"
   },
+  "Alom2019": {
+   "metodo": "doi",
+   "paper_id": "8dd53f10ca5fa14faeed2bd2951d247f1ac60f40"
+  },
   "Alsmadi2019": {
    "metodo": "doi",
    "paper_id": "432d3f7eb86ab6e6c20e30689f0a732283ff20f7"
@@ -32,6 +36,14 @@
    "metodo": "doi",
    "paper_id": "767d99508f8716430359d04fbbc1551ffc05e7e7"
   },
+  "Azarbonyad2021": {
+   "metodo": "doi",
+   "paper_id": "dc07dbdcbcfb4a6565e4217db37bf36e22ca89bb"
+  },
+  "Balyan2020": {
+   "metodo": "doi",
+   "paper_id": "53a7f74414bc92a4e5003ebfbe0cf1768c06acad"
+  },
   "Bayer2024": {
    "metodo": "arxiv",
    "paper_id": "b94ecba2348841cccb649f36eb81f5f6c98e532b"
@@ -44,17 +56,37 @@
    "metodo": "nao-encontrado",
    "paper_id": null
   },
+  "Bengar2022ClassBalanced": {
+   "metodo": "doi",
+   "paper_id": "3f50007b2842f12542e981e04537ff5b08997702"
+  },
   "Birunda2021": {
    "metodo": "doi",
    "paper_id": "f9150ecc4950237218e305d8390c2d027a166ce4"
+  },
+  "Brown2001": {
+   "metodo": "doi",
+   "paper_id": "64596abdf95560ac4be87c71424d011eb1e51f78"
   },
   "Budd2021": {
    "metodo": "doi",
    "paper_id": "755774c14c6b344596ae5025e00e678c08136b4c"
   },
+  "Cai2018": {
+   "metodo": "doi",
+   "paper_id": "f6d9106b0e169204a506eb1deec2b85e0f296e4a"
+  },
+  "Cheng2024DualExpert": {
+   "metodo": "doi",
+   "paper_id": "4e429b4364326789b145d48ac938c155971e6713"
+  },
   "Daru2022": {
    "metodo": "doi",
    "paper_id": "5216aa54e299c7d6cb0a311d5062623dee2260de"
+  },
+  "Daru2022Dataset": {
+   "metodo": "nao-encontrado",
+   "paper_id": null
   },
   "Daru2024Dissertacao": {
    "metodo": "doi",
@@ -72,25 +104,61 @@
    "metodo": "nao-encontrado",
    "paper_id": null
   },
+  "Dietterich1998": {
+   "metodo": "doi",
+   "paper_id": "22f0579f212dfb568fbda317cba67c8654d84ccd"
+  },
   "Dogra2022": {
    "metodo": "doi",
    "paper_id": "8a5044ecdd26f3d8510d8705e442ca8498a87c70"
+  },
+  "Donmez2009": {
+   "metodo": "doi",
+   "paper_id": "faec62dae11e5d53c74bb96cc0843d52d4e0a861"
+  },
+  "Du2019": {
+   "metodo": "doi",
+   "paper_id": "0f9c4acff2b1b1aa051410b297468adff045e8db"
   },
   "EinDor2020": {
    "metodo": "doi",
    "paper_id": "05c22ede1e011c551ab0639ef52c8c852d7833b1"
   },
+  "Feldman2013": {
+   "metodo": "doi",
+   "paper_id": "9c42f726882b0ab4539afd34b546ae710aa1ceb0"
+  },
   "Fonseca2015": {
    "metodo": "doi",
    "paper_id": "d3ad4bd049e3111f2bc28b6f904c06f2eab97acd"
+  },
+  "Frenay2014": {
+   "metodo": "doi",
+   "paper_id": "d4414fb2e91836a82799d94251e27ed12f46d879"
+  },
+  "Fushiki2011": {
+   "metodo": "doi",
+   "paper_id": "cab104cbea93bb3c0dfac8beacf0ba70d179a554"
+  },
+  "Gandomi2015": {
+   "metodo": "doi",
+   "paper_id": "1bc34cb22131554ba18f6ba9e6ede5beb42939f1"
   },
   "Gasparetto2022": {
    "metodo": "doi",
    "paper_id": "9e302c6303aa75f5d41e2b6c3c9462d2880c3de0"
   },
+  "Gholamian2024": {
+   "metodo": "nao-encontrado",
+   "paper_id": null
+  },
   "Gilardi2023": {
    "metodo": "doi",
    "paper_id": "a9e155fda1d97baa2b8712f580cc61887cc64e9b"
+  },
+  "Glazkova2020": {
+   "metodo": "doi",
+   "paper_id": "ebf2d10fddbf7e608b14c6aabd08a05f2a378954"
   },
   "Goudjil2018": {
    "metodo": "doi",
@@ -108,13 +176,25 @@
    "metodo": "doi",
    "paper_id": "4683be64ec52c691efff0e4bb97034d2c20deb25"
   },
+  "Guzella2009": {
+   "metodo": "doi",
+   "paper_id": "66405753664af1895830f147365cc5903388dea1"
+  },
   "Hafez2021": {
    "metodo": "doi",
    "paper_id": "d514c816655b4ed0e16b694a0b1bca45588c461c"
   },
+  "He2021": {
+   "metodo": "doi",
+   "paper_id": "3a7fa673ff8ec4ec2f322473de005f3cd09ea820"
+  },
   "Hu2011": {
    "metodo": "doi",
    "paper_id": "6b9dd075e73a94e599f0fa21edb164f0adc9f305"
+  },
+  "KahlootEkler2021": {
+   "metodo": "doi",
+   "paper_id": "405a724f833eaef8cc3c5cb56e1596092651b284"
   },
   "Karl2023": {
    "metodo": "doi",
@@ -124,6 +204,10 @@
    "metodo": "doi",
    "paper_id": "46cfca8d9167f747638bca8e93047c3aa7f485f6"
   },
+  "Kholodna2024": {
+   "metodo": "nao-encontrado",
+   "paper_id": null
+  },
   "Kowsari2019": {
    "metodo": "doi",
    "paper_id": "ba10b8f9ee40b68053af9e6c2383aa2c6e39e9be"
@@ -131,6 +215,10 @@
   "Li2020": {
    "metodo": "nao-encontrado",
    "paper_id": null
+  },
+  "Liang2007": {
+   "metodo": "doi",
+   "paper_id": "ac279334887ebd895c8aaa6addfac073bc94b1f9"
   },
   "Liang2024LLMActive": {
    "metodo": "arxiv",
@@ -144,6 +232,10 @@
    "metodo": "doi",
    "paper_id": "9b94e219f8681ea13798f3ab57150d35dbe8f281"
   },
+  "Marcot2021": {
+   "metodo": "doi",
+   "paper_id": "9585862d86977f03841ea297c08dffacc5a3203a"
+  },
   "Margatina2023": {
    "metodo": "nao-encontrado",
    "paper_id": null
@@ -151,6 +243,10 @@
   "MaslejKresnakova2020": {
    "metodo": "doi",
    "paper_id": "4bff523f34599564e2909731267c27b1ce5e4d9b"
+  },
+  "Merdjanovska2024NoiseBench": {
+   "metodo": "nao-encontrado",
+   "paper_id": null
   },
   "Minaee2022": {
    "metodo": "doi",
@@ -176,6 +272,10 @@
    "metodo": "arxiv",
    "paper_id": "740c9a2e0d337377f27467c3be4e61c9d5d70a02"
   },
+  "Ni2020": {
+   "metodo": "doi",
+   "paper_id": "28f09a18851424e4c8ac27c5e2d092d61ec26d1c"
+  },
   "Nti2021": {
    "metodo": "doi",
    "paper_id": "ad4d6dc646767741cdd8e8e13b0923d5d54ba2b0"
@@ -183,6 +283,10 @@
   "Orengo2001": {
    "metodo": "doi",
    "paper_id": "b41c301e6294b28d7f7c57251ee2138dc562fb55"
+  },
+  "Pangakis2023Validation": {
+   "metodo": "doi",
+   "paper_id": "e58231569f45704a2460bb6de3ec6f52efc5cf95"
   },
   "Pawlowski2022": {
    "metodo": "doi",
@@ -195,6 +299,10 @@
   "Peters2018": {
    "metodo": "doi",
    "paper_id": "3febb2bed8865945e7fddc99efd791887bb7e14f"
+  },
+  "Pintas2021": {
+   "metodo": "doi",
+   "paper_id": "4508d41da90dde554abad96cb24ffe17a1069703"
   },
   "Pranckevicius2017": {
    "metodo": "doi",
@@ -228,6 +336,10 @@
    "metodo": "doi",
    "paper_id": "d1e2e26e3fccdeac4eb95e5619079d82926c7644"
   },
+  "Roumeliotis2025": {
+   "metodo": "doi",
+   "paper_id": "5bcd9c4c729aac072246f96d1aa7071f2b05f4bb"
+  },
   "Rouzegar2024": {
    "metodo": "nao-encontrado",
    "paper_id": null
@@ -236,9 +348,29 @@
    "metodo": "arxiv",
    "paper_id": "53d128ea815bcc0526856eb5a9c42cc977cb36a7"
   },
+  "Schmidt2016": {
+   "metodo": "doi",
+   "paper_id": "2c684caaf9617f06da3936f4d649b097d7578427"
+  },
+  "Schroder2020DNNSurvey": {
+   "metodo": "arxiv",
+   "paper_id": "244a0d1ab812d5a69c2a3fe26a1686f379d650aa"
+  },
   "Schroder2021SmallText": {
    "metodo": "doi",
    "paper_id": "1a942158c872d155831f6d27e451f1ccf6f21f97"
+  },
+  "Schroder2022Uncertainty": {
+   "metodo": "doi",
+   "paper_id": "d6cbe7986a15a3d697213c8541c97dec9e65240b"
+  },
+  "Shah2020": {
+   "metodo": "doi",
+   "paper_id": "2a37d287b5852fe5863aadee5c5fdeb6b0c56400"
+  },
+  "Sheng2008": {
+   "metodo": "doi",
+   "paper_id": "a3f853572e12b51c4c227590168c95b7cd0ca666"
   },
   "Silva2020": {
    "metodo": "doi",
@@ -251,6 +383,14 @@
   "Song2014": {
    "metodo": "doi",
    "paper_id": "f3aa07fd19627898ab3001bfbffd76537b3c6702"
+  },
+  "Song2022GraphSSL": {
+   "metodo": "doi",
+   "paper_id": "7dee0821e4b0ece2972d4cedfbe31785a05dba37"
+  },
+  "Song2023NoisyLabels": {
+   "metodo": "doi",
+   "paper_id": "5ffe9b1d8219438f0343995ad3ea1a888e3d9f8e"
   },
   "Souza2018": {
    "metodo": "doi",
@@ -284,6 +424,10 @@
    "metodo": "nao-encontrado",
    "paper_id": null
   },
+  "Wang2021GPT3Labeling": {
+   "metodo": "doi",
+   "paper_id": "4e263b4cd6998bff2501dd143e685f413179b12d"
+  },
   "Wertz2022": {
    "metodo": "doi",
    "paper_id": "6908b0513e73d631cb9d2cc3237dc8b941acb7f1"
@@ -296,11 +440,19 @@
    "metodo": "doi",
    "paper_id": "4e561318668f0ae190217ffe82bf44c9c33b9c0d"
   },
+  "Wong2015": {
+   "metodo": "doi",
+   "paper_id": "4732a77c3753c0a5f31c62ce2e38407d6a945ebf"
+  },
   "Wu2020": {
    "metodo": "doi",
    "paper_id": "56d8a91251429a98a9ed6129248bf19ad9beda6f"
   },
   "Xia2025": {
+   "metodo": "nao-encontrado",
+   "paper_id": null
+  },
+  "Xia2025CanDist": {
    "metodo": "nao-encontrado",
    "paper_id": null
   },
@@ -312,17 +464,37 @@
    "metodo": "doi",
    "paper_id": "d685127d492d4333f4dedf6d593a8048e64c8360"
   },
+  "Xu2020": {
+   "metodo": "doi",
+   "paper_id": "8a9754cbb5c5a8b6a615d177a15194129e2d078a"
+  },
+  "Yu2023Patron": {
+   "metodo": "doi",
+   "paper_id": "43b15205c98b5e0693f128ebdd4c57c4ba854049"
+  },
   "Yuan2020": {
    "metodo": "doi",
    "paper_id": "2e06b7f72270900544284e0898aac2bb564ff58b"
+  },
+  "Yuan2025NoiseAL": {
+   "metodo": "doi",
+   "paper_id": "8a3ec142e120837850247ae0de9e656dddb61751"
   },
   "Zhang2016ShortText": {
    "metodo": "doi",
    "paper_id": "899e8042432d86eaec375ab6c5960f40188aabe7"
   },
+  "Zhang2023LLMaAA": {
+   "metodo": "nao-encontrado",
+   "paper_id": null
+  },
   "Zhang2025": {
    "metodo": "doi",
    "paper_id": "eabd895a53c853d20cd23ba154f83ef0e03beed8"
+  },
+  "Zulqarnain2020": {
+   "metodo": "doi",
+   "paper_id": "930eaa5486f1e8a5947fa5d7ac48ecfa6f3c42ea"
   },
   "activellm2024": {
    "metodo": "arxiv",

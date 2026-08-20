@@ -640,7 +640,12 @@ def build_plano() -> tuple[str, str]:
     '<th scope="col">Pontos</th></tr></thead><tbody>' +
     P.capitulos.map(c => {{
       const t = ptsCap[c.id] || {{pontos: 0, feitos: 0}};
-      return `<tr><th scope="row" class="chap">${{c.titulo}}<small>${{c.arquivo}}</small></th>` +
+      // capitulos[].encerrado: string com data+justificativa quando o autor
+      // declarou o capítulo fechado — é o marco que o autor mais olha,
+      // por isso destaque na própria linha da matriz, não só um texto a mais
+      const enc = c.encerrado
+        ? ` <span class="pill feito chap-selo" title="${{esc(c.encerrado)}}">✓ encerrado</span>` : '';
+      return `<tr class="${{c.encerrado ? 'chap-encerrado' : ''}}"><th scope="row" class="chap">${{c.titulo}}${{enc}}<small>${{c.arquivo}}</small></th>` +
         P.rodadas.map(r => `<td>${{pill(c.rodadas[r.id], c.titulo, r.id)}}</td>`).join('') +
         `<td class="tot">${{t.feitos}}/${{t.pontos}}</td></tr>`;
     }}).join('') + '</tbody>';
@@ -747,6 +752,8 @@ def build_plano() -> tuple[str, str]:
 .tema-resp-indef{{opacity:.6; font-style:italic}}
 .tema-nome{{margin:0; font-size:var(--fs-2); font-weight:600}}
 .tema-dim{{margin:0; font-size:var(--fs-1); color:var(--muted)}}
+tr.chap-encerrado{{background:var(--st-feito-bg)}}
+.chap-selo{{margin-left:.5rem; font-size:var(--fs-1); vertical-align:middle; cursor:help}}
 </style>"""
     return body, script
 
@@ -763,6 +770,7 @@ def build_coordenacao() -> tuple[str, str]:
 
 <section class="card">
   <p class="ro-nota">🔒 quadro somente leitura — o estado muda pelos agentes no repositório (renomeação do arquivo é a reserva atômica do protocolo)</p>
+  <div class="vida" id="vida" aria-label="Sinal de vida dos agentes"></div>
   <div class="filtros" id="filtros" aria-label="Filtros do quadro"></div>
 </section>
 
@@ -915,6 +923,26 @@ function renderFiltros() {
   }));
 }
 
+// sinal de vida: ativo = postou mensagem ou renovou lock nos últimos
+// M.ativo_janela_min (o dado mais recente dos dois, computado no build) —
+// não é o autor do commit git (quase todo commit aparece como "Claude" no
+// git log, não distingue agente nenhum)
+function renderVida() {
+  const at = M.atividade || [];
+  const wrap = document.getElementById('vida');
+  if (!at.length) { wrap.innerHTML = ''; return; }
+  const janela = M.ativo_janela_min || 120;
+  wrap.innerHTML = `<span class="vida-rotulo">Sinal de vida</span>` +
+    at.map(a => {
+      const txt = a.minutos_atras == null ? 'sem atividade registrada' : `há ${idade(a.minutos_atras / 60)}`;
+      const tt = `${esc(a.agente)}: ${txt}${a.ativo ? ` (ativo — postou ou renovou lock nos últimos ${janela} min)` : ' (sem sinal recente)'}`;
+      return `<span class="vida-item${a.ativo ? '' : ' vida-inativo'}" title="${esc(tt)}">
+        <span class="k-ag-dot" data-ag="${esc(a.agente)}" aria-hidden="true"></span>${esc(a.agente)}
+        <small>${txt}</small></span>`;
+    }).join('');
+}
+
+renderVida();
 renderFiltros();
 renderBoard();
 
@@ -948,6 +976,12 @@ document.getElementById('saude').textContent = doente
 .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
   clip:rect(0,0,0,0); white-space:nowrap; border:0}
 .ro-nota{margin:0 0 var(--sp-3); color:var(--muted); font-size:var(--fs-2)}
+.vida{display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-3); margin:0 0 var(--sp-4);
+  padding-bottom:var(--sp-3); border-bottom:1px dashed var(--border)}
+.vida-rotulo{font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); font-size:var(--fs-1)}
+.vida-item{display:inline-flex; align-items:center; gap:.3rem; font-size:var(--fs-2); cursor:help}
+.vida-item small{color:var(--muted); font-size:var(--fs-1)}
+.vida-item.vida-inativo{opacity:.5}
 .filtros{display:flex; flex-wrap:wrap; gap:var(--sp-4)}
 .pilulas{display:flex; flex-wrap:wrap; gap:var(--sp-2)}
 .pilula{border:1px solid var(--border); background:var(--panel); color:var(--muted); border-radius:99px;

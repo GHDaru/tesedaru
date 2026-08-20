@@ -18,6 +18,16 @@ CAIXA = ROOT / "coordenacao/caixa"
 LOCKS = ROOT / "coordenacao/locks"
 TTL_MIN = 45
 
+# sinal de vida dos 4 agentes de coordenação (CLAUDE.md): pedido do principal
+# era "derivar do git (último commit por autor)", mas o autor do commit é
+# quase sempre "Claude" (295/300 nos commits recentes) — não distingue quem
+# é quem. Sinal real e já disponível: timestamp da própria mensagem que o
+# agente posta em coordenacao/ (de==agente) e a renovação do lock que ele
+# segura, os dois já commitados a cada ação do protocolo. Pega o mais
+# recente dos dois por agente.
+AGENTES_COORD = ["principal", "banca", "revisor1", "revisor2"]
+ATIVO_JANELA_MIN = 120
+
 RE_NOME = re.compile(
     r"^(?P<ts>\d{8}-\d{4})_(?P<de>[a-z0-9]+)_(?P<para>[a-z0-9]+)"
     r"_(?P<tipo>aviso|tarefa|pergunta)_(?P<slug>[a-z0-9-]+)"
@@ -106,6 +116,18 @@ def main():
             "renovado_ha_min": mins,
             "vencido": (mins is None) or (mins > TTL_MIN),
         })
+    atividade = []
+    for ag in AGENTES_COORD:
+        msg_min = min((m["idade_horas"] * 60 for m in mensagens if m["de"] == ag), default=None)
+        lock_min = min((l["renovado_ha_min"] for l in locks
+                        if l["dono"] == ag and l["renovado_ha_min"] is not None), default=None)
+        candidatos = [v for v in (msg_min, lock_min) if v is not None]
+        minutos = round(min(candidatos)) if candidatos else None
+        atividade.append({
+            "agente": ag, "minutos_atras": minutos,
+            "ativo": minutos is not None and minutos <= ATIVO_JANELA_MIN,
+        })
+
     ativas = [x for x in mensagens if x["estado"] != "concluida"]
     bloqueios = [x for x in ativas if x["tipo"] == "tarefa" and "bloque" in x["slug"]]
     saude = {
@@ -120,10 +142,12 @@ def main():
     out.write_text(json.dumps({
         "schema": "mensagens/v1",
         "computado_em": agora.isoformat(timespec="seconds"),
-        "ttl_min": TTL_MIN, "mensagens": mensagens, "locks": locks, "saude": saude,
+        "ttl_min": TTL_MIN, "mensagens": mensagens, "locks": locks,
+        "atividade": atividade, "ativo_janela_min": ATIVO_JANELA_MIN, "saude": saude,
     }, ensure_ascii=False, indent=1) + "\n")
     print(f"ok: {out}  ativas={len(ativas)} locks={len(locks)} "
-          f"para_autor={saude['para_autor_abertas']}")
+          f"para_autor={saude['para_autor_abertas']} "
+          f"ativos={sum(1 for a in atividade if a['ativo'])}/{len(atividade)}")
 
 
 if __name__ == "__main__":

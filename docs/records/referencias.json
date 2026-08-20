@@ -1,10 +1,10 @@
 {
  "schema": "referencias.v1",
- "computado_em": "2026-08-17 06:43 UTC",
- "total": 337,
+ "computado_em": "2026-08-20 12:47 UTC",
+ "total": 336,
  "citadas": 152,
  "com_link_direto": 151,
- "com_ficha_s2": 63,
+ "com_ficha_s2": 100,
  "referencias": [
   {
    "chave": "Alsmadi2019",
@@ -312,6 +312,10 @@
     },
     {
      "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
+     "secao": "Limitações do laço clássico"
+    },
+    {
+     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
      "secao": "Arquiteturas de integração no laço"
     },
     {
@@ -339,7 +343,7 @@
      "secao": "Lacuna de pesquisa"
     }
    ],
-   "total_ocorrencias": 10,
+   "total_ocorrencias": 11,
    "pdf": true,
    "fichado": true,
    "detalhes_html": "<h2>ActiveLLM</h2>\n<h3>Resumo</h3>\n<p>Propõe usar LLMs (GPT-4) como agente de SELEÇÃO de instâncias em cenários few-shot, contornando o cold start: o LLM recebe lotes de instâncias não rotuladas + descrição da tarefa e escolhe as mais informativas para treinar um modelo menor (BERT). Reporta superar estratégias clássicas de AL e o SetFit em few-shot.</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>Estratégias clássicas de AL falham no cold start: sem semente rotulada suficiente, o sistema não consegue estimar incerteza nem diversidade de forma informada</td><td>§2.1.3, p. 4 (também no Resumo, p. 1)</td><td>Cap. 2 revisão; motivação do P2</td></tr><tr><td>C2</td><td>O LLM seleciona instâncias úteis SEM modelo inicial treinado e sem treino durante a anotação; o modelo sucessor é independente do modelo consultor</td><td>Resumo, p. 1; §3, p. 5; lacuna declarada em §2.1.3, p. 4</td><td>Cap. 5, trabalhos relacionados</td></tr><tr><td>C3</td><td>O desenho do prompt é decisivo: os autores parametrizam guidelines, número de instâncias, \"advice\" e três modos de raciocínio (sem CoT, CoT normal \"pense passo a passo\", explicação instância a instância)</td><td>§3.1 e Fig. 2, p. 5</td><td>Discussão do prompt v3</td></tr><tr><td>C4</td><td>No modo de consulta iterada, o histórico entra por três variantes — sem recapitulação, recapitulação direta e recapitulação só dos índices (para poupar contexto); os rótulos anotados NÃO entram, porque os modelos tendiam a ignorá-los</td><td>§3.2, p. 6</td><td>Cap. 3: desenho do prompt em lote e limite de contexto</td></tr><tr><td>C5</td><td>O problema do descasamento de modelos (consultor × sucessor) é conhecido e costuma degradar o ganho do AL — o trabalho o assume de propósito, usando LLM grande para consultar e BERT pequeno para servir</td><td>§2.1.2 e Tab. 1, p. 3</td><td>Cap. 2: fundamenta a separação de papéis que o FALCO também faz</td></tr></tbody></table>\n<h3>Números que posso citar</h3>\n<ul><li>Cenário few-shot padrão do trabalho: <strong>32 instâncias por tarefa</strong>, selecionadas</li></ul>\n<p>por AL ou por amostragem aleatória (linha de base) — §4.1.1, p. 6.</p>\n<ul><li>Robustez do protocolo: **5 aleatorizações do conjunto × 5 sementes de treino</li></ul>\n<p>do modelo sucessor = 25 execuções**, e o valor reportado é a média (§4.1.1, p. 6).</p>\n<ul><li>Conjuntos usados: CTI especializado (para reduzir vazamento de dados no LLM),</li></ul>\n<p>GLUE, AGNews e SST-2 (§4.1.1, p. 6).</p>\n<ul><li>Referência completa da versão publicada: TACL, vol. 14, pp. 1--22, DOI</li></ul>\n<p>10.1162/TACL.a.63, publicado em 1/2026 (rodapé da p. 1).</p>\n<h3>Crítica / limitações</h3>\n<ul><li>Selecionar via LLM exige apresentar o pool ao LLM: custo cresce com |U|; FALCO</li></ul>\n<p>evita isso usando o LLM apenas nos itens já selecionados.</p>\n<ul><li>Avaliado em benchmarks em inglês; nada em português nem em comércio eletrônico.</li><li>O próprio desenho admite o descasamento consultor × sucessor (§2.1.2, p. 3), que</li></ul>\n<p>a literatura ali resenhada associa a ganho reduzido — é escolha consciente, não descuido, mas continua sendo um risco declarado.</p>\n<ul><li>A anotação é simulada: as instâncias selecionadas recebem o rótulo verdadeiro</li></ul>\n<p>\"como se tivessem sido anotadas por um anotador perfeito\" (§4.1, p. 6). Ou seja, o trabalho NÃO mede erro de oráculo — exatamente o que a tese mede.</p>\n<h3>Ideias que gera para a tese</h3>\n<ul><li>Comparação de custo: seleção-via-LLM vs seleção-local+rotulagem-via-LLM (FALCO).</li></ul>",
@@ -752,9 +756,9 @@
     }
    ],
    "total_ocorrencias": 2,
-   "pdf": false,
-   "fichado": false,
-   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Metrics for multi-class classification: an overview</p>\n<p><strong>Autores</strong>: Margherita Grandini, Enrico Bagli, Giorgio Visani</p>\n<p><strong>Veículo</strong>: arXiv preprint arXiv:2008.05756</p>\n<p><strong>Ano</strong>: 2020</p>\n<p><strong>DOI</strong>: 10.48550/arXiv.2008.05756</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Métricas para classes desbalanceadas</p>",
+   "pdf": true,
+   "fichado": true,
+   "detalhes_html": "<h2>Grandini, Bagli e Visani (2020)</h2>\n<h3>O que a tese cita, e a obra sustenta?</h3>\n<p><strong>Sim.</strong> O Cap. 2 usa esta obra em dois pontos, e os dois conferem:</p>\n<ol><li>a inadequação da acurácia como métrica única sob desbalanceamento;</li><li>a existência e a descrição das alternativas — acurácia balanceada,</li></ol>\n<p>coeficiente de correlação de Matthews e Kappa de Cohen — que a tese menciona antes de dispensar.</p>\n<p>Confirmei os dois na fonte: a acurácia balanceada é tratada a partir da p. 4, com a afirmação de que ela \"is insensitive to imbalanced class\"; Matthews e Kappa aparecem na p. 9, apresentados como as duas últimas métricas do texto, construídas a partir da matriz de confusão.</p>\n<p><strong>Natureza da obra, declarada:</strong> é um <em>white paper</em> corporativo (CRIF S.p.A., com coautoria da Universidade de Bolonha), não artigo com revisão por pares. Não compromete o uso que a tese faz — a obra é citada para descrever métricas consagradas, não para sustentar resultado empírico — mas registro porque é informação que a banca pode perguntar.</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>A matriz de confusão contém toda a informação relevante sobre o desempenho, e a maioria das métricas multiclasse deriva dela</td><td>§1.1, p. 2</td><td>Cap. 2: sustenta a matriz de confusão como instrumento de diagnóstico</td></tr><tr><td>C2</td><td>A acurácia balanceada é <strong>insensível ao desbalanceamento</strong> de classes, porque dá influência proporcional às classes menores</td><td>p. 4</td><td>Cap. 2: é a alternativa nº 1 que a tese cita e dispensa</td></tr><tr><td>C3</td><td>Coeficiente de Matthews e Kappa de Cohen partem da matriz de confusão e de dois conceitos estatísticos distintos (coeficiente Phi e concordância entre avaliadores)</td><td>p. 9</td><td>Cap. 2: alternativas nº 2 e nº 3 citadas e dispensadas</td></tr><tr><td>C4</td><td>As métricas são úteis em momentos diferentes do desenvolvimento: comparar dois modelos, ou analisar o mesmo modelo variando parâmetros</td><td>Resumo, p. 1</td><td>Cap. 2: reforça que a escolha de métrica é decisão de projeto</td></tr></tbody></table>\n<h3>Por que a dispensa da tese continua defensável</h3>\n<p>A obra descreve as alternativas, mas <strong>não demonstra</strong> que elas separem fenômenos que o par Macro F1 + acurácia global não separe. A justificativa da tese (aprovada pelo autor na leitura do t1) é de separação operacional: as duas métricas escolhidas chegam a divergir em sinal, e uma métrica única mascararia o contraste. Nada nesta fonte contradiz esse argumento.</p>",
    "ordem": 19
   },
   {
@@ -822,9 +826,9 @@
     }
    ],
    "total_ocorrencias": 1,
-   "pdf": false,
-   "fichado": false,
-   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Comparative Analysis using Various Performance Metrics in Imbalanced Data for Multi-class Text Classification</p>\n<p><strong>Autores</strong>: Slamet Riyanto, Imas Sukaesih Sitanggang, Taufik Djatna, Tika Dewi Atikah</p>\n<p><strong>Veículo</strong>: (IJACSA) International Journal of Advanced Computer Science and Applications</p>\n<p><strong>Ano</strong>: 2023</p>\n<p><strong>Volume/Páginas</strong>: vol. 14, n. 6, p. 1082–1090</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Métricas para classes desbalanceadas</p>",
+   "pdf": true,
+   "fichado": true,
+   "detalhes_html": "<h2>Riyanto, Sitanggang, Djatna e Atikah (2023)</h2>\n<h3>O que a tese cita, e a obra sustenta?</h3>\n<p><strong>Sim, e é a citação mais alinhada das quatro.</strong> O Cap. 2 cita esta obra ao lado de Grandini2020 para as alternativas de métrica; a obra é um estudo comparativo de métricas <strong>em dados desbalanceados de classificação de texto multiclasse</strong> — exatamente o regime da tese.</p>\n<p>A tese sustenta o Macro F1 como métrica principal. O resumo desta obra diz: \"Precision and Recall are very important to consider when the data is balanced, but <strong>in the case of unbalanced data the F1-score is the most important metric</strong>\". É apoio direto, não tangencial.</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>Em dados desbalanceados, o F1 é a métrica mais importante; precisão e revocação isoladas servem ao caso balanceado</td><td>Resumo, p. 1</td><td>Cap. 2: apoio direto à escolha do Macro F1 como métrica principal</td></tr><tr><td>C2</td><td>O micro-F1 pode ficar <strong>acima</strong> do macro porque o modelo prevê melhor a classe dominante</td><td>§I, p. 2</td><td>Cap. 2: é a razão técnica de a tese reportar macro, e não micro</td></tr><tr><td>C3</td><td>Estudos anteriores analisaram apenas o equilíbrio entre macro-F1 e micro-F1</td><td>§I, p. 2</td><td>Cap. 2: situa a lacuna que a obra ocupa</td></tr><tr><td>C4</td><td>Cinco classificadores comparados (Naive Bayes multinomial, kNN, SVM, floresta aleatória e LSTM), com abordagens de nível de dados e de algoritmo</td><td>Resumo, p. 1</td><td>Cap. 2: dá lastro empírico à comparação de métricas</td></tr><tr><td>C5</td><td>Corpus PDR com <strong>quatro</strong> classes e forte desbalanceamento: Association (34), Cause of Disease (183), Treatment of Disease (507), Negative (583)</td><td>§II.A, p. 2</td><td>Ver ressalva de escala abaixo</td></tr></tbody></table>\n<h3>Ressalva de escala, que a tese precisa respeitar</h3>\n<p>O desbalanceamento aqui é de <strong>quatro</strong> classes, com a menor tendo 34 registros e a maior 583 — razão de cerca de 17 para 1. A tese opera com <strong>621 rótulos</strong> e cauda longa. A conclusão qualitativa (F1 é o que importa sob desbalanceamento) transfere-se bem; qualquer número desta obra, não. Registro para que a citação permaneça no papel de apoio conceitual, que é como o Cap. 2 a usa hoje.</p>\n<h3>Sobre a ausência de DOI</h3>\n<p>O periódico não declara DOI para o artigo; a URL do volume 14, n. 6, abre e responde. Pelo vocabulário de três vereditos da verificação das clássicas, o caso é <code>nao-indexada-declarada</code>: propriedade do veículo, não defeito da entrada.</p>",
    "ordem": 21
   },
   {
@@ -979,9 +983,9 @@
     }
    ],
    "total_ocorrencias": 1,
-   "pdf": false,
-   "fichado": false,
-   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Stratified K-fold cross validation optimization on machine learning for prediction</p>\n<p><strong>Autores</strong>: Slamet Widodo, Herlambang Brawijaya, Samudi</p>\n<p><strong>Veículo</strong>: Sinkron : Jurnal dan Penelitian Teknik Informatika</p>\n<p><strong>Ano</strong>: 2022</p>\n<p><strong>Volume/Páginas</strong>: vol. 7, n. 4, p. 2407–2414</p>\n<p><strong>DOI</strong>: 10.33395/sinkron.v7i4.11792</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Validação e particionamento</p>",
+   "pdf": true,
+   "fichado": true,
+   "detalhes_html": "<h2>Widodo, Brawijaya e Samudi (2022)</h2>\n<h3>O que a tese cita, e a obra sustenta?</h3>\n<p><strong>Sim.</strong> O Cap. 2 cita esta obra para \"validação cruzada $k$-fold <strong>estratificada</strong> [...] essencial sob desbalanceamento\". A obra faz precisamente esse movimento: declara que \"the data used has an imbalance in the distribution of the target class, namely more negative samples than positive ones\" e que \"<strong>to overcome this</strong>, a technique called Stratified K-Fold Cross-Validation (SKCV) is used\" (Resumo, p. 1).</p>\n<p>Ou seja, a estratificação aparece na fonte como <strong>remédio declarado para o desbalanceamento</strong>, que é o uso exato que a tese faz da citação.</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>Diante de classe-alvo desbalanceada, a validação cruzada estratificada é adotada como o recurso para contornar o problema</td><td>Resumo, p. 1</td><td>Cap. 2: sustenta \"estratificada — essencial sob desbalanceamento\"</td></tr><tr><td>C2</td><td>A avaliação usa matriz de confusão para determinar o desempenho de cada modelo</td><td>Resumo, p. 1</td><td>Cap. 2: coerente com o uso da matriz de confusão como instrumento</td></tr><tr><td>C3</td><td>Melhor desempenho entre os cinco algoritmos: 96\\% (Random Forest), 94\\% (regressão logística), 92\\% (XGBoost)</td><td>Resumo, p. 1</td><td>Não usado na tese; registrado para contexto</td></tr><tr><td>C4</td><td>O trabalho de referência anterior avaliava com 10-fold, medindo acurácia, precisão e revocação</td><td>p. 2</td><td>Cap. 2: apoia \"k tipicamente 5 ou 10\"</td></tr></tbody></table>\n<h3>DOIS ACHADOS DE BIBLIOGRAFIA — para o revisor1, dono do <code>referencias.bib</code></h3>\n<p><strong>1. Grafia do título (já reportado, segue aberto).</strong> O título real diz \"optimi<strong>z</strong>ation\"; a entrada do <code>.bib</code> diz \"optim<strong>a</strong>tion\". Confirmado tanto na Crossref quanto na primeira página do PDF.</p>\n<p><strong>2. Página final (já reportado, segue aberto).</strong> A entrada diz <code>2407--2413</code>; a Crossref e a paginação do PDF (que abre em 2407 e tem 8 páginas) indicam <strong>2414</strong>.</p>\n<p><strong>3. NOVO — o próprio PDF tem o volume errado no cabeçalho.</strong> O cabeçalho de todas as páginas diz \"Volume <strong>6</strong>, Number 4, October 2022\", enquanto o DOI da mesma página é <code>10.33395/sinkron.v<strong>7</strong>i4.11792</code> e a Crossref registra <strong>volume 7</strong>. É erro do periódico, não da tese. Registro para que ninguém \"corrija\" a entrada do <code>.bib</code> para 6 achando que está seguindo a fonte: o volume correto é <strong>7</strong>, e a evidência é o DOI e o registro da Crossref, não o cabeçalho do PDF.</p>",
    "ordem": 26
   },
   {
@@ -1010,9 +1014,9 @@
     }
    ],
    "total_ocorrencias": 1,
-   "pdf": false,
-   "fichado": false,
-   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Performance of Machine Learning Algorithms with Different K Values in K-fold Cross-Validation</p>\n<p><strong>Autores</strong>: Isaac Kofi Nti, Owusu Nyarko-Boateng, Justice Aning</p>\n<p><strong>Veículo</strong>: International Journal of Information Technology and Computer Science</p>\n<p><strong>Ano</strong>: 2021</p>\n<p><strong>Volume/Páginas</strong>: vol. 13, n. 6, p. 61–71</p>\n<p><strong>DOI</strong>: 10.5815/ijitcs.2021.06.05</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Validação e particionamento</p>",
+   "pdf": true,
+   "fichado": true,
+   "detalhes_html": "<h2>Nti, Nyarko-Boateng e Aning (2021)</h2>\n<h3>O que a tese cita, e a obra sustenta?</h3>\n<p><strong>Sim, e literalmente.</strong> O Cap. 2 afirma que na validação cruzada $k$-fold o valor de $k$ é \"tipicamente 5 ou 10, equilíbrio entre viés, variância e custo\". O resumo da obra diz exatamente isso: \"the most commonly used values of k are five (5) or ten (10), as these two values are believed to give test error rate estimates that suffer neither from extremely high bias nor very high variance\".</p>\n<p>Duas palavras do original merecem atenção porque <strong>reforçam</strong> a redação cautelosa da tese: <em>\"are believed to\"</em> (acredita-se) e <em>\"there is no formal rule\"</em> (não há regra formal). Ou seja, a própria fonte trata 5 e 10 como convenção, não como resultado provado. O \"tipicamente\" da tese está bem escolhido.</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>5 e 10 são os valores mais usados na literatura, por se acreditar que equilibram viés e variância; <strong>não há regra formal</strong></td><td>Resumo, p. 1</td><td>Cap. 2: sustenta \"k tipicamente 5 ou 10\" e justifica o hedge</td></tr><tr><td>C2</td><td>O estudo testa empiricamente k ∈ {3, 5, 7, 10, 15, 20} em quatro algoritmos</td><td>Resumo, p. 1</td><td>Cap. 2: é o que dá autoridade empírica à citação</td></tr><tr><td>C3</td><td><strong>k = 7</strong> deu ligeiro ganho de acurácia de validação e de área sob a curva com MENOS custo computacional que k = 10 na maioria dos algoritmos</td><td>Resumo, p. 1</td><td>Cap. 3: nuance que a tese NÃO usa; ver observação abaixo</td></tr><tr><td>C4</td><td>O custo de treino cresce cerca de k-1 vezes quando o tempo é linear no número de instâncias; a recomendação é ponderar acurácia e generalização em base pequena</td><td>§Conclusão, p. 8</td><td>Cap. 2: é a metade \"custo\" do equilíbrio citado</td></tr></tbody></table>\n<h3>Observação para o autor (não é defeito da tese)</h3>\n<p>A conclusão própria da obra aponta <strong>k = 7</strong>, não 5 nem 10. A tese não afirma o contrário — ela cita a convenção, que a obra confirma. Mas se em algum momento o texto precisar defender a escolha de $k$ <strong>desta tese</strong>, esta fonte oferece um argumento melhor que \"5 ou 10 é o usual\": ela mostra que o ganho entre valores vizinhos de $k$ é pequeno e o custo cresce linearmente, o que favorece o valor menor. É argumento de custo, não de moda.</p>",
    "ordem": 27
   },
   {
@@ -1161,8 +1165,8 @@
    "venue": "Statistical Science",
    "link": "https://doi.org/10.1214/ss/1009213286",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Interval%20Estimation%20for%20a%20Binomial%20Proportion&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/64596abdf95560ac4be87c71424d011eb1e51f78",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": {
     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
@@ -1231,8 +1235,8 @@
    "venue": "Neural Computation",
    "link": "https://doi.org/10.1162/089976698300017197",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Approximate%20Statistical%20Tests%20for%20Comparing%20Supervised%20Classification%20Learning%20Algorithms&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/22f0579f212dfb568fbda317cba67c8654d84ccd",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": {
     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
@@ -1325,40 +1329,6 @@
    "ordem": 36
   },
   {
-   "chave": "EfronTibshirani1993",
-   "titulo": "An Introduction to the Bootstrap",
-   "autores": [
-    "Efron",
-    "Tibshirani"
-   ],
-   "ano": "1993",
-   "venue": "Chapman & Hall/CRC",
-   "link": "https://scholar.google.com/scholar?q=%22An%20Introduction%20to%20the%20Bootstrap%22%20Efron",
-   "link_tipo": "busca",
-   "link_s2": "https://www.semanticscholar.org/search?q=An%20Introduction%20to%20the%20Bootstrap&sort=relevance",
-   "link_s2_tipo": "busca",
-   "sem_entrada_bib": false,
-   "primeira_aparicao": {
-    "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
-    "secao": "Inferência estatística para comparação de classificadores e oráculos"
-   },
-   "ocorrencias": [
-    {
-     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
-     "secao": "Inferência estatística para comparação de classificadores e oráculos"
-    },
-    {
-     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
-     "secao": "Inferência estatística para comparação de classificadores e oráculos"
-    }
-   ],
-   "total_ocorrencias": 2,
-   "pdf": false,
-   "fichado": true,
-   "detalhes_html": "<h2>Efron e Tibshirani (1993) — ficha mínima</h2>\n<p><strong>O que a tese usa:</strong> o intervalo de confiança bootstrap por percentil, aplicado a um funcional cuja distribuição amostral não é conhecida em forma fechada.</p>\n<p><strong>Onde:</strong> <code>2-fundam/texto.tex:184</code> (definição do bootstrap como estimador do intervalo) e <code>2-fundam/texto.tex:202</code> (linha da tabela de decisão: funcional sem distribuição conhecida → IC bootstrap percentil, aplicado à diferença de LCE no E3).</p>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>Reamostrando com reposição é possível estimar a distribuição amostral de um funcional arbitrário e daí extrair intervalo de confiança, sem forma fechada</td><td>Efron e Tibshirani (1993), livro-texto</td><td>Sustenta o IC da diferença de LCE (E3)</td></tr></tbody></table>\n<p><strong>Por que basta uma linha:</strong> livro-texto citado para método consagrado — é exatamente o caso que a ADR 0012 desobriga de fichamento integral (ler 436 páginas para sustentar uma definição seria desproporcional).</p>",
-   "ordem": 37
-  },
-  {
    "chave": "Guyon2011ALC",
    "titulo": "Results of the Active Learning Challenge",
    "autores": [
@@ -1393,9 +1363,43 @@
     }
    ],
    "total_ocorrencias": 3,
+   "pdf": true,
+   "fichado": true,
+   "detalhes_html": "<h2>Results of the Active Learning Challenge (Guyon et al., 2011)</h2>\n<h3>Resumo</h3>\n<p>Relato oficial do desafio de aprendizado ativo organizado junto ao AISTATS 2010 (workshop Active Learning and Experimental Design). Participantes compravam lotes de rótulos de tamanho livre e submetiam predições a cada compra, permitindo aos organizadores traçar curvas de aprendizado; metade de cada base era reservada como teste. A avaliação consagra a <strong>área sob a curva de aprendizado (ALC)</strong> como métrica de execução inteira, e o ranqueamento usa um escore global normalizado. Seis bases finais (A--F) de domínios distintos.</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>A curva de aprendizado plota a AUC (computada nos exemplos de rótulo desconhecido) em função do número de rótulos consultados; a ALC é a área sob essa curva e foi o critério de avaliação do desafio</td><td>p. 23 (\"The prediction performance was evaluated according to the Area under the Learning Curve (ALC). A learning curve plots the Area Under the ROC curve (AUC) [...] as a function of the number of labels queried\")</td><td>Cap. 2 (2.1.4, parágrafo do bootstrap): a ALC é o exemplo da literatura de estatística que resume uma curva inteira em um número, sem distribuição amostral conhecida — o caso que motiva o IC por bootstrap</td></tr><tr><td>C2</td><td>O ranqueamento usa o escore normalizado globalscore = (ALC − A_rand)/(A_max − A_rand), com A_max a área da melhor curva alcançável e A_rand a da predição aleatória</td><td>p. 23, fórmula explícita</td><td>Antecedente direto da normalização da LCE (Apêndice da tese); citar ao posicionar a LCE em relação à ALC</td></tr><tr><td>C3</td><td>Achados qualitativos do desafio: estratégias ativas produziram curvas suaves; amostragem por incerteza pura pode DEGRADAR o desempenho no meio da curva (exemplo da base D)</td><td>p. 30</td><td>Munição de literatura para o resultado E3′ da tese (incerteza não domina sempre); usar como paralelo, nunca como evidência do caso próprio</td></tr></tbody></table>\n<h3>Números que posso citar</h3>\n<ul><li>Seis bases finais (A--F), metade de cada uma reservada como teste (p. 22-23).</li><li>Fórmula do escore global normalizado (C2), p. 23.</li></ul>\n<h3>Fronteira de uso (camadas do Cap. 2)</h3>\n<p>O Cap. 2 cita a ALC como conceito consagrado da literatura. A LCE, criação da tese, NÃO aparece no Cap. 2; a filiação LCE→ALC é declarada onde a LCE nasce (método/apêndice). Nota de paginação: o artigo ocupa as pp. 19--45 do volume 16; as páginas citadas acima seguem essa numeração impressa.</p>",
+   "ordem": 37
+  },
+  {
+   "chave": "EfronTibshirani1993",
+   "titulo": "An Introduction to the Bootstrap",
+   "autores": [
+    "Efron",
+    "Tibshirani"
+   ],
+   "ano": "1993",
+   "venue": "Chapman & Hall/CRC",
+   "link": "https://scholar.google.com/scholar?q=%22An%20Introduction%20to%20the%20Bootstrap%22%20Efron",
+   "link_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/search?q=An%20Introduction%20to%20the%20Bootstrap&sort=relevance",
+   "link_s2_tipo": "busca",
+   "sem_entrada_bib": false,
+   "primeira_aparicao": {
+    "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
+    "secao": "Inferência estatística para comparação de classificadores e oráculos"
+   },
+   "ocorrencias": [
+    {
+     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
+     "secao": "Inferência estatística para comparação de classificadores e oráculos"
+    },
+    {
+     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
+     "secao": "Inferência estatística para comparação de classificadores e oráculos"
+    }
+   ],
+   "total_ocorrencias": 2,
    "pdf": false,
-   "fichado": false,
-   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Results of the Active Learning Challenge</p>\n<p><strong>Autores</strong>: Isabelle Guyon, Gavin Cawley, Gideon Dror, Vincent Lemaire</p>\n<p><strong>Veículo</strong>: Proceedings of the Active Learning and Experimental Design Workshop (in conjunction with AISTATS 2010)</p>\n<p><strong>Ano</strong>: 2011</p>\n<p><strong>Volume/Páginas</strong>: vol. 16, p. 19–45</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Inferência estatística para comparação de classificadores e oráculos; Cap. 3 — Metodologia § Métricas de avaliação e análise estatística; Apêndice A1 — Métrica Learning Curve Efficiency (LCE) § Relação com a ALC</p>",
+   "fichado": true,
+   "detalhes_html": "<h2>Efron e Tibshirani (1993) — ficha mínima</h2>\n<p><strong>O que a tese usa:</strong> o intervalo de confiança bootstrap por percentil, aplicado a um funcional cuja distribuição amostral não é conhecida em forma fechada.</p>\n<p><strong>Onde:</strong> <code>2-fundam/texto.tex:184</code> (definição do bootstrap como estimador do intervalo) e <code>2-fundam/texto.tex:202</code> (linha da tabela de decisão: funcional sem distribuição conhecida → IC bootstrap percentil, aplicado à diferença de LCE no E3).</p>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>Reamostrando com reposição é possível estimar a distribuição amostral de um funcional arbitrário e daí extrair intervalo de confiança, sem forma fechada</td><td>Efron e Tibshirani (1993), livro-texto</td><td>Sustenta o IC da diferença de LCE (E3)</td></tr></tbody></table>\n<p><strong>Por que basta uma linha:</strong> livro-texto citado para método consagrado — é exatamente o caso que a ADR 0012 desobriga de fichamento integral (ler 436 páginas para sustentar uma definição seria desproporcional).</p>",
    "ordem": 38
   },
   {
@@ -1614,6 +1618,41 @@
    "ordem": 43
   },
   {
+   "chave": "Cohn1996",
+   "titulo": "Active Learning with Statistical Models",
+   "autores": [
+    "Cohn",
+    "Ghahramani",
+    "Jordan"
+   ],
+   "ano": "1996",
+   "venue": "Journal of Artificial Intelligence Research",
+   "link": "https://scholar.google.com/scholar?q=%22Active%20Learning%20with%20Statistical%20Models%22%20Cohn",
+   "link_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/search?q=Active%20Learning%20with%20Statistical%20Models&sort=relevance",
+   "link_s2_tipo": "busca",
+   "sem_entrada_bib": false,
+   "primeira_aparicao": {
+    "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
+    "secao": "Formalização e cenários"
+   },
+   "ocorrencias": [
+    {
+     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
+     "secao": "Formalização e cenários"
+    },
+    {
+     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
+     "secao": "Estratégias de seleção de instâncias"
+    }
+   ],
+   "total_ocorrencias": 2,
+   "pdf": false,
+   "fichado": false,
+   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Active Learning with Statistical Models</p>\n<p><strong>Autores</strong>: David A. Cohn, Zoubin Ghahramani, Michael I. Jordan</p>\n<p><strong>Veículo</strong>: Journal of Artificial Intelligence Research</p>\n<p><strong>Ano</strong>: 1996</p>\n<p><strong>Volume/Páginas</strong>: vol. 4, p. 129–145</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Formalização e cenários; Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Estratégias de seleção de instâncias</p>",
+   "ordem": 44
+  },
+  {
    "chave": "Goudjil2018",
    "titulo": "A novel active learning method using SVM for text classification",
    "autores": [
@@ -1647,7 +1686,7 @@
    "pdf": true,
    "fichado": true,
    "detalhes_html": "<h2>A Novel Active Learning Method Using SVM for Text Classification</h2>\n<h3>Resumo</h3>\n<p>Método de AL para categorização de texto que seleciona um <strong>lote de amostras informativas por iteração</strong> usando as saídas probabilísticas de SVMs (posterior de pertencimento), reduzindo o esforço de rotulagem manual sem comprometer a acurácia. Motivação clássica: rotular manualmente é demorado e sujeito a erro; não-rotulados abundam na internet. O artigo já é usado no Cap.2 da tese como uma das formulações-base do ciclo de AL (junto com Settles).</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>Seleção em lote via probabilidades do classificador reduz esforço de rotulagem mantendo acurácia</td><td>Abstract</td><td>Cap.2 (formalismo, já citado); antecedente do QueryBatch por incerteza</td></tr><tr><td>C2</td><td>Rotulagem manual é demorada E sujeita a erro</td><td>Abstract</td><td>Raro reconhecimento pré-LLM de que o oráculo humano erra — ponte para o oráculo ruidoso do FALCO (E4)</td></tr></tbody></table>\n<h3>Números que posso citar</h3>\n<ul><li>(Resultados em benchmarks de texto clássicos; citar qualitativamente.)</li></ul>\n<h3>Crítica / limitações (minha leitura)</h3>\n<ul><li>SVM com BoW, benchmarks em inglês; probabilidades de SVM exigem calibração</li></ul>\n<p>(Platt) — fragilidade análoga à incerteza mal calibrada de DNNs.</p>\n<h3>Ideias que gera para a tese</h3>\n<ul><li>A citação já existente no Cap.2 ganha lastro: manter e referenciar C2 na</li></ul>\n<p>motivação do E4 (ruído de oráculo não é exclusividade de LLM).</p>",
-   "ordem": 44
+   "ordem": 45
   },
   {
    "chave": "Roy2001",
@@ -1681,41 +1720,6 @@
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Toward Optimal Active Learning Through Sampling Estimation of Error Reduction</p>\n<p><strong>Autores</strong>: Nicholas Roy, Andrew McCallum</p>\n<p><strong>Veículo</strong>: Proceedings of the 18th International Conference on Machine Learning</p>\n<p><strong>Ano</strong>: 2001</p>\n<p><strong>Volume/Páginas</strong>: p. 441–448</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Formalização e cenários; Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Estratégias de seleção de instâncias</p>",
-   "ordem": 45
-  },
-  {
-   "chave": "Cohn1996",
-   "titulo": "Active Learning with Statistical Models",
-   "autores": [
-    "Cohn",
-    "Ghahramani",
-    "Jordan"
-   ],
-   "ano": "1996",
-   "venue": "Journal of Artificial Intelligence Research",
-   "link": "https://scholar.google.com/scholar?q=%22Active%20Learning%20with%20Statistical%20Models%22%20Cohn",
-   "link_tipo": "busca",
-   "link_s2": "https://www.semanticscholar.org/search?q=Active%20Learning%20with%20Statistical%20Models&sort=relevance",
-   "link_s2_tipo": "busca",
-   "sem_entrada_bib": false,
-   "primeira_aparicao": {
-    "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
-    "secao": "Formalização e cenários"
-   },
-   "ocorrencias": [
-    {
-     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
-     "secao": "Formalização e cenários"
-    },
-    {
-     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
-     "secao": "Estratégias de seleção de instâncias"
-    }
-   ],
-   "total_ocorrencias": 2,
-   "pdf": false,
-   "fichado": false,
-   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Active Learning with Statistical Models</p>\n<p><strong>Autores</strong>: David A. Cohn, Zoubin Ghahramani, Michael I. Jordan</p>\n<p><strong>Veículo</strong>: Journal of Artificial Intelligence Research</p>\n<p><strong>Ano</strong>: 1996</p>\n<p><strong>Volume/Páginas</strong>: vol. 4, p. 129–145</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Formalização e cenários; Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Estratégias de seleção de instâncias</p>",
    "ordem": 46
   },
   {
@@ -1944,35 +1948,6 @@
    "ordem": 53
   },
   {
-   "chave": "Shannon1948",
-   "titulo": "A Mathematical Theory of Communication",
-   "autores": [
-    "Shannon"
-   ],
-   "ano": "1948",
-   "venue": "The Bell System Technical Journal",
-   "link": "https://scholar.google.com/scholar?q=%22A%20Mathematical%20Theory%20of%20Communication%22%20Shannon",
-   "link_tipo": "busca",
-   "link_s2": "https://www.semanticscholar.org/search?q=A%20Mathematical%20Theory%20of%20Communication&sort=relevance",
-   "link_s2_tipo": "busca",
-   "sem_entrada_bib": false,
-   "primeira_aparicao": {
-    "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
-    "secao": "Estratégias de seleção de instâncias"
-   },
-   "ocorrencias": [
-    {
-     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
-     "secao": "Estratégias de seleção de instâncias"
-    }
-   ],
-   "total_ocorrencias": 1,
-   "pdf": false,
-   "fichado": false,
-   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: A Mathematical Theory of Communication</p>\n<p><strong>Autores</strong>: Claude E. Shannon</p>\n<p><strong>Veículo</strong>: The Bell System Technical Journal</p>\n<p><strong>Ano</strong>: 1948</p>\n<p><strong>Volume/Páginas</strong>: vol. 27, n. 3, p. 379–423</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Estratégias de seleção de instâncias</p>",
-   "ordem": 54
-  },
-  {
    "chave": "Lewis1994heterogeneous",
    "titulo": "Heterogeneous Uncertainty Sampling for Supervised Learning",
    "autores": [
@@ -2000,7 +1975,7 @@
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Heterogeneous Uncertainty Sampling for Supervised Learning</p>\n<p><strong>Autores</strong>: David D. Lewis, Jason Catlett</p>\n<p><strong>Veículo</strong>: Machine Learning: Proceedings of the Eleventh International Conference (ICML 1994)</p>\n<p><strong>Ano</strong>: 1994</p>\n<p><strong>Volume/Páginas</strong>: p. 148–156</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Estratégias de seleção de instâncias</p>",
-   "ordem": 55
+   "ordem": 54
   },
   {
    "chave": "Tong2000",
@@ -2030,7 +2005,7 @@
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Support Vector Machine Active Learning with Applications to Text Classification</p>\n<p><strong>Autores</strong>: Simon Tong, Daphne Koller</p>\n<p><strong>Veículo</strong>: Proceedings of the Seventeenth International Conference on Machine Learning (ICML 2000)</p>\n<p><strong>Ano</strong>: 2000</p>\n<p><strong>Volume/Páginas</strong>: p. 999–1006</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Estratégias de seleção de instâncias</p>",
-   "ordem": 56
+   "ordem": 55
   },
   {
    "chave": "Gal2017",
@@ -2061,7 +2036,7 @@
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Deep Bayesian Active Learning with Image Data</p>\n<p><strong>Autores</strong>: Yarin Gal, Riashat Islam, Zoubin Ghahramani</p>\n<p><strong>Veículo</strong>: Proceedings of the 34th International Conference on Machine Learning (ICML)</p>\n<p><strong>Ano</strong>: 2017</p>\n<p><strong>Volume/Páginas</strong>: vol. 70, p. 1183–1192</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Estratégias de seleção de instâncias</p>",
-   "ordem": 57
+   "ordem": 56
   },
   {
    "chave": "Wertz2022",
@@ -2101,6 +2076,35 @@
    "pdf": true,
    "fichado": true,
    "detalhes_html": "<h2>Investigating Active Learning Sampling Strategies for Extreme Multi Label Text Classification</h2>\n<h3>Resumo (5-8 linhas, com as MINHAS palavras)</h3>\n<p>Estudo empírico que leva o aprendizado ativo para o regime de <strong>rótulo extremo</strong> (XMTC — centenas de classes, vários rótulos por texto) e testa quatro estratégias de seleção (ALPS, CVIRS, DAL e uma baseada em subpalavras) contra a seleção aleatória, em sete conjuntos, com BERT como classificador e orçamento de 2.000 textos. O resultado é negativo e é essa a contribuição: nenhuma estratégia melhora o esquema de forma consistente, e em vários conjuntos a aleatória empata ou vence. O artigo ainda mede o <strong>custo computacional</strong> de cada estratégia (que ninguém costuma reportar), compila cinco conjuntos XMTC a partir de tarefas hierárquicas, propõe avaliar multirrótulo com limiar variável e troca a camada linear de saída do BERT por uma CNN, o que sobe o teto de desempenho em todos os sete conjuntos.</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>Nenhuma estratégia de seleção melhora o AL de forma consistente entre conjuntos em rótulo extremo</td><td>§7 Conclusion, p. 4604</td><td>Cap. 2 (limites do AL) e Cap. 5 (discussão): justifica por que o braço aleatório é baseline legítimo e não espantalho</td></tr><tr><td>C2</td><td>A seleção aleatória empata ou supera todas as estratégias em arXiv, RCV1, AGNews e Toxic; no arXiv chega a superar por até 0,15 de micro F1 (exceto ALPS, ~0,01 pior)</td><td>§5.4, p. 4601</td><td>Cap. 5: comparador externo para a diferença E-D medida na tese</td></tr><tr><td>C3</td><td>O AL só melhora o classificador em conjuntos de BAIXA co-ocorrência de rótulos (EurLex, NYT, Yelp) — quando os rótulos são \"singulares e espaçados\"</td><td>§6.1, p. 4603 e Tab. 1, p. 4599</td><td>Cap. 3/Cap. 5: condição sob a qual o ganho de seleção é esperado; caracterizar o nosso conjunto por essa métrica</td></tr><tr><td>C4</td><td>Macro F1 e micro F1 medem coisas diferentes em rótulo desbalanceado; micro sobe mesmo quando o modelo só aprende as classes frequentes</td><td>§6.2, p. 4604</td><td>Cap. 3 (escolha da métrica) e Cap. 5: fundamenta reportar macro F1 como principal</td></tr><tr><td>C5</td><td>O custo computacional das estratégias varia em duas ordens de grandeza e pode inviabilizar o método (CVIRS: horas por iteração, semanas de experimento)</td><td>§5.6 e Tab. 3, p. 4602; §6.3, p. 4604</td><td>Cap. 2 e Cap. 6: eixo de custo COMPUTACIONAL, separado do custo de ANOTAÇÃO que a tese mede</td></tr><tr><td>C6</td><td>Trocar a camada linear de saída do BERT por uma CNN melhora o F1 nos sete conjuntos, com significância (t-test não pareado, p &lt; 0,05)</td><td>Tab. 2, p. 4601</td><td>Cap. 3: nota de arquitetura; o teto de desempenho depende da cabeça de classificação, não só do backbone</td></tr><tr><td>C7</td><td>DAL cobre ~70% das classes por iteração enquanto as demais estratégias e a aleatória cobrem de 80% a 94% — o que explica seu pior macro F1</td><td>§5.5, p. 4602</td><td>Cap. 5: cobertura de classes como diagnóstico de estratégia de seleção em muitas classes</td></tr></tbody></table>\n<h3>Números que posso citar</h3>\n<p>Condições comuns: BERT <code>bert-base-uncased</code> truncado em 512 tokens, cabeça CNN, orçamento de AL de <strong>2.000 textos</strong> adicionados de <strong>100 em 100</strong>, cada experimento repetido com <strong>3 sementes</strong>, batch 16, Adam com taxa inicial 5e-5, máximo de 15 épocas com parada antecipada, NVIDIA RTX A6000 (§5.3, p. 4601).</p>\n<ul><li><strong>Escala dos conjuntos (Tab. 1, p. 4599)</strong> — número de classes e co-ocorrência</li></ul>\n<p>média de classes: EurLex <strong>739</strong> (co-oc. 1,88; 44.689 de treino); Yelp <strong>580</strong> (2,33); NYT <strong>303</strong> (3,03); arXiv <strong>113</strong> (42,85); RCV1 <strong>100</strong> (116,72); Toxic 6 (2.065,47); AGNews 4 (0). <em>O FALCO, com 621 classes, cai entre o Yelp e o EurLex.</em></p>\n<ul><li><strong>Teto de desempenho com o conjunto inteiro (Tab. 2, p. 4601)</strong>, camada linear</li></ul>\n<p>→ CNN: EurLex micro 0,62 → <strong>0,78</strong> e macro 0,47 → <strong>0,69</strong>; Yelp micro 0,38 → <strong>0,58</strong> e macro 0,26 → <strong>0,52</strong>; NYT macro 0,32 → <strong>0,51</strong>; AGNews 0,91 → <strong>0,94</strong>. Todos os ganhos da CNN significativos a p &lt; 0,05.</p>\n<ul><li><strong>Ganho da seleção sobre a aleatória (§5.4, p. 4601)</strong>: EurLex, ALPS e</li></ul>\n<p>subword até <strong>+0,154</strong> de micro F1; NYT, ALPS <strong>+0,25</strong> sobre a aleatória e +0,1 sobre a segunda melhor; arXiv, a aleatória <strong>supera</strong> as estratégias por até <strong>0,15</strong>; EurLex em macro F1, o ganho cai para <strong>+0,05</strong> (significativo).</p>\n<ul><li><strong>Custo computacional (Tab. 3, p. 4602)</strong> — segundos para 100 lotes de 16</li></ul>\n<p>(1.600 textos), média dos 5 conjuntos XMTC: subword <strong>3,80 s</strong> (calculado uma única vez), ALPS <strong>50 s</strong>, DAL <strong>56 s</strong>, CVIRS <strong>123 s</strong>; aleatória desprezível. O CVIRS recalcula do zero a cada iteração e chega a <strong>horas por iteração</strong>, levando alguns experimentos a <strong>mais de uma semana</strong> (§6.3, p. 4604).</p>\n<h3>Citações diretas (com página)</h3>\n<p>&gt; \"Overall, we conclude that none of the selection strategies investigated in &gt; our experiments manage to consistently improve the AL scheme across all the &gt; datasets.\" (§7, p. 4604)</p>\n<p>&gt; \"we find, that AL improves the classifier on datasets which have low label &gt; co-occurence: EurLex, NYT and Yelp.\" (§6.1, p. 4603)</p>\n<p>&gt; \"while it is true that Micro F1 is a better description of how many mistakes &gt; our classifier makes overall we should keep in mind that Macro F 1 reflects &gt; how many of the classes our system is able to discriminate.\" (§6.2, p. 4604)</p>\n<h3>Crítica / limitações (minha leitura)</h3>\n<ul><li><strong>Orçamento pequeno para o espaço de rótulos</strong>: 2.000 textos para 739 classes</li></ul>\n<p>dá menos de 3 textos por classe no melhor caso. Os próprios autores admitem no §7 que benchmarks maiores exigirão conjuntos iniciais maiores \"para ter alguma chance de cobrir parte significativa do espaço de rótulos\". O achado negativo pode ser, em parte, um efeito de orçamento — o que <strong>não</strong> enfraquece o uso na tese, porque o FALCO também opera sob orçamento apertado.</p>\n<ul><li><strong>Nenhuma estratégia é de LLM</strong>: as quatro são pré-LLM (embeddings, incerteza,</li></ul>\n<p>discriminador). O artigo não fala sobre oráculo LLM; o que ele ameaça é a metade \"seleção\" do FALCO, não a metade \"oráculo\". A decomposição B−C do Cap. 5 é exatamente a que dialoga com ele.</p>\n<ul><li><strong>Três sementes</strong> e teste t <strong>não pareado</strong> entre curvas com o mesmo pool: o</li></ul>\n<p>regime de significância é frouxo perto do que a tese usa (McNemar pareado e bootstrap pareado). Citar os achados como direção, não como magnitude exata.</p>\n<ul><li><strong>Conjuntos compilados pelos autores</strong> a partir de tarefas hierárquicas: as</li></ul>\n<p>contagens de classe da Tab. 1 são desta compilação, não do benchmark original (o Yelp aqui tem 580 classes, e não é o <code>yelp-full</code> de 5 estrelas usado em outros fichamentos). Não misturar os dois no grafo.</p>\n<h3>Discrepância de nome do primeiro autor (registro, não correção)</h3>\n<p>A entrada do bib tinha <code>Fromme, Lisa</code>; corrigi para <code>Fromme, Lukas</code>, que é o que está impresso na primeira página do PDF publicado (<code>lukas.fromme@ims.uni-stuttgart.de</code>, IMS/Universidade de Stuttgart). Fica um segundo ponto, que <strong>não</strong> corrigi porque muda texto impresso e a chave de citação: o Crossref (DOI 10.63317/48xs9zc3987o) e a ACL Anthology (2022.lrec-1.490) indexam hoje o primeiro autor como <strong>Wertz, Lukas</strong> — mesmo sobrenome do <code>Wertz2023</code> do nosso bib, com dois dos mesmos coautores (Mirylenka e Bogojeska). É a mesma pessoa sob nome diferente do registro arquivado. Decisão de forma (manter FROMME, como no PDF, ou adotar WERTZ, como nos índices) sobe ao principal e ao autor; enquanto isso o DOI resolve para a obra certa em qualquer das duas grafias.</p>\n<h3>Ideias que gera para a tese</h3>\n<ul><li><strong>Baseline aleatório com estatura</strong>: usar C1/C2 no Cap. 5 para enquadrar o</li></ul>\n<p>braço D — a tese passa a comparar-se contra um aleatório que a literatura mostra ser difícil de bater em muitas classes, o que <strong>fortalece</strong> um resultado positivo em vez de enfraquecê-lo.</p>\n<ul><li><strong>Reportar a co-ocorrência média de classes do nosso conjunto</strong> (métrica da</li></ul>\n<p>Tab. 1) no Cap. 3: é uma linha de estatística descritiva que situa o FALCO na condição C3 e dá ao leitor a régua para saber se esperar ganho de seleção.</p>\n<ul><li><strong>Par de citações que delimita o regime</strong>: <code>Wertz2022</code> (100-739 classes,</li></ul>\n<p>seleção não bate aleatório) e <code>Rouzegar2024</code> (2-4 classes, tudo bate aleatório) citados juntos definem em que faixa a seleção ativa compensa — e o FALCO, em 621 classes, cai do lado difícil.</p>\n<ul><li><strong>Custo computacional como terceiro eixo</strong>: a tese mede custo de anotação e</li></ul>\n<p>desempenho; a Tab. 3 lembra que a estratégia de seleção também custa GPU. Uma linha no Cap. 5 dizendo quanto custa a nossa seleção fecha esse flanco.</p>",
+   "ordem": 57
+  },
+  {
+   "chave": "Shannon1948",
+   "titulo": "A Mathematical Theory of Communication",
+   "autores": [
+    "Shannon"
+   ],
+   "ano": "1948",
+   "venue": "The Bell System Technical Journal",
+   "link": "https://scholar.google.com/scholar?q=%22A%20Mathematical%20Theory%20of%20Communication%22%20Shannon",
+   "link_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/search?q=A%20Mathematical%20Theory%20of%20Communication&sort=relevance",
+   "link_s2_tipo": "busca",
+   "sem_entrada_bib": false,
+   "primeira_aparicao": {
+    "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
+    "secao": "Estratégias de seleção de instâncias"
+   },
+   "ocorrencias": [
+    {
+     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
+     "secao": "Estratégias de seleção de instâncias"
+    }
+   ],
+   "total_ocorrencias": 1,
+   "pdf": false,
+   "fichado": false,
+   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: A Mathematical Theory of Communication</p>\n<p><strong>Autores</strong>: Claude E. Shannon</p>\n<p><strong>Veículo</strong>: The Bell System Technical Journal</p>\n<p><strong>Ano</strong>: 1948</p>\n<p><strong>Volume/Páginas</strong>: vol. 27, n. 3, p. 379–423</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Estratégias de seleção de instâncias</p>",
    "ordem": 58
   },
   {
@@ -2643,9 +2647,13 @@
     {
      "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
      "secao": "Estratégias de seleção de instâncias"
+    },
+    {
+     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
+     "secao": "Limitações do laço clássico"
     }
    ],
-   "total_ocorrencias": 1,
+   "total_ocorrencias": 2,
    "pdf": true,
    "fichado": true,
    "detalhes_html": "<h2>Active Learning on a Budget: Opposite Strategies Suit High and Low Budgets</h2>\n<h3>Resumo (5-8 linhas, com as MINHAS palavras)</h3>\n<p>Analisa teoricamente (modelo de mistura de dois aprendizes) e empiricamente a relação entre tamanho do orçamento de rotulagem e estratégia ótima de AL, identificando uma transição de fase: com orçamento baixo convém superamostrar exemplos típicos (regiões densas, \"fáceis\"); com orçamento alto, exemplos atípicos/incertos. Disso deriva o TypiClust: aprende representação auto-supervisionada do pool, agrupa em |L|+B clusters e consulta o exemplo mais típico (inverso da distância média aos K=20 vizinhos) de cada um dos B maiores clusters não cobertos. No regime de orçamento baixo (1–10 exemplos/classe por rodada), supera todas as estratégias clássicas — que empatam com ou perdem de random — em CIFAR-10/100, TinyImageNet e subconjuntos do ImageNet, com ganho máximo no semi-supervisionado (93,2% em CIFAR-10 com 10 rótulos).</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>Transição de fase: típicos são a melhor consulta em orçamento baixo; atípicos/incertos em orçamento alto</td><td>Abstract; §2 (Thm. 1–3); Fig. 1, pp. 1–5</td><td>Cap. 2 (posicionamento do DRI-SL); justifica representatividade no cold start</td></tr><tr><td>C2</td><td>Em orçamento baixo, TODAS as baselines clássicas (incerteza, margem, entropia, BADGE, BALD, DBAL e CoreSet) empatam com random ou pioram</td><td>§4.2.1, Fig. 4, p. 7</td><td>Confronto DRI-SL × coreset: coreset não é competidor forte no nosso regime</td></tr><tr><td>C3</td><td>TypiClust = representação auto-supervisionada + k-means em \\</td><td>L\\</td><td>+B clusters + exemplo mais típico dos B maiores clusters não cobertos</td><td>§3.2, Alg. 1, pp. 5–6</td><td>Cap. 2: descrição do competidor conceitual mais próximo do DRI-SL</td></tr><tr><td>C4</td><td>Tipicidade sem diversidade falha (TPC_NoClust) e clustering sem tipicidade também (TPC_Rand) — os dois componentes são cruciais</td><td>§4.3.3, Fig. 7c, pp. 7–8</td><td>Defesa da arquitetura em 2 etapas do DRI-SL (densidade + variedade)</td></tr><tr><td>C5</td><td>Mesmo incerteza calculada por um \"oráculo\" treinado no dataset inteiro perde de random no orçamento baixo</td><td>§4.3.4, Fig. 8, p. 9</td><td>Cap. 2/5: o problema do cold start não é só má estimação de incerteza — é o princípio</td></tr><tr><td>C6</td><td>TypiClust produz conjuntos rotulados com melhor balanceamento de classes (menor distância TV à distribuição real) sem acesso a rótulos</td><td>§4.3.2, Fig. 7b, p. 8; já anunciado na legenda da Fig. 2, p. 2</td><td>Paralelo com a cota proporcional por cluster do DRI-SL</td></tr><tr><td>C7</td><td>Métodos de representação auto-supervisionada assumem classes balanceadas; em CIFAR-10 desbalanceado TypiClust ainda vence no orçamento baixo, mas os autores admitem risco de falha</td><td>§4.3.5, p. 9 (Fig. 17, App. G.1)</td><td>Limitação frente ao nosso desbalanceamento severo (714 classes)</td></tr><tr><td>C8</td><td>Seleção não aleatória do pool inicial (L0=∅) traz ganho adicional vs. dar pool inicial random ao TypiClust</td><td>§4.3.1, Fig. 7a, p. 8</td><td>Sustenta o P1 (o L0 importa) com evidência independente</td></tr><tr><td>C9</td><td>A explicação corrente do cold start é a incapacidade de redes neurais estimarem incerteza com poucos rótulos — os autores a adotam como ponto de partida e por isso trocam \"certeza\" por \"tipicidade\"</td><td>§1, p. 2 (citando Nguyen et al. 2015; Gal &amp; Ghahramani 2016)</td><td>Cap. 2: enquadra o cold start; leia-se junto de C5, que mostra que a explicação é insuficiente (mesmo incerteza confiável perde)</td></tr></tbody></table>\n<h3>Números que posso citar</h3>\n<ul><li>CIFAR-10, semi-supervisionado (FlexMatch), 10 rótulos escolhidos por</li></ul>\n<p>TypiClust(DC): <strong>93,2%</strong> de acurácia vs. <strong>53,8%</strong> random — ganho de <strong>+39,4 p.p.</strong> (Abstract; Fig. 6a, p. 7; 3 repetições).</p>\n<ul><li>CIFAR-100, semi-supervisionado, 300 rótulos: TPC_RP <strong>58,6%</strong> vs. random</li></ul>\n<p><strong>38,3%</strong> (Fig. 6b, p. 7).</p>\n<ul><li>Regime avaliado: 1–10 exemplos/classe por rodada; orçamentos B = M ou 5M</li></ul>\n<p>(M = nº de classes) com L0 = ∅ (§4.2.1, p. 7).</p>\n<ul><li>Tipicidade: inverso da distância euclidiana média aos K = 20 vizinhos mais</li></ul>\n<p>próximos (Eq. 4 e nota 1, p. 6); os autores registram que <strong>outras escolhas de K dão resultados semelhantes</strong> (\"other choices yield similar results\", nota 1, p. 6) — a tipicidade não é sensível ao ajuste de K.</p>\n<ul><li>Regime semi-supervisionado avaliado no extremo: apenas **0,02% a 1% dos dados</li></ul>\n<p>rotulados<strong> (§4.2.3, p. 8). Nesse mesmo experimento entra uma baseline </strong>aleatória balanceada por classe** (55,9% em CIFAR-10), reconhecendo que algoritmos semi-supervisionados costumam supor conjunto rotulado balanceado — suposição inviável em AL (§4.2.3 e Fig. 6a, p. 8).</p>\n<ul><li>Variantes do método (§3.2, p. 6): <strong>TPC_DC</strong> usa clusterização profunda (SCAN)</li></ul>\n<p>para representação e agrupamento; <strong>TPC_RP</strong> usa aprendizado de representação (DINO no ImageNet, SimCLR nos demais) seguido de k-médias.</p>\n<ul><li>Arquitetura de classificação nos experimentos: <strong>ResNet18</strong> (CIFAR-10/100 e</li></ul>\n<p>TinyImageNet; App. F.2/D.2, pp. 18–19).</p>\n<h3>Citações diretas (com página)</h3>\n<p>&gt; \"typical examples are best queried when the budget is low, while &gt; unrepresentative examples are best queried when the budget is large\" &gt; (Abstract, p. 1)</p>\n<p>&gt; \"all other baseline AL methods perform on par with random selection or worse\" &gt; (§4.2.1, p. 7)</p>\n<p>&gt; \"Note that the ensuing labeled set is approximately class-balanced, even though &gt; the queries are chosen without access to class labels.\" &gt; (legenda da Fig. 2, p. 2)</p>\n<h3>Crítica / limitações (minha leitura)</h3>\n<ul><li>Só visão computacional (CIFAR/ImageNet); nada de texto — a transferência do</li></ul>\n<p>princípio para texto curto esparso é plausível, mas não demonstrada aqui.</p>\n<ul><li>Exige treinar representação auto-supervisionada (SimCLR/DINO/SCAN) no próprio</li></ul>\n<p>pool: custo computacional alto que o DRI-SL evita (SBERT congelado + k-médias).</p>\n<ul><li>Tipicidade por densidade k-NN em domínio com 7,7% de duplicatas exatas</li></ul>\n<p>selecionaria quase-duplicatas como \"mais típicas\" de cada cluster — exatamente a redundância que a etapa lexical do DRI-SL suprime.</p>\n<ul><li>Assume datasets balanceados na representação (§4.3.5, admitido pelos autores);</li></ul>\n<p>o teste de desbalanceamento é modesto perto das 714 classes com cauda longa do nosso domínio.</p>\n<ul><li>k-means com |L|+B clusters cresce com a iteração; para b0 de centenas o</li></ul>\n<p>agrupamento fica caro — DRI-SL fixa N_c = √I.</p>\n<ul><li>\"O que torna um orçamento 'baixo' depende da tarefa\" fica em aberto (§5) —</li></ul>\n<p>na tese, o regime é definido empiricamente pelo envelope 100..5000.</p>\n<ul><li>O balanceamento emergente (C6) foi medido em datasets com 10 a 200 classes e</li></ul>\n<p>distribuição quase uniforme; nada garante que ele sobreviva a 714 classes com cauda longa, porque classe rara tende a ter densidade baixíssima e, por construção, tipicidade é justamente densidade — o critério que seleciona bem sob uniformidade pode ser o que apaga a cauda no nosso domínio.</p>\n<ul><li>O custo do passo de representação auto-supervisionada não é contabilizado no</li></ul>\n<p>orçamento reportado: o \"budget\" do paper conta apenas rótulos, e a comparação com baselines que não treinam encoder algum sai favorecida.</p>\n<h3>Ideias que gera para a tese</h3>\n<ul><li>Usar C1+C5 como fundamento teórico do Cap. 2 para explicar POR QUE US falha</li></ul>\n<p>no cold start do FALCO (não é defeito de implementação, é o regime).</p>\n<ul><li>C4 é o argumento pró-arquitetura em duas etapas do DRI-SL: densidade sozinha</li></ul>\n<p>não basta, diversidade sozinha não basta.</p>\n<ul><li>C6 dialoga com a variante DRI-SL-C (class-aware) do E6 e com o DEUCE</li></ul>\n<p>(Guo2025Deuce): balanceamento emergente sem rótulos.</p>\n<ul><li>Confronto R6 item 11: DRI-SL compartilha o princípio \"denso e diverso\" do</li></ul>\n<p>TypiClust, mas o operacionaliza sem treinar encoder e com novidade lexical explícita — adequado a texto curto, orçamento e CPU.</p>\n<ul><li>Adotar a distância de Variação Total entre a distribuição de classes do L0 e a</li></ul>\n<p>distribuição real do pool (§4.3.2, p. 8) como métrica auxiliar de avaliação do L0: dá um número comparável entre DRI-SL, AG e aleatório sem depender de acurácia do classificador (P1/P2).</p>\n<ul><li>Replicar o desenho da ablação C4 nos componentes do DRI-SL: cluster semântico</li></ul>\n<p>sem variedade lexical vs. variedade lexical sem cluster — é o análogo direto de TPC_NoClust / TPC_Rand e transforma a defesa da arquitetura em evidência.</p>",
@@ -2663,8 +2671,8 @@
    "venue": "Proceedings of the 15th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining",
    "link": "https://doi.org/10.1145/1557019.1557053",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Efficiently%20Learning%20the%20Accuracy%20of%20Labeling%20Sources%20for%20Selective%20Sampling&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/faec62dae11e5d53c74bb96cc0843d52d4e0a861",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": {
     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
@@ -2694,8 +2702,8 @@
    "venue": "Proceedings of the 14th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining",
    "link": "https://doi.org/10.1145/1401890.1401965",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Get%20Another%20Label%3F%20Improving%20Data%20Quality%20and%20Data%20Mining%20Using%20Multiple%2C%20Noisy%20Labelers&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/a3f853572e12b51c4c227590168c95b7cd0ca666",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": {
     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
@@ -2759,8 +2767,8 @@
    "venue": "IEEE Transactions on Neural Networks and Learning Systems",
    "link": "https://doi.org/10.1109/TNNLS.2022.3152527",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Learning%20from%20noisy%20labels%20with%20deep%20neural%20networks%3A%20A%20survey&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/5ffe9b1d8219438f0343995ad3ea1a888e3d9f8e",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": {
     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
@@ -2785,7 +2793,7 @@
     },
     {
      "capitulo": "Cap. 5 — Resultados: Oráculos LLM e o Framework FALCO",
-     "secao": "E4: robustez do aprendizado ao ruído do oráculo"
+     "secao": "Robustez do aprendizado ao ruído do oráculo"
     },
     {
      "capitulo": "Cap. 6 — Discussão e Conclusão",
@@ -2886,7 +2894,7 @@
     },
     {
      "capitulo": "Cap. 5 — Resultados: Oráculos LLM e o Framework FALCO",
-     "secao": "E6: seletores em escala populacional e o viés da autoavaliação"
+     "secao": "Seletores em escala populacional e o viés da autoavaliação"
     }
    ],
    "total_ocorrencias": 2,
@@ -2922,11 +2930,11 @@
     },
     {
      "capitulo": "Cap. 5 — Resultados: Oráculos LLM e o Framework FALCO",
-     "secao": "E6: seletores em escala populacional e o viés da autoavaliação"
+     "secao": "Seletores em escala populacional e o viés da autoavaliação"
     },
     {
      "capitulo": "Cap. 5 — Resultados: Oráculos LLM e o Framework FALCO",
-     "secao": "E6: seletores em escala populacional e o viés da autoavaliação"
+     "secao": "Seletores em escala populacional e o viés da autoavaliação"
     }
    ],
    "total_ocorrencias": 3,
@@ -2990,8 +2998,8 @@
    "venue": "arXiv:2306.00176 [cs.CL] (preprint, v1 de 31/05/2023)",
    "link": "https://doi.org/10.48550/arXiv.2306.00176",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Automated%20Annotation%20with%20Generative%20AI%20Requires%20Validation&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/e58231569f45704a2460bb6de3ec6f52efc5cf95",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": {
     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
@@ -3021,8 +3029,8 @@
    "venue": "Natural Language Processing Journal",
    "link": "https://doi.org/10.1016/j.nlp.2025.100142",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=LLMs%20for%20product%20classification%20in%20e-commerce%3A%20A%20zero-shot%20comparative%20study%20of%20GPT%20and%20Claude%20models&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/5bcd9c4c729aac072246f96d1aa7071f2b05f4bb",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": {
     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
@@ -3238,9 +3246,13 @@
     {
      "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
      "secao": "Custo, instrumentação e reprodutibilidade da medição"
+    },
+    {
+     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
+     "secao": "Custo, instrumentação e reprodutibilidade da medição"
     }
    ],
-   "total_ocorrencias": 2,
+   "total_ocorrencias": 3,
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Active Prompting with Chain-of-Thought for Large Language Models</p>\n<p><strong>Autores</strong>: Shizhe Diao, Pengcheng Wang, Yong Lin, Rui Pan, Xiang Liu, Tong Zhang</p>\n<p><strong>Veículo</strong>: Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</p>\n<p><strong>Ano</strong>: 2024</p>\n<p><strong>Volume/Páginas</strong>: p. 1330–1350</p>\n<p><strong>DOI</strong>: 10.18653/v1/2024.acl-long.73</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Arquiteturas de integração no laço; Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Custo, instrumentação e reprodutibilidade da medição</p>",
@@ -3500,8 +3512,8 @@
    "venue": "Proceedings of the 1st Workshop on Customizable NLP (CustomNLP4U), EMNLP 2024",
    "link": "https://doi.org/10.18653/v1/2024.customnlp4u-1.22",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=E-Commerce%20Product%20Categorization%20with%20LLM-based%20Dual-Expert%20Classification%20Paradigm&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/4e429b4364326789b145d48ac938c155971e6713",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": {
     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
@@ -3538,8 +3550,8 @@
    "venue": "IEEE Transactions on Neural Networks and Learning Systems",
    "link": "https://doi.org/10.1109/TNNLS.2013.2292894",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Classification%20in%20the%20presence%20of%20label%20noise%3A%20A%20survey&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/d4414fb2e91836a82799d94251e27ed12f46d879",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": {
     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
@@ -3560,7 +3572,7 @@
     },
     {
      "capitulo": "Cap. 5 — Resultados: Oráculos LLM e o Framework FALCO",
-     "secao": "E4: robustez do aprendizado ao ruído do oráculo"
+     "secao": "Robustez do aprendizado ao ruído do oráculo"
     },
     {
      "capitulo": "Cap. 6 — Discussão e Conclusão",
@@ -3568,9 +3580,9 @@
     }
    ],
    "total_ocorrencias": 5,
-   "pdf": false,
-   "fichado": false,
-   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Classification in the presence of label noise: A survey</p>\n<p><strong>Autores</strong>: Benoît Frénay, Michel Verleysen</p>\n<p><strong>Veículo</strong>: IEEE Transactions on Neural Networks and Learning Systems</p>\n<p><strong>Ano</strong>: 2014</p>\n<p><strong>Volume/Páginas</strong>: vol. 25, n. 5, p. 845–869</p>\n<p><strong>DOI</strong>: 10.1109/TNNLS.2013.2292894</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Rótulos ruidosos e seu efeito no treinamento; Cap. 5 — Resultados: Oráculos LLM e o Framework FALCO § RQ3 — perfil de erro; Cap. 5 — Resultados: Oráculos LLM e o Framework FALCO § E4: robustez do aprendizado ao ruído do oráculo; Cap. 6 — Discussão e Conclusão § Discussão</p>",
+   "pdf": true,
+   "fichado": true,
+   "detalhes_html": "<h2>Classification in the Presence of Label Noise: A Survey</h2>\n<h3>Veredito sobre a frase do Capítulo 5 (o motivo desta ficha)</h3>\n<p><code>5-resultados-falco/texto.tex:143</code> afirma que o ruído estruturado, concentrado em pares vizinhos, é <em>\"cenário menos danoso ao classificador treinado que ruído uniforme\"</em>, citando <code>Frenay2014</code> e <code>Song2023NoisyLabels</code>.</p>\n<p><strong>As duas fontes agora foram lidas. Nenhuma sustenta a afirmação.</strong></p>\n<p>O que este survey diz sobre o ruído assimétrico (NAR), na §II-B-2:</p>\n<p>&gt; \"In the case of NAR label noise, <strong>it is no longer trivial to decide whether &gt; the labels are helpful or not.</strong>\"</p>\n<p>Ou seja: sob ruído dependente de classe, decidir se os rótulos ainda ajudam deixa de ser trivial — o problema fica <strong>mais difícil de analisar</strong>, não menos danoso.</p>\n<p>E vem o agravante, no mesmo parágrafo, que é específico para o regime desta tese:</p>\n<p>&gt; \"However, this condition does not prevent the occurrence of very small &gt; correct labelling probabilities P(Ỹ = y|Y = y) for some class y ∈ Y, <strong>in &gt; particular if the prior probability P(y) of this class is small.</strong>\"</p>\n<p>Traduzindo para o nosso caso: a taxa de erro GLOBAL pode parecer aceitável e, ainda assim, uma classe de prior pequeno ter probabilidade de rotulagem correta quase nula. <strong>Com 621 classes e cauda longa, é exatamente a nossa situação</strong> — e é a situação que o Macro F1 penaliza com força. O survey não diz que o ruído estruturado é mais brando; diz que ele pode esconder dano concentrado nas classes raras.</p>\n<p><strong>Busquei o contrário antes de concluir.</strong> A única ocorrência de \"less harmful\" no artigo compara <strong>ruído de atributo com ruído de rótulo</strong> (§I) — comparação diferente, que nada diz sobre uniforme contra assimétrico. E na mesma seção o survey registra que o ruído de rótulo é <em>potencialmente mais danoso</em> que o de atributo.</p>\n<p><strong>Consequência</strong>: a hipótese do ruído estruturado menos danoso é da tese, testada no E4, apoiada nos nossos dados. Não é herança da literatura, e as duas citações têm de sair de sustentação e virar o que de fato sustentam: a taxonomia (aqui) e o alerta de detectabilidade (no Song2023). É a mesma formulação condicionada que o Cap. 2 já usa corretamente nas linhas 585-590.</p>\n<h3>Resumo (5-8 linhas, com as MINHAS palavras)</h3>\n<p>Survey de referência, anterior à era do aprendizado profundo, sobre classificação com rótulos errados. Faz três coisas que continuam valendo: formaliza o processo de ruído com um modelo probabilístico de três casos (NCAR, NAR e NNAR), cataloga as consequências do ruído para os classificadores clássicos, e organiza as defesas em três famílias — algoritmos robustos, limpeza de rótulo e algoritmos tolerantes. É a fonte que dá nome e álgebra ao que a literatura posterior chama de ruído simétrico e assimétrico.</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>Taxonomia formal em três casos: NCAR (erro independente de classe e atributos — o ruído uniforme), NAR (probabilidade de erro depende da classe verdadeira — ruído assimétrico) e NNAR (depende também dos atributos)</td><td>§II-B, p. 3-4, Fig. 1</td><td>Cap. 2 e Cap. 5: nomear o ruído do oráculo com rigor. O nosso é NAR, possivelmente NNAR</td></tr><tr><td>C2</td><td><strong>Ruído de par</strong> (<em>pairwise label noise</em>): duas classes são escolhidas e cada instância de uma tem probabilidade de ser rotulada como a outra; só duas entradas fora da diagonal da matriz de rotulagem são não nulas</td><td>§II-B-2, p. 3</td><td><strong>É o nome formal do \"ruído concentrado em pares vizinhos\" da tese</strong> — usar o termo em vez da paráfrase</td></tr><tr><td>C3</td><td>Sob ruído NAR, deixa de ser trivial decidir se os rótulos ainda são úteis</td><td>§II-B-2, p. 3</td><td>Cap. 5: contradiz a leitura de \"menos danoso\"; sustenta a formulação condicionada</td></tr><tr><td>C4</td><td>A condição de erro esperado menor que 1/2 não impede que uma classe de prior pequeno tenha probabilidade de rotulagem correta muito baixa</td><td>§II-B-2, p. 3</td><td><strong>Cap. 5: o risco específico de 621 classes com cauda longa</strong></td></tr><tr><td>C5</td><td>Ruído de rótulo é potencialmente mais danoso que ruído de atributo</td><td>§I, p. 1 (referindo [3], [9])</td><td>Cap. 2: justifica por que a tese se concentra na qualidade do rótulo</td></tr><tr><td>C6</td><td>Ruído de rótulo degrada desempenho, enfraquece a seleção de atributos e aumenta o número de amostras necessário no arcabouço PAC</td><td>§III-A e §III-D</td><td>Cap. 2: consequências catalogadas, úteis para fundamentar o custo do erro do oráculo</td></tr></tbody></table>\n<h3>Números que posso citar</h3>\n<p>Este é um survey conceitual e a maior parte dos números pertence às obras revistas, não a ele. Um dado citável, com a condição:</p>\n<ul><li>Em seleção de atributos sobre dados de microarranjo, **uma única instância</li></ul>\n<p>mal rotulada<strong> levou a cerca de </strong>20%** de genes discriminativos não identificados (§III-D, atribuído a Zhang et al. [128]) — exemplo do efeito desproporcional do ruído quando há poucos dados.</p>\n<p>Ao citar, atribuir ao trabalho original e não ao survey.</p>\n<h3>Citações diretas (com página)</h3>\n<p>&gt; \"In the case of NAR label noise, it is no longer trivial to decide whether &gt; the labels are helpful or not.\" (§II-B-2, p. 3)</p>\n<p>&gt; \"this condition does not prevent the occurrence of very small correct &gt; labelling probabilities P(Ỹ = y|Y = y) for some class y ∈ Y, in particular if &gt; the prior probability P(y) of this class is small.\" (§II-B-2, p. 3)</p>\n<p>&gt; \"In [3], [69], pairwise label noise is introduced: 1) two classes c1 and c2 &gt; are selected, then 2) each instance of class c1 has a probability to be &gt; incorrectly labelled as c2 and vice versa.\" (§II-B-2, p. 3)</p>\n<h3>Crítica / limitações (minha leitura)</h3>\n<ul><li><strong>Anterior ao aprendizado profundo</strong> (2014) e muito anterior ao oráculo LLM.</li></ul>\n<p>Os classificadores analisados são os clássicos; o efeito de memorização que o Song2023NoisyLabels documenta não está aqui.</p>\n<ul><li><strong>Nenhum experimento próprio</strong>: é revisão. Os números pertencem às obras</li></ul>\n<p>revistas, e citar o survey como fonte de número é o erro que a R4 do t2 e do t4 já flagraram duas vezes em outras entradas.</p>\n<ul><li><strong>Não trata texto curto nem rótulo extremo</strong>, o que torna o C4 uma inferência</li></ul>\n<p>nossa a partir do princípio dele, não um resultado transportado. A inferência é direta e o survey a autoriza explicitamente ao falar de classes de prior pequeno.</p>\n<h3>Ideias que gera para a tese</h3>\n<ul><li><strong>Trocar paráfrase por termo técnico</strong>: onde a tese diz \"ruído estruturado,</li></ul>\n<p>concentrado em pares vizinhos\", dizer <strong>ruído de par</strong> (<em>pairwise label noise</em>), caso particular do NAR. Ganha precisão e ancora numa fonte que sustenta o que está sendo dito.</p>\n<ul><li><strong>Usar o C4 como argumento a favor da tese, não contra</strong>: o survey diz que</li></ul>\n<p>ruído assimétrico pode esconder dano concentrado em classes de prior pequeno. Isso não enfraquece o FALCO — <strong>explica por que medir com Macro F1 e por que o E4 precisou ser feito</strong>. Uma hipótese que a literatura diz ser não trivial de decidir é, por definição, hipótese que merece experimento.</p>\n<ul><li><strong>Par com o Song2023NoisyLabels</strong>: este dá a álgebra (matriz de rotulagem,</li></ul>\n<p>três regimes), aquele dá a evidência empírica moderna (sobreposição das distribuições de perda, dificuldade de detecção). Citados juntos, cobrem formalização e prática sem que nenhum dos dois precise sustentar o que não diz.</p>",
    "ordem": 100
   },
   {
@@ -3635,7 +3647,7 @@
     },
     {
      "capitulo": "Cap. 5 — Resultados: Oráculos LLM e o Framework FALCO",
-     "secao": "E4: robustez do aprendizado ao ruído do oráculo"
+     "secao": "Robustez do aprendizado ao ruído do oráculo"
     }
    ],
    "total_ocorrencias": 2,
@@ -3694,8 +3706,8 @@
    "venue": "arXiv:2504.02901",
    "link": "https://doi.org/10.18653/v1/2024.acl-long.592",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Hide%20and%20Seek%20in%20Noise%20Labels%3A%20Noise-Robust%20Collaborative%20Active%20Learning%20with%20LLM-Powered%20Assistance&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/8a3ec142e120837850247ae0de9e656dddb61751",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": {
     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
@@ -3708,7 +3720,7 @@
     },
     {
      "capitulo": "Cap. 5 — Resultados: Oráculos LLM e o Framework FALCO",
-     "secao": "E4: robustez do aprendizado ao ruído do oráculo"
+     "secao": "Robustez do aprendizado ao ruído do oráculo"
     }
    ],
    "total_ocorrencias": 2,
@@ -4330,6 +4342,44 @@
    "ordem": 122
   },
   {
+   "chave": "Reimers2019SBERT",
+   "titulo": "Sentence-BERT: sentence embeddings using Siamese BERT-networks",
+   "autores": [
+    "Reimers",
+    "Gurevych"
+   ],
+   "ano": "2019",
+   "venue": "Proceedings of EMNLP-IJCNLP",
+   "link": "https://doi.org/10.18653/v1/d19-1410",
+   "link_tipo": "doi",
+   "link_s2": "https://www.semanticscholar.org/paper/93d63ec754f29fa22572615320afe0521f7ec66d",
+   "link_s2_tipo": "direto",
+   "sem_entrada_bib": false,
+   "primeira_aparicao": {
+    "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
+    "secao": "Representação e classificadores"
+   },
+   "ocorrencias": [
+    {
+     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
+     "secao": "Representação e classificadores"
+    },
+    {
+     "capitulo": "Cap. 3 — Metodologia",
+     "secao": "Pilar P2: cold start sem rótulos — algoritmo DRI-SL"
+    },
+    {
+     "capitulo": "Apêndice A3 — Algoritmo DRI-SL",
+     "secao": "Objetivo e entradas"
+    }
+   ],
+   "total_ocorrencias": 3,
+   "pdf": false,
+   "fichado": false,
+   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Sentence-BERT: sentence embeddings using Siamese BERT-networks</p>\n<p><strong>Autores</strong>: Nils Reimers, Iryna Gurevych</p>\n<p><strong>Veículo</strong>: Proceedings of EMNLP-IJCNLP</p>\n<p><strong>Ano</strong>: 2019</p>\n<p><strong>Volume/Páginas</strong>: p. 3982–3992</p>\n<p><strong>DOI</strong>: 10.18653/v1/d19-1410</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Representação e classificadores; Cap. 3 — Metodologia § Pilar P2: cold start sem rótulos — algoritmo DRI-SL; Apêndice A3 — Algoritmo DRI-SL § Objetivo e entradas</p>",
+   "ordem": 123
+  },
+  {
    "chave": "Cortes1995",
    "titulo": "Support-vector networks",
    "autores": [
@@ -4357,7 +4407,7 @@
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Support-vector networks</p>\n<p><strong>Autores</strong>: Corinna Cortes, Vladimir N. Vapnik</p>\n<p><strong>Veículo</strong>: Machine Learning</p>\n<p><strong>Ano</strong>: 1995</p>\n<p><strong>Volume/Páginas</strong>: vol. 20, n. 3, p. 273–297</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Representação e classificadores</p>",
-   "ordem": 123
+   "ordem": 124
   },
   {
    "chave": "Breiman2001",
@@ -4386,7 +4436,7 @@
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Random Forests</p>\n<p><strong>Autores</strong>: Leo Breiman</p>\n<p><strong>Veículo</strong>: Machine Learning</p>\n<p><strong>Ano</strong>: 2001</p>\n<p><strong>Volume/Páginas</strong>: vol. 45, n. 1, p. 5–32</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Representação e classificadores</p>",
-   "ordem": 124
+   "ordem": 125
   },
   {
    "chave": "Cover1967",
@@ -4416,7 +4466,7 @@
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Nearest neighbor pattern classification</p>\n<p><strong>Autores</strong>: Thomas Cover, Peter Hart</p>\n<p><strong>Veículo</strong>: IEEE transactions on information theory</p>\n<p><strong>Ano</strong>: 1967</p>\n<p><strong>Volume/Páginas</strong>: vol. 13, n. 1, p. 21–27</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Representação e classificadores</p>",
-   "ordem": 125
+   "ordem": 126
   },
   {
    "chave": "Dietterich2000",
@@ -4445,7 +4495,7 @@
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Ensemble Methods in Machine Learning</p>\n<p><strong>Autores</strong>: Thomas G. Dietterich</p>\n<p><strong>Veículo</strong>: Multiple Classifier Systems</p>\n<p><strong>Ano</strong>: 2000</p>\n<p><strong>Volume/Páginas</strong>: vol. 1857, p. 1–15</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Representação e classificadores</p>",
-   "ordem": 126
+   "ordem": 127
   },
   {
    "chave": "Quinlan1993",
@@ -4474,7 +4524,7 @@
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: C4.5: Programs for Machine Learning</p>\n<p><strong>Autores</strong>: J. Ross Quinlan</p>\n<p><strong>Veículo</strong>: Morgan Kaufmann Publishers Inc.</p>\n<p><strong>Ano</strong>: 1993</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Representação e classificadores</p>",
-   "ordem": 127
+   "ordem": 128
   },
   {
    "chave": "Xu2017",
@@ -4509,7 +4559,7 @@
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Self-taught convolutional neural networks for short text clustering</p>\n<p><strong>Autores</strong>: Jiaming Xu, Bo Xu, Peng Wang, Suncong Zheng, Guanhua Tian, Jun Zhao, Bo Xu</p>\n<p><strong>Veículo</strong>: Neural Networks</p>\n<p><strong>Ano</strong>: 2017</p>\n<p><strong>Volume/Páginas</strong>: vol. 88, p. 22–31</p>\n<p><strong>DOI</strong>: 10.1016/j.neunet.2016.12.008</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Representação e classificadores</p>",
-   "ordem": 128
+   "ordem": 129
   },
   {
    "chave": "Vaswani2017",
@@ -4545,7 +4595,7 @@
    "pdf": true,
    "fichado": true,
    "detalhes_html": "<h2>Attention Is All You Need</h2>\n<h3>Resumo</h3>\n<p>Propõe o Transformer: arquitetura de transdução de sequências baseada exclusivamente em mecanismos de atenção, dispensando recorrência e convoluções. Superior em qualidade nas tarefas de tradução WMT14, mais paralelizável e significativamente mais rápido de treinar que os modelos recorrentes/convolutivos com atenção então dominantes.</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>Atenção pura substitui recorrência/convolução com ganho de qualidade e paralelismo</td><td>Abstract</td><td>Cap.2: base arquitetural de BERT/BERTimbau (encoder) e dos LLMs-oráculo (decoder)</td></tr></tbody></table>\n<h3>Números que posso citar</h3>\n<ul><li>(Os BLEU de WMT14 não interessam à tese; citar arquiteturalmente.)</li></ul>\n<h3>Crítica / limitações (minha leitura)</h3>\n<ul><li>Nenhuma relevante ao nosso uso — é citação de arquitetura.</li></ul>\n<h3>Ideias que gera para a tese</h3>\n<ul><li>Observação elegante para o Cap.2: classificador-alvo e oráculo do FALCO são o</li></ul>\n<p>MESMO bloco arquitetural em papéis opostos (encoder que entende vs decoder que gera) — a tese mede a colaboração entre as duas metades do Transformer.</p>",
-   "ordem": 129
+   "ordem": 130
   },
   {
    "chave": "Daru2022",
@@ -4585,7 +4635,7 @@
    "pdf": true,
    "fichado": true,
    "detalhes_html": "<h2>Short text classification applied to item description (Darú et al., 2022)</h2>\n<h3>Resumo</h3>\n<p>Avalia técnicas de classificação de descrições curtas de produtos em português. Pipeline: minúsculas, remoção de acentos, tokenização por unigramas, bag of words; cinco técnicas comparadas — três de recuperação de informação (argmaxtf, argmaxtfnorm, argmaxtfidf, eq. Category = argmax(Aᵀxᵢ) e variantes normalizadas) e duas de aprendizado de máquina (regressão logística e SVM). Avaliação por acurácia com validação cruzada de 30 dobras (mais uma etapa de seleção de hiperparâmetros com 4 dobras e 1.000 amostras). Resultado: a <strong>regressão logística obtém a maior acurácia média</strong> (C=100, solver saga, sem penalidade, sem balanceamento); o SVM (sigmoid, C=100, balanceado; média 87,35% na seleção de kernel) supera os métodos de RI mas não a LR; entre os métodos de RI, argmaxtfnorm ≈ argmaxtfidf &gt; argmaxtf.</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>LR com pré-processamento simples + BoW é o melhor método avaliado no domínio</td><td>Conclusão (p.9)</td><td>Baseline supervisionado clássico do dataset; referência para o teto do PVBin</td></tr><tr><td>C2</td><td>SVM &gt; métodos argmax de RI, mas &lt; LR; sigmoid foi o melhor kernel (87,35% ± 1,32 na média por kernel)</td><td>Tabelas 6–8 (p.8)</td><td>Números citáveis de baseline no Cap.4</td></tr><tr><td>C3</td><td>Validação: 4-fold/1000 amostras para hiperparâmetros + 30-fold para estatística da acurácia</td><td>p.9</td><td>Precedente metodológico das 30 repetições usadas no P1 da tese</td></tr><tr><td>C4</td><td>Métodos argmax (RI) são viáveis mas inferiores; contagem simples (argmaxtf) é o pior</td><td>Conclusão</td><td>Motiva a evolução argmax→PVBin e depois BERTimbau na tese</td></tr></tbody></table>\n<h3>Números que posso citar</h3>\n<ul><li>Kernel sigmoid: acurácia média 87,35% (dp 1,32) na seleção de kernel do SVM;</li></ul>\n<p>hiperparâmetros ótimos LR: C=100/saga; SVM: C=100/sigmoid/balanced.</p>\n<ul><li>30-fold CV como protocolo de avaliação final.</li></ul>\n<h3>Crítica / limitações (minha leitura)</h3>\n<ul><li>Só acurácia simples (sem Macro-F1) — sob desbalanceamento forte isso mascara</li></ul>\n<p>classes raras; a tese corrige adotando Macro-F1 como métrica principal.</p>\n<ul><li>Supervisão completa: assume todos os rótulos disponíveis; nenhum tratamento do</li></ul>\n<p>custo de rotulagem — exatamente a lacuna que o FALCO ataca.</p>\n<ul><li>Representações esparsas (BoW); sem embeddings/transformers.</li></ul>\n<h3>Ideias que gera para a tese</h3>\n<ul><li>Usar C1/C2 como \"linha do tempo\" do próprio autor no Cap.1: 2022 (baselines</li></ul>\n<p>supervisionados) → 2024 (argmax otimizado, dissertação) → tese (custo de rotulagem com oráculo LLM).</p>\n<ul><li>O protocolo 30-fold (C3) dá continuidade metodológica às 30 repetições do P1.</li></ul>",
-   "ordem": 130
+   "ordem": 131
   },
   {
    "chave": "Kitchenham2004",
@@ -4614,7 +4664,7 @@
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Procedures for Performing Systematic Reviews</p>\n<p><strong>Autores</strong>: Barbara Kitchenham</p>\n<p><strong>Veículo</strong>: Keele University and NICTA</p>\n<p><strong>Ano</strong>: 2004</p>\n<p><strong>Volume/Páginas</strong>: n. TR/SE-0401</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Escopo e método da revisão</p>",
-   "ordem": 131
+   "ordem": 132
   },
   {
    "chave": "Yuan2020",
@@ -4642,10 +4692,10 @@
     }
    ],
    "total_ocorrencias": 1,
-   "pdf": false,
-   "fichado": false,
-   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Cold-start active learning through self-supervised language modeling</p>\n<p><strong>Autores</strong>: Michelle Yuan, Hsuan-Tien Lin, Jordan Boyd-Graber</p>\n<p><strong>Veículo</strong>: Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)</p>\n<p><strong>Ano</strong>: 2020</p>\n<p><strong>Volume/Páginas</strong>: p. 7935–7948</p>\n<p><strong>DOI</strong>: 10.18653/v1/2020.emnlp-main.637</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Síntese por frente</p>",
-   "ordem": 132
+   "pdf": true,
+   "fichado": true,
+   "detalhes_html": "<h2>Cold-start Active Learning through Self-supervised Language Modeling</h2>\n<h3>A descrição que a tese faz dele CONFERE — e é melhor que uma paráfrase</h3>\n<p><code>2-fundam:768</code> diz que o \"ALPS <code>\\cite{Yuan2020}</code> explora a 'surpresa' do modelo de linguagem\".</p>\n<p>Não é paráfrase livre: **ALPS é a sigla de *Active Learning by Processing Surprisal*** (§1, p. 1). A \"surpresa\" é o nome próprio do método, e vem da surprisal da teoria da informação, atribuída a Shannon no próprio artigo. A descrição da tese está literalmente correta.</p>\n<p>O mecanismo, para quem for citar com precisão: o artigo trata a <strong>perda de modelagem de linguagem mascarada</strong> (o erro do BERT ao prever tokens escondidos) como <strong>procuração da incerteza de classificação</strong>. Textos que \"surpreendem\" o modelo pré-treinado são os que valem rotular primeiro — e isso pode ser calculado <strong>antes de existir qualquer rótulo</strong>, que é o que resolve a partida a frio.</p>\n<h3>Resumo (5-8 linhas, com as MINHAS palavras)</h3>\n<p>Ataca a partida a frio do aprendizado ativo, situação em que não há rótulo suficiente para treinar o modelo que deveria guiar a seleção. A saída é usar uma fonte de informação que já existe antes de qualquer rótulo: o próprio pré-treinamento. O artigo constrói <em>surprisal embeddings</em> a partir da perda de modelagem de linguagem mascarada do BERT e agrupa por k-MEANS++ para escolher um lote inicial que é ao mesmo tempo surpreendente e diverso. Seleciona em lotes, e não um documento por vez, o que corta o custo de re-treino. Avalia em quatro conjuntos de três domínios e alcança acurácia maior em menos iterações e menos tempo de computação que as linhas de base.</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>A perda de pré-treinamento acha exemplos que surpreendem o modelo e que devem ser rotulados para um ajuste fino eficiente; ela serve de procuração para a incerteza de classificação</td><td>Resumo, p. 1; §1</td><td>2-fundam:768 — é a frase que esta ficha valida</td></tr><tr><td>C2</td><td>Estratégias clássicas de incerteza falham em modelo profundo porque rede neural é mal calibrada: confiança alta não implica correção alta</td><td>§1, p. 1 (citando Guo et al. e Zhang et al.)</td><td><strong>Cap. 2 e Cap. 3</strong>: justificativa externa para o FALCO não depender só da incerteza do classificador</td></tr><tr><td>C3</td><td>Amostrar um documento por iteração obriga a re-treinar a cada consulta e encarece o processo; a seleção em lote evita isso</td><td>§1, p. 1</td><td>Cap. 3: fundamenta a nossa rotulagem em lote</td></tr><tr><td>C4</td><td>O ALPS combina surpresa com diversidade, agrupando os <em>surprisal embeddings</em> por k-MEANS++</td><td>§3, Algoritmo 2</td><td>Cap. 3: o DRI-SL faz a mesma composição com outros sinais</td></tr><tr><td>C5</td><td>Supera as linhas de base em acurácia com menos iterações de amostragem e menos tempo de computação, em quatro conjuntos de três domínios</td><td>Resumo; §5</td><td>Cap. 2: evidência de que seleção sem rótulo é viável</td></tr></tbody></table>\n<h3>Números que posso citar</h3>\n<p>Condições: BERT como modelo base; lote de <strong>100 sentenças</strong> por iteração; avaliação em quatro conjuntos de três domínios.</p>\n<table><thead><tr><th>Conjunto</th><th>Domínio</th><th>Treino</th><th>Validação</th><th>Teste</th><th>Classes</th></tr></thead><tbody><tr><td>AG News</td><td>notícias</td><td>110.000</td><td>10.000</td><td>7.600</td><td>4</td></tr><tr><td>IMDB</td><td>resenhas</td><td>17.500</td><td>7.500</td><td>25.000</td><td>2</td></tr><tr><td>PubMed 20k RCT</td><td>resumos médicos</td><td>180.040</td><td>30.212</td><td>30.135</td><td>5</td></tr><tr><td>SST-2</td><td>resenhas</td><td>60.615</td><td>6.736</td><td>873</td><td>2</td></tr></tbody></table>\n<p><strong>Note o número de classes: de 2 a 5.</strong> É o mesmo regime do <code>Rouzegar2024</code> e do <code>Deng2023fedal</code>, e não o das 621 do FALCO — ver \"Ideias\".</p>\n<h3>Citações diretas (com página)</h3>\n<p>&gt; \"The pre-training loss can find examples that surprise the model and should be &gt; labeled for efficient fine-tuning. Therefore, we treat the language modeling &gt; loss as a proxy for classification uncertainty.\" (Resumo, p. 1)</p>\n<p>&gt; \"These strategies use model confidence scores, but neural networks are poorly &gt; calibrated. High confidence scores do not imply high correctness likelihood, &gt; so the sampled examples are not the most uncertain ones.\" (§1, p. 1)</p>\n<p>&gt; \"We develop ALPS (Active Learning by Processing Surprisal), an AL strategy for &gt; BERT-based models.\" (§1, p. 1)</p>\n<h3>Crítica / limitações (minha leitura)</h3>\n<ul><li><strong>De 2 a 5 classes.</strong> Como o <code>Rouzegar2024</code> e o <code>Deng2023fedal</code>, opera no</li></ul>\n<p>regime fácil da série que os fichamentos desta madrugada montaram. Nada aqui foi testado em rótulo extremo, e o <code>Wertz2022</code> mostra que é lá que a seleção deixa de compensar.</p>\n<ul><li><strong>A surpresa é do modelo pré-treinado, não do domínio.</strong> Em texto de varejo</li></ul>\n<p>em português — caixa alta, abreviação agressiva — quase tudo surpreende um modelo pré-treinado em texto corrente. É plausível que o sinal sature e perca poder de discriminação, e isso é hipótese testável, não crítica gratuita: seria uma comparação direta com o DRI-SL.</p>\n<ul><li><strong>Inglês apenas.</strong> Nenhum dos quatro conjuntos é em português.</li><li><strong>Sem oráculo LLM</strong>: o anotador é humano; o pré-treinamento entra só como</li></ul>\n<p>seletor. É o eixo \"LLM como seletor\", não \"LLM como oráculo\".</p>\n<h3>Ideias que gera para a tese</h3>\n<ul><li><strong>Citar o C2 no Capítulo 3, e não só no 2.</strong> A afirmação de que rede neural é</li></ul>\n<p>mal calibrada e de que confiança alta não implica correção alta é a justificativa externa mais limpa para o FALCO não confiar apenas na incerteza do classificador. Hoje o artigo é citado só como antecessor da partida a frio.</p>\n<ul><li><strong>Quarto ponto da série regime × ganho da seleção</strong>, que já tem três: o</li></ul>\n<p><code>Yuan2020</code> opera em 2 a 5 classes e a seleção compensa. Reforça a leitura de que a vantagem encolhe conforme o espaço de rótulos cresce, e o FALCO opera no extremo difícil.</p>\n<ul><li><strong>Comparação direta DRI-SL × ALPS</strong>: os dois resolvem a mesma coisa — lote</li></ul>\n<p>inicial sem rótulo — com sinais diferentes. Se o Capítulo 3 explicitar a escolha (por que densidade semântica e variedade lexical, e não perda de modelagem de linguagem mascarada), a decisão de projeto fica fundamentada em vez de assumida. E a saturação da surpresa em texto de varejo, se medida, seria argumento forte a favor da nossa escolha.</p>",
+   "ordem": 133
   },
   {
    "chave": "EinDor2020",
@@ -4684,10 +4734,10 @@
     }
    ],
    "total_ocorrencias": 2,
-   "pdf": false,
-   "fichado": false,
-   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Active Learning for BERT: An Empirical Study</p>\n<p><strong>Autores</strong>: Liat Ein-Dor, Alon Halfon, Ariel Gera, Eyal Shnarch, Lena Dankin, Leshem Choshen, Marina Danilevsky, Ranit Aharonov, Yoav Katz, Noam Slonim</p>\n<p><strong>Veículo</strong>: Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)</p>\n<p><strong>Ano</strong>: 2020</p>\n<p><strong>Volume/Páginas</strong>: p. 7949–7962</p>\n<p><strong>DOI</strong>: 10.18653/v1/2020.emnlp-main.638</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Síntese por frente; Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Lacuna de pesquisa</p>",
-   "ordem": 133
+   "pdf": true,
+   "fichado": true,
+   "detalhes_html": "<h2>Active Learning for BERT: An Empirical Study</h2>\n<h3>Sobre a frase da L813 do Capítulo 2 (o que a R4 mandou verificar)</h3>\n<p><code>2-fundam:812-813</code> afirma que a tese preenche a lacuna do balanceamento explícito entre custo financeiro e ganho de informação, <em>\"com avaliação rigorosa desse trade-off, ainda rara mesmo nos trabalhos que tocam o custo <code>\\cite{Zhang2025, EinDor2020}</code>\"</em>.</p>\n<p><strong>Verificado. E o achado é mais favorável à tese do que a frase sugere.</strong></p>\n<p>Este trabalho <strong>não avalia custo</strong>. Ele mede <strong>orçamento de anotação em número de rótulos</strong> — o desenho é \"um orçamento inicial que permite 100 anotações\", e todas as curvas são desempenho por iteração, não desempenho por unidade monetária. As palavras \"cost\" e \"expensive\" aparecem no texto sempre em sentido qualitativo (\"rotular é caro\") ou referindo-se a custo computacional de treinar rede profunda, nunca como grandeza medida.</p>\n<p>Ou seja: um dos estudos empíricos mais completos da área sobre aprendizado ativo com BERT — 10 conjuntos, várias estratégias avançadas — <strong>opera sob restrição de orçamento sem jamais instrumentar custo</strong>. É exatamente o vazio que a tese alega.</p>\n<p><strong>Sugestão de precisão para o texto</strong>: dizer \"trabalhos que tocam o custo\" é generoso. O mais forte, e mais exato, é dizer que esses trabalhos tratam orçamento como CONTAGEM DE RÓTULOS e não como custo, e que é essa a diferença que o FALCO instrumenta. A frase fica mais precisa e a lacuna fica mais nítida.</p>\n<h3>Resumo (5-8 linhas, com as MINHAS palavras)</h3>\n<p>Estudo empírico em escala sobre aprendizado ativo aplicado ao BERT, no cenário que os autores consideram o realista: <strong>orçamento de anotação muito pequeno e classe positiva rara</strong>. Compara estratégias tradicionais e avançadas — incerteza, Core-Set, Dropout, comprimento de gradiente esperado, aprendizado ativo discriminativo — contra a linha de base aleatória, em dez conjuntos. A conclusão é positiva e condicionada: as estratégias melhoram o BERT, e o ganho é MAIOR justamente no cenário desbalanceado e prático. Publica o arcabouço de pesquisa com dados, implementações e avaliação automática.</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>Estratégias de AL melhoram o BERT sob orçamento pequeno e dados enviesados, e o ganho é maior no cenário desbalanceado e prático</td><td>§3, p. 5 (resultados)</td><td>Cap. 2: base externa para esperar ganho no nosso regime</td></tr><tr><td>C2</td><td>No cenário desbalanceado-prático, as estratégias superam a aleatória por margem de <strong>4 a 8 pontos de F1 em média</strong></td><td>§3, p. 5</td><td><strong>Cap. 5: número comparável ao ganho que o FALCO mede</strong></td></tr><tr><td>C3</td><td>Na maioria dos conjuntos, TODAS as estratégias superaram a aleatória — inclusive onde a aleatória já ia muito bem</td><td>§3, p. 5</td><td>Quinto ponto da série regime × ganho da seleção</td></tr><tr><td>C4</td><td>Aumentar o tamanho do lote estabiliza substancialmente os resultados do BERT, mas esbarra na memória da GPU</td><td>§3.5, p. 5</td><td>Cap. 3: justificativa para o nosso tamanho de lote</td></tr><tr><td>C5</td><td>Conjunto de validação pode não existir sob orçamento limitado; ignorá-lo dá resultado qualitativamente igual, porém mais ruidoso</td><td>§3.5, p. 5</td><td>Cap. 3/Cap. 6: ressalva metodológica honesta, e problema real do nosso desenho</td></tr><tr><td>C6</td><td>O orçamento é medido em NÚMERO DE ANOTAÇÕES; não há avaliação de custo financeiro</td><td>todo o §3</td><td><strong>Cap. 2 L813: sustenta a lacuna</strong></td></tr></tbody></table>\n<h3>Números que posso citar</h3>\n<p>Condições: BERT-BASE (110 milhões de parâmetros), ajuste fino por 5 épocas, taxa de aprendizado 5×10⁻⁵, melhor modelo escolhido pelo conjunto de validação; <strong>10 conjuntos</strong>; orçamento inicial de <strong>100 anotações</strong>; cenários com classe positiva de prior baixo.</p>\n<ul><li><strong>Ganho de 4 a 8 pontos de F1 em média</strong> sobre a linha de base aleatória, no</li></ul>\n<p>cenário desbalanceado-prático (§3).</p>\n<ul><li><strong>100</strong> anotações de orçamento inicial (§3.1).</li><li><strong>5</strong> épocas de ajuste fino, taxa <strong>5×10⁻⁵</strong> (§3.5).</li></ul>\n<h3>Citações diretas (com página)</h3>\n<p>&gt; \"the AL strategies improve the F1 of the Random baseline by a large margin of &gt; 4 − 8% on average.\" (§3, p. 5)</p>\n<p>&gt; \"In practice, dev sets may be unavailable, particularly under a limited &gt; annotation budget.\" (§3.5, p. 5)</p>\n<p>&gt; \"increasing the batch size had a substantial effect on improving the stability &gt; of BERT results. However, due to memory limitations of the GPU, increasing the &gt; batch size comes at the expense of the maximal batch size.\" (§3.5, p. 5)</p>\n<h3>Crítica / limitações (minha leitura)</h3>\n<ul><li><strong>Classificação binária.</strong> O estudo é declaradamente sobre \"practical</li></ul>\n<p>scenarios of binary text classification\". Quinto ponto do regime fácil da série, e o mais distante possível das nossas 621 classes.</p>\n<ul><li><strong>Custo não é medido</strong>, como detalhado acima. É limitação em relação à</li></ul>\n<p>pergunta da tese, não do trabalho em si — ele não se propõe a isso.</p>\n<ul><li><strong>Depende de conjunto de validação</strong> para escolher o melhor modelo, e os</li></ul>\n<p>próprios autores registram que sob orçamento limitado ele pode não existir. Registrei como C5 porque é ressalva honesta e é um problema real também para o FALCO.</p>\n<ul><li><strong>Inglês apenas.</strong></li></ul>\n<h3>Ideias que gera para a tese</h3>\n<ul><li><strong>Comparador numérico para o Capítulo 5</strong>: os 4 a 8 pontos de F1 de ganho</li></ul>\n<p>sobre a aleatória, em cenário desbalanceado, são a referência externa mais próxima do que o FALCO mede. Vale colocar lado a lado com o nosso número — ressalvando que lá são 2 classes e aqui 621.</p>\n<ul><li><strong>Afiar a frase da L813</strong>: trocar \"trabalhos que tocam o custo\" por a</li></ul>\n<p>distinção real — orçamento como contagem de rótulos versus custo instrumentado. É mais preciso e torna a lacuna mais nítida.</p>\n<ul><li><strong>Quinto ponto da série regime × ganho</strong>:</li></ul>\n<table><thead><tr><th>Fonte</th><th>Classes</th><th>Seleção bate a aleatória?</th></tr></thead><tbody><tr><td><code>Rouzegar2024</code></td><td>2 a 4</td><td>sim</td></tr><tr><td><code>Deng2023fedal</code></td><td>3</td><td>sim, por 2,36 pontos</td></tr><tr><td><code>Yuan2020</code></td><td>2 a 5</td><td>sim</td></tr><tr><td><strong><code>EinDor2020</code></strong></td><td><strong>2</strong></td><td><strong>sim, por 4 a 8 pontos de F1</strong></td></tr><tr><td><code>Wertz2022</code></td><td>100 a 739</td><td><strong>não</strong>, consistentemente</td></tr></tbody></table>\n<p>Cinco trabalhos, e a fronteira continua no mesmo lugar.</p>\n<ul><li><strong>O C5 é uma ressalva a herdar</strong>: se conjunto de validação pode não existir</li></ul>\n<p>sob orçamento apertado, o critério de parada do FALCO — que se apoia em validação — herda a fragilidade. Vale uma linha no Cap. 6.</p>",
+   "ordem": 134
   },
   {
    "chave": "Griesshaber2020",
@@ -4715,10 +4765,10 @@
     }
    ],
    "total_ocorrencias": 1,
-   "pdf": false,
-   "fichado": false,
-   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Fine-Tuning BERT for Low-Resource Natural Language Understanding via Active Learning</p>\n<p><strong>Autores</strong>: Daniel Grießhaber, Julia Maucher, Ngoc Thang~Vu</p>\n<p><strong>Veículo</strong>: COLING 2020</p>\n<p><strong>Ano</strong>: 2020</p>\n<p><strong>Volume/Páginas</strong>: p. 1158–1171</p>\n<p><strong>DOI</strong>: 10.18653/v1/2020.coling-main.100</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Síntese por frente</p>",
-   "ordem": 134
+   "pdf": true,
+   "fichado": true,
+   "detalhes_html": "<h2>Fine-tuning BERT for Low-Resource Natural Language Understanding via Active Learning</h2>\n<h3>Resumo (com as minhas palavras)</h3>\n<p>O trabalho pergunta se o aprendizado ativo (AA) acelera o ajuste fino do BERT quando há <strong>menos de mil exemplos rotulados</strong> — o regime \"de poucos recursos\". Para medir a incerteza do modelo sem sair da arquitetura, os autores usam a aproximação bayesiana por <em>dropout</em> de Monte Carlo: repetem várias passagens para a frente com o <em>dropout</em> ligado também na inferência, e cada passagem devolve uma predição diferente. A discordância entre essas predições vira o critério de seleção BALD (<em>Bayesian Active Learning by Disagreement</em>). Trocam ainda a cabeça de classificação padrão do BERT (uma camada densa) por uma rede convolucional, para que as múltiplas passagens custem pouco: só a cabeça é reexecutada, não o transformador inteiro. A avaliação usa quatro tarefas do GLUE, partindo de 10 exemplos e somando 100 por rodada até 910. Um segundo experimento congela camadas do BERT para reduzir parâmetros treináveis. O resultado principal é duplo: o BALD melhora a acurácia média <strong>e</strong> reduz a dispersão entre execuções.</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>O BALD com <em>dropout</em> de Monte Carlo bate a seleção aleatória em acurácia média em todos os modelos e em toda a faixa de tamanhos de treino testada</td><td>§4.2, p. 1163; Fig. 3, p. 1162</td><td>Cap. 2 §2.5, L770 — sustenta \"adaptam AA ao BERT\"</td></tr><tr><td>C2</td><td>A seleção por AA também <strong>estabiliza</strong> o treino: a dispersão da acurácia entre execuções é menor do que com seleção aleatória</td><td>§4.2, p. 1163; Fig. 3 (faixas de confiança)</td><td>Cap. 2 e Cap. 5 — argumento de variância, não só de média</td></tr><tr><td>C3</td><td><strong>A aquisição por incerteza enviesa a distribuição de classes do conjunto de treino</strong>; a seleção aleatória não</td><td>§5 \"Overall Observation\", p. 1165; Tab. 3, p. 1166; Fig. 6, p. 1166</td><td>Cap. 5: <strong>não</strong> é ameaça — ver \"Correção\". O sinal depende de o pool ser balanceado (aqui) ou torto (FALCO)</td></tr><tr><td>C4</td><td>O AA seleciona preferencialmente exemplos que treinam as <strong>camadas iniciais</strong> do BERT (as de compreensão geral), não as finais (específicas da tarefa)</td><td>§4.3, p. 1163; Fig. 4, p. 1163</td><td>Cap. 2 — mecanismo, não só desempenho</td></tr><tr><td>C5</td><td>Congelar 25% das camadas melhora o desempenho médio; congelar 50% piora, às vezes abaixo do modelo sem congelamento</td><td>§4.3, p. 1164; Tab. 1, p. 1164</td><td>Cap. 3/4 se houver discussão de custo de ajuste</td></tr><tr><td>C6</td><td>Congelar as camadas <strong>próximas à saída</strong> ($F=-3$) dá o treino mais estável (intervalos de confiança mais estreitos)</td><td>§4.3, p. 1164; Tab. 2, p. 1164; §7 Conclusão, p. 1167</td><td>Cap. 4 — decisão de projeto</td></tr><tr><td>C7</td><td>O conjunto inicial é <strong>arbitrário</strong>, não informado: são os 10 primeiros pontos de um conjunto já embaralhado</td><td>§3 \"Low-Resource Scenarios\", p. 1162; §4.1, p. 1162</td><td>ver \"Sobre a colocação da citação na L770\"</td></tr><tr><td>C8</td><td>O pool de não rotulados foi <strong>restringido a 20 mil elementos</strong> por custo computacional, com risco declarado de excluir instâncias relevantes</td><td>§4.2, p. 1162-1163</td><td>Cap. 4 — precedente para subamostrar o pool do FALCO</td></tr></tbody></table>\n<h3>Números que posso citar</h3>\n<p><strong>Regime experimental</strong> (§3 e §4.1, p. 1161-1162):</p>\n<ul><li>Menos de <strong>1.000</strong> pontos de treino; conjunto inicial $S_{10}$ = <strong>10</strong> exemplos.</li><li><strong>9</strong> iterações de aquisição, <strong>$Q=100$</strong> exemplos por iteração, até $S_{910}$ = <strong>910</strong> exemplos.</li><li><strong>$S=50$</strong> passagens estocásticas para a frente por estimativa BALD.</li><li>Pool de não rotulados: <strong>20.000</strong> elementos ($U = S_{20000} \\setminus S_{10}$).</li><li>Modelo: BERT$_\\text{BASE}$, <strong>12</strong> camadas, <strong>768</strong> dimensões, <strong>12</strong> cabeças de atenção, $\\approx$ <strong>110 milhões</strong> de parâmetros (<strong>7.087.872</strong> por camada).</li><li>Médias sobre <strong>$N=3$</strong> execuções (o BERT original reporta o máximo; aqui é a média, justamente para poder analisar estabilidade).</li><li>Quatro tarefas do GLUE: <strong>MNLI</strong> (3 classes), <strong>QNLI</strong> (2), <strong>SST-2</strong> (2), <strong>SNLI</strong> (3).</li></ul>\n<p><strong>Acurácia média com 910 pontos, estratégia BALD</strong> (Tab. 1, p. 1164; $F$ = número de camadas congeladas):</p>\n<table><thead><tr><th>$F$</th><th>MNLI</th><th>QNLI</th><th>SST-2</th><th>SNLI</th></tr></thead><tbody><tr><td>0 (nenhuma)</td><td>0,53 ± 0,021</td><td>0,76 ± 0,010</td><td>0,78 ± 0,059</td><td>0,67 ± 0,015</td></tr><tr><td>3 (entrada)</td><td>0,51 ± 0,021</td><td>0,78 ± 0,003</td><td>0,80 ± 0,045</td><td>0,69 ± 0,002</td></tr><tr><td><strong>−3 (saída)</strong></td><td><strong>0,52 ± 0,010</strong></td><td><strong>0,78 ± 0,002</strong></td><td><strong>0,84 ± 0,013</strong></td><td><strong>0,69 ± 0,008</strong></td></tr><tr><td>6</td><td>0,51 ± 0,024</td><td>0,75 ± 0,014</td><td>0,81 ± 0,006</td><td>0,63 ± 0,014</td></tr><tr><td>−6</td><td>0,47 ± 0,020</td><td>0,77 ± 0,010</td><td>0,64 ± 0,094</td><td>0,64 ± 0,067</td></tr></tbody></table>\n<p><strong>Largura média do intervalo de confiança</strong> (Tab. 2, p. 1164) — é aqui que o $F=-3$ ganha de forma limpa: <strong>0,038 / 0,024 / 0,047 / 0,028</strong> contra <strong>0,054 / 0,049 / 0,108 / 0,061</strong> do modelo sem congelamento. Ou seja, congelar as três camadas mais próximas da saída corta a variabilidade <strong>pela metade ou mais</strong> em todas as quatro tarefas.</p>\n<p><strong>Desequilíbrio de classes induzido pela aquisição</strong> (Tab. 3, p. 1166) — $\\Delta|T| = \\max_c |T_c| - \\min_c |T_c|$, a diferença entre a classe mais e a menos representada no treino:</p>\n<table><thead><tr><th>$</th><th>T</th><th>$</th><th>BALD MNLI</th><th>BALD QNLI</th><th>Aleatório MNLI</th><th>Aleatório QNLI</th></tr></thead><tbody><tr><td>110</td><td>13</td><td>30</td><td>3</td><td>4</td></tr><tr><td>310</td><td>20</td><td>16</td><td>1</td><td>2</td></tr><tr><td>510</td><td>30</td><td>36</td><td>9</td><td>4</td></tr><tr><td>710</td><td><strong>37</strong></td><td><strong>44</strong></td><td>3</td><td>2</td></tr><tr><td>910</td><td>25</td><td>36</td><td>9</td><td>4</td></tr></tbody></table>\n<p>Máximos: <strong>44</strong> (BALD/QNLI) contra <strong>9</strong> (aleatório/MNLI).</p>\n<h3>Citações diretas (com página)</h3>\n<p>&gt; \"To the best of our knowledge, the work presented in this paper is the first &gt; demonstration of combining modern transfer learning using pre-trained &gt; Transformer-based language model such as the BERT model with active learning &gt; to improve performance in low-resource scenarios.\" (p. 1159)</p>\n<p>&gt; \"In contrast, we observed that when using the BALD acquisition with &gt; non-deterministic forward passes, the distribution shows a stronger bias to a &gt; particular class. This bias increases when sampling more pool data, whereas &gt; the difference between the biggest and smallest class in $T$ stays constant &gt; during random acquisition.\" (p. 1165)</p>\n<p>&gt; \"The size of $U$ can be seen as a hyperparameter to speed up training with the &gt; trade off as the risk to exclude highly relevant data points from the &gt; available pool data.\" (p. 1162)</p>\n<p>&gt; \"Since data points in the training set provided by the GLUE Benchmark are &gt; already shuffled, the subset $S_x$ simply contains the first $x$ data points &gt; $(S_x = \\{s_1, s_2, \\ldots, s_x\\})$ to ensure the same data selection between &gt; experiments.\" (p. 1162)</p>\n<h3>Crítica / limitações (minha leitura)</h3>\n<p><strong>1. A prosa da §5 afirma mais do que a Tab. 3 mostra.</strong> O texto diz que o viés de classe \"aumenta\" conforme se amostra mais do pool. A própria tabela não é monotônica: o MNLI sobe até 37 em $|T|=710$ e <strong>cai</strong> para 25 em 910; o QNLI estaciona em 44 e cai para 36. A leitura que a evidência sustenta com folga é outra, e é suficiente: <strong>o desequilíbrio sob BALD é sistematicamente de 4 a 10 vezes o da seleção aleatória, em toda a faixa</strong>. Se a tese citar este achado — e eu acho que deve — cite nessa forma, não na forma \"aumenta com o orçamento\", que um examinador refuta abrindo a tabela.</p>\n<p><strong>2. O desequilíbrio é grande em termos relativos e pequeno em termos absolutos — porque só há 2 ou 3 classes.</strong> No QNLI, $\\Delta=36$ sobre 910 exemplos e 2 classes significa algo como 473 contra 437: nove por cento de desvio. É um efeito real e mensurável, mas contido pelo fato de que com duas classes não há para onde o viés escorrer. <strong>Com 621 classes e 910 rótulos não existe sequer um rótulo por classe</strong>, e o mesmo mecanismo passa a operar sem esse teto. O paper não mede isso — não podia, não era o objeto dele — e é exatamente por isso que ele entra na tese como ameaça declarada e não como resultado transportado.</p>\n<p><strong>3. Não há custo instrumentado.</strong> Pelo terceiro trabalho seguido da série (depois de <code>EinDor2020</code> e <code>Yuan2020</code>), \"orçamento\" quer dizer <strong>número de anotações</strong> — $Q=100$ por rodada — e nunca dinheiro, tempo de anotador ou chamada de API. O oráculo é um anotador humano abstrato, sem preço. Isto <strong>sustenta</strong> a alegação de lacuna da tese em vez de enfraquecê-la, do mesmo modo que o <code>EinDor2020</code> sustentou.</p>\n<p><strong>4. Sem oráculo LLM e sem português.</strong> O rotulador é humano; os quatro conjuntos são em inglês. Nas duas dimensões o trabalho fica fora da interseção que a tese ataca.</p>\n<p><strong>5. Fragilidade estatística declarada pelos próprios autores.</strong> Três execuções por configuração é pouco, e várias diferenças da Tab. 1 estão dentro do desvio padrão (MNLI: 0,53 ± 0,021 contra 0,52 ± 0,010 — o congelamento não decide nada aí). Os autores são honestos quanto a isso: dizem que \"não mostram vantagem conclusiva\" do congelamento de camadas finais <strong>em acurácia</strong>, e transferem a alegação para <strong>estabilidade</strong> (Tab. 2), onde ela de fato se sustenta. É o tipo de disciplina que a nossa R4 pede.</p>\n<p><strong>6. O que o pool restrito esconde.</strong> Restringir $U$ a 20 mil elementos torna a comparação BALD × aleatório assimétrica, e os autores dizem isso: a seleção aleatória pode usar o pool inteiro, \"já que não tem o mesmo compromisso\". Então o BALD vence <strong>apesar</strong> de escolher de um pool menor. Isso reforça C1 — mas significa também que o número reportado não é o teto do método.</p>\n<h3>Sobre a colocação da citação na L770 (achado para a R4 do t5)</h3>\n<p>A frase da tese está <strong>correta</strong>: <em>\"Ein-Dor et al. e Griesshaber et al. adaptam AA ao BERT\"</em>. É literalmente o que o paper reivindica (p. 1159, citação acima), e a ficha confirma.</p>\n<p>O problema não é a frase, é o <strong>parágrafo em que ela está</strong>, que se chama <strong>\"Partida a frio informada\"</strong>. O conjunto inicial deste trabalho são os <strong>10 primeiros exemplos de um conjunto já embaralhado</strong> (C7) — isto é, uma semente <strong>aleatória</strong>, o oposto de partida a frio informada. O trabalho é aprendizado ativo sobre BERT; a informação da partida vem do modelo pré-treinado apenas no sentido trivial de que o BERT já vem pré-treinado.</p>\n<p><strong>Conserto sugerido, de custo mínimo</strong>: manter a citação onde está, mas qualificar — algo como \"adaptam AA ao ajuste fino do BERT, ainda com semente inicial aleatória\" — o que <strong>fortalece</strong> a tese, porque mostra que a partida a frio informada só aparece de fato mais adiante na linha (ALPS, DEUCE). Sem a qualificação, o parágrafo sugere que o problema da semente já estava resolvido em 2020, e aí a contribuição da Fase 1 do FALCO fica menor do que é.</p>\n<p>Vale conferir se o mesmo vale para o <code>EinDor2020</code>, citado na mesma frase. Pela ficha dele, também não faz partida a frio informada.</p>\n<h3>A série de regime, agora com seis trabalhos</h3>\n<p>Este é o <strong>sexto</strong> trabalho que ficho medindo a mesma coisa — se a seleção ativa vence a aleatória — e o padrão que vinha se desenhando fica mais nítido:</p>\n<table><thead><tr><th>Trabalho</th><th>Nº de classes</th><th>Seleção ativa vence?</th></tr></thead><tbody><tr><td><code>EinDor2020</code></td><td>2</td><td>sim (4 a 8 pontos de F1)</td></tr><tr><td><code>Yuan2020</code> (ALPS)</td><td>2 a 5</td><td>sim</td></tr><tr><td><code>Deng2023fedal</code></td><td>3</td><td>sim (2,36 de Macro-F1)</td></tr><tr><td><strong><code>Griesshaber2020</code></strong></td><td><strong>2 a 3</strong></td><td><strong>sim (média e variância)</strong></td></tr><tr><td><code>Rouzegar2024</code></td><td>2 a 4</td><td>sim</td></tr><tr><td><code>Wertz2022</code></td><td>100 a 739</td><td><strong>não de forma consistente</strong></td></tr><tr><td><strong>FALCO (esta tese)</strong></td><td><strong>621</strong></td><td><strong>a medir</strong></td></tr></tbody></table>\n<p>Cinco trabalhos abaixo de cinco classes onde o AA ganha; um trabalho nas centenas de classes onde ele não ganha de forma consistente. O FALCO opera em</p>\n<ol><li>A leitura não é \"o AA não funciona\" — é que **a evidência favorável</li></ol>\n<p>concentra-se num regime que não é o nosso<strong>, e o único trabalho do nosso regime é o que dá o resultado negativo. Isso é material para o Capítulo 2 (onde a lacuna é argumentada) e para o Capítulo 6 (onde as ameaças à validade são declaradas), e o C3 desta ficha oferece um </strong>mecanismo plausível** para o resultado do <code>Wertz2022</code>: se a aquisição por incerteza enviesa a distribuição de classes já com duas, com centenas ela pode simplesmente deixar classes inteiras sem nenhum rótulo.</p>\n<h3>Autoria corrompida — a sexta encontrada (CORRIGIDA em 2026-08-17)</h3>\n<table><thead><tr><th></th><th><code>referencias.bib</code> (antes)</th><th>PDF, p. 1158 · Crossref</th><th><code>referencias.bib</code> (agora)</th></tr></thead><tbody><tr><td>2º autor</td><td>Julia Maucher</td><td><strong>Johannes</strong> Maucher</td><td><strong>Johannes</strong> Maucher</td></tr></tbody></table>\n<p>O sobrenome está certo, o prenome é falso — é <strong>exatamente o padrão das outras cinco</strong> entradas corrompidas que a varredura de autoria encontrou (<code>Ren2021</code>, <code>EinDor2020</code>, <code>Baykal2021</code>, <code>Xu2017</code>, <code>Kowsari2019</code>): obra real, título certo, DOI certo, prenome preenchido por plausibilidade. O endereço de e-mail no PDF (<code>maucher@hdm-stuttgart.de</code>) e a filiação (IAAI, Hochschule der Medien Stuttgart) confirmam a pessoa.</p>\n<p><strong>Correção aplicada em 2026-08-17</strong>, autorizada pela tarefa <code>20260817-1140</code>.</p>\n<p>E o modo como ela chegou até aqui é o registro que importa: quando fichei esta obra, eu <strong>achei a divergência à mão</strong> e não podia corrigi-la. Horas depois, o <code>scripts/check-autoria.py</code> entrou na <code>main</code> pelo gate e <strong>acusou esta mesma entrada sozinho, no primeiro run</strong> — a primeira das sete divergências do ciclo encontrada por máquina em vez de por leitura. É a demonstração do princípio IX no caso mais concreto possível: o defeito é invisível na saída em PDF, porque em ABNT o prenome vira inicial, e por isso <strong>nenhuma revisão de leitura o pegaria</strong>. Só checagem mecânica contra a fonte pega.</p>\n<p>Verificado em três fontes independentes antes de aplicar: a <em>byline</em> do PDF (p. 1158), o e-mail institucional (<code>maucher@hdm-stuttgart.de</code>) com a filiação IAAI/Hochschule der Medien Stuttgart, e a Crossref pelo DOI <code>10.18653/v1/2020.coling-main.100</code>. Depois da correção, o <code>check-autoria</code> devolve <strong>zero divergências</strong> e o <code>check-bib</code> sai em exit 0.</p>\n<p>Dois desvios menores na mesma entrada, também não corrigidos:</p>\n<ul><li><code>booktitle = {COLING 2020}</code> — o nome completo é *Proceedings of the 28th</li></ul>\n<p>International Conference on Computational Linguistics*.</p>\n<ul><li><code>Ngoc Thang~Vu</code> usa til de ligação do BibTeX dentro do nome. Não é erro (o</li></ul>\n<p>sobrenome é \"Vu\" e o til impede a quebra), mas é o padrão que fez o meu próprio <code>check-autoria.py</code> produzir falso positivo antes do conserto — deixo anotado para quem for mexer.</p>\n<p>Confere no bib e no PDF: páginas <strong>1158-1171</strong>, DOI <strong>10.18653/v1/2020.coling-main.100</strong>, ano <strong>2020</strong>, título idêntico.</p>\n<h3>Ideias que gera para a tese</h3>\n<ol><li><strong>Medir o $\\Delta|T|$ do FALCO.</strong> A métrica da Tab. 3 é trivial de calcular</li></ol>\n<p>sobre os nossos artefatos de seleção e responde uma pergunta que a banca vai fazer: <em>quantas das 621 classes o ciclo ativo nunca tocou?</em> Sugiro a forma mais informativa no nosso regime: <strong>número de classes com zero rótulos ao fim de cada ciclo</strong>, com a curva ao longo dos ciclos. Vira checagem executável no espírito da <code>verifiable-dod</code>.</p>\n<ol><li><strong>Estabilidade como resultado, não como ruído.</strong> O C2 e a Tab. 2 mostram um</li></ol>\n<p>trabalho publicado que reporta <strong>largura de intervalo de confiança como resultado primário</strong>. É precedente para a tese fazer o mesmo em vez de reportar só a média — e nós já temos IC de Wilson na lista de métricas canônicas.</p>\n<ol><li><strong>Justificar a restrição do pool com citação.</strong> Se o FALCO subamostra o pool</li></ol>\n<p>de 250.221 linhas por custo, o C8 é o precedente publicado: dizer que é hiperparâmetro, declarar o compromisso e seguir.</p>\n<ol><li><strong>Qualificar a L770</strong>, como descrito acima — custa uma oração e fortalece a</li></ol>\n<p>contribuição da Fase 1.</p>\n<h3>Correção de 2026-08-17 — o meu claim de \"ameaça\" estava errado</h3>\n<p>Ao fichar, registrei o viés de classe como <strong>ameaça</strong> ao FALCO: a seleção por incerteza desequilibra as classes, foi medido com 2-3 classes, o FALCO tem 621, logo seria risco. <strong>Escrevi isso sem ter aberto o Capítulo 5</strong>, que já continha a medida.</p>\n<p>O E6 (<code>5-resultados-falco/texto.tex</code>, Tab. <code>tab:e6</code>) diz o contrário:</p>\n<ul><li><strong>achado (ii)</strong>: o Macro F1 populacional chega a 0,59 com ~15 mil rótulos por</li></ul>\n<p>entropia e <strong>cai para 0,44 com o pool inteiro rotulado</strong>, <em>\"porque a amostra ativa é mais balanceada por classe que a distribuição natural\"</em>;</p>\n<ul><li><strong>achado (iv)</strong>: estratificar pelas classes previstas captura quase todo o</li></ul>\n<p>ganho, porque <em>\"o que a métrica macro paga é cobertura balanceada de classes\"</em>.</p>\n<p>O desbalanceamento induzido pela seleção <strong>não é a ameaça: é a fonte do ganho</strong>.</p>\n<h4>O que a evidência combinada sustenta de fato</h4>\n<p>As duas medidas não se contradizem — reconciliam-se pela distribuição do pool:</p>\n<table><thead><tr><th></th><th><code>Griesshaber2020</code></th><th>FALCO (E6)</th></tr></thead><tbody><tr><td>Classes</td><td>2 a 3</td><td>621</td></tr><tr><td>Pool de origem</td><td>GLUE, aproximadamente balanceado</td><td>natural, fortemente enviesado</td></tr><tr><td>Efeito da seleção ativa</td><td><strong>desequilibra</strong> (4 a 10× o aleatório)</td><td><strong>equilibra</strong></td></tr><tr><td>Consequência</td><td>prejudicial</td><td><strong>é o ganho</strong></td></tr></tbody></table>\n<p><strong>O sinal do efeito depende de o pool ser balanceado ou torto.</strong> É uma condição de contorno que explica as duas literaturas de uma vez, e é o que esta obra de fato oferece à tese — mais útil que a ameaça que eu havia inventado.</p>\n<h4>Por que registro em vez de apagar</h4>\n<p>O erro é do anti-padrão nº 23 que eu mesmo propus algumas horas antes — diagnosticar contra a cópia desatualizada — na sua forma mais constrangedora: a cópia desatualizada era a minha ignorância do próprio repositório. Fichei uma ameaça contra um capítulo de resultados que eu não tinha lido.</p>\n<p>A lição operacional, que vale para qualquer ficha futura: <strong>antes de escrever <code>falco_relation: ameaca</code>, abrir o capítulo de resultados que mede aquilo.</strong> Uma ameaça é uma afirmação sobre a tese, não sobre o artigo, e por isso precisa de evidência do lado da tese — exatamente como o princípio V exige artefato para número.</p>",
+   "ordem": 135
   },
   {
    "chave": "Guo2025Deuce",
@@ -4754,7 +4804,7 @@
    "pdf": true,
    "fichado": true,
    "detalhes_html": "<h2>DEUCE (Guo et al., TACL 2024)</h2>\n<h3>Resumo</h3>\n<p>Cold start sem rótulos: constrói um Dual-Neighbor Graph com embeddings e predições de PLMs, equilibrando diversidade textual e de classe prevista com propagação de incerteza, para escolher o seed set antes de qualquer anotação. Evita seeds redundantes e clusters de classes fracas perdidos na largada.</p>\n<h3>Relação com a tese</h3>\n<p>Posicionamento direto do DRI-SL no Cap. 2 (2.5.2) e inspiração convergente da variante DRI-SL-C do E6 (agrupamento class-aware).</p>\n<h3>Limitações</h3>\n<p>Depende de PLM para embeddings/predições; seeds pequenos (&lt;=128) vs nossos b0 de centenas.</p>",
-   "ordem": 135
+   "ordem": 136
   },
   {
    "chave": "Xia2025",
@@ -4785,7 +4835,7 @@
    "pdf": true,
    "fichado": true,
    "detalhes_html": "<h2>Survey de AL baseado em LLM (ACL 2025)</h2>\n<h3>Resumo</h3>\n<p>Sistematiza a literatura de aprendizado ativo com LLMs em três papéis — seleção, anotação e GERAÇÃO de dados — com taxonomia de arquiteturas e agenda de problemas abertos (custo operacional, confiabilidade do anotador, avaliação).</p>\n<h3>Relação com a tese</h3>\n<p>Âncora da seção 2.5 (estado da arte): estabelece o vocabulário e evidencia a lacuna integradora. Não cobre PT-BR nem espaços fechados de centenas de classes.</p>",
-   "ordem": 136
+   "ordem": 137
   },
   {
    "chave": "Romberg2025Reassessing",
@@ -4798,7 +4848,7 @@
     "Olsson"
    ],
    "ano": "2026",
-   "venue": "",
+   "venue": "Proceedings of EACL 2026 (Long Papers), p. 2621-2647 (preprint arXiv:2503.09701)",
    "link": "https://doi.org/10.18653/v1/2026.eacl-long.120",
    "link_tipo": "doi",
    "link_s2": "https://www.semanticscholar.org/paper/d1e2e26e3fccdeac4eb95e5619079d82926c7644",
@@ -4815,10 +4865,10 @@
     }
    ],
    "total_ocorrencias": 1,
-   "pdf": false,
-   "fichado": false,
-   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Reassessing Active Learning Adoption in Contemporary NLP: A Community Survey</p>\n<p><strong>Autores</strong>: Julia Romberg, Christopher Schröder, Julius Gonsior, Katrin Tomanek, Fredrik Olsson</p>\n<p><strong>Ano</strong>: 2026</p>\n<p><strong>Volume/Páginas</strong>: p. 2621–2647</p>\n<p><strong>DOI</strong>: 10.18653/v1/2026.eacl-long.120</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Síntese por frente</p>",
-   "ordem": 137
+   "pdf": true,
+   "fichado": true,
+   "detalhes_html": "<h2>Reassessing Active Learning Adoption in Contemporary NLP: A Community Survey</h2>\n<h3>Resumo (5-8 linhas, com as MINHAS palavras)</h3>\n<p>Pesquisa de comunidade com 144 participantes da área de PLN sobre o uso <strong>prático</strong> — não experimental — do aprendizado ativo, deliberadamente construída para comparar com a pesquisa equivalente de Tomanek e Olsson de</p>\n<ol><li>A pergunta de fundo é incômoda: a literatura acumulou ganhos</li></ol>\n<p>consideráveis, sobretudo depois dos LLMs, mas isso chegou a quem anota dados no mundo real? A resposta é que a anotação segue sendo gargalo, o aprendizado ativo segue sendo considerado relevante, e <strong>as mesmas três barreiras de quinze anos atrás continuam de pé</strong>: complexidade de montagem, incerteza sobre a redução de custo e ferramental. O artigo propõe estratégias de mitigação para cada uma.</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>Três desafios persistem, os mesmos de quinze anos atrás: complexidade de montagem, incerteza sobre redução de custo e ferramental</td><td>Resumo, p. 1 (\"three key challenges yet persist—setup complexity, uncertain cost reduction, and tooling\") e §1</td><td>2-fundam:785-789 — é a frase que esta ficha valida</td></tr><tr><td>C2</td><td>Em 2009 apenas 20% dos praticantes haviam implementado AA, e as barreiras eram ceticismo sobre a efetividade prática e o custo de construir interfaces de anotação</td><td>§1, p. 1-2 (citando Olsson 2009)</td><td>Cap. 2 e Cap. 6: mostra que a barreira é estrutural, não conjuntural</td></tr><tr><td>C3</td><td>Entre quem NÃO usa AA, as barreiras operacionais dominam as de desempenho: custo de implantação 37% e falta ou desconhecimento de ferramenta 32%, contra 14% que duvidam da efetividade e 12% que apontam dificuldade de estimar o ganho a priori</td><td>§3, p. 5 (bloco II.5)</td><td><strong>É o número que sustenta a leitura da tese</strong>: operacional ≈ 69 pontos contra ≈ 26 de desempenho</td></tr><tr><td>C4</td><td>A rejeição de fato é quase nula: 54% de quem nunca usou consideraria usar, 38% está apenas incerto por falta de conhecimento, e apenas UM participante recusaria explicitamente</td><td>§3, p. 5 (bloco II.8)</td><td>Cap. 6: o problema não é convencer, é viabilizar</td></tr><tr><td>C5</td><td>Projetos recentes com AA foram considerados bem-sucedidos em 91% dos casos e efetivos em 67%, contra 57% de sucesso nos projetos sem AA</td><td>§3.4</td><td>Cap. 6: evidência de que a barreira é de adoção, não de resultado</td></tr></tbody></table>\n<h3>Números que posso citar</h3>\n<p>Condições: pesquisa de comunidade, <strong>144 participantes</strong>, maioria da academia, área de linguística computacional; questionário com desvio condicional (perguntas puladas conforme elegibilidade); comparação explícita com a pesquisa de Tomanek e Olsson (2009).</p>\n<ul><li><strong>Barreiras entre quem não usa AA</strong> (§3, bloco II.5): custo de implantação</li></ul>\n<p><strong>37%</strong> · ausência ou desconhecimento de ferramenta adequada <strong>32%</strong> · viés de amostragem <strong>18%</strong> · dúvida sobre a efetividade em si <strong>14%</strong> · dificuldade de estimar a efetividade a priori <strong>12%</strong> · inadequação ao requisito do projeto <strong>9%</strong>.</p>\n<ul><li><strong>Disposição futura</strong> (§3, II.7-II.8): <strong>54%</strong> de quem não usou consideraria</li></ul>\n<p>usar; <strong>38%</strong> incerto por falta de conhecimento; <strong>1</strong> participante recusaria explicitamente; <strong>4</strong> condicionariam às circunstâncias.</p>\n<ul><li><strong>Sucesso percebido</strong> (§3.4): projetos recentes com AA — <strong>91%</strong> bem-sucedidos,</li></ul>\n<p><strong>67%</strong> efetivos; projetos sem AA — <strong>57%</strong>.</p>\n<ul><li><strong>Linha de base histórica</strong> (§1): em 2009, <strong>20%</strong> dos praticantes haviam</li></ul>\n<p>implementado AA.</p>\n<h3>Citações diretas (com página)</h3>\n<p>&gt; \"Consistent with a community survey from over 15 years ago, three key &gt; challenges yet persist—setup complexity, uncertain cost reduction, and &gt; tooling—for which we propose alleviation strategies.\" (Resumo, p. 1)</p>\n<p>&gt; \"key barriers to AL adoption from over a decade ago still persist, demanding &gt; greater emphasis on reducing the complexity of setup, ensuring cost &gt; reduction, and improving annotation tools.\" (§1, p. 2)</p>\n<h3>Crítica / limitações (minha leitura)</h3>\n<ul><li><strong>Autosseleção</strong>: quem responde a uma pesquisa sobre aprendizado ativo tende</li></ul>\n<p>a ser quem já se interessa por aprendizado ativo. Os 144 não são amostra aleatória da área, e o próprio artigo se declara descritivo. Citar como retrato de uma comunidade interessada, não como estimativa populacional.</p>\n<ul><li><strong>Maioria acadêmica</strong>, o que provavelmente subestima as barreiras de</li></ul>\n<p>indústria — justamente onde o custo de anotação morde mais.</p>\n<ul><li><strong>Percepção, não medição</strong>: \"sucesso\" e \"efetividade\" são auto-relatados. O</li></ul>\n<p>91% do C5 é percepção de sucesso, não desempenho medido. Não misturar com números de F1 em nenhuma tabela da tese.</p>\n<ul><li>Os dois coautores da pesquisa de 2009 (Tomanek e Olsson) assinam esta. Isso</li></ul>\n<p>dá continuidade metodológica e, ao mesmo tempo, é fonte de expectativa — vale notar que a conclusão confirma a pesquisa anterior deles.</p>\n<h3>Onde a tese o usa, e o que confere</h3>\n<p>A frase de <code>2-fundam:785-789</code> diz:</p>\n<p>&gt; \"A pesquisa de comunidade de \\citet{Romberg2025Reassessing} acrescenta o &gt; alerta prático: complexidade de implantação, incerteza sobre a redução real &gt; de custo e ferramental inadequado seguem sendo as barreiras à adoção — a &gt; viabilidade operacional, não a acurácia, é o obstáculo apontado.\"</p>\n<p><strong>As três barreiras conferem termo a termo</strong> com o resumo do artigo, e o \"seguem sendo\" conferе com \"yet persist\" e com a comparação explícita com 2009.</p>\n<p><strong>A oração final é inferência da tese, não do artigo</strong> — o artigo não escreve \"viabilidade operacional, não acurácia\". Mas os números do C3 a sustentam: as barreiras operacionais somam cerca de 69 pontos percentuais (37 de implantação mais 32 de ferramental) contra cerca de 26 das relacionadas a desempenho (14 de dúvida sobre efetividade mais 12 de dificuldade de estimá-la). É uma inferência bem apoiada, e ficaria ainda melhor com o número no corpo do texto em vez do adjetivo.</p>\n<h3>Ideias que gera para a tese</h3>\n<ul><li><strong>Trocar o qualitativo pelo quantitativo no Cap. 2</strong>: em vez de afirmar que a</li></ul>\n<p>viabilidade operacional é o obstáculo, dar os 37% e os 32% contra os 14%. O argumento passa de leitura a medida, que é o que o princípio V premia.</p>\n<ul><li><strong>Enquadramento do Cap. 6</strong>: o C4 mostra que a resistência de fato é quase</li></ul>\n<p>nula — um único participante em 144 recusaria usar. Ou seja, o FALCO não precisa convencer ninguém de que aprendizado ativo vale a pena; precisa remover as três barreiras. Isso reposiciona a contribuição da tese de \"provar que funciona\" para \"tornar praticável\", que é uma tese mais honesta e mais defensável.</p>\n<ul><li><strong>Fechar o argumento de custo</strong>: a segunda barreira mais citada é a incerteza</li></ul>\n<p>sobre a redução real de custo, e é exatamente o que a instrumentação de custo do FALCO ataca. Vale citar aqui, e não só na revisão, quando o Cap. 3 justificar por que o custo é medido em vez de estimado.</p>",
+   "ordem": 138
   },
   {
    "chave": "Machado2026RetailPt",
@@ -4850,9 +4900,9 @@
    ],
    "total_ocorrencias": 2,
    "pdf": false,
-   "fichado": false,
-   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Turning web data into official statistics: Classifying Portuguese retail products with NLP models</p>\n<p><strong>Autores</strong>: Juliana de Freitas Ulisses Machado, Bruno Veloso</p>\n<p><strong>Veículo</strong>: Statistical Journal of the IAOS</p>\n<p><strong>Ano</strong>: 2026</p>\n<p><strong>Volume/Páginas</strong>: vol. 42, n. 1</p>\n<p><strong>DOI</strong>: 10.1177/18747655251414407</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Síntese por frente; Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Lacuna de pesquisa</p>",
-   "ordem": 138
+   "fichado": true,
+   "detalhes_html": "<h2>Turning web data into official statistics: Classifying Portuguese retail products with NLP models</h2>\n<h3>Estado desta ficha — LEIA ANTES DE CITAR</h3>\n<p><strong>Só o resumo foi lido.</strong> O artigo está atrás do paywall da SAGE (<code>doi.org</code> devolve 403) e não localizei versão aberta: não há preprint em arXiv nem cópia em repositório institucional que eu tenha encontrado. Por isso o <code>status</code> é <code>a-ler</code> e não <code>fichado</code>, e o campo <code>pdf</code> está vazio.</p>\n<p>Isto <strong>não</strong> é um fichamento completo. É o registro do que foi possível verificar, e da verificação que a R4 do tema t5 pediu.</p>\n<h4>O que a tese cita e o que se verifica</h4>\n<p><code>2-fundam:793-800</code> usa quatro números deste artigo:</p>\n<table><thead><tr><th>Número na tese</th><th>Situação</th></tr></thead><tbody><tr><td>\"$\\approx 100$ mil títulos\"</td><td><strong>CONFERE</strong> — o resumo diz \"100,000 product titles\"</td></tr><tr><td>\"94,0\\% de Macro F1 após ajuste\"</td><td><strong>CONFERE</strong> — \"the transformer attains 94.00%\"</td></tr><tr><td>\"97,0\\% de acurácia\"</td><td><strong>NÃO VERIFICADO</strong> — o resumo não reporta acurácia</td></tr><tr><td>\"12 mil rótulos manuais\"</td><td><strong>NÃO VERIFICADO</strong> — o número não aparece no resumo</td></tr></tbody></table>\n<p>Os dois primeiros podem ser citados. <strong>Os dois últimos não devem ser citados enquanto o PDF não chegar</strong> — princípio V: número reportado tem de resolver para artefato, e hoje eles não resolvem para nada.</p>\n<p>Vale notar que o resumo reporta <strong>macro-F1 para os dois modelos</strong> e nenhuma acurácia. Isso levanta a hipótese de que \"97,0% de acurácia\" tenha vindo do corpo do artigo, ou de confusão com outra métrica. Não afirmo qual — afirmo que não está no que eu pude ler.</p>\n<h4>Imprecisão de escopo, que joga a favor da tese</h4>\n<p>A tese descreve o estudo como classificação de \"títulos de supermercados portugueses nas categorias ECOICOP\". O resumo restringe: <strong>\"Portuguese food and beverage items\"</strong>, de seis redes nacionais.</p>\n<p>Não é o catálogo do supermercado — é o recorte de <strong>alimentos e bebidas</strong>. Dizer isso torna o contraste com o FALCO <strong>mais forte</strong>, não mais fraco: nós operamos sobre 621 classes de catálogo inteiro, com todas as categorias de varejo.</p>\n<h4>O que falta para fechar a ficha</h4>\n<p>Obter o PDF (o autor pode ter acesso institucional pela UFPR) e então: localizar ou refutar os dois números pendentes; registrar o desenho do fluxo \"human-in-the-loop\"; extrair a estrutura de classes ECOICOP usada; e verificar se há comparação de custo de anotação, que é o que mais interessaria ao Cap. 6.</p>\n<h3>Resumo (do que foi lido — apenas o resumo do artigo)</h3>\n<p>Treina dois modelos para classificar títulos de produtos de alimentação e bebidas, obtidos por raspagem de seis redes de supermercado portuguesas, nas categorias da ECOICOP (classificação europeia do consumo individual por finalidade), com vista a alimentar estatística oficial de preços e inflação. Compara uma rede convolucional leve com um BERTimbau ajustado, e o argumento central é de compromisso entre custo computacional e desempenho: a rede leve chega perto por uma fração do custo. Os modelos são publicados no Hugging Face; os dados de origem permanecem confidenciais.</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>O BERTimbau ajustado atinge 94,00% de macro-F1 na classificação ECOICOP de produtos em português, primeiro resultado desse tipo para a língua</td><td>Resumo</td><td>2-fundam:796 — corrobora a escolha do BERTimbau como classificador forte</td></tr><tr><td>C2</td><td>Uma rede convolucional leve atinge 92,19% de macro-F1 com custo computacional mínimo — 1,8 ponto abaixo do transformer</td><td>Resumo</td><td><strong>Cap. 3</strong>: é o mesmo compromisso custo-capacidade que justifica o nosso par de classificadores. Sustenta o desenho, e a tese ainda não o usa assim</td></tr><tr><td>C3</td><td>A rotulagem foi feita por um fluxo \"human-in-the-loop\", sem estratégia formal de aprendizado ativo</td><td>Resumo (\"labeled via a human-in-the-loop workflow\")</td><td>2-fundam:798-800 — sustenta a primeira metade da afirmação da tese</td></tr><tr><td>C4</td><td>Entrega classificadores abertos e um fluxo de rotulagem replicável para cenário de poucos recursos</td><td>Resumo</td><td>Cap. 6: comparador de praticidade</td></tr></tbody></table>\n<h3>Números que posso citar</h3>\n<p><strong>Somente estes dois</strong>, ambos do resumo:</p>\n<ul><li><strong>100.000</strong> títulos de produtos, raspados de <strong>seis</strong> redes de supermercado</li></ul>\n<p>portuguesas.</p>\n<ul><li>Macro-F1: <strong>94,00%</strong> (BERTimbau ajustado) e <strong>92,19%</strong> (rede convolucional).</li></ul>\n<p>Os demais números que a tese atribui a este artigo estão na tabela do \"Estado desta ficha\" e <strong>não</strong> podem ser citados por enquanto.</p>\n<h3>Citações diretas (com página)</h3>\n<p>&gt; \"Using 100,000 product titles scraped from six national supermarket sites and &gt; labeled via a human-in-the-loop workflow, the CNN reaches a macro-F1 of &gt; 92.19 % with minimal computing cost, while the transformer attains 94.00 %, &gt; the first such result for Portuguese.\" (Resumo)</p>\n<p><em>(Sem página: só o resumo foi acessível.)</em></p>\n<h3>Crítica / limitações (minha leitura)</h3>\n<ul><li><strong>Alegação de primazia</strong> (\"the first such result for Portuguese\", \"the first</li></ul>\n<p>open-source Portuguese ECOICOP classifiers\"): é afirmação de ausência, do mesmo tipo que a R4 do t5 apontou na nossa própria seção de lacuna. Ao citar, <strong>não repetir a alegação de primazia</strong> — reportar o resultado, não o pioneirismo.</p>\n<ul><li><strong>Dados de origem confidenciais</strong>: o artigo publica os modelos, não os dados.</li></ul>\n<p>Reprodutibilidade parcial, e vale registrar o contraste com o nosso princípio V.</p>\n<ul><li><strong>Escopo estreito</strong> (alimentos e bebidas) comparado ao catálogo completo do</li></ul>\n<p>FALCO — ver acima.</p>\n<ul><li><strong>Sem comparação com o custo de anotação</strong>: pelo resumo, o compromisso medido</li></ul>\n<p>é de custo COMPUTACIONAL (treino e inferência), não de custo de ANOTAÇÃO, que é a dimensão que a tese instrumenta. Confirmar quando o PDF chegar.</p>\n<h3>Ideias que gera para a tese</h3>\n<ul><li><strong>Usar o C2 no Capítulo 3, e não só na revisão.</strong> A diferença de 1,8 ponto de</li></ul>\n<p>macro-F1 entre a rede leve e o transformer, no mesmo domínio e na mesma língua, é evidência externa direta para o par de classificadores que a tese adota. Hoje o artigo é citado só como corroboração do BERTimbau; ele sustenta mais do que isso.</p>\n<ul><li><strong>Comparador de processo para o Capítulo 6</strong>: os dois trabalhos resolvem o</li></ul>\n<p>mesmo problema de domínio com processos opostos — rotulagem humana no laço contra oráculo LLM progressivo. É o contraste mais concreto que a tese tem para argumentar praticidade, e melhora quando o recorte de alimentos e bebidas for dito.</p>",
+   "ordem": 139
   },
   {
    "chave": "Daru2022Dataset",
@@ -4881,7 +4931,7 @@
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Classificação Produtos Varejo CPG PTBR</p>\n<p><strong>Autores</strong>: Gilsiley Henrique Darú</p>\n<p><strong>Veículo</strong>: Kaggle</p>\n<p><strong>Ano</strong>: 2022</p>\n<p><strong>DOI</strong>: 10.34740/kaggle/dsv/4265348</p>\n<p><strong>Citada em</strong>: Cap. 3 — Metodologia § Fonte e características</p>",
-   "ordem": 139
+   "ordem": 140
   },
   {
    "chave": "Wolf2020Transformers",
@@ -4910,7 +4960,7 @@
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Transformers: state-of-the-art natural language processing</p>\n<p><strong>Autores</strong>: Thomas Wolf</p>\n<p><strong>Veículo</strong>: Proceedings of EMNLP: System Demonstrations</p>\n<p><strong>Ano</strong>: 2020</p>\n<p><strong>Volume/Páginas</strong>: p. 38–45</p>\n<p><strong>DOI</strong>: 10.18653/v1/2020.emnlp-demos.6</p>\n<p><strong>Citada em</strong>: Cap. 3 — Metodologia § Classificadores da tarefa</p>",
-   "ordem": 140
+   "ordem": 141
   },
   {
    "chave": "Loshchilov2019AdamW",
@@ -4940,7 +4990,7 @@
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Decoupled weight decay regularization</p>\n<p><strong>Autores</strong>: Ilya Loshchilov, Frank Hutter</p>\n<p><strong>Veículo</strong>: International Conference on Learning Representations (ICLR)</p>\n<p><strong>Ano</strong>: 2019</p>\n<p><strong>Citada em</strong>: Cap. 3 — Metodologia § Classificadores da tarefa</p>",
-   "ordem": 141
+   "ordem": 142
   },
   {
    "chave": "Goldberg1989",
@@ -4969,7 +5019,7 @@
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Genetic Algorithms in Search, Optimization, and Machine Learning</p>\n<p><strong>Autores</strong>: David E. Goldberg</p>\n<p><strong>Veículo</strong>: Addison-Wesley</p>\n<p><strong>Ano</strong>: 1989</p>\n<p><strong>Citada em</strong>: Cap. 3 — Metodologia § Otimização por algoritmo genético</p>",
-   "ordem": 142
+   "ordem": 143
   },
   {
    "chave": "Holland1975",
@@ -4998,40 +5048,6 @@
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Adaptation in Natural and Artificial Systems</p>\n<p><strong>Autores</strong>: John H. Holland</p>\n<p><strong>Veículo</strong>: University of Michigan Press</p>\n<p><strong>Ano</strong>: 1975</p>\n<p><strong>Citada em</strong>: Cap. 3 — Metodologia § Otimização por algoritmo genético</p>",
-   "ordem": 143
-  },
-  {
-   "chave": "Reimers2019SBERT",
-   "titulo": "Sentence-BERT: sentence embeddings using Siamese BERT-networks",
-   "autores": [
-    "Reimers",
-    "Gurevych"
-   ],
-   "ano": "2019",
-   "venue": "Proceedings of EMNLP-IJCNLP",
-   "link": "https://doi.org/10.18653/v1/d19-1410",
-   "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/paper/93d63ec754f29fa22572615320afe0521f7ec66d",
-   "link_s2_tipo": "direto",
-   "sem_entrada_bib": false,
-   "primeira_aparicao": {
-    "capitulo": "Cap. 3 — Metodologia",
-    "secao": "Pilar P2: cold start sem rótulos — algoritmo DRI-SL"
-   },
-   "ocorrencias": [
-    {
-     "capitulo": "Cap. 3 — Metodologia",
-     "secao": "Pilar P2: cold start sem rótulos — algoritmo DRI-SL"
-    },
-    {
-     "capitulo": "Apêndice A3 — Algoritmo DRI-SL",
-     "secao": "Objetivo e entradas"
-    }
-   ],
-   "total_ocorrencias": 2,
-   "pdf": false,
-   "fichado": false,
-   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Sentence-BERT: sentence embeddings using Siamese BERT-networks</p>\n<p><strong>Autores</strong>: Nils Reimers, Iryna Gurevych</p>\n<p><strong>Veículo</strong>: Proceedings of EMNLP-IJCNLP</p>\n<p><strong>Ano</strong>: 2019</p>\n<p><strong>Volume/Páginas</strong>: p. 3982–3992</p>\n<p><strong>DOI</strong>: 10.18653/v1/d19-1410</p>\n<p><strong>Citada em</strong>: Cap. 3 — Metodologia § Pilar P2: cold start sem rótulos — algoritmo DRI-SL; Apêndice A3 — Algoritmo DRI-SL § Objetivo e entradas</p>",
    "ordem": 144
   },
   {
@@ -5439,8 +5455,8 @@
    "venue": "Electronics",
    "link": "https://doi.org/10.3390/electronics8030292",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=A%20state-of-the-art%20survey%20on%20deep%20learning%20theory%20and%20architectures&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/8dd53f10ca5fa14faeed2bd2951d247f1ac60f40",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -5553,8 +5569,8 @@
    "venue": "Natural Language Engineering",
    "link": "https://doi.org/10.1017/S1351324920000029",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Learning%20to%20rank%20for%20multi-label%20text%20classification%3A%20Combining%20different%20sources%20of%20information&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/dc07dbdcbcfb4a6565e4217db37bf36e22ca89bb",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -5576,8 +5592,8 @@
    "venue": "International Journal of Artificial Intelligence in Education",
    "link": "https://doi.org/10.1007/s40593-020-00201-7",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Applying%20natural%20language%20processing%20and%20hierarchical%20machine%20learning%20approaches%20to%20text%20difficulty%20classification&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/53a7f74414bc92a4e5003ebfbe0cf1768c06acad",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -5694,8 +5710,8 @@
    "venue": "Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)",
    "link": "https://doi.org/10.1109/WACV51458.2022.00376",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Class-Balanced%20Active%20Learning%20for%20Image%20Classification&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/3f50007b2842f12542e981e04537ff5b08997702",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -5922,8 +5938,8 @@
    "venue": "Neurocomputing",
    "link": "https://doi.org/10.1016/j.neucom.2017.11.077",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Feature%20selection%20in%20machine%20learning%3A%20A%20new%20perspective&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/f6d9106b0e169204a506eb1deec2b85e0f296e4a",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -6168,8 +6184,8 @@
    "venue": "PLOS ONE",
    "link": "https://doi.org/10.1371/journal.pone.0226902",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Feature%20selection%20for%20helpfulness%20prediction%20of%20online%20product%20reviews%3A%20An%20empirical%20study&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/0f9c4acff2b1b1aa051410b297468adff045e8db",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -6234,8 +6250,8 @@
    "venue": "Communications of the ACM",
    "link": "https://doi.org/10.1145/2436256.2436274",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Techniques%20and%20applications%20for%20sentiment%20analysis&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/9c42f726882b0ab4539afd34b546ae710aa1ceb0",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -6321,8 +6337,8 @@
    "venue": "Statistics and Computing",
    "link": "https://doi.org/10.1007/s11222-009-9153-8",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Estimation%20of%20prediction%20error%20by%20using%20k-fold%20cross-validation&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/cab104cbea93bb3c0dfac8beacf0ba70d179a554",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -6365,8 +6381,8 @@
    "venue": "International Journal of Information Management",
    "link": "https://doi.org/10.1016/j.ijinfomgt.2014.10.007",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Beyond%20the%20hype%3A%20Big%20data%20concepts%2C%20methods%2C%20and%20analytics&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/1bc34cb22131554ba18f6ba9e6ede5beb42939f1",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -6410,8 +6426,8 @@
    "venue": "Automation and Remote Control",
    "link": "https://doi.org/10.1134/S0005117920120097",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Topical%20classification%20of%20text%20fragments%20accounting%20for%20their%20nearest%20context&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/ebf2d10fddbf7e608b14c6aabd08a05f2a378954",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -6502,8 +6518,8 @@
    "venue": "Expert Systems with Applications",
    "link": "https://doi.org/10.1016/j.eswa.2009.02.037",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=A%20review%20of%20machine%20learning%20approaches%20to%20spam%20filtering&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/66405753664af1895830f147365cc5903388dea1",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -6594,8 +6610,8 @@
    "venue": "Knowledge-Based Systems",
    "link": "https://doi.org/10.1016/j.knosys.2020.106622",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=AutoML%3A%20A%20survey%20of%20the%20state-of-the-art&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/3a7fa673ff8ec4ec2f322473de005f3cd09ea820",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -7064,8 +7080,8 @@
    "venue": "IEEE Access",
    "link": "https://doi.org/10.1109/ACCESS.2021.3110745",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Algorithmic%20splitting%3A%20A%20method%20for%20dataset%20preparation&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/405a724f833eaef8cc3c5cb56e1596092651b284",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -7272,8 +7288,8 @@
    "venue": "Statistical Science",
    "link": "https://doi.org/10.1214/088342307000000032",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=The%20use%20of%20unlabeled%20data%20in%20predictive%20modeling&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/ac279334887ebd895c8aaa6addfac073bc94b1f9",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -7498,8 +7514,8 @@
    "venue": "Computational Statistics",
    "link": "https://doi.org/10.1007/s00180-020-00999-9",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=What%20is%20an%20optimal%20value%20of%20k%20in%20k-fold%20cross-validation%20in%20discrete%20Bayesian%20network%20analysis%3F&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/9585862d86977f03841ea297c08dffacc5a3203a",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -7798,8 +7814,8 @@
    "venue": "International Journal of Enterprise Information Systems",
    "link": "https://doi.org/10.4018/IJEIS.2020100101",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Research%20on%20text%20classification%20based%20on%20automatically%20extracted%20keywords&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/28f09a18851424e4c8ac27c5e2d092d61ec26d1c",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -8003,8 +8019,8 @@
    "venue": "Artificial Intelligence Review",
    "link": "https://doi.org/10.1007/s10462-021-09970-6",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Feature%20selection%20methods%20for%20text%20classification%3A%20a%20systematic%20literature%20review&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/4508d41da90dde554abad96cb24ffe17a1069703",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -8121,29 +8137,6 @@
    "pdf": true,
    "fichado": true,
    "detalhes_html": "<h2>Model Evaluation, Model Selection, and Algorithm Selection in Machine Learning</h2>\n<h3>Resumo</h3>\n<p>Tutorial abrangente (49 pp.) sobre práticas corretas de avaliação, seleção de modelos e de algoritmos: holdout, CV, bootstrap, testes estatísticos de comparação.</p>\n<h3>Claims relevantes</h3>\n<table><thead><tr><th>#</th><th>Claim</th><th>Evidência</th><th>Uso na tese</th></tr></thead><tbody><tr><td>C1</td><td>Práticas corretas de avaliação/seleção exigem separação clara dos papéis dos conjuntos e testes adequados</td><td>Abstract/escopo</td><td>Apoio da seção de validação e dos testes estatísticos (McNemar aparece no tutorial)</td></tr></tbody></table>\n<h3>Números que posso citar</h3>\n<ul><li>(Uso qualitativo.)</li></ul>\n<h3>Crítica / limitações (minha leitura)</h3>\n<ul><li>Fonte de apoio herdada da cadeia bibliográfica do draft/dissertação; citar</li></ul>\n<p>somente onde já usada, preferindo as referências principais nas seções novas.</p>\n<h3>Ideias que gera para a tese</h3>\n<ul><li>Revisar na poda final de citações do Cap.2.</li></ul>",
-   "ordem": null
-  },
-  {
-   "chave": "Razali2020",
-   "titulo": "Stratified K-fold cross validation optimization on machine learning for prediction",
-   "autores": [
-    "Razali",
-    "Sutikno",
-    "Abdul"
-   ],
-   "ano": "2020",
-   "venue": "Journal of Physics: Conference Series",
-   "link": "https://scholar.google.com/scholar?q=%22Stratified%20K-fold%20cross%20validation%20optimization%20on%20machine%20learning%20for%20prediction%22%20Razali",
-   "link_tipo": "busca",
-   "link_s2": "https://www.semanticscholar.org/search?q=Stratified%20K-fold%20cross%20validation%20optimization%20on%20machine%20learning%20for%20prediction&sort=relevance",
-   "link_s2_tipo": "busca",
-   "sem_entrada_bib": false,
-   "primeira_aparicao": null,
-   "ocorrencias": [],
-   "total_ocorrencias": 0,
-   "pdf": false,
-   "fichado": false,
-   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Stratified K-fold cross validation optimization on machine learning for prediction</p>\n<p><strong>Autores</strong>: Rohana Razali, Tole Sutikno, Wan Abdul</p>\n<p><strong>Veículo</strong>: Journal of Physics: Conference Series</p>\n<p><strong>Ano</strong>: 2020</p>\n<p><strong>Volume/Páginas</strong>: vol. 1529, n. 2, p. 022098</p>\n<p class=\"vazia\">Não citada no texto da tese.</p>",
    "ordem": null
   },
   {
@@ -8295,8 +8288,8 @@
    "venue": "Computers in Industry",
    "link": "https://doi.org/10.1016/j.compind.2015.10.004",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Text%20classification%20based%20filters%20for%20a%20domain-specific%20search%20engine&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/2c684caaf9617f06da3936f4d649b097d7578427",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -8317,8 +8310,8 @@
    "venue": "arXiv:2008.07267",
    "link": "https://arxiv.org/abs/2008.07267",
    "link_tipo": "arxiv",
-   "link_s2": "https://www.semanticscholar.org/search?q=A%20survey%20of%20active%20learning%20for%20text%20classification%20using%20deep%20neural%20networks&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/244a0d1ab812d5a69c2a3fe26a1686f379d650aa",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -8340,8 +8333,8 @@
    "venue": "Findings of the Association for Computational Linguistics: ACL 2022",
    "link": "https://doi.org/10.18653/v1/2022.findings-acl.172",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Revisiting%20Uncertainty-based%20Query%20Strategies%20for%20Active%20Learning%20with%20Transformers&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/d6cbe7986a15a3d697213c8541c97dec9e65240b",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -8472,8 +8465,8 @@
    "venue": "Augmented Human Research",
    "link": "https://doi.org/10.1007/s41133-020-00032-0",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=A%20comparative%20analysis%20of%20logistic%20regression%2C%20random%20forest%20and%20KNN%20models%20for%20the%20text%20classification&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/2a37d287b5852fe5863aadee5c5fdeb6b0c56400",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -8626,8 +8619,8 @@
    "venue": "IEEE Transactions on Neural Networks and Learning Systems",
    "link": "https://doi.org/10.1109/TNNLS.2022.3155478",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Graph-based%20semi-supervised%20learning%3A%20A%20comprehensive%20review&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/7dee0821e4b0ece2972d4cedfbe31785a05dba37",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -8995,8 +8988,8 @@
    "venue": "Findings of the Association for Computational Linguistics: EMNLP 2021",
    "link": "https://doi.org/10.18653/v1/2021.findings-emnlp.354",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Want%20To%20Reduce%20Labeling%20Cost%3F%20GPT-3%20Can%20Help&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/4e263b4cd6998bff2501dd143e685f413179b12d",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -9104,8 +9097,8 @@
    "venue": "Pattern Recognition",
    "link": "https://doi.org/10.1016/j.patcog.2015.03.009",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Performance%20evaluation%20of%20classification%20algorithms%20by%20k-fold%20and%20leave-one-out%20cross%20validation&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/4732a77c3753c0a5f31c62ce2e38407d6a945ebf",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -9149,8 +9142,8 @@
    "venue": "Multimedia Tools and Applications",
    "link": "https://doi.org/10.1007/s11042-020-09063-6",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Learning%20neural%20networks%20for%20text%20classification%20by%20exploiting%20label%20relations&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/8a9754cbb5c5a8b6a615d177a15194129e2d078a",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -9320,8 +9313,8 @@
    "venue": "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
    "link": "https://doi.org/10.18653/v1/2023.acl-long.141",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=Cold-Start%20Data%20Selection%20for%20Better%20Few-shot%20Language%20Model%20Fine-tuning%3A%20A%20Prompt-based%20Uncertainty%20Propagation%20Approach&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/43b15205c98b5e0693f128ebdd4c57c4ba854049",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
@@ -9529,8 +9522,8 @@
    "venue": "Indonesian Journal of Electrical Engineering and Computer Science",
    "link": "https://doi.org/10.11591/ijeecs.v19.i1.pp325-335",
    "link_tipo": "doi",
-   "link_s2": "https://www.semanticscholar.org/search?q=A%20comparative%20review%20on%20deep%20learning%20models%20for%20text%20classification&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/930eaa5486f1e8a5947fa5d7ac48ecfa6f3c42ea",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": null,
    "ocorrencias": [],
