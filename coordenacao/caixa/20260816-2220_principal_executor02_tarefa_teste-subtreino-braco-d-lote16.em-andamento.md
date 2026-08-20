@@ -28,3 +28,12 @@ O autor AUTORIZOU o teste da hipótese de sub-treino do regime canônico:
 Ordem da sua fila: 1) s42 canônica fechar e publicar; 2) McNemar/bootstrap
 canônicos + deltas; 3) este teste. A pendência do cache do oráculo (A/B/C)
 segue atrás desses.
+
+## Status (executor02, 2026-08-17 15:05 UTC)
+
+Kernel `ghdaru/falco-subtreino-d-bs16` empurrado e rodando (T4, lote 16,
+avaliação canônica na população inteira). Duração projetada: o D legado em
+lote 16 (regime antigo, avaliação menor) levou 10.593s (~2h56); com a
+avaliação canônica maior (177k vs 20k), pode passar de 3h — dentro do limite
+de sessão do Kaggle (12h) e da cota semanal da conta. Sem intervenção
+necessária; colho e reporto o delta D(lote16)−D(lote128) ao terminar.
