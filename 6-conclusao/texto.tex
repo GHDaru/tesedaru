@@ -40,10 +40,10 @@ de fraseado.
 
 \textbf{P4 — respondido, com veredito refinado e diagnóstico.} O gate
 pré-registrado decidiu: sem oráculo $\ge 85\%$, o aprendizado com oráculo
-ruidoso é o cenário central (E4), e a configuração derivada do FALCO é
+ruidoso é o cenário central, e a configuração derivada do FALCO é
 deepseek-v4-flash (Inicial) + deepseek-v4-pro (Avançado, superioridade
 significativa comprovada). A validação com o classificador forte fora do
-laço (E3$'$) julgou o pipeline completo: a hipótese central \emph{não} se
+laço julgou o pipeline completo: a hipótese central \emph{não} se
 sustenta na configuração executada ($F1 = 0{,}242$ contra critério de
 $0{,}428$ com $17{,}9\%$ dos rótulos), e a decomposição pareada atribui a
 perda ao \emph{orçamento} — não ao ruído do oráculo, que em Macro F1 até
@@ -58,9 +58,10 @@ orçamento quantifica a correção (achado \textit{post hoc}, executado com
 rótulos de \emph{gabarito}, não do oráculo da hipótese pré-registrada): o critério passa a ser atendido com 20 mil rótulos ($40\%$ do
 \textit{pool}) em acurácia e 25 mil ($50\%$) em Macro F1, e com 35 mil
 rótulos selecionados por entropia o modelo forte \emph{supera} a supervisão
-completa do \textit{pool} em Macro F1 (E35--D: $+0{,}012$, IC 95\%
+completa do \textit{pool} em Macro F1 ($+0{,}012$, IC 95\%
 $[0{,}002;0{,}018]$) e a \emph{empata} em acurácia (McNemar, $p=0{,}10$):
-a vantagem de cobertura do ``menos é mais'' do E6 reaparece no transformer.
+a vantagem de cobertura do ``menos é mais'' medida em escala populacional
+reaparece no \textit{transformer}.
 O veredito que os dados sustentam: \textbf{refutada no orçamento
 pré-registrado}; o critério torna-se alcançável a partir de $\approx 50\%$
 do \textit{pool} com política de parada ancorada no modelo forte, com
@@ -78,7 +79,8 @@ vezes: o custo vira função de tokens (e do \textit{cache}, e do lote, os três
 medidos pela instrumentação desta tese) e a qualidade vira parâmetro escolhível num
 cardápio com uma ordem de grandeza de variação de preço. A decisão
 ``qual oráculo em qual fase'', que é o coração do FALCO, só faz sentido nesse
-regime novo, e os dados do E0 mostram que ela não é trivial: o modelo mais
+regime novo, e os dados da avaliação de oráculos mostram que ela não é
+trivial: o modelo mais
 caro (gpt-4o) não é o mais acurado, e o segundo mais barato entrega 96\% da
 acurácia do melhor por 8,5\% do custo.
 
@@ -87,12 +89,13 @@ O perfil de erro do RQ3 (confusões concentradas em pares vizinhos e classes
 guarda-chuva) é o cenário benigno da literatura de rótulos ruidosos
 \citep{Frenay2014,Natarajan2013,Song2023NoisyLabels}: parte do ``erro'' do
 oráculo é inclusive defensável semanticamente (a análise multi-gold mostrou
-que o gabarito também erra). Isso sugere que o E4 com ruído \emph{uniforme},
+que o gabarito também erra). Isso sugere que a avaliação de robustez com ruído
+\emph{uniforme},
 o desenho adotado, é um teste \emph{mais duro} que a realidade, o que fortalece
 qualquer resultado positivo obtido nele.
 
-\textbf{Mais rótulo não é sempre melhor, e a autoavaliação engana.} O E6
-acrescenta dois avisos operacionais ao quadro: treinar com o subconjunto
+\textbf{Mais rótulo não é sempre melhor, e a autoavaliação engana.} A escala
+populacional acrescenta dois avisos operacionais ao quadro: treinar com o subconjunto
 ativamente selecionado pode superar o treino com \emph{todos} os rótulos em
 métrica macro (a amostra ativa é mais balanceada que a distribuição natural),
 e a avaliação feita sobre os próprios dados coletados é enviesada em direções
@@ -136,13 +139,14 @@ tornam o protocolo reutilizável fora desta tese.
 
 As ameaças à validade estão detalhadas na Seção~\ref{sec:metodo-validade};
 as principais: um único conjunto de dados, criado pelo autor (mitigado por
-protocolo replicável e achados de mecanismo); o E3$'$ executado em
+protocolo replicável e achados de mecanismo); a validação com o classificador
+forte executada em
 configuração uniforme mas econômica (3 épocas, contexto de 32
 \textit{tokens}, semente única, CPU), pois a régua absoluta do BERTimbau pode
 subir com mais épocas e contexto, o que tornaria o critério \emph{mais}
 exigente, não menos, preservando o sentido do veredito; custos de API
 datados (as \emph{razões} entre modelos são mais estáveis que os valores);
-e regras de fronteira do E0-P derivadas do perfil de erro do próprio domínio,
+e regras de fronteira derivadas do perfil de erro do próprio domínio,
 que generalizam o método, não as regras.
 
 \section{Trabalhos futuros}
@@ -160,7 +164,8 @@ oráculos, comparando a progressão sequencial do FALCO com
 por confiança \citep{Rouzegar2024}, idealmente formulando a escolha de oráculo
 por fase como problema de \textit{bandit} com custo
 \citep{BlumMansour2007,Baykal2021}; \textbf{(ii)} \textit{prompt} como
-componente otimizável, para o que o E0-P abre a porta; as extensões naturais são gerar
+componente otimizável, para o que a ablação de \textit{prompt} abre a porta;
+as extensões naturais são gerar
 regras de fronteira automaticamente a partir da matriz de confusão de uma
 rodada anterior e permitir que o oráculo emita \emph{rótulos candidatos}
 quando incerto, destilados pelo classificador leve \citep{Xia2025CanDist},
@@ -172,7 +177,8 @@ contração prévia do espaço de classes por top-$K$ do classificador de domín
 \citep{Sharma2015}; \textbf{(iv)} réplica em benchmark público de produtos
 (STOPS, \citealp{Karl2023}; e \textbf{AlleNoise}, 500 mil títulos em 5.692
 categorias com ruído \emph{real} de marketplace, \citealp{Raczkowska2024AlleNoise},
-o teste externo ideal para o E4) e extensão a taxonomias hierárquicas
+o teste externo ideal para a avaliação de robustez) e extensão a taxonomias
+hierárquicas
 \citep{Sun2003,Tan2020}; e \textbf{(v)} o ciclo de vida pós-treinamento: o
 critério de parada do laço (estagnação em validação) já está implementado e
 formalizado, mas a decisão de \emph{liberação} do modelo e o monitoramento de
@@ -192,7 +198,7 @@ começar bem (DRI-SL supera até o envelope evolutivo), perguntar bem
 LLM com 78--83\% de acurácia por centavos de dólar o milhar, com erro
 majoritariamente estruturado). A hipótese quantitativa central ($\ge 95\%$
 do Macro F1 de supervisão completa com $\le 30\%$ dos rótulos via oráculo
-LLM) foi submetida ao teste pré-registrado (E3$'$): \textbf{refutada no
+LLM) foi submetida ao teste pré-registrado: \textbf{refutada no
 orçamento de $30\%$ originalmente fixado, tornando-se alcançável a partir de
 $50\%$ do \textit{pool} em varredura \textit{post hoc} com rótulos de
 gabarito}, com o diagnóstico identificando a causa — não o ruído
@@ -206,5 +212,5 @@ $[0{,}002;0{,}018]$) e a empatam em acurácia ($p=0{,}10$): para a cobertura
 de cauda, a fração final dos rótulos não compra nada. Uma tese que termina com
 um número honesto, uma causa identificada e o piso corrigido medido vale
 mais que uma que termina com uma promessa: os resultados dos experimentos
-executados (E0, E0-P, E1, E4, E5, E6, E3$'$ e os replays de P1/P2) delimitam
+executados, com os replays de P1/P2, delimitam
 com precisão as condições em que a hipótese se sustenta.
