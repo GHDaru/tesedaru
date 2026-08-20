@@ -178,7 +178,8 @@ aprendizado ativo $U_0$ ($70\%$), com orçamento de rotulagem $B = 30\%$ de
 $|U_0|$. O protocolo \emph{executado} nos experimentos em escala populacional
 (E5, E6 e E3$'$), integralmente registrado em código e artefatos, parte da
 base deduplicada (231.490 textos únicos, 714 classes presentes), embaralha-a
-com semente fixa e registrada (42) e particiona por posição: as primeiras
+com semente fixa e registrada (42) e particiona por posição
+(Figura~\ref{fig:dados-fluxo}): as primeiras
 50.000 instâncias formam o \textit{pool} de aprendizado ativo; as 4.000
 seguintes, os conjuntos de validação e teste do ciclo real (2.000 + 2.000,
 usados apenas nas decisões de parada); e as 177.490 restantes, a
@@ -203,6 +204,53 @@ orçamentos passam a ser medidos como fração do \textit{pool} de 50 mil
 ($30\% = 15$ mil rótulos), e não de $|U_0|$; essa re-baseação do denominador é
 declarada e suas consequências são discutidas nas limitações
 (Seção~\ref{sec:metodo-validade}).
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        x=1cm, y=1cm,
+        caixa/.style={draw, rounded corners=2pt, align=center, text width=26mm,
+                      minimum height=13mm, inner sep=3pt, font=\footnotesize},
+        dado/.style={caixa, fill=gray!8},
+        seta/.style={-{Stealth[length=2.4mm]}, thick},
+        rot/.style={font=\scriptsize, align=center, inner sep=2pt}
+    ]
+        \node[dado]  (bruta) at (0,0)    {Base original\\250.365 linhas};
+        \node[caixa] (aud)   at (3.6,0)  {Auditoria de rótulos};
+        \node[dado]  (corr)  at (7.2,0)  {Versão corrigida\\250.221 linhas};
+        \node[dado]  (dedup) at (10.8,0) {Visão deduplicada\\231.490 textos\\714 classes};
+
+        \draw[seta] (bruta) -- (aud);
+        \draw[seta] (aud) -- (corr);
+        \draw[seta] (corr) -- (dedup);
+
+        \node[rot, below=7mm of aud, text width=34mm] (achados)
+              {conflitos de rótulo\\rótulo operacional\\duplicatas exatas};
+        \draw[seta, dashed] (aud) -- (achados);
+
+        \node[caixa] (part) at (5.4,-3.2) {Particionamento por posição (semente 42)};
+        \draw[seta] (dedup.south) -- ++(0,-1.1) -| (part.north);
+
+        \node[dado] (hold) at (0.6,-6.1)  {Validação e teste\\do ciclo real\\2.000 + 2.000};
+        \node[dado] (pool) at (5.4,-6.1)  {\textit{Pool} de aprendizado ativo\\50.000};
+        \node[dado] (pop)  at (10.2,-6.1) {População reservada\\177.490};
+
+        \draw[seta] (part.south) -- ++(0,-0.75) -| (hold.north);
+        \draw[seta] (part.south) -- (pool.north);
+        \draw[seta] (part.south) -- ++(0,-0.75) -| (pop.north);
+
+        \node[rot, below=2mm of hold, text width=32mm] {4.000 no total; só nas decisões de parada};
+        \node[rot, below=2mm of pool, text width=32mm] {único visível ao aprendizado ativo};
+        \node[rot, below=2mm of pop,  text width=32mm] {só na avaliação final};
+    \end{tikzpicture}
+    \caption{Fluxo dos dados, da base original às três partições. A auditoria
+    identifica conflitos de rótulo, rótulos operacionais e duplicatas exatas; a
+    deduplicação por descrição normalizada produz a visão sobre a qual o
+    particionamento é feito, por posição e com semente fixa. As três partições
+    são disjuntas e têm papéis distintos, e apenas o \textit{pool} é visível ao
+    aprendizado ativo.}
+    \label{fig:dados-fluxo}
+\end{figure}
 
 \section{Classificadores da tarefa}
 \label{sec:metodo-classificadores}
@@ -439,7 +487,7 @@ que o colocam à prova (E1--E4).
 \label{sec:metodo-falco-fases}
 
 O FALCO opera em três fases, adaptando estratégia de seleção e oráculo ao
-amadurecimento do classificador:
+amadurecimento do classificador (Figura~\ref{fig:falco-arquitetura}):
 
 \begin{enumerate}
   \item \textbf{Fase 1 — \textit{cold start} informado}: o lote inicial
@@ -457,6 +505,53 @@ amadurecimento do classificador:
   capaz nas instâncias mais difíceis. A fase existe apenas se o critério da
   Seção~\ref{sec:metodo-oraculo-decisao} a justificar.
 \end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        x=1cm, y=1cm,
+        caixa/.style={draw, rounded corners=2pt, align=center, text width=25mm,
+                      minimum height=10mm, inner sep=3pt, font=\footnotesize},
+        dado/.style={caixa, fill=gray!8},
+        fase/.style={caixa, fill=gray!14, text width=34mm, minimum height=16mm},
+        seta/.style={-{Stealth[length=2.4mm]}, thick},
+        rot/.style={font=\scriptsize, align=center, inner sep=2pt}
+    ]
+        \node[dado]  (pool) at (0,0)     {Pool não rotulado $U$};
+        \node[caixa] (sel)  at (3.7,0)   {Estratégia de seleção};
+        \node[caixa] (orac) at (7.4,0)   {Oráculo LLM};
+        \node[dado]  (L)    at (11.1,0)  {Conjunto rotulado $L$};
+        \node[caixa] (clf)  at (7.4,-2.4){Classificador $\theta$ re-treinado a cada lote};
+
+        \draw[seta] (pool) -- (sel);
+        \draw[seta] (sel) -- (orac);
+        \draw[seta] (orac) -- (L);
+        \draw[seta] (L) |- node[rot, pos=0.22, right, text width=26mm]
+              {encerra ao exaurir $B$ ou $U$} (clf);
+        \draw[seta] (clf) -| node[rot, pos=0.30, below, text width=26mm]
+              {incerteza preditiva} (sel);
+
+        \node[fase] (f1) at (1.5,-5.2) {\textbf{Fase 1}\\seleção: DRI-SL\\oráculo: LLM Inicial\\lote $b_0=\lceil 0{,}01\,B\rceil$};
+        \node[fase] (f2) at (6.2,-5.2) {\textbf{Fase 2}\\seleção: entropia\\oráculo: LLM Inicial\\lote $b$};
+        \node[fase, dashed] (f3) at (10.9,-5.2) {\textbf{Fase 3}\\(condicional)\\seleção: entropia\\oráculo: LLM Avançado};
+
+        \draw[seta] (f1) -- (f2);
+        \draw[seta, dashed] (f2) -- (f3);
+        \node[rot, below=2mm of f2]
+              {transição para a Fase 3: Macro F1 em $V$ estagna\\por $p=5$ iterações ($\epsilon=10^{-3}$)};
+        \node[rot, below=9mm of f3.south, anchor=north]
+              {só existe se o critério de\\aprovação do oráculo a justificar};
+    \end{tikzpicture}
+    \caption{Arquitetura do FALCO e máquina de fases. Acima, o laço de aprendizado
+    ativo: o classificador re-treinado a cada lote informa a estratégia de seleção,
+    cujas instâncias vão ao oráculo LLM e retornam rotuladas. Abaixo, o que muda
+    entre as fases, mantido o mesmo laço: a Fase~1 resolve a partida a frio sem
+    rótulos, a Fase~2 passa a selecionar por incerteza e a Fase~3 troca apenas o
+    oráculo. A transição da Fase~2 para a Fase~3 depende da estagnação do Macro F1
+    na validação, e a Fase~3 existe somente se o critério de aprovação do oráculo
+    a justificar.}
+    \label{fig:falco-arquitetura}
+\end{figure}
 
 O processo encerra ao exaurir $B$ ou $U$. As constantes de projeto têm o
 seguinte racional, registrado como decisão de engenharia (não de otimização):
