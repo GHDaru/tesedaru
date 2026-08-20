@@ -82,6 +82,52 @@
       "cited_in": []
     },
     {
+      "id": "Ahmed2022",
+      "type": "artigo",
+      "label": "Ahmed2022",
+      "title": "Short Text Clustering Algorithms, Application and Challenges: A Survey",
+      "year": 2023,
+      "venue": "Applied Sciences 13(1):342 (MDPI), 38 pp.",
+      "paper_type": "survey",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Ahmed2022.pdf",
+      "doi": "10.3390/app13010342",
+      "url": "https://doi.org/10.3390/app13010342",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "pilar:p2-texto-curto",
+      "type": "pilar",
+      "label": "p2-texto-curto"
+    },
+    {
+      "id": "metodo:agrupamento-de-texto-curto",
+      "type": "metodo",
+      "label": "agrupamento-de-texto-curto"
+    },
+    {
+      "id": "metodo:reducao-de-dimensionalidade",
+      "type": "metodo",
+      "label": "reducao-de-dimensionalidade"
+    },
+    {
+      "id": "metodo:medida-de-similaridade",
+      "type": "metodo",
+      "label": "medida-de-similaridade"
+    },
+    {
+      "id": "metodo:expansao-de-corpus",
+      "type": "metodo",
+      "label": "expansao-de-corpus"
+    },
+    {
+      "id": "tarefa:agrupamento-de-texto",
+      "type": "tarefa",
+      "label": "agrupamento-de-texto"
+    },
+    {
       "id": "Alom2019",
       "type": "artigo",
       "label": "Alom2019",
@@ -250,6 +296,72 @@
       "id": "tarefa:aprendizado-de-conceito",
       "type": "tarefa",
       "label": "aprendizado-de-conceito"
+    },
+    {
+      "id": "Attenberg2010",
+      "type": "artigo",
+      "label": "Attenberg2010",
+      "title": "Why Label when you can Search? Alternatives to Active Learning for Applying Human Resources to Build Classification Models Under Extreme Class Imbalance",
+      "year": 2010,
+      "venue": "KDD 2010, pp. 423-432",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Attenberg2010.pdf",
+      "doi": "10.1145/1835804.1835859",
+      "url": "https://doi.org/10.1145/1835804.1835859",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "pilar:p1-selecao",
+      "type": "pilar",
+      "label": "p1-selecao"
+    },
+    {
+      "id": "conceito:aprendizado-guiado",
+      "type": "conceito",
+      "label": "aprendizado-guiado"
+    },
+    {
+      "id": "conceito:busca-por-exemplos",
+      "type": "conceito",
+      "label": "busca-por-exemplos"
+    },
+    {
+      "id": "conceito:estrategia-hibrida-busca-rotulagem",
+      "type": "conceito",
+      "label": "estrategia-hibrida-busca-rotulagem"
+    },
+    {
+      "id": "metodo:amostragem-por-incerteza",
+      "type": "metodo",
+      "label": "amostragem-por-incerteza"
+    },
+    {
+      "id": "metodo:pool-based",
+      "type": "metodo",
+      "label": "pool-based"
+    },
+    {
+      "id": "dataset:safe-adult",
+      "type": "dataset",
+      "label": "safe-adult"
+    },
+    {
+      "id": "dataset:safe-guns",
+      "type": "dataset",
+      "label": "safe-guns"
+    },
+    {
+      "id": "dataset:open-directory-project",
+      "type": "dataset",
+      "label": "open-directory-project"
+    },
+    {
+      "id": "tarefa:classificacao-binaria",
+      "type": "tarefa",
+      "label": "classificacao-binaria"
     },
     {
       "id": "Azarbonyad2021",
@@ -477,16 +589,6 @@
       "id": "conceito:aprendizado-ativo-balanceado-por-classe",
       "type": "conceito",
       "label": "aprendizado-ativo-balanceado-por-classe"
-    },
-    {
-      "id": "metodo:pool-based",
-      "type": "metodo",
-      "label": "pool-based"
-    },
-    {
-      "id": "metodo:amostragem-por-incerteza",
-      "type": "metodo",
-      "label": "amostragem-por-incerteza"
     },
     {
       "id": "metodo:entropia",
@@ -1206,11 +1308,6 @@
       "label": "uci-letter"
     },
     {
-      "id": "tarefa:classificacao-binaria",
-      "type": "tarefa",
-      "label": "classificacao-binaria"
-    },
-    {
       "id": "Donmez2009",
       "type": "artigo",
       "label": "Donmez2009",
@@ -1924,11 +2021,6 @@
       ]
     },
     {
-      "id": "pilar:p1-selecao",
-      "type": "pilar",
-      "label": "p1-selecao"
-    },
-    {
       "id": "metodo:aprendizado-baseado-em-desacordo",
       "type": "metodo",
       "label": "aprendizado-baseado-em-desacordo"
@@ -2414,11 +2506,6 @@
       "id": "metodo:extracao-de-atributos",
       "type": "metodo",
       "label": "extracao-de-atributos"
-    },
-    {
-      "id": "metodo:reducao-de-dimensionalidade",
-      "type": "metodo",
-      "label": "reducao-de-dimensionalidade"
     },
     {
       "id": "Kumbhar2016",
@@ -4868,6 +4955,16 @@
       "label": "predicao-estruturada"
     },
     {
+      "id": "texto-curto",
+      "type": "tema-falco",
+      "label": "texto-curto"
+    },
+    {
+      "id": "amostragem-por-incerteza",
+      "type": "tema-falco",
+      "label": "amostragem-por-incerteza"
+    },
+    {
       "id": "DRI-SL",
       "type": "tema-falco",
       "label": "DRI-SL"
@@ -5064,6 +5161,42 @@
       "note": "Herança da dissertação; linha de ponderação de termos."
     },
     {
+      "source": "Ahmed2022",
+      "target": "pilar:p2-texto-curto",
+      "type": "pillars"
+    },
+    {
+      "source": "Ahmed2022",
+      "target": "metodo:agrupamento-de-texto-curto",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Ahmed2022",
+      "target": "metodo:reducao-de-dimensionalidade",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Ahmed2022",
+      "target": "metodo:medida-de-similaridade",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Ahmed2022",
+      "target": "metodo:expansao-de-corpus",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Ahmed2022",
+      "target": "tarefa:agrupamento-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Ahmed2022",
+      "target": "texto-curto",
+      "type": "fundamenta",
+      "note": "Fonte de revisão para os desafios do regime de texto curto que o Cap. 2 enumera: escassez de informação/contexto, esparsidade de representação e alta dimensionalidade, ruído e informalidade. O survey trata o problema do lado do AGRUPAMENTO, mas os desafios que enumera são da natureza do texto curto, não da tarefa — ver a ressalva abaixo."
+    },
+    {
       "source": "Alom2019",
       "target": "pilar:geral",
       "type": "pillars"
@@ -5247,6 +5380,78 @@
       "target": "FALCO",
       "type": "fundamenta",
       "note": "Origem formal da noção de ORÁCULO em aprendizado: o aprendiz tem acesso a oráculos que respondem tipos específicos de consulta. O FALCO instancia a membership query com um LLM como oráculo falível."
+    },
+    {
+      "source": "Attenberg2010",
+      "target": "pilar:p1-selecao",
+      "type": "pillars"
+    },
+    {
+      "source": "Attenberg2010",
+      "target": "conceito:aprendizado-guiado",
+      "type": "proposes"
+    },
+    {
+      "source": "Attenberg2010",
+      "target": "conceito:busca-por-exemplos",
+      "type": "proposes"
+    },
+    {
+      "source": "Attenberg2010",
+      "target": "conceito:estrategia-hibrida-busca-rotulagem",
+      "type": "proposes"
+    },
+    {
+      "source": "Attenberg2010",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Attenberg2010",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Attenberg2010",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Attenberg2010",
+      "target": "dataset:safe-adult",
+      "type": "datasets"
+    },
+    {
+      "source": "Attenberg2010",
+      "target": "dataset:safe-guns",
+      "type": "datasets"
+    },
+    {
+      "source": "Attenberg2010",
+      "target": "dataset:open-directory-project",
+      "type": "datasets"
+    },
+    {
+      "source": "Attenberg2010",
+      "target": "tarefa:classificacao-binaria",
+      "type": "tasks"
+    },
+    {
+      "source": "Attenberg2010",
+      "target": "tarefa:classificacao-de-texto",
+      "type": "tasks"
+    },
+    {
+      "source": "Attenberg2010",
+      "target": "amostragem-por-incerteza",
+      "type": "ameaca",
+      "note": "Mostra empiricamente o limite da família por incerteza sob desbalanceamento extremo: quando a classe rara é rara o bastante, o problema dominante deixa de ser achar a instância informativa e passa a ser ACHAR a instância da classe minoritária. Sustenta as duas passagens do Cap. 2 sobre a seleção por incerteza se concentrar na fronteira das majoritárias."
+    },
+    {
+      "source": "Attenberg2010",
+      "target": "FALCO",
+      "type": "complementa",
+      "note": "A saída deles é humana (buscar em vez de rotular). A do FALCO é outra — oráculo LLM barato o bastante para cobrir mais do pool —, mas o diagnóstico é o mesmo: sob cauda longa, cobertura vale mais que refinamento de fronteira."
     },
     {
       "source": "Azarbonyad2021",

@@ -196,3 +196,20 @@ iethresh, estimacao-de-acuracia-de-anotadores, selecao-de-anotador  <!-- Donmez2
 ### Métodos e métricas (teoria do AA baseado em desacordo)
 aprendizado-baseado-em-desacordo, espaco-de-versao, cal, coeficiente-de-desacordo  <!-- Hanneke2015: DBAL = consultar apenas na região onde as hipóteses plausíveis discordam; CAL = o algoritmo de Cohn, Atlas & Ladner (1994) que a monografia analisa; o coeficiente de desacordo é a grandeza que governa o ganho (introduzido por Hanneke em 2007, revisado aqui) -->
 complexidade-de-rotulos  <!-- Hanneke2015: número de rótulos necessários para atingir erro ε; é a métrica em que a "melhoria exponencial" do AA é enunciada -->
+
+## Adições da rodada que fecha as 24 pendências do Cap. 2 (2026-08-18)
+
+Termos entrados pelos fichamentos de `Attenberg2010` e `Ahmed2022`; mesmo commit das fichas.
+
+### Métodos (desbalanceamento extremo — Attenberg2010)
+aprendizado-guiado  <!-- Attenberg2010: em vez de rotular o que o modelo pede, a pessoa BUSCA exemplos de cada classe; sob assimetria severa domina a seleção ativa -->
+busca-por-exemplos  <!-- Attenberg2010: o ato de procurar a instância da classe rara (com buscador), medido como alternativa de custo à rotulagem -->
+estrategia-hibrida-busca-rotulagem  <!-- Attenberg2010, §5: combina busca e rotulagem ativa; supera as duas puras quando o custo relativo torna a escolha ambígua -->
+
+### Datasets (Attenberg2010)
+safe-adult, safe-guns, open-directory-project  <!-- Attenberg2010, §4: publicidade segura; assimetrias de ~20:1 e ~150:1, mais três conjuntos de um rastreamento de ~4 milhões de URLs. TODOS binários — registro aqui porque é o limite de escopo que impede transportar a obra para as 714 classes da tese -->
+
+### Métodos e tarefas (texto curto — Ahmed2022)
+agrupamento-de-texto-curto  <!-- Ahmed2022: short text clustering (STC), tarefa NÃO supervisionada; distinta de classificacao-de-texto, e é a distinção que a ressalva da ficha registra -->
+reducao-de-dimensionalidade, medida-de-similaridade, expansao-de-corpus  <!-- Ahmed2022: os três eixos técnicos do survey; a expansão de corpus é a resposta clássica à esparsidade (aumentar o documento curto com dados externos) -->
+agrupamento-de-texto  <!-- Ahmed2022: tarefa de agrupar documentos sem rótulo -->
