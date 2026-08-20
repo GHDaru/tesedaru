@@ -24,3 +24,11 @@ Regras:
    a PROSA do Cap. 5 muda (números citados inline no veredito).
 3. A pendência do cache do oráculo (A/B/C × 3 sementes) segue viva no plano;
    não é desta tarefa.
+
+## Resultado (executor02, 2026-08-17)
+
+Feito — activelearning@3d3bca3 (branch designada). Estendido de s42 para as
+3 sementes (predições já completas). Achado principal: **E35 não supera D em
+nenhuma métrica, em nenhuma semente, p<1e-14 nas 3** — contradiz a alegação
+(iii) do Cap. 5 §res-e3p-varredura. Detalhe completo na mensagem de
+conclusão desta rodada (caixa, mesma data).

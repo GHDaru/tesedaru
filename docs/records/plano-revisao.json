@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 39,
+  "versao": 40,
   "atualizado_em": "2026-08-17",
-  "atualizado_por": "executor02: E3′ multi-semente FECHADO — hipótese central testada nas 3 sementes canônicas, NÃO sustentada em nenhuma; robustez confirmada (mesmo padrão nas 3), não é ruído de execução",
+  "atualizado_por": "executor02: McNemar/bootstrap canônicos (3 sementes) — achado crítico: E35 não supera D, contradiz alegação do Cap.5 sobre a varredura de orçamento; requer decisão do autor",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -1133,6 +1133,16 @@
         "duracao": "—",
         "resultado_esperado": "—",
         "resultado": "https://github.com/GHDaru/activelearning/commit/a8dfeb7 . NENHUMA das 3 sementes sustenta a hipótese (s42: F1(A)=0,1496 vs 0,3506; s7: 0,1421 vs 0,3582; s123: 0,1739 vs 0,3410). Média±desvio (k=3): A F1=0,1552±0,0166/acc=0,5566±0,0116 · B F1=0,1598±0,0328/acc=0,6136±0,0410 · C F1=0,1297±0,0068/acc=0,6667±0,0115 · D F1=0,3684±0,0091/acc=0,8675±0,0021. VEREDITO: F1(A)=0,1552 vs 0,95×F1(D)=0,3500 -> NÃO SUSTENTADA, com 23,9% dos rótulos; déficit de 0,195 pontos de F1 (A fica a 52,9% do teto D, não a 95%). A-B=-0,0046 (o oráculo não é o problema — rótulos gold no mesmo conjunto quase empatam); B-C=+0,0301 (a seleção do laço AINDA bate o aleatório — o mecanismo do FALCO funciona; o que falha é o patamar absoluto perto do teto). Cobertura de classes quase igual entre A e D (643 vs 649 de 715) — a lacuna é profundidade por classe (~18 exemplos/classe em A vs ~77 em D), não classe ausente. RESSALVA: cache é re-coleta de 2026-08-17, não os dados originais de julho (perdidos) — ver experiments/e5cycle/results/recoleta-20260817/."
+      },
+      {
+        "id": "e3p-estatisticas-canonicas",
+        "o_que": "McNemar + bootstrap pareado recomputados sobre predições canônicas (3 sementes) — tarefa 20260816-2152, estendida de s42 para as 3",
+        "onde": "CPU local · experiments/e2e3/stats_e3prime.py",
+        "estado": "concluido",
+        "dono": "executor02",
+        "duracao": "~4 min por semente",
+        "resultado_esperado": "experiments/e2e3/results/{mcnemar,bootstrap_f1}_s{42,7,123}.json",
+        "resultado": "https://github.com/GHDaru/activelearning/commit/3d3bca3 . ACHADO ROBUSTO (3/3 sementes, todas p<1e-14): E35 NÃO supera D em nenhuma métrica, em nenhuma semente — contradiz Cap.5 §res-e3p-varredura, alegação (iii) \"menos é mais, também no transformer\" (E35 supera a régua). ACHADO SENSÍVEL A SEMENTE: A-B e B-C trocam de sinal em F1 entre sementes (acurácia é consistente). Anomalia do revisor2 (IC bootstrap, 20260817-0545) NÃO se reproduz no canônico. REQUER decisão do autor sobre revisão do Cap.5 — mensagem completa em coordenacao/caixa."
       },
       {
         "id": "mcnemar-pares",
