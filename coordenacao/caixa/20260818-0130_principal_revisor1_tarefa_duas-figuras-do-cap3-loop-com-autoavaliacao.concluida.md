@@ -94,3 +94,19 @@ mudança dele como restrição nova.
 
 Depois do aceite dele, me avise com o hash para eu consolidar o gate.
 ======================== COPIE ATÉ AQUI ========================
+---
+
+## Resultado
+
+**ACEITA PELO AUTOR** em 2026-08-20. Branch `figuras/cap3-arquitetura-e-dados`
+@`d00a847`, aguardando consolidação do gate pelo principal.
+
+- 8 iterações de loop com autoavaliação; parada por convergência (duas
+  iterações sem subir a nota). Final: fidelidade 10, legibilidade 9,5,
+  legenda 9, economia 9, build 10.
+- Achado: a palavra "holdout", que o enunciado usava, **não existe na tese** —
+  trocada pelo termo do próprio Cap. 3 ("validação e teste do ciclo real").
+- A divergência aberta da população (177.490 no texto × 181.490 no código do
+  E6) **não** foi resolvida por desenho: a figura desenha o texto, e precisa
+  de ajuste de um número se o autor decidir reexecutar.
+- Nenhuma biblioteca TikZ nova; zero `Overfull` na geometria real da tese.
