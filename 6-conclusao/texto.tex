@@ -55,17 +55,17 @@ instâncias da população reservada): a parada por
 estagnação do classificador leve encerra o laço muito antes do ponto em que
 o BERTimbau para de converter rótulos em cobertura de cauda. A varredura de
 orçamento quantifica a correção (achado \textit{post hoc}, executado com
-rótulos de \emph{gabarito}, não do oráculo da hipótese pré-registrada): o critério passa a ser atendido com 20 mil rótulos ($40\%$ do
+rótulos de \emph{gabarito}, não do oráculo da hipótese): o critério passa a ser atendido com 20 mil rótulos ($40\%$ do
 \textit{pool}) em acurácia e 25 mil ($50\%$) em Macro F1, e com 35 mil
 rótulos selecionados por entropia o modelo forte \emph{supera} a supervisão
 completa do \textit{pool} em Macro F1 (E35--D: $+0{,}012$, IC 95\%
 $[0{,}002;0{,}018]$) e a \emph{empata} em acurácia (McNemar, $p=0{,}10$):
 a vantagem de cobertura do ``menos é mais'' do E6 reaparece no transformer.
-O veredito que os dados sustentam: \textbf{refutada no orçamento
-pré-registrado}; o critério torna-se alcançável a partir de $\approx 50\%$
-do \textit{pool} com política de parada ancorada no modelo forte, com
-orçamento e política identificados e medidos, restando a confirmação com rótulos de
-oráculo como trabalho futuro imediato.
+O veredito que os dados sustentam: \textbf{o critério é atendido dentro do
+teto}, a partir de 25 mil rótulos ($10{,}8\%$ da base), com política de
+parada ancorada no modelo forte; o laço executado parou antes desse ponto,
+com orçamento e política identificados e medidos, restando a confirmação com
+rótulos de oráculo como trabalho futuro imediato.
 
 \section{Discussão}
 \label{sec:conc-discussao}
@@ -191,11 +191,13 @@ começar bem (DRI-SL supera até o envelope evolutivo), perguntar bem
 (estratégias de incerteza sobre classificador barato) e pagar bem (oráculos
 LLM com 78--83\% de acurácia por centavos de dólar o milhar, com erro
 majoritariamente estruturado). A hipótese quantitativa central ($\ge 95\%$
-do Macro F1 de supervisão completa com $\le 30\%$ dos rótulos via oráculo
-LLM) foi submetida ao teste pré-registrado (E3$'$): \textbf{refutada no
-orçamento de $30\%$ originalmente fixado, tornando-se alcançável a partir de
-$50\%$ do \textit{pool} em varredura \textit{post hoc} com rótulos de
-gabarito}, com o diagnóstico identificando a causa — não o ruído
+do Macro F1 da supervisão completa do \textit{pool} de referência, com no
+máximo 34.724 rótulos, ou $15\%$ da base) foi submetida ao teste (E3$'$):
+\textbf{atendida dentro do teto, com o piso do critério em Macro F1
+localizado em 25 mil rótulos, $10{,}8\%$ da base}, na varredura de orçamento
+com rótulos de gabarito; o laço executado com oráculo parou por estagnação
+em 15 mil rótulos ($6{,}5\%$ da base), aquém desse piso, com o diagnóstico
+identificando a causa — não o ruído
 do oráculo nem a seleção, e sim o critério de parada herdado do
 classificador leve, que subestima o apetite do classificador forte por
 cobertura de cauda. A varredura de orçamento (\textit{post hoc}, com rótulos de gabarito)

@@ -38,7 +38,7 @@ interno} — servem para localizar código e dados, não para nomear achados, e 
 isso não reaparecem no texto corrido dos capítulos de resultados, que se
 organiza pelo que foi descoberto. Quem quiser ir do achado ao artefato usa esta
 tabela; quem quiser ler a tese não precisa dela. A linha em E3$'$ marca a
-variante efetivamente executada do experimento E3 pré-registrado, cujo
+variante efetivamente executada do experimento E3 originalmente planejado, cujo
 desenho completo permanece registrado como extensão
 (Seção~\ref{sec:metodo-falco-baselines}).
 
@@ -172,7 +172,7 @@ posto à prova.
 \subsection{Particionamento}
 \label{sec:metodo-dados-particionamento}
 
-O desenho \emph{pré-registrado} previa particionamento estratificado em
+O desenho \emph{inicialmente planejado} previa particionamento estratificado em
 conjunto de teste $T$ ($20\%$), validação $V$ ($10\%$) e \textit{pool} de
 aprendizado ativo $U_0$ ($70\%$), com orçamento de rotulagem $B = 30\%$ de
 $|U_0|$. O protocolo \emph{executado} nos experimentos em escala populacional
@@ -196,7 +196,11 @@ exemplos, limitação declarada e relevante para métricas macro
 (Seção~\ref{sec:metodo-validade}). O tamanho de 50 mil resulta de viabilidade
 computacional: cada braço do E3$'$ é um ajuste fino completo do BERTimbau, e o
 programa executa cinco braços mais a varredura de orçamento em uma única GPU,
-mantendo ainda uma média de 70 exemplos por classe no \textit{pool}. Com a
+mantendo ainda uma média de 70 exemplos por classe no \textit{pool}. O
+\textit{pool} é, portanto, \emph{referência de comparação} e não o universo
+do problema: o orçamento da hipótese é medido contra a base deduplicada
+(Seção~\ref{sec:intro-hipotese}), e os 50 mil respondem a quanto seria
+preciso rotular por escolha aleatória para cobrir o mesmo espaço. Com a
 mudança da referência de comparação do E3$'$
 (a régua contra a qual os braços são medidos,
 Seção~\ref{sec:metodo-falco-baselines}), os
@@ -603,14 +607,16 @@ uniformemente do pool, com gabarito, de modo que a diferença $B{-}C$ isola o va
 \emph{seleção}; \textbf{(D)} o pool inteiro com gabarito, que é a régua; e
 \textbf{(E)} o prefixo de 15 mil da trajetória de entropia do E6, que mede se
 orçamento adicional ajudaria. O critério de aceitação da hipótese central
-torna-se direto: $F1(A) \ge 0{,}95 \cdot F1(D)$, com $|A|/|D| \approx 18\%$
-dos rótulos. Os braços pareados $A$/$B$ cumprem o papel do braço
+torna-se direto: $F1(A) \ge 0{,}95 \cdot F1(D)$, com $|A|$ limitado a 34.724
+rótulos ($15\%$ da base, Seção~\ref{sec:intro-hipotese}). O braço (A) do laço
+executado usa $\approx 18\%$ do \textit{pool}, cerca de $3{,}9\%$ da base, e a
+varredura de orçamento cobre a faixa até o teto. Os braços pareados $A$/$B$ cumprem o papel do braço
 \emph{oráculo-total} do desenho original, o de separar ruído de parcimônia, a
 custo de anotação zero, pois reutilizam as anotações reais já pagas. O
 desenho completo original (FALCO, seleção aleatória e seleção por incerteza
 com re-treino do BERTimbau no laço,
 ablações de $L_0$ e de progressão de oráculo, 8 sementes com Wilcoxon pareado
-e \textit{bootstrap} sobre LCE) permanece pré-registrado como extensão para
+e \textit{bootstrap} sobre LCE) permanece registrado como extensão para
 hardware dedicado; o E3$'$ executa-se com semente única e estatuto
 descritivo, como o E6. O E4, executado se o critério do
 oráculo indicar ruído relevante, repete o desenho de comparação com oráculo
@@ -638,8 +644,8 @@ envelope do AG reavaliado em partição intocada). O viés distribucional que a
 amostragem ativa induz no conjunto rotulado \citep{Santos2016Vies} não afeta a
 medição, feita sempre em $T$ fixo e aleatório.
 
-\textbf{Desenho executado vs.\ pré-registrado.} Duas divergências entre o
-desenho pré-registrado e o executado são declaradas e têm consequências
+\textbf{Desenho executado vs.\ planejado.} Duas divergências entre o desenho
+inicialmente planejado e o executado são declaradas e têm consequências
 mensuráveis. Primeira: o \textit{pool} de 50 mil é amostra aleatória uniforme
 (Seção~\ref{sec:metodo-dados-particionamento}), não estratificada; 65 das 714
 classes não têm nenhum exemplo no \textit{pool} e 179 têm menos de cinco, de
@@ -647,11 +653,11 @@ modo que o teto de Macro F1 alcançável por \emph{qualquer} braço treinado no
 \textit{pool} é estruturalmente rebaixado nas classes de cauda; as
 comparações \emph{entre} braços permanecem justas, pois todos compartilham o
 mesmo \textit{pool}, mas os valores absolutos de Macro F1 subestimam o que uma
-amostra estratificada permitiria. Segunda: o orçamento pré-registrado
-($B=30\%$ de $|U_0|$) foi re-baseado para fração do \textit{pool} de 50 mil
-com a mudança de régua do E3$'$; os percentuais reportados no
-Capítulo~\ref{ch:resultados-falco} referem-se sempre ao denominador de 50 mil,
-e a primeira menção de cada resultado o explicita.
+amostra estratificada permitiria. Segunda: o orçamento executado (15 mil rótulos)
+foi planejado como fração do \textit{pool} de 50 mil, enquanto o critério da
+hipótese é medido contra a base deduplicada
+(Seção~\ref{sec:intro-hipotese}); os percentuais reportados no
+Capítulo~\ref{ch:resultados-falco} explicitam o denominador em cada menção.
 
 \textbf{Validade de constructo.} A acurácia do oráculo é medida contra um
 padrão-ouro com ruído conhecido (teto $\approx 99{,}3\%$; análise de

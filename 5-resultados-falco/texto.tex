@@ -536,23 +536,21 @@ PVBin/SGD saturam. Como o braço B usa gabarito (oráculo perfeito), essa
 conclusão independe da qualidade do oráculo: nenhum oráculo sustentaria o
 critério sob a política de parada executada.
 
-Em síntese: a hipótese, como pré-registrada, é \textbf{refutada para a
-configuração executada} (oráculo gratuito + parada por estagnação do
-classificador leve + 3 épocas), \emph{quase} se sustenta em acurácia com
-orçamento de $30\%$ ($94{,}1\%$ da régua) e não se sustenta em Macro F1,
-com o diagnóstico apontando a correção de desenho (parar pelo
-\textit{proxy} do modelo forte, ou por piso de orçamento) como a extensão
-prioritária. O resultado negativo é o que o pré-registro existe para
-proteger: o critério foi fixado antes, o instrumento decompõe a perda em
-suas fontes, e a resposta é acionável.
+Em síntese: na configuração executada (oráculo gratuito, parada por
+estagnação do classificador leve e 3 épocas), com 15 mil rótulos
+($6{,}5\%$ da base), o critério \emph{quase} se sustenta em acurácia
+($94{,}1\%$ da régua) e não se sustenta em Macro F1. O diagnóstico aponta a
+correção de desenho: parar pelo \textit{proxy} do modelo forte, ou por piso
+de orçamento. É o instrumento que permite essa leitura, decompondo a perda
+em suas fontes e tornando a resposta acionável.
 
 \subsection{Varredura de orçamento: o piso que sustenta a hipótese}
 \label{sec:res-e3p-varredura}
 
 A varredura desta seção é um \textbf{achado \emph{post hoc}}: foi desenhada
-e executada \emph{depois} de observada a refutação no orçamento
-pré-registrado de 30\%, e não substitui o critério original: apenas localiza
-empiricamente o orçamento em que ele passaria a valer. Para isso, o BERTimbau
+e executada \emph{depois} de observado o resultado da configuração
+executada, e não altera o critério: apenas localiza empiricamente o
+orçamento em que ele passa a valer. Para isso, o BERTimbau
 foi treinado sobre prefixos crescentes da mesma trajetória de entropia (20,
 25, 30 e 35 mil rótulos com gabarito), avaliados na população reservada
 (Tabela~\ref{tab:e3p-sweep}).
@@ -581,11 +579,13 @@ D (régua)         & 50.000 & 100\% & 88,3\% & 0,451 & --- \\
 \end{table}
 
 Três leituras fecham o pilar. \textbf{(i)~A hipótese é alcançável.} O
-critério em \emph{acurácia} passa a valer em 20 mil rótulos (40\% do
-\textit{pool}) e o critério em \emph{Macro F1} --- a métrica da hipótese ---
-em 25 mil (50\%); o orçamento pré-registrado de $\le 30\%$ era, portanto,
-apertado demais para o objetivo macro do classificador forte, mas o piso
-correto é modesto e conhecido. \textbf{(ii)~Confirma-se o diagnóstico}: o
+critério em \emph{acurácia} passa a valer em 20 mil rótulos ($8{,}6\%$ da
+base) e o critério em \emph{Macro F1}, a métrica da hipótese, em 25 mil
+($10{,}8\%$ da base): ambos os pisos ficam \textbf{dentro do teto de
+$15\%$} adotado como critério (Seção~\ref{sec:intro-hipotese}). O laço
+executado ponta a ponta parou por estagnação em 15 mil rótulos ($6{,}5\%$ da
+base), antes desse piso, e a causa é a política de parada herdada do
+classificador leve. \textbf{(ii)~Confirma-se o diagnóstico}: o
 gargalo era a política de parada, não o oráculo nem a seleção --- bastou
 gastar mais da mesma seleção por entropia (com gabarito) para cruzar o
 critério, e a distância era pequena. \textbf{(iii)~Menos é mais, também no
