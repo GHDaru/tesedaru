@@ -333,7 +333,7 @@ estratégia da Fase~1 do FALCO e é avaliado (P2) contra a amostragem aleatória
 contra o envelope de desempenho estimado pelo algoritmo genético (P1), que atua
 como limite empírico de referência.
 
-\section{Pilar P3: LLMs como oráculo de rotulagem (experimento E0)}
+\section{Pilar P3: LLMs como oráculo de rotulagem}
 \label{sec:metodo-oraculo}
 
 A avaliação de oráculos exige, antes de qualquer comparação, um instrumento
@@ -375,7 +375,7 @@ lote calibrado em etapa prévia (lotes de 1, 10 e 25 itens, pareados nas mesmas
 instâncias) e adotando-se o maior lote que não degrade a acurácia (teste de
 McNemar), decisão registrada junto aos resultados.
 
-\subsection{Desenho fatorial do E0}
+\subsection{Desenho fatorial da avaliação de oráculos}
 \label{sec:metodo-oraculo-desenho}
 
 O E0 responde a quatro perguntas: (RQ1) a acurácia e o Macro F1 de cada LLM
@@ -416,7 +416,7 @@ framework é eliminada e o FALCO opera com oráculo único. Se nenhum modelo ati
 limiar, o E4 (robustez a ruído) torna-se obrigatório e a discussão da tese passa a
 tratar o aprendizado com oráculo ruidoso como cenário central.
 
-\section{Pilar P4: o framework FALCO e sua avaliação (experimentos E1--E4)}
+\section{Pilar P4: o framework FALCO e sua avaliação}
 \label{sec:metodo-falco}
 
 O quarto pilar integra os anteriores no framework proposto. A seção descreve
@@ -465,7 +465,7 @@ entropia, menor confiança, menor margem, híbrida e aleatória sob oráculo sim
 perfeito com o classificador PVBin (barato o suficiente para varredura ampla) e
 justifica a escolha por LCE.
 
-\subsection{Métodos de referência e desenho do E3}
+\subsection{Métodos de referência e desenho da comparação}
 \label{sec:metodo-falco-baselines}
 
 A validação com o classificador forte segue o próprio desenho do FALCO: quem
