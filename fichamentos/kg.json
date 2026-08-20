@@ -1127,6 +1127,90 @@
       "cited_in": []
     },
     {
+      "id": "Donmez2008",
+      "type": "artigo",
+      "label": "Donmez2008",
+      "title": "Proactive Learning: Cost-Sensitive Active Learning with Multiple Imperfect Oracles",
+      "year": 2008,
+      "venue": "CIKM 2008, pp. 619-628",
+      "paper_type": "metodo",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Donmez2008.pdf",
+      "doi": "10.1145/1458082.1458165",
+      "url": "https://doi.org/10.1145/1458082.1458165",
+      "cited_in": []
+    },
+    {
+      "id": "pilar:p3-oraculo",
+      "type": "pilar",
+      "label": "p3-oraculo"
+    },
+    {
+      "id": "conceito:aprendizado-proativo",
+      "type": "conceito",
+      "label": "aprendizado-proativo"
+    },
+    {
+      "id": "conceito:selecao-conjunta-instancia-oraculo",
+      "type": "conceito",
+      "label": "selecao-conjunta-instancia-oraculo"
+    },
+    {
+      "id": "conceito:restricao-de-orcamento",
+      "type": "conceito",
+      "label": "restricao-de-orcamento"
+    },
+    {
+      "id": "conceito:oraculo-relutante",
+      "type": "conceito",
+      "label": "oraculo-relutante"
+    },
+    {
+      "id": "conceito:oraculo-falivel",
+      "type": "conceito",
+      "label": "oraculo-falivel"
+    },
+    {
+      "id": "conceito:custo-nao-uniforme",
+      "type": "conceito",
+      "label": "custo-nao-uniforme"
+    },
+    {
+      "id": "metodo:agrupamento-por-k-medias",
+      "type": "metodo",
+      "label": "agrupamento-por-k-medias"
+    },
+    {
+      "id": "modelo:regressao-logistica",
+      "type": "modelo",
+      "label": "regressao-logistica"
+    },
+    {
+      "id": "dataset:face",
+      "type": "dataset",
+      "label": "face"
+    },
+    {
+      "id": "dataset:spambase",
+      "type": "dataset",
+      "label": "spambase"
+    },
+    {
+      "id": "dataset:adult",
+      "type": "dataset",
+      "label": "adult"
+    },
+    {
+      "id": "dataset:uci-letter",
+      "type": "dataset",
+      "label": "uci-letter"
+    },
+    {
+      "id": "tarefa:classificacao-binaria",
+      "type": "tarefa",
+      "label": "classificacao-binaria"
+    },
+    {
       "id": "Donmez2009",
       "type": "artigo",
       "label": "Donmez2009",
@@ -1141,11 +1225,6 @@
       "cited_in": [
         "Cap. 2 — Fundamentação"
       ]
-    },
-    {
-      "id": "pilar:p3-oraculo",
-      "type": "pilar",
-      "label": "p3-oraculo"
     },
     {
       "id": "conceito:iethresh",
@@ -1715,11 +1794,6 @@
       "label": "seis-bases-do-desafio-A-F"
     },
     {
-      "id": "tarefa:classificacao-binaria",
-      "type": "tarefa",
-      "label": "classificacao-binaria"
-    },
-    {
       "id": "Guzella2009",
       "type": "artigo",
       "label": "Guzella2009",
@@ -1832,6 +1906,47 @@
       "id": "dataset:catalogo-varejo",
       "type": "dataset",
       "label": "catalogo-varejo"
+    },
+    {
+      "id": "Hanneke2015",
+      "type": "artigo",
+      "label": "Hanneke2015",
+      "title": "Theory of Disagreement-Based Active Learning",
+      "year": 2014,
+      "venue": "Foundations and Trends in Machine Learning 7(2-3), pp. 131-309",
+      "paper_type": "survey",
+      "status": "fichado",
+      "pdf": "referencias-pdf/Hanneke2015.pdf",
+      "doi": "10.1561/2200000037",
+      "url": "https://doi.org/10.1561/2200000037",
+      "cited_in": [
+        "Cap. 2 — Fundamentação"
+      ]
+    },
+    {
+      "id": "pilar:p1-selecao",
+      "type": "pilar",
+      "label": "p1-selecao"
+    },
+    {
+      "id": "metodo:aprendizado-baseado-em-desacordo",
+      "type": "metodo",
+      "label": "aprendizado-baseado-em-desacordo"
+    },
+    {
+      "id": "metodo:espaco-de-versao",
+      "type": "metodo",
+      "label": "espaco-de-versao"
+    },
+    {
+      "id": "metodo:cal",
+      "type": "metodo",
+      "label": "cal"
+    },
+    {
+      "id": "metodo:coeficiente-de-desacordo",
+      "type": "metodo",
+      "label": "coeficiente-de-desacordo"
     },
     {
       "id": "He2021",
@@ -3295,11 +3410,6 @@
       "id": "modelo:gpt-3.5",
       "type": "modelo",
       "label": "gpt-3.5"
-    },
-    {
-      "id": "modelo:regressao-logistica",
-      "type": "modelo",
-      "label": "regressao-logistica"
     },
     {
       "id": "dataset:imdb",
@@ -4773,6 +4883,11 @@
       "label": "FALCO-futuros"
     },
     {
+      "id": "oraculo-progressivo",
+      "type": "tema-falco",
+      "label": "oraculo-progressivo"
+    },
+    {
       "id": "multiplos-oraculos",
       "type": "tema-falco",
       "label": "multiplos-oraculos"
@@ -4803,6 +4918,11 @@
       "label": "Hacohen2019"
     },
     {
+      "id": "aprendizado-ativo",
+      "type": "tema-falco",
+      "label": "aprendizado-ativo"
+    },
+    {
       "id": "RQ2-lote",
       "type": "tema-falco",
       "label": "RQ2-lote"
@@ -4811,11 +4931,6 @@
       "id": "E4-leitura",
       "type": "tema-falco",
       "label": "E4-leitura"
-    },
-    {
-      "id": "oraculo-progressivo",
-      "type": "tema-falco",
-      "label": "oraculo-progressivo"
     },
     {
       "id": "FALCO-fases",
@@ -6119,6 +6234,108 @@
       "note": "Review de processo; sobreposto a Minaee2022/Gasparetto2022."
     },
     {
+      "source": "Donmez2008",
+      "target": "pilar:p3-oraculo",
+      "type": "pillars"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "conceito:aprendizado-proativo",
+      "type": "proposes"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "conceito:selecao-conjunta-instancia-oraculo",
+      "type": "proposes"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "conceito:restricao-de-orcamento",
+      "type": "proposes"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "conceito:oraculo-relutante",
+      "type": "proposes"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "conceito:oraculo-falivel",
+      "type": "proposes"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "conceito:custo-nao-uniforme",
+      "type": "proposes"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "metodo:amostragem-por-incerteza",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "metodo:agrupamento-por-k-medias",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "modelo:regressao-logistica",
+      "type": "models"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "dataset:face",
+      "type": "datasets"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "dataset:spambase",
+      "type": "datasets"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "dataset:adult",
+      "type": "datasets"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "dataset:uci-letter",
+      "type": "datasets"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "tarefa:classificacao-binaria",
+      "type": "tasks"
+    },
+    {
+      "source": "Donmez2008",
+      "target": "oraculo-progressivo",
+      "type": "fundamenta",
+      "note": "É a formulação de origem do problema que o FALCO instancia: quando existem VÁRIOS oráculos com custos e confiabilidades diferentes, a decisão do laço deixa de ser 'qual instância rotular' e passa a ser o PAR 'qual instância, com qual oráculo', sob restrição de orçamento e não de número de rótulos. É o antecedente formal da progressão de fases (LLM barata → LLM cara → humano) e do orçamento como unidade de comparação no lugar da contagem de rótulos."
+    },
+    {
+      "source": "Donmez2008",
+      "target": "multiplos-oraculos",
+      "type": "fundamenta",
+      "note": "Nomeia as quatro suposições que o oráculo clássico carrega — infalível, incansável, individual e insensível a custo — e relaxa as quatro. A Seção 2.2.3 da tese trata as três primeiras com Sheng2008/Snow2008/Donmez2009/Yan2011; ESTA é a que sustenta a quarta (custo distinto por oráculo), hoje sem lastro no texto."
+    },
+    {
+      "source": "Donmez2009",
+      "target": "Donmez2008",
+      "type": "builds_on"
+    },
+    {
       "source": "Donmez2009",
       "target": "pilar:p3-oraculo",
       "type": "pillars"
@@ -7046,6 +7263,63 @@
       "target": "FALCO",
       "type": "contextualiza",
       "note": "Espectro probabilístico→neural no MESMO problema de varejo: espelha a progressão de classificadores da tese (PVBin probabilístico → BERTimbau neural) em literatura independente."
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "Cohn1994Improving",
+      "type": "builds_on"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "pilar:p1-selecao",
+      "type": "pillars"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "metodo:aprendizado-ativo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "metodo:pool-based",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "metodo:aprendizado-baseado-em-desacordo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "metodo:espaco-de-versao",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "metodo:cal",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "metodo:coeficiente-de-desacordo",
+      "type": "uses_methods"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "tarefa:classificacao-binaria",
+      "type": "tasks"
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "aprendizado-ativo",
+      "type": "fundamenta",
+      "note": "É a fonte teórica da promessa do AA: sob condições explícitas, a complexidade de rótulos cai de O(1/ε) para O(log(1/ε)) — a 'melhoria exponencial' que a Seção 2.1 da tese invoca. Vale como fundamento do que se ESPERA do laço, e como delimitação honesta de quando isso NÃO vale (ver 'o que não sustenta')."
+    },
+    {
+      "source": "Hanneke2015",
+      "target": "FALCO",
+      "type": "ameaca",
+      "note": "A própria obra registra que a estratégia por desacordo 'às vezes não é ótima' (Cap. 1) e que a dependência logarítmica em 1/ε some sob ruído com α<1 (Cap. 2). Isto é: a promessa teórica do AA é condicional, e as condições não são verificáveis no cenário da tese (714 classes, ruído assimétrico de LLM). É argumento a favor de medir empiricamente, como a tese faz — e contra prometer ganho por autoridade teórica."
     },
     {
       "source": "He2021",

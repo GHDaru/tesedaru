@@ -10,6 +10,7 @@ paper_type: conferencia
 pillars: [p3-oraculo]
 status: fichado
 proposes: [iethresh, estimacao-de-acuracia-de-anotadores, selecao-de-anotador]
+builds_on: [Donmez2008]
 falco_relation:
   - type: fundamenta
     target: multiplos-oraculos
