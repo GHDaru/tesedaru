@@ -93,12 +93,16 @@ perda relevante de desempenho final}. Para torná-la falseável, adota-se um cri
 quantitativo de aceitação, enunciado com dois termos do aprendizado ativo: o conjunto
 de exemplos ainda não rotulados de onde se escolhe o que anotar é o \textit{pool},
 e quem fornece o rótulo de cada exemplo escolhido é o \emph{oráculo}; nesta tese,
-esse papel é exercido por um modelo de linguagem, não por um anotador humano. O
-critério: treinado com no máximo $30\%$ dos exemplos do \textit{pool}, rotulados
-pelo oráculo, o framework deve alcançar pelo menos $95\%$ do Macro F1-Score que o
-mesmo classificador obtém com o \textit{pool} inteiro rotulado, superando com
-significância estatística a seleção aleatória e a seleção por incerteza sob o
-mesmo orçamento. A hipótese é condicional à qualidade do oráculo disponível. Por
+esse papel é exercido por um modelo de linguagem, não por um anotador humano. O critério: treinado com no máximo \textbf{34.724 rótulos}, ou $15\%$ da base
+deduplicada de 231.490 textos únicos, o framework deve alcançar pelo menos $95\%$ do
+Macro F1-Score que o mesmo classificador obtém com o \textit{pool} de referência
+inteiramente rotulado, superando com significância estatística a seleção aleatória e
+a seleção por incerteza sob o
+mesmo orçamento.
+O teto tem lastro na literatura de aprendizado ativo, que reporta desempenho
+equivalente ao da supervisão passiva com frações dessa ordem: menos de $10\%$ dos
+dados na ilustração canônica de \citet{Settles2009} e até $15{,}45\%$ nos benchmarks
+com transformers de \citet[Tab.~3]{Schroder2022Uncertainty}. A hipótese é condicional à qualidade do oráculo disponível. Por
 isso, fixou-se de antemão tanto o piso de acurácia que um modelo de linguagem
 precisa atingir para ser aprovado como oráculo quanto o que conta como refutação:
 se nem o melhor oráculo aprovado sustentar o critério, a hipótese é considerada
