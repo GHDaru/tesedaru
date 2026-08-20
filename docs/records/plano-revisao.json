@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 62,
-  "atualizado_em": "2026-08-17T23:45:00Z",
-  "atualizado_por": "merge: branch claude/e3prime-seed-7-rwatey (executor02, itens e3p-*, v40) reconciliada com main (revisor2, v61) — itens de outros agentes preservados sem alteração de conteúdo",
+  "versao": 63,
+  "atualizado_em": "2026-08-17T23:05:00Z",
+  "atualizado_por": "executor02: status real da fila reconciliado (itens 1-3 já concluídos antes da tarefa 2255); custo do E6 dimensionado (~19,4h CPU, sem executar); sub-treino D/bs16 rodando",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -1155,6 +1155,24 @@
         "duracao": "~4 min por semente",
         "resultado_esperado": "experiments/e2e3/results/{mcnemar,bootstrap_f1}_s{42,7,123}.json",
         "resultado": "https://github.com/GHDaru/activelearning/commit/3d3bca3 . ACHADO ROBUSTO (3/3 sementes, todas p<1e-14): E35 NÃO supera D em nenhuma métrica, em nenhuma semente — contradiz Cap.5 §res-e3p-varredura, alegação (iii) \"menos é mais, também no transformer\" (E35 supera a régua). ACHADO SENSÍVEL A SEMENTE: A-B e B-C trocam de sinal em F1 entre sementes (acurácia é consistente). Anomalia do revisor2 (IC bootstrap, 20260817-0545) NÃO se reproduz no canônico. REQUER decisão do autor sobre revisão do Cap.5 — mensagem completa em coordenacao/caixa."
+      },
+      {
+        "id": "e3p-subtreino-d-bs16",
+        "o_que": "Teste de sub-treino: braço D em lote 16, avaliação canônica (isola efeito do lote do efeito do conjunto de avaliação) — tarefa 20260816-2220",
+        "onde": "Kaggle, GPU T4 · kernel ghdaru/falco-subtreino-d-bs16",
+        "estado": "rodando",
+        "dono": "executor02",
+        "duracao": "~3h projetadas (D em lote16/regime antigo levou 2h56)",
+        "resultado_esperado": "experiments/e2e3/results/e3prime_D_s42_bs16.json"
+      },
+      {
+        "id": "e6-custo-recorrecao",
+        "o_que": "Dimensionamento (SEM execução) do custo de corrigir a população do E6 (181.490→177.490, exclui holdout de 4k) — tarefa 20260817-2255, aviso 20260817-2215",
+        "onde": "CPU local (não é GPU) · experiments/e6population/",
+        "estado": "aguardando_decisao_autor",
+        "dono": "executor02",
+        "duracao": "dimensionado: ~19,4h CPU agregadas (43 execuções, todas citadas no texto) · ~5-8h de relógio paralelizando 4 núcleos",
+        "resultado_esperado": "decisão do autor: declarar diferença / reexecutar / limitação declarada"
       },
       {
         "id": "mcnemar-pares",
