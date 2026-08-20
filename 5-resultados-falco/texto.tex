@@ -14,7 +14,7 @@ versionados no repositório \texttt{activelearning}
 (\texttt{experiments/e0}, \texttt{e0p}, \texttt{e1e4}, \texttt{e6population},
 \texttt{e2e3}).
 
-\section{E0: avaliação fatorial de oráculos LLM}
+\section{Avaliação fatorial de oráculos LLM}
 \label{sec:res-e0}
 
 \subsection{RQ1 --- assertividade}
@@ -178,12 +178,12 @@ de anotação em lote em laços de AL com LLM \citep{Kholodna2024}, que reporta 
 mesmo mecanismo de amortização de \textit{prompt} como componente central da
 economia frente à anotação humana.
 
-\section{E0-P: o prompt como variável do instrumento}
+\section{O \textit{prompt} como variável do instrumento de medição}
 \label{sec:res-e0p}
 
 A anatomia de erros (RQ3) indica que $\approx 48\%$ dos erros do oráculo são
-de convenção de catálogo, ou seja, atacáveis por \textit{prompt}. O E0-P mede esse
-potencial no modelo de MENOR custo com cache (gpt-4o-mini): variantes
+de convenção de catálogo, ou seja, atacáveis por \textit{prompt}. Esta seção mede
+esse potencial no modelo de MENOR custo com cache (gpt-4o-mini): variantes
 \textbf{v4a} (dez regras de fronteira explícitas derivadas do perfil de erro
 da S-strat) e \textbf{v4b} (v4a + dez exemplos \emph{inventados} de fronteiras
 difíceis, nunca instâncias das amostras, desenho anti-vazamento D-004),
@@ -233,10 +233,10 @@ barato na distribuição de produção existe e justifica a direção de trabalh
 futuro de gerar regras automaticamente a partir da matriz de confusão
 (Seção~\ref{sec:conc-futuro}), desde que com salvaguarda estratificada.
 
-\section{E1: estratégias de seleção com oráculo perfeito}
+\section{Estratégias de seleção com oráculo perfeito}
 \label{sec:res-e1}
 
-O E1 varre as cinco estratégias de seleção (entropia, menor confiança, menor
+Esta seção varre as cinco estratégias de seleção (entropia, menor confiança, menor
 margem, híbrida, aleatória) com o PVBin e oráculo simulado sem ruído, em pool
 deduplicado de 20.000 instâncias, orçamento de 3.000 rótulos, lote 100 e
 8 sementes por célula; a ablação de lote repete a entropia, estratégia
@@ -291,11 +291,12 @@ medido com o classificador leve e deve ser revalidado com BERTimbau no E3:
 probabilidades mais calibradas do \textit{transformer} podem reordenar
 entropia e margens.
 
-\section{E4: robustez do aprendizado ao ruído do oráculo}
+\section{Robustez do aprendizado ao ruído do oráculo}
 \label{sec:res-e4}
 
-O E4 injeta ruído uniforme $\varepsilon \in \{0{,}1;\, 0{,}2;\, 0{,}4\}$ no
-oráculo simulado e repete o desenho do E1 para entropia e aleatória. A
+Esta seção injeta ruído uniforme $\varepsilon \in \{0{,}1;\, 0{,}2;\, 0{,}4\}$ no
+oráculo simulado e repete o desenho da Seção~\ref{sec:res-e1} para entropia e
+aleatória. A
 pergunta é quanto do valor do aprendizado ativo sobrevive quando o oráculo
 erra na taxa observada nos LLMs reais ($\varepsilon \approx 0{,}17$--$0{,}23$
 no platô do E0). Os três níveis são escolhidos para \emph{cercar} essa faixa:
@@ -355,10 +356,10 @@ inferior do desempenho esperável com os oráculos reais do E0; e a extensão
 natural do desenho é a correção colaborativa de rótulos ruidosos com apoio
 de LLM \citep{Yuan2025NoiseAL}.
 
-\section{E6: seletores em escala populacional e o viés da autoavaliação}
+\section{Seletores em escala populacional e o viés da autoavaliação}
 \label{sec:res-e6}
 
-O E6 estende a comparação de seletores para a escala completa da base e
+Esta seção estende a comparação de seletores para a escala completa da base e
 operacionaliza a distinção entre avaliação \emph{interna} e \emph{externa}.
 O viés estatístico de avaliar em dados coletados ativamente é conhecido da
 literatura \citep{Farquhar2021Bias,Kossen2021ActiveTesting}; a contribuição
@@ -468,10 +469,11 @@ raras. Nenhuma das duas direções é utilizável como estimativa de implantaç�
 é a justificativa empírica direta para o conjunto de validação reservado que
 o FALCO exige e para o critério de liberação do Apêndice~\ref{ap:liberacao}.
 
-\section{E3': o classificador forte julga o pipeline e a hipótese central}
+\section{Avaliação da hipótese central com o classificador forte}
 \label{sec:res-e3p}
 
-O E3$'$ (desenho na Seção~\ref{sec:metodo-falco-baselines}) treina o
+O braço de validação com classificador forte (desenho na
+Seção~\ref{sec:metodo-falco-baselines}) treina o
 BERTimbau uma vez por braço, sobre conjuntos já coletados, e avalia todos os
 braços na população reservada ($n=20.092$, amostra estratificada fixa,
 excluídos pool e os conjuntos de decisão do ciclo real). Configuração
@@ -500,7 +502,7 @@ D & \emph{pool} inteiro, gabarito (régua) & 50.000 & \textbf{88,3\%} [87,9; 88,
 \end{tabular}
 \end{table}
 
-\textbf{O veredito da hipótese central é negativo na configuração
+\textbf{A hipótese central não se confirma na configuração
 executada}: $F1(A) = 0{,}242 < 0{,}95 \cdot F1(D) = 0{,}428$, com $17{,}9\%$
 dos rótulos do \textit{pool}. O valor do resultado está na decomposição, que
 o desenho pareado permite:

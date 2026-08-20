@@ -18,10 +18,47 @@ CAIXA = ROOT / "coordenacao/caixa"
 LOCKS = ROOT / "coordenacao/locks"
 TTL_MIN = 45
 
+# sinal de vida dos 4 agentes de coordenação (CLAUDE.md): pedido do principal
+# era "derivar do git (último commit por autor)", mas o autor do commit é
+# quase sempre "Claude" (295/300 nos commits recentes) — não distingue quem
+# é quem. Sinal real e já disponível: timestamp da própria mensagem que o
+# agente posta em coordenacao/ (de==agente) e a renovação do lock que ele
+# segura, os dois já commitados a cada ação do protocolo. Pega o mais
+# recente dos dois por agente.
+AGENTES_COORD = ["principal", "banca", "revisor1", "revisor2"]
+ATIVO_JANELA_MIN = 120
+
 RE_NOME = re.compile(
     r"^(?P<ts>\d{8}-\d{4})_(?P<de>[a-z0-9]+)_(?P<para>[a-z0-9]+)"
     r"_(?P<tipo>aviso|tarefa|pergunta)_(?P<slug>[a-z0-9-]+)"
     r"\.(?P<estado>aberta|em-andamento|concluida)\.md$")
+
+# a que parte da tese a mensagem se refere — best-effort a partir do texto
+# livre (referencia/acao_esperada/slug), nunca um dado estruturado: cobre só
+# as mensagens que citam o capítulo/apêndice explicitamente (achado real:
+# ~1/4 das mensagens correntes). Cobertura completa exigiria um campo
+# `trilha`/`parte` no front-matter, adotado pelos 4 agentes — mudança de
+# protocolo, decisão do principal, não do site.
+_PARTE_DIRS = {
+    "1-intro": "Cap. 1", "2-fundam": "Cap. 2", "3-metodo": "Cap. 3",
+    "4-resultados-l0": "Cap. 4", "5-resultados-falco": "Cap. 5", "6-conclusao": "Cap. 6",
+    "a1-lce": "Ap. A1", "a2-ag": "Ap. A2", "a3-drisl": "Ap. A3",
+    "a4-biblioteca": "Ap. A4", "a5-prompts": "Ap. A5", "a6-tabelas": "Ap. A6",
+    "a7-parada-drift": "Ap. A7",
+}
+_PARTE_DIR_RE = re.compile(
+    r"\b(" + "|".join(re.escape(k) for k in _PARTE_DIRS) + r")\b")
+_PARTE_CAPNUM_RE = re.compile(r"\bcap\.?\s*([1-6])\b", re.I)
+
+
+def detecta_parte(blob: str) -> str | None:
+    m = _PARTE_DIR_RE.search(blob)
+    if m:
+        return _PARTE_DIRS[m.group(1)]
+    m = _PARTE_CAPNUM_RE.search(blob)
+    if m:
+        return f"Cap. {m.group(1)}"
+    return None
 
 
 def front_matter(texto: str) -> dict:
@@ -56,12 +93,15 @@ def main():
         if not m:
             continue
         fm = front_matter(f.read_text(errors="replace"))
+        acao_esperada = fm.get("acao_esperada", "")
+        referencia = fm.get("referencia", "")
         mensagens.append({
             "arquivo": f.name, **m.groupdict(), "arquivada": arquivada,
             "idade_horas": idade_horas(m.group("ts")),
-            "acao_esperada": fm.get("acao_esperada", ""),
-            "referencia": fm.get("referencia", ""),
+            "acao_esperada": acao_esperada,
+            "referencia": referencia,
             "prazo": fm.get("prazo") or None,
+            "parte_detectada": detecta_parte(f"{referencia} {acao_esperada} {m.group('slug')}"),
         })
     locks = []
     agora = datetime.now(timezone.utc)
@@ -76,6 +116,18 @@ def main():
             "renovado_ha_min": mins,
             "vencido": (mins is None) or (mins > TTL_MIN),
         })
+    atividade = []
+    for ag in AGENTES_COORD:
+        msg_min = min((m["idade_horas"] * 60 for m in mensagens if m["de"] == ag), default=None)
+        lock_min = min((l["renovado_ha_min"] for l in locks
+                        if l["dono"] == ag and l["renovado_ha_min"] is not None), default=None)
+        candidatos = [v for v in (msg_min, lock_min) if v is not None]
+        minutos = round(min(candidatos)) if candidatos else None
+        atividade.append({
+            "agente": ag, "minutos_atras": minutos,
+            "ativo": minutos is not None and minutos <= ATIVO_JANELA_MIN,
+        })
+
     ativas = [x for x in mensagens if x["estado"] != "concluida"]
     bloqueios = [x for x in ativas if x["tipo"] == "tarefa" and "bloque" in x["slug"]]
     saude = {
@@ -90,10 +142,12 @@ def main():
     out.write_text(json.dumps({
         "schema": "mensagens/v1",
         "computado_em": agora.isoformat(timespec="seconds"),
-        "ttl_min": TTL_MIN, "mensagens": mensagens, "locks": locks, "saude": saude,
+        "ttl_min": TTL_MIN, "mensagens": mensagens, "locks": locks,
+        "atividade": atividade, "ativo_janela_min": ATIVO_JANELA_MIN, "saude": saude,
     }, ensure_ascii=False, indent=1) + "\n")
     print(f"ok: {out}  ativas={len(ativas)} locks={len(locks)} "
-          f"para_autor={saude['para_autor_abertas']}")
+          f"para_autor={saude['para_autor_abertas']} "
+          f"ativos={sum(1 for a in atividade if a['ativo'])}/{len(atividade)}")
 
 
 if __name__ == "__main__":

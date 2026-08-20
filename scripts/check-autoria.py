@@ -22,11 +22,14 @@ Por isso passa despercebido — e por isso precisa de checagem mecânica: o que
 está errado é o REGISTRO, que é o que a tese promete ser auditável
 (princípios II e IX da constituição).
 
-CLASSE DE RISCO
----------------
-A falha se concentra em entradas com MUITOS AUTORES. Por padrão o script
-confere só as entradas citadas nos .tex que tenham DOI e >= 5 autores (use
---todas para varrer tudo o que tiver DOI).
+CLASSE DE RISCO — HIPÓTESE REVISADA
+-----------------------------------
+A primeira versão supunha que o defeito se concentrava em entradas com MUITOS
+autores (corte em 5), porque foi assim que os cinco primeiros casos apareceram.
+A varredura completa de 2026-08-17 FALSIFICOU a hipótese: o `Griesshaber2020`,
+com três autores, traz "Julia Maucher" onde o próprio PDF e o Crossref dizem
+"Johannes Maucher". O corte caiu para 3, e a varredura completa (`--todas`)
+passou a ser o modo recomendado quando se mexe no bib.
 
 USO
 ---
@@ -70,11 +73,26 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[1]
 BIB = RAIZ / "referencias.bib"
 UA = "tesedaru-check-autoria/1.0 (mailto:ghdaru@gmail.com)"
-MIN_AUTORES = 5
+# Era 5, pela hipotese de que o defeito se concentra em lista longa de autores.
+# A hipotese FOI FALSIFICADA em 2026-08-17: o Griesshaber2020, com TRES autores,
+# traz "Julia Maucher" onde o proprio PDF e o Crossref dizem "Johannes Maucher".
+# Baixado para 3; para varredura completa use --todas, que ignora este corte.
+MIN_AUTORES = 3
+
+
+# {Dar\'u} -> Daru, {Fr\'enay} -> Frenay, {Ma\"el} -> Mael. O comando de acento
+# é uma PONTUAÇÃO com barra (\' \" \^ \` \~ \= \.), não uma palavra, então a
+# regex de comando alfabético não o alcançava: sobrava `dar\'u` e o comparador
+# acusava divergência de sobrenome contra o `daru` do Crossref. Cinco falsos
+# positivos numa varredura só, todos em nomes com acento — inclusive o do autor.
+_ACENTO_PONTUACAO = re.compile(r"\\[`'^\"~=.]\s*\{?([a-zA-Z])\}?")
+_ACENTO_LETRA = re.compile(r"\\[a-zA-Z]{1,2}\s*\{([a-zA-Z])\}")
 
 
 def normalizar(texto: str) -> str:
     """Tira comandos LaTeX, chaves, acentos e caixa — só para COMPARAR."""
+    texto = _ACENTO_PONTUACAO.sub(r"\1", texto)
+    texto = _ACENTO_LETRA.sub(r"\1", texto)
     texto = re.sub(r"\\[a-zA-Z]+\s*", "", texto)
     texto = texto.replace("{", "").replace("}", "").replace("~", " ")
     texto = unicodedata.normalize("NFKD", texto)
@@ -131,7 +149,13 @@ def partir_autores(bruto: str) -> list[tuple[str, str]]:
         if "," in pedaco:
             sobrenome, prenome = pedaco.split(",", 1)
         else:
-            partes = pedaco.split()
+            # `Ngoc Thang~Vu`: o til é o "tie" do BibTeX e NÃO separa nomes —
+            # ele existe justamente para dizer que Vu é o sobrenome e "Ngoc
+            # Thang" o prenome. Partir por espaço genérico produzia
+            # sobrenome "Thang Vu" e um falso positivo contra o Crossref.
+            partes = re.split(r"(?<!~)\s+", pedaco.replace("~", " ")) \
+                if "~" not in pedaco else pedaco.rsplit("~", 1)
+            partes = [t for t in (x.strip() for x in partes) if t]
             sobrenome = partes[-1] if partes else ""
             prenome = " ".join(partes[:-1])
         saida.append((normalizar(prenome), normalizar(sobrenome)))
@@ -153,7 +177,8 @@ def chaves_citadas() -> set[str]:
 
 
 # DOIs destes prefixos não são depositados no Crossref; ausência ali é normal.
-PREFIXOS_FORA_DO_CROSSREF = ("10.48550/",)
+# arXiv e Kaggle depositam no DataCite, não no Crossref.
+PREFIXOS_FORA_DO_CROSSREF = ("10.48550/", "10.34740/")
 
 
 def crossref(doi: str) -> tuple[str, list[tuple[str, str]]]:
@@ -175,9 +200,15 @@ def crossref(doi: str) -> tuple[str, list[tuple[str, str]]]:
         return ("ausente" if e.code == 404 else "rede"), []
     except (urllib.error.URLError, ValueError, KeyError):
         return "rede", []
+    # Registros do Crossref trazem, as vezes, um autor VAZIO no inicio (defeito
+    # de deposito da editora). No Nti2021 isso deslocava a lista inteira e
+    # produzia tres divergencias de sobrenome mais um "autor faltando" — todos
+    # falsos. Descartar antes de comparar.
     return "ok", [
-        (normalizar(a.get("given", "")), normalizar(a.get("family", "")))
-        for a in dados.get("author", [])
+        par for par in (
+            (normalizar(a.get("given") or ""), normalizar(a.get("family") or ""))
+            for a in dados.get("author", [])
+        ) if par[1]
     ]
 
 
@@ -198,7 +229,11 @@ def comparar(chave: str, nossos: list, fonte: list, truncada: bool) -> list[str]
             divergencias.append(f"  #{i+1} nosso '{prenome} {sobrenome}' não tem par na fonte")
             continue
         f_prenome, f_sobrenome = fonte[i]
-        if sobrenome != f_sobrenome:
+        # "Chen" x "Philip Chen" e "Machado" x "de Freitas Ulisses Machado":
+        # o Crossref as vezes guarda o nome composto inteiro no campo de
+        # sobrenome. Conter um ao outro NAO e divergencia — e convencao.
+        contido = sobrenome in f_sobrenome or f_sobrenome in sobrenome
+        if sobrenome != f_sobrenome and not contido:
             divergencias.append(f"  #{i+1} SOBRENOME: nosso '{sobrenome}' × fonte '{f_sobrenome}'")
         elif not inicial_compativel(prenome, f_prenome):
             divergencias.append(

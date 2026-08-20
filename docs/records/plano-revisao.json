@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 40,
-  "atualizado_em": "2026-08-17",
-  "atualizado_por": "executor02: McNemar/bootstrap canônicos (3 sementes) — achado crítico: E35 não supera D, contradiz alegação do Cap.5 sobre a varredura de orçamento; requer decisão do autor",
+  "versao": 62,
+  "atualizado_em": "2026-08-17T23:45:00Z",
+  "atualizado_por": "merge: branch claude/e3prime-seed-7-rwatey (executor02, itens e3p-*, v40) reconciliada com main (revisor2, v61) — itens de outros agentes preservados sem alteração de conteúdo",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -142,7 +142,7 @@
         },
         "R7": {
           "status": "feito",
-          "nota": "leitura final do autor concluída em 2026-08-17 (declarada em sessão). Cap.1: R1-R7 completos; resta só a ressalva do R3 (refichar as 5 chaves repontuadas quando os PDFs subirem)"
+          "nota": "leitura final do autor aprovada em 2026-08-17"
         }
       },
       "abertura": [
@@ -164,27 +164,32 @@
       "arquivo": "2-fundam/texto.tex",
       "rodadas": {
         "R1": {
-          "status": "andamento",
-          "nota": "lote 1 mergeado (110→92 travessões); lotes seguintes POR TEMA, somente após o R3 do tema fechar"
+          "status": "feito",
+          "nota": "5 temas concluídos; arquivo com 1 travessão (contraste legítimo)"
         },
         "R2": {
-          "status": "pendente"
+          "status": "feito",
+          "nota": "coberta pela mesma varredura do R6: 6 siglas acrescentadas à lista (AA, QBC, ECOICOP, GPT, KNN, SVM), STC removida por não ter uso; verificado pelo principal"
         },
         "R3": {
-          "status": "andamento",
-          "nota": "por tema (ver quebra); absorve a tarefa r3-acoplada do revisor1; verificação cruzada entre revisores antes de cada gate"
+          "status": "feito",
+          "nota": "5 temas com fontes verificadas; cobertura efetiva 82,6% (73 fichadas + 41 canônicas ADR 0012). As 24 pendências reais FECHARAM em 2026-08-18: 21 fichadas (20 nas branches ciclo/012 e humanize/cap2-t1 + Hanneke2015 em ciclo/015), 2 dependem só de o autor baixar o PDF (Ahmed2022, Attenberg2010 — links na entrega 0030) e 1 depende de decisão do autor (Barros2014, possivelmente fabricada). Nenhuma pendência de fichamento do Cap. 2 segue em aberto do lado do revisor2."
         },
         "R4": {
-          "status": "pendente"
+          "status": "feito",
+          "nota": "t1/t2/t3 (17 achados) + t4/t5 (23 itens de registro) aplicados e mergeados"
         },
         "R5": {
-          "status": "pendente"
+          "status": "feito",
+          "nota": "32 números levantados; todos os de fonte externa batem com a ficha; único achado (200 caracteres) resolvido pelo autor no PDF do Alsmadi2019 — prosa corrigida, ficha a completar"
         },
         "R6": {
-          "status": "pendente"
+          "status": "feito",
+          "nota": "banca, commits ebb1f65+12dd24d na main; verificado pelo principal: 0 códigos de experimento, 15 criações da tese só como ponte com ref, glosas na 1ª ocorrência"
         },
         "R7": {
-          "status": "pendente"
+          "status": "feito",
+          "nota": "leitura do autor concluída nos 5 temas em 2026-08-17 (t1,t2 · t3 6 edições · t4 5 edições · t5 6 edições + conserto do ALPS)"
         }
       },
       "abertura": [
@@ -208,7 +213,8 @@
           "travessoes": 13,
           "citacoes": 31,
           "responsavel": "revisor2",
-          "status": "aberto"
+          "status": "feito",
+          "nota": "R3+R4+pacote da leitura do autor mergeados; R1 destravado (revisor2, após t3) · R7 do autor aprovado"
         },
         {
           "id": "t2",
@@ -218,9 +224,9 @@
           "travessoes": 27,
           "citacoes": 37,
           "responsavel": "revisor1",
-          "status": "r4",
+          "status": "feito",
           "dono": "revisor1",
-          "nota": "R3 e R4 do t2 CONCLUÍDOS. Recontagem verificada: 41 chaves distintas nas linhas 210-471 (a nota anterior dizia 42; a tarefa estimava 37 — regex diferentes). R3: as 4 pós-2022 conferidas na fonte primária, zero fabricação de autoria; Rouzegar2024, Fromme2022 e Song2023NoisyLabels fichados em claude/maestro-cycles-statistical-analysis-fwla6a @79bf6c3, aguardando gate (a chave da obra da LREC 2022 é Fromme2022, não \"Wertz2022\"). Deng2023fedal BLOQUEADA: o arXiv ID da entrada (2303.09753) resolve para outro artigo; o correto é 2406.11310, publicado em JID v.145 n.2 p.303-311 (2025), DOI 10.1016/j.jid.2024.05.023 — a correção muda o ano impresso e depende de autorização. R4: 11 afirmações órfãs ou mal atribuídas levantadas em docs/r4-cap2-t2-afirmacoes-orfas.md — 4 atribuições imprecisas (L222, L319, L461, L440-442), 5 órfãs (L390, L408-410, L452, L457-458, L329-330) e 2 a qualificar (L348-349, L439). Nenhuma é fabricação de fonte; 5 consertam-se acrescentando uma chave que a tese já possui. Correção da prosa é do principal. Pendência do princípio II: 29 das 41 chaves sem fichamento após o gate, todas pré-2022."
+          "nota": "R3+R4+patch banca+R1+leitura do autor (14 edições) mergeados 2026-08-17 · R7 do autor aprovado"
         },
         {
           "id": "t3",
@@ -230,7 +236,8 @@
           "travessoes": 20,
           "citacoes": 29,
           "responsavel": "revisor2",
-          "status": "aberto"
+          "status": "feito",
+          "nota": "R3+R4+R1+R6+3 achados de citação+R7 do autor (6 edições) — ENCERRADO"
         },
         {
           "id": "t4",
@@ -240,9 +247,9 @@
           "travessoes": 22,
           "citacoes": 30,
           "responsavel": "revisor1",
-          "status": "r4",
+          "status": "feito",
           "dono": "revisor1",
-          "nota": "R3 e R4 CONCLUÍDAS. R3: 28 chaves distintas (627-721), 10 verificadas na fonte primária pela regra de risco, ZERO fabricações de obra. Achado: Xu2017 com 4 prenomes inventados e o 7º autor ausente — corrigido. R4: 6 pontos em docs/r4-cap2-t4-afirmacoes.md. Os DOIS números sobre os nossos dados foram MEDIDOS e conferem: 'textos de 4 a 50 caracteres' é exato (min 4, max 50 em 250.221 descrições) e 'quase todo termo ocorre uma vez' se sustenta com folga (só 2,07% das descrições repetem algum termo). Falta declarar o artefato nos dois. Segunda ocorrência do padrão 'número tirado de fonte que o próprio fichamento declara qualitativa' (Song2014, Alsmadi2019). Correção da prosa é do principal."
+          "nota": "R3+R4+registro+R1 completos; aguarda R7 do autor"
         },
         {
           "id": "t5",
@@ -252,11 +259,12 @@
           "travessoes": 14,
           "citacoes": 24,
           "responsavel": "revisor1",
-          "status": "r4",
+          "status": "feito",
           "dono": "revisor1",
-          "nota": "R3 e R4 CONCLUÍDAS. R3: 17 chaves, 12 verificadas na fonte. R4: 8 pontos em docs/r4-cap2-t5-afirmacoes.md — a seção que sustenta a lacuna, revisada com peso extra. Exemplar e a NÃO mexer: a 2.5.1 declara ser revisão narrativa e não sistemática, com Kitchenham2004. Ponto principal: a alegação de lacuna (L845-847) não está delimitada pela busca — como está, afirma que a combinação NÃO EXISTE, quando o que a revisão sustenta é que não foi encontrada na busca descrita na 2.5.1; um contraexemplo derruba a versão atual. Machado2026RetailPt: 2 dos 4 números verificados no resumo (100 mil títulos, 94,0% Macro F1), 2 não (97,0% de acurácia, 12 mil rótulos) e a obra sem fichamento; o escopo é alimentos e bebidas, não o catálogo inteiro — dizer isso FORTALECE o contraste com as 621 classes do FALCO. Tabela de lacunas = 45 afirmações sobre trabalhos alheios; 8 das 9 obras têm ficha."
+          "nota": "R3+R4+registro+R1 completos; aguarda R7 do autor"
         }
-      ]
+      ],
+      "encerrado": "2026-08-17 — R1 a R7 completas nos cinco temas; último conserto: descrição do ALPS (achado do revisor2, verificado por ambos na fonte)"
     },
     {
       "id": "cap3",
@@ -272,14 +280,18 @@
           "nota": "define a maioria das siglas — conferir 1ª ocorrência de cada"
         },
         "R3": {
-          "status": "pendente"
+          "status": "andamento",
+          "nota": "ENTREGUE, aguardando gate: 18 chaves citadas — 12 já fichadas, 3 canônicas (Bishop2006, Goldberg1989, Holland1975) conferidas nos campos mínimos e as 3 pendências reais fichadas na fonte em ciclo/014-fichas-cap3 @0f724fa (Loshchilov2019AdamW, Reimers2019SBERT, Wolf2020Transformers). Achado aberto, dependente do bib (revisor1): o 'SBERT multilíngue' do apêndice do DRI-SL é atribuído ao artigo de 2019, onde 'multilingual' aparece zero vezes; a obra certa (Reimers & Gurevych, EMNLP 2020) ainda não está no referencias.bib.",
+          "bloqueado_por": [
+            "gate-do-autor"
+          ]
         },
         "R4": {
           "status": "pendente"
         },
         "R5": {
           "status": "andamento",
-          "nota": "particionamento executado + 621/714 + 50k justificado em 2026-08 (a4617e8); resta varrer o capítulo inteiro"
+          "nota": "principal: aritmética interna 100% correta (5 relações conferidas); achado maior = divergência de população entre E3' e E6 (dec-populacao-e6-vs-e3prime); aguarda a rastreabilidade do executor01 para os demais números"
         },
         "R6": {
           "status": "pendente",
@@ -1057,20 +1069,20 @@
           "titulo": "Dicionário de dados junto ao dataset (colunas, normalização de rótulos, CategorySchema 620+_rare_=621)",
           "dono": "agente",
           "status": "gate",
-          "nota": "data/DICIONARIO.md na branch (https://github.com/GHDaru/activelearning/tree/claude/tesedaru-activelearning-maestro-bf56y7): colunas, normalize_label, 250.221→231.490/714, schema 620+_rare_=621, pool 50k/649, md5 0682ee5ba077c180fb7a727fb200f154"
+          "nota": "activelearning/data/DICIONARIO.md na branch (https://github.com/GHDaru/activelearning/tree/claude/tesedaru-activelearning-maestro-bf56y7): colunas, normalize_label, 250.221→231.490/714, schema 620+_rare_=621, pool 50k/649, md5 0682ee5ba077c180fb7a727fb200f154"
         },
         {
           "id": "pipeline-reprodutivel",
           "titulo": "Checagem executável: load_base reproduz 231.490 textos/714 classes e o schema 621 a partir do CSV publicado (entra nos dod-scripts)",
           "dono": "agente",
           "status": "gate",
-          "nota": "scripts/check_dataset_invariants.py na branch (https://github.com/GHDaru/activelearning/tree/claude/tesedaru-activelearning-maestro-bf56y7): 12 invariantes verdes com as funções reais; falha provada (CSV truncado ⇒ exit 1)"
+          "nota": "activelearning/scripts/check_dataset_invariants.py na branch (https://github.com/GHDaru/activelearning/tree/claude/tesedaru-activelearning-maestro-bf56y7): 12 invariantes verdes com as funções reais; falha provada (CSV truncado ⇒ exit 1)"
         }
       ]
     }
   ],
   "proximo": {
-    "descricao": "Cap.1 FECHADO em R1-R6 (gate e70389d); faltam refichamento das 5 chaves repontuadas (autor sobe PDFs) e R7 (leitura final do autor, com a banca nos pontos finais). FRENTE PRINCIPAL: Cap.2 quebrado em 5 temas (ver capitulos.cap2.quebra) — revisor1: t2/t4/t5, revisor2: t1/t3; ordem por tema: R3→R4→R1, bib antes de reescrita. Executor01: auditoria de rastreabilidade números→experimento→código→evidência + padronização de notebooks Kaggle. Executor02: s42 canônica e recomputo McNemar/bootstrap. Site: página Referências. Prosa fix/cap2-prosa-619-648 em gate aguardando fichamento Margatina2023.",
+    "descricao": "Caps. 1 e 2 com LEITURA DO AUTOR APROVADA (R7). Cap.1 encerrado. Cap.2: falta apenas o R1 de forma em t1/t4/t5 (travessões; conteúdo já aprovado), mais R2/R6 da banca e R5 do principal. Frente crítica: estatísticas canônicas do executor02 (mudam conclusões do Cap.5); re-coleta E5 em curso destrava os braços A/B/C. Refatoração: F1+F2 mergeadas com os títulos escolhidos pelo autor; F3/F4/F5 atrás do fechamento do Cap.2.",
     "fila": [
       "revisor1: bib lote 0 (em curso) -> bib lote 2 -> humanização Caps. 3 e 4",
       "revisor2: bib lotes 1 e 3 -> humanização Caps. 5 e 6",
@@ -1210,14 +1222,24 @@
       "trilha": "processo"
     },
     {
-      "id": "dec-cache-kaggle",
-      "titulo": "AUTOR: subir annotation_cache_nemotron.jsonl como dataset do Kaggle — destrava os braços A/B/C nas 3 sementes (o centro da hipótese F1(A) ≥ 0,95×F1(D)); 3 retomadas curtas, 18 resultados prontos são pulados",
-      "trilha": "experimentos"
-    },
-    {
       "id": "dec-nome-e3",
       "titulo": "Rebatismo do E3': autor incomoda-se com a plica; recomendação do principal = E3' assume o nome E3 (o E3 original nunca teve resultados; exige reescrever o desenho em 3-metodo:443 + renomear ~35 ocorrências + código/artefatos/notebooks via executor01). Autor: 'voltemos com ela' — retomar.",
       "trilha": "experimentos"
+    },
+    {
+      "id": "dec-reforco-cap4",
+      "trilha": "texto",
+      "titulo": "F6 da refatoração (separada por decisão do autor): reforçar o Cap. 4 — hoje com zero citações, embora 6 fichamentos o prometam; exige escrever conteúdo novo (discussão + interlocução com a literatura)"
+    },
+    {
+      "id": "dec-populacao-e6-vs-e3prime",
+      "trilha": "experimentos",
+      "titulo": "R5 do Cap.3 achou: E3' usa população 177.490 (exclui o holdout de 4k, confere com o Cap.3) e o E6 usa 181.490 (não exclui) — o E6 avalia em 4.000 instâncias que o ciclo usa para parar; e o Cap.5 escreve '≈140 mil', que não bate com nenhum. Saídas: (a) declarar a diferença, (b) reexecutar o E6, (c) limitação declarada"
+    },
+    {
+      "id": "dec-expurgo-pilares",
+      "trilha": "texto",
+      "titulo": "Expurgo da notação de pilar P1–P4 (ordem do autor, mesma régua dos códigos E): 81 ocorrências, 4 títulos; Fase 1 (levantamento classificado + antes/depois) com o revisor1, decisão do autor antes de executar"
     }
   ]
 }

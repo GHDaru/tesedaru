@@ -1,48 +1,48 @@
 {
  "schema": "kpis/v1",
- "computado_em": "2026-08-17",
- "git_sha": "a7d2aaf",
+ "computado_em": "2026-08-20",
+ "git_sha": "21e01dc",
  "prontidao": {
-  "global_pct": 21.5,
-  "texto_pct": 25.2,
+  "global_pct": 33.8,
+  "texto_pct": 39.8,
   "artefatos_pct": 0.0,
   "pontos_totais": 2032,
-  "pontos_feitos": 513,
+  "pontos_feitos": 808,
   "por_rodada": [
    {
     "id": "R1",
     "pontos": 331,
-    "feitos": 227
+    "feitos": 273
    },
    {
     "id": "R2",
     "pontos": 120,
-    "feitos": 15
+    "feitos": 30
    },
    {
     "id": "R3",
     "pontos": 468,
-    "feitos": 185
+    "feitos": 350
    },
    {
     "id": "R4",
     "pontos": 140,
-    "feitos": 20
+    "feitos": 40
    },
    {
     "id": "R5",
     "pontos": 743,
-    "feitos": 26
+    "feitos": 45
    },
    {
     "id": "R6",
     "pontos": 80,
-    "feitos": 20
+    "feitos": 30
    },
    {
     "id": "R7",
     "pontos": 150,
-    "feitos": 20
+    "feitos": 40
    }
   ],
   "por_capitulo": [
@@ -59,7 +59,7 @@
    {
     "id": "cap2",
     "pontos": 506,
-    "feitos": 211
+    "feitos": 506
    },
    {
     "id": "cap3",
@@ -89,10 +89,10 @@
   ]
  },
  "ritmo": {
-  "velocidade_pontos_semana": 1365.0,
-  "janela_dias": 1,
-  "eta_semanas": 1.1,
-  "eta_data": "2026-08-24",
+  "velocidade_pontos_semana": 857.5,
+  "janela_dias": 4,
+  "eta_semanas": 1.4,
+  "eta_data": "2026-08-29",
   "eta_confiavel": true,
   "serie": [
    {
@@ -104,9 +104,23 @@
    },
    {
     "data": "2026-08-17",
-    "commit": "e0df0bf",
-    "pontos": 513,
-    "pct": 25.2,
+    "commit": "53c0ca2",
+    "pontos": 808,
+    "pct": 39.8,
+    "evento": null
+   },
+   {
+    "data": "2026-08-18",
+    "commit": "e9b8d9b",
+    "pontos": 808,
+    "pct": 39.8,
+    "evento": null
+   },
+   {
+    "data": "2026-08-20",
+    "commit": "01ef8f9",
+    "pontos": 808,
+    "pct": 39.8,
     "evento": null
    }
   ]
@@ -134,20 +148,6 @@
     "trilha": null,
     "titulo": "Ativar webhook Zenodo e gerar DOI (metadados prontos) · ao obter DOI: inserir URL+DOI no artigo A4 e no Cap. 3 (tese hoje não tem URL de repositório)",
     "pontos_destravados": 10
-   },
-   {
-    "id": "fix-cap2-prosa-619-648",
-    "tipo": "gate",
-    "trilha": null,
-    "titulo": "Reescrita das frases com citações fabricadas (Wu2022 ~:618, Ahmed2023 ~:648) do Cap.2; provisória até a busca acadêmica do revisor2 (tarefa 20260816-2110)",
-    "pontos_destravados": 0
-   },
-   {
-    "id": "fix-cap2-ruido-estruturado",
-    "tipo": "gate",
-    "trilha": "texto",
-    "titulo": "Correção da soldagem ruído estruturado (Cap.2:585) — decisão (a) do autor; antes/depois apresentado",
-    "pontos_destravados": 0
    },
    {
     "id": "kaggle-licenca",
@@ -213,17 +213,31 @@
     "pontos_destravados": 0
    },
    {
-    "id": "dec-cache-kaggle",
-    "tipo": "decisao",
-    "trilha": "experimentos",
-    "titulo": "AUTOR: subir annotation_cache_nemotron.jsonl como dataset do Kaggle — destrava os braços A/B/C nas 3 sementes (o centro da hipótese F1(A) ≥ 0,95×F1(D)); 3 retomadas curtas, 18 resultados prontos são pulados",
-    "pontos_destravados": 0
-   },
-   {
     "id": "dec-nome-e3",
     "tipo": "decisao",
     "trilha": "experimentos",
     "titulo": "Rebatismo do E3': autor incomoda-se com a plica; recomendação do principal = E3' assume o nome E3 (o E3 original nunca teve resultados; exige reescrever o desenho em 3-metodo:443 + renomear ~35 ocorrências + código/artefatos/notebooks via executor01). Autor: 'voltemos com ela' — retomar.",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-reforco-cap4",
+    "tipo": "decisao",
+    "trilha": "texto",
+    "titulo": "F6 da refatoração (separada por decisão do autor): reforçar o Cap. 4 — hoje com zero citações, embora 6 fichamentos o prometam; exige escrever conteúdo novo (discussão + interlocução com a literatura)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-populacao-e6-vs-e3prime",
+    "tipo": "decisao",
+    "trilha": "experimentos",
+    "titulo": "R5 do Cap.3 achou: E3' usa população 177.490 (exclui o holdout de 4k, confere com o Cap.3) e o E6 usa 181.490 (não exclui) — o E6 avalia em 4.000 instâncias que o ciclo usa para parar; e o Cap.5 escreve '≈140 mil', que não bate com nenhum. Saídas: (a) declarar a diferença, (b) reexecutar o E6, (c) limitação declarada",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-expurgo-pilares",
+    "tipo": "decisao",
+    "trilha": "texto",
+    "titulo": "Expurgo da notação de pilar P1–P4 (ordem do autor, mesma régua dos códigos E): 81 ocorrências, 4 títulos; Fase 1 (levantamento classificado + antes/depois) com o revisor1, decisão do autor antes de executar",
     "pontos_destravados": 0
    }
   ]
@@ -232,9 +246,9 @@
   "pontos": 234
  },
  "divida_fundamentacao": {
-  "citacoes_pendentes": 177,
+  "citacoes_pendentes": 45,
   "chaves_citadas": 151,
-  "fichamentos": 153,
+  "fichamentos": 174,
   "chaves_sem_fichamento": 0
  },
  "meta_saida": {

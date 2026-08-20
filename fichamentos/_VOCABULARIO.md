@@ -132,3 +132,37 @@ ham10k, msk-isic  <!-- Deng2023fedal: 10.490 imagens dermatoscópicas repartidas
 
 ### Métricas (R3 t2 — federado)
 auc  <!-- Deng2023fedal: reportada ao lado de micro-f1 e macro-f1 -->
+
+### Métodos (adoção prática)
+pesquisa-de-comunidade  <!-- Romberg2025Reassessing: survey com praticantes, não experimento; resultados são percepção auto-relatada -->
+
+### Métodos, datasets e modelos (varejo PT, estatística oficial)
+rotulagem-humano-no-laco  <!-- Machado2026RetailPt: fluxo human-in-the-loop SEM estratégia formal de aprendizado ativo — não confundir com anotacao-hibrida-humano-llm, que roteia por confiança -->
+ecoicop-supermercados-pt  <!-- Machado2026RetailPt: 100 mil títulos de 6 redes portuguesas, SÓ alimentos e bebidas; dados de origem confidenciais -->
+bertimbau  <!-- Machado2026RetailPt, Souza2020BERTimbau -->
+
+### Métodos (taxonomia formal de ruído)
+taxonomia-ncar-nar-nnar  <!-- Frenay2014: NCAR = uniforme, NAR = dependente da classe (inclui o ruído de par), NNAR = dependente da instância. É a fonte formal; o Song2023NoisyLabels usa a mesma estrutura com outros nomes -->
+
+### Métodos e datasets (partida a frio por pré-treinamento)
+surprisal-embeddings  <!-- Yuan2020: perda de modelagem de linguagem mascarada usada como procuração da incerteza, calculável ANTES de existir rótulo; alps já registrado por Wertz2022 -->
+pubmed-20k-rct, sst-2  <!-- Yuan2020: dos 4 conjuntos, todos de 2 a 5 classes -->
+
+### Datasets (AL com BERT, orçamento pequeno)
+subjectivity  <!-- EinDor2020: já usado por Schroder2022Uncertainty; aqui como um dos 10 conjuntos -->
+
+## Adições da rodada R3 do t5 — AA bayesiano sobre BERT (2026-08-17)
+
+Termos entrados pelo fichamento de `Griesshaber2020`; mesmo commit do fichamento.
+
+### Métodos (R3 t5 — bayesiano)
+bald, dropout-de-monte-carlo, aproximacao-bayesiana-de-incerteza, congelamento-de-camadas  <!-- Griesshaber2020: BALD = Bayesian Active Learning by Disagreement (Houlsby et al. 2011); o dropout de Monte Carlo é o mecanismo que aproxima a incerteza sem trocar de arquitetura -->
+
+### Datasets (R3 t5)
+mnli, qnli, snli  <!-- Griesshaber2020: tarefas do GLUE; glue e sst-2 já registrados na rodada fichar-vizinhos -->
+
+### Métricas (R3 t5)
+delta-de-desbalanceamento-de-classe  <!-- Griesshaber2020, Tab. 3: Δ|T| = max_c |T_c| − min_c |T_c|, a diferença entre a classe mais e a menos representada no conjunto de treino; mede o viés de classe que a aquisição por incerteza introduz -->
+
+### Tarefas (R3 t5)
+inferencia-de-linguagem-natural  <!-- Griesshaber2020: MNLI, QNLI e SNLI são tarefas de implicação textual, não classificação temática -->

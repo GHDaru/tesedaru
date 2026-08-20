@@ -30,29 +30,57 @@ estão disponíveis, o processo é simulado com fidelidade: o oráculo LLM pode 
 avaliado contra o padrão-ouro, e um modelo treinado com supervisão completa fornece o
 limite superior de desempenho.
 
-A Tabela~\ref{tab:metodo-experimentos} resume o programa experimental. Os experimentos
-E0 a E3 respondem, respectivamente, aos pilares P3, P1/P2 (reanálise) e P4; E4 é
-condicional ao resultado de E0, conforme o critério de decisão da
-Seção~\ref{sec:metodo-oraculo-decisao}.
+A Tabela~\ref{tab:metodo-experimentos} resume o programa experimental e serve de
+\textbf{mapa de rastreabilidade}: para cada experimento, o pilar que ele
+sustenta, a seção em que o resultado é discutido e o diretório de artefatos que
+permite reexecutá-lo. Os identificadores da primeira coluna são \emph{controle
+interno} — servem para localizar código e dados, não para nomear achados, e por
+isso não reaparecem no texto corrido dos capítulos de resultados, que se
+organiza pelo que foi descoberto. Quem quiser ir do achado ao artefato usa esta
+tabela; quem quiser ler a tese não precisa dela. A linha em E3$'$ marca a
+variante efetivamente executada do experimento E3 pré-registrado, cujo
+desenho completo permanece registrado como extensão
+(Seção~\ref{sec:metodo-falco-baselines}).
+
+Uma dependência entre experimentos não cabe na tabela e precisa ser dita: a
+avaliação de robustez ao ruído do oráculo é \textbf{condicional} ao desempenho
+medido na avaliação dos oráculos, e o critério que decide se ela ocorre está
+pré-registrado na Seção~\ref{sec:metodo-oraculo-decisao}.
 
 \begin{table}[htb]
 \centering
-\caption{Programa experimental da tese.}
+\caption{Programa experimental e mapa de rastreabilidade: de cada experimento
+para a seção que discute o resultado e para os artefatos que o reproduzem.}
 \label{tab:metodo-experimentos}
 \small
 \begin{tabular}{llll}
 \toprule
-\textbf{Id} & \textbf{Objetivo} & \textbf{Pilar} & \textbf{Recursos} \\
+\textbf{Id} & \textbf{Objetivo} & \textbf{Pilar} & \textbf{Resultado em} \\
 \midrule
-E0 & Avaliação fatorial de LLMs como oráculo & P3 & APIs de LLM \\
-E1 & Estratégias de seleção $\times$ tamanho de lote (oráculo simulado) & apoio a P4 & CPU \\
-E2 & Épocas de ajuste fino do BERTimbau por iteração & apoio a P4 & GPU \\
-E3 & FALCO \textit{versus} RS e US sob mesmo orçamento & P4 & GPU + APIs \\
-E4 & Robustez do aprendizado a ruído controlado do oráculo & P4 (condicional) & GPU \\
+\multicolumn{4}{l}{\textit{Composição do conjunto inicial} --- artefatos em \texttt{experiments/p1}}\\
+--- & Sensibilidade à composição e ao tamanho de $L_0$ & P1 & Seção~\ref{sec:res-l0-sens} \\
+--- & Envelope por otimização evolutiva & P1 & Seção~\ref{sec:res-l0-ag} \\
+--- & DRI-SL \textit{versus} sorteio aleatório & P2 & Seção~\ref{sec:res-l0-drisl} \\
+--- & Reexecução independente e circularidade & P1/P2 & Seção~\ref{sec:res-l0-replay} \\
 \midrule
-\multicolumn{4}{l}{\footnotesize P1 (sensibilidade de $L_0$) e P2 (DRI-SL) reutilizam execuções já realizadas e auditadas.}\\
+\multicolumn{4}{l}{\textit{Oráculo e laço ativo}}\\
+E0 & Avaliação fatorial de LLMs como oráculo & P3 & Seção~\ref{sec:res-e0} \\
+E0-P & O \textit{prompt} como variável do instrumento & P3 & Seção~\ref{sec:res-e0p} \\
+E1 & Estratégias de seleção sob oráculo perfeito & apoio a P4 & Seção~\ref{sec:res-e1} \\
+E2 & Épocas de ajuste fino do BERTimbau por iteração & apoio a P4 & (interno) \\
+E4 & Robustez do aprendizado a ruído do oráculo & P4 (condicional) & Seção~\ref{sec:res-e4} \\
+E5, E6 & Seletores em escala populacional e viés de autoavaliação & P4 & Seção~\ref{sec:res-e6} \\
+E3$'$ & Avaliação da hipótese central com o classificador forte & P4 & Seção~\ref{sec:res-e3p} \\
 \bottomrule
 \end{tabular}
+
+\vspace{0.4em}
+{\footnotesize \textbf{Artefatos por experimento} (todos sob a raiz de execução
+descrita na Seção~\ref{sec:metodo-reprodutibilidade}):
+\texttt{experiments/e0} (E0) $\cdot$ \texttt{experiments/e0p} (E0-P) $\cdot$
+\texttt{experiments/e1e4} (E1, E4) $\cdot$ \texttt{experiments/e6population}
+(E5, E6) $\cdot$ \texttt{experiments/e2e3} (E2, E3$'$) $\cdot$
+\texttt{experiments/p1} (pilares P1 e P2).}
 \end{table}
 
 \section{Conjunto de dados}
@@ -168,7 +196,9 @@ exemplos, limitação declarada e relevante para métricas macro
 computacional: cada braço do E3$'$ é um ajuste fino completo do BERTimbau, e o
 programa executa cinco braços mais a varredura de orçamento em uma única GPU,
 mantendo ainda uma média de 70 exemplos por classe no \textit{pool}. Com a
-mudança de régua do E3$'$ (Seção~\ref{sec:metodo-falco-baselines}), os
+mudança da referência de comparação do E3$'$
+(a régua contra a qual os braços são medidos,
+Seção~\ref{sec:metodo-falco-baselines}), os
 orçamentos passam a ser medidos como fração do \textit{pool} de 50 mil
 ($30\% = 15$ mil rótulos), e não de $|U_0|$; essa re-baseação do denominador é
 declarada e suas consequências são discutidas nas limitações
@@ -195,7 +225,8 @@ Três classificadores $\theta$ são empregados, com papéis distintos e explíci
   treinamento desprezível, viabiliza os estudos que exigem milhares de reexecuções:
   a sensibilidade de $L_0$, a otimização por algoritmo genético (P1) e a varredura
   de estratégias do E1.
-  \item \textbf{Regressão logística} (\textit{SGD}): regressão logística
+  \item \textbf{Regressão logística} (referida como \textit{SGD}, pelo
+  otimizador que a treina): regressão logística
   multinomial (a mesma família \textit{softmax}/entropia cruzada da
   Equação~\ref{eq:softmax_ml}) sobre representação \textit{bag-of-words}
   com uni e bigramas, treinada por descida de gradiente estocástica
@@ -214,7 +245,7 @@ seleção não dependam de um único modelo.
 \label{sec:metodo-metricas}
 
 \textbf{Desempenho do classificador.} A métrica primária é o \textbf{Macro
-F1-Score} é a média aritmética dos F1 por classe, que pondera igualmente classes
+F1-Score}, a média aritmética dos F1 por classe, que pondera igualmente classes
 majoritárias e minoritárias, adequada ao forte desbalanceamento do conjunto
 \citep{Sokolova2009}. A \textbf{acurácia global} é reportada como métrica
 secundária. Ambas são calculadas no conjunto de teste $T$ ao longo das iterações,
@@ -245,7 +276,7 @@ sobre a grade observada, em vez de interpolação em escala logarítmica.
 
 \textbf{Análise estatística.} Três testes acompanham as comparações, conforme a
 natureza dos dados: (i) toda acurácia de oráculo é reportada com \textbf{intervalo
-de confiança de Wilson} a $95\%$ \citep{Wilson1927}, apropriado para proporções em
+de confiança (IC) de Wilson} a $95\%$ \citep{Wilson1927}, apropriado para proporções em
 qualquer faixa; (ii) comparações entre oráculos que rotularam \emph{as mesmas
 instâncias} usam o \textbf{teste de McNemar} \citep{McNemar1947} sobre os pares
 discordantes (com teste binomial exato quando as discordâncias somam menos de 25);
@@ -275,7 +306,7 @@ estatísticas descritivas completas constam do Apêndice~\ref{ap:tabelas}.
 
 Para estimar os \emph{limites} de desempenho alcançáveis pela escolha da composição
 de $L_0$ (inatingíveis por busca exaustiva no espaço combinatório), empregou-se um
-algoritmo genético \citep{Holland1975,Goldberg1989} sobre indivíduos que representam
+algoritmo genético (AG) \citep{Holland1975,Goldberg1989} sobre indivíduos que representam
 conjuntos de $I$ índices únicos do \textit{pool}. A configuração, idêntica em todas
 as execuções, foi: população $N_{pop}=50$; 100 gerações; seleção por torneio de
 tamanho $k_t=3$; cruzamento de um ponto com probabilidade $p_c=0{,}8$ e reparo de
@@ -291,7 +322,7 @@ tipicamente inferior ao de aptidão, que os capítulos de resultados reportam co
 envelope. O fluxo completo e os operadores são formalizados no
 Apêndice~\ref{ap:ag}.
 
-\section{Pilar P2: \textit{cold start} sem rótulos — algoritmo DRI-SL}
+\section{Pilar P2: \textit{cold start} sem rótulos --- algoritmo DRI-SL}
 \label{sec:metodo-drisl}
 
 O DRI-SL (\textit{Diversidade Representativa Inicial via densidade Semântica e
@@ -304,11 +335,12 @@ intragrupo}, em que, dentro de cada grupo, as amostras são escolhidas iterativa
 maximizando a introdução de termos relevantes ainda não cobertos (escore de
 novidade ponderado pelo perfil TF--IDF do grupo). A formalização, o pseudocódigo e
 as decisões de implementação constam do Apêndice~\ref{ap:drisl}. O DRI-SL é a
-estratégia da Fase~1 do FALCO e é avaliado (P2) contra a amostragem aleatória e
+estratégia da Fase~1 do FALCO (a máquina de fases é descrita na
+Seção~\ref{sec:metodo-falco-fases}) e é avaliado (P2) contra a amostragem aleatória e
 contra o envelope de desempenho estimado pelo algoritmo genético (P1), que atua
 como limite empírico de referência.
 
-\section{Pilar P3: LLMs como oráculo de rotulagem (experimento E0)}
+\section{Pilar P3: LLMs como oráculo de rotulagem}
 \label{sec:metodo-oraculo}
 
 A avaliação de oráculos exige, antes de qualquer comparação, um instrumento
@@ -350,7 +382,7 @@ lote calibrado em etapa prévia (lotes de 1, 10 e 25 itens, pareados nas mesmas
 instâncias) e adotando-se o maior lote que não degrade a acurácia (teste de
 McNemar), decisão registrada junto aos resultados.
 
-\subsection{Desenho fatorial do E0}
+\subsection{Desenho fatorial da avaliação de oráculos}
 \label{sec:metodo-oraculo-desenho}
 
 O E0 responde a quatro perguntas: (RQ1) a acurácia e o Macro F1 de cada LLM
@@ -359,7 +391,8 @@ rótulos e a latência; (RQ3) o perfil de erro por classe (matriz de confusão, 
 rótulos inválidos); e (RQ4) o efeito do instrumento de medição (enum \textit{versus}
 free, mesmas instâncias). Os modelos candidatos abrangem três regimes de custo:
 APIs comerciais (gpt-4o-mini e gpt-4o), modelos servidos por
-plataforma \textit{MaaS} (DeepSeek-V4-Flash, DeepSeek-V4-Pro e GLM-5.2) e o regime de
+plataformas de modelo como serviço (\textit{Model-as-a-Service}, MaaS:
+DeepSeek-V4-Flash, DeepSeek-V4-Pro e GLM-5.2) e o regime de
 custo zero via agregador (representado pela variante \textit{free} do
 Nemotron-3-Ultra; a redução de escopo deste braço, imposta pela vazão do plano
 gratuito, é registrada na decisão D-005 e discutida nos resultados).
@@ -369,7 +402,8 @@ usadas: \textbf{S-rand} ($n=1.000$, amostragem aleatória simples), que preserva
 distribuição de produção e serve a RQ1/RQ2/RQ4; o tamanho é dimensionado pela
 precisão exigida da medição: com $n=1.000$, a meia-largura do IC de Wilson é de
 no máximo $\approx 3$ p.p.\ (pior caso $p=0{,}5$; $\approx 2{,}5$ p.p.\ no platô
-observado), suficiente para separar os oráculos do limiar de 85\% do gate e
+observado), suficiente para separar os oráculos do limiar de 85\% do critério
+de aprovação (Seção~\ref{sec:metodo-oraculo-decisao}) e
 entre regimes de custo, com custo pareado de anotação linear no número de
 modelos; e \textbf{S-strat} (3 por classe,
 $n \approx 1.863$), que dá suporte por classe ao Macro F1 e à matriz de confusão
@@ -383,7 +417,9 @@ limita o ganho de precisão adicional). A temperatura é fixada em 0 em todos os
 \subsection{Critério de decisão para o FALCO}
 \label{sec:metodo-oraculo-decisao}
 
-Do E0 deriva a configuração de oráculos do FALCO: o \textbf{LLM Inicial} é o de
+Do E0 deriva a configuração de oráculos do FALCO, por um critério de aprovação
+pré-registrado, adiante referido também como \emph{gate} do oráculo: o
+\textbf{LLM Inicial} é o de
 melhor razão acurácia/custo sujeito a acurácia mínima de $85\%$ na S-rand; o
 \textbf{LLM Avançado} é o de maior acurácia, \emph{desde que} significativamente
 superior ao Inicial (McNemar, $\alpha=0{,}05$); caso contrário, a Fase~3 do
@@ -391,7 +427,7 @@ framework é eliminada e o FALCO opera com oráculo único. Se nenhum modelo ati
 limiar, o E4 (robustez a ruído) torna-se obrigatório e a discussão da tese passa a
 tratar o aprendizado com oráculo ruidoso como cenário central.
 
-\section{Pilar P4: o framework FALCO e sua avaliação (experimentos E1--E4)}
+\section{Pilar P4: o framework FALCO e sua avaliação}
 \label{sec:metodo-falco}
 
 O quarto pilar integra os anteriores no framework proposto. A seção descreve
@@ -440,7 +476,7 @@ entropia, menor confiança, menor margem, híbrida e aleatória sob oráculo sim
 perfeito com o classificador PVBin (barato o suficiente para varredura ampla) e
 justifica a escolha por LCE.
 
-\subsection{Métodos de referência e desenho do E3}
+\subsection{Métodos de referência e desenho da comparação}
 \label{sec:metodo-falco-baselines}
 
 A validação com o classificador forte segue o próprio desenho do FALCO: quem
@@ -476,7 +512,8 @@ torna-se direto: $F1(A) \ge 0{,}95 \cdot F1(D)$, com $|A|/|D| \approx 18\%$
 dos rótulos. Os braços pareados $A$/$B$ cumprem o papel do braço
 \emph{oráculo-total} do desenho original, o de separar ruído de parcimônia, a
 custo de anotação zero, pois reutilizam as anotações reais já pagas. O
-desenho completo original (FALCO, RS e US com re-treino do BERTimbau no laço,
+desenho completo original (FALCO, seleção aleatória e seleção por incerteza
+com re-treino do BERTimbau no laço,
 ablações de $L_0$ e de progressão de oráculo, 8 sementes com Wilcoxon pareado
 e \textit{bootstrap} sobre LCE) permanece pré-registrado como extensão para
 hardware dedicado; o E3$'$ executa-se com semente única e estatuto
