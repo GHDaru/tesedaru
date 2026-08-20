@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 62,
-  "atualizado_em": "2026-08-18T01:45:00Z",
+  "versao": 63,
+  "atualizado_em": "2026-08-20T17:25:00Z",
   "atualizado_por": "revisor2: as 24 pendências de fichamento do Cap. 2 fecham ZERADAS — 23 fichadas e 1 (Castro2011Desbalanceados, que substitui a Barros2014 por decisão (b) do autor) com o PDF pedido ao autor porque o SciELO bloqueia cliente automatizado. Branch ciclo/016-fecha-as-24 @3da6ce0. Ressalva de conteúdo: o Ahmed2022 é survey de CLUSTERING e a tese o cita ao falar de classificação — conserto de uma palavra, com o principal.",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -273,18 +273,15 @@
       "rodadas": {
         "R1": {
           "status": "feito",
-          "nota": "gate aprovado e mergeado 2026-08-17 (59→4 travessões)"
+          "nota": "59→4 travessões (mergeado 2026-08-17) + títulos sem código + 2 figuras TikZ aceitas pelo autor"
         },
         "R2": {
-          "status": "pendente",
-          "nota": "define a maioria das siglas — conferir 1ª ocorrência de cada"
+          "status": "feito",
+          "nota": "banca 9470c1f: AG/MaaS/IC na 1ª ocorrência, RS/US em português, listas com GPU e 12 símbolos"
         },
         "R3": {
-          "status": "andamento",
-          "nota": "ENTREGUE, aguardando gate: 18 chaves citadas — 12 já fichadas, 3 canônicas (Bishop2006, Goldberg1989, Holland1975) conferidas nos campos mínimos e as 3 pendências reais fichadas na fonte em ciclo/014-fichas-cap3 @0f724fa (Loshchilov2019AdamW, Reimers2019SBERT, Wolf2020Transformers). Achado aberto, dependente do bib (revisor1): o 'SBERT multilíngue' do apêndice do DRI-SL é atribuído ao artigo de 2019, onde 'multilingual' aparece zero vezes; a obra certa (Reimers & Gurevych, EMNLP 2020) ainda não está no referencias.bib.",
-          "bloqueado_por": [
-            "gate-do-autor"
-          ]
+          "status": "feito",
+          "nota": "revisor2: 18 chaves, 12 fichadas, 3 canônicas, 3 fichamentos novos (AdamW, SBERT, Transformers)"
         },
         "R4": {
           "status": "pendente"
@@ -294,8 +291,8 @@
           "nota": "principal: aritmética interna 100% correta (5 relações conferidas); achado maior = divergência de população entre E3' e E6 (dec-populacao-e6-vs-e3prime); aguarda a rastreabilidade do executor01 para os demais números"
         },
         "R6": {
-          "status": "pendente",
-          "nota": "ANOTADO: conferir se a 1ª aparição de E3' explica o nome (corte do E3)"
+          "status": "feito",
+          "nota": "banca 9470c1f: gate e régua definidos antes do uso, E3' explicado na tabela-mapa, Fase 1 com referência cruzada"
         },
         "R7": {
           "status": "pendente"
