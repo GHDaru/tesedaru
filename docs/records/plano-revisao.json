@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 61,
-  "atualizado_em": "2026-08-17T23:30:00Z",
-  "atualizado_por": "revisor2: 3 frentes fechadas (tarefa 2250). Cap.2 — as 24 pendências de fichamento chegam a zero em aberto: 21 fichadas, 2 viram link para o autor (Ahmed2022 é OA ouro bloqueado a robô; Attenberg2010 é fechada) e 1 vira decisão (Barros2014 carrega o título de artigo de outros autores; substituta exata verificada). Cap.3 — R3 entregue e aguardando gate. Branch ciclo/015-donmez2008 @0a7e5ed: Donmez2008 e Hanneke2015 fichadas na fonte.",
+  "versao": 62,
+  "atualizado_em": "2026-08-18T01:45:00Z",
+  "atualizado_por": "revisor2: as 24 pendências de fichamento do Cap. 2 fecham ZERADAS — 23 fichadas e 1 (Castro2011Desbalanceados, que substitui a Barros2014 por decisão (b) do autor) com o PDF pedido ao autor porque o SciELO bloqueia cliente automatizado. Branch ciclo/016-fecha-as-24 @3da6ce0. Ressalva de conteúdo: o Ahmed2022 é survey de CLUSTERING e a tese o cita ao falar de classificação — conserto de uma palavra, com o principal.",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -173,7 +173,7 @@
         },
         "R3": {
           "status": "feito",
-          "nota": "5 temas com fontes verificadas; cobertura efetiva 82,6% (73 fichadas + 41 canônicas ADR 0012). As 24 pendências reais FECHARAM em 2026-08-18: 21 fichadas (20 nas branches ciclo/012 e humanize/cap2-t1 + Hanneke2015 em ciclo/015), 2 dependem só de o autor baixar o PDF (Ahmed2022, Attenberg2010 — links na entrega 0030) e 1 depende de decisão do autor (Barros2014, possivelmente fabricada). Nenhuma pendência de fichamento do Cap. 2 segue em aberto do lado do revisor2."
+          "nota": "5 temas com fontes verificadas; cobertura efetiva 82,6% (73 fichadas + 41 canônicas ADR 0012). As 24 pendências reais FECHARAM em 2026-08-18, ZERADAS: 23 fichadas (branches ciclo/012, humanize/cap2-t1, ciclo/015 e ciclo/016) e 1 com PDF pedido ao autor (Castro2011Desbalanceados, substituta da Barros2014 — esta saiu do bib por ser provavelmente inexistente: carregava o título de Castro & Braga 2011). Nenhuma pendência de fichamento do Cap. 2 segue em aberto do lado do revisor2."
         },
         "R4": {
           "status": "feito",
