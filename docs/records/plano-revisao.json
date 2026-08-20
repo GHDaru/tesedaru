@@ -1,6 +1,6 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 65,
+  "versao": 66,
   "atualizado_em": "2026-08-20T17:40:00Z",
   "atualizado_por": "revisor2: as 24 pendências de fichamento do Cap. 2 fecham ZERADAS — 23 fichadas e 1 (Castro2011Desbalanceados, que substitui a Barros2014 por decisão (b) do autor) com o PDF pedido ao autor porque o SciELO bloqueia cliente automatizado. Branch ciclo/016-fecha-as-24 @3da6ce0. Ressalva de conteúdo: o Ahmed2022 é survey de CLUSTERING e a tese o cita ao falar de classificação — conserto de uma palavra, com o principal.",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
@@ -1205,7 +1205,7 @@
       "titulo": "Qual regime de avaliacao a tese reporta no veredito da hipotese: antigo (eval 20.092, Cap.5 atual) ou canonico (eval 177.490, 3 sementes). Medido pelo revisor2 nos artefatos primarios: no canonico o E25 nao cruza (-0,044) e o unico que cruza (E35, 2 de 3 sementes, +0,0021 na media) esta 276 rotulos acima do teto de 34.724. Braco A sem numero canonico (cache bloqueado). As 4 superficies de veredito da branch da banca (@d0d35ed) estao SEGURADAS no gate ate esta decisao; a higiene de denominador vai em branch separada.",
       "urgencia": "maxima",
       "origem": "revisor1 aviso 20260820-1517 + revisor2 aviso 20260820-2000",
-      "estado": "aguardando autor; revisor2 recompoe tab:e3p e tab:e3p-sweep no regime unico para a decisao"
+      "estado": "aguardando autor — QUADROS PRONTOS: revisor2 entregou as duas tabelas recompostas no regime canonico (mensagem 20260820-2050, commit fbf7489), com LaTeX pronto para colar e sem editar .tex. Piso da metrica da hipotese vai de 25 mil (10,80% da base, dentro do teto) para 35 mil (15,12%, 276 rotulos fora); em acuracia vai de 20 mil para 25 mil e segue dentro. A/B/C sem medicao canonica declarados, logo qualquer veredito canonico hoje e parcial. So falta a escolha do autor."
     },
     {
       "id": "dec-lastro-cap1-dois-denominadores",
