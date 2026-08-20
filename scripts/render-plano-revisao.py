@@ -1063,21 +1063,36 @@ def build_agentes() -> tuple[str, str]:
   <span class="meta" id="meta"></span></header>
 
 <section class="card">
-  <p class="ro-nota">Cada arco é uma direção só (quem mandou → quem
-  recebeu); a cor do arco e do contorno do nó é de quem ENVIA. Espessura do
-  arco ∝ quantidade de mensagens (histórico completo, inclusive
-  arquivadas). O número dentro do nó é a quantidade de tarefas abertas com
-  aquele agente <strong>agora</strong> (não histórico). <code>principal</code>
-  fica no centro porque o protocolo o define como hub obrigatório de toda
-  troca entre agentes — o layout reflete essa regra, não é estética.</p>
-  <div id="mapa" class="mapa-wrap"></div>
+  <div class="kpis" id="kpis-row"></div>
 </section>
 
 <section class="card">
-  <details><summary id="t-dados">Dados exatos (mensagens por arco · tarefas por agente)</summary>
+  <div id="hub"></div>
+</section>
+
+<section class="card">
+  <h2>Quem tem trabalho agora</h2>
+  <div class="ag-cards" id="ag-cards"></div>
+  <p class="ag-vazios" id="ag-vazios"></p>
+  <p class="ag-nota" id="ag-difusao"></p>
+</section>
+
+<section class="card">
+  <details><summary id="t-hist">Histórico de tráfego (desde o início da coordenação)</summary>
+    <p class="ro-nota">Um arco por par de agentes que já trocou mensagem
+    diretamente com o <code>principal</code> — sem seta, porque o arco
+    representa o par, não uma direção. <code>[in]</code> = mensagens que o
+    agente <strong>recebeu</strong> do principal; <code>[out]</code> =
+    mensagens que o agente <strong>enviou</strong> ao principal. Espessura ∝
+    total do par. Trocas fora do hub e mensagens de difusão ficam de fora do
+    desenho (ver notas abaixo) — são raras ou não são, por definição, uma
+    relação entre dois agentes.</p>
+    <div id="hgraf" class="hgraf-wrap"></div>
+    <p class="ag-nota" id="hg-excecoes"></p>
+    <p class="ag-nota" id="hg-sem-principal"></p>
     <div class="mapa-tabelas">
-      <div><h3>Arcos</h3><div class="scroll"><table id="arestas-tab"></table></div></div>
-      <div><h3>Tarefas abertas</h3><div class="scroll"><table id="tarefas-tab"></table></div></div>
+      <div><h3>Arcos (todas as direções)</h3><div class="scroll"><table id="arestas-tab"></table></div></div>
+      <div><h3>Tarefas abertas agora</h3><div class="scroll"><table id="tarefas-tab"></table></div></div>
     </div>
   </details>
 </section>
@@ -1092,10 +1107,12 @@ const msgs = M.mensagens || [];
 document.getElementById('meta').textContent =
   `Atualizada em ${M.computado_em} · fonte: coordenacao/ no repositório (${msgs.length} mensagens)`;
 
-// ordem do anel: trio de revisão, depois humano/difusão, depois infra local/execução
-const ORDEM_ANEL = ['revisor1','revisor2','banca','autor','todos','local','executor01','executor02','site'];
-const LABEL = {todos: 'todos (difusão)'};
-const rotulo = n => LABEL[n] || n;
+// trio de revisão primeiro, depois execução/infra — mesma ordem usada no
+// resto do site para listar agentes; 'todos' e 'principal' são tratados à
+// parte (não são satélites comuns: um é hub obrigatório, o outro nem é agente)
+const AGENTES_SAT = ['revisor1', 'revisor2', 'banca', 'site', 'executor01', 'executor02', 'local', 'autor'];
+const TODOS_NOS = ['principal', ...AGENTES_SAT, 'todos'];
+const ATIVIDADE = Object.fromEntries((M.atividade || []).map(a => [a.agente, a]));
 
 const edgeCount = {};
 for (const m of msgs) { const k = m.de + '>' + m.para; edgeCount[k] = (edgeCount[k] || 0) + 1; }
@@ -1103,120 +1120,164 @@ const tarefasAbertas = {};
 for (const m of msgs) {
   if (m.tipo === 'tarefa' && m.estado !== 'concluida') tarefasAbertas[m.para] = (tarefasAbertas[m.para] || 0) + 1;
 }
+const par = a => (edgeCount[a + '>principal'] || 0) + (edgeCount['principal>' + a] || 0);
+const idade = h => h < 1 ? `${Math.round(h*60)} min` : h < 48 ? `${Math.round(h)} h` : `${Math.round(h/24)} dias`;
 
-const W = 920, H = 680, CX = 460, CY = 350, RING = 250, R_HUB = 54, R_SAT = 36;
-const pos = {principal: {x: CX, y: CY, r: R_HUB, ux: 0, uy: 1}};
-ORDEM_ANEL.forEach((nome, i) => {
-  const ang = (-90 + i * (360 / ORDEM_ANEL.length)) * Math.PI / 180;
-  const ux = Math.cos(ang), uy = Math.sin(ang);
-  pos[nome] = {x: CX + RING * ux, y: CY + RING * uy, r: R_SAT, ux, uy};
-});
-const TODOS_NOS = ['principal', ...ORDEM_ANEL];
+// -------- KPIs: o "agora" primeiro, histórico só como ponteiro pequeno --------
+const totalAbertas = TODOS_NOS.reduce((s, n) => s + (tarefasAbertas[n] || 0), 0);
+const nosComPendencia = TODOS_NOS.filter(n => (tarefasAbertas[n] || 0) > 0).length;
+document.getElementById('kpis-row').innerHTML = `
+  <div class="kpi hero"><span class="label">Tarefas abertas agora</span>
+    <span class="v">${totalAbertas}</span>
+    <span class="ctx">${nosComPendencia} de ${TODOS_NOS.length} nós com pendência</span></div>
+  <div class="kpi"><span class="label">Histórico de tráfego</span>
+    <span class="v">${msgs.length}</span>
+    <span class="ctx">mensagens desde o início — ver "Histórico" recolhido abaixo</span></div>`;
 
-function edgePath(a, b) {
-  const A = pos[a], B = pos[b];
-  const dx = B.x - A.x, dy = B.y - A.y;
-  const dist = Math.hypot(dx, dy) || 1;
-  const ux = dx / dist, uy = dy / dist;
-  const sx = A.x + ux * A.r, sy = A.y + uy * A.r;
-  const ex = B.x - ux * (B.r + 10), ey = B.y - uy * (B.r + 10); // folga p/ a ponta da seta
-  const mx = (sx + ex) / 2, my = (sy + ey) / 2;
-  // curvatura consistente: sinal fixo por par (a<b), nunca depende de quem manda —
-  // assim ida e volta do mesmo par sempre curvam em direções opostas, sem sobrepor
-  const bow = Math.min(50, dist * 0.16) * (a < b ? 1 : -1);
-  const ctx = mx + -uy * bow, cty = my + ux * bow;
-  return `M${sx.toFixed(1)},${sy.toFixed(1)} Q${ctx.toFixed(1)},${cty.toFixed(1)} ${ex.toFixed(1)},${ey.toFixed(1)}`;
+// -------- hub: principal não entra no grid de cards, é a régua de comparação --------
+const principalEnviou = Object.entries(edgeCount).filter(([k]) => k.startsWith('principal>'))
+  .reduce((s, [, n]) => s + n, 0);
+const principalRecebeu = Object.entries(edgeCount).filter(([k]) => k.endsWith('>principal'))
+  .reduce((s, [, n]) => s + n, 0);
+document.getElementById('hub').innerHTML = `<div class="ag-hub">
+  <div class="ag-hub-id"><span class="k-ag-dot" data-ag="principal" aria-hidden="true"></span>
+    <strong>principal</strong> <small>hub obrigatório do protocolo — toda troca entre agentes passa por ele</small></div>
+  <div class="ag-hub-n">${tarefasAbertas.principal || 0}<small>tarefas abertas agora</small></div>
+  <div class="ag-hub-hist">enviou ${principalEnviou} · recebeu ${principalRecebeu} <small>(histórico completo)</small></div>
+</div>`;
+
+// -------- cards: só quem tem tarefa aberta agora, ordenado por volume --------
+const comPendencia = AGENTES_SAT.filter(a => (tarefasAbertas[a] || 0) > 0)
+  .sort((a, b) => (tarefasAbertas[b] || 0) - (tarefasAbertas[a] || 0));
+const zerados = AGENTES_SAT.filter(a => !((tarefasAbertas[a] || 0) > 0));
+
+function card(nome) {
+  const n = tarefasAbertas[nome] || 0;
+  const at = ATIVIDADE[nome];
+  const vidaLinha = at
+    ? `<p class="ag-card-sub">${at.ativo ? '● ativo' : '○ sem sinal recente'} há ${idade(at.minutos_atras != null ? at.minutos_atras / 60 : Infinity)}</p>`
+    : '';
+  const recebeu = edgeCount['principal>' + nome] || 0, enviou = edgeCount[nome + '>principal'] || 0;
+  return `<div class="ag-card">
+    <div class="ag-card-head"><span class="k-ag-dot" data-ag="${esc(nome)}" aria-hidden="true"></span>${esc(nome)}</div>
+    <p class="ag-card-n">${n}<small>tarefa${n === 1 ? '' : 's'} aberta${n === 1 ? '' : 's'}</small></p>
+    ${vidaLinha}
+    <p class="ag-card-sub">recebeu do principal ${recebeu} · enviou ao principal ${enviou} <small>(histórico)</small></p>
+  </div>`;
 }
+const todosAbertas = tarefasAbertas.todos || 0;
+const cardsHtml = comPendencia.map(card).join('') +
+  (todosAbertas > 0 ? `<div class="ag-card ag-todos">
+    <div class="ag-card-head">todos <small>(difusão)</small></div>
+    <p class="ag-card-n">${todosAbertas}<small>tarefa${todosAbertas === 1 ? '' : 's'} aberta${todosAbertas === 1 ? '' : 's'}</small></p>
+    <p class="ag-card-sub">endereçada a todos os agentes, não a um só</p>
+  </div>` : '');
+document.getElementById('ag-cards').innerHTML = cardsHtml ||
+  '<p class="vazia">Nenhum agente com tarefa aberta agora.</p>';
+document.getElementById('ag-vazios').textContent = zerados.length
+  ? `Sem pendências agora: ${zerados.join(', ')}.` : '';
 
-const remetentes = [...new Set(Object.keys(edgeCount).map(k => k.split('>')[0]))].filter(a => pos[a]);
-// markerUnits="userSpaceOnUse": sem isso o SVG escala a seta junto com o
-// stroke-width (padrão "strokeWidth") — nas arestas mais grossas (até 9px)
-// a seta vira um triângulo enorme que engole o nó. Tamanho fixo, sempre legível.
-const defs = `<defs>${remetentes.map(ag => `
-  <marker id="seta-${esc(ag)}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9"
-      markerUnits="userSpaceOnUse" orient="auto">
-    <path class="map-arrow-path" data-ag="${esc(ag)}" d="M0,0 L10,5 L0,10 Z"/>
-  </marker>`).join('')}</defs>`;
+let difusaoTotal = 0;
+for (const [k, n] of Object.entries(edgeCount)) { if (k.endsWith('>todos')) difusaoTotal += n; }
+document.getElementById('ag-difusao').textContent =
+  `Mensagens em difusão (endereçadas a "todos"): ${difusaoTotal} no histórico` +
+  (todosAbertas > 0 ? `, ${todosAbertas} tarefa${todosAbertas === 1 ? '' : 's'} ainda aberta${todosAbertas === 1 ? '' : 's'} (card acima).` : '.');
 
-const edgesSvg = Object.entries(edgeCount).filter(([k]) => {
-  const [de, para] = k.split('>'); return pos[de] && pos[para];
-}).map(([k, n]) => {
-  const [de, para] = k.split('>');
-  const w = Math.min(9, 1 + n * 0.28);
-  return `<path class="map-edge" data-ag="${esc(de)}" d="${edgePath(de, para)}" stroke-width="${w.toFixed(2)}"
-    marker-end="url(#seta-${esc(de)})"><title>${esc(rotulo(de))} → ${esc(rotulo(para))}: ${n} mensagem${n === 1 ? '' : 'ns'}</title></path>`;
+// -------- histórico (recolhido): 1 arco por par com o principal, [in]/[out], sem seta --------
+const comPrincipal = AGENTES_SAT.filter(a => par(a) > 0).sort((a, b) => par(b) - par(a));
+const semPrincipal = AGENTES_SAT.filter(a => par(a) === 0);
+
+const W = 760, ROWH = 56, TOPPAD = 30, H = TOPPAD * 2 + Math.max(1, comPrincipal.length - 1) * ROWH + 60;
+const PX = 110, SX = 640, CY = H / 2;
+const maxPar = Math.max(1, ...comPrincipal.map(par));
+const hgNodes = `<circle class="hg-node" data-ag="principal" cx="${PX}" cy="${CY}" r="34"></circle>
+  <text class="hg-node-n" x="${PX}" y="${CY + 1}" text-anchor="middle">${tarefasAbertas.principal || 0}</text>
+  <text class="hg-node-label" x="${PX}" y="${CY + 52}" text-anchor="middle">principal</text>`;
+const hgLines = comPrincipal.map((nome, i) => {
+  const y = TOPPAD + i * ROWH + 20;
+  const recebeu = edgeCount['principal>' + nome] || 0, enviou = edgeCount[nome + '>principal'] || 0;
+  const w = (1 + 6 * (par(nome) / maxPar)).toFixed(2);
+  const midx = (PX + SX) / 2;
+  return `<line class="hg-line" data-ag="${esc(nome)}" x1="${PX + 36}" y1="${CY}" x2="${SX - 24}" y2="${y}" stroke-width="${w}">
+      <title>${esc(nome)} ⇄ principal: recebeu ${recebeu} do principal, enviou ${enviou} ao principal</title></line>
+    <rect class="hg-label-bg" x="${midx - 46}" y="${(CY + y) / 2 - 11}" width="92" height="16" rx="4"></rect>
+    <text class="hg-label" x="${midx}" y="${(CY + y) / 2 + 1}" text-anchor="middle">[in ${recebeu}] [out ${enviou}]</text>
+    <circle class="hg-node" data-ag="${esc(nome)}" cx="${SX}" cy="${y}" r="22"></circle>
+    <text class="hg-node-n hg-node-n-sat" x="${SX}" y="${y + 1}" text-anchor="middle">${tarefasAbertas[nome] || 0}</text>
+    <text class="hg-node-label" x="${SX + 34}" y="${y + 4}" text-anchor="start">${esc(nome)}</text>`;
 }).join('');
+document.getElementById('hgraf').innerHTML = comPrincipal.length ? `<svg viewBox="0 0 ${W} ${H}" role="img"
+  aria-label="Histórico de tráfego direto com o principal, por agente, com contagem de entrada e saída">
+  ${hgLines}${hgNodes}</svg>` : '<p class="vazia">Nenhum par com troca direta com o principal ainda.</p>';
 
-const nodesSvg = TODOS_NOS.map(nome => {
-  const p = pos[nome], n = tarefasAbertas[nome] || 0;
-  // rótulo para FORA do anel (na direção radial do próprio nó), nunca fixo
-  // "abaixo" — para os nós da metade de cima do anel, "abaixo" aponta para
-  // o centro, onde as arestas convergem, e o texto ficava por baixo delas
-  const lx = p.x + (p.r + 18) * p.ux, ly = p.y + (p.r + 18) * p.uy + 4;
-  return `<g>
-    <circle class="map-node" data-ag="${esc(nome)}" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${p.r}">
-      <title>${esc(rotulo(nome))}: ${n} tarefa${n === 1 ? '' : 's'} aberta${n === 1 ? '' : 's'} agora</title>
-    </circle>
-    <text class="map-node-n" x="${p.x.toFixed(1)}" y="${(p.y + 1).toFixed(1)}" text-anchor="middle">${n}</text>
-    <text class="map-node-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle">${esc(rotulo(nome))}</text>
-  </g>`;
-}).join('');
+const excArr = Object.entries(edgeCount).filter(([k]) => {
+  const [de, para] = k.split('>'); return de !== 'principal' && para !== 'principal' && para !== 'todos';
+});
+document.getElementById('hg-excecoes').textContent = excArr.length
+  ? `Trocas diretas fora do hub (exceção ao protocolo, raras): ${excArr.map(([k, n]) => {
+      const [de, para] = k.split('>'); return `${de}→${para} (${n})`;
+    }).join(', ')}.` : '';
+document.getElementById('hg-sem-principal').textContent = semPrincipal.length
+  ? `Sem troca direta com o principal ainda: ${semPrincipal.join(', ')}.` : '';
 
-document.getElementById('mapa').innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img"
-  aria-label="Mapa de agentes: quem troca mensagens com quem, e quantas tarefas cada um tem aberta agora">
-  ${defs}${edgesSvg}${nodesSvg}</svg>`;
-
-const arestasOrdenadas = Object.entries(edgeCount).filter(([k]) => {
-  const [de, para] = k.split('>'); return pos[de] && pos[para];
-}).sort((a, b) => b[1] - a[1]);
-document.getElementById('t-dados').textContent =
-  `Dados exatos (${arestasOrdenadas.length} arcos · mensagens por arco · tarefas por agente)`;
+const arestasOrdenadas = Object.entries(edgeCount).sort((a, b) => b[1] - a[1]);
+document.getElementById('t-hist').textContent =
+  `Histórico de tráfego (desde o início da coordenação · ${arestasOrdenadas.length} arcos · ${msgs.length} mensagens)`;
 document.getElementById('arestas-tab').innerHTML =
   '<thead><tr><th>De</th><th>Para</th><th>Mensagens</th></tr></thead><tbody>' +
   arestasOrdenadas.map(([k, n]) => {
     const [de, para] = k.split('>');
-    return `<tr><td>${esc(rotulo(de))}</td><td>${esc(rotulo(para))}</td><td class="tot">${n}</td></tr>`;
+    return `<tr><td>${esc(de)}</td><td>${esc(para)}</td><td class="tot">${n}</td></tr>`;
   }).join('') + '</tbody>';
 document.getElementById('tarefas-tab').innerHTML =
   '<thead><tr><th>Agente</th><th>Tarefas abertas</th></tr></thead><tbody>' +
-  TODOS_NOS.map(nome => `<tr><td>${esc(rotulo(nome))}</td><td class="tot">${tarefasAbertas[nome] || 0}</td></tr>`).join('') +
+  TODOS_NOS.map(nome => `<tr><td>${esc(nome)}</td><td class="tot">${tarefasAbertas[nome] || 0}</td></tr>`).join('') +
   '</tbody>';
 })();
 </script>
 <style>
-.mapa-wrap svg{width:100%; height:auto; max-height:72vh}
-.map-node{fill:var(--panel); stroke:var(--muted); stroke-width:2.5}
-.map-edge{fill:none; stroke:var(--muted); stroke-linecap:round; opacity:.85}
-.map-arrow-path{fill:var(--muted)}
-.map-node[data-ag="principal"]{stroke:var(--ag-principal); stroke-width:3.5}
-.map-edge[data-ag="principal"]{stroke:var(--ag-principal)}
-.map-arrow-path[data-ag="principal"]{fill:var(--ag-principal)}
-.map-node[data-ag="banca"]{stroke:var(--ag-banca)}
-.map-edge[data-ag="banca"]{stroke:var(--ag-banca)}
-.map-arrow-path[data-ag="banca"]{fill:var(--ag-banca)}
-.map-node[data-ag="revisor1"]{stroke:var(--ag-revisor1)}
-.map-edge[data-ag="revisor1"]{stroke:var(--ag-revisor1)}
-.map-arrow-path[data-ag="revisor1"]{fill:var(--ag-revisor1)}
-.map-node[data-ag="revisor2"]{stroke:var(--ag-revisor2)}
-.map-edge[data-ag="revisor2"]{stroke:var(--ag-revisor2)}
-.map-arrow-path[data-ag="revisor2"]{fill:var(--ag-revisor2)}
-.map-node[data-ag="autor"]{stroke:var(--ag-autor)}
-.map-edge[data-ag="autor"]{stroke:var(--ag-autor)}
-.map-arrow-path[data-ag="autor"]{fill:var(--ag-autor)}
-.map-node[data-ag="site"]{stroke:var(--ag-site)}
-.map-edge[data-ag="site"]{stroke:var(--ag-site)}
-.map-arrow-path[data-ag="site"]{fill:var(--ag-site)}
-.map-node[data-ag="executor01"]{stroke:var(--ag-executor01)}
-.map-edge[data-ag="executor01"]{stroke:var(--ag-executor01)}
-.map-arrow-path[data-ag="executor01"]{fill:var(--ag-executor01)}
-.map-node[data-ag="executor02"]{stroke:var(--ag-executor02)}
-.map-edge[data-ag="executor02"]{stroke:var(--ag-executor02)}
-.map-arrow-path[data-ag="executor02"]{fill:var(--ag-executor02)}
-.map-node[data-ag="local"]{stroke:var(--ag-local)}
-.map-edge[data-ag="local"]{stroke:var(--ag-local)}
-.map-arrow-path[data-ag="local"]{fill:var(--ag-local)}
-.map-node-n{fill:var(--ink); font:700 22px system-ui; text-anchor:middle}
-.map-node-label{fill:var(--muted); font:12px system-ui; text-anchor:middle}
+.ag-hub{display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-4)}
+.ag-hub-id{display:flex; align-items:center; gap:.4rem; flex:1 1 220px; min-width:0}
+.ag-hub-id small{display:block; color:var(--muted); font-size:var(--fs-1); font-weight:400}
+.ag-hub-n{font-size:var(--fs-6); font-weight:700; color:var(--accent); line-height:1; display:flex; align-items:baseline; gap:.4rem}
+.ag-hub-n small{font-size:var(--fs-1); font-weight:400; color:var(--muted)}
+.ag-hub-hist{color:var(--muted); font-size:var(--fs-2)}
+.ag-cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:var(--sp-3)}
+.ag-card{background:var(--ground); border:1px solid var(--border); border-radius:8px; padding:var(--sp-3);
+  display:flex; flex-direction:column; gap:.3rem}
+.ag-card.ag-todos{border-style:dashed}
+.ag-card-head{display:flex; align-items:center; gap:.4rem; font-weight:600}
+.ag-card-head small{color:var(--muted); font-weight:400}
+.ag-card-n{margin:0; font-size:var(--fs-6); font-weight:700; color:var(--accent); line-height:1; display:flex; align-items:baseline; gap:.4rem}
+.ag-card-n small{font-size:var(--fs-1); font-weight:400; color:var(--muted)}
+.ag-card-sub{margin:0; font-size:var(--fs-1); color:var(--muted)}
+.ag-vazios{color:var(--muted); font-size:var(--fs-2); margin:var(--sp-3) 0 0}
+.ag-nota{color:var(--muted); font-size:var(--fs-1); margin:.4rem 0 0}
+.hgraf-wrap svg{width:100%; height:auto; max-height:60vh; margin-top:var(--sp-2)}
+.hg-node{fill:var(--panel); stroke:var(--muted); stroke-width:2.5}
+.hg-node[data-ag="principal"]{stroke:var(--ag-principal); stroke-width:3.5}
+.hg-node[data-ag="banca"]{stroke:var(--ag-banca)}
+.hg-node[data-ag="revisor1"]{stroke:var(--ag-revisor1)}
+.hg-node[data-ag="revisor2"]{stroke:var(--ag-revisor2)}
+.hg-node[data-ag="autor"]{stroke:var(--ag-autor)}
+.hg-node[data-ag="site"]{stroke:var(--ag-site)}
+.hg-node[data-ag="executor01"]{stroke:var(--ag-executor01)}
+.hg-node[data-ag="executor02"]{stroke:var(--ag-executor02)}
+.hg-node[data-ag="local"]{stroke:var(--ag-local)}
+.hg-node-n{fill:var(--ink); font:700 18px system-ui; text-anchor:middle}
+.hg-node-n-sat{font-size:14px}
+.hg-node-label{fill:var(--ink); font:12px system-ui}
+.hg-line{stroke:var(--muted); stroke-linecap:round; opacity:.6}
+.hg-line[data-ag="banca"]{stroke:var(--ag-banca)}
+.hg-line[data-ag="revisor1"]{stroke:var(--ag-revisor1)}
+.hg-line[data-ag="revisor2"]{stroke:var(--ag-revisor2)}
+.hg-line[data-ag="autor"]{stroke:var(--ag-autor)}
+.hg-line[data-ag="site"]{stroke:var(--ag-site)}
+.hg-line[data-ag="executor01"]{stroke:var(--ag-executor01)}
+.hg-line[data-ag="executor02"]{stroke:var(--ag-executor02)}
+.hg-line[data-ag="local"]{stroke:var(--ag-local)}
+.hg-label-bg{fill:var(--panel)}
+.hg-label{fill:var(--muted); font:11px system-ui; text-anchor:middle}
 .mapa-tabelas{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:var(--sp-5); margin-top:var(--sp-3)}
 .mapa-tabelas h3{font-size:var(--fs-3); margin:0 0 var(--sp-2)}
 </style>"""
