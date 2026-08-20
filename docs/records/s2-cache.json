@@ -320,6 +320,10 @@
    "metodo": "doi",
    "paper_id": "e31b64c52116e988b5df6920b7f2dabc4f981cb4"
   },
+  "Raczkowska2024AlleNoise": {
+   "metodo": "arxiv",
+   "paper_id": "9a6f90ef5e86a8bc727d2a81623db18dc45df7af"
+  },
   "Reimers2019SBERT": {
    "metodo": "doi",
    "paper_id": "93d63ec754f29fa22572615320afe0521f7ec66d"

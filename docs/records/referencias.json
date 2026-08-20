@@ -1,10 +1,10 @@
 {
  "schema": "referencias.v1",
- "computado_em": "2026-08-20 12:49 UTC",
+ "computado_em": "2026-08-20 13:10 UTC",
  "total": 336,
  "citadas": 152,
  "com_link_direto": 151,
- "com_ficha_s2": 100,
+ "com_ficha_s2": 101,
  "referencias": [
   {
    "chave": "Alsmadi2019",
@@ -3670,8 +3670,8 @@
    "venue": "arXiv:2407.10992",
    "link": "https://arxiv.org/abs/2407.10992",
    "link_tipo": "arxiv",
-   "link_s2": "https://www.semanticscholar.org/search?q=AlleNoise%3A%20large-scale%20text%20classification%20benchmark%20dataset%20with%20real-world%20label%20noise&sort=relevance",
-   "link_s2_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/paper/9a6f90ef5e86a8bc727d2a81623db18dc45df7af",
+   "link_s2_tipo": "direto",
    "sem_entrada_bib": false,
    "primeira_aparicao": {
     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",

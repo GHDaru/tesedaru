@@ -75,6 +75,10 @@ SHARED_CSS = """
      com accent/atencao/st-andamento, que já carregam outro significado */
   --ag-principal:#6E42C1; --ag-banca:#0E7C86; --ag-revisor1:#B15C2E;
   --ag-revisor2:#9C3F76; --ag-autor:#4A4E9E;
+  /* 4 agentes novos (ciclo 010, mapa de agentes) — mesmos 5 matizes acima,
+     3 tons a mais no espectro; "todos" (difusão, não é agente) fica de
+     propósito fora — cai no fallback oco já existente para "sem cor própria" */
+  --ag-site:#1F7A52; --ag-executor01:#B23A46; --ag-executor02:#A67C00; --ag-local:#3E6E8E;
   /* tipografia: escala fixa 12/13/15/20/28/44 — nunca tamanho arbitrário */
   --fs-1:12px; --fs-2:13px; --fs-3:15px; --fs-4:20px; --fs-5:28px; --fs-6:44px;
   /* espaço em múltiplos de 4px */
@@ -94,6 +98,7 @@ SHARED_CSS = """
     --grid:#242A25;
     --ag-principal:#B79AF0; --ag-banca:#7FDBE0; --ag-revisor1:#E3A67A;
     --ag-revisor2:#E091C4; --ag-autor:#A7ABE8;
+    --ag-site:#6FD1A0; --ag-executor01:#E38A93; --ag-executor02:#E0C466; --ag-local:#8FC4E0;
   }
 }
 :root[data-theme="dark"]{
@@ -108,6 +113,7 @@ SHARED_CSS = """
   --grid:#242A25;
   --ag-principal:#B79AF0; --ag-banca:#7FDBE0; --ag-revisor1:#E3A67A;
   --ag-revisor2:#E091C4; --ag-autor:#A7ABE8;
+  --ag-site:#6FD1A0; --ag-executor01:#E38A93; --ag-executor02:#E0C466; --ag-local:#8FC4E0;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -260,9 +266,13 @@ summary{cursor:pointer; font-size:var(--fs-2); font-weight:600}
 .k-ag-dot[data-ag="revisor1"]{background:var(--ag-revisor1)}
 .k-ag-dot[data-ag="revisor2"]{background:var(--ag-revisor2)}
 .k-ag-dot[data-ag="autor"]{background:var(--ag-autor)}
+.k-ag-dot[data-ag="site"]{background:var(--ag-site)}
+.k-ag-dot[data-ag="executor01"]{background:var(--ag-executor01)}
+.k-ag-dot[data-ag="executor02"]{background:var(--ag-executor02)}
+.k-ag-dot[data-ag="local"]{background:var(--ag-local)}
 /* responsável ainda não atribuído ("a definir") — pontinho oco, nunca
    invisível: a ausência de cor já é informação (ninguém assumiu ainda) */
-.k-ag-dot:not([data-ag="principal"]):not([data-ag="banca"]):not([data-ag="revisor1"]):not([data-ag="revisor2"]):not([data-ag="autor"]){
+.k-ag-dot:not([data-ag="principal"]):not([data-ag="banca"]):not([data-ag="revisor1"]):not([data-ag="revisor2"]):not([data-ag="autor"]):not([data-ag="site"]):not([data-ag="executor01"]):not([data-ag="executor02"]):not([data-ag="local"]){
   background:transparent; border:1px solid var(--muted)}
 """
 
@@ -318,6 +328,7 @@ NAV = [
     ("referencias.html", "Referências", "❐"),
     ("grafo.html", "Grafo", "⬡"),
     ("bibliometria.html", "Bibliometria", "◫"),
+    ("agentes.html", "Agentes", "◈"),
 ]
 
 
@@ -1039,6 +1050,180 @@ td.assunto small{color:var(--muted)}
 
 
 # --------------------------------------------------------------------------
+# Agentes (agentes.html) — ciclo 010, pedido direto do autor: mapa visual de
+# quem troca mensagem com quem (nós + arcos direcionados) e quantas tarefas
+# cada agente tem aberta agora (número dentro do nó). Sem lib de grafo — SVG
+# à mão, layout fixo (principal no centro, hub obrigatório do protocolo; os
+# outros 9 num anel), igual ao gráfico de evolução do Plano. Fonte: o mesmo
+# docs/records/mensagens.json já carregado em `mens` — nenhum script novo.
+# --------------------------------------------------------------------------
+def build_agentes() -> tuple[str, str]:
+    body = """
+<header class="page-head"><h1>Agentes</h1>
+  <span class="meta" id="meta"></span></header>
+
+<section class="card">
+  <p class="ro-nota">Cada arco é uma direção só (quem mandou → quem
+  recebeu); a cor do arco e do contorno do nó é de quem ENVIA. Espessura do
+  arco ∝ quantidade de mensagens (histórico completo, inclusive
+  arquivadas). O número dentro do nó é a quantidade de tarefas abertas com
+  aquele agente <strong>agora</strong> (não histórico). <code>principal</code>
+  fica no centro porque o protocolo o define como hub obrigatório de toda
+  troca entre agentes — o layout reflete essa regra, não é estética.</p>
+  <div id="mapa" class="mapa-wrap"></div>
+</section>
+
+<section class="card">
+  <details><summary id="t-dados">Dados exatos (mensagens por arco · tarefas por agente)</summary>
+    <div class="mapa-tabelas">
+      <div><h3>Arcos</h3><div class="scroll"><table id="arestas-tab"></table></div></div>
+      <div><h3>Tarefas abertas</h3><div class="scroll"><table id="tarefas-tab"></table></div></div>
+    </div>
+  </details>
+</section>
+"""
+    json_blocks = as_json_script('mensagens', mens)
+    script = json_blocks + """
+<script>
+(function(){
+const M = JSON.parse(document.getElementById('mensagens').textContent);
+const esc = s => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const msgs = M.mensagens || [];
+document.getElementById('meta').textContent =
+  `Atualizada em ${M.computado_em} · fonte: coordenacao/ no repositório (${msgs.length} mensagens)`;
+
+// ordem do anel: trio de revisão, depois humano/difusão, depois infra local/execução
+const ORDEM_ANEL = ['revisor1','revisor2','banca','autor','todos','local','executor01','executor02','site'];
+const LABEL = {todos: 'todos (difusão)'};
+const rotulo = n => LABEL[n] || n;
+
+const edgeCount = {};
+for (const m of msgs) { const k = m.de + '>' + m.para; edgeCount[k] = (edgeCount[k] || 0) + 1; }
+const tarefasAbertas = {};
+for (const m of msgs) {
+  if (m.tipo === 'tarefa' && m.estado !== 'concluida') tarefasAbertas[m.para] = (tarefasAbertas[m.para] || 0) + 1;
+}
+
+const W = 920, H = 680, CX = 460, CY = 350, RING = 250, R_HUB = 54, R_SAT = 36;
+const pos = {principal: {x: CX, y: CY, r: R_HUB, ux: 0, uy: 1}};
+ORDEM_ANEL.forEach((nome, i) => {
+  const ang = (-90 + i * (360 / ORDEM_ANEL.length)) * Math.PI / 180;
+  const ux = Math.cos(ang), uy = Math.sin(ang);
+  pos[nome] = {x: CX + RING * ux, y: CY + RING * uy, r: R_SAT, ux, uy};
+});
+const TODOS_NOS = ['principal', ...ORDEM_ANEL];
+
+function edgePath(a, b) {
+  const A = pos[a], B = pos[b];
+  const dx = B.x - A.x, dy = B.y - A.y;
+  const dist = Math.hypot(dx, dy) || 1;
+  const ux = dx / dist, uy = dy / dist;
+  const sx = A.x + ux * A.r, sy = A.y + uy * A.r;
+  const ex = B.x - ux * (B.r + 10), ey = B.y - uy * (B.r + 10); // folga p/ a ponta da seta
+  const mx = (sx + ex) / 2, my = (sy + ey) / 2;
+  // curvatura consistente: sinal fixo por par (a<b), nunca depende de quem manda —
+  // assim ida e volta do mesmo par sempre curvam em direções opostas, sem sobrepor
+  const bow = Math.min(50, dist * 0.16) * (a < b ? 1 : -1);
+  const ctx = mx + -uy * bow, cty = my + ux * bow;
+  return `M${sx.toFixed(1)},${sy.toFixed(1)} Q${ctx.toFixed(1)},${cty.toFixed(1)} ${ex.toFixed(1)},${ey.toFixed(1)}`;
+}
+
+const remetentes = [...new Set(Object.keys(edgeCount).map(k => k.split('>')[0]))].filter(a => pos[a]);
+// markerUnits="userSpaceOnUse": sem isso o SVG escala a seta junto com o
+// stroke-width (padrão "strokeWidth") — nas arestas mais grossas (até 9px)
+// a seta vira um triângulo enorme que engole o nó. Tamanho fixo, sempre legível.
+const defs = `<defs>${remetentes.map(ag => `
+  <marker id="seta-${esc(ag)}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9"
+      markerUnits="userSpaceOnUse" orient="auto">
+    <path class="map-arrow-path" data-ag="${esc(ag)}" d="M0,0 L10,5 L0,10 Z"/>
+  </marker>`).join('')}</defs>`;
+
+const edgesSvg = Object.entries(edgeCount).filter(([k]) => {
+  const [de, para] = k.split('>'); return pos[de] && pos[para];
+}).map(([k, n]) => {
+  const [de, para] = k.split('>');
+  const w = Math.min(9, 1 + n * 0.28);
+  return `<path class="map-edge" data-ag="${esc(de)}" d="${edgePath(de, para)}" stroke-width="${w.toFixed(2)}"
+    marker-end="url(#seta-${esc(de)})"><title>${esc(rotulo(de))} → ${esc(rotulo(para))}: ${n} mensagem${n === 1 ? '' : 'ns'}</title></path>`;
+}).join('');
+
+const nodesSvg = TODOS_NOS.map(nome => {
+  const p = pos[nome], n = tarefasAbertas[nome] || 0;
+  // rótulo para FORA do anel (na direção radial do próprio nó), nunca fixo
+  // "abaixo" — para os nós da metade de cima do anel, "abaixo" aponta para
+  // o centro, onde as arestas convergem, e o texto ficava por baixo delas
+  const lx = p.x + (p.r + 18) * p.ux, ly = p.y + (p.r + 18) * p.uy + 4;
+  return `<g>
+    <circle class="map-node" data-ag="${esc(nome)}" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${p.r}">
+      <title>${esc(rotulo(nome))}: ${n} tarefa${n === 1 ? '' : 's'} aberta${n === 1 ? '' : 's'} agora</title>
+    </circle>
+    <text class="map-node-n" x="${p.x.toFixed(1)}" y="${(p.y + 1).toFixed(1)}" text-anchor="middle">${n}</text>
+    <text class="map-node-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle">${esc(rotulo(nome))}</text>
+  </g>`;
+}).join('');
+
+document.getElementById('mapa').innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img"
+  aria-label="Mapa de agentes: quem troca mensagens com quem, e quantas tarefas cada um tem aberta agora">
+  ${defs}${edgesSvg}${nodesSvg}</svg>`;
+
+const arestasOrdenadas = Object.entries(edgeCount).filter(([k]) => {
+  const [de, para] = k.split('>'); return pos[de] && pos[para];
+}).sort((a, b) => b[1] - a[1]);
+document.getElementById('t-dados').textContent =
+  `Dados exatos (${arestasOrdenadas.length} arcos · mensagens por arco · tarefas por agente)`;
+document.getElementById('arestas-tab').innerHTML =
+  '<thead><tr><th>De</th><th>Para</th><th>Mensagens</th></tr></thead><tbody>' +
+  arestasOrdenadas.map(([k, n]) => {
+    const [de, para] = k.split('>');
+    return `<tr><td>${esc(rotulo(de))}</td><td>${esc(rotulo(para))}</td><td class="tot">${n}</td></tr>`;
+  }).join('') + '</tbody>';
+document.getElementById('tarefas-tab').innerHTML =
+  '<thead><tr><th>Agente</th><th>Tarefas abertas</th></tr></thead><tbody>' +
+  TODOS_NOS.map(nome => `<tr><td>${esc(rotulo(nome))}</td><td class="tot">${tarefasAbertas[nome] || 0}</td></tr>`).join('') +
+  '</tbody>';
+})();
+</script>
+<style>
+.mapa-wrap svg{width:100%; height:auto; max-height:72vh}
+.map-node{fill:var(--panel); stroke:var(--muted); stroke-width:2.5}
+.map-edge{fill:none; stroke:var(--muted); stroke-linecap:round; opacity:.85}
+.map-arrow-path{fill:var(--muted)}
+.map-node[data-ag="principal"]{stroke:var(--ag-principal); stroke-width:3.5}
+.map-edge[data-ag="principal"]{stroke:var(--ag-principal)}
+.map-arrow-path[data-ag="principal"]{fill:var(--ag-principal)}
+.map-node[data-ag="banca"]{stroke:var(--ag-banca)}
+.map-edge[data-ag="banca"]{stroke:var(--ag-banca)}
+.map-arrow-path[data-ag="banca"]{fill:var(--ag-banca)}
+.map-node[data-ag="revisor1"]{stroke:var(--ag-revisor1)}
+.map-edge[data-ag="revisor1"]{stroke:var(--ag-revisor1)}
+.map-arrow-path[data-ag="revisor1"]{fill:var(--ag-revisor1)}
+.map-node[data-ag="revisor2"]{stroke:var(--ag-revisor2)}
+.map-edge[data-ag="revisor2"]{stroke:var(--ag-revisor2)}
+.map-arrow-path[data-ag="revisor2"]{fill:var(--ag-revisor2)}
+.map-node[data-ag="autor"]{stroke:var(--ag-autor)}
+.map-edge[data-ag="autor"]{stroke:var(--ag-autor)}
+.map-arrow-path[data-ag="autor"]{fill:var(--ag-autor)}
+.map-node[data-ag="site"]{stroke:var(--ag-site)}
+.map-edge[data-ag="site"]{stroke:var(--ag-site)}
+.map-arrow-path[data-ag="site"]{fill:var(--ag-site)}
+.map-node[data-ag="executor01"]{stroke:var(--ag-executor01)}
+.map-edge[data-ag="executor01"]{stroke:var(--ag-executor01)}
+.map-arrow-path[data-ag="executor01"]{fill:var(--ag-executor01)}
+.map-node[data-ag="executor02"]{stroke:var(--ag-executor02)}
+.map-edge[data-ag="executor02"]{stroke:var(--ag-executor02)}
+.map-arrow-path[data-ag="executor02"]{fill:var(--ag-executor02)}
+.map-node[data-ag="local"]{stroke:var(--ag-local)}
+.map-edge[data-ag="local"]{stroke:var(--ag-local)}
+.map-arrow-path[data-ag="local"]{fill:var(--ag-local)}
+.map-node-n{fill:var(--ink); font:700 22px system-ui; text-anchor:middle}
+.map-node-label{fill:var(--muted); font:12px system-ui; text-anchor:middle}
+.mapa-tabelas{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:var(--sp-5); margin-top:var(--sp-3)}
+.mapa-tabelas h3{font-size:var(--fs-3); margin:0 0 var(--sp-2)}
+</style>"""
+    return body, script
+
+
+# --------------------------------------------------------------------------
 # Resultados (resultados.html) — Fatia 2: o que a tese já produziu, para o
 # autor e a banca. Três blocos com papéis diferentes: achados (conclusão
 # científica sustentada por evidência), entregas (artefato que existe) e
@@ -1556,11 +1741,12 @@ def main() -> None:
         "referencias.html": build_referencias,
         "grafo.html": build_grafo,
         "bibliometria.html": build_bibliometria,
+        "agentes.html": build_agentes,
     }
     titles = {"index.html": "Controle", "plano.html": "Plano",
               "mensagens.html": "Coordenação", "resultados.html": "Resultados",
               "referencias.html": "Referências", "grafo.html": "Grafo",
-              "bibliometria.html": "Bibliometria"}
+              "bibliometria.html": "Bibliometria", "agentes.html": "Agentes"}
     for fname, builder in pages.items():
         body, script = builder()
         html = page_shell(titles[fname], fname, FOOTER_TEXT, body, script)
