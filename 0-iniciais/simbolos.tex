@@ -5,9 +5,20 @@
 \begin{listasimb}
 
 \begin{longtable}[l]{p{0.2\linewidth}p{0.7\linewidth}}
+$L$, $L_t$ & conjunto de instâncias rotuladas (na iteração $t$)\\
 $L_0$ & conjunto inicial de instâncias rotuladas (\textit{cold start})\\
 $U$ & \textit{pool} de instâncias não rotuladas\\
+$T$ & conjunto de teste, isolado de todas as decisões do processo\\
+$V$ & conjunto de validação, usado nas decisões de transição de fase\\
+$\theta$ & estado do classificador da tarefa, treinado em $L$\\
+$S$ & regra de seleção, que escolhe o lote a consultar\\
+$O$ & oráculo, que fornece o rótulo de cada instância consultada\\
+$Q_t$ & lote de instâncias consultadas na iteração $t$\\
+$B$ & orçamento de rotulagem (número de consultas ao oráculo)\\
 $b$ & tamanho do lote (de seleção ou de rotulagem)\\
+$b_0$ & tamanho do lote inicial da Fase~1 do FALCO\\
+$I$ & tamanho alvo do conjunto inicial construído pelo DRI-SL\\
+$N_c$ & número de grupos semânticos formados pelo DRI-SL\\
 $\varepsilon$ & taxa de ruído injetada no oráculo simulado\\
 $\varepsilon_{\max}$ & limiar de estagnação da transição de fases do FALCO\\
 $p$ & paciência (rodadas sem melhora) na transição de fases\\
