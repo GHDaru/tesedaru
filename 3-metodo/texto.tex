@@ -53,7 +53,7 @@ pré-registrado na Seção~\ref{sec:metodo-oraculo-decisao}.
 para a seção que discute o resultado e para os artefatos que o reproduzem.}
 \label{tab:metodo-experimentos}
 \small
-\begin{tabular}{llll}
+\begin{tabular}{@{}l p{63mm} p{34mm} l@{}}
 \toprule
 \textbf{Id} & \textbf{Objetivo} & \textbf{Pilar} & \textbf{Resultado em} \\
 \midrule
@@ -61,15 +61,15 @@ para a seção que discute o resultado e para os artefatos que o reproduzem.}
 --- & Sensibilidade à composição e ao tamanho de $L_0$ & conjunto inicial & Seção~\ref{sec:res-l0-sens} \\
 --- & Envelope por otimização evolutiva & conjunto inicial & Seção~\ref{sec:res-l0-ag} \\
 --- & DRI-SL \textit{versus} sorteio aleatório & partida a frio & Seção~\ref{sec:res-l0-drisl} \\
---- & Reexecução independente e circularidade & conjunto inicial / partida a frio & Seção~\ref{sec:res-l0-replay} \\
+--- & Reexecução independente e circularidade & conjunto inicial\newline e partida a frio & Seção~\ref{sec:res-l0-replay} \\
 \midrule
 \multicolumn{4}{l}{\textit{Oráculo e laço ativo}}\\
 E0 & Avaliação fatorial de LLMs como oráculo & oráculo LLM & Seção~\ref{sec:res-e0} \\
 E0-P & O \textit{prompt} como variável do instrumento & oráculo LLM & Seção~\ref{sec:res-e0p} \\
 E1 & Estratégias de seleção sob oráculo perfeito & apoio ao framework & Seção~\ref{sec:res-e1} \\
 E2 & Épocas de ajuste fino do BERTimbau por iteração & apoio ao framework & (interno) \\
-E4 & Robustez do aprendizado a ruído do oráculo & framework (condicional) & Seção~\ref{sec:res-e4} \\
-E5 & Ciclo real de rotulagem com oráculo LLM e critério de parada & framework & (executado; sem seção própria) \\
+E4 & Robustez do aprendizado a ruído do oráculo & framework\newline (condicional) & Seção~\ref{sec:res-e4} \\
+E5 & Ciclo real de rotulagem com oráculo LLM e critério de parada & framework & (executado)$^{\dagger}$ \\
 E6 & Seletores em escala populacional e viés de autoavaliação & framework & Seção~\ref{sec:res-e6} \\
 E3$'$ & Avaliação da hipótese central com o classificador forte & framework & Seção~\ref{sec:res-e3p} \\
 \bottomrule
@@ -81,7 +81,9 @@ descrita na Seção~\ref{sec:metodo-reprodutibilidade}):
 \texttt{experiments/e0} (E0) $\cdot$ \texttt{experiments/e0p} (E0-P) $\cdot$
 \texttt{experiments/e1e4} (E1, E4) $\cdot$ \texttt{experiments/e6population}
 (E5, E6) $\cdot$ \texttt{experiments/e2e3} (E2, E3$'$) $\cdot$
-\texttt{experiments/p1} (conjunto inicial e partida a frio).}
+\texttt{experiments/p1} (conjunto inicial e partida a frio).\\[2pt]
+$^{\dagger}$ O E5 foi executado, mas nenhuma seção dos capítulos de resultados o
+reporta isoladamente; os artefatos estão em \texttt{experiments/e6population}.}
 \end{table}
 
 \section{Conjunto de dados}
