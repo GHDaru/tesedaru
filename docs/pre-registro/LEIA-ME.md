@@ -61,3 +61,10 @@
    deck: entrou depois, durante a tese, como análise de robustez para o
    desbalanceamento de classes (714 categorias) — e deve ser apresentado
    como tal, não como a métrica do critério original.
+3. **"O F1 ficou longe"** (autor, 2026-08-21): já no estudo da qualificação
+   o F1 não acompanhava — quem atingia a performance do modelo populacional
+   era a acurácia. Nota de escopo: o deck NÃO contém curvas de F1; esta é
+   confirmação testemunhal do autor sobre o estudo original. A redação da
+   tese deve dizer que o critério e as curvas pré-registradas são de
+   acurácia, e que o Macro F1 (introduzido na tese) estende um
+   comportamento já observado: ele fica atrás da acurácia desde a origem.
