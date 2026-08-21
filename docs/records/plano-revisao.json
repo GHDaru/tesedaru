@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 65,
-  "atualizado_em": "2026-08-18T00:45:00Z",
-  "atualizado_por": "executor02: verificação confirmou sub-treino em A/E35 também (A +103%, E35 +28% F1) — E35 volta a superar D; varredura completa 9×3 em lote16 rodando (autorizado pelo autor)",
+  "versao": 66,
+  "atualizado_em": "2026-08-18T01:20:00Z",
+  "atualizado_por": "executor02: s7 completo (9/9); s42 8/9 (E25 colapsou, investigando se e reproduzivel); s123 rodando",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -1182,7 +1182,8 @@
         "estado": "rodando",
         "dono": "executor02",
         "duracao": "~2,3h por semente (medido: D 26min + A 4,9min + E35 13,4min + 6 braços restantes ≈ 1h40 adicionais)",
-        "resultado_esperado": "experiments/e2e3/results/e3prime_*_s{42,7,123}_bs16.json (9 braços cada, sufixo _bs16, não sobrescreve os canônicos)"
+        "resultado_esperado": "experiments/e2e3/results/e3prime_*_s{42,7,123}_bs16.json (9 braços cada, sufixo _bs16, não sobrescreve os canônicos)",
+        "bloqueio": "E25/s42/bs16 COLAPSOU (predicao constante, F1=0) — provavel instabilidade de treino (AdamW sem gradient clipping/warmup, lote 16 mais ruidoso). Retreino isolado em curso (kernel falco-retry-e25-s42-bs16), com deteccao embutida. Se o colapso for determinístico (reproduz identico), a correcao exige mudanca de codigo em bertimbau.py — decisao de tocar codigo de experimento compartilhado sobe ao autor antes de eu aplicar. s7 completo (9/9). s42: 8/9 publicados (E25 pendente). s123: rodando."
       },
       {
         "id": "mcnemar-pares",
