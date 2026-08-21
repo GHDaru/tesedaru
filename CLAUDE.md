@@ -33,9 +33,14 @@ importá-los custaria mais contexto do que entregam.
   de ninguém lembrar: (1) **force-push em `main`** — push rejeitado resolve-se
   com `git fetch origin main && git rebase origin/main`, nunca com force;
   (2) **`.env`** em qualquer forma — segredo fica fora do git; (3) edição de
-  arquivo tocado por branch **`humanize/*` ou `governanca/*`**; (4) edição
+  arquivo tocado por branch **`humanize/*` ou `governanca/*`** que não esteja
+  declarada superada em **`coordenacao/branches-superadas.json`**; (4) edição
   direta de **`AGENTS.md`**, que é gerado. Se você foi bloqueado, a mensagem
   diz qual regra e qual é a saída legítima.
+- A **lista de superadas** destrava uma superfície **sem apagar a branch**:
+  entrar nela é decisão do autor, e o `ponta` guardado é o SHA por onde a
+  branch se restaura. Esvaziar a lista repõe o bloqueio — nada quebra. Lista
+  ausente ou ilegível não libera nada: ela só pode deixar de liberar.
 - **`SessionStart` → `estado-da-sessao.py`** imprime o estado **medido**:
   âncora da `origin/main`, locks vivos com TTL calculado, caixa aberta por
   remetente, branches fora da main. Existe por um erro real: bilhete repetido

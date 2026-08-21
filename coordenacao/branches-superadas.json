@@ -1,0 +1,29 @@
+{
+  "doc": "Branches que o AUTOR declarou superadas. A regra 3 do hook PreToolUse (scripts/hooks/guarda-regras-duras.py) ignora estas branches ao montar a lista de arquivos bloqueados, de modo que o Cap.2 — e qualquer superficie na mesma situacao — destrave SEM que a branch precise ser apagada. Entrar aqui exige decisao do autor. O campo `ponta` guarda o SHA da ponta no momento da declaracao: e por ele que a branch se restaura, mesmo que seja apagada depois. Esvaziar a lista repoe o comportamento anterior — nada quebra.",
+  "campos": {
+    "branch": "nome sem o prefixo `origin/`",
+    "ponta": "SHA completo da ponta quando foi declarada superada (para restauracao)",
+    "declarada_em": "data ISO da decisao do autor",
+    "por": "quem decidiu",
+    "razao": "por que ja nao precisa bloquear",
+    "resgate": "commit em que o conteudo que valia foi salvo, quando houve resgate"
+  },
+  "superadas": [
+    {
+      "branch": "humanize/cap2-t2",
+      "ponta": "2438c68c2b5bd3af95d167c956338da2eaf548a7",
+      "declarada_em": "2026-08-21",
+      "por": "autor",
+      "razao": "avaliada contra a main e superada: o que ela propunha ja esta na main por outro caminho",
+      "resgate": "5218ccd"
+    },
+    {
+      "branch": "humanize/cap2-t3",
+      "ponta": "dc7247ea7a27e48e2baa02b72e07cd5fba5961f5",
+      "declarada_em": "2026-08-21",
+      "por": "autor",
+      "razao": "avaliada contra a main e superada; a unica correcao propria dela (o qa-report do 009-r1-t3) foi resgatada antes",
+      "resgate": "5218ccd"
+    }
+  ]
+}
