@@ -15,3 +15,32 @@
   (teto de 15%, gate de 85%, partições). Afirmações da tese que dependam de
   um número específico "pré-registrado" só podem citar o que o documento
   citado de fato contém.
+
+## Segundo documento (2026-08-21)
+
+- `2022-05-31_framework-humano-computacional.pptx` — "Framework
+  Humano-Computacional para Preparação Acelerada de Dados". Metadados:
+  criado em 31/05/2022 19:36 UTC, última modificação 16/05/2023 (a versão
+  arquivada é o estado de maio de 2023). Autor: Gilsiley Darú.
+- Este deck CONTÉM o que a apresentação-irmã não continha:
+  - **A conclusão do teto (slide 38)**: "COM 15% dos dados foi possível
+    atingir uma performance similar ao modelo POPULACIONAL com o algoritmo
+    de SELEÇÃO por INCERTEZA".
+  - **O critério original**: performance "similar ao modelo populacional",
+    avaliada em validação EXTERNA (base de validação de 60 mil rotulados,
+    "Avaliar Generalização") — a filosofia do que a tese hoje chama de
+    regime canônico (avaliar contra a população, não contra o próprio
+    conjunto de treino).
+  - **O desenho**: base do estudo de 180 mil rotulados (60k validação +
+    120k "não rotulada" para a técnica), semente de 1.000, lotes de 500,
+    simulação até 23 mil rótulos em 46 iterações; "com 15.000 rótulos a
+    generalização estabiliza em 95%" (slide 33); comparação
+    incerteza × aleatório com acurácia interna × externa.
+- Datação honesta: o arquivo foi criado em 2022 e modificado pela última vez
+  em maio de 2023 — não é possível provar por metadado que um slide
+  específico existia em 2022. Qualquer citação deve datar o documento como
+  "2022, versão de maio de 2023" (ou citar a data do exame de qualificação,
+  que o autor confirma ter apresentado exatamente este desenho).
+- O que continua SEM fonte pré-registrada: o gate de 85% do oráculo e as
+  partições atuais (pool de 50 mil, retido de 4 mil, população de 231.490 —
+  a base e os números de 2022/2023 eram outros: 180k/120k/60k).
