@@ -1,6 +1,6 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 66,
+  "versao": 67,
   "atualizado_em": "2026-08-20T17:40:00Z",
   "atualizado_por": "revisor2: as 24 pendências de fichamento do Cap. 2 fecham ZERADAS — 23 fichadas e 1 (Castro2011Desbalanceados, que substitui a Barros2014 por decisão (b) do autor) com o PDF pedido ao autor porque o SciELO bloqueia cliente automatizado. Branch ciclo/016-fecha-as-24 @3da6ce0. Ressalva de conteúdo: o Ahmed2022 é survey de CLUSTERING e a tese o cita ao falar de classificação — conserto de uma palavra, com o principal.",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
@@ -1211,12 +1211,6 @@
       "id": "dec-lastro-cap1-dois-denominadores",
       "titulo": "Frase de lastro do Cap.1: Settles (<10%) e Schroder Tab.3 (15,45%) medem fracao do conjunto SELECIONAVEL (analogo: pool de 50k), nao da base; nessa regua o criterio de 34.724 e 69,4% do pool. Saida barata proposta pelo revisor2: declarar o numero nos dois denominadores na primeira ocorrencia (15% da base = 69,4% do pool) e reescrever o lastro dizendo que a literatura reporta fracoes do conjunto selecionavel.",
       "origem": "revisor2 aviso 20260820-1755, achado 2 (confirmado na aritmetica da propria fonte: 525/0,1545=3.398)",
-      "estado": "aguardando autor"
-    },
-    {
-      "id": "dec-pre-registro-onde-esta",
-      "titulo": "A tese diz 'pre-registrado' 12 vezes (particionamento, gate do oraculo, criterio, orcamento e o VEREDITO 5-resultados:539) mas nao ha documento de pre-registro no repositorio nem registro no decisoes.jsonl. Pergunta ao autor: onde esta o desenho pre-registrado (qualificacao? projeto PPGMNE?) e podemos cita-lo? Com a resposta, uma frase na primeira ocorrencia do Cap.3 fecha as 12; sem, cada uma e pergunta aberta na defesa.",
-      "origem": "banca 1815 §3.1 + revisor2 2115 item 1",
       "estado": "aguardando autor"
     },
     {
