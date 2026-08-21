@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 66,
-  "atualizado_em": "2026-08-18T01:20:00Z",
-  "atualizado_por": "executor02: s7 completo (9/9); s42 8/9 (E25 colapsou, investigando se e reproduzivel); s123 rodando",
+  "versao": 67,
+  "atualizado_em": "2026-08-18T01:35:00Z",
+  "atualizado_por": "executor02: colapso do E25/s42/bs16 confirmado REPRODUTÍVEL (byte-idêntico ao retreino) — decisão do autor necessária sobre corrigir bertimbau.py (gradient clipping)",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -1183,7 +1183,7 @@
         "dono": "executor02",
         "duracao": "~2,3h por semente (medido: D 26min + A 4,9min + E35 13,4min + 6 braços restantes ≈ 1h40 adicionais)",
         "resultado_esperado": "experiments/e2e3/results/e3prime_*_s{42,7,123}_bs16.json (9 braços cada, sufixo _bs16, não sobrescreve os canônicos)",
-        "bloqueio": "E25/s42/bs16 COLAPSOU (predicao constante, F1=0) — provavel instabilidade de treino (AdamW sem gradient clipping/warmup, lote 16 mais ruidoso). Retreino isolado em curso (kernel falco-retry-e25-s42-bs16), com deteccao embutida. Se o colapso for determinístico (reproduz identico), a correcao exige mudanca de codigo em bertimbau.py — decisao de tocar codigo de experimento compartilhado sobe ao autor antes de eu aplicar. s7 completo (9/9). s42: 8/9 publicados (E25 pendente). s123: rodando."
+        "bloqueio": "E25/s42/bs16: colapso CONFIRMADO REPRODUTÍVEL — retreino isolado produziu predições byte-idênticas ao original (mesma classe única em 177.490/177.490 casos, acc=0,0153, F1=0,0). Treino é determinístico neste ambiente (T4, mesma semente). Causa: AdamW sem gradient clipping/warmup em BertimbauClassifier.fit(). Correção requer editar bertimbau.py (código compartilhado, citado por todos os resultados já publicados) — aguardando decisão do autor antes de tocar. s7: 9/9. s42: 8/9 (E25 bloqueado). s123: rodando."
       },
       {
         "id": "mcnemar-pares",
