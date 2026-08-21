@@ -367,7 +367,18 @@ aqui é quantificá-lo em espaço de classes amplo, onde o sinal se revela
 dependente da métrica. A base deduplicada é dividida em um
 \textit{pool} rotulável de 50.000 instâncias (oráculo perfeito, isto é, o
 próprio gabarito) e uma \textbf{população reservada} com todo o restante
-($\approx 140$ mil instâncias), jamais tocada pela seleção. A cada lote de
+(181.490 instâncias), jamais tocada pela seleção. Registre-se a diferença de
+denominador em relação ao Capítulo~\ref{ch:metodo}, que declara 177.490: a
+avaliação em escala populacional desta seção não desconta as 4.000 instâncias
+do \emph{conjunto retido} (2.000 de validação e 2.000 de teste,
+Seção~\ref{sec:metodo-dados-particionamento}), que existem para decidir a
+parada do ciclo real. O desconto é feito na avaliação com o classificador
+forte (Seção~\ref{sec:res-e3p}) por precaução, e não é necessário aqui porque
+esta varredura \textbf{não tem critério de parada}: ela percorre o orçamento
+inteiro e, portanto, nunca consulta aquelas instâncias para decidir coisa
+alguma. A diferença é de 2,2\% da amostra de avaliação e, como o
+particionamento é feito por posição \emph{depois} do embaralhamento, os dois
+recortes são intercambiáveis. A cada lote de
 500, o conjunto rotulado acumulado sofre uma divisão convencional 80/20 e o
 modelo treinado é medido em dois lugares: no \emph{teste interno} (os 20\% do
 que o processo rotulou, isto é, o que um praticante sem conjunto reservado
