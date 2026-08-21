@@ -7,8 +7,8 @@
   "experimentos": "Programa experimental (E0-E6/E3'): id + pergunta (o que o experimento respondia) + resultado (o que se observou — string; null quando ainda não consolidado/localizado nesta versão) + artefato (arquivo/tabela que registra, null se resultado for null). Nunca preencher 'resultado' com número não verificado contra o texto ou os artefatos do repositório — null é a resposta honesta até então.",
   "convencao_evidencia": "Rastreabilidade sem nota de rodapé numerada: o número vem em destaque na interface, a origem (amostra/artefato) vem logo abaixo em fonte menor, direto na mesma linha visual do achado."
  },
- "atualizado_em": "2026-08-16",
- "atualizado_por": "site (Fatia 2 — esqueleto + exemplos reais entregue pelo agente site; achados/entregas/experimentos adicionais são preenchidos por outro agente com acesso mais profundo aos artefatos de experimentos/)",
+ "atualizado_em": "2026-08-21",
+ "atualizado_por": "principal (correção autorizada; achados do revisor1 1517 e revisor2 2115, verificação do revisor2 1100)",
  "pilares": {
   "P1": "Composição do conjunto inicial — impacto do tamanho/composição de L0 na generalização do classificador",
   "P2": "Cold start sem rótulos — algoritmo DRI-SL (Diversidade Representativa Inicial via densidade Semântica e variedade Lexical)",
@@ -108,13 +108,13 @@
   {
    "id": "E6",
    "pergunta": "Como os seletores se comparam em escala populacional, e há viés quando o classificador se autoavalia?",
-   "resultado": "seleção por entropia com 15k rótulos alcança Macro F1 83,1% [IC 82,6; 83,7] contra 88,3% [87,9; 88,8] do pool inteiro (50k) — quase o teto com 30% do orçamento",
+   "resultado": "seleção por entropia com 15k rótulos alcança acurácia 83,1% [IC 82,6; 83,7] contra 88,3% [87,9; 88,8] do pool inteiro (50k) — quase o teto com 30% do orçamento; em Macro F1, 0,380 contra 0,451 (rótulo da métrica corrigido em 2026-08-21: os valores com IC são acurácia, não Macro F1 — artefato legacy_s42_bs16_eval20k/e3prime_D_s42.json)",
    "artefato": "5-resultados-falco/texto.tex §sec:res-e6, Tabela tab:e3p (braços E e D)"
   },
   {
    "id": "E3′",
    "pergunta": "O classificador forte (BERTimbau), fora do laço de seleção, confirma a hipótese central do FALCO?",
-   "resultado": "braço D (pool inteiro, régua): 88,3% [87,9;88,8] · braço A (pipeline real): 65,9% [65,2;66,5] — resultado descritivo de semente única no texto atual; réplicas (sementes 7 e 123) aguardando execução do autor para consolidar média±desvio",
+   "resultado": "regime antigo (eval 20.092, s42): braço D acurácia 88,3% [87,9;88,8], Macro F1 0,4509 · braço A (pipeline real) acurácia 65,9% [65,2;66,5], Macro F1 0,2424. Regime canônico: TRÊS SEMENTES FECHADAS (7, 42, 123), avaliação em 177.490 — D acc 0,8675±0,0021, Macro F1 0,3684±0,0091 (activelearning@9d74484 e @4b685d4); A/B/C sem medição canônica (aguardam cache do oráculo). Registro atualizado em 2026-08-21; a frase anterior ('réplicas aguardando execução do autor') estava obsoleta.",
    "artefato": "experiments/e2e3/ · 5-resultados-falco/texto.tex §sec:res-e3p, Tabela tab:e3p"
   }
  ]
