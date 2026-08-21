@@ -79,6 +79,50 @@ def main():
     if len(nomes) > 12:
         linhas.append(f"  ... e mais {len(nomes) - 12}")
 
+    # ENTREGAS PRESAS EM BRANCH: mensagens ao principal que estao numa branch
+    # designada e nunca chegaram na main. Existe porque os executores nao podem
+    # empurrar para a main (o harness so libera a branch deles): a mensagem de
+    # entrega nasce correta na caixa, mas na branch — invisivel para o principal
+    # que le a main. Este bloco poe a fonte no contexto de graca.
+    # so branches de trabalho vivas: pula forks antigos (overleaf/*) e branches
+    # muito adiante da main, que sao historia velha e nao entrega pendente.
+    def viva(n):
+        curto = n.replace("origin/", "")
+        if curto.startswith("overleaf"):
+            return False
+        q = git("rev-list", "--count", f"origin/main..{n}")
+        return q.isdigit() and int(q) <= 40
+    alvo = [n for n in nomes if viva(n)][:15]
+    if alvo:
+        refspecs = [f"+refs/heads/{n.replace('origin/', '')}:{n}" for n in alvo]
+        git("fetch", "-q", "origin", *refspecs, timeout=20)
+    # basenames ja presentes na main (em qualquer estado): serve para a mensagem
+    # SUMIR do aviso assim que o principal a integrar.
+    na_main = set(os.path.basename(c) for c in caixa.splitlines() if c.endswith(".md"))
+    na_main_raiz = set(b.rsplit(".", 2)[0] for b in na_main)  # sem o .<estado>.md
+    presas = []
+    for n in alvo:
+        # o que a branch INTRODUZIU desde que saiu da main (tres pontos), so
+        # mensagens ABERTAS ao principal, E que ainda nao existem na main (em
+        # nenhum estado) — o sinal real de entrega que ainda nao foi integrada.
+        novos = git("diff", "--name-only", f"origin/main...{n}", "--", "coordenacao/caixa/")
+        for a in novos.splitlines():
+            base = os.path.basename(a)
+            if not ("_principal_" in base and base.endswith(".aberta.md")):
+                continue
+            if base in na_main or base.rsplit(".", 2)[0] in na_main_raiz:
+                continue  # ja integrada (mesma mensagem, talvez ja arquivada)
+            partes = base.split("_")
+            de = partes[1] if len(partes) > 1 else "?"
+            presas.append(f"  [{n.replace('origin/', '')}] de {de}: {base[:70]}")
+    if presas:
+        linhas.append(f"ENTREGAS/AVISOS AO PRINCIPAL PRESOS EM BRANCH (nao estao na main): {len(presas)}")
+        linhas.extend(presas[:20])
+        if len(presas) > 20:
+            linhas.append(f"  ... e mais {len(presas) - 20}")
+        linhas.append("  ACAO: buscar a branch e recuperar a mensagem "
+                      "(git show <branch>:<caminho>) — nao espere na main.")
+
     linhas.append("REGRA: meca sempre em worktree limpo destacado de origin/main; "
                   "o checkout local pode estar velho.")
     print("\n".join(linhas))
