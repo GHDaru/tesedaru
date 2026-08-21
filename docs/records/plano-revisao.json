@@ -1,6 +1,6 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 68,
+  "versao": 69,
   "atualizado_em": "2026-08-20T17:40:00Z",
   "atualizado_por": "revisor2: as 24 pendências de fichamento do Cap. 2 fecham ZERADAS — 23 fichadas e 1 (Castro2011Desbalanceados, que substitui a Barros2014 por decisão (b) do autor) com o PDF pedido ao autor porque o SciELO bloqueia cliente automatizado. Branch ciclo/016-fecha-as-24 @3da6ce0. Ressalva de conteúdo: o Ahmed2022 é survey de CLUSTERING e a tese o cita ao falar de classificação — conserto de uma palavra, com o principal.",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
@@ -1218,6 +1218,18 @@
       "titulo": "Apagar as branches humanize/cap2-t2 e cap2-t3 (superadas; conteudo util ja resgatado em 5218ccd). Enquanto existirem, o guarda do harness mantem 2-fundam/texto.tex BLOQUEADO para todos. Credencial das sessoes nao apaga branch (403) — so o autor: git push origin --delete humanize/cap2-t2 (2438c68) e humanize/cap2-t3 (dc7247e).",
       "origem": "revisor2 0440",
       "estado": "aguardando comando do autor"
+    },
+    {
+      "id": "dec-como-citar-o-teto-15",
+      "titulo": "Citacao do teto: o deck enuncia '15% dos dados' sem denominador e seus proprios numeros dao 12,5% (15.000/120.000). Redacao proposta (ja em uso no rascunho): documento ENUNCIA 15% e 15.000 rotulos; o denominador (base 231.490) e decisao declarada da tese. Autor confirma a frase?",
+      "origem": "revisor2 1410",
+      "estado": "rascunho segue com a proposta; confirmacao do autor pendente"
+    },
+    {
+      "id": "dec-formulacao-dos-dois-95",
+      "titulo": "O 95% pre-registrado e acuracia ABSOLUTA (inatingivel na base atual: regua 0,8675); o 0,95 da tese e RAZAO. Formulacao honesta em uso: criterio pre-registrado = 'similar ao populacional'; operacionalizacao 0,95x regua = escolha declarada da tese. Autor confirma?",
+      "origem": "revisor2 1550",
+      "estado": "rascunho segue com a proposta; confirmacao do autor pendente"
     }
   ],
   "lembretes": [
@@ -1228,6 +1240,12 @@
     {
       "id": "lembrete-entropia-preregistrada",
       "texto": "Conferir 5-resultados:243 — 'entropia, estrategia pre-registrada da Fase 2': mesmo padrao do vocabulario de orcamento; legitima so se houver registro (banca, entrega 1815 §3.1)."
+    }
+  ],
+  "limites_operacionais": [
+    {
+      "id": "cruzada-revisor2-sem-latex",
+      "texto": "O conteiner dos agentes NAO tem motor LaTeX: cruzadas do revisor2 (e pares) cobrem CONTEUDO, nao diagramacao. Prova visual (PDF) vem do build de CI, do revisor com acesso ou do autor. Mitigacao: scripts/check-largura-tabela.py (aprovado 2026-08-21)."
     }
   ]
 }
