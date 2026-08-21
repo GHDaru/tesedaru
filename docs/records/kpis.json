@@ -1,13 +1,13 @@
 {
  "schema": "kpis/v1",
- "computado_em": "2026-08-20",
- "git_sha": "752e058",
+ "computado_em": "2026-08-21",
+ "git_sha": "f35cd55",
  "prontidao": {
-  "global_pct": 33.8,
-  "texto_pct": 39.8,
+  "global_pct": 36.7,
+  "texto_pct": 43.2,
   "artefatos_pct": 0.0,
   "pontos_totais": 2032,
-  "pontos_feitos": 808,
+  "pontos_feitos": 878,
   "por_rodada": [
    {
     "id": "R1",
@@ -17,12 +17,12 @@
    {
     "id": "R2",
     "pontos": 120,
-    "feitos": 30
+    "feitos": 45
    },
    {
     "id": "R3",
     "pontos": 468,
-    "feitos": 350
+    "feitos": 395
    },
    {
     "id": "R4",
@@ -37,7 +37,7 @@
    {
     "id": "R6",
     "pontos": 80,
-    "feitos": 30
+    "feitos": 40
    },
    {
     "id": "R7",
@@ -64,7 +64,7 @@
    {
     "id": "cap3",
     "pontos": 211,
-    "feitos": 80
+    "feitos": 150
    },
    {
     "id": "cap4",
@@ -89,10 +89,10 @@
   ]
  },
  "ritmo": {
-  "velocidade_pontos_semana": 857.5,
-  "janela_dias": 4,
-  "eta_semanas": 1.4,
-  "eta_data": "2026-08-29",
+  "velocidade_pontos_semana": 784.0,
+  "janela_dias": 5,
+  "eta_semanas": 1.5,
+  "eta_data": "2026-08-31",
   "eta_confiavel": true,
   "serie": [
    {
@@ -118,15 +118,22 @@
    },
    {
     "data": "2026-08-20",
-    "commit": "01ef8f9",
-    "pontos": 808,
-    "pct": 39.8,
+    "commit": "faef7a1",
+    "pontos": 878,
+    "pct": 43.2,
+    "evento": null
+   },
+   {
+    "data": "2026-08-21",
+    "commit": "f35cd55",
+    "pontos": 878,
+    "pct": 43.2,
     "evento": null
    }
   ]
  },
  "fila_autor": {
-  "total": 16,
+  "total": 17,
   "itens": [
    {
     "id": "seed7",
@@ -227,17 +234,24 @@
     "pontos_destravados": 0
    },
    {
-    "id": "dec-populacao-e6-vs-e3prime",
+    "id": "dec-regime-do-veredito",
     "tipo": "decisao",
-    "trilha": "experimentos",
-    "titulo": "R5 do Cap.3 achou: E3' usa população 177.490 (exclui o holdout de 4k, confere com o Cap.3) e o E6 usa 181.490 (não exclui) — o E6 avalia em 4.000 instâncias que o ciclo usa para parar; e o Cap.5 escreve '≈140 mil', que não bate com nenhum. Saídas: (a) declarar a diferença, (b) reexecutar o E6, (c) limitação declarada",
+    "trilha": null,
+    "titulo": "Qual regime de avaliacao a tese reporta no veredito da hipotese: antigo (eval 20.092, Cap.5 atual) ou canonico (eval 177.490, 3 sementes). Medido pelo revisor2 nos artefatos primarios: no canonico o E25 nao cruza (-0,044) e o unico que cruza (E35, 2 de 3 sementes, +0,0021 na media) esta 276 rotulos acima do teto de 34.724. Braco A sem numero canonico (cache bloqueado). As 4 superficies de veredito da branch da banca (@d0d35ed) estao SEGURADAS no gate ate esta decisao; a higiene de denominador vai em branch separada.",
     "pontos_destravados": 0
    },
    {
-    "id": "dec-expurgo-pilares",
+    "id": "dec-lastro-cap1-dois-denominadores",
     "tipo": "decisao",
-    "trilha": "texto",
-    "titulo": "Expurgo da notação de pilar P1–P4 (ordem do autor, mesma régua dos códigos E): 81 ocorrências, 4 títulos; Fase 1 (levantamento classificado + antes/depois) com o revisor1, decisão do autor antes de executar",
+    "trilha": null,
+    "titulo": "Frase de lastro do Cap.1: Settles (<10%) e Schroder Tab.3 (15,45%) medem fracao do conjunto SELECIONAVEL (analogo: pool de 50k), nao da base; nessa regua o criterio de 34.724 e 69,4% do pool. Saida barata proposta pelo revisor2: declarar o numero nos dois denominadores na primeira ocorrencia (15% da base = 69,4% do pool) e reescrever o lastro dizendo que a literatura reporta fracoes do conjunto selecionavel.",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-apagar-humanize-cap2",
+    "tipo": "decisao",
+    "trilha": null,
+    "titulo": "Apagar as branches humanize/cap2-t2 e cap2-t3 (superadas; conteudo util ja resgatado em 5218ccd). Enquanto existirem, o guarda do harness mantem 2-fundam/texto.tex BLOQUEADO para todos. Credencial das sessoes nao apaga branch (403) — so o autor: git push origin --delete humanize/cap2-t2 (2438c68) e humanize/cap2-t3 (dc7247e).",
     "pontos_destravados": 0
    }
   ]
@@ -246,8 +260,8 @@
   "pontos": 234
  },
  "divida_fundamentacao": {
-  "citacoes_pendentes": 45,
-  "chaves_citadas": 151,
+  "citacoes_pendentes": 27,
+  "chaves_citadas": 152,
   "fichamentos": 176,
   "chaves_sem_fichamento": 0
  },
