@@ -9,7 +9,7 @@ textos curtos em português sem perda relevante de desempenho, usando modelos de
 linguagem nas fases em que o aprendizado ativo tradicional é mais frágil. Os
 quatro pilares produziram um quadro coerente:
 
-\textbf{P1 — a composição do conjunto inicial importa, e importa mais quanto
+\textbf{A composição do conjunto inicial importa, e importa mais quanto
 menor o orçamento.} A sensibilidade medida (47 tamanhos $\times$ 30
 repetições, reproduzida de forma independente com divergência $\le 0{,}7$
 p.p.) mostra amplitude de $6{,}4$ p.p.\ de acurácia em $|L_0|=100$ causada só
@@ -17,7 +17,7 @@ pelo sorteio, decaindo até a irrelevância em $|L_0| \ge 10^5$. O envelope
 evolutivo confirma dezenas de pontos percentuais entre composições boas e
 ruins no regime pequeno, que é o regime do \textit{cold start}.
 
-\textbf{P2 — é possível capturar esse espaço sem nenhum rótulo.} O DRI-SL,
+\textbf{É possível capturar esse espaço sem nenhum rótulo.} O DRI-SL,
 heurística determinística de densidade semântica + variedade lexical, superou
 o \emph{melhor indivíduo} encontrado pelo algoritmo genético supervisionado em
 todos os tamanhos de 100 a 5.000, e a reexecução com protocolo
@@ -25,7 +25,7 @@ anticircularidade mostrou que essa comparação é conservadora, pois o envelope
 do AG estava inflacionado em até $6{,}3$ p.p.\ pela avaliação na própria
 partição de aptidão.
 
-\textbf{P3 — oráculos LLM são viáveis, baratos e erram de forma estruturada.}
+\textbf{Oráculos LLM são viáveis, baratos e erram de forma estruturada.}
 No espaço fechado de 621 categorias, os melhores oráculos zero-shot atingem
 77--83\% de acurácia (v4-pro: $82{,}6\%$ na S-strat), a $\approx 7$ p.p.\ do
 teto supervisionado com 250 mil rótulos, a custos entre US\$~0,035 e
@@ -38,7 +38,8 @@ aprendíveis apenas com exemplos. O efeito do instrumento de medição (RQ4)
 confirmou-se: sem restrição de saída, 6,8\% das respostas viram falsos erros
 de fraseado.
 
-\textbf{P4 — respondido, com veredito refinado e diagnóstico.} O gate
+\textbf{O framework integrado: respondido, com veredito refinado e
+diagnóstico.} O gate
 pré-registrado decidiu: sem oráculo $\ge 85\%$, o aprendizado com oráculo
 ruidoso é o cenário central, e a configuração derivada do FALCO é
 deepseek-v4-flash (Inicial) + deepseek-v4-pro (Avançado, superioridade
@@ -212,5 +213,5 @@ $[0{,}002;0{,}018]$) e a empatam em acurácia ($p=0{,}10$): para a cobertura
 de cauda, a fração final dos rótulos não compra nada. Uma tese que termina com
 um número honesto, uma causa identificada e o piso corrigido medido vale
 mais que uma que termina com uma promessa: os resultados dos experimentos
-executados, com os replays de P1/P2, delimitam
+executados, com as reexecuções dos dois primeiros pilares, delimitam
 com precisão as condições em que a hipótese se sustenta.

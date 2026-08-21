@@ -4,10 +4,10 @@
 Este capítulo descreve a metodologia empregada para desenvolver e avaliar o
 \textbf{FALCO} (\textit{Framework de Aprendizado Ativo com LLM para texto CurtO}).
 A investigação está organizada em quatro pilares empíricos, cada qual associado a um
-experimento identificado e reprodutível: (P1) o impacto da composição do conjunto
-inicial de rotulagem $L_0$; (P2) a construção de um $L_0$ informativo sem acesso a
-rótulos, via o algoritmo DRI-SL; (P3) a viabilidade, o custo e o perfil de erro de
-modelos de linguagem de grande porte (LLMs) como oráculos de rotulagem; e (P4) a
+experimento identificado e reprodutível: o impacto da composição do conjunto
+inicial de rotulagem $L_0$; a construção de um $L_0$ informativo sem acesso a
+rótulos, via o algoritmo DRI-SL; a viabilidade, o custo e o perfil de erro de
+modelos de linguagem de grande porte (LLMs) como oráculos de rotulagem; e a
 avaliação integrada do FALCO contra métodos de referência sob o mesmo orçamento de
 rotulagem. Uma métrica transversal, a \textit{Learning Curve Efficiency} (LCE),
 sumariza a eficiência das curvas de aprendizado em todos os pilares.
@@ -58,19 +58,20 @@ para a seção que discute o resultado e para os artefatos que o reproduzem.}
 \textbf{Id} & \textbf{Objetivo} & \textbf{Pilar} & \textbf{Resultado em} \\
 \midrule
 \multicolumn{4}{l}{\textit{Composição do conjunto inicial} --- artefatos em \texttt{experiments/p1}}\\
---- & Sensibilidade à composição e ao tamanho de $L_0$ & P1 & Seção~\ref{sec:res-l0-sens} \\
---- & Envelope por otimização evolutiva & P1 & Seção~\ref{sec:res-l0-ag} \\
---- & DRI-SL \textit{versus} sorteio aleatório & P2 & Seção~\ref{sec:res-l0-drisl} \\
---- & Reexecução independente e circularidade & P1/P2 & Seção~\ref{sec:res-l0-replay} \\
+--- & Sensibilidade à composição e ao tamanho de $L_0$ & conjunto inicial & Seção~\ref{sec:res-l0-sens} \\
+--- & Envelope por otimização evolutiva & conjunto inicial & Seção~\ref{sec:res-l0-ag} \\
+--- & DRI-SL \textit{versus} sorteio aleatório & partida a frio & Seção~\ref{sec:res-l0-drisl} \\
+--- & Reexecução independente e circularidade & conjunto inicial / partida a frio & Seção~\ref{sec:res-l0-replay} \\
 \midrule
 \multicolumn{4}{l}{\textit{Oráculo e laço ativo}}\\
-E0 & Avaliação fatorial de LLMs como oráculo & P3 & Seção~\ref{sec:res-e0} \\
-E0-P & O \textit{prompt} como variável do instrumento & P3 & Seção~\ref{sec:res-e0p} \\
-E1 & Estratégias de seleção sob oráculo perfeito & apoio a P4 & Seção~\ref{sec:res-e1} \\
-E2 & Épocas de ajuste fino do BERTimbau por iteração & apoio a P4 & (interno) \\
-E4 & Robustez do aprendizado a ruído do oráculo & P4 (condicional) & Seção~\ref{sec:res-e4} \\
-E5, E6 & Seletores em escala populacional e viés de autoavaliação & P4 & Seção~\ref{sec:res-e6} \\
-E3$'$ & Avaliação da hipótese central com o classificador forte & P4 & Seção~\ref{sec:res-e3p} \\
+E0 & Avaliação fatorial de LLMs como oráculo & oráculo LLM & Seção~\ref{sec:res-e0} \\
+E0-P & O \textit{prompt} como variável do instrumento & oráculo LLM & Seção~\ref{sec:res-e0p} \\
+E1 & Estratégias de seleção sob oráculo perfeito & apoio ao framework & Seção~\ref{sec:res-e1} \\
+E2 & Épocas de ajuste fino do BERTimbau por iteração & apoio ao framework & (interno) \\
+E4 & Robustez do aprendizado a ruído do oráculo & framework (condicional) & Seção~\ref{sec:res-e4} \\
+E5 & Ciclo real de rotulagem com oráculo LLM e critério de parada & framework & (executado; sem seção própria) \\
+E6 & Seletores em escala populacional e viés de autoavaliação & framework & Seção~\ref{sec:res-e6} \\
+E3$'$ & Avaliação da hipótese central com o classificador forte & framework & Seção~\ref{sec:res-e3p} \\
 \bottomrule
 \end{tabular}
 
@@ -80,7 +81,7 @@ descrita na Seção~\ref{sec:metodo-reprodutibilidade}):
 \texttt{experiments/e0} (E0) $\cdot$ \texttt{experiments/e0p} (E0-P) $\cdot$
 \texttt{experiments/e1e4} (E1, E4) $\cdot$ \texttt{experiments/e6population}
 (E5, E6) $\cdot$ \texttt{experiments/e2e3} (E2, E3$'$) $\cdot$
-\texttt{experiments/p1} (pilares P1 e P2).}
+\texttt{experiments/p1} (conjunto inicial e partida a frio).}
 \end{table}
 
 \section{Conjunto de dados}
@@ -113,7 +114,7 @@ classes têm poucas dezenas de exemplos.
 
 Antes dos experimentos, o conjunto foi auditado quanto à qualidade do padrão-ouro, etapa
 relevante porque os rótulos servem simultaneamente de gabarito para o oráculo
-LLM (P3) e de supervisão para o classificador (P4). Três achados condicionam o
+LLM e de supervisão para o classificador. Três achados condicionam o
 desenho experimental e a interpretação dos resultados:
 
 \begin{enumerate}
@@ -272,7 +273,7 @@ Três classificadores $\theta$ são empregados, com papéis distintos e explíci
   concatenação de documentos e predição por similaridade de cosseno com
   \textit{softmax} sobre os escores \citep{Daru2024Dissertacao}. Por seu custo de
   treinamento desprezível, viabiliza os estudos que exigem milhares de reexecuções:
-  a sensibilidade de $L_0$, a otimização por algoritmo genético (P1) e a varredura
+  a sensibilidade de $L_0$, a otimização por algoritmo genético e a varredura
   de estratégias de seleção (Seção~\ref{sec:res-e1}).
   \item \textbf{Regressão logística} (referida como \textit{SGD}, pelo
   otimizador que a treina): regressão logística
@@ -333,7 +334,7 @@ e (iii) comparações entre estratégias de aprendizado ativo executadas com mú
 sementes usam o \textbf{teste de postos sinalizados de Wilcoxon}
 \citep{Wilcoxon1945} sobre as métricas finais e a LCE.
 
-\section{Pilar P1: composição do conjunto inicial \texorpdfstring{$L_0$}{L0}}
+\section{Composição do conjunto inicial \texorpdfstring{$L_0$}{L0}}
 \label{sec:metodo-l0}
 
 O primeiro pilar responde a duas perguntas em sequência: quanto a composição
@@ -371,7 +372,7 @@ tipicamente inferior ao de aptidão, que os capítulos de resultados reportam co
 envelope. O fluxo completo e os operadores são formalizados no
 Apêndice~\ref{ap:ag}.
 
-\section{Pilar P2: \textit{cold start} sem rótulos --- algoritmo DRI-SL}
+\section{Partida a frio sem rótulos: o algoritmo DRI-SL}
 \label{sec:metodo-drisl}
 
 O DRI-SL (\textit{Diversidade Representativa Inicial via densidade Semântica e
@@ -385,11 +386,11 @@ maximizando a introdução de termos relevantes ainda não cobertos (escore de
 novidade ponderado pelo perfil TF--IDF do grupo). A formalização, o pseudocódigo e
 as decisões de implementação constam do Apêndice~\ref{ap:drisl}. O DRI-SL é a
 estratégia da Fase~1 do FALCO (a máquina de fases é descrita na
-Seção~\ref{sec:metodo-falco-fases}) e é avaliado (P2) contra a amostragem aleatória e
-contra o envelope de desempenho estimado pelo algoritmo genético (P1), que atua
+Seção~\ref{sec:metodo-falco-fases}) e é avaliado contra a amostragem aleatória e
+contra o envelope de desempenho estimado pelo algoritmo genético, que atua
 como limite empírico de referência.
 
-\section{Pilar P3: LLMs como oráculo de rotulagem}
+\section{LLMs como oráculo de rotulagem}
 \label{sec:metodo-oraculo}
 
 A avaliação de oráculos exige, antes de qualquer comparação, um instrumento
@@ -477,7 +478,7 @@ limiar, a avaliação de robustez a ruído do oráculo torna-se obrigatória e a
 discussão da tese passa a
 tratar o aprendizado com oráculo ruidoso como cenário central.
 
-\section{Pilar P4: o framework FALCO e sua avaliação}
+\section{O framework FALCO e sua avaliação}
 \label{sec:metodo-falco}
 
 O quarto pilar integra os anteriores no framework proposto. A seção descreve
@@ -634,7 +635,8 @@ mas limita a generalização: as conclusões valem, a rigor, para descrições c
 de produtos de varejo em português. Três mitigações são adotadas: as decisões do
 framework não usam nenhuma propriedade específica do conjunto além das
 características públicas do gênero (texto curto, desbalanceamento, abreviações);
-os achados de instrumentação (P3) são mecanismos do par LLM--API, não do dado; e
+os achados de instrumentação do oráculo são mecanismos do par LLM--API, não do
+dado; e
 o protocolo completo é reprodutível em qualquer conjunto rotulado com a mesma
 estrutura, ficando a réplica em benchmark público (\textit{e.g.}, STOPS
 \citep{Karl2023}) registrada como trabalho futuro.
@@ -691,11 +693,12 @@ as versões das dependências são fixadas pelo gerenciador de pacotes do reposi
 
 \textbf{Proveniência dupla dos resultados.} Por razões históricas, o programa
 experimental distribui-se em dois repositórios versionados, e a distinção é
-mantida explícita em toda a tese. Os resultados \emph{originais} dos pilares
-P1 e P2 (estudo de sensibilidade de $L_0$, envelope do algoritmo genético e
-DRI-SL no \textit{cold start}) foram produzidos no repositório
-\texttt{activetextclassification}; os pilares P3 e P4 (E0, E0-P, E1, E4, E5,
-E6 e E3$'$) e as \emph{reexecuções} de verificação de P1/P2 foram produzidos
+mantida explícita em toda a tese. Os resultados \emph{originais} dos pilares do
+conjunto inicial e da partida a frio (estudo de sensibilidade de $L_0$, envelope
+do algoritmo genético e DRI-SL na partida a frio) foram produzidos no repositório
+\texttt{activetextclassification}; os pilares do oráculo LLM e do framework
+(E0, E0-P, E1, E4, E5, E6 e E3$'$), com as \emph{reexecuções} de verificação
+dos dois primeiros, foram produzidos
 na biblioteca \texttt{activelearning}, reescrita sob a arquitetura acima.
 Onde a tese reporta um número originado no repositório legado, o porte para a
 biblioteca nova foi verificado: por igualdade de matrizes de escore (PVBin),
