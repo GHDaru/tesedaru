@@ -1205,13 +1205,25 @@
       "titulo": "Qual regime de avaliacao a tese reporta no veredito da hipotese: antigo (eval 20.092, Cap.5 atual) ou canonico (eval 177.490, 3 sementes). Medido pelo revisor2 nos artefatos primarios: no canonico o E25 nao cruza (-0,044) e o unico que cruza (E35, 2 de 3 sementes, +0,0021 na media) esta 276 rotulos acima do teto de 34.724. Braco A sem numero canonico (cache bloqueado). As 4 superficies de veredito da branch da banca (@d0d35ed) estao SEGURADAS no gate ate esta decisao; a higiene de denominador vai em branch separada.",
       "urgencia": "maxima",
       "origem": "revisor1 aviso 20260820-1517 + revisor2 aviso 20260820-2000",
-      "estado": "aguardando autor — QUADROS PRONTOS: revisor2 entregou as duas tabelas recompostas no regime canonico (mensagem 20260820-2050, commit fbf7489), com LaTeX pronto para colar e sem editar .tex. Piso da metrica da hipotese vai de 25 mil (10,80% da base, dentro do teto) para 35 mil (15,12%, 276 rotulos fora); em acuracia vai de 20 mil para 25 mil e segue dentro. A/B/C sem medicao canonica declarados, logo qualquer veredito canonico hoje e parcial. So falta a escolha do autor."
+      "estado": "QUADROS PRONTOS (revisor2, entrega 20260820-2050, LaTeX incluso). Plano operacional congelado: reenunciado @d0d35ed e banca-min/veredito @6255e22 preservadas; apos a decisao, UMA frente (banca) reescreve as 4 superficies absorvendo as duas. Piso da metrica: antigo 25k (10,8%) dentro do teto; canonico 35k (15,12%) fora por 276 rotulos, 2/3 sementes."
     },
     {
       "id": "dec-lastro-cap1-dois-denominadores",
       "titulo": "Frase de lastro do Cap.1: Settles (<10%) e Schroder Tab.3 (15,45%) medem fracao do conjunto SELECIONAVEL (analogo: pool de 50k), nao da base; nessa regua o criterio de 34.724 e 69,4% do pool. Saida barata proposta pelo revisor2: declarar o numero nos dois denominadores na primeira ocorrencia (15% da base = 69,4% do pool) e reescrever o lastro dizendo que a literatura reporta fracoes do conjunto selecionavel.",
       "origem": "revisor2 aviso 20260820-1755, achado 2 (confirmado na aritmetica da propria fonte: 525/0,1545=3.398)",
       "estado": "aguardando autor"
+    },
+    {
+      "id": "dec-pre-registro-onde-esta",
+      "titulo": "A tese diz 'pre-registrado' 12 vezes (particionamento, gate do oraculo, criterio, orcamento e o VEREDITO 5-resultados:539) mas nao ha documento de pre-registro no repositorio nem registro no decisoes.jsonl. Pergunta ao autor: onde esta o desenho pre-registrado (qualificacao? projeto PPGMNE?) e podemos cita-lo? Com a resposta, uma frase na primeira ocorrencia do Cap.3 fecha as 12; sem, cada uma e pergunta aberta na defesa.",
+      "origem": "banca 1815 §3.1 + revisor2 2115 item 1",
+      "estado": "aguardando autor"
+    },
+    {
+      "id": "dec-apagar-humanize-cap2",
+      "titulo": "Apagar as branches humanize/cap2-t2 e cap2-t3 (superadas; conteudo util ja resgatado em 5218ccd). Enquanto existirem, o guarda do harness mantem 2-fundam/texto.tex BLOQUEADO para todos. Credencial das sessoes nao apaga branch (403) — so o autor: git push origin --delete humanize/cap2-t2 (2438c68) e humanize/cap2-t3 (dc7247e).",
+      "origem": "revisor2 0440",
+      "estado": "aguardando comando do autor"
     }
   ],
   "lembretes": [

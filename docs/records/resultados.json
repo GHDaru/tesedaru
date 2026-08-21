@@ -32,22 +32,90 @@
   }
  ],
  "entregas": [
-  {"nome": "Tese completa", "descricao": "documento de doutorado em PDF, ~90 páginas", "link_ou_caminho": "principal.pdf (fonte: principal.tex + capítulos N-*/texto.tex)"},
-  {"nome": "5 artigos derivados", "descricao": "um artigo por contribuição — oráculo LLM, viés de autoavaliação, cold start (DRI-SL), framework FALCO, recurso-base", "link_ou_caminho": "artigos/ (a1-oraculo … a5-recurso-base)"},
-  {"nome": "Biblioteca Python falco-active-learning", "descricao": "implementação do FALCO com reprodutibilidade rastreável; publicação no PyPI pendente", "link_ou_caminho": "github.com/GHDaru/activelearning"},
-  {"nome": "FlowBuilder", "descricao": "interface de apoio ao pipeline de rotulagem (front/back em apps/web); deploy público pendente", "link_ou_caminho": "GHDaru/activelearning · apps/web"},
-  {"nome": "Dataset público", "descricao": "250 mil descrições em 621 categorias, publicado no Kaggle", "link_ou_caminho": "doi.org/10.34740/kaggle/dsv/4265348"},
-  {"nome": "Métrica LCE", "descricao": "Learning Curve Efficiency — proposta nesta tese para comparar estratégias de aprendizado ativo por um único escalar", "link_ou_caminho": "3-metodo/texto.tex (definição formal)"},
-  {"nome": "142 fichamentos + grafo de conhecimento", "descricao": "leitura sistemática da literatura da tese, com grafo navegável", "link_ou_caminho": "fichamentos/ (142 arquivos · kg.json / kg.html)"},
-  {"nome": "Relatórios e pareceres", "descricao": "pareceres do orientador, da banca, de revisão sistemática (ARS) e auditorias do processo", "link_ou_caminho": "docs/ (parecer-*.md, inventario-*.md)"}
+  {
+   "nome": "Tese completa",
+   "descricao": "documento de doutorado em PDF, ~90 páginas",
+   "link_ou_caminho": "principal.pdf (fonte: principal.tex + capítulos N-*/texto.tex)"
+  },
+  {
+   "nome": "5 artigos derivados",
+   "descricao": "um artigo por contribuição — oráculo LLM, viés de autoavaliação, cold start (DRI-SL), framework FALCO, recurso-base",
+   "link_ou_caminho": "artigos/ (a1-oraculo … a5-recurso-base)"
+  },
+  {
+   "nome": "Biblioteca Python falco-active-learning",
+   "descricao": "implementação do FALCO com reprodutibilidade rastreável; publicação no PyPI pendente",
+   "link_ou_caminho": "github.com/GHDaru/activelearning"
+  },
+  {
+   "nome": "FlowBuilder",
+   "descricao": "interface de apoio ao pipeline de rotulagem (front/back em apps/web); deploy público pendente",
+   "link_ou_caminho": "GHDaru/activelearning · apps/web"
+  },
+  {
+   "nome": "Dataset público",
+   "descricao": "250 mil descrições em 621 categorias, publicado no Kaggle",
+   "link_ou_caminho": "doi.org/10.34740/kaggle/dsv/4265348"
+  },
+  {
+   "nome": "Métrica LCE",
+   "descricao": "Learning Curve Efficiency — proposta nesta tese para comparar estratégias de aprendizado ativo por um único escalar",
+   "link_ou_caminho": "3-metodo/texto.tex (definição formal)"
+  },
+  {
+   "nome": "142 fichamentos + grafo de conhecimento",
+   "descricao": "leitura sistemática da literatura da tese, com grafo navegável",
+   "link_ou_caminho": "fichamentos/ (142 arquivos · kg.json / kg.html)"
+  },
+  {
+   "nome": "Relatórios e pareceres",
+   "descricao": "pareceres do orientador, da banca, de revisão sistemática (ARS) e auditorias do processo",
+   "link_ou_caminho": "docs/ (parecer-*.md, inventario-*.md)"
+  }
  ],
  "experimentos": [
-  {"id": "E0", "pergunta": "Qual configuração de oráculo LLM tem a melhor razão acurácia/custo?", "resultado": "platô de 77–83% de acurácia entre os 4 melhores oráculos; deepseek-v4-flash é 26× mais barato que o gpt-4o no mesmo platô", "artefato": "5-resultados-falco/texto.tex §RQ1–RQ4 (sec:res-e0), Tabela tab:e0-custo"},
-  {"id": "E0-P", "pergunta": "O prompt do oráculo (regras de fronteira + exemplos) reduz o erro de convenção de catálogo (~48% dos erros medidos no E0/RQ3)?", "resultado": "variantes v4a/v4b comparadas ao v3 oficial, pareadas por McNemar nos 500 primeiros itens de cada amostra — ver Tabela tab:e0p para o resultado numérico", "artefato": "experiments/e0p/results/analysis.json · 5-resultados-falco/texto.tex §sec:res-e0p"},
-  {"id": "E1", "pergunta": "Como as 5 estratégias de seleção (entropia, menor confiança, menor margem, híbrida, aleatória) se comparam com oráculo perfeito (sem ruído)?", "resultado": "teto supervisionado do pool completo (20.000 rótulos) é Macro F1 = 0,540 — ver Tabela tab:e1 para as células por estratégia e semente", "artefato": "experiments/e1e4/results/analysis.json · 5-resultados-falco/texto.tex §sec:res-e1"},
-  {"id": "E4", "pergunta": "Quanto do valor do aprendizado ativo sobrevive quando o oráculo erra na taxa observada nos LLMs reais (ε≈0,17–0,23 no platô do E0)?", "resultado": "ruído uniforme testado em ε∈{0,1; 0,2; 0,4} — ver Tabela tab:e4 (retenção de Macro F1 por nível de ruído, Wilcoxon pareado entropia vs. aleatória)", "artefato": "experiments/e1e4/results/analysis.json · 5-resultados-falco/texto.tex §sec:res-e4"},
-  {"id": "E5", "pergunta": null, "resultado": null, "artefato": null, "nota": "confirmado como experimento real e executado (\"E5 (ciclo real)\" — docs/declaracao-uso-ia.md, seção \"O que foi feito com auxílio de IA\": \"Implementação e execução dos experimentos novos — E0, E0-P, E4, E5 (ciclo real), E6... e E3′\"), mas ainda sem seção própria no Cap. 5 do texto (5-resultados-falco/texto.tex só tem sec:res-e0, sec:res-e0p, sec:res-e1, sec:res-e4, sec:res-e6, sec:res-e3p — nenhum sec:res-e5). Resultado e artefato continuam null até essa seção ser escrita ou até alguém apontar onde os números do E5 já estão registrados (pode estar integrado a outra seção sob outro nome)."},
-  {"id": "E6", "pergunta": "Como os seletores se comparam em escala populacional, e há viés quando o classificador se autoavalia?", "resultado": "seleção por entropia com 15k rótulos alcança Macro F1 83,1% [IC 82,6; 83,7] contra 88,3% [87,9; 88,8] do pool inteiro (50k) — quase o teto com 30% do orçamento", "artefato": "5-resultados-falco/texto.tex §sec:res-e6, Tabela tab:e3p (braços E e D)"},
-  {"id": "E3′", "pergunta": "O classificador forte (BERTimbau), fora do laço de seleção, confirma a hipótese central do FALCO?", "resultado": "braço D (pool inteiro, régua): 88,3% [87,9;88,8] · braço A (pipeline real): 65,9% [65,2;66,5] — resultado descritivo de semente única no texto atual; réplicas (sementes 7 e 123) aguardando execução do autor para consolidar média±desvio", "artefato": "experiments/e2e3/ · 5-resultados-falco/texto.tex §sec:res-e3p, Tabela tab:e3p"}
+  {
+   "id": "E0",
+   "pergunta": "Qual configuração de oráculo LLM tem a melhor razão acurácia/custo?",
+   "resultado": "platô de 77–83% de acurácia entre os 4 melhores oráculos; deepseek-v4-flash é 26× mais barato que o gpt-4o no mesmo platô",
+   "artefato": "5-resultados-falco/texto.tex §RQ1–RQ4 (sec:res-e0), Tabela tab:e0-custo"
+  },
+  {
+   "id": "E0-P",
+   "pergunta": "O prompt do oráculo (regras de fronteira + exemplos) reduz o erro de convenção de catálogo (~48% dos erros medidos no E0/RQ3)?",
+   "resultado": "variantes v4a/v4b comparadas ao v3 oficial, pareadas por McNemar nos 500 primeiros itens de cada amostra — ver Tabela tab:e0p para o resultado numérico",
+   "artefato": "experiments/e0p/results/analysis.json · 5-resultados-falco/texto.tex §sec:res-e0p"
+  },
+  {
+   "id": "E1",
+   "pergunta": "Como as 5 estratégias de seleção (entropia, menor confiança, menor margem, híbrida, aleatória) se comparam com oráculo perfeito (sem ruído)?",
+   "resultado": "teto supervisionado do pool completo (20.000 rótulos) é Macro F1 = 0,540 — ver Tabela tab:e1 para as células por estratégia e semente",
+   "artefato": "experiments/e1e4/results/analysis.json · 5-resultados-falco/texto.tex §sec:res-e1"
+  },
+  {
+   "id": "E4",
+   "pergunta": "Quanto do valor do aprendizado ativo sobrevive quando o oráculo erra na taxa observada nos LLMs reais (ε≈0,17–0,23 no platô do E0)?",
+   "resultado": "ruído uniforme testado em ε∈{0,1; 0,2; 0,4} — ver Tabela tab:e4 (retenção de Macro F1 por nível de ruído, Wilcoxon pareado entropia vs. aleatória)",
+   "artefato": "experiments/e1e4/results/analysis.json · 5-resultados-falco/texto.tex §sec:res-e4"
+  },
+  {
+   "id": "E5",
+   "pergunta": null,
+   "resultado": null,
+   "artefato": null,
+   "nota": "confirmado como experimento real e executado (\"E5 (ciclo real)\" — docs/declaracao-uso-ia.md, seção \"O que foi feito com auxílio de IA\": \"Implementação e execução dos experimentos novos — E0, E0-P, E4, E5 (ciclo real), E6... e E3′\"), mas ainda sem seção própria no Cap. 5 do texto (5-resultados-falco/texto.tex só tem sec:res-e0, sec:res-e0p, sec:res-e1, sec:res-e4, sec:res-e6, sec:res-e3p — nenhum sec:res-e5). Resultado e artefato continuam null até essa seção ser escrita ou até alguém apontar onde os números do E5 já estão registrados (pode estar integrado a outra seção sob outro nome)."
+  },
+  {
+   "id": "E6",
+   "pergunta": "Como os seletores se comparam em escala populacional, e há viés quando o classificador se autoavalia?",
+   "resultado": "seleção por entropia com 15k rótulos alcança Macro F1 83,1% [IC 82,6; 83,7] contra 88,3% [87,9; 88,8] do pool inteiro (50k) — quase o teto com 30% do orçamento",
+   "artefato": "5-resultados-falco/texto.tex §sec:res-e6, Tabela tab:e3p (braços E e D)"
+  },
+  {
+   "id": "E3′",
+   "pergunta": "O classificador forte (BERTimbau), fora do laço de seleção, confirma a hipótese central do FALCO?",
+   "resultado": "braço D (pool inteiro, régua): 88,3% [87,9;88,8] · braço A (pipeline real): 65,9% [65,2;66,5] — resultado descritivo de semente única no texto atual; réplicas (sementes 7 e 123) aguardando execução do autor para consolidar média±desvio",
+   "artefato": "experiments/e2e3/ · 5-resultados-falco/texto.tex §sec:res-e3p, Tabela tab:e3p"
+  }
  ]
 }
