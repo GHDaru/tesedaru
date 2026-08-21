@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 63,
-  "atualizado_em": "2026-08-17T23:05:00Z",
-  "atualizado_por": "executor02: status real da fila reconciliado (itens 1-3 já concluídos antes da tarefa 2255); custo do E6 dimensionado (~19,4h CPU, sem executar); sub-treino D/bs16 rodando",
+  "versao": 64,
+  "atualizado_em": "2026-08-18T00:15:00Z",
+  "atualizado_por": "executor02: teste de sub-treino CONFIRMADO no braço D (+22,5% F1 com lote 16 vs 128) — reabre a questão se as conclusões E35/hipótese central, medidas em lote 128, são válidas; decisão do autor pendente",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -1160,10 +1160,11 @@
         "id": "e3p-subtreino-d-bs16",
         "o_que": "Teste de sub-treino: braço D em lote 16, avaliação canônica (isola efeito do lote do efeito do conjunto de avaliação) — tarefa 20260816-2220",
         "onde": "Kaggle, GPU T4 · kernel ghdaru/falco-subtreino-d-bs16",
-        "estado": "rodando",
+        "estado": "concluido",
         "dono": "executor02",
         "duracao": "~3h projetadas (D em lote16/regime antigo levou 2h56)",
-        "resultado_esperado": "experiments/e2e3/results/e3prime_D_s42_bs16.json"
+        "resultado_esperado": "experiments/e2e3/results/e3prime_D_s42_bs16.json",
+        "resultado": "https://github.com/GHDaru/activelearning/commit/277717b . D lote16 vs lote128 (mesma semente/épocas/avaliação): acc 0,8821 vs 0,8694 (Δ+0,0127) · F1 0,4523 vs 0,3691 (Δ+0,0832, +22,5% relativo). ICs de acurácia NÃO se sobrepõem — efeito real. HIPÓTESE DE SUB-TREINO CONFIRMADA para D (8x mais passos de otimização). IMPLICAÇÃO CRÍTICA NÃO RESOLVIDA: os achados e3p-hipótese-central e e3p-estatisticas-canonicas (E35 não supera D; hipótese central não sustentada) foram medidos todos em lote=128 — podem mudar se A/B/C/E35 também estiverem sub-treinados. Requer decisão do autor: retestar mais braços em lote menor, ou aceitar o regime atual como está."
       },
       {
         "id": "e6-custo-recorrecao",
