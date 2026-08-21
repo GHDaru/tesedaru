@@ -9,11 +9,41 @@ conhecimento em `fichamentos/`.
 > editou o CLAUDE.md, rode o script. Não use symlink — o Overleaf recusa
 > repositórios que contenham links simbólicos.
 
-## Constituição da tese (conteúdo) — LEIA ANTES DE EDITAR O TEXTO
-`docs/governance/constituicao-tese.md` — princípios de conteúdo acadêmico:
-siglas abertas na 1ª ocorrência e presentes na lista, referências validadas
-contra fichamento, afirmações fundamentadas, decisões em ADR
-(`docs/adr/` + `docs/records/decisoes.jsonl`).
+## Constituição da tese e protocolo — CARREGADOS, não apenas citados
+Os dois arquivos abaixo entram no contexto por `@`-import a **cada**
+carregamento. Não é "leia quando puder": é texto que você já tem na mão, e
+por isso ninguém pode alegar que não sabia a regra.
+
+@docs/governance/constituicao-tese.md
+@coordenacao/PROTOCOLO.md
+
+O que eles obrigam, em uma linha cada: siglas abertas na 1ª ocorrência e
+presentes na lista; referência validada contra fichamento; nenhuma afirmação
+sem fundamento; **nenhum número sem artefato rastreável**; decisão registrada
+em ADR (`docs/adr/` + `docs/records/decisoes.jsonl`).
+
+Os arquivos GRANDES ficam de fora do import de propósito — `plano-revisao.json`
+(51 KB) e `decisoes.jsonl` (17 KB) mudam a cada hora e são lidos por recorte;
+importá-los custaria mais contexto do que entregam.
+
+## Regras duras — executadas por hook, não por boa vontade
+`.claude/settings.json` liga dois hooks, com o código em `scripts/hooks/`:
+
+- **`PreToolUse` → `guarda-regras-duras.py`** BLOQUEIA a chamada, sem depender
+  de ninguém lembrar: (1) **force-push em `main`** — push rejeitado resolve-se
+  com `git fetch origin main && git rebase origin/main`, nunca com force;
+  (2) **`.env`** em qualquer forma — segredo fica fora do git; (3) edição de
+  arquivo tocado por branch **`humanize/*` ou `governanca/*`**; (4) edição
+  direta de **`AGENTS.md`**, que é gerado. Se você foi bloqueado, a mensagem
+  diz qual regra e qual é a saída legítima.
+- **`SessionStart` → `estado-da-sessao.py`** imprime o estado **medido**:
+  âncora da `origin/main`, locks vivos com TTL calculado, caixa aberta por
+  remetente, branches fora da main. Existe por um erro real: bilhete repetido
+  de sessão em sessão vira mentira; medição não vira.
+
+O guarda **falha em aberto** — qualquer erro interno dele permite a ação,
+porque um guarda quebrado não pode parar a tese. As quatro proibições acima,
+essas não são negociáveis por esquecimento.
 
 ## Comunicação com o autor (princípio XI — "ELI15") e roteamento (XII)
 Ao falar com o AUTOR: didático e detalhado — termos explicados, siglas abertas,
