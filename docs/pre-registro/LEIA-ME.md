@@ -44,3 +44,20 @@
 - O que continua SEM fonte pré-registrada: o gate de 85% do oráculo e as
   partições atuais (pool de 50 mil, retido de 4 mil, população de 231.490 —
   a base e os números de 2022/2023 eram outros: 180k/120k/60k).
+
+## Confirmações do autor (2026-08-21, conversa com o principal)
+
+1. **O exame de qualificação foi em JUNHO DE 2023** (PPGMNE/UFPR) e
+   apresentou exatamente este desenho. A modificação final do deck
+   (16/05/2023) é consistente: versão fechada semanas antes do exame.
+   Âncora de citação principal: a qualificação, junho de 2023; o deck é a
+   evidência material.
+2. **A métrica do critério pré-registrado é ACURÁCIA** — palavras do autor:
+   "foi a acurácia que atingiu a mesma performance. Acurácia ficou melhor."
+   Confere com o artefato: todas as curvas do deck são de acurácia
+   (acuracia_E/acuracia_I, externa e interna), a estabilização "em 95%" do
+   slide 33 é acurácia, e a conclusão do slide 38 ("performance similar ao
+   modelo populacional") refere-se a essas curvas. O Macro F1 não aparece no
+   deck: entrou depois, durante a tese, como análise de robustez para o
+   desbalanceamento de classes (714 categorias) — e deve ser apresentado
+   como tal, não como a métrica do critério original.
