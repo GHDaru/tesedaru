@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 67,
-  "atualizado_em": "2026-08-18T01:35:00Z",
-  "atualizado_por": "executor02: colapso do E25/s42/bs16 confirmado REPRODUTÍVEL (byte-idêntico ao retreino) — decisão do autor necessária sobre corrigir bertimbau.py (gradient clipping)",
+  "versao": 68,
+  "atualizado_em": "2026-08-18T01:50:00Z",
+  "atualizado_por": "executor02: segundo colapso confirmado (E/s123, mesma classe do E25/s42) — ~11% de taxa de falha, risco sistêmico do lote 16; varredura bloqueada aguardando decisão sobre corrigir bertimbau.py",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -1179,11 +1179,11 @@
         "id": "e3p-varredura-bs16",
         "o_que": "Varredura completa (9 braços × 3 sementes) em lote 16 — autorizado pelo autor após verificação: A/E35/D confirmam sub-treino em lote 128 (D +22,5%, E35 +28,3%, A +103% de Macro F1). E35 já volta a superar D com lote 16; hipótese central ainda não sustentada mas gap encolheu de 57% para 29%.",
         "onde": "Kaggle, GPU T4 · kernels falco-subtreino-s42/s7/s123 · --modo subtreino_bs16 (novo, ferramenta estendida)",
-        "estado": "rodando",
+        "estado": "bloqueado",
         "dono": "executor02",
         "duracao": "~2,3h por semente (medido: D 26min + A 4,9min + E35 13,4min + 6 braços restantes ≈ 1h40 adicionais)",
         "resultado_esperado": "experiments/e2e3/results/e3prime_*_s{42,7,123}_bs16.json (9 braços cada, sufixo _bs16, não sobrescreve os canônicos)",
-        "bloqueio": "E25/s42/bs16: colapso CONFIRMADO REPRODUTÍVEL — retreino isolado produziu predições byte-idênticas ao original (mesma classe única em 177.490/177.490 casos, acc=0,0153, F1=0,0). Treino é determinístico neste ambiente (T4, mesma semente). Causa: AdamW sem gradient clipping/warmup em BertimbauClassifier.fit(). Correção requer editar bertimbau.py (código compartilhado, citado por todos os resultados já publicados) — aguardando decisão do autor antes de tocar. s7: 9/9. s42: 8/9 (E25 bloqueado). s123: rodando."
+        "bloqueio": "DUAS ocorrências de colapso em 18 execuções (~11%): E25/s42 e E/s123, ambas na MESMA classe degenerada (\"outro farma\"), ambas F1=0/acc=0,0153. Não é mais acaso isolado — risco sistêmico do lote 16 sem gradient clipping em BertimbauClassifier.fit(). s7: 9/9 completo. s42: 8/9 (E25 colapsado, confirmado reprodutível). s123: 8/9 (E colapsado). AGUARDANDO decisão do autor (mensagem 0135/0150): corrigir bertimbau.py (gradient clipping) / aceitar como dado perdido / lote intermediário só para os braços afetados."
       },
       {
         "id": "mcnemar-pares",
