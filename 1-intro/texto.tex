@@ -93,16 +93,25 @@ perda relevante de desempenho final}. Para torná-la falseável, adota-se um cri
 quantitativo de aceitação, enunciado com dois termos do aprendizado ativo: o conjunto
 de exemplos ainda não rotulados de onde se escolhe o que anotar é o \textit{pool},
 e quem fornece o rótulo de cada exemplo escolhido é o \emph{oráculo}; nesta tese,
-esse papel é exercido por um modelo de linguagem, não por um anotador humano. O critério: treinado com no máximo \textbf{34.724 rótulos}, ou $15\%$ da base
-deduplicada de 231.490 textos únicos, o framework deve alcançar pelo menos $95\%$ do
-Macro F1-Score que o mesmo classificador obtém com o \textit{pool} de referência
-inteiramente rotulado, superando com significância estatística a seleção aleatória e
-a seleção por incerteza sob o
+esse papel é exercido por um modelo de linguagem, não por um anotador humano. O critério: treinado com no máximo \textbf{34.724 rótulos} frente à população
+deduplicada de 231.490 textos únicos (o equivalente a $15\%$ dela), o framework
+deve alcançar pelo menos $95\%$ do Macro F1-Score que o mesmo classificador
+obtém com o \textit{pool} de referência inteiramente rotulado, superando com
+significância estatística a seleção aleatória e a seleção por incerteza sob o
 mesmo orçamento.
-O teto tem lastro na literatura de aprendizado ativo, que reporta desempenho
-equivalente ao da supervisão passiva com frações dessa ordem: menos de $10\%$ dos
-dados na ilustração canônica de \citet{Settles2009} e até $15{,}45\%$ nos benchmarks
-com transformers de \citet[Tab.~3]{Schroder2022Uncertainty}. A hipótese é condicional à qualidade do oráculo disponível. Por
+O teto de $15\%$ vem do pré-registro do estudo: o documento apresentado no
+exame de qualificação do autor (PPGMNE/UFPR, junho de 2023; material datado de
+maio de 2022, na versão de maio de 2023, preservado no repositório da tese)
+conclui que ``com 15\% dos dados foi possível atingir uma performance similar
+ao modelo populacional'' com seleção por incerteza. O documento enuncia o
+teto; o denominador adotado aqui, a população deduplicada, é decisão declarada
+desta tese. A ordem de grandeza é compatível com a literatura, que reporta
+desempenho equivalente ao da supervisão passiva rotulando frações comparáveis
+\emph{do conjunto selecionável}: menos de $10\%$ na ilustração canônica de
+\citet{Settles2009} e até $15{,}45\%$ nos benchmarks com transformers de
+\citet[Tab.~3]{Schroder2022Uncertainty}; medido contra o mesmo tipo de
+conjunto, o teto desta tese corresponde a $69{,}4\%$ do \textit{pool} de
+referência. A hipótese é condicional à qualidade do oráculo disponível. Por
 isso, fixou-se de antemão tanto o piso de acurácia que um modelo de linguagem
 precisa atingir para ser aprovado como oráculo quanto o que conta como refutação:
 se nem o melhor oráculo aprovado sustentar o critério, a hipótese é considerada
