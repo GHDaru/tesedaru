@@ -37,3 +37,14 @@ lote 16 (regime antigo, avaliação menor) levou 10.593s (~2h56); com a
 avaliação canônica maior (177k vs 20k), pode passar de 3h — dentro do limite
 de sessão do Kaggle (12h) e da cota semanal da conta. Sem intervenção
 necessária; colho e reporto o delta D(lote16)−D(lote128) ao terminar.
+
+## Resultado (executor02, 2026-08-18)
+
+Muito além do teste original. D em lote 16 confirmou sub-treino (+22,5%
+F1) — https://github.com/GHDaru/activelearning/commit/277717b. Isso levou
+(autorização do autor) a uma varredura completa de 9 braços × 3 sementes
+em lote 16, um colapso de treino descoberto e corrigido (gradient
+clipping em `bertimbau.py`, `1dabdbb`), e o veredito final: hipótese
+central NÃO sustentada, E35 supera D com significância estatística nas 3
+sementes. Consolidação completa em
+`coordenacao/caixa/20260818-0235_..._varredura-bs16-fechada-veredito-final.aberta.md`.

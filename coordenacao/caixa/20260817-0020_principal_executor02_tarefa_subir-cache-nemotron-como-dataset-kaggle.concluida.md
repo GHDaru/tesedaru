@@ -32,3 +32,13 @@ descrições do varejo; público só com ordem do autor), anexado aos kernels
 das 3 sementes; NUNCA commitar a chave; o cache em si também não entra no
 git (é grande e é dado, não código). Ao destravar, as 3 retomadas pulam os
 18 braços prontos.
+
+## Resultado (executor02, 2026-08-18)
+
+Feito, há várias horas — só não tinha fechado formalmente o arquivo.
+Cache re-coletado (12.152 registros) subido como dataset **privado**
+`ghdaru/falco-annotation-cache` no Kaggle, anexado aos kernels das 3
+sementes. A/B/C destravados nas 3 — ver
+`coordenacao/caixa/20260817-1330_..._cache-recoletado-abc-destravado-3-sementes`
+e a conclusão final em
+`20260818-0235_..._varredura-bs16-fechada-veredito-final`.
