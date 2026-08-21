@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 69,
-  "atualizado_em": "2026-08-18T02:00:00Z",
-  "atualizado_por": "executor02: correção aplicada (clip_grad_norm_ em bertimbau.py, autorizado pelo autor); verificando os 2 braços quebrados + 1 de controle",
+  "versao": 70,
+  "atualizado_em": "2026-08-18T02:35:00Z",
+  "atualizado_por": "executor02: VARREDURA BS16 COMPLETA — 27/27 braços, teste final da hipótese central (não sustentada) e E35 vs D (sustentada, significativa nas 3 sementes) com McNemar/bootstrap",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -1179,11 +1179,22 @@
         "id": "e3p-varredura-bs16",
         "o_que": "Varredura completa (9 braços × 3 sementes) em lote 16 — autorizado pelo autor após verificação: A/E35/D confirmam sub-treino em lote 128 (D +22,5%, E35 +28,3%, A +103% de Macro F1). E35 já volta a superar D com lote 16; hipótese central ainda não sustentada mas gap encolheu de 57% para 29%.",
         "onde": "Kaggle, GPU T4 · kernels falco-subtreino-s42/s7/s123 · --modo subtreino_bs16 (novo, ferramenta estendida) | correção aplicada (activelearning@1dabdbb, gradient clipping); verificação em curso: retreino dos 2 braços colapsados + 1 braço de controle (D/s42) para medir efeito do clipping em treino saudável",
-        "estado": "rodando",
+        "estado": "concluido",
         "dono": "executor02",
         "duracao": "~2,3h por semente (medido: D 26min + A 4,9min + E35 13,4min + 6 braços restantes ≈ 1h40 adicionais)",
         "resultado_esperado": "experiments/e2e3/results/e3prime_*_s{42,7,123}_bs16.json (9 braços cada, sufixo _bs16, não sobrescreve os canônicos)",
-        "bloqueio": null
+        "bloqueio": null,
+        "resultado": "https://github.com/GHDaru/activelearning/commit/6e1d2f5 . 27/27 braços válidos (25 originais + 2 destravados por gradient clipping). MÉDIA±DESVIO (k=3): A F1=0,3100±0,0108/acc=0,7107±0,0031 · D F1=0,4508±0,0067/acc=0,8829±0,0028 · E35 F1=0,4640±0,0052/acc=0,8899±0,0013. HIPÓTESE CENTRAL: F1(A)=0,3100 vs 0,95×F1(D)=0,4283 -> NÃO SUSTENTADA (23,9% dos rótulos). E35 vs D: SUSTENTADA nas 3 sementes com significância forte (McNemar p<1e-7 nas 3, bootstrap CI sempre positivo) — a alegação \"menos é mais, também no transformer\" do Cap.5 volta a valer, agora com avaliação canônica rigorosa. B-C consistente e significativo nas 3 sementes (sem a inversão de sinal do regime lote128)."
+      },
+      {
+        "id": "e3p-clipping-controle",
+        "o_que": "Medição do efeito do gradient clipping (correção do colapso) num braço que já treinava bem sem ele — decide se os 25 braços pré-correção precisam ser regerados por consistência",
+        "onde": "Kaggle T4 · experiments/e2e3/results/controle_clipping_d_s42/",
+        "estado": "concluido",
+        "dono": "executor02",
+        "duracao": "~25 min",
+        "resultado_esperado": "—",
+        "resultado": "D/s42: F1 0,4523 (sem clipping) -> 0,4625 (com clipping), +0,0102 (+2,26% relativo); acc +0,0052. Efeito real, positivo, mas pequeno — ordem de grandeza menor que os efeitos de lote (20-100%+) investigados. Decisão sobre regerar os 25 braços por consistência fica com o autor."
       },
       {
         "id": "mcnemar-pares",
