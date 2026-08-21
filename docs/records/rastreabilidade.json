@@ -1,9 +1,9 @@
 {
   "schema": "rastreabilidade/v1",
   "gerado_por": "executor01 · notebooks/auditoria/build_rastreabilidade.py",
-  "cobertura": "Cap. 5 completo menos a seção do gate (E0, E0-P, E1, E4, E6, E3′) + Cap. 4 (P1/P2) + Cap. 3 (método, ~24 números casados com R5, tarefa 20260817-1940). Faltam: seção do gate, Cap. 6, apêndices, pré-textuais",
+  "cobertura": "Cap. 5 completo menos a seção do gate (E0, E0-P, E1, E4, E6, E3′) + Cap. 4 (P1/P2, figuras) + Cap. 3 (método, ~24 números casados com R5, tarefa 20260817-1940). Faltam: seção do gate, Cap. 6, apêndices, pré-textuais",
   "resumo": {
-    "rastreado": 76,
+    "rastreado": 77,
     "divergente": 14,
     "legado": 1,
     "sem-evidencia": 5
@@ -666,14 +666,24 @@
       "nota": "reexecutado na Onda 4 (run_sweeps.py roda de novo, não é reanálise — o dado bruto nunca esteve versionado). Pool determinístico (semente 7 fixa no script): a reprodução do E1 e do E4 bateu quase exata (3ª/4ª casa decimal) com os agregados publicados. git add -f — casa com a linha 7 do .gitignore"
     },
     {
-      "numero": "figuras do Cap. 4 e do Cap. 5 geradas por script",
+      "numero": "figuras de E1/E4/E6/ciclo/E0 (6 arquivos) geradas por script",
       "onde": "experiments/plots/",
       "experimento": "todos",
       "artefato": "experiments/plots/figures/*.{pdf,png}",
       "codigo": "experiments/plots/make_figures.py",
       "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "reexecutado: reproduz byte-a-byte (só difere metadado de timestamp do PNG) a partir de sweeps.jsonl e e0_table.json, ambos já auditados em outras entradas. Mas nenhuma das 6 está \\includegraphics'da no Cap. 4 ou 5 hoje — geradas e corretas, porém não inseridas na tese"
+    },
+    {
+      "numero": "figura L0tendenciagerallog.png (a ÚNICA de fato no texto do Cap. 4)",
+      "onde": "4-resultados-l0/texto.tex#fig:tendencia-l0-log",
+      "experimento": "conjunto-inicial",
+      "artefato": "tesedaru/4-resultados-l0/imagens/L0tendenciagerallog.png",
+      "codigo": "não encontrado gerador",
+      "notebook_kaggle": "",
       "status": "sem-evidencia",
-      "nota": "o script existe e nenhuma figura está versionada em experiments/plots/. As figuras publicadas vivem em tesedaru/N-*/imagens/, desacopladas do gerador — não há garantia de que a figura da tese corresponda ao artefato atual"
+      "nota": "busca por 'tendencia' em scripts .py do activelearning não acha nenhum gerador; a imagem foi commitada direto no tesedaru (99f86e9), sem script associado neste repositório. É a ÚNICA figura de fato referenciada no texto de Cap. 4/5 hoje, e é justamente a que não tem artefato reprodutível"
     },
     {
       "numero": "P1 sensibilidade |L0|=10: acurácia 6.7%",
