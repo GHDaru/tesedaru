@@ -55,6 +55,28 @@ def checa_segredo_no_bash(cmd: str) -> None:
         bloqueia("BLOQUEADO: `git add` de arquivo .env. Segredo nao entra no repositorio.")
 
 # ------------------------------------------------- 3. superficies de outras frentes
+LISTA_SUPERADAS = os.path.join("coordenacao", "branches-superadas.json")
+
+def _arquivo_da_lista(raiz: str) -> str:
+    return os.path.join(raiz, LISTA_SUPERADAS)
+
+def branches_superadas(raiz: str):
+    """Branches que o AUTOR declarou superadas — a regra 3 as ignora.
+
+    Destrava a superficie sem apagar a branch: o SHA da ponta fica registrado
+    na lista, entao a branch se restaura mesmo que seja apagada depois.
+    Lista ausente ou ilegivel -> conjunto vazio, isto e, o comportamento
+    anterior a esta mudanca (bloqueia tudo). Uma lista quebrada nao pode
+    LIBERAR superficie por acidente; so pode deixar de liberar."""
+    try:
+        with open(_arquivo_da_lista(raiz), encoding="utf-8") as fh:
+            dados = json.load(fh)
+        return {str(i["branch"]).strip()
+                for i in dados.get("superadas", [])
+                if isinstance(i, dict) and i.get("branch")}
+    except Exception:
+        return set()
+
 def _caminho_do_cache(raiz: str):
     """Diretorio .git REAL. Em worktree, `.git` e um ARQUIVO, nao um diretorio:
     escrever cache dentro dele falha e desliga a regra em silencio. Foi um
@@ -72,12 +94,21 @@ def _caminho_do_cache(raiz: str):
         return None
 
 def arquivos_de_outras_frentes(raiz: str):
-    """Arquivos tocados por branches humanize/* e governanca/*, com cache de 15 min."""
+    """Arquivos tocados por branches humanize/* e governanca/* que NAO estejam
+    declaradas superadas, com cache de 15 min."""
     import time
+    superadas = branches_superadas(raiz)
     cache = _caminho_do_cache(raiz)
     if cache:
         try:
-            if os.path.exists(cache) and (os.path.getmtime(cache) + 900) > time.time():
+            # A lista e' entrada do calculo: se ela mudou depois do cache, o
+            # cache esta velho. Sem isto, incluir uma branch na lista levaria
+            # ate 15 min para valer — e o agente veria bloqueio sem motivo.
+            lista = _arquivo_da_lista(raiz)
+            mtime_lista = os.path.getmtime(lista) if os.path.exists(lista) else 0
+            if (os.path.exists(cache)
+                    and (os.path.getmtime(cache) + 900) > time.time()
+                    and os.path.getmtime(cache) >= mtime_lista):
                 with open(cache, encoding="utf-8") as fh:
                     return set(l.strip() for l in fh if l.strip())
         except Exception:
@@ -93,6 +124,8 @@ def arquivos_de_outras_frentes(raiz: str):
         for b in (x.strip() for x in listagem.stdout.splitlines() if x.strip()):
             if "->" in b:
                 continue
+            if b.split("origin/", 1)[-1] in superadas:
+                continue                 # declarada superada pelo autor
             saida = subprocess.run(
                 ["git", "-C", raiz, "diff", "--name-only", f"origin/main...{b}"],
                 capture_output=True, text=True, timeout=8)
@@ -117,7 +150,9 @@ def checa_frente_alheia(caminho: str, raiz: str) -> None:
             "BLOQUEADO pela regra dura do autor: nao edite arquivo tocado por branch\n"
             "`humanize/*` ou `governanca/*` — o merge delas conflitaria com a sua edicao.\n"
             f"Arquivo recusado: {rel}\n"
-            "Se a edicao for mesmo necessaria, peca ao principal e registre a razao.")
+            "Duas saidas, as duas passando pelo autor: mergear/apagar a branch, ou\n"
+            f"declara-la superada em {LISTA_SUPERADAS} (com o SHA da ponta, que\n"
+            "e por onde ela se restaura). Peca ao principal e registre a razao.")
 
 # ------------------------------------------------------------- 4. arquivo gerado
 def checa_gerado(caminho: str) -> None:

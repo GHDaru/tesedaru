@@ -34,17 +34,52 @@ t "git add .env"                    BLOQUEIA '{"tool_name":"Bash","tool_input":{
 t "escrever .env"                   BLOQUEIA '{"tool_name":"Write","tool_input":{"file_path":".env"}}'
 t "escrever config/.env.local"      BLOQUEIA '{"tool_name":"Write","tool_input":{"file_path":"config/.env.local"}}'
 
-echo "regra 3 — superficie de outra frente (dado real das branches humanize/*)"
-alvo="$(git branch -r --list 'origin/humanize/*' 'origin/governanca/*' 2>/dev/null \
-        | tr -d ' ' | while read -r b; do [ -n "$b" ] && git diff --name-only "origin/main...$b" 2>/dev/null; done \
-        | grep -v '^$' | head -1)"
-if [ -n "$alvo" ]; then
-  t "editar $alvo"                  BLOQUEIA "{\"tool_name\":\"Edit\",\"tool_input\":{\"file_path\":\"$alvo\"},\"cwd\":\"$RAIZ\"}"
-  t "editar o mesmo por caminho absoluto" BLOQUEIA "{\"tool_name\":\"Edit\",\"tool_input\":{\"file_path\":\"$RAIZ/$alvo\"},\"cwd\":\"$RAIZ\"}"
+echo "regra 3 — superficie de outra frente (fixture proprio, nao dado vivo)"
+# Por que fixture: depois da lista de superadas, a regra 3 pode ficar SEM dado
+# real (hoje so as duas cap2-* tinham diff, e as duas estao na lista). Um teste
+# que depende do dado vivo passa a ser pulado em silencio justamente quando a
+# regra deixa de ser exercitada — foi assim que um defeito real escapou antes.
+FIX="$(mktemp -d)"; trap 'rm -rf "$FIX"' EXIT
+(
+  set -e
+  cd "$FIX"
+  git init -q .; git config user.email t@t; git config user.name t
+  mkdir -p coordenacao
+  echo base > alvo-listada.tex; echo base > alvo-viva.tex
+  git add -A; git commit -qm base
+  git update-ref refs/remotes/origin/main HEAD
+
+  git checkout -q -b humanize/listada
+  echo mudou > alvo-listada.tex; git commit -qam listada
+  git update-ref refs/remotes/origin/humanize/listada HEAD
+
+  git checkout -q --detach refs/remotes/origin/main
+  git checkout -q -b humanize/viva
+  echo mudou > alvo-viva.tex; git commit -qam viva
+  git update-ref refs/remotes/origin/humanize/viva HEAD
+
+  git checkout -q --detach refs/remotes/origin/main
+  printf '{"superadas":[{"branch":"humanize/listada","ponta":"%s"}]}\n' \
+    "$(git rev-parse refs/remotes/origin/humanize/listada)" \
+    > coordenacao/branches-superadas.json
+) >/dev/null 2>&1
+if [ -f "$FIX/coordenacao/branches-superadas.json" ]; then
+  t "branch NA lista -> edicao liberada"   permite  "{\"tool_name\":\"Edit\",\"tool_input\":{\"file_path\":\"alvo-listada.tex\"},\"cwd\":\"$FIX\"}"
+  t "branch FORA da lista -> bloqueia"     BLOQUEIA "{\"tool_name\":\"Edit\",\"tool_input\":{\"file_path\":\"alvo-viva.tex\"},\"cwd\":\"$FIX\"}"
+  t "o mesmo por caminho absoluto"         BLOQUEIA "{\"tool_name\":\"Edit\",\"tool_input\":{\"file_path\":\"$FIX/alvo-viva.tex\"},\"cwd\":\"$FIX\"}"
+  t "arquivo que nenhuma branch toca"      permite  "{\"tool_name\":\"Edit\",\"tool_input\":{\"file_path\":\"nada.tex\"},\"cwd\":\"$FIX\"}"
+  rm -f "$FIX/coordenacao/branches-superadas.json"
+  rm -f "$FIX/.git/guarda-superficies.cache"
+  t "lista AUSENTE -> volta a bloquear"    BLOQUEIA "{\"tool_name\":\"Edit\",\"tool_input\":{\"file_path\":\"alvo-listada.tex\"},\"cwd\":\"$FIX\"}"
+  echo 'isto nao e json' > "$FIX/coordenacao/branches-superadas.json"
+  rm -f "$FIX/.git/guarda-superficies.cache"
+  t "lista ILEGIVEL -> nao libera nada"    BLOQUEIA "{\"tool_name\":\"Edit\",\"tool_input\":{\"file_path\":\"alvo-listada.tex\"},\"cwd\":\"$FIX\"}"
 else
-  echo "  (pulado: nenhuma branch humanize/* ou governanca/* com diff hoje)"
+  printf "  FALHA %-45s fixture nao pode ser montado\n" "regra 3"
+  falhas=$((falhas+1))
 fi
-t "editar ficha comum"              permite  "{\"tool_name\":\"Edit\",\"tool_input\":{\"file_path\":\"fichamentos/Donmez2008.md\"},\"cwd\":\"$RAIZ\"}"
+t "editar ficha comum (repo real)"  permite  "{\"tool_name\":\"Edit\",\"tool_input\":{\"file_path\":\"fichamentos/Donmez2008.md\"},\"cwd\":\"$RAIZ\"}"
+t "2-fundam/texto.tex destravado"   permite  "{\"tool_name\":\"Edit\",\"tool_input\":{\"file_path\":\"2-fundam/texto.tex\"},\"cwd\":\"$RAIZ\"}"
 
 echo "regra 4 — arquivo gerado"
 t "editar AGENTS.md"                BLOQUEIA '{"tool_name":"Edit","tool_input":{"file_path":"AGENTS.md"}}'
