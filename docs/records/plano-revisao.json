@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 64,
-  "atualizado_em": "2026-08-18T00:15:00Z",
-  "atualizado_por": "executor02: teste de sub-treino CONFIRMADO no braço D (+22,5% F1 com lote 16 vs 128) — reabre a questão se as conclusões E35/hipótese central, medidas em lote 128, são válidas; decisão do autor pendente",
+  "versao": 65,
+  "atualizado_em": "2026-08-18T00:45:00Z",
+  "atualizado_por": "executor02: verificação confirmou sub-treino em A/E35 também (A +103%, E35 +28% F1) — E35 volta a superar D; varredura completa 9×3 em lote16 rodando (autorizado pelo autor)",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -1174,6 +1174,15 @@
         "dono": "executor02",
         "duracao": "dimensionado: ~19,4h CPU agregadas (43 execuções, todas citadas no texto) · ~5-8h de relógio paralelizando 4 núcleos",
         "resultado_esperado": "decisão do autor: declarar diferença / reexecutar / limitação declarada"
+      },
+      {
+        "id": "e3p-varredura-bs16",
+        "o_que": "Varredura completa (9 braços × 3 sementes) em lote 16 — autorizado pelo autor após verificação: A/E35/D confirmam sub-treino em lote 128 (D +22,5%, E35 +28,3%, A +103% de Macro F1). E35 já volta a superar D com lote 16; hipótese central ainda não sustentada mas gap encolheu de 57% para 29%.",
+        "onde": "Kaggle, GPU T4 · kernels falco-subtreino-s42/s7/s123 · --modo subtreino_bs16 (novo, ferramenta estendida)",
+        "estado": "rodando",
+        "dono": "executor02",
+        "duracao": "~2,3h por semente (medido: D 26min + A 4,9min + E35 13,4min + 6 braços restantes ≈ 1h40 adicionais)",
+        "resultado_esperado": "experiments/e2e3/results/e3prime_*_s{42,7,123}_bs16.json (9 braços cada, sufixo _bs16, não sobrescreve os canônicos)"
       },
       {
         "id": "mcnemar-pares",
