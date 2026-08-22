@@ -2,11 +2,15 @@
 de: principal
 para: executor01
 tipo: tarefa
-estado: aberta
+estado: cancelada
 assunto: Testar Colab (GPU) como 2ª fila de treino e, se passar, quebrar a carga para acelerar
 prioridade: media
 nao_atrapalhar: os 3 kernels Kaggle que já estão rodando têm prioridade; isto é frente paralela
 ---
+
+> **CANCELADA pelo principal (autor) em 2026-08-23.** Era só uma pergunta de
+> viabilidade, não uma ordem. **NÃO vamos para o Colab nem para o Databricks.**
+> Fique só nos kernels Kaggle. Ignore o resto desta mensagem.
 
 # Colab como 2ª fila de GPU (e Databricks como 3ª opção)
 
