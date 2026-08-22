@@ -1,6 +1,6 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 83,
+  "versao": 84,
   "atualizado_em": "2026-08-22T13:25:00Z",
   "atualizado_por": "site (tarefa 20260822-1130_principal_site_elementos-pos-textuais), sobre o v79 do expurgo E da banca (fe58d2e): campo pos_textuais[] novo — referências (337 entradas, medido em referencias.bib) + 7 apêndices individuais (a1..a7), estado medido por arquivo (existe/sem marcador de rascunho). Não reescreve capitulos[].ap nem suas rodadas — divisão editorial R1-R7 por apêndice fica para o principal decidir.",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
@@ -1286,7 +1286,7 @@
   "preferencias_do_autor": [
     {
       "id": "passada-agente-a-agente",
-      "texto": "Quando o autor pedir 'passada nos agentes' (ou similar), o principal monta um TEXTO EM PROSA por agente, pronto para o autor copiar e enviar a cada um. Formato: 'Para agente XXXX / Certifique-se de quem voce e (titulo da sessao, ADR 0011), verifique se voce esta fazendo a tarefa <tarefa viva> e retorne em prosa para mim da seguinte forma: <o que o principal quer de volta>'."
+      "texto": "Quando o autor pedir 'passada nos agentes', o principal monta um TEXTO EM PROSA por agente (pronto para copiar/enviar). Cada bloco: (1) 'Para o <papel>'; (2) 'Confirme quem voce e pelo titulo da sua sessao (ADR 0011) antes de responder'; (3) nomeia a TAREFA VIVA especifica; (4) pede retorno em prosa curta cobrindo: papel confirmado; tarefa que esta executando; o que ja concluiu; o que falta; bloqueios (quem/o que destrava); previsao de entrega; se ha entrega sua PRESA EM BRANCH que o principal ainda nao integrou; e confirmacao de que sua caixa esta atualizada. Fecha pedindo que responda ao PRINCIPAL (nao ao autor), 1 mensagem so."
     }
   ]
 }
