@@ -603,10 +603,12 @@ tolerância $\epsilon=10^{-3}$ corresponde a cinco iterações sem ganho acima d
 ruído típico de reamostragem observado nas curvas da varredura de estratégias,
 evitando transições por
 flutuação; e o limiar de $85\%$ do gate de oráculo (Seção~\ref{sec:metodo-oraculo-decisao})
-fica um desvio acima do melhor baseline supervisionado leve conhecido do conjunto
-de dados (acurácia de $89{,}56\%$ com \emph{todos} os rótulos
-\citep{Daru2024Dissertacao}), exigindo do oráculo zero-shot qualidade próxima à
-do teto supervisionado antes de dispensar tratamento de ruído; a sensibilidade a
+corresponde a exigir do oráculo \textit{zero-shot} cerca de $95\%$ da
+acurácia do melhor baseline supervisionado leve conhecido do conjunto de
+dados ($0{,}95 \times 89{,}56\% = 85{,}1\%$, com \emph{todos} os rótulos
+\citep{Daru2024Dissertacao}), a mesma razão de $0{,}95$ que o critério da
+hipótese aplica à régua do classificador forte; abaixo do limiar, o
+tratamento de ruído torna-se obrigatório; a sensibilidade a
 essas escolhas é discutida com os resultados. O tamanho de lote $b$ e a estratégia de
 incerteza da Fase~2 são fixados com base na varredura de estratégias
 (Seção~\ref{sec:res-e1}), que compara as estratégias de
