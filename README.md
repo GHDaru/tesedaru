@@ -9,6 +9,7 @@ Repositório **limpo** da reescrita final da tese. Template: classe `ppginf.cls`
 - Plano de reescrita capítulo a capítulo: [docs/plano-reescrita](docs/parecer-fase-menos-1.md) (§5)
 - Código e experimentos: [GHDaru/activelearning](https://github.com/GHDaru/activelearning)
 - **Regra de ouro:** nenhum número entra aqui sem artefato rastreável no `activelearning`.
+- **Referências (repositório oficial, PRIVADO):** [GHDaru/referenciastese](https://github.com/GHDaru/referenciastese) — PDFs das obras, fichamentos, estrutura de grafos e bibliometria. É o repositório canônico das referências desta tese; por conter obras sob direito autoral, é **privado**. Quem precisar de acesso deve **solicitar autorização de leitura ao autor**.
 
 | Diretório | Conteúdo | Fonte no draft legado |
 |---|---|---|
