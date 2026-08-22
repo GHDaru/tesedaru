@@ -26,3 +26,31 @@ Seis correções, todas de texto, com a medição/proposta do revisor2:
    a comparação favorece a tese. Redija a reconciliação proposta pelo revisor2.
 Pegue os textos exatos nas mensagens 1612 e 1608 do revisor2. Não invente
 número sem ele.
+
+## Resultado (banca, 2026-08-22)
+
+Entregue em `banca/lote-2100-pontuais` @aa669ec (base: origin/main, 5 arquivos,
++41/-20). As seis, na ordem da tarefa: (1) regua 89,56% declarada como medida
+nas 795 categorias de menor nivel, espaco maior que as 621 da amostra dos
+oraculos (3-metodo, gate-85); (2) glosa do Wertz2022 corrigida para
+"multirrotulo extrema (centenas de rotulos possiveis e varios rotulos por
+texto)" + oracao com o C3 do Wertz (baixa co-ocorrencia; rotulo unico e o
+extremo) + contraponto Rouzegar2024 C3 (2-fundam:400); (3) 96%->95% no Cap.6
+l.87; (4) Cap.1: "menos de 10%" removido, Settles2009 fica como revisao
+canonica que estabelece o fenomeno, numero fica so no Schroder2022 (fichado);
+(5) 3-metodo: redacao do revisor2 adaptada — Fase 2 seleciona por entropia,
+varredura mostra estimativas pontuais superiores de margem/confianca SEM
+teste entre si (comparacao medida e contra a aleatoria), troca registrada
+como extensao imediata; (6) 3-metodo separa tolerancia de ruido amostral e
+remete ao A7, que agora traz a reconciliacao completa (eps=1e-3 nao deriva de
+1/sqrt(2000)=0,0224; e ~20x menor; parada nao e efeito de tolerancia estrita).
+Nenhum numero fora dos medidos pelo revisor2. check-bib: PROBLEMAS nenhum;
+check-travessao: nenhum. Proximo passo: cruzada do revisor2 (achados dele) e
+gate do autor via principal.
+
+ACHADO no caminho (para triagem do principal): 5-resultados-falco l.243-244
+diz "a ablacao de lote repete a entropia, estrategia PRE-REGISTRADA da
+Fase~2" — o pre-registro (deck) nao fixa estrategia de selecao; apos a
+reancoragem do termo no Cap. 3, essa ocorrencia ficou mais forte do que o
+documento sustenta. Nao editei (fora do escopo "uma oracao" do lote e
+superficie ja em discussao do veredito); sugiro rotear para decisao.
