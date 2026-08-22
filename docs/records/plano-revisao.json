@@ -1,6 +1,6 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 86,
+  "versao": 90,
   "atualizado_em": "2026-08-22T17:00:00Z",
   "atualizado_por": "site (tarefa 20260822-1640_principal_site_granularidade-por-elemento-aprovada): desagrega pre em Resumo+Abstract e ap em 7 apêndices (A1-A7), cada um agora um elemento próprio em capitulos[] com rodadas R1-R7 medidas por arquivo (R3 'na' onde 0 citações; travessões/citações recontados diretamente no arquivo — a nota antiga do agregado pré-textual dizia 32 travessões, a contagem direta deu 22, divergência flagrada, não corrigida por mim). R7 de TODOS os 15 elementos + dos 6 capítulos ganha campo reauditar:true (reset do autor). pos_textuais[] fica só com Referências.",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
@@ -1456,11 +1456,6 @@
   "gate": "NADA entra na main sem gate humano do autor: toda rodada roda em branch, apresenta antes/depois na conversa e só mergeia com aprovação explícita. Vale para texto, código e plano.",
   "decisoes_pendentes": [
     {
-      "id": "dec-gate-85",
-      "titulo": "Gate de 85%: justificativa diz 'um desvio acima' de 89,56% quando está 4,6 p.p. abaixo; configuração final derivada sem oráculo atingir o limiar e sem declarar violação do pré-registro (parecer R3/R4/R6)",
-      "trilha": "texto"
-    },
-    {
       "id": "dec-politica-parada",
       "titulo": "Política de parada: dois racionais incompatíveis (fator ~20) para a mesma constante — causa-raiz atribuída ao resultado negativo (parecer R3/R4/R6)",
       "trilha": "texto"
@@ -1469,13 +1464,7 @@
       "id": "dec-cap4-L0-100-valor-canonico",
       "titulo": "Cap.4 L0=100: tab:drisl-vs-ag (l.117) usa 38,76% (valor ERRADO). Canonico medido pelo executor02 (3 evidencias: convencao _old do sweep, cabecalho CSV, historico git) = 36,71% melhor / 10,86% pior, de activetextclassification@b540533 (_100old). A alegacao central SOBREVIVE e MELHORA: margem do DRI-SL vai de +2,47 p.p. para +4,52 p.p. Decisao do autor: aprovar a troca 38,76->36,71 (recomendado) e despachar a correcao de 1 linha.",
       "origem": "executor02 tarefa 1800",
-      "estado": "APROVADA pelo autor 2026-08-22: troca 38,76->36,71 / 5,75->10,86 em l.117; despachada a banca (adendo F6, l.117), cruzada revisor2. Alinha com tab:ag-evolucao l.83."
-    },
-    {
-      "id": "dec-0120-oraculos-nunca-rodou",
-      "titulo": "Tarefa 0120 (reconstruir cache + curva sem parada + oraculos nova geracao GLM 5.1/5.2, DeepSeek v4 Pro/Flash) esta .concluida/arquivada MAS NUNCA foi executada (executor02): os numeros de DeepSeek/GLM-5.2 no Cap.5 datam de 20/jul, ~1 mes ANTES da 0120 (18/ago); GLM-5.1 nao existe em lugar nenhum; sem mensagem de plano/custo. Provavel fechamento por engano na integracao em massa de 21/08. Decisao: reabrir como tarefa nova (custa creditos; valor depende do gate-85) ou arquivar conscientemente. Os numeros de oraculo JA no Cap.5 sao reais (rodada de julho), so nao vieram da 0120.",
-      "origem": "executor02 tarefa 1800",
-      "estado": "AGUARDANDO (decisao do autor 'aguardamos'): decisao presa ao veredito do gate-85 da banca. Se gate-85 eliminado -> arquivar 0120 conscientemente; se mantido -> reabrir ao menos para GLM-5.1. Nao gastar credito no escuro."
+      "estado": "corrigido escopo: sao 4 celulas da l.117 (nao 1); linha completa despachada a banca (2045). defesa/artigos diferidos."
     }
   ],
   "lembretes": [
@@ -1493,7 +1482,7 @@
     },
     {
       "id": "lembrete-defesa-artigo-vintages-atras",
-      "texto": "apresentacao/defesa.tex e artigos/a4 carregam numeros de varredura antiga (E20/E35 e A=8.937) — 2 vintages atras. Autor adiou defesa/artigos para pos-tese; atualizar junto quando reabrir (revisor2 0638 §4)."
+      "texto": "apresentacao/defesa.tex e artigos/a4 carregam numeros de varredura antiga (E20/E35 e A=8.937) — 2 vintages atras. Autor adiou defesa/artigos para pos-tese; atualizar junto quando reabrir (revisor2 0638 §4). ACRESCENTADO 2026-08-22 (achado do revisor2 2200): ALEM de E20/E35 e A=8.937, a defesa e os artigos tambem carregam o L0=100 do AG com o valor ANTIGO (38,76% etc.) — os slides arredondam para 1 casa e os artigos usam ponto decimal, por isso escaparam do grep por virgula. Atualizar TAMBEM o L0=100 no passe da versao final; NAO tocar antes."
     },
     {
       "id": "aprovacao-merges-cross-checked",

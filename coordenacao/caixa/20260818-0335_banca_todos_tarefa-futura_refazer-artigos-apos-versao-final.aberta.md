@@ -42,3 +42,9 @@ concluídas e o depósito autorizado pelo autor).
    do executor02).
 
 A banca reabre esta mensagem no fechamento da tese.
+
+
+## Anexado 2026-08-22 (decisao do autor + sugestao da banca)
+- **apresentacao/defesa.tex** entra NESटE mesmo regime: ninguem toca ate a versao final da tese. A atualizacao dos numeros ja esta mapeada (defesa carrega varredura antiga: E20/E35 e A=8.937; alem de 'Quatro pilares P1-P4' nos slides). Executar TUDO neste momento, junto com os artigos.
+
+- **L0=100 do AG** (achado revisor2 2200): defesa e artigos carregam o valor ANTIGO (38,76% / 5,75% etc.); atualizar para o canonico (36,71% / 10,86%, linha inteira) NESTE passe. Escaparam do grep por usarem arredondamento/ponto decimal.
