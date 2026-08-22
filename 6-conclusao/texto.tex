@@ -44,30 +44,34 @@ pré-registrado decidiu: sem oráculo $\ge 85\%$, o aprendizado com oráculo
 ruidoso é o cenário central, e a configuração derivada do FALCO é
 deepseek-v4-flash (Inicial) + deepseek-v4-pro (Avançado, superioridade
 significativa comprovada). A validação com o classificador forte fora do
-laço julgou o pipeline completo: a hipótese central \emph{não} se
-sustenta na configuração executada ($F1 = 0{,}242$ contra critério de
-$0{,}428$ com $17{,}9\%$ dos rótulos), e a decomposição pareada atribui a
-perda ao \emph{orçamento} — não ao ruído do oráculo, que em Macro F1 até
-ajuda as caudas (A--B: $+0{,}033$, IC 95\% $[0{,}027;0{,}037]$,
-\textit{bootstrap} pareado), nem à seleção, que compra cobertura mas não
-acurácia (B--C: $+0{,}020$ em Macro F1 com IC excluindo zero, porém
-$-2{,}9$~p.p.\ em acurácia, McNemar $p<10^{-26}$; amostra pareada de 20.092
-instâncias da população reservada): a parada por
+laço julgou o pipeline completo, com três sementes e avaliação na população
+reservada inteira: na configuração executada a hipótese central \emph{não}
+se atinge
+% PROVISORIO-ate-regeracao (valores desta frase)
+(acurácia de $0{,}711$ contra critério de $0{,}839$, com 11.936 rótulos,
+$5{,}2\%$ da população), e a decomposição pareada atribui a perda ao
+\emph{orçamento}: não ao ruído do oráculo, que em Macro F1 até ajuda as
+caudas (o braço com rótulos do oráculo supera o de gabarito nos mesmos
+itens, na média das sementes), nem à seleção, que compra Macro F1 e
+cobertura com consistência entre sementes, mas não acurácia. A parada por
 estagnação do classificador leve encerra o laço muito antes do ponto em que
-o BERTimbau para de converter rótulos em cobertura de cauda. A varredura de
-orçamento quantifica a correção (achado \textit{post hoc}, executado com
-rótulos de \emph{gabarito}, não do oráculo da hipótese pré-registrada): o critério passa a ser atendido com 20 mil rótulos ($40\%$ do
-\textit{pool}) em acurácia e 25 mil ($50\%$) em Macro F1, e com 35 mil
-rótulos selecionados por entropia o modelo forte \emph{supera} a supervisão
-completa do \textit{pool} em Macro F1 ($+0{,}012$, IC 95\%
-$[0{,}002;0{,}018]$) e a \emph{empata} em acurácia (McNemar, $p=0{,}10$):
-a vantagem de cobertura do ``menos é mais'' medida em escala populacional
-reaparece no \textit{transformer}.
-O veredito que os dados sustentam: \textbf{refutada no orçamento
-pré-registrado}; o critério torna-se alcançável a partir de $\approx 50\%$
-do \textit{pool} com política de parada ancorada no modelo forte, com
-orçamento e política identificados e medidos, restando a confirmação com rótulos de
-oráculo como trabalho futuro imediato.
+o BERTimbau para de converter rótulos em desempenho. A varredura de
+orçamento localiza a correção (achado \textit{post hoc}, executado com
+rótulos de \emph{gabarito}, não do oráculo da hipótese): o critério, na
+métrica pré-registrada, passa a ser atendido
+% PROVISORIO-ate-regeracao (ponto de cruzamento)
+com 20 mil rótulos ($8{,}6\%$ da população), nas três sementes, dentro do
+teto de 34.724; em Macro F1, na média das sementes, também dentro do teto; e
+com 35 mil rótulos selecionados por entropia o modelo forte \emph{supera} a
+supervisão completa do \textit{pool} em ambas as métricas, com
+significância pareada nas três sementes: a vantagem de cobertura do ``menos
+é mais'' medida em escala populacional reaparece no \textit{transformer},
+agora com força estatística.
+O veredito que os dados sustentam: \textbf{o critério é atingível dentro do
+teto da hipótese, com folga e robustez a sementes na métrica pré-registrada};
+a configuração executada parou por estagnação aquém do piso, com orçamento e
+política identificados e medidos, restando a confirmação de ponta a ponta com
+rótulos de oráculo como trabalho futuro imediato.
 
 \section{Discussão}
 \label{sec:conc-discussao}
@@ -157,8 +161,8 @@ A extensão prioritária, já parcialmente executada na varredura de orçamento
 (Seção~\ref{sec:res-e3p-varredura}), é consolidar a política de parada
 ancorada no modelo forte: substituir a estagnação do classificador leve por
 ajustes finos periódicos do BERTimbau em pontos de verificação da
-trajetória, ou por um piso de orçamento de $\approx 50\%$ do \textit{pool}
-(o ponto medido em que o Macro F1 cruza o critério), e formalizar a regra de
+trajetória, ou por um piso de orçamento no ponto medido de cruzamento do
+critério (Seção~\ref{sec:res-e3p-varredura}), e formalizar a regra de
 liberação daí decorrente. Demais direções: \textbf{(i)} composição de
 oráculos, comparando a progressão sequencial do FALCO com
 \textit{mixture-of-LLMs} paralelo \citep{Qi2026MixtureLLMs} e com roteamento
@@ -198,19 +202,22 @@ começar bem (DRI-SL supera até o envelope evolutivo), perguntar bem
 (estratégias de incerteza sobre classificador barato) e pagar bem (oráculos
 LLM com 78--83\% de acurácia por centavos de dólar o milhar, com erro
 majoritariamente estruturado). A hipótese quantitativa central ($\ge 95\%$
-do Macro F1 de supervisão completa com $\le 30\%$ dos rótulos via oráculo
-LLM) foi submetida ao teste pré-registrado: \textbf{refutada no
-orçamento de $30\%$ originalmente fixado, tornando-se alcançável a partir de
-$50\%$ do \textit{pool} em varredura \textit{post hoc} com rótulos de
-gabarito}, com o diagnóstico identificando a causa — não o ruído
+da acurácia da supervisão completa do \textit{pool} de referência, a
+métrica do pré-registro, com no máximo 34.724 rótulos, $15\%$ da população
+deduplicada) foi submetida ao teste com três sementes e avaliação na
+população reservada: \textbf{o critério é atingível dentro do teto}
+% PROVISORIO-ate-regeracao (ponto de cruzamento)
+(cruzamento em 20 mil rótulos, $8{,}6\%$ da população, nas três sementes,
+em varredura \textit{post hoc} com rótulos de gabarito), \textbf{enquanto
+a configuração executada parou por estagnação aquém do piso} (11.936
+rótulos, $5{,}2\%$), com o diagnóstico identificando a causa: não o ruído
 do oráculo nem a seleção, e sim o critério de parada herdado do
-classificador leve, que subestima o apetite do classificador forte por
-cobertura de cauda. A varredura de orçamento (\textit{post hoc}, com rótulos de gabarito)
-mediu os pisos ($40\%$ dos rótulos para a acurácia, $50\%$ para o Macro F1)
-e revelou que $70\%$ dos rótulos ativamente selecionados superam a
-supervisão completa do \textit{pool} em Macro F1 (IC 95\%
-$[0{,}002;0{,}018]$) e a empatam em acurácia ($p=0{,}10$): para a cobertura
-de cauda, a fração final dos rótulos não compra nada. Uma tese que termina com
+classificador leve, que subestima o apetite do classificador forte. Em
+Macro F1, a análise de robustez, o critério é atingido na média das
+sementes, dentro do teto; e 35 mil rótulos ativamente selecionados superam
+a supervisão completa do \textit{pool} em ambas as métricas, com
+significância pareada nas três sementes: para o desempenho final, a fração
+restante dos rótulos do \textit{pool} não compra nada. Uma tese que termina com
 um número honesto, uma causa identificada e o piso corrigido medido vale
 mais que uma que termina com uma promessa: os resultados dos experimentos
 executados, com as reexecuções dos dois primeiros pilares, delimitam

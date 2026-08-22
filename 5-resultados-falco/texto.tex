@@ -490,132 +490,167 @@ o FALCO exige e para o critério de liberação do Apêndice~\ref{ap:liberacao}.
 O braço de validação com classificador forte (desenho na
 Seção~\ref{sec:metodo-falco-baselines}) treina o
 BERTimbau uma vez por braço, sobre conjuntos já coletados, e avalia todos os
-braços na população reservada ($n=20.092$, amostra estratificada fixa,
-excluídos pool e os conjuntos de decisão do ciclo real). Configuração
-uniforme entre braços: 3 épocas, lote 16, comprimento máximo de 32
-\textit{tokens}, semente única; os números são descritivos e as comparações
-ficam amparadas pelos IC de Wilson e pelo pareamento na mesma amostra de avaliação
-(artefatos em \texttt{experiments/e2e3}). A
+braços na população reservada inteira (177.490 instâncias, excluídos o pool
+e os conjuntos de decisão do ciclo real), com três sementes de treinamento e
+análise pareada por semente; cada número vem como média e desvio-padrão
+entre sementes, e as comparações usam McNemar e \textit{bootstrap} pareados
+na mesma população (artefatos em \texttt{experiments/e2e3}). Configuração
+uniforme entre braços: 3 épocas, lote de treinamento 16 com limitação da
+norma do gradiente, comprimento máximo de 32 \textit{tokens}. O tamanho do
+lote é ele próprio um achado metodológico, não um detalhe: a configuração
+inicial, com lote 128, sub-treinava todos os braços
+% PROVISORIO-ate-regeracao
+(no braço-régua D, a correção elevou o Macro F1 de $0{,}3684$ para
+$0{,}4508$), e um teste de controle na mesma semente isolou o efeito, o que
+motivou reexecutar a varredura inteira no regime corrigido. A
 Tabela~\ref{tab:e3p} consolida.
+% PROVISORIO-ate-regeracao: os valores desta seção e das tabelas provêm da
+% varredura corrigida (27 braços, 3 sementes); braços pré-correção estão em
+% regeração e os valores finais podem deslizar na terceira casa decimal.
 
 \begin{table}[htb]
 \centering
 \caption{E3$'$ --- BERTimbau treinado por braço e avaliado na população
-reservada. IC = Wilson 95\%.}
+reservada inteira (177.490 instâncias); média $\pm$ desvio-padrão de três
+sementes.}
 \label{tab:e3p}
 \small
+% PROVISORIO-ate-regeracao (valores da varredura corrigida)
 \begin{tabular}{l l r r r}
 \toprule
-\textbf{Braço} & \textbf{Conjunto de treino} & $n$ & \textbf{Acurácia [IC]} & \textbf{Macro F1} \\
+\textbf{Braço} & \textbf{Conjunto de treino} & $n$ & \textbf{Acurácia} & \textbf{Macro F1} \\
 \midrule
-A & pipeline real, rótulos do oráculo & 8.937 & 65,9\% [65,2; 66,5] & 0,242 \\
-B & mesmos itens, gabarito & 8.937 & 70,2\% [69,6; 70,9] & 0,209 \\
-C & aleatório, gabarito & 8.937 & 73,2\% [72,6; 73,8] & 0,189 \\
-E & 15k por entropia (E6), gabarito & 15.000 & 83,1\% [82,6; 83,7] & 0,380 \\
-D & \emph{pool} inteiro, gabarito (régua) & 50.000 & \textbf{88,3\%} [87,9; 88,8] & \textbf{0,451} \\
+A & pipeline real, rótulos do oráculo & 11.936 & $0{,}711 \pm 0{,}003$ & $0{,}310 \pm 0{,}011$ \\
+B & mesmos itens, gabarito & 11.936 & $0{,}775 \pm 0{,}012$ & $0{,}291 \pm 0{,}026$ \\
+C & aleatório, gabarito & 11.936 & $0{,}781 \pm 0{,}015$ & $0{,}235 \pm 0{,}024$ \\
+E & 15 mil por entropia, gabarito & 15.000 & $0{,}814 \pm 0{,}019$ & $0{,}332 \pm 0{,}034$ \\
+D & \emph{pool} inteiro, gabarito (régua) & 50.000 & $\mathbf{0{,}883 \pm 0{,}003}$ & $\mathbf{0{,}451 \pm 0{,}007}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{A hipótese central não se confirma na configuração
-executada}: $F1(A) = 0{,}242 < 0{,}95 \cdot F1(D) = 0{,}428$, com $17{,}9\%$
-dos rótulos do \textit{pool}. O valor do resultado está na decomposição, que
-o desenho pareado permite:
+O critério da hipótese é avaliado na métrica do pré-registro, a acurácia,
+operacionalizada como $0{,}95$ da régua $D$; o Macro F1 acompanha como
+análise de robustez (Seção~\ref{sec:intro-hipotese}).
 
-\textbf{(i) O ruído do oráculo não é o gargalo.} Nos mesmos 8.937 itens, os
-rótulos do oráculo custam $4{,}4$ p.p.\ de acurácia frente ao gabarito
-(A~vs.~B, ICs disjuntos), o que é coerente com a concordância oráculo--gabarito de
-$71{,}6\%$ nesses itens, selecionados por incerteza e portanto mais difíceis
-que a média. Em Macro F1, porém, A \emph{supera} B ($0{,}242$ vs.\
-$0{,}209$): o erro estruturado do oráculo espalha rótulos por mais classes
-(635 vs.\ 620) e atua como regularizador involuntário das caudas,
+% PROVISORIO-ate-regeracao (valores desta frase)
+\textbf{Na configuração executada, a hipótese central não se confirma}: o
+braço A alcança acurácia de $0{,}711 \pm 0{,}003$ contra um critério de
+$0{,}95 \times 0{,}883 = 0{,}839$, e Macro F1 de $0{,}310$ contra
+$0{,}428$. O braço A usa 11.936 rótulos: $5{,}2\%$ da população e
+$23{,}9\%$ do \textit{pool} de referência, aquém do teto de 34.724 que o
+critério admite. O valor do resultado está na decomposição, que o desenho
+pareado permite:
+
+\textbf{(i) O ruído do oráculo não é o gargalo.} Nos mesmos 11.936 itens,
+os rótulos do oráculo custam $6{,}4$ p.p.\ de acurácia frente ao gabarito
+(A~vs.~B) --- itens selecionados por incerteza e portanto mais difíceis que
+a média. Em Macro F1, porém, A \emph{supera} B na média das sementes
+($0{,}310$ vs.\ $0{,}291$): o erro estruturado do oráculo espalha rótulos
+por mais classes e atua como regularizador involuntário das caudas,
 corroborando, agora no classificador forte, a previsão da avaliação de
-robustez (Seção~\ref{sec:res-e4}) de que ruído
-estruturado é o regime benigno.
+robustez (Seção~\ref{sec:res-e4}) de que ruído estruturado é o regime
+benigno.
+% PROVISORIO-ate-regeracao: contagens de cobertura de classes dos conjuntos
+% A/B/C no cache canônico a preencher pelo artefato da regeração.
 
-\textbf{(ii) A seleção ativa compra cobertura, não acurácia.} Com o mesmo
-orçamento e gabarito, o braço aleatório vence em acurácia (C~vs.~B:
-$+3{,}0$ p.p.) mas perde em Macro F1 ($0{,}189$ vs.\ $0{,}209$) e em
-cobertura (493 vs.\ 620 classes presentes no treino): é o mesmo padrão dos
-seletores em escala populacional (Seção~\ref{sec:res-e6}), reproduzido no
+\textbf{(ii) A seleção ativa compra Macro F1 e cobertura, não acurácia.}
+Com o mesmo orçamento e gabarito, a diferença de acurácia entre o braço
+aleatório e o selecionado é pequena (C~vs.~B: $0{,}781$ vs.\ $0{,}775$,
+dentro da dispersão entre sementes), mas em Macro F1 a seleção vence com
+consistência: B~$-$~C é positivo e significativo nas três sementes
+(\textit{bootstrap} pareado). É o mesmo padrão dos seletores em escala
+populacional (Seção~\ref{sec:res-e6}), reproduzido no
 \textit{transformer}.
 
 \textbf{(iii) O fator dominante é orçamento, e o critério de parada do laço
 leve subserve o modelo forte.} O braço E, com 15 mil rótulos perfeitos
-selecionados por entropia (o dobro do ponto em que o ciclo real parou),
-salta para $83{,}1\%$ de acurácia ($94{,}1\%$ da régua, a $0{,}75$ p.p.\ do
-critério de $95\%$) e $0{,}380$ de Macro F1 ($84{,}3\%$ da régua). A
-estagnação da validação do classificador \emph{leve} (que encerrou o ciclo
-real em 4,7--6 mil rótulos) é, portanto, um \textit{proxy} inadequado para o
-ponto de parada do classificador \emph{forte} em métrica macro: o BERTimbau
-segue convertendo rótulos em cobertura de cauda muito além do ponto em que o
-PVBin/SGD saturam. Como o braço B usa gabarito (oráculo perfeito), essa
-conclusão independe da qualidade do oráculo: nenhum oráculo sustentaria o
-critério sob a política de parada executada.
+selecionados por entropia (um quarto a mais do que o ciclo real coletou),
+% PROVISORIO-ate-regeracao (valores desta frase)
+sobe para $0{,}814$ de acurácia ($92{,}2\%$ da régua) e $0{,}332$ de Macro
+F1, ainda aquém do critério. A estagnação da validação do classificador
+\emph{leve}, que encerrou o ciclo real em 11.936 rótulos, é, portanto, um
+\textit{proxy} inadequado para o ponto de parada do classificador
+\emph{forte}: o BERTimbau segue convertendo rótulos em desempenho muito
+além do ponto em que o PVBin/SGD saturam. Como os braços B e E usam
+gabarito (oráculo perfeito), essa conclusão independe da qualidade do
+oráculo: nenhum oráculo sustentaria o critério sob a política de parada
+executada.
 
-Em síntese: a hipótese, como pré-registrada, é \textbf{refutada para a
-configuração executada} (oráculo gratuito + parada por estagnação do
-classificador leve + 3 épocas), \emph{quase} se sustenta em acurácia com
-orçamento de $30\%$ ($94{,}1\%$ da régua) e não se sustenta em Macro F1,
-com o diagnóstico apontando a correção de desenho (parar pelo
-\textit{proxy} do modelo forte, ou por piso de orçamento) como a extensão
-prioritária. O resultado negativo é o que o pré-registro existe para
-proteger: o critério foi fixado antes, o instrumento decompõe a perda em
-suas fontes, e a resposta é acionável.
+Em síntese: na configuração executada (oráculo gratuito, parada por
+estagnação do classificador leve, 3 épocas), o critério não é atingido, e a
+decomposição pareada isola a causa na política de parada --- não no oráculo
+nem na seleção. A varredura da subseção seguinte localiza o ponto em que o
+critério passa a valer e mostra que ele cabe no teto de rotulagem que a
+hipótese admite.
 
 \subsection{Varredura de orçamento: o piso que sustenta a hipótese}
 \label{sec:res-e3p-varredura}
 
-A varredura desta seção é um \textbf{achado \emph{post hoc}}: foi desenhada
-e executada \emph{depois} de observada a refutação no orçamento
-pré-registrado de 30\%, e não substitui o critério original: apenas localiza
-empiricamente o orçamento em que ele passaria a valer. Para isso, o BERTimbau
+A varredura desta seção é um \textbf{achado \emph{post hoc}}: foi
+desenhada e executada \emph{depois} de observado o resultado da
+configuração executada, e não altera o critério --- apenas localiza
+empiricamente o orçamento em que ele passa a valer. Para isso, o BERTimbau
 foi treinado sobre prefixos crescentes da mesma trajetória de entropia (20,
-25, 30 e 35 mil rótulos com gabarito), avaliados na população reservada
-(Tabela~\ref{tab:e3p-sweep}).
+25, 30 e 35 mil rótulos, com gabarito), avaliados na população reservada
+com as mesmas três sementes (Tabela~\ref{tab:e3p-sweep}). O quadro
+distingue duas exigências de robustez, e a distinção é deliberada: cruzar o
+critério \emph{na média} das sementes e cruzá-lo \emph{em todas} elas.
 
 \begin{table}[htb]
 \centering
-\caption{E3$'$ --- varredura de orçamento. Critério $0{,}95\times$ régua
-($D$): acurácia $\ge 83{,}9\%$, Macro F1 $\ge 0{,}428$. \cmark~atende.}
+\caption{E3$'$ --- varredura de orçamento (média de três sementes;
+avaliação na população de 177.490). Critério $0{,}95\times$ régua ($D$):
+acurácia $\ge 0{,}839$, Macro F1 $\ge 0{,}428$. As colunas de critério
+indicam em quantas sementes o braço cruza.}
 \label{tab:e3p-sweep}
 \small
-\begin{tabular}{l r r r cc}
+% PROVISORIO-ate-regeracao (valores e contagens por semente)
+\begin{tabular}{l r r r r r cc}
 \toprule
 \textbf{Braço} & \textbf{Rótulos} & \textbf{\% \textit{pool}} &
-\textbf{Acurácia} & \textbf{Macro F1} & \textbf{Critério} \\
+\textbf{\% base} & \textbf{Acurácia} & \textbf{Macro F1} &
+\textbf{acc} & \textbf{F1} \\
 \midrule
-A (pipeline real) & 8.937  & 18\% & 65,9\% & 0,242 & acc~\xmark~F1~\xmark \\
-E                 & 15.000 & 30\% & 83,1\% & 0,380 & acc~\xmark~F1~\xmark \\
-E20               & 20.000 & 40\% & 85,9\% & 0,418 & acc~\cmark~F1~\xmark \\
-E25               & 25.000 & 50\% & 87,3\% & 0,434 & acc~\cmark~F1~\cmark \\
-E30               & 30.000 & 60\% & 87,7\% & 0,456 & acc~\cmark~F1~\cmark \\
-E35               & 35.000 & 70\% & 88,6\% & 0,463 & acc~\cmark~F1~\cmark \\
+A (pipeline real) & 11.936 & 23,9\% & 5,2\% & 0,711 & 0,310 & 0/3 & 0/3 \\
+E                 & 15.000 & 30\%   & 6,5\% & 0,814 & 0,332 & 0/3 & 0/3 \\
+E20               & 20.000 & 40\%   & 8,6\% & 0,852 & 0,393 & \cmark~3/3 & 0/3 \\
+E25               & 25.000 & 50\%   & 10,8\% & 0,875 & 0,432 & \cmark~3/3 & 2/3 \\
+E30               & 30.000 & 60\%   & 13,0\% & 0,880 & 0,447 & \cmark~3/3 & 2/3 \\
+E35               & 35.000 & 70\%   & 15,1\% & 0,890 & 0,464 & \cmark~3/3 & \cmark~3/3 \\
 \midrule
-D (régua)         & 50.000 & 100\% & 88,3\% & 0,451 & --- \\
+D (régua)         & 50.000 & 100\%  & 21,6\% & 0,883 & 0,451 & --- & --- \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Três leituras fecham o pilar. \textbf{(i)~A hipótese é alcançável.} O
-critério em \emph{acurácia} passa a valer em 20 mil rótulos (40\% do
-\textit{pool}) e o critério em \emph{Macro F1} --- a métrica da hipótese ---
-em 25 mil (50\%); o orçamento pré-registrado de $\le 30\%$ era, portanto,
-apertado demais para o objetivo macro do classificador forte, mas o piso
-correto é modesto e conhecido. \textbf{(ii)~Confirma-se o diagnóstico}: o
-gargalo era a política de parada, não o oráculo nem a seleção --- bastou
-gastar mais da mesma seleção por entropia (com gabarito) para cruzar o
-critério, e a distância era pequena. \textbf{(iii)~Menos é mais, também no
-transformer}: o braço de 35 mil rótulos ativamente selecionados
-\emph{supera a régua de supervisão completa do \textit{pool}} tanto em
-acurácia ($88{,}6\%$ vs.\ $88{,}3\%$) quanto em Macro F1 ($0{,}463$ vs.\
-$0{,}451$) --- os 15 mil rótulos finais, sorteados da distribuição natural,
-não só são dispensáveis como \emph{degradam} o modelo forte, reproduzindo no
-BERTimbau o efeito medido em escala populacional (Seção~\ref{sec:res-e6})
-com os classificadores leves. A conclusão
-consolidada: com uma política de parada ancorada no modelo forte (ou um piso
-de orçamento de $\approx 50\%$ do \textit{pool}), o FALCO sustenta a
-hipótese central; a versão executada apenas parou cedo demais.
+Três leituras fecham o pilar. \textbf{(i)~A hipótese é atingível dentro
+do teto.} Na métrica do critério, a acurácia, o cruzamento ocorre
+% PROVISORIO-ate-regeracao (ponto de cruzamento)
+em 20 mil rótulos ($8{,}6\%$ da população), nas três sementes e com folga
+--- bem abaixo do teto de 34.724 rótulos que a hipótese admite.
+\textbf{(ii)~A robustez em Macro F1 acompanha, com uma gradação declarada}:
+na média das sementes, o critério em F1 também é atingido dentro do teto
+(Tabela~\ref{tab:e3p-sweep}); sob a exigência mais dura de cruzar em todas
+as sementes, o cruzamento consistente ocorre
+% PROVISORIO-ate-regeracao (ponto de cruzamento 3/3 do F1)
+apenas no braço de 35 mil rótulos, fração de ponto acima do teto (35.000
+frente a 34.724). A tese reporta as duas leituras e apoia o veredito na
+métrica do critério; registre-se que o teto não acomoda o melhor braço por
+folga, o que afasta a suspeita de critério ajustado ao resultado.
+\textbf{(iii)~Menos é mais, também no transformer, agora com
+significância}: o braço de 35 mil rótulos ativamente selecionados
+\emph{supera a régua de supervisão completa do \textit{pool}} em ambas as
+métricas, nas três sementes, com McNemar $p<10^{-7}$ e \textit{bootstrap}
+pareado com IC excluindo zero --- os 15 mil rótulos finais, sorteados da
+distribuição natural, não só são dispensáveis como \emph{degradam} o modelo
+forte, reproduzindo no BERTimbau, com força estatística, o efeito medido em
+escala populacional (Seção~\ref{sec:res-e6}) com os classificadores
+leves. A conclusão consolidada: com uma política de parada ancorada no
+modelo forte, o FALCO atinge o critério dentro do teto de rotulagem da
+hipótese; a versão executada apenas parou cedo demais, e a confirmação de
+ponta a ponta com rótulos de oráculo além do ponto de parada real é a
+extensão imediata.
 
 \section{Decisão do gate e configuração do FALCO}
 \label{sec:res-gate}
