@@ -4,11 +4,11 @@
 Este capítulo apresenta os resultados dos dois primeiros pilares: a sensibilidade da
 generalização à composição do conjunto inicial $L_0$ (Seção~\ref{sec:res-l0-sens}),
 os limites estimados por otimização evolutiva (Seção~\ref{sec:res-l0-ag}) e a
-avaliação do DRI-SL como estratégia de \textit{cold start}
+avaliação do DRI-SL como estratégia de partida a frio (\textit{cold start})
 (Seção~\ref{sec:res-l0-drisl}). Todos os experimentos usam o classificador leve
 PVBin (Capítulo~\ref{ch:metodo}); os resultados originais foram obtidos no
 programa experimental da pesquisa e, como verificação de robustez, o estudo de
-sensibilidade e o mecanismo do AG foram \textbf{reexecutados de forma
+sensibilidade e o mecanismo do algoritmo genético (AG) foram \textbf{reexecutados de forma
 independente} na biblioteca \texttt{activelearning}, com protocolo mais
 rigoroso (deduplicação antes do particionamento e reavaliação em teste
 intocado); as duas séries são apresentadas lado a lado
@@ -76,7 +76,7 @@ primeiros exemplos de um conjunto embaralhado \citep{Griesshaber2020}. O que
 esta seção mede é o custo dessa arbitrariedade.
 
 Esses resultados fundamentam a partida a frio: se a composição importa tanto no regime
-pequeno (exatamente o regime do \textit{cold start} do aprendizado ativo),
+pequeno (exatamente o regime da partida a frio do aprendizado ativo),
 então construir $L_0$ deliberadamente (em vez de sorteá-lo) é a alavanca
 disponível antes de existir qualquer rótulo.
 
@@ -128,14 +128,14 @@ rótulos, Seção~\ref{sec:metodo-drisl}) com o envelope do AG.
 
 \begin{table}[htb]
 \centering
-\caption{\textit{Cold start}: DRI-SL vs.\ envelope do AG (última geração),
+\caption{Partida a frio: DRI-SL vs.\ envelope do AG (última geração),
 até $|L_0|=5.000$. Classificador PVBin.}
 \label{tab:drisl-vs-ag}
 \small
 \begin{tabular}{r rr rr rr}
 \toprule
  & \multicolumn{2}{c}{\textbf{DRI-SL}} & \multicolumn{2}{c}{\textbf{AG (melhor)}} & \multicolumn{2}{c}{\textbf{AG (pior)}} \\
-\textbf{$|L_0|$} & Acc & Macro F1 & Acc & Macro F1 & Acc & Macro F1 \\
+\textbf{$|L_0|$} & Acurácia & Macro F1 & Acurácia & Macro F1 & Acurácia & Macro F1 \\
 \midrule
 100   & 41,23\% & 6,85\%  & 36,71\% & 5,39\%  & 10,86\% & 1,19\% \\
 500   & 59,22\% & 18,45\% & 56,00\% & 18,01\% & 36,17\% & 6,52\% \\
