@@ -1392,8 +1392,11 @@ const achados = R.achados || [];
 // de dados reais, atrasam a leitura de quem abre a página pela 1ª vez)
 document.getElementById('achados-pilares').innerHTML = Object.entries(pilares).map(([id, nome]) => {
   const itens = achados.filter(a => a.pilar === id);
+  // rótulo interno (P1..P4) não aparece pro leitor — mesma régua do expurgo
+  // já aplicado ao texto da tese (docs/plano-expurgo-pilares.md): o texto
+  // nomeia o objeto, a sigla fica só de chave de junção com achados[].pilar
   if (!itens.length) {
-    return `<div class="pilar-vazio"><h2>${esc(id)} — ${esc(nome)}</h2>
+    return `<div class="pilar-vazio"><h2>${esc(nome)}</h2>
       <span class="vazia">sem achados registrados nesta versão</span></div>`;
   }
   const corpo = itens.map(a => `
@@ -1404,7 +1407,7 @@ document.getElementById('achados-pilares').innerHTML = Object.entries(pilares).m
       ${a.detalhe ? `<p class="achado-detalhe">${esc(a.detalhe)}</p>` : ''}
     </div>`).join('');
   return `<div class="card" style="margin-bottom:var(--sp-4)">
-    <h2>${esc(id)} — ${esc(nome)}</h2>
+    <h2>${esc(nome)}</h2>
     ${corpo}
   </div>`;
 }).join('');
@@ -1769,7 +1772,7 @@ def build_bibliometria() -> tuple[str, str]:
     <div id="rank-citadas"></div>
   </section>
   <section class="card">
-    <span class="label">Referências fichadas por pilar (P1–P4) — uma obra pode contar em mais de um pilar</span>
+    <span class="label">Referências fichadas por pilar — uma obra pode contar em mais de um pilar</span>
     <h2>Distribuição por pilar</h2>
     <div id="rank-pilares"></div>
   </section>
@@ -1838,9 +1841,9 @@ hbar('rank-citadas', REFS.filter(r => r.total_ocorrencias > 0)
 
 const nomesPilar = PILARES.nomes || {};
 const contagensPilar = PILARES.contagens || {};
-const ORDEM_PILAR = ['P1','P2','P3','P4'];
+const ORDEM_PILAR = ['P1','P2','P3','P4']; // chave interna só pra ordenar/casar com kg.json; não aparece no rótulo
 const itensPilar = ORDEM_PILAR.filter(p => contagensPilar[p]).map(p =>
-  ({label: `${p} — ${nomesPilar[p] || ''}`, valor: contagensPilar[p]}));
+  ({label: nomesPilar[p] || p, valor: contagensPilar[p]}));
 const outros = Object.entries(contagensPilar).filter(([k]) => !ORDEM_PILAR.includes(k))
   .reduce((s,[,v]) => s+v, 0);
 if (outros) itensPilar.push({label: 'Geral / transversal', valor: outros});
