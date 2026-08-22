@@ -2,7 +2,8 @@
 \label{ch:resultados-falco}
 
 Este capítulo apresenta os resultados de dois pilares. O do oráculo LLM traz a
-avaliação instrumentada de LLMs como oráculos de rotulagem
+avaliação instrumentada de modelos de linguagem de grande porte (LLMs) como
+oráculos de rotulagem
 (Seção~\ref{sec:res-e0}) e a ablação de prompt no modelo de menor custo
 (Seção~\ref{sec:res-e0p}). O do framework traz: a varredura de estratégias com oráculo simulado
 (Seção~\ref{sec:res-e1}), a robustez do aprendizado a ruído controlado de
@@ -20,7 +21,8 @@ versionados no repositório \texttt{activelearning}
 \subsection{RQ1 --- assertividade}
 \label{sec:res-e0-rq1}
 
-A Tabela~\ref{tab:e0-principal} apresenta acurácia (com IC de Wilson a 95\%),
+A Tabela~\ref{tab:e0-principal} apresenta acurácia (com intervalo de
+confiança, IC, de Wilson a 95\%),
 Macro F1 e taxa de rótulos inválidos dos oráculos avaliados nas duas amostras
 pareadas oficiais (S-rand $n=1.000$; S-strat $n=1.863$), com temperatura 0 e
 rotulagem em lote calibrada.
@@ -28,8 +30,9 @@ rotulagem em lote calibrada.
 \begin{table}[htb]
 \centering
 \caption{Desempenho dos oráculos LLM. Modo enum para OpenAI;
-json-prompt para MaaS, agregador e NVIDIA NIM (sem suporte a saída
-estruturada). IC = intervalo de Wilson 95\%.}
+json-prompt para MaaS, agregador e NVIDIA NIM (\textit{NVIDIA Inference
+Microservice}), que não suportam saída estruturada. IC = intervalo de
+confiança de Wilson a 95\%.}
 \label{tab:e0-principal}
 \footnotesize
 \begin{tabular}{l l rr r r}
@@ -106,7 +109,7 @@ o custo efetivo do tokens de entrada. Para referência externa, o custo fica
 duas a três ordens de grandeza abaixo do custo típico de anotação humana por
 item relatado na literatura \citep{Gilardi2023}. Custo, porém, não é a única
 restrição operacional: os limites de vazão dos provedores (3 requisições/min
-no MaaS, 18/min no plano gratuito do OpenRouter, nos artefatos de latência de
+no MaaS, 18/min no plano gratuito do agregador OpenRouter, nos artefatos de latência de
 \texttt{experiments/e0}) moldaram o próprio desenho experimental e, em produção, definem o tempo de
 parede de um ciclo de rotulagem tanto quanto o preço: um oráculo barato e
 lento pode ser dominado por um caro e paralelo quando o gargalo é o prazo.
@@ -117,7 +120,8 @@ estatisticamente com o deepseek-v4-flash na S-rand (McNemar, $p=0{,}76$) e
 com o glm-5.2 na S-strat ($p=0{,}078$), ficando abaixo apenas do v4-pro
 ($p<0{,}001$). Duas ressalvas operacionais, ambas achados: (i) grátis não é
 custo operacional zero, porque a primeira tentativa, via agregador com cota de
-50 requisições/dia, projetava seis dias de execução (decisões D-005/D-006); e
+50 requisições/dia, projetava seis dias de execução (decisões D-005/D-006 do
+registro de decisões do repositório de experimentos); e
 (ii) \emph{o provedor de \textit{serving} é parte do instrumento}: o MESMO
 modelo servido pelo agregador diverge significativamente de si mesmo servido
 pela NVIDIA nas mesmas instâncias ($p<0{,}001$ no subconjunto pareado de 850
@@ -158,8 +162,7 @@ são variações de fraseado fora do espaço de rótulos, que um protocolo ingê
 computa como erro do modelo, o que deflaciona a medição e contamina qualquer
 comparação entre modelos com propensões diferentes a parafrasear. A restrição
 por \texttt{enum} com validação estrita elimina essa classe de artefato por
-construção, e é por isso o modo de produção do FALCO
-(Princípio~III da constituição do projeto).
+construção, e é por isso o modo de produção do FALCO.
 
 \subsection{Sensibilidade ao ruído do gabarito e calibração do lote}
 \label{sec:res-e0-ruido-gabarito}
@@ -175,7 +178,7 @@ pareada (lotes de 1, 10 e 25 itens nas mesmas instâncias), o McNemar não
 detecta degradação ($b=1$ vs.\ $b=10$: $p=0{,}58$), e o lote reduz o custo por
 rótulo em até 10 vezes ao amortizar o prefixo, e por isso adotou-se $b=10$ (OpenAI) e
 $b=25$ (MaaS), registrado por anotação. O ganho é consistente com o precedente
-de anotação em lote em laços de AL com LLM \citep{Kholodna2024}, que reporta o
+de anotação em lote em laços de aprendizado ativo com LLM \citep{Kholodna2024}, que reporta o
 mesmo mecanismo de amortização de \textit{prompt} como componente central da
 economia frente à anotação humana.
 
@@ -187,7 +190,8 @@ de convenção de catálogo, ou seja, atacáveis por \textit{prompt}. Esta seç�
 esse potencial no modelo de MENOR custo com cache (gpt-4o-mini): variantes
 \textbf{v4a} (dez regras de fronteira explícitas derivadas do perfil de erro
 da S-strat) e \textbf{v4b} (v4a + dez exemplos \emph{inventados} de fronteiras
-difíceis, nunca instâncias das amostras, desenho anti-vazamento D-004),
+difíceis, nunca instâncias das amostras, desenho anti-vazamento registrado
+na decisão D-004 do mesmo registro),
 pareadas com o v3 oficial nos mesmos 500 primeiros itens de cada amostra. Esse
 subconjunto-prefixo (aleatório por construção, pois as amostras já são
 embaralhadas) foi dimensionado para detectar, via McNemar, deslocamentos da ordem
@@ -241,7 +245,7 @@ Esta seção varre as cinco estratégias de seleção (entropia, menor confianç
 margem, híbrida, aleatória) com o PVBin e oráculo simulado sem ruído, em pool
 deduplicado de 20.000 instâncias, orçamento de 3.000 rótulos, lote 100 e
 8 sementes por célula; a ablação de lote repete a entropia, estratégia
-pré-registrada da Fase~2 do FALCO e da avaliação de robustez ao ruído
+adotada na Fase~2 do FALCO e na avaliação de robustez ao ruído
 (Seção~\ref{sec:res-e4}), com $b \in \{50, 200\}$. O
 dimensionamento é deliberado: 20.000 é o maior pool que mantém as 104 células
 (5 estratégias + ablações + células de ruído, $\times$ 8 sementes) computáveis em CPU
@@ -276,7 +280,8 @@ Aleatória        & $0{,}444 \pm 0{,}011$ & $0{,}339 \pm 0{,}006$ & --- \\
 
 A tabela comporta três leituras. \textbf{(i)~Toda estratégia de incerteza supera a aleatória},
 e o faz no máximo de significância que 8 sementes permitem ($p=0{,}0078$ em
-LCE e em F1 final, todas as comparações): com 15\% do orçamento de rótulos, a
+LCE, a \textit{Learning Curve Efficiency} do Capítulo~\ref{ch:metodo}, e em
+F1 final, todas as comparações): com 15\% do orçamento de rótulos, a
 melhor célula recupera $78\%$ do Macro F1 do teto supervisionado.
 \textbf{(ii)~As margens vencem a entropia} no regime de 621 classes: menor
 margem lidera em LCE ($0{,}528$) e menor confiança em F1 final ($0{,}421$),
@@ -285,8 +290,9 @@ de classe muito grandes, fica $\approx 2$--$3$ p.p.\ atrás; a híbrida herda
 o pior dos dois mundos. \textbf{(iii)~O lote é barato até certo ponto}: na
 ablação com entropia, $b=50$ (LCE $0{,}492 \pm 0{,}009$) e $b=100$
 ($0{,}493 \pm 0{,}006$) são indistinguíveis, mas $b=200$ degrada para
-$0{,}481 \pm 0{,}012$, porque com lotes grandes a seleção repete redundância
-dentro do próprio lote antes de o modelo se atualizar. Para o FALCO, isso fixa o
+$0{,}481 \pm 0{,}012$; uma explicação compatível, não medida diretamente, é
+que com lotes grandes a seleção repete redundância dentro do próprio lote
+antes de o modelo se atualizar. Para o FALCO, isso fixa o
 lote operacional em $b \le 100$ e recomenda menor margem/menor confiança como
 estratégias da Fase~2, com a ressalva explícita de que o ordenamento foi
 medido com o classificador leve e deve ser revalidado com BERTimbau
@@ -362,7 +368,9 @@ de LLM \citep{Yuan2025NoiseAL}.
 \section{Seletores em escala populacional e o viés da autoavaliação}
 \label{sec:res-e6}
 
-Esta seção estende a comparação de seletores para a escala completa da base e
+Esta seção estende a comparação de seletores (as estratégias de seleção,
+aqui aplicadas como política contínua ao longo de todo o orçamento) para a
+escala completa da base e
 operacionaliza a distinção entre avaliação \emph{interna} e \emph{externa}.
 O viés estatístico de avaliar em dados coletados ativamente é conhecido da
 literatura \citep{Farquhar2021Bias,Kossen2021ActiveTesting}; a contribuição
@@ -575,8 +583,8 @@ executada.
 
 Em síntese: na configuração executada (oráculo gratuito, parada por
 estagnação do classificador leve, 3 épocas), o critério não é atingido, e a
-decomposição pareada isola a causa na política de parada --- não no oráculo
-nem na seleção. A varredura da subseção seguinte localiza o ponto em que o
+decomposição pareada aponta a causa para a política de parada --- não para o
+oráculo nem para a seleção. A varredura da subseção seguinte localiza o ponto em que o
 critério passa a valer e mostra que ele cabe no teto de rotulagem que a
 hipótese admite.
 
@@ -642,10 +650,10 @@ qualitativo --- a fração final dos rótulos do \textit{pool} não compra
 desempenho --- reproduz no BERTimbau o efeito medido em escala populacional
 (Seção~\ref{sec:res-e6}), e a tese o reporta como efeito de média com
 dispersão declarada, não como unanimidade. A conclusão consolidada: com uma
-política de parada ancorada no modelo forte, o FALCO atinge o critério
-dentro do teto de rotulagem da hipótese; a versão executada apenas parou
-cedo demais, e a confirmação de ponta a ponta com rótulos de oráculo além
-do ponto de parada real é a extensão imediata.
+política de parada ancorada no modelo forte, o critério é atingido dentro
+do teto de rotulagem da hipótese com rótulos de gabarito; a versão
+executada parou cedo demais, e a confirmação de ponta a ponta com rótulos
+de oráculo além do ponto de parada real é a extensão imediata.
 
 \section{Decisão do gate e configuração do FALCO}
 \label{sec:res-gate}
@@ -657,9 +665,21 @@ portanto, (i) a \textbf{avaliação de robustez ao ruído torna-se
 obrigatória}, executada nesta tese com o
 classificador leve (Seção~\ref{sec:res-e4}) e pronta para reexecução com
 BERTimbau, e (ii) a discussão passa a tratar o aprendizado com oráculo
-ruidoso como cenário central, não excepcional. Para a configuração de
+ruidoso como cenário central, não excepcional. Uma divergência deve ser
+declarada aqui, na primeira menção do resultado afetado: o critério fixado
+de antemão previa o ramo de falha (as consequências (i) e (ii), ambas
+executadas), mas definia o papel de LLM Inicial \emph{sujeito} à acurácia
+mínima de $85\%$ na S-rand, sem dizer como atribuí-lo se nenhum candidato a
+atingisse; a atribuição a seguir relaxa essa restrição e mantém o critério
+de melhor razão acurácia/custo, decisão desta tese registrada como tal.
+Registre-se também a regra de amostras das decisões: o limiar do gate e a
+equivalência do nemotron são medidos na S-rand, que preserva a distribuição
+de produção sob a qual o oráculo operará; a superioridade do LLM Avançado,
+cuja amostra o critério original não fixa, é medida na S-strat, que expõe
+as classes raras em que a Fase~3 deve agregar valor. Para a configuração de
 oráculos do FALCO derivada dessa avaliação: \textbf{LLM Inicial} = deepseek-v4-flash
-(melhor razão acurácia/custo: 78--82\% a US\$~0,035/1k); \textbf{LLM
+(melhor razão acurácia/custo: acurácia de $78{,}3\%$ na S-rand, IC
+[75,6;~80,8], a US\$~0,035/1k); \textbf{LLM
 Avançado} = deepseek-v4-pro (maior acurácia; significativamente superior ao
 flash na S-strat, $p<0{,}001$: o critério de superioridade significativa é
 atendido e a Fase~3 do FALCO se justifica). O gpt-4o não se qualifica em
