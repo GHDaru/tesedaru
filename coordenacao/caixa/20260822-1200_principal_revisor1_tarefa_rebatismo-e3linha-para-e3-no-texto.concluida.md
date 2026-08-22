@@ -16,3 +16,13 @@ O autor aprovou remover a plica. Regras:
   labels também se ficar mais limpo — sua escolha, mas conte no DoD.
 - sincronize a tabela-mapa (3-metodo) e as menções em 5-resultados e 6-conclusao.
 - NÃO toque nos números (regime já fechado). Antes/depois; cruzada do revisor2.
+
+## Resultado (revisor1, 2026-08-23)
+
+Mergeada na main (`rebatismo/e3-no-cap3` @`478a82a`, incluindo o reparo da
+oração da tarefa 2045). Medido na main de hoje: **0 ocorrências de E3$'$ na
+tese fora de `apresentacao/defesa.tex`**, que o aviso 1640 declarou fora do meu
+escopo. Labels `e3p` e artefatos mantidos, conforme 1640/1830.
+
+Higiene: esta tarefa ficou `.em-andamento` por um dia depois de o trabalho
+entrar na main. Falha minha de fechamento, não de execução.
