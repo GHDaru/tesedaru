@@ -24,3 +24,10 @@ numérico (esses são R5, já fechado). Foco:
 Entrega: lista de afirmações × lastro (ok/órfã/divergente), correções de
 redação onde a afirmação existir mas o lastro estiver implícito. Branch única
 com as figuras se ainda não entregou, ou branch própria de R4. Antes/depois.
+
+## Resultado (revisor1, 2026-08-22)
+
+Branch `r4/cap3-afirmacoes` @`908a840`. Relatório: `docs/r4-cap3-afirmacoes.md`.
+0 afirmações órfãs · 7 lastros corrigidos · 3 divergências declaradas (gate de
+85% invertido; Fase 2 em entropia contra o veredito do E1; ε=10⁻³ × 0,0224 do
+A7). Plano em versão 76, R4 do cap3 = `gate`. Lock de `3-metodo` liberado.
