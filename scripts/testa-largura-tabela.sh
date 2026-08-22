@@ -75,12 +75,30 @@ t "sem --base, o mesmo arquivo passa"  limpo    "$FIX" estreita.tex
 ( cd "$FIX" && git checkout -q -- estreita.tex )
 t "sem mudanca, regressao limpa"       limpo    "$FIX" estreita.tex --base HEAD
 
-echo "dado REAL do repositorio (nao so fixture)"
-if git rev-parse --verify -q 206fbdd^1 >/dev/null; then
-  t "Tabela 3.1 de hoje estoura o orcamento" SINALIZA "$(pwd)" 3-metodo/texto.tex
-  t "e cresceu contra o pre-Fase 2"          SINALIZA "$(pwd)" 3-metodo/texto.tex --base 206fbdd^1
+echo "dado REAL do repositorio, em revisoes FIXAS da historia"
+# Por que revisoes fixas e nao "o estado de hoje": a primeira versao deste
+# bloco afirmava "a Tabela 3.1 estoura", verdade no dia em que foi escrita.
+# No dia seguinte a tabela foi consertada e os dois casos passaram a FALHAR —
+# o teste media o defeito do momento, nao o comportamento do verificador.
+# Duas revisoes congeladas testam os dois lados e valem para sempre:
+#   01b78fd = Fase 2, a tabela que estourava (209,6pt)
+#   96a28b2 = o conserto, colunas do meio viraram p{}
+QUEBRADA=01b78fd; CONSERTADA=96a28b2
+if git cat-file -e "$QUEBRADA:3-metodo/texto.tex" 2>/dev/null \
+   && git cat-file -e "$CONSERTADA:3-metodo/texto.tex" 2>/dev/null; then
+  mkdir -p "$FIX/hist"
+  git show "$QUEBRADA:3-metodo/texto.tex"   > "$FIX/quebrada.tex"
+  git show "$CONSERTADA:3-metodo/texto.tex" > "$FIX/consertada.tex"
+  t "tabela real que ESTOUROU (01b78fd)"   SINALIZA "$FIX" quebrada.tex
+  t "a mesma tabela CONSERTADA (96a28b2)"  limpo    "$FIX" consertada.tex
 else
-  echo "  (pulado: revisao 206fbdd nao alcancavel neste clone)"
+  printf "  FALHA %-49s revisoes historicas inalcancaveis\n" "dado real"
+  falhas=$((falhas+1))
+fi
+# A main de HOJE nao pode estourar — se estourar, alguem precisa saber, mas
+# isto e um alarme sobre a TESE, nao sobre o verificador. Fica como aviso.
+if ! ( cd "$(pwd)" && python3 "$V" ) >/dev/null 2>&1; then
+  echo "  AVISO: a arvore atual tem tabela acima do orcamento (rode o verificador)"
 fi
 
 echo
