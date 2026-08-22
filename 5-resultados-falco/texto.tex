@@ -27,7 +27,7 @@ rotulagem em lote calibrada.
 
 \begin{table}[htb]
 \centering
-\caption{E0 --- desempenho dos oráculos LLM. Modo enum para OpenAI;
+\caption{Desempenho dos oráculos LLM. Modo enum para OpenAI;
 json-prompt para MaaS, agregador e NVIDIA NIM (sem suporte a saída
 estruturada). IC = intervalo de Wilson 95\%.}
 \label{tab:e0-principal}
@@ -76,7 +76,7 @@ nas classes com pouquíssimos exemplos.
 
 \begin{table}[htb]
 \centering
-\caption{E0 --- custo por mil rótulos (US\$) e taxa de acerto de \textit{cache}
+\caption{Custo por mil rótulos (US\$) e taxa de acerto de \textit{cache}
 de prefixo (S-rand; preços vigentes na execução, jul/2026).}
 \label{tab:e0-custo}
 \small
@@ -198,7 +198,7 @@ A Tabela~\ref{tab:e0p} resume o resultado
 
 \begin{table}[htb]
 \centering
-\caption{E0-P --- ablação de \textit{prompt} no gpt-4o-mini (enum, $b=10$,
+\caption{Ablação de \textit{prompt} no gpt-4o-mini (enum, $b=10$,
 $n=500$ pareado por amostra). $p$: McNemar exato contra o v3.}
 \label{tab:e0p}
 \begin{tabular}{llccc}
@@ -257,7 +257,7 @@ $= 0{,}540$. A Tabela~\ref{tab:e1} apresenta as células
 
 \begin{table}[htb]
 \centering
-\caption{E1 --- estratégias com oráculo perfeito (média $\pm$ dp sobre 8
+\caption{Estratégias com oráculo perfeito (média $\pm$ dp sobre 8
 sementes; orçamento 3.000, lote 100). $p$: Wilcoxon pareado por semente
 contra a aleatória; com $n=8$, o menor $p$ atingível é $0{,}0078$.}
 \label{tab:e1}
@@ -311,7 +311,7 @@ A Tabela~\ref{tab:e4} apresenta o resultado
 
 \begin{table}[htb]
 \centering
-\caption{E4 --- robustez ao ruído uniforme do oráculo (média $\pm$ dp, 8
+\caption{Robustez ao ruído uniforme do oráculo (média $\pm$ dp, 8
 sementes). Retenção: fração do Macro F1 final da mesma estratégia em
 $\varepsilon=0$. $p$: Wilcoxon pareado entropia vs.\ aleatória no mesmo
 $\varepsilon$.}
@@ -418,7 +418,7 @@ multi-semente, sem alterar nenhuma conclusão.
 
 \begin{table}[htb]
 \centering
-\caption{E6 --- Macro F1 na população por seletor e classificador.
+\caption{Macro F1 na população por seletor e classificador.
 Saturação: menor $|L|$ que atinge 95\% do teto do próprio braço.}
 \label{tab:e6}
 \small
@@ -506,7 +506,7 @@ Tabela~\ref{tab:e3p} consolida.
 
 \begin{table}[htb]
 \centering
-\caption{E3$'$ --- BERTimbau treinado por braço e avaliado na população
+\caption{BERTimbau treinado por braço e avaliado na população
 reservada inteira (177.490 instâncias); média $\pm$ desvio-padrão de três
 sementes.}
 \label{tab:e3p}
@@ -594,7 +594,7 @@ critério \emph{na média} das sementes e cruzá-lo \emph{em todas} elas.
 
 \begin{table}[htb]
 \centering
-\caption{E3$'$ --- varredura de orçamento (média de três sementes;
+\caption{Varredura de orçamento (média de três sementes;
 avaliação na população de 177.490; regime homogêneo). Critério
 $0{,}95\times$ régua ($D$): acurácia $\ge 0{,}843$, Macro F1 $\ge
 0{,}436$. As colunas de critério indicam em quantas sementes o braço cruza.}
