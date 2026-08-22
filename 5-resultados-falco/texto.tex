@@ -499,14 +499,10 @@ uniforme entre braços: 3 épocas, lote de treinamento 16 com limitação da
 norma do gradiente, comprimento máximo de 32 \textit{tokens}. O tamanho do
 lote é ele próprio um achado metodológico, não um detalhe: a configuração
 inicial, com lote 128, sub-treinava todos os braços
-% PROVISORIO-ate-regeracao
 (no braço-régua D, a correção elevou o Macro F1 de $0{,}3684$ para
 $0{,}459$), e um teste de controle na mesma semente isolou o efeito, o que
 motivou reexecutar a varredura inteira no regime corrigido. A
 Tabela~\ref{tab:e3p} consolida.
-% PROVISORIO-ate-regeracao: os valores desta seção e das tabelas provêm da
-% varredura corrigida (27 braços, 3 sementes); braços pré-correção estão em
-% regeração e os valores finais podem deslizar na terceira casa decimal.
 
 \begin{table}[htb]
 \centering
@@ -515,7 +511,6 @@ reservada inteira (177.490 instâncias); média $\pm$ desvio-padrão de três
 sementes.}
 \label{tab:e3p}
 \small
-% PROVISORIO-ate-regeracao (valores da varredura corrigida)
 \begin{tabular}{l l r r r}
 \toprule
 \textbf{Braço} & \textbf{Conjunto de treino} & $n$ & \textbf{Acurácia} & \textbf{Macro F1} \\
@@ -534,7 +529,6 @@ O critério da hipótese é avaliado na métrica do pré-registro, a acurácia,
 operacionalizada como $0{,}95$ da régua $D$; o Macro F1 acompanha como
 análise de robustez (Seção~\ref{sec:intro-hipotese}).
 
-% PROVISORIO-ate-regeracao (valores desta frase)
 \textbf{Na configuração executada, a hipótese central não se confirma}: o
 braço A alcança acurácia de $0{,}705$ contra um critério de
 $0{,}95 \times 0{,}887 = 0{,}843$, e Macro F1 de $0{,}297$ contra
@@ -568,7 +562,6 @@ populacional (Seção~\ref{sec:res-e6}), reproduzido no
 \textbf{(iii) O fator dominante é orçamento, e o critério de parada do laço
 leve subserve o modelo forte.} O braço E, com 15 mil rótulos perfeitos
 selecionados por entropia (um quarto a mais do que o ciclo real coletou),
-% PROVISORIO-ate-regeracao (valores desta frase)
 sobe para $0{,}816$ de acurácia ($92{,}0\%$ da régua) e $0{,}341$ de Macro
 F1, ainda aquém do critério. A estagnação da validação do classificador
 \emph{leve}, que encerrou o ciclo real em 11.936 rótulos, é, portanto, um
