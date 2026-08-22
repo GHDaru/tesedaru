@@ -176,12 +176,14 @@ particionamento usa a descrição apenas aparada e convertida a minúsculas.
 Nesta base a remoção de acentos não altera contagem alguma --- não há um
 único caractere acentuado nas descrições ou nos rótulos ---, de modo que a
 diferença entre as duas chaves está no tratamento de espaços, e não na
-acentuação. A segunda é que \textbf{a ordem das operações importa}: o filtro
-brando de $\ge 2$ instâncias é aplicado sobre as \emph{linhas}, antes da
-deduplicação, e é essa ordem que faz uma classe
-(\textit{pomada massageadora}) desaparecer no passo das 715 classes que
-sobrevivem ao filtro para as \textbf{714 classes presentes} na visão
-deduplicada. A receita completa é executável e reproduz todas as contagens
+acentuação. A segunda é que \textbf{o filtro brando de $\ge 2$ instâncias conta
+linhas, e não textos já deduplicados}: são 715 as classes com pelo menos duas
+\emph{linhas} na base corrigida, ao passo que a mesma contagem feita sobre os
+textos únicos devolveria 710. Dessas 715, uma
+(\textit{pomada massageadora}) ainda desaparece na deduplicação, cuja regra é
+manter a primeira ocorrência de cada texto: os dois textos dessa classe já
+haviam aparecido sob outro rótulo. Daí as \textbf{714 classes presentes} na
+visão deduplicada. A receita completa é executável e reproduz todas as contagens
 desta seção (\texttt{scripts/check\_dataset.py}, na biblioteca
 \texttt{activelearning}). Classes com menos de
 cinco instâncias são agrupadas na categoria sentinela \texttt{\_rare\_}
