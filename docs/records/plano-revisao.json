@@ -1,6 +1,6 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 86,
+  "versao": 87,
   "atualizado_em": "2026-08-22T17:00:00Z",
   "atualizado_por": "site (tarefa 20260822-1640_principal_site_granularidade-por-elemento-aprovada): desagrega pre em Resumo+Abstract e ap em 7 apêndices (A1-A7), cada um agora um elemento próprio em capitulos[] com rodadas R1-R7 medidas por arquivo (R3 'na' onde 0 citações; travessões/citações recontados diretamente no arquivo — a nota antiga do agregado pré-textual dizia 32 travessões, a contagem direta deu 22, divergência flagrada, não corrigida por mim). R7 de TODOS os 15 elementos + dos 6 capítulos ganha campo reauditar:true (reset do autor). pos_textuais[] fica só com Referências.",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
@@ -1457,8 +1457,9 @@
   "decisoes_pendentes": [
     {
       "id": "dec-gate-85",
-      "titulo": "Gate de 85%: justificativa diz 'um desvio acima' de 89,56% quando está 4,6 p.p. abaixo; configuração final derivada sem oráculo atingir o limiar e sem declarar violação do pré-registro (parecer R3/R4/R6)",
-      "trilha": "texto"
+      "titulo": "Gate-85: banca RECOMENDA MANTER (nao eliminar). O ramo de falha sustenta 3 elos (E4 obrigatorio, ruido cenario central, config por acuracia/custo). Conserto: 85% = 0,95 x 89,56% (mesma razao 0,95 do criterio da hipotese) -> deixa de ser numero magico. 'gate pre-registrado' do Cap.6 -> 'fixado de antemao' (sem fonte no pre-registro). Branch gate85-e-legendas @871c47a. DECISAO DO AUTOR: aceitar manter+consertado (recomendado) ou insistir em eliminar.",
+      "trilha": "texto",
+      "estado": "aguardando autor aceitar a recomendacao da banca (manter+consertado)"
     },
     {
       "id": "dec-politica-parada",
