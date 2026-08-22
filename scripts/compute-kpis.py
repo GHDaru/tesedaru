@@ -123,7 +123,27 @@ def serie_historica(pontos_totais: float):
     for s in serie:
         por_dia[s["data"]] = s if not (por_dia.get(s["data"], {}).get("evento")) or s["evento"] else \
             {**s, "evento": por_dia[s["data"]]["evento"]}
-    return sorted(por_dia.values(), key=lambda s: s["data"])
+    dias = sorted(por_dia.values(), key=lambda s: s["data"])
+    if not dias:
+        return dias
+    # gráfico por dia de verdade: preenche dias sem commit no plano com o
+    # último valor conhecido (carregado=True), em vez de pular direto para
+    # o próximo dia com commit — sem isso um hiato de dias parados aparece
+    # como um segmento de reta igual a qualquer outro, escondendo a pausa
+    completa = []
+    cursor = date.fromisoformat(dias[0]["data"])
+    fim = date.fromisoformat(dias[-1]["data"])
+    idx = {d["data"]: d for d in dias}
+    ultimo = None
+    while cursor <= fim:
+        chave = cursor.isoformat()
+        if chave in idx:
+            ultimo = idx[chave]
+            completa.append(ultimo)
+        else:
+            completa.append({**ultimo, "data": chave, "evento": None, "carregado": True})
+        cursor += timedelta(days=1)
+    return completa
 
 
 def ritmo(serie, pontos_totais):

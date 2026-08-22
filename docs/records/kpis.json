@@ -1,7 +1,7 @@
 {
  "schema": "kpis/v1",
  "computado_em": "2026-08-22",
- "git_sha": "fb83499",
+ "git_sha": "7ca1ff2",
  "prontidao": {
   "global_pct": 34.1,
   "texto_pct": 40.2,
@@ -124,10 +124,10 @@
   ]
  },
  "ritmo": {
-  "velocidade_pontos_semana": 652.2,
+  "velocidade_pontos_semana": 663.8,
   "janela_dias": 6,
   "eta_semanas": 2.0,
-  "eta_data": "2026-09-05",
+  "eta_data": "2026-09-04",
   "eta_confiavel": true,
   "serie": [
    {
@@ -152,6 +152,14 @@
     "evento": null
    },
    {
+    "data": "2026-08-19",
+    "commit": "e9b8d9b",
+    "pontos": 808,
+    "pct": 36.6,
+    "evento": null,
+    "carregado": true
+   },
+   {
     "data": "2026-08-20",
     "commit": "faef7a1",
     "pontos": 878,
@@ -167,9 +175,9 @@
    },
    {
     "data": "2026-08-22",
-    "commit": "d206321",
-    "pontos": 877,
-    "pct": 39.7,
+    "commit": "cd7609a",
+    "pontos": 887,
+    "pct": 40.1,
     "evento": null
    }
   ]

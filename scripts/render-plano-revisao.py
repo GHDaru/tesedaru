@@ -512,6 +512,7 @@ def build_plano() -> tuple[str, str]:
 <section class="card">
   <h2>Evolução da prontidão</h2>
   <div class="chart-wrap" id="chart-wrap"></div>
+  <p class="chart-legenda">● dia com commit no plano · ○ dia sem commit (valor do dia anterior mantido) · ⬤ merge marcante</p>
   <details><summary>Dados da série</summary>
     <div class="scroll"><table id="serie-tab"></table></div>
   </details>
@@ -604,14 +605,24 @@ def build_plano() -> tuple[str, str]:
       `<line x1="${{mL}}" x2="${{W - mR}}" y1="${{Y(g)}}" y2="${{Y(g)}}" stroke="var(--grid)"/>
        <text x="2" y="${{Y(g) + 4}}">${{g}}%</text>`).join('');
     const path = pts.map((p, i) => `${{i ? 'L' : 'M'}}${{p[0].toFixed(1)}},${{p[1].toFixed(1)}}`).join('');
-    const marks = pts.filter(p => p[2].evento).map(p =>
-      `<circle cx="${{p[0]}}" cy="${{p[1]}}" r="4.5" fill="var(--accent)" stroke="var(--panel)" stroke-width="2"/>`).join('');
-    const xlab = [serie[0], serie.at(-1)].map(s =>
-      `<text x="${{X(s.data)}}" y="${{H - 6}}" text-anchor="middle">${{s.data}}</text>`).join('');
+    // gráfico por dia: um ponto por dia do calendário, sem pular hiato —
+    // dia sem commit no plano carrega o último valor conhecido (s.carregado)
+    // e vira círculo vazado, distinto do círculo cheio de dia com medição
+    // real; evento de merge continua com o círculo maior de destaque
+    const dots = pts.map(p => p[2].evento
+      ? `<circle cx="${{p[0]}}" cy="${{p[1]}}" r="4.5" fill="var(--accent)" stroke="var(--panel)" stroke-width="2"/>`
+      : p[2].carregado
+        ? `<circle cx="${{p[0]}}" cy="${{p[1]}}" r="2.5" fill="var(--panel)" stroke="var(--muted)" stroke-width="1.3"/>`
+        : `<circle cx="${{p[0]}}" cy="${{p[1]}}" r="2.5" fill="var(--accent)"/>`).join('');
+    // com muitos dias, mostra só 1 a cada N rótulos (sempre incluindo o
+    // primeiro e o último) pra não empilhar texto no eixo
+    const passo = Math.max(1, Math.ceil(serie.length / 14));
+    const xlab = serie.filter((s, i) => i % passo === 0 || i === serie.length - 1).map(s =>
+      `<text x="${{X(s.data)}}" y="${{H - 6}}" text-anchor="middle">${{s.data.slice(5)}}</text>`).join('');
     wrap.innerHTML = `<svg viewBox="0 0 ${{W}} ${{H}}" role="img" style="width:100%"
-        aria-label="Prontidão da tese ao longo do tempo: de ${{serie[0].pct}}% em ${{serie[0].data}} a ${{serie.at(-1).pct}}% em ${{serie.at(-1).data}}.">
+        aria-label="Prontidão da tese por dia: de ${{serie[0].pct}}% em ${{serie[0].data}} a ${{serie.at(-1).pct}}% em ${{serie.at(-1).data}}.">
       ${{grid}}<path d="${{path}}" fill="none" stroke="var(--accent)" stroke-width="2"/>
-      ${{marks}}<circle cx="${{pts.at(-1)[0]}}" cy="${{pts.at(-1)[1]}}" r="4" fill="var(--accent)"/>${{xlab}}
+      ${{dots}}${{xlab}}
       <rect id="hit" x="${{mL}}" y="0" width="${{W - mL - mR}}" height="${{H}}" fill="transparent"/></svg>
       <div class="tip" id="tip"></div>`;
     const svg = wrap.querySelector('svg'), tip = el('tip');
@@ -623,12 +634,14 @@ def build_plano() -> tuple[str, str]:
       tip.style.left = Math.min(best[0] / W * 100, 82) + '%';
       tip.style.top = (best[1] / H * 100) + '%';
       tip.innerHTML = `<strong>${{best[2].pct}}%</strong> · ${{best[2].data}}` +
-        (best[2].evento ? `<br>${{esc(best[2].evento)}}` : '');
+        (best[2].evento ? `<br>${{esc(best[2].evento)}}` : '') +
+        (best[2].carregado ? `<br><span style="color:var(--muted)">sem commit no plano nesse dia — valor mantido</span>` : '');
     }});
     svg.addEventListener('mouseleave', () => tip.style.display = 'none');
   }})();
   el('serie-tab').innerHTML = '<thead><tr><th>Data</th><th>%</th><th>Pontos</th><th>Evento</th></tr></thead><tbody>' +
-    serie.map(s => `<tr><td>${{s.data}}</td><td>${{s.pct}}%</td><td>${{s.pontos}}</td><td>${{esc(s.evento || '')}}</td></tr>`).join('') + '</tbody>';
+    serie.map(s => `<tr${{s.carregado ? ' style="color:var(--muted)"' : ''}}><td>${{s.data}}</td><td>${{s.pct}}%</td><td>${{s.pontos}}</td>` +
+      `<td>${{s.carregado ? 'sem commit (valor mantido)' : esc(s.evento || '')}}</td></tr>`).join('') + '</tbody>';
 
   el('rodadas-def').innerHTML = P.rodadas.map(r =>
     `<div><b>${{r.id}}</b> ${{esc(r.nome)}} <small>${{esc(r.descricao)}} (${{esc(r.ref)}})</small></div>`).join('');
@@ -809,6 +822,7 @@ tr.chap-encerrado{{background:var(--st-feito-bg)}}
 .cap-abertura{{margin-top:var(--sp-3)}}
 .cap-abertura summary{{cursor:pointer; color:var(--muted); font-size:var(--fs-1)}}
 .pill.reauditar{{background:var(--st-andamento-bg); color:var(--st-andamento); border:1px dashed var(--st-andamento)}}
+.chart-legenda{{color:var(--muted); font-size:var(--fs-1); margin:.3rem 0 0}}
 .cap-card-body .quebra-cap{{margin-top:var(--sp-4)}}
 </style>"""
     return body, script
