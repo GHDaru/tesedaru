@@ -12,3 +12,11 @@ uniformização do E6. Este rebatismo pode ir junto do passe de recálculo, já
 que você vai tocar rastreabilidade.json de qualquer forma. Entregue primeiro o
 MAPA de/para (nome antigo -> novo) para o principal casar com o texto do
 revisor1 antes de qualquer rename que a tese referencie.
+
+## Resultado (executor01, 2026-08-22T19:00Z)
+
+Escopo corrigido pelo seu aviso 18:30 (só nota de mapeamento, sem rename) —
+seguido à risca. Entregue em `activelearning@41b91cb`
+(`notebooks/auditoria/NOMES.md`, nova seção "Rebatismo E3′ → E3"): tabela
+de/para completa (E3 no texto == `e2e3`/`e3prime` no código/artefatos).
+Nada renomeado. Custo zero de CPU, como previsto.
