@@ -1,0 +1,989 @@
+{
+  "schema": "rastreabilidade/v1",
+  "gerado_por": "executor01 · notebooks/auditoria/build_rastreabilidade.py",
+  "cobertura": "Cap. 5 completo menos a seção do gate (E0, E0-P, E1, E4, E6, E3′) + Cap. 4 (P1/P2, figuras) + Cap. 3 (método, ~24 números casados com R5, tarefa 20260817-1940). Faltam: seção do gate, Cap. 6, apêndices, pré-textuais",
+  "resumo": {
+    "rastreado": 77,
+    "divergente": 14,
+    "legado": 1,
+    "sem-evidencia": 5
+  },
+  "legenda": {
+    "rastreado": "o número sai do artefato citado",
+    "divergente": "o artefato existe e diz outra coisa",
+    "sem-evidencia": "não há artefato que sustente o número",
+    "legado": "evidência em repositório legado, somente leitura"
+  },
+  "itens": [
+    {
+      "numero": "deepseek-v4-pro rand: acc 82.1% · F1 0.785 · inválidos 0.1%",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-principal",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "gpt-4o rand: acc 80.9% · F1 0.788 · inválidos 0.0%",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-principal",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "deepseek-v4-flash rand: acc 78.3% · F1 0.75 · inválidos 0.7%",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-principal",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "nemotron rand: acc 77.9% · F1 0.752 · inválidos 1.2%",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-principal",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "glm-5.2 rand: acc 77.3% · F1 0.742 · inválidos 0.0%",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-principal",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "divergente",
+      "nota": "inválidos 0.7% no artefato, tese diz 0.0%"
+    },
+    {
+      "numero": "gpt-4o-mini rand: acc 61.3% · F1 0.518 · inválidos 0.0%",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-principal",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "deepseek-v4-pro strat: acc 82.6% · F1 0.793 · inválidos 0.0%",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-principal",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "divergente",
+      "nota": "inválidos 0.2% no artefato, tese diz 0.0%"
+    },
+    {
+      "numero": "gpt-4o strat: acc 82.1% · F1 0.797 · inválidos 0.0%",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-principal",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "deepseek-v4-flash strat: acc 81.6% · F1 0.781 · inválidos 0.9%",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-principal",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "glm-5.2 strat: acc 80.9% · F1 0.782 · inválidos 0.0%",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-principal",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "nemotron strat: acc 79.6% · F1 0.77 · inválidos 2.6%",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-principal",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "gpt-4o-mini strat: acc 45.7% · F1 0.427 · inválidos 0.0%",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-principal",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "gpt-4o-mini S-rand (escolha de execução)",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-principal",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "divergente",
+      "nota": "o artefato tem 2 execuções para esta célula (acc 60.5%, 61.3%); a tese reporta uma sem dizer qual nem por quê"
+    },
+    {
+      "numero": "v4-pro > v4-flash na S-strat: b=43, c=16, p<0,001",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e0-rq1",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_mcnemar.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "divergente",
+      "nota": "o artefato dá b=73, c=91, p=0.184 — NÃO significativo. Nenhum dos 43 pares do artefato tem b=43/c=16"
+    },
+    {
+      "numero": "v4-pro empata com gpt-4o na S-strat: p=0,061",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e0-rq1",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_mcnemar.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "divergente",
+      "nota": "o artefato dá p=0.525; nenhum par do artefato tem p≈0,061. O veredito (empate) se sustenta, o número não"
+    },
+    {
+      "numero": "nemotron empata com v4-flash na S-rand: p=0,76",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e0-rq2",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_mcnemar.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "artefato p=0.764"
+    },
+    {
+      "numero": "nemotron empata com glm-5.2 na S-strat: p=0,078",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e0-rq2",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_mcnemar.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "artefato p=0.0777"
+    },
+    {
+      "numero": "nemotron: US$ 0.000/1k rótulos",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-custo",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "deepseek-v4-flash: US$ 0.035/1k rótulos",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-custo",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "gpt-4o-mini: US$ 0.051/1k rótulos",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-custo",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "glm-5.2: US$ 0.249/1k rótulos",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-custo",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "deepseek-v4-pro: US$ 0.410/1k rótulos",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-custo",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "gpt-4o: US$ 0.923/1k rótulos",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-custo",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "v4-flash é 26x mais barato que o gpt-4o",
+      "onde": "5-resultados-falco/texto.tex#tab:e0-custo",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "razão calculada: 26.4x"
+    },
+    {
+      "numero": "cache de prefixo atinge 88–95% nos provedores que o suportam",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e0-rq2",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "faixa no artefato: 88.3–94.8%"
+    },
+    {
+      "numero": "saturação SGD entropia: 9,1k ± 0,6k",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e6",
+      "experimento": "escala-populacional",
+      "artefato": "experiments/e6population/results/analysis_multiseed.json",
+      "codigo": "experiments/e6population/run_population_curve.py",
+      "notebook_kaggle": "ghdaru/falco-auditoria-escala-populacional",
+      "status": "rastreado",
+      "nota": "artefato: 9062 ± 563"
+    },
+    {
+      "numero": "saturação SGD aleatório: 15,5k ± 1,1k",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e6",
+      "experimento": "escala-populacional",
+      "artefato": "experiments/e6population/results/analysis_multiseed.json",
+      "codigo": "experiments/e6population/run_population_curve.py",
+      "notebook_kaggle": "ghdaru/falco-auditoria-escala-populacional",
+      "status": "rastreado",
+      "nota": "artefato: 15500 ± 1102"
+    },
+    {
+      "numero": "saturação PVBin entropia: 19,3k ± 0,7k",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e6",
+      "experimento": "escala-populacional",
+      "artefato": "experiments/e6population/results/analysis_multiseed.json",
+      "codigo": "experiments/e6population/run_population_curve.py",
+      "notebook_kaggle": "ghdaru/falco-auditoria-escala-populacional",
+      "status": "rastreado",
+      "nota": "artefato: 19312 ± 704"
+    },
+    {
+      "numero": "saturação PVBin aleatório: 40,6k ± 1,4k",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e6",
+      "experimento": "escala-populacional",
+      "artefato": "experiments/e6population/results/analysis_multiseed.json",
+      "codigo": "experiments/e6population/run_population_curve.py",
+      "notebook_kaggle": "ghdaru/falco-auditoria-escala-populacional",
+      "status": "rastreado",
+      "nota": "artefato: 40625 ± 1408"
+    },
+    {
+      "numero": "viés de autoavaliação em |L|=10k: −17,1 ± 1,0 p.p.",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e6",
+      "experimento": "escala-populacional",
+      "artefato": "experiments/e6population/results/analysis_multiseed.json",
+      "codigo": "experiments/e6population/run_population_curve.py",
+      "notebook_kaggle": "ghdaru/falco-auditoria-escala-populacional",
+      "status": "rastreado",
+      "nota": "artefato: -17.1 ± 1.0"
+    },
+    {
+      "numero": "teto da entropia supera o aleatório em 8 das 8 sementes (p=0,0078)",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e6",
+      "experimento": "escala-populacional",
+      "artefato": "experiments/e6population/results/analysis_multiseed.json",
+      "codigo": "experiments/e6population/run_population_curve.py",
+      "notebook_kaggle": "ghdaru/falco-auditoria-escala-populacional",
+      "status": "rastreado",
+      "nota": "artefato: 8/8, p=0.0078"
+    },
+    {
+      "numero": "população reservada do E6 ≈ 140 mil instâncias",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e6",
+      "experimento": "escala-populacional",
+      "artefato": "experiments/e6population/results/popcurve_pvbin_entropy_summary.json",
+      "codigo": "experiments/e6population/run_population_curve.py",
+      "notebook_kaggle": "ghdaru/falco-auditoria-escala-populacional",
+      "status": "divergente",
+      "nota": "artefato registra population=181490, e o runner faz dedup[50000:] = 231490-50000. O próprio texto diz 'todo o restante', o que contradiz os 140 mil"
+    },
+    {
+      "numero": "Tabela e3p (A/B/C/E/D): acurácia, IC de Wilson e Macro F1",
+      "onde": "5-resultados-falco/texto.tex#tab:e3p",
+      "experimento": "classificador-forte",
+      "artefato": "experiments/e2e3/results/legacy_s42_bs16_eval20k/",
+      "codigo": "experiments/e2e3/run_e3prime.py",
+      "notebook_kaggle": "ghdaru/falco-auditoria-classificador-forte",
+      "status": "rastreado",
+      "nota": "14 de 15 afirmações conferem; IC recalculado no notebook"
+    },
+    {
+      "numero": "ganho de acurácia de C sobre B: +3,0 p.p.",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e3p",
+      "experimento": "classificador-forte",
+      "artefato": "experiments/e2e3/results/legacy_s42_bs16_eval20k/",
+      "codigo": "experiments/e2e3/run_e3prime.py",
+      "notebook_kaggle": "ghdaru/falco-auditoria-classificador-forte",
+      "status": "divergente",
+      "nota": "a conta dá 2,93 p.p.; arredondamento para cima"
+    },
+    {
+      "numero": "McNemar A–B, B–C, E35–D e IC bootstrap das diferenças de Macro F1",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e3p",
+      "experimento": "classificador-forte",
+      "artefato": "experiments/e2e3/results/{mcnemar_s42,bootstrap_f1_s42}.json",
+      "codigo": "experiments/e2e3/stats_e3prime.py",
+      "notebook_kaggle": "ghdaru/falco-auditoria-classificador-forte",
+      "status": "rastreado",
+      "nota": "recomputados do zero no notebook: b/c exatos e os três IC idênticos"
+    },
+    {
+      "numero": "E35 supera a régua D (leitura (iii) da varredura)",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e3p-varredura",
+      "experimento": "classificador-forte",
+      "artefato": "experiments/e2e3/results/e3prime_*_s{42,7,123}.json",
+      "codigo": "experiments/e2e3/run_e3prime.py",
+      "notebook_kaggle": "ghdaru/falco-auditoria-classificador-forte",
+      "status": "divergente",
+      "nota": "vale no regime pareado publicado (lote 16), mas em NENHUMA das três sementes canônicas (lote 128). A afirmação é efeito do regime, não achado robusto"
+    },
+    {
+      "numero": "piso de orçamento: critério de Macro F1 passa a valer em 25 mil rótulos",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e3p-varredura",
+      "experimento": "classificador-forte",
+      "artefato": "experiments/e2e3/results/e3prime_*_s{42,7,123}.json",
+      "codigo": "experiments/e2e3/run_e3prime.py",
+      "notebook_kaggle": "ghdaru/falco-auditoria-classificador-forte",
+      "status": "divergente",
+      "nota": "no regime canônico o E25 não cruza em nenhuma das três sementes; só o E35 cruza, e em 2 de 3"
+    },
+    {
+      "numero": "sensibilidade do L0: acurácia de 6,7% (I=10) a 89,1% (I=200.000)",
+      "onde": "4-resultados-l0/texto.tex#sec:res-l0-sens",
+      "experimento": "conjunto-inicial",
+      "artefato": "GHDaru/activetextclassification examples/data/sensibilidade/l0_random_impact_metrics_PVBin.xlsx",
+      "codigo": "GHDaru/activetextclassification examples/L0_experimento.ipynb",
+      "notebook_kaggle": "",
+      "status": "legado",
+      "nota": "0.891 está na saída gravada da célula 4. Evidência existe mas em repositório somente leitura e sem referência cruzada; o REPRODUCIBILITY.md aponta para 'Tese-Vers-o-Draft', que não é este repositório"
+    },
+    {
+      "numero": "pipeline do E0 é reprodutível ponta a ponta do dado bruto",
+      "onde": "experiments/e0/analyze_e0.py",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/e0_table.json + experiments/e0/results/e0_mcnemar.json",
+      "codigo": "experiments/e0/run_e0.py + analyze_e0.py",
+      "notebook_kaggle": "notebooks/auditoria/escolha-do-oraculo.ipynb",
+      "status": "rastreado",
+      "nota": "reanálise completa (13/13 linhas da tabela, 43/43 pares de McNemar) roda zero-custo sobre as anotações já versionadas e reproduz os artefatos exatamente — inclusive a AUSÊNCIA de b=43/c=16 em qualquer par"
+    },
+    {
+      "numero": "pipeline do E0-P é reprodutível ponta a ponta do dado bruto",
+      "onde": "experiments/e0p/analyze_e0p.py",
+      "experimento": "efeito-do-prompt",
+      "artefato": "experiments/e0p/results/analysis.json",
+      "codigo": "experiments/e0p/run_e0p.py + analyze_e0p.py",
+      "notebook_kaggle": "notebooks/auditoria/efeito-do-prompt.ipynb",
+      "status": "rastreado",
+      "nota": "reanálise completa (6/6 acurácias, 6/6 pares de McNemar) roda zero-custo e reproduz o analysis.json publicado exatamente"
+    },
+    {
+      "numero": "E0-P rand v3: acurácia 60.4%",
+      "onde": "5-resultados-falco/texto.tex#tab:e0p",
+      "experimento": "efeito-do-prompt",
+      "artefato": "experiments/e0p/results/analysis.json",
+      "codigo": "experiments/e0p/run_e0p.py + analyze_e0p.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E0-P rand v4a: acurácia 64.2% · discordantes 50/31 · p 0.045",
+      "onde": "5-resultados-falco/texto.tex#tab:e0p",
+      "experimento": "efeito-do-prompt",
+      "artefato": "experiments/e0p/results/analysis.json",
+      "codigo": "experiments/e0p/run_e0p.py + analyze_e0p.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E0-P rand v4b: acurácia 65.0% · discordantes 50/27 · p 0.012",
+      "onde": "5-resultados-falco/texto.tex#tab:e0p",
+      "experimento": "efeito-do-prompt",
+      "artefato": "experiments/e0p/results/analysis.json",
+      "codigo": "experiments/e0p/run_e0p.py + analyze_e0p.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E0-P strat v3: acurácia 51.8%",
+      "onde": "5-resultados-falco/texto.tex#tab:e0p",
+      "experimento": "efeito-do-prompt",
+      "artefato": "experiments/e0p/results/analysis.json",
+      "codigo": "experiments/e0p/run_e0p.py + analyze_e0p.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E0-P strat v4a: acurácia 44.8% · discordantes 20/55 · p 0.001",
+      "onde": "5-resultados-falco/texto.tex#tab:e0p",
+      "experimento": "efeito-do-prompt",
+      "artefato": "experiments/e0p/results/analysis.json",
+      "codigo": "experiments/e0p/run_e0p.py + analyze_e0p.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E0-P strat v4b: acurácia 41.0% · discordantes 14/68 · p 0.001",
+      "onde": "5-resultados-falco/texto.tex#tab:e0p",
+      "experimento": "efeito-do-prompt",
+      "artefato": "experiments/e0p/results/analysis.json",
+      "codigo": "experiments/e0p/run_e0p.py + analyze_e0p.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E0-P: v4b piora sobre v4a na S-strat com p=0,0013",
+      "onde": "5-resultados-falco/texto.tex#tab:e0p",
+      "experimento": "efeito-do-prompt",
+      "artefato": "experiments/e0p/results/analysis.json",
+      "codigo": "experiments/e0p/run_e0p.py + analyze_e0p.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "artefato p=0.001319"
+    },
+    {
+      "numero": "teto supervisionado do pool completo: Macro F1 = 0,540",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "artefato: 0.5398"
+    },
+    {
+      "numero": "E1 menor margem: LCE 0.528±0.013 · F1 final 0.418±0.013",
+      "onde": "5-resultados-falco/texto.tex#tab:e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E1 menor confiança: LCE 0.518±0.01 · F1 final 0.421±0.009",
+      "onde": "5-resultados-falco/texto.tex#tab:e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E1 entropia: LCE 0.493±0.006 · F1 final 0.398±0.008",
+      "onde": "5-resultados-falco/texto.tex#tab:e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E1 híbrida: LCE 0.476±0.014 · F1 final 0.379±0.008",
+      "onde": "5-resultados-falco/texto.tex#tab:e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E1 aleatória: LCE 0.444±0.011 · F1 final 0.339±0.006",
+      "onde": "5-resultados-falco/texto.tex#tab:e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "a melhor célula recupera 78% do teto supervisionado com 15% dos rótulos",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "conta: 78.1%"
+    },
+    {
+      "numero": "E1b ablação de lote b50: LCE 0.492±0.009",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "artefato: 0.4924±0.009"
+    },
+    {
+      "numero": "E1b ablação de lote b100: LCE 0.493±0.006",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "artefato: 0.4932±0.0055"
+    },
+    {
+      "numero": "E1b ablação de lote b200: LCE 0.481±0.012",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "artefato: 0.4814±0.0124"
+    },
+    {
+      "numero": "E4 ε=0.1 entropia: F1 0.347±0.008 · retenção 87.2%",
+      "onde": "5-resultados-falco/texto.tex#tab:e4",
+      "experimento": "robustez-ao-ruido",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E4 ε=0.1 aleatória: F1 0.294±0.006 · retenção 86.7%",
+      "onde": "5-resultados-falco/texto.tex#tab:e4",
+      "experimento": "robustez-ao-ruido",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E4 ε=0.2 entropia: F1 0.294±0.006 · retenção 74.0%",
+      "onde": "5-resultados-falco/texto.tex#tab:e4",
+      "experimento": "robustez-ao-ruido",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E4 ε=0.2 aleatória: F1 0.252±0.006 · retenção 74.4%",
+      "onde": "5-resultados-falco/texto.tex#tab:e4",
+      "experimento": "robustez-ao-ruido",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E4 ε=0.4 entropia: F1 0.215±0.01 · retenção 54.1%",
+      "onde": "5-resultados-falco/texto.tex#tab:e4",
+      "experimento": "robustez-ao-ruido",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "E4 ε=0.4 aleatória: F1 0.186±0.006 · retenção 54.8%",
+      "onde": "5-resultados-falco/texto.tex#tab:e4",
+      "experimento": "robustez-ao-ruido",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": ""
+    },
+    {
+      "numero": "a vantagem da entropia sobrevive com p=0,0078 em todo ε",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e4",
+      "experimento": "robustez-ao-ruido",
+      "artefato": "experiments/e1e4/results/analysis.json",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "artefato: [0.007812, 0.007812, 0.007812]"
+    },
+    {
+      "numero": "as 104 células do E1/E1b/E4 (sweeps.jsonl)",
+      "onde": "5-resultados-falco/texto.tex#sec:res-e1",
+      "experimento": "estrategias-de-selecao",
+      "artefato": "experiments/e1e4/results/sweeps.jsonl",
+      "codigo": "experiments/e1e4/run_sweeps.py + analyze_e1e4.py",
+      "notebook_kaggle": "notebooks/auditoria/estrategias-e-robustez.ipynb",
+      "status": "rastreado",
+      "nota": "reexecutado na Onda 4 (run_sweeps.py roda de novo, não é reanálise — o dado bruto nunca esteve versionado). Pool determinístico (semente 7 fixa no script): a reprodução do E1 e do E4 bateu quase exata (3ª/4ª casa decimal) com os agregados publicados. git add -f — casa com a linha 7 do .gitignore"
+    },
+    {
+      "numero": "figuras de E1/E4/E6/ciclo/E0 (6 arquivos) geradas por script",
+      "onde": "experiments/plots/",
+      "experimento": "todos",
+      "artefato": "experiments/plots/figures/*.{pdf,png}",
+      "codigo": "experiments/plots/make_figures.py",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "reexecutado: reproduz byte-a-byte (só difere metadado de timestamp do PNG) a partir de sweeps.jsonl e e0_table.json, ambos já auditados em outras entradas. Mas nenhuma das 6 está \\includegraphics'da no Cap. 4 ou 5 hoje — geradas e corretas, porém não inseridas na tese"
+    },
+    {
+      "numero": "figura L0tendenciagerallog.png (a ÚNICA de fato no texto do Cap. 4)",
+      "onde": "4-resultados-l0/texto.tex#fig:tendencia-l0-log",
+      "experimento": "conjunto-inicial",
+      "artefato": "tesedaru/4-resultados-l0/imagens/L0tendenciagerallog.png",
+      "codigo": "não encontrado gerador",
+      "notebook_kaggle": "",
+      "status": "sem-evidencia",
+      "nota": "busca por 'tendencia' em scripts .py do activelearning não acha nenhum gerador; a imagem foi commitada direto no tesedaru (99f86e9), sem script associado neste repositório. É a ÚNICA figura de fato referenciada no texto de Cap. 4/5 hoje, e é justamente a que não tem artefato reprodutível"
+    },
+    {
+      "numero": "P1 sensibilidade |L0|=10: acurácia 6.7%",
+      "onde": "4-resultados-l0/texto.tex#sec:res-l0-sens",
+      "experimento": "conjunto-inicial",
+      "artefato": "experiments/p1/results/replay_l0.jsonl",
+      "codigo": "experiments/p1/replay_l0_sensitivity.py",
+      "notebook_kaggle": "notebooks/auditoria/conjunto-inicial.ipynb",
+      "status": "rastreado",
+      "nota": "replay: 6.6% (Δ -0.1 p.p., dentro de 1,0 p.p. de folga)"
+    },
+    {
+      "numero": "P1 sensibilidade |L0|=100: acurácia 24.7%",
+      "onde": "4-resultados-l0/texto.tex#sec:res-l0-sens",
+      "experimento": "conjunto-inicial",
+      "artefato": "experiments/p1/results/replay_l0.jsonl",
+      "codigo": "experiments/p1/replay_l0_sensitivity.py",
+      "notebook_kaggle": "notebooks/auditoria/conjunto-inicial.ipynb",
+      "status": "rastreado",
+      "nota": "replay: 24.0% (Δ -0.7 p.p., dentro de 1,0 p.p. de folga)"
+    },
+    {
+      "numero": "P1 sensibilidade |L0|=1000: acurácia 55.9%",
+      "onde": "4-resultados-l0/texto.tex#sec:res-l0-sens",
+      "experimento": "conjunto-inicial",
+      "artefato": "experiments/p1/results/replay_l0.jsonl",
+      "codigo": "experiments/p1/replay_l0_sensitivity.py",
+      "notebook_kaggle": "notebooks/auditoria/conjunto-inicial.ipynb",
+      "status": "rastreado",
+      "nota": "replay: 55.5% (Δ -0.4 p.p., dentro de 1,0 p.p. de folga)"
+    },
+    {
+      "numero": "P1 sensibilidade |L0|=10000: acurácia 76.9%",
+      "onde": "4-resultados-l0/texto.tex#sec:res-l0-sens",
+      "experimento": "conjunto-inicial",
+      "artefato": "experiments/p1/results/replay_l0.jsonl",
+      "codigo": "experiments/p1/replay_l0_sensitivity.py",
+      "notebook_kaggle": "notebooks/auditoria/conjunto-inicial.ipynb",
+      "status": "rastreado",
+      "nota": "replay: 76.4% (Δ -0.5 p.p., dentro de 1,0 p.p. de folga)"
+    },
+    {
+      "numero": "P1 sensibilidade |L0|=200000: acurácia 89.1%",
+      "onde": "4-resultados-l0/texto.tex#sec:res-l0-sens",
+      "experimento": "conjunto-inicial",
+      "artefato": "experiments/p1/results/replay_l0.jsonl",
+      "codigo": "experiments/p1/replay_l0_sensitivity.py",
+      "notebook_kaggle": "notebooks/auditoria/conjunto-inicial.ipynb",
+      "status": "rastreado",
+      "nota": "replay: 88.8% (Δ -0.3 p.p., dentro de 1,0 p.p. de folga)"
+    },
+    {
+      "numero": "P1 amplitude em |L0|=100: 6,4 p.p. entre repetições",
+      "onde": "4-resultados-l0/texto.tex#sec:res-l0-sens",
+      "experimento": "conjunto-inicial",
+      "artefato": "experiments/p1/results/replay_l0.jsonl",
+      "codigo": "experiments/p1/replay_l0_sensitivity.py",
+      "notebook_kaggle": "notebooks/auditoria/conjunto-inicial.ipynb",
+      "status": "rastreado",
+      "nota": "replay (10 reps, vs. 30 originais): 4,8 p.p. — mesmo fenômeno, amplitude menor por ter menos repetições, não é refutação"
+    },
+    {
+      "numero": "P2 inflação de circularidade em max_f1 |L0|=500: +6,3 p.p.",
+      "onde": "docs/convergencia-replays.md#C2",
+      "experimento": "conjunto-inicial",
+      "artefato": "experiments/p1/results/replay_ga.jsonl",
+      "codigo": "experiments/p1/replay_ga.py",
+      "notebook_kaggle": "notebooks/auditoria/conjunto-inicial.ipynb",
+      "status": "rastreado",
+      "nota": "replay REPRODUZ EXATAMENTE: +6,3 p.p. (19,4% partição de aptidão vs. 13,1% teste intocado, valores idênticos ao relatório que estava sem artefato)"
+    },
+    {
+      "numero": "P2 ganho do AG sobre a média aleatória em |L0|=50: +5,2 p.p.",
+      "onde": "docs/convergencia-replays.md#C2",
+      "experimento": "conjunto-inicial",
+      "artefato": "experiments/p1/results/replay_ga.jsonl",
+      "codigo": "experiments/p1/replay_ga.py",
+      "notebook_kaggle": "notebooks/auditoria/conjunto-inicial.ipynb",
+      "status": "divergente",
+      "nota": "replay dá +1,3 p.p. — mesma direção (o AG vence), magnitude ~4x menor. CORREÇÃO desta própria auditoria: a divergência de magnitude é ESPERADA, não anômala — D-002 (docs/decisoes.md) documenta que o replay usa escala deliberadamente reduzida (N_pop=30, 40 gerações) vs. o original (N_pop=50, 100 gerações); mantido como 'divergente' porque o NÚMERO ainda diverge do texto, mas a causa está identificada e documentada, não é acaso de investigar"
+    },
+    {
+      "numero": "N=250.221 descrições (versão corrigida)",
+      "onde": "3-metodo/texto.tex#sec:metodo-dados",
+      "experimento": "todos",
+      "artefato": "data/dataset.csv",
+      "codigo": "leitura direta do CSV",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "250.221 linhas — bate exato"
+    },
+    {
+      "numero": "N=250.365 na versão original; 144 linhas 'inativo' removidas",
+      "onde": "3-metodo/texto.tex#sec:metodo-dados",
+      "experimento": "todos",
+      "artefato": "data/dataset.csv",
+      "codigo": "leitura direta do CSV",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "250.365 − 250.221 = 144 — inferido por subtração, não há artefato intermediário da versão 'original' pré-correção versionado; a aritmética fecha mas não há como auditar a lista das 144 linhas em si"
+    },
+    {
+      "numero": "classe mais frequente 'biscoito': 14.292 instâncias (5,7%)",
+      "onde": "3-metodo/texto.tex#sec:metodo-dados",
+      "experimento": "todos",
+      "artefato": "data/dataset.csv",
+      "codigo": "leitura direta do CSV (Counter por nm_product)",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "14.292/250.221 = 5,71% — bate exato"
+    },
+    {
+      "numero": "descrições curtas: 4 a 50 caracteres, mediana 32",
+      "onde": "3-metodo/texto.tex#sec:metodo-dados",
+      "experimento": "todos",
+      "artefato": "data/dataset.csv",
+      "codigo": "leitura direta do CSV (len(nm_item))",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "min=4, max=50, mediana=32 — bate exato"
+    },
+    {
+      "numero": "conflitos de rótulo: 719 descrições distintas (1.807 linhas; 0,7%)",
+      "onde": "3-metodo/texto.tex#sec:metodo-dados-auditoria",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/results/noise_impact.json",
+      "codigo": "experiments/e0/analyze_noise_impact.py",
+      "notebook_kaggle": "notebooks/auditoria/escolha-do-oraculo.ipynb",
+      "status": "divergente",
+      "nota": "script canônico (o mesmo que sustenta a análise de sensibilidade citada no próprio parágrafo) reexecutado agora: 693 descrições / 1.720 linhas (0,69%). O percentual arredondado bate (0,7%), os inteiros não — 719 vs 693 (+3,7%), 1.807 vs 1.720 (+5,1%). Não é ponto flutuante: são 26 descrições e 87 linhas de diferença. Divergência real, reportada — não corrigida"
+    },
+    {
+      "numero": "CategorySchema: 620 classes frequentes + 1 sentinela (_rare_) = 621",
+      "onde": "3-metodo/texto.tex#sec:metodo-dados-preprocessamento",
+      "experimento": "todos",
+      "artefato": "data/dataset.csv",
+      "codigo": "min_samples_per_class=5 (experiments/e0/config.json)",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "621 classes com ≥5 exemplos + _rare_ — bate exato"
+    },
+    {
+      "numero": "337 linhas em classes raras (0,135%)",
+      "onde": "3-metodo/texto.tex#sec:metodo-dados-preprocessamento",
+      "experimento": "todos",
+      "artefato": "data/dataset.csv",
+      "codigo": "min_samples_per_class=5 (experiments/e0/config.json)",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "337/250.221 = 0,1347% ≈ 0,13% — bate"
+    },
+    {
+      "numero": "particionamento deduplicado: 231.490 textos únicos / 714 classes presentes",
+      "onde": "3-metodo/texto.tex#sec:metodo-dados-particionamento",
+      "experimento": "escala-populacional",
+      "artefato": "experiments/e6population/",
+      "codigo": "método já validado nas Ondas anteriores (Counter de rótulo bruto ANTES do dedup para o filtro ≥2, chave de dedup = texto.strip().lower(), não normalize_label completo)",
+      "notebook_kaggle": "notebooks/auditoria/escala-populacional.ipynb",
+      "status": "rastreado",
+      "nota": "231.490 / 714 — bate exato com o método já usado nas auditorias de E6/E3′"
+    },
+    {
+      "numero": "pool=50.000; holdout=4.000 (2.000+2.000); população reservada≈177 mil",
+      "onde": "3-metodo/texto.tex#sec:metodo-dados-particionamento",
+      "experimento": "escala-populacional",
+      "artefato": "experiments/e6population/",
+      "codigo": "50.000+4.000+177.490=231.490",
+      "notebook_kaggle": "notebooks/auditoria/escala-populacional.ipynb",
+      "status": "rastreado",
+      "nota": "177.490 bate com '≈177 mil' do PRÓPRIO Cap. 3 — nota importante: isso NÃO é o mesmo achado da divergência já reportada em escala-populacional (Cap. 5), onde o texto do Cap. 5 diz '≈140 mil' para a mesma população reservada. Ou seja: o Cap. 3 (aqui) está CORRETO/bate com o artefato; é o Cap. 5 que diverge — do artefato E também do próprio Cap. 3. Reforça o achado #3 já levantado, agora com uma segunda fonte textual confirmando o valor certo"
+    },
+    {
+      "numero": "JS divergence pool×população = 0,0022; Spearman = 0,983",
+      "onde": "3-metodo/texto.tex#sec:metodo-dados-particionamento",
+      "experimento": "escala-populacional",
+      "artefato": "experiments/e6population/results/analysis.json",
+      "codigo": "experiments/e6population/",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "bate exato"
+    },
+    {
+      "numero": "649/714 classes no pool (90,9%); 65 ausentes; 179 com <5 exemplos",
+      "onde": "3-metodo/texto.tex#sec:metodo-dados-particionamento",
+      "experimento": "escala-populacional",
+      "artefato": "experiments/e6population/",
+      "codigo": "649+65=714; 649/714=90,90%",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "bate exato"
+    },
+    {
+      "numero": "≈70 exemplos/classe em média no pool",
+      "onde": "3-metodo/texto.tex#sec:metodo-dados-particionamento",
+      "experimento": "escala-populacional",
+      "artefato": "experiments/e6population/",
+      "codigo": "50.000/714=70,03",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "denominador correto é 714 (total de classes do schema), não 649 (classes presentes) — com 649 daria 77,04, não bate; com 714 bate"
+    },
+    {
+      "numero": "BERTimbau: taxa de aprendizado 3×10⁻⁵",
+      "onde": "3-metodo/texto.tex#sec:metodo-classificadores",
+      "experimento": "classificador-forte",
+      "artefato": "src/activelearning/adapters/classifiers/bertimbau.py",
+      "codigo": "BertimbauClassifier.__init__ (default learning_rate)",
+      "notebook_kaggle": "notebooks/auditoria/classificador-forte.ipynb",
+      "status": "divergente",
+      "nota": "código usa 5×10⁻⁵ em TODO lugar onde a taxa aparece: default da classe (5e-5), experiments/e2e3/train_full.py --lr default (5e-5), bertimbau_colab_tpu.ipynb célula LR=5e-5 (o notebook do E2 de verdade). Nenhuma ocorrência de 3e-5 em nenhum script ou notebook do repositório. run_e3prime.py nem expõe --lr como argumento — sempre usa o default da classe, portanto sempre 5e-5. Divergência real, reportada — não corrigida"
+    },
+    {
+      "numero": "BERTimbau: lote de treinamento 32",
+      "onde": "3-metodo/texto.tex#sec:metodo-classificadores",
+      "experimento": "classificador-forte",
+      "artefato": "src/activelearning/adapters/classifiers/bertimbau.py",
+      "codigo": "BertimbauClassifier.__init__ (default batch_size)",
+      "notebook_kaggle": "notebooks/auditoria/classificador-forte.ipynb",
+      "status": "divergente",
+      "nota": "código usa batch_size=16 por default (CPU) e 128 no notebook real do E2 (bertimbau_colab_tpu.ipynb: 'BATCH=128 if DEVICE_KIND!=\"cpu\" else 16'); 32 nunca aparece como tamanho de lote em lugar nenhum do repositório. HIPÓTESE (não confirmada, reportada como tal): o mesmo construtor (BertimbauClassifier.__init__) tem, na linha seguinte ao batch_size, um parâmetro DIFERENTE chamado max_length também com default 32 — é o comprimento máximo de tokens, não o tamanho do lote. Provável troca dos dois parâmetros na redação do Cap. 3. Divergência real, reportada — não corrigida, hipótese de causa incluída para o principal avaliar"
+    },
+    {
+      "numero": "BERTimbau: decaimento de peso 0,01",
+      "onde": "3-metodo/texto.tex#sec:metodo-classificadores",
+      "experimento": "classificador-forte",
+      "artefato": "src/activelearning/adapters/classifiers/bertimbau.py",
+      "codigo": "torch.optim.AdamW(...) sem weight_decay explícito",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "o código NÃO fixa weight_decay explicitamente — mas 0,01 é o default do próprio torch.optim.AdamW; portanto o valor efetivo bate, por herança do default da biblioteca, não por parâmetro escrito no código"
+    },
+    {
+      "numero": "épocas por iteração determinadas empiricamente no E2 (|L|∈{10³,10⁴,5×10⁴})",
+      "onde": "3-metodo/texto.tex#sec:metodo-classificadores",
+      "experimento": "classificador-forte",
+      "artefato": "experiments/e2e3/bertimbau_colab_tpu.ipynb",
+      "codigo": "leitura do notebook",
+      "notebook_kaggle": "",
+      "status": "sem-evidencia",
+      "nota": "o notebook real do E2 não fixa LIMIT∈{1000,10000,50000} como conjunto de varredura — não há artefato de resultado do E2 versionado (nenhum experiments/e2e3/results/e2*) que permita confirmar quais |L| foram de fato varridos. Sem evidência recuperável do conjunto exato usado"
+    },
+    {
+      "numero": "S-rand n=1.000; S-strat 3/classe, n≈1.863",
+      "onde": "3-metodo/texto.tex#sec:metodo-oraculo-desenho",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/config.json + experiments/e0/results/{rand,strat}/",
+      "codigo": "config.json: samples.random_size=1000, stratified_per_class=3",
+      "notebook_kaggle": "",
+      "status": "rastreado",
+      "nota": "wc -l dos JSONL reais: rand=1.000, strat=1.863 — bate exato. Referência cruzada: já coberto pelas entradas de E0 em Cap. 5; incluído aqui só porque o número também é citado no Cap. 3"
+    },
+    {
+      "numero": "critério de decisão do oráculo: piso de 85% de acurácia na S-rand",
+      "onde": "3-metodo/texto.tex#sec:metodo-oraculo-decisao",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/config.json + experiments/e0/results/e0_table.json",
+      "codigo": "e0_table.json (accuracy por oráculo, amostra rand)",
+      "notebook_kaggle": "notebooks/auditoria/escolha-do-oraculo.ipynb",
+      "status": "divergente",
+      "nota": "NENHUM oráculo do E0 atinge 85% de acurácia na S-rand — o melhor é deepseek-v4-pro com 82,1%. O próprio experiments/e0/config.json anota deepseek-v4-flash (78,3% no rand) como '_nota: LLM Inicial candidato' e deepseek-v4-pro (82,1%) como '_nota: LLM Avancado candidato' — ou seja, a escolha real registrada no config não satisfaz o piso de 85% que o próprio Cap. 3 declara como critério. O texto também prevê esse caso ('se nenhum modelo atingir o limiar, o E4 torna-se obrigatório'), mas não há, nos artefatos, registro de que essa branch alternativa foi de fato adotada — ambiguidade entre a regra escrita e a escolha registrada"
+    },
+    {
+      "numero": "E4: ε ∈ {0; 0,1; 0,2; 0,4}",
+      "onde": "3-metodo/texto.tex#sec:metodo-falco",
+      "experimento": "robustez-ao-ruido",
+      "artefato": "experiments/e1e4/run_sweeps.py",
+      "codigo": "run_sweeps.py linha 5 e loop 'for noise in (0.1, 0.2, 0.4)'",
+      "notebook_kaggle": "notebooks/auditoria/estrategias-e-robustez.ipynb",
+      "status": "rastreado",
+      "nota": "código varre noise∈{0,1;0,2;0,4} explicitamente; ε=0 é o próprio E1 (oráculo perfeito), reaproveitado como o ponto zero da mesma curva — não há um 4º valor de noise=0 rodado à parte, é E1 relido. Referência cruzada: já coberto pelas entradas de E1/E4 em Cap. 5"
+    },
+    {
+      "numero": "estagnação: p=5 iterações, ε=10⁻³ de tolerância",
+      "onde": "3-metodo/texto.tex#sec:metodo-falco",
+      "experimento": "todos",
+      "artefato": "docs/architecture.md ou config do E5",
+      "codigo": "busca no repositório",
+      "notebook_kaggle": "",
+      "status": "sem-evidencia",
+      "nota": "não localizado nenhum config/script com p=5 ou tolerância 1e-3 de estagnação versionado e executável fora do E5 (que está bloqueado pelo cache do oráculo, mesmo bloqueio já registrado para E5/braços A-C do E3′)"
+    },
+    {
+      "numero": "E3′ braço A: |A|/|D| ≈ 18% dos rótulos",
+      "onde": "3-metodo/texto.tex#sec:metodo-falco-baselines",
+      "experimento": "classificador-forte",
+      "artefato": "experiments/e2e3/results/ (braços A/B/C)",
+      "codigo": "run_e3prime.py braços A/B/C",
+      "notebook_kaggle": "",
+      "status": "sem-evidencia",
+      "nota": "mesmo bloqueio já registrado: braços A/B/C do E3′ dependem do annotation_cache_nemotron.jsonl, fora do repositório — não há como calcular |A| (cardinalidade real do cache) para conferir a proporção"
+    },
+    {
+      "numero": "gate de calibração de lote do E0: maior lote sem degradar acurácia (McNemar, lotes de 1/10/25)",
+      "onde": "3-metodo/texto.tex#sec:metodo-oraculo-instrumentacao",
+      "experimento": "escolha-do-oraculo",
+      "artefato": "experiments/e0/",
+      "codigo": "busca no repositório",
+      "notebook_kaggle": "",
+      "status": "sem-evidencia",
+      "nota": "não localizado um artefato/script versionado com essa calibração específica (comparação de lotes 1 vs 10 vs 25 por McNemar) — os items_per_call finais (10 ou 25, por provedor) estão no config.json, mas a análise que justificou a escolha não está versionada"
+    }
+  ]
+}
