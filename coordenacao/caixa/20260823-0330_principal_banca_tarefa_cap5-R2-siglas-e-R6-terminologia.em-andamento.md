@@ -27,3 +27,17 @@ E6) antes de reescrever os dois "porque"; (c) 3 itens meus de decisao do
 autor (reabertura LLM/LCE ja aplicada conservadoramente; "dp" nas legendas e
 unificacao interna/autoavaliacao ficam para o gate). Fecho o lote no mesmo
 branch quando o R3/R5 chegar.
+
+## Andamento 2 (banca, 2026-08-23, apos R3/R5 e decisoes do autor)
+
+Branch `banca/lote-cap5-varredura` avancou para @33cc87c: aplicadas as 3
+decisoes do autor (dp glosado na 1a legenda; "interna/teste interno" ->
+"autoavaliacao" em todo o Cap.5; reabertura LLM/LCE mantida) e o R3-3 do
+revisor2 (frase do colapso reformulada como observacao deste experimento).
+R5-2 ja estava resolvido na base da branch (celulas 0,7%/0,2%). Aguardam
+para fechar: valor homogeneo do braco E (tarefa 0830 ao revisor2) + a frase
+da l.565 (92,0%->92,7% se 0,8223); medicao de composicao por classe do
+revisor1 (R4#7); R5-3 (p=0,58) segue bloqueado no executor02 e pode fechar
+em passada propria se o autor preferir nao segurar o lote. R3-1/R3-2
+(fichas) e o achado estrutural (_bs16v2 fora da main do activelearning) nao
+sao superficie da banca.
