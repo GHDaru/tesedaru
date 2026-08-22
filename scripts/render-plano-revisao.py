@@ -702,11 +702,11 @@ def build_plano() -> tuple[str, str]:
     <p class="parte-obs">mesma revisão do capítulo — ainda sem rodada rastreada por arquivo</p>`;
   }};
 
-  // grid de capítulos — MOCKUP ciclo 014 v3 (2ª correção do autor: 3 níveis
-  // — 1) linha fechada, igual hoje; 2) aberto = partes do agregado (só
-  // ícones) OU quebra por tema, quando existirem; 3) "o que abre esta
-  // frente" nested, exatamente como hoje, só que dentro do card em vez de
-  // solto abaixo da matriz)
+  // grid de capítulos (ciclo 014, aprovado pelo autor 2026-08-22): 3 níveis
+  // — 1) linha fechada, igual à antiga matriz; 2) aberto = partes do
+  // agregado (só ícones) OU quebra por tema, quando existirem; 3) "o que
+  // abre esta frente" aninhado, mesmo conteúdo de antes, só que dentro do
+  // card em vez de solto abaixo da matriz
   el('cap-grid').innerHTML = P.capitulos.map(c => {{
     const t = ptsCap[c.id] || {{pontos: 0, feitos: 0}};
     const enc = c.encerrado

@@ -1,4 +1,4 @@
-# Protocolo de coordenação — agentes + autor (v1.3)
+# Protocolo de coordenação — agentes + autor (v1.4)
 
 > Regra única de mensageria, locks e processo multiagente da tese FALCO.
 > Todo agente LÊ este arquivo ao iniciar a sessão e segue o ritual de entrada.
@@ -31,8 +31,14 @@
    principal, sem assumir papel. Título apontando para papel que OUTRA sessão
    ativa já exerce → manter o papel que se vinha exercendo e avisar o
    principal; só o autor resolve renomeando/reatribuindo.
-1. `git pull --rebase origin main` — nenhuma leitura da caixa e nenhum claim
-   vale sem pull no mesmo turno (a raiz de quase toda falha é pular isto).
+1. `git fetch origin main` **e integrar `origin/main` na sua branch** — é a
+   MAIN, não a sua branch designada. Nenhuma leitura da caixa e nenhum claim
+   vale sem isso no mesmo turno. **Repita a cada CICLO de trabalho, não só ao
+   abrir a sessão**: execuções longas (executores) que só rebaseiam a própria
+   branch NÃO veem as tarefas novas nem as respostas do principal — foi a raiz
+   do descompasso do executor01 (22/08). Puxe a main antes de cada claim e de
+   cada entrega. O hook `SessionStart` faz isso ao abrir; o resto do ciclo é
+   com você.
 2. Ler a caixa SÓ por glob: `ls coordenacao/caixa/*_<eu>_*` + `*_todos_*`.
    Nunca "ler tudo".
 3. Arquivar (dever de quem chega): mover para `coordenacao/arquivo/AAAA-MM/`
