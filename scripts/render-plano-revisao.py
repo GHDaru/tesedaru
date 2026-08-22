@@ -1300,20 +1300,21 @@ def build_resultados() -> tuple[str, str]:
 <section class="card">
   <p class="vazia">O que a tese já produziu, com a evidência que sustenta cada
   número — vitrine para o autor e a banca, sem afirmação sem fonte.</p>
+  <nav class="resumo-secoes" id="resumo-secoes" aria-label="Ir para seção"></nav>
 </section>
 
-<section aria-label="Achados por pilar">
+<section id="sec-achados" aria-label="Achados por pilar">
   <div id="achados-pilares"></div>
 </section>
 
-<section class="card">
+<section id="sec-entregas" class="card">
   <h2>Entregas</h2>
   <div class="entregas" id="entregas"></div>
 </section>
 
-<section class="card">
+<section id="sec-experimentos" class="card">
   <h2>Experimentos executados</h2>
-  <div class="scroll"><table id="experimentos"></table></div>
+  <div class="experimentos-grid" id="experimentos"></div>
 </section>
 """
     json_blocks = as_json_script('resultados', resultados)
@@ -1326,20 +1327,29 @@ document.getElementById('meta').textContent = R.atualizado_em ? `atualizado em $
 
 const pilares = R.pilares || {};
 const achados = R.achados || [];
+// pilar sem achado ainda não compete pelo mesmo peso visual que pilar com
+// achado — card cheio só quando há conteúdo real; vazio vira uma linha
+// tracejada compacta (achado de UX: dois cards vazios seguidos, na frente
+// de dados reais, atrasam a leitura de quem abre a página pela 1ª vez)
 document.getElementById('achados-pilares').innerHTML = Object.entries(pilares).map(([id, nome]) => {
   const itens = achados.filter(a => a.pilar === id);
-  const corpo = itens.length ? itens.map(a => `
+  if (!itens.length) {
+    return `<div class="pilar-vazio"><h2>${esc(id)} — ${esc(nome)}</h2>
+      <span class="vazia">sem achados registrados nesta versão</span></div>`;
+  }
+  const corpo = itens.map(a => `
     <div class="achado">
       <p class="achado-afirmacao">${esc(a.afirmacao)}</p>
       <p class="achado-numero">${esc(a.numero)}</p>
       <p class="achado-evidencia">${esc(a.evidencia)}</p>
       ${a.detalhe ? `<p class="achado-detalhe">${esc(a.detalhe)}</p>` : ''}
-    </div>`).join('') : '<p class="vazia">Sem achados registrados nesta versão.</p>';
+    </div>`).join('');
   return `<div class="card" style="margin-bottom:var(--sp-4)">
     <h2>${esc(id)} — ${esc(nome)}</h2>
     ${corpo}
   </div>`;
 }).join('');
+const pilaresComAchado = Object.keys(pilares).filter(id => achados.some(a => a.pilar === id)).length;
 
 const entregas = R.entregas || [];
 document.getElementById('entregas').innerHTML = entregas.length ? entregas.map(e => {
@@ -1355,33 +1365,67 @@ document.getElementById('entregas').innerHTML = entregas.length ? entregas.map(e
 }).join('') : '<p class="vazia">Nenhuma entrega registrada ainda.</p>';
 
 const experimentos = R.experimentos || [];
-const cab = '<thead><tr><th>Experimento</th><th>Pergunta</th><th>Resultado</th><th>Artefato</th><th>Notebook Kaggle</th></tr></thead>';
-const notebookCell = x => x.notebook_kaggle
-  ? `<a href="${esc(x.notebook_kaggle)}" target="_blank" rel="noopener">abrir ↗</a>`
-  : '<span class="vazia" title="Sem notebook publicamente rastreável nesta versão — não é ausência de execução, é ausência de link confirmado">—</span>';
-const linha = x => `<tr>
-  <td class="chap">${esc(x.id)}</td>
-  <td>${x.pergunta ? esc(x.pergunta) : '<span class="vazia">—</span>'}</td>
-  <td>${x.resultado ? esc(x.resultado) : '<span class="vazia">pendente' + (x.nota ? ': ' + esc(x.nota) : '') + '</span>'}</td>
-  <td class="tot">${x.artefato ? esc(x.artefato) : '—'}</td>
-  <td>${notebookCell(x)}</td></tr>`;
-const expTab = document.getElementById('experimentos');
-expTab.innerHTML = experimentos.length ? cab + '<tbody>' + experimentos.map(linha).join('') + '</tbody>' : '';
-if (!experimentos.length) expTab.outerHTML = '<p class="vazia">Nenhum experimento registrado ainda.</p>';
+// cada experimento é um mini-relatório (pergunta + parágrafo de resultado +
+// artefato), não um registro tabular curto — 3 pareceres de especialistas
+// (ciclo 013) confirmaram que uma tabela de 5 colunas força texto de
+// 150-400 caracteres numa grade estreita e empurra a coluna mais nova
+// (notebook Kaggle) para fora da tela sem nenhum aviso de rolagem. Card por
+// experimento (mesmo padrão de "Entregas" acima) resolve os dois problemas
+// de uma vez: nenhuma rolagem horizontal, e o selo do notebook sempre
+// visível no topo do card, nunca escondido atrás de scroll.
+const notebookPill = x => x.notebook_kaggle
+  ? `<a class="pill feito" href="${esc(x.notebook_kaggle)}" target="_blank" rel="noopener"
+      aria-label="abrir notebook Kaggle do experimento ${esc(x.id)}">✓ notebook ↗</a>`
+  : `<span class="pill pendente" title="Sem notebook publicamente rastreável nesta versão — não é ausência de execução, é ausência de link confirmado">— sem notebook</span>`;
+const cardExperimento = x => {
+  const pergunta = x.pergunta ? `<p class="experimento-pergunta">${esc(x.pergunta)}</p>` : '';
+  const resultado = x.resultado ? esc(x.resultado) : 'pendente' + (x.nota ? ': ' + esc(x.nota) : '');
+  const artefato = x.artefato ? `<p class="experimento-artefato">${esc(x.artefato)}</p>` : '';
+  return `<div class="experimento-card">
+    <div class="experimento-topo"><span class="experimento-id">${esc(x.id)}</span>${notebookPill(x)}</div>
+    ${pergunta}
+    <p class="experimento-resultado${x.resultado ? '' : ' vazia'}">${resultado}</p>
+    ${artefato}
+  </div>`;
+};
+document.getElementById('experimentos').innerHTML = experimentos.length
+  ? experimentos.map(cardExperimento).join('')
+  : '<p class="vazia">Nenhum experimento registrado ainda.</p>';
+
+document.getElementById('resumo-secoes').innerHTML = `
+  <a href="#sec-achados">Achados (${pilaresComAchado} de ${Object.keys(pilares).length} pilares)</a>
+  <a href="#sec-entregas">Entregas (${entregas.length})</a>
+  <a href="#sec-experimentos">Experimentos (${experimentos.length})</a>`;
 })();
 </script>
 <style>
+.resumo-secoes{display:flex; flex-wrap:wrap; gap:var(--sp-4); margin-top:var(--sp-3); font-size:var(--fs-2)}
+[id^="sec-"]{scroll-margin-top:1rem}
 .achado{border-top:1px dashed var(--border); padding:var(--sp-3) 0}
 .achado:first-of-type{border-top:none; padding-top:0}
 .achado-afirmacao{margin:0 0 var(--sp-1); font-size:var(--fs-3)}
 .achado-numero{margin:0; font-size:var(--fs-5); font-weight:700; color:var(--accent)}
 .achado-evidencia{margin:.2rem 0 0; color:var(--muted); font-size:var(--fs-1)}
 .achado-detalhe{margin:.3rem 0 0; color:var(--muted); font-size:var(--fs-2)}
+/* pilar sem achado: linha tracejada compacta, não um card cheio do mesmo
+   peso visual de um pilar com dado real (ciclo 013, parecer de tipografia) */
+.pilar-vazio{border:1px dashed var(--border); border-radius:8px; padding:var(--sp-2) var(--sp-3);
+  margin-bottom:var(--sp-3); display:flex; align-items:baseline; gap:var(--sp-3); flex-wrap:wrap}
+.pilar-vazio h2{margin:0; font-size:var(--fs-2); font-weight:500; color:var(--muted)}
 .entregas{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:var(--sp-3)}
 .entrega{border:1px solid var(--border); border-radius:8px; padding:var(--sp-3); background:var(--ground)}
 .entrega-nome{margin:0; font-weight:600; font-size:var(--fs-3)}
 .entrega-descricao{margin:.25rem 0; color:var(--muted); font-size:var(--fs-2)}
 .entrega-link{margin:0; font-size:var(--fs-1); word-break:break-word}
+.experimentos-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:var(--sp-3)}
+.experimento-card{border:1px solid var(--border); border-radius:8px; padding:var(--sp-3); background:var(--ground);
+  display:flex; flex-direction:column; gap:.4rem}
+.experimento-topo{display:flex; align-items:center; justify-content:space-between; gap:var(--sp-2); flex-wrap:wrap}
+.experimento-id{font-weight:700; font-size:var(--fs-3)}
+.experimento-pergunta{margin:0; font-style:italic; color:var(--muted); font-size:var(--fs-2)}
+.experimento-resultado{margin:0; font-size:var(--fs-2); line-height:1.5}
+.experimento-resultado.vazia{font-size:var(--fs-2)}
+.experimento-artefato{margin:0; font-size:var(--fs-1); color:var(--muted); word-break:break-word}
 </style>"""
     return body, script
 
