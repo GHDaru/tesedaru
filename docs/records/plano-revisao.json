@@ -1,6 +1,6 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 80,
+  "versao": 81,
   "atualizado_em": "2026-08-22T13:25:00Z",
   "atualizado_por": "site (tarefa 20260822-1130_principal_site_elementos-pos-textuais), sobre o v79 do expurgo E da banca (fe58d2e): campo pos_textuais[] novo — referências (337 entradas, medido em referencias.bib) + 7 apêndices individuais (a1..a7), estado medido por arquivo (existe/sem marcador de rascunho). Não reescreve capitulos[].ap nem suas rodadas — divisão editorial R1-R7 por apêndice fica para o principal decidir.",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
@@ -1251,12 +1251,6 @@
       "titulo": "Apagar as branches humanize/cap2-t2 e cap2-t3 (superadas; conteudo util ja resgatado em 5218ccd). Enquanto existirem, o guarda do harness mantem 2-fundam/texto.tex BLOQUEADO para todos. Credencial das sessoes nao apaga branch (403) — so o autor: git push origin --delete humanize/cap2-t2 (2438c68) e humanize/cap2-t3 (dc7247e).",
       "origem": "revisor2 0440",
       "estado": "aguardando comando do autor"
-    },
-    {
-      "id": "dec-canais-do-autor",
-      "titulo": "Governanca: a banca (1050 §3) afirma que o autor aprovou 'o mapa/gate' na CONVERSA DELE COM A BANCA — canal separado do principal. ADR 0009 pressupoe um canal (o principal). Proposta da banca: ordem do autor em QUALQUER conversa dele vale como gate, com o agente que a recebeu obrigado a ecoar na caixa em 1 mensagem. PENDENTE: confirmacao do autor de que usa dois canais e como quer o roteamento.",
-      "origem": "banca 1050 §3 + principal 0800",
-      "estado": "aguardando o autor"
     }
   ],
   "lembretes": [
