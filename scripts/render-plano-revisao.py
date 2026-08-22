@@ -645,7 +645,9 @@ def build_plano() -> tuple[str, str]:
   // quebra por tema — precisa existir antes do grid de capítulos porque a
   // quebra de cada capítulo, quando existe, agora é fundida dentro do
   // próprio card (parecer dos 3 especialistas do ciclo 014: é a mesma
-  // pergunta do capítulo, granularidade menor — não uma seção à parte)
+  // pergunta do capítulo, granularidade menor — não uma seção à parte).
+  // Temas viraram lista leve (ícone único + nome), não cards — correção do
+  // autor: "não precisa ser cards, bullet points já atendem".
   const STAGE_ORDER = ['aberto', 'r3', 'r4', 'r1', 'gate', 'feito'];
   const STAGE_CLASS = {{aberto: 'pendente', r3: 'andamento', r4: 'andamento', r1: 'andamento', gate: 'gate', feito: 'feito'}};
   const rodadaDef = Object.fromEntries(P.rodadas.map(r => [r.id, r]));
@@ -654,19 +656,12 @@ def build_plano() -> tuple[str, str]:
     const temas = c.quebra;
     const pct = Math.round(100 * temas.reduce((s, t) => s + STAGE_ORDER.indexOf(t.status), 0)
       / (temas.length * (STAGE_ORDER.length - 1)));
-    const cards = temas.map(t => {{
+    const linhas = temas.map(t => {{
       const cls = STAGE_CLASS[t.status] || 'pendente';
-      const semDef = t.responsavel === 'a definir';
-      const citacoes = t.citacoes ?? t.citacoes_chaves;
       const note = t.nota ? ` title="${{esc(t.nota)}}"` : '';
-      return `<div class="tema-card">
-        <div class="tema-top">
-          <span class="pill ${{cls}}${{t.nota ? ' has-note' : ''}}"${{note}}>${{GLIFO[cls]}} ${{esc(t.status)}}</span>
-          <span class="tema-resp${{semDef ? ' tema-resp-indef' : ''}}"><span class="k-ag-dot" data-ag="${{esc(t.responsavel)}}" aria-hidden="true"></span>${{esc(t.responsavel)}}</span>
-        </div>
-        <p class="tema-nome">${{esc(t.tema)}}</p>
-        <p class="tema-dim">linhas ${{esc(t.linhas)}} · ${{t.palavras}} palavras · ${{t.travessoes}} travessões · ${{citacoes ?? '—'}} citações</p>
-      </div>`;
+      return `<div class="item"><span class="pill ${{cls}}${{t.nota ? ' has-note' : ''}}"${{note}}>${{GLIFO[cls]}} ${{esc(t.status)}}</span>
+        <span class="t">${{esc(t.tema)}}</span>
+        <span class="who"><span class="k-ag-dot" data-ag="${{esc(t.responsavel)}}" aria-hidden="true"></span>${{esc(t.responsavel)}}</span></div>`;
     }}).join('');
     return `<div class="quebra-cap">
       <div class="quebra-cap-head"><h4>Quebra por tema</h4>
@@ -674,16 +669,40 @@ def build_plano() -> tuple[str, str]:
       <div class="progress" role="progressbar" aria-valuenow="${{pct}}" aria-valuemin="0" aria-valuemax="100"
         aria-label="Progresso por tema de ${{esc(c.titulo)}}"><div class="progress-bar" style="width:${{pct}}%"></div></div>
       ${{c.sequencia_rodadas ? `<p class="quebra-seq">${{esc(c.sequencia_rodadas)}}</p>` : ''}}
-      <div class="temas-grid">${{cards}}</div>
+      ${{linhas}}
     </div>`;
   }};
 
-  // grid de capítulos — MOCKUP ciclo 014 v2 (correção do autor: aberto
-  // continua ícone+status, não card descritivo). Fechado = exatamente o que
-  // a linha da matriz já mostrava (pill()/GLIFO sem mudança). Aberto = lista
-  // leve, mesmo padrão .item já usado em "Execuções fora do texto" e
-  // "Elementos pós-textuais" — ícone + rodada + nota/bloqueio na mesma linha,
-  // nunca um bloco de texto separado.
+  // partes de um capítulo-agregado (pre = resumo+abstract; ap = 7 apêndices)
+  // — mesmo dado do capítulo (não existe rodada rastreada por arquivo ainda),
+  // só reapresentado por nome de arquivo, ícones apenas, sem nota nem texto
+  // (correção do autor). PT já foi calculado mais abaixo — repetimos aqui
+  // porque partesHtml roda antes; leitura segura, mesmo objeto.
+  const PTlocal = P.pos_textuais || [];
+  const partesHtml = c => {{
+    let partes = null;
+    if (c.id === 'pre') {{
+      partes = c.arquivo.split('·').map(s => s.trim()).map(f => ({{
+        nome: /resumo/i.test(f) ? 'Resumo' : /abstract/i.test(f) ? 'Abstract' : f, arquivo: f
+      }}));
+    }} else if (c.id === 'ap') {{
+      partes = PTlocal.filter(x => x.id.startsWith('a')).map(x => ({{
+        nome: x.titulo.replace(/^Apêndice /, ''), arquivo: x.arquivo
+      }}));
+    }}
+    if (!partes) return '';
+    return `<div class="partes-lista">${{partes.map(pt => `
+      <div class="parte-linha"><span class="parte-nome">${{esc(pt.nome)}}</span>
+        <span class="parte-rodadas">${{P.rodadas.map(r => pill(c.rodadas[r.id], c.titulo, r.id)).join('')}}</span></div>`).join('')}}
+    </div>
+    <p class="parte-obs">mesma revisão do capítulo — ainda sem rodada rastreada por arquivo</p>`;
+  }};
+
+  // grid de capítulos — MOCKUP ciclo 014 v3 (2ª correção do autor: 3 níveis
+  // — 1) linha fechada, igual hoje; 2) aberto = partes do agregado (só
+  // ícones) OU quebra por tema, quando existirem; 3) "o que abre esta
+  // frente" nested, exatamente como hoje, só que dentro do card em vez de
+  // solto abaixo da matriz)
   el('cap-grid').innerHTML = P.capitulos.map(c => {{
     const t = ptsCap[c.id] || {{pontos: 0, feitos: 0}};
     const enc = c.encerrado
@@ -691,15 +710,9 @@ def build_plano() -> tuple[str, str]:
     const naCount = P.rodadas.filter(r => (c.rodadas[r.id]?.status) === 'na').length;
     const feitoCount = P.rodadas.filter(r => (c.rodadas[r.id]?.status) === 'feito').length;
     const denom = P.rodadas.length - naCount;
-    const rodadaItens = P.rodadas.map(r => {{
-      const cell = c.rodadas[r.id] || {{status: 'pendente'}};
-      const def = rodadaDef[r.id];
-      const bloq = (cell.bloqueado_por || []).length ? ` · ⛓ bloqueado por: ${{cell.bloqueado_por.map(esc).join(', ')}}` : '';
-      const nota = cell.nota ? ` · ${{esc(cell.nota)}}` : '';
-      return `<div class="item"><span class="pill ${{cell.status}}">${{GLIFO[cell.status]}} ${{esc(cell.status)}}</span>
-        <span class="t">${{r.id}} · ${{esc(def.nome)}}${{nota}}${{bloq}}</span></div>`;
-    }}).join('');
     const dims = c.dimensoes ? `<p class="cap-dims">${{c.dimensoes.travessoes}} travessões · ${{c.dimensoes.citacoes}} citações · ${{c.dimensoes.tokens}} tokens numéricos</p>` : '';
+    const abertura = c.abertura ? `<details class="cap-abertura"><summary>O que abre esta frente</summary>
+      <ul class="notes">${{c.abertura.map(a => `<li>${{esc(a)}}</li>`).join('')}}</ul></details>` : '';
     return `<details class="cap-card">
       <summary class="cap-card-head">
         <span class="cap-card-titulo">${{c.titulo}}${{enc}}</span>
@@ -709,9 +722,10 @@ def build_plano() -> tuple[str, str]:
           <span class="cap-card-rd-count">${{feitoCount}}/${{denom}} rodadas</span></span>
       </summary>
       <div class="cap-card-body">
-        <div class="cap-rodadas-detalhe">${{rodadaItens}}</div>
-        ${{dims}}
+        ${{partesHtml(c)}}
         ${{quebraHtml(c)}}
+        ${{dims}}
+        ${{abertura}}
       </div>
     </details>`;
   }}).join('');
@@ -808,8 +822,16 @@ tr.chap-encerrado{{background:var(--st-feito-bg)}}
 .cap-card-resumo{{display:flex; flex-direction:column; align-items:flex-end; gap:.1rem; font-size:var(--fs-1); color:var(--muted); min-width:6rem}}
 .cap-card-pontos{{font-weight:600; color:var(--ink)}}
 .cap-card-body{{padding:0 var(--sp-4) var(--sp-4); border-top:1px solid var(--border)}}
-.cap-rodadas-detalhe{{margin-top:.2rem}}
 .cap-dims{{margin:var(--sp-2) 0 0; color:var(--muted); font-size:var(--fs-1)}}
+.partes-lista{{margin-top:.2rem}}
+.parte-linha{{display:flex; align-items:center; justify-content:space-between; gap:var(--sp-3);
+  padding:.4rem 0; border-bottom:1px dotted var(--border)}}
+.parte-linha:last-child{{border-bottom:none}}
+.parte-nome{{font-weight:600; font-size:var(--fs-2)}}
+.parte-rodadas{{display:flex; gap:.2rem}}
+.parte-obs{{margin:.3rem 0 0; color:var(--muted); font-size:var(--fs-1); font-style:italic}}
+.cap-abertura{{margin-top:var(--sp-3)}}
+.cap-abertura summary{{cursor:pointer; color:var(--muted); font-size:var(--fs-1)}}
 .cap-card-body .quebra-cap{{margin-top:var(--sp-4)}}
 </style>"""
     return body, script
