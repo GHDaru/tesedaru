@@ -1,7 +1,7 @@
 {
  "schema": "kpis/v1",
  "computado_em": "2026-08-22",
- "git_sha": "fe58d2e",
+ "git_sha": "0d5ba4a",
  "prontidao": {
   "global_pct": 36.7,
   "texto_pct": 43.2,
@@ -132,7 +132,7 @@
    },
    {
     "data": "2026-08-22",
-    "commit": "fe58d2e",
+    "commit": "d206321",
     "pontos": 877,
     "pct": 43.2,
     "evento": null
@@ -140,7 +140,7 @@
   ]
  },
  "fila_autor": {
-  "total": 12,
+  "total": 11,
   "itens": [
    {
     "id": "seed7",
@@ -217,13 +217,6 @@
     "tipo": "decisao",
     "trilha": "texto",
     "titulo": "Política de parada: dois racionais incompatíveis (fator ~20) para a mesma constante — causa-raiz atribuída ao resultado negativo (parecer R3/R4/R6)",
-    "pontos_destravados": 0
-   },
-   {
-    "id": "dec-apagar-humanize-cap2",
-    "tipo": "decisao",
-    "trilha": null,
-    "titulo": "Apagar as branches humanize/cap2-t2 e cap2-t3 (superadas; conteudo util ja resgatado em 5218ccd). Enquanto existirem, o guarda do harness mantem 2-fundam/texto.tex BLOQUEADO para todos. Credencial das sessoes nao apaga branch (403) — so o autor: git push origin --delete humanize/cap2-t2 (2438c68) e humanize/cap2-t3 (dc7247e).",
     "pontos_destravados": 0
    }
   ]
