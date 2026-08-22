@@ -691,9 +691,13 @@ def build_plano() -> tuple[str, str]:
       }}));
     }}
     if (!partes) return '';
+    const naCount = P.rodadas.filter(r => (c.rodadas[r.id]?.status) === 'na').length;
+    const feitoCount = P.rodadas.filter(r => (c.rodadas[r.id]?.status) === 'feito').length;
+    const denom = P.rodadas.length - naCount;
     return `<div class="partes-lista">${{partes.map(pt => `
       <div class="parte-linha"><span class="parte-nome">${{esc(pt.nome)}}</span>
-        <span class="parte-rodadas">${{P.rodadas.map(r => pill(c.rodadas[r.id], c.titulo, r.id)).join('')}}</span></div>`).join('')}}
+        <span class="parte-rodadas">${{P.rodadas.map(r => pill(c.rodadas[r.id], c.titulo, r.id)).join('')}}</span>
+        <span class="parte-resumo">${{feitoCount}}/${{denom}} rodadas</span></div>`).join('')}}
     </div>
     <p class="parte-obs">mesma revisão do capítulo — ainda sem rodada rastreada por arquivo</p>`;
   }};
@@ -824,11 +828,12 @@ tr.chap-encerrado{{background:var(--st-feito-bg)}}
 .cap-card-body{{padding:0 var(--sp-4) var(--sp-4); border-top:1px solid var(--border)}}
 .cap-dims{{margin:var(--sp-2) 0 0; color:var(--muted); font-size:var(--fs-1)}}
 .partes-lista{{margin-top:.2rem}}
-.parte-linha{{display:flex; align-items:center; justify-content:space-between; gap:var(--sp-3);
-  padding:.4rem 0; border-bottom:1px dotted var(--border)}}
+.parte-linha{{display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-3);
+  padding:.5rem 0; border-bottom:1px dotted var(--border)}}
 .parte-linha:last-child{{border-bottom:none}}
 .parte-nome{{font-weight:600; font-size:var(--fs-2)}}
-.parte-rodadas{{display:flex; gap:.2rem}}
+.parte-rodadas{{display:flex; gap:.2rem; margin-left:auto}}
+.parte-resumo{{min-width:6rem; text-align:right; color:var(--muted); font-size:var(--fs-1)}}
 .parte-obs{{margin:.3rem 0 0; color:var(--muted); font-size:var(--fs-1); font-style:italic}}
 .cap-abertura{{margin-top:var(--sp-3)}}
 .cap-abertura summary{{cursor:pointer; color:var(--muted); font-size:var(--fs-1)}}
