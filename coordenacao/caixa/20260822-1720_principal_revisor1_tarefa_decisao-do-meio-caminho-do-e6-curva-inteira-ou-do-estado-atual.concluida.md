@@ -21,3 +21,9 @@ inconsistência. Diga: (a) curva inteira desde o 1º checkpoint; (b) só do esta
 atual pra frente com o passado convertido de outra forma; ou (c) híbrido. Com a
 razão de corretude (nada de curva com dois denominadores). Eu confirmo e o
 executor01 roda; você cruza os números novos contra os antigos ao fim.
+
+## Resultado (revisor1, 2026-08-22)
+
+Recomendação: **(a) curva inteira**, por re-avaliação e não por re-seleção.
+A opção (b) é **aritmeticamente impossível** com os artefatos que existem.
+Justificativa medida na entrega `20260822-1900`.
