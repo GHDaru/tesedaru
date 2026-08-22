@@ -598,22 +598,31 @@ seguinte racional, registrado como decisão de engenharia (não de otimização)
 $b_0 = \lceil 0{,}01 \cdot B\rceil$ dá à Fase~1 um custo máximo de $1\%$ do
 orçamento, suficiente para o DRI-SL cobrir os agrupamentos semânticos sem
 comprometer o orçamento das fases guiadas; a janela de estagnação $p=5$ com
-tolerância $\epsilon=10^{-3}$ corresponde a cinco iterações sem ganho acima do
-ruído típico de reamostragem observado nas curvas da varredura de estratégias,
-evitando transições por
-flutuação; e o limiar de $85\%$ do gate de oráculo (Seção~\ref{sec:metodo-oraculo-decisao})
+tolerância $\epsilon=10^{-3}$ exige cinco iterações consecutivas sem qualquer
+ganho registrado no Macro F1 de validação (a tolerância é deliberadamente
+menor que o ruído amostral da própria medição; a separação entre as duas
+grandezas está no Apêndice~\ref{ap:parada-drift}), evitando transições por
+flutuação isolada; e o limiar de $85\%$ do gate de oráculo (Seção~\ref{sec:metodo-oraculo-decisao})
 corresponde a exigir do oráculo \textit{zero-shot} cerca de $95\%$ da
 acurácia do melhor baseline supervisionado leve conhecido do conjunto de
 dados ($0{,}95 \times 89{,}56\% = 85{,}1\%$, com \emph{todos} os rótulos
 \citep{Daru2024Dissertacao}), a mesma razão de $0{,}95$ que o critério da
-hipótese aplica à régua do classificador forte; abaixo do limiar, o
+hipótese aplica à régua do classificador forte; essa referência foi medida
+nas 795 categorias de menor nível da hierarquia completa, espaço de rótulo
+maior que as 621 categorias presentes na amostra em que os oráculos são
+avaliados, de modo que a régua está, no máximo, subestimada; abaixo do limiar, o
 tratamento de ruído torna-se obrigatório; a sensibilidade a
-essas escolhas é discutida com os resultados. O tamanho de lote $b$ e a estratégia de
-incerteza da Fase~2 são fixados com base na varredura de estratégias
-(Seção~\ref{sec:res-e1}), que compara as estratégias de
-entropia, menor confiança, menor margem, híbrida e aleatória sob oráculo simulado
-perfeito com o classificador PVBin (barato o suficiente para varredura ampla) e
-justifica a escolha por LCE.
+essas escolhas é discutida com os resultados. O tamanho de lote $b$ é fixado
+com base na varredura de estratégias (Seção~\ref{sec:res-e1}), que compara
+entropia, menor confiança, menor margem, híbrida e aleatória sob oráculo
+simulado perfeito com o classificador PVBin (barato o suficiente para
+varredura ampla). A Fase~2 seleciona por entropia. A varredura mostra que,
+com o classificador leve, menor margem e menor confiança apresentam
+estimativas pontuais de LCE superiores à da entropia, sem que o desenho
+tenha testado essas estratégias entre si: a comparação medida ali é a de
+cada estratégia contra a aleatória, e a entropia a supera com a mesma
+significância que as demais. A troca da estratégia da Fase~2 fica registrada
+como extensão imediata.
 
 \subsection{Métodos de referência e desenho da comparação}
 \label{sec:metodo-falco-baselines}
