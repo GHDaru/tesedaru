@@ -521,23 +521,13 @@ def build_plano() -> tuple[str, str]:
   <h2>Capítulos × rodadas</h2>
   <p class="estrutura-resumo" id="estrutura-resumo"></p>
   <div class="rodadas-def" id="rodadas-def"></div>
-  <div class="scroll"><table id="matriz">
-    <caption>✓ feito · 🔒 em gate (espera você) · ◐ andamento · ○ pendente · – não se aplica · ⛓ bloqueado</caption>
-  </table></div>
-  <div id="aberturas"></div>
+  <p class="cap-grid-legenda">✓ feito · 🔒 em gate (espera você) · ◐ andamento · ○ pendente · – não se aplica · ⛓ bloqueado — abra um capítulo para ver as 7 rodadas em detalhe</p>
+  <div id="cap-grid" class="cap-grid"></div>
   <h3 class="pos-textuais-h">Elementos pós-textuais</h3>
   <p class="vazia">Referências e apêndices, na ordem real de <code>principal.tex</code> — ainda
   sem rodadas de revisão próprias (a divisão editorial rodada a rodada dos 7 apêndices,
   hoje um agregado só na matriz acima, é decisão do agente principal).</p>
   <div id="pos-textuais"></div>
-</section>
-
-<section class="card" id="quebra-card">
-  <h2>Quebra por tema</h2>
-  <p class="vazia">Capítulos grandes demais para uma rodada só viram frentes
-  menores — cada tema segue sua própria sequência R3→R4→R1 antes de entrar
-  na reescrita do capítulo inteiro.</p>
-  <div id="quebras"></div>
 </section>
 
 <section class="card">
@@ -652,24 +642,79 @@ def build_plano() -> tuple[str, str]:
     const aria = `${{capTit}}, rodada ${{rid}}: ${{s}}${{bloq ? ', bloqueada' : ''}}${{cell?.nota ? ' — ' + cell.nota : ''}}`;
     return `<span class="pill ${{s}}${{cell?.nota ? ' has-note' : ''}}"${{note}} aria-label="${{esc(aria)}}">${{GLIFO[s]}}${{bloq}}</span>`;
   }};
-  el('matriz').innerHTML += '<thead><tr><th scope="col">Capítulo</th>' +
-    P.rodadas.map(r => `<th scope="col" title="${{esc(r.nome)}} — ${{esc(r.descricao)}}">${{r.id}}</th>`).join('') +
-    '<th scope="col">Pontos</th></tr></thead><tbody>' +
-    P.capitulos.map(c => {{
-      const t = ptsCap[c.id] || {{pontos: 0, feitos: 0}};
-      // capitulos[].encerrado: string com data+justificativa quando o autor
-      // declarou o capítulo fechado — é o marco que o autor mais olha,
-      // por isso destaque na própria linha da matriz, não só um texto a mais
-      const enc = c.encerrado
-        ? ` <span class="pill feito chap-selo" title="${{esc(c.encerrado)}}">✓ encerrado</span>` : '';
-      return `<tr class="${{c.encerrado ? 'chap-encerrado' : ''}}"><th scope="row" class="chap">${{c.titulo}}${{enc}}<small>${{c.arquivo}}</small></th>` +
-        P.rodadas.map(r => `<td>${{pill(c.rodadas[r.id], c.titulo, r.id)}}</td>`).join('') +
-        `<td class="tot">${{t.feitos}}/${{t.pontos}}</td></tr>`;
-    }}).join('') + '</tbody>';
+  // quebra por tema — precisa existir antes do grid de capítulos porque a
+  // quebra de cada capítulo, quando existe, agora é fundida dentro do
+  // próprio card (parecer dos 3 especialistas do ciclo 014: é a mesma
+  // pergunta do capítulo, granularidade menor — não uma seção à parte)
+  const STAGE_ORDER = ['aberto', 'r3', 'r4', 'r1', 'gate', 'feito'];
+  const STAGE_CLASS = {{aberto: 'pendente', r3: 'andamento', r4: 'andamento', r1: 'andamento', gate: 'gate', feito: 'feito'}};
+  const rodadaDef = Object.fromEntries(P.rodadas.map(r => [r.id, r]));
+  const quebraHtml = c => {{
+    if (!(c.quebra || []).length) return '';
+    const temas = c.quebra;
+    const pct = Math.round(100 * temas.reduce((s, t) => s + STAGE_ORDER.indexOf(t.status), 0)
+      / (temas.length * (STAGE_ORDER.length - 1)));
+    const cards = temas.map(t => {{
+      const cls = STAGE_CLASS[t.status] || 'pendente';
+      const semDef = t.responsavel === 'a definir';
+      const citacoes = t.citacoes ?? t.citacoes_chaves;
+      const note = t.nota ? ` title="${{esc(t.nota)}}"` : '';
+      return `<div class="tema-card">
+        <div class="tema-top">
+          <span class="pill ${{cls}}${{t.nota ? ' has-note' : ''}}"${{note}}>${{GLIFO[cls]}} ${{esc(t.status)}}</span>
+          <span class="tema-resp${{semDef ? ' tema-resp-indef' : ''}}"><span class="k-ag-dot" data-ag="${{esc(t.responsavel)}}" aria-hidden="true"></span>${{esc(t.responsavel)}}</span>
+        </div>
+        <p class="tema-nome">${{esc(t.tema)}}</p>
+        <p class="tema-dim">linhas ${{esc(t.linhas)}} · ${{t.palavras}} palavras · ${{t.travessoes}} travessões · ${{citacoes ?? '—'}} citações</p>
+      </div>`;
+    }}).join('');
+    return `<div class="quebra-cap">
+      <div class="quebra-cap-head"><h4>Quebra por tema</h4>
+        <span class="quebra-pct">${{pct}}% <small>(ponderado pela etapa de cada tema)</small></span></div>
+      <div class="progress" role="progressbar" aria-valuenow="${{pct}}" aria-valuemin="0" aria-valuemax="100"
+        aria-label="Progresso por tema de ${{esc(c.titulo)}}"><div class="progress-bar" style="width:${{pct}}%"></div></div>
+      ${{c.sequencia_rodadas ? `<p class="quebra-seq">${{esc(c.sequencia_rodadas)}}</p>` : ''}}
+      <div class="temas-grid">${{cards}}</div>
+    </div>`;
+  }};
 
-  el('aberturas').innerHTML = P.capitulos.map(c => c.abertura ? `
-    <details><summary>${{c.titulo}} — o que abre esta frente</summary>
-      <ul class="notes">${{c.abertura.map(a => `<li>${{esc(a)}}</li>`).join('')}}</ul></details>` : '').join('');
+  // grid de capítulos — MOCKUP ciclo 014 v2 (correção do autor: aberto
+  // continua ícone+status, não card descritivo). Fechado = exatamente o que
+  // a linha da matriz já mostrava (pill()/GLIFO sem mudança). Aberto = lista
+  // leve, mesmo padrão .item já usado em "Execuções fora do texto" e
+  // "Elementos pós-textuais" — ícone + rodada + nota/bloqueio na mesma linha,
+  // nunca um bloco de texto separado.
+  el('cap-grid').innerHTML = P.capitulos.map(c => {{
+    const t = ptsCap[c.id] || {{pontos: 0, feitos: 0}};
+    const enc = c.encerrado
+      ? ` <span class="pill feito chap-selo" title="${{esc(c.encerrado)}}">✓ encerrado</span>` : '';
+    const naCount = P.rodadas.filter(r => (c.rodadas[r.id]?.status) === 'na').length;
+    const feitoCount = P.rodadas.filter(r => (c.rodadas[r.id]?.status) === 'feito').length;
+    const denom = P.rodadas.length - naCount;
+    const rodadaItens = P.rodadas.map(r => {{
+      const cell = c.rodadas[r.id] || {{status: 'pendente'}};
+      const def = rodadaDef[r.id];
+      const bloq = (cell.bloqueado_por || []).length ? ` · ⛓ bloqueado por: ${{cell.bloqueado_por.map(esc).join(', ')}}` : '';
+      const nota = cell.nota ? ` · ${{esc(cell.nota)}}` : '';
+      return `<div class="item"><span class="pill ${{cell.status}}">${{GLIFO[cell.status]}} ${{esc(cell.status)}}</span>
+        <span class="t">${{r.id}} · ${{esc(def.nome)}}${{nota}}${{bloq}}</span></div>`;
+    }}).join('');
+    const dims = c.dimensoes ? `<p class="cap-dims">${{c.dimensoes.travessoes}} travessões · ${{c.dimensoes.citacoes}} citações · ${{c.dimensoes.tokens}} tokens numéricos</p>` : '';
+    return `<details class="cap-card">
+      <summary class="cap-card-head">
+        <span class="cap-card-titulo">${{c.titulo}}${{enc}}</span>
+        <span class="cap-card-arquivo">${{esc(c.arquivo)}}</span>
+        <span class="cap-card-rodadas">${{P.rodadas.map(r => pill(c.rodadas[r.id], c.titulo, r.id)).join('')}}</span>
+        <span class="cap-card-resumo"><span class="cap-card-pontos">${{t.feitos}}/${{t.pontos}} pts</span>
+          <span class="cap-card-rd-count">${{feitoCount}}/${{denom}} rodadas</span></span>
+      </summary>
+      <div class="cap-card-body">
+        <div class="cap-rodadas-detalhe">${{rodadaItens}}</div>
+        ${{dims}}
+        ${{quebraHtml(c)}}
+      </div>
+    </details>`;
+  }}).join('');
 
   // elementos pós-textuais (referências + apêndices individuais) — tarefa do
   // principal 20260822-1130: existem fora de capitulos[] porque, ao contrário
@@ -687,43 +732,6 @@ def build_plano() -> tuple[str, str]:
   // quebra por tema: capítulos grandes demais para uma rodada só (hoje só o
   // Cap.2) viram frentes menores, cada uma com sua própria sequência de
   // etapas — ver capitulos[].quebra / sequencia_rodadas no plano
-  const STAGE_ORDER = ['aberto', 'r3', 'r4', 'r1', 'gate', 'feito'];
-  const STAGE_CLASS = {{aberto: 'pendente', r3: 'andamento', r4: 'andamento', r1: 'andamento', gate: 'gate', feito: 'feito'}};
-  const capsComQuebra = P.capitulos.filter(c => (c.quebra || []).length);
-  if (capsComQuebra.length) {{
-    el('quebras').innerHTML = capsComQuebra.map(c => {{
-      const temas = c.quebra;
-      const pct = Math.round(100 * temas.reduce((s, t) => s + STAGE_ORDER.indexOf(t.status), 0)
-        / (temas.length * (STAGE_ORDER.length - 1)));
-      const cards = temas.map(t => {{
-        const cls = STAGE_CLASS[t.status] || 'pendente';
-        const semDef = t.responsavel === 'a definir';
-        // Cap.2 usa "citacoes", Caps.3-6 usam "citacoes_chaves" — mesmo dado,
-        // nome de campo diferente entre capítulos no plano; aceita os dois
-        const citacoes = t.citacoes ?? t.citacoes_chaves;
-        const note = t.nota ? ` title="${{esc(t.nota)}}"` : '';
-        return `<div class="tema-card">
-          <div class="tema-top">
-            <span class="pill ${{cls}}${{t.nota ? ' has-note' : ''}}"${{note}}>${{GLIFO[cls]}} ${{esc(t.status)}}</span>
-            <span class="tema-resp${{semDef ? ' tema-resp-indef' : ''}}"><span class="k-ag-dot" data-ag="${{esc(t.responsavel)}}" aria-hidden="true"></span>${{esc(t.responsavel)}}</span>
-          </div>
-          <p class="tema-nome">${{esc(t.tema)}}</p>
-          <p class="tema-dim">linhas ${{esc(t.linhas)}} · ${{t.palavras}} palavras · ${{t.travessoes}} travessões · ${{citacoes ?? '—'}} citações</p>
-        </div>`;
-      }}).join('');
-      return `<div class="quebra-cap">
-        <div class="quebra-cap-head"><h3>${{esc(c.titulo)}}</h3>
-          <span class="quebra-pct">${{pct}}% <small>(ponderado pela etapa de cada tema)</small></span></div>
-        <div class="progress" role="progressbar" aria-valuenow="${{pct}}" aria-valuemin="0" aria-valuemax="100"
-          aria-label="Progresso por tema de ${{esc(c.titulo)}}"><div class="progress-bar" style="width:${{pct}}%"></div></div>
-        ${{c.sequencia_rodadas ? `<p class="quebra-seq">${{esc(c.sequencia_rodadas)}}</p>` : ''}}
-        <div class="temas-grid">${{cards}}</div>
-      </div>`;
-    }}).join('');
-  }} else {{
-    el('quebra-card').style.display = 'none';
-  }}
-
   // dois formatos convivem em execucoes.itens: experimentos (o_que/onde/
   // duracao/resultado_esperado/dono) e itens de texto em gate (descricao/
   // branch/commit/responsavel/bloqueado_por) — normaliza os dois aqui
@@ -786,6 +794,23 @@ tr.chap-encerrado{{background:var(--st-feito-bg)}}
 .chap-selo{{margin-left:.5rem; font-size:var(--fs-1); vertical-align:middle; cursor:help}}
 .estrutura-resumo{{margin:.2rem 0 var(--sp-3); color:var(--muted); font-size:var(--fs-2)}}
 .pos-textuais-h{{margin:var(--sp-5) 0 .2rem; font-size:var(--fs-3)}}
+.cap-grid-legenda{{color:var(--muted); font-size:var(--fs-1); margin:0 0 var(--sp-3)}}
+.cap-grid{{display:flex; flex-direction:column; gap:var(--sp-3)}}
+.cap-card{{border:1px solid var(--border); border-radius:8px; background:var(--panel)}}
+.cap-card-head{{display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-3); padding:var(--sp-3) var(--sp-4);
+  cursor:pointer; list-style:none}}
+.cap-card-head::-webkit-details-marker{{display:none}}
+.cap-card-head::before{{content:'▸'; color:var(--muted); flex:0 0 auto}}
+.cap-card[open] .cap-card-head::before{{content:'▾'}}
+.cap-card-titulo{{font-weight:700}}
+.cap-card-arquivo{{color:var(--muted); font-size:var(--fs-1); font-family:monospace}}
+.cap-card-rodadas{{display:flex; gap:.2rem; margin-left:auto}}
+.cap-card-resumo{{display:flex; flex-direction:column; align-items:flex-end; gap:.1rem; font-size:var(--fs-1); color:var(--muted); min-width:6rem}}
+.cap-card-pontos{{font-weight:600; color:var(--ink)}}
+.cap-card-body{{padding:0 var(--sp-4) var(--sp-4); border-top:1px solid var(--border)}}
+.cap-rodadas-detalhe{{margin-top:.2rem}}
+.cap-dims{{margin:var(--sp-2) 0 0; color:var(--muted); font-size:var(--fs-1)}}
+.cap-card-body .quebra-cap{{margin-top:var(--sp-4)}}
 </style>"""
     return body, script
 
