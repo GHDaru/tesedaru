@@ -12,7 +12,12 @@ sensibilidade e o mecanismo do AG foram \textbf{reexecutados de forma
 independente} na biblioteca \texttt{activelearning}, com protocolo mais
 rigoroso (deduplicação antes do particionamento e reavaliação em teste
 intocado); as duas séries são apresentadas lado a lado
-(Seção~\ref{sec:res-l0-replay}).
+(Seção~\ref{sec:res-l0-replay}). Todos os resultados são medidos sobre a base
+real de varejo descrita no Capítulo~\ref{ch:metodo}, com centenas de classes
+desbalanceadas, cenário que os \textit{benchmarks} usuais da área não cobrem;
+a dependência excessiva de \textit{benchmarks} com características limitadas
+é uma restrição apontada pela própria literatura de classificação de texto
+curto \citep{Karl2023}.
 
 \section{Sensibilidade à composição e ao tamanho de \texorpdfstring{$L_0$}{L0}}
 \label{sec:res-l0-sens}
@@ -51,6 +56,24 @@ Três padrões estruturam a leitura:
   segue de perto a curva de cobertura, indicando que, no regime pequeno, o
   fator dominante é \emph{quais classes} entram no sorteio.
 \end{enumerate}
+
+Lidos contra a literatura, esses padrões ganham referência externa. O patamar
+de saturação coincide com o teto conhecido do classificador sobre esta base: a
+melhor configuração leve da dissertação que origina o PVBin mede $89{,}56\%$
+de acurácia e $70{,}09\%$ de Macro F1 com supervisão completa
+\citep{Daru2024Dissertacao}, valores que a curva só alcança no extremo de
+$I=200.000$; os métodos supervisionados clássicos avaliados sobre as mesmas
+descrições situam-se na mesma faixa \citep{Daru2022}. O estudo varre,
+portanto, o intervalo inteiro entre o quase-zero e o teto supervisionado do
+modelo. A variabilidade do regime pequeno também tem análogo publicado: em
+\textit{benchmarks} ingleses, o ajuste fino de um modelo pré-treinado com 32
+rótulos varia até 10 pontos percentuais de acurácia conforme o subconjunto
+sorteado \citep{Yu2023Patron}; a amplitude de $6{,}4$ p.p.\ medida aqui em
+$I=100$ é o mesmo fenômeno, num espaço com duas ordens de grandeza mais
+classes. A prática corrente, no entanto, trata essa escolha como detalhe de
+implementação: há estudos de aprendizado ativo com BERT que partem dos dez
+primeiros exemplos de um conjunto embaralhado \citep{Griesshaber2020}. O que
+esta seção mede é o custo dessa arbitrariedade.
 
 Esses resultados fundamentam a partida a frio: se a composição importa tanto no regime
 pequeno (exatamente o regime do \textit{cold start} do aprendizado ativo),
@@ -134,6 +157,44 @@ valores do AG aqui reportados herdam o protocolo original (aptidão e relato na
 mesma partição), inflacionado por construção; a quantificação está na seção
 seguinte, e reforça a conclusão.
 
+Esse desfecho confirma a expectativa mais bem estabelecida da literatura de
+partida a frio: em orçamento baixo, representatividade supera incerteza.
+\citet{Hacohen2022TypiClust} formalizam a transição de regime já apresentada
+no Capítulo~\ref{ch:fundam} e mostram que, abaixo dela, as estratégias clássicas de consulta
+empatam com a seleção aleatória ou pioram; em texto, \citet{Yu2023Patron}
+medem a incerteza estimada pelo modelo perdendo da aleatória, a seleção por
+conjunto-núcleo abaixo da aleatória e o $k$-médias simples superando
+alternativas mais elaboradas justamente nos conjuntos com mais classes. O
+DRI-SL combina representatividade (densidade semântica) e cobertura
+(variedade lexical), e vence no espaço de 621 classes: o resultado replica,
+em português e numa escala de classes maior do que a testada por esses
+trabalhos, o que essa literatura leva a esperar.
+
+A surpresa está no adversário que a heurística supera. O AG não é um competidor
+fraco: otimiza a composição com acesso direto aos rótulos e à aptidão final,
+ao custo das 5.000 avaliações supervisionadas por cenário, e ainda assim
+perde para uma heurística que não consulta rótulo algum. A literatura sugere
+a explicação: mesmo a incerteza calculada por um modelo treinado no conjunto
+inteiro perde da aleatória no orçamento baixo \citep{Hacohen2022TypiClust},
+indício de que o gargalo da partida a frio não é falta de informação
+supervisionada, e sim a cobertura da estrutura do espaço de entrada, que
+densidade e variedade capturam sem rótulo. O contraste com
+\citet{Zhang2023LLMaAA} delimita o alcance: em tarefas de extração com poucos
+tipos de saída, a diversidade pura por $k$-médias só supera a aleatória em um
+de três conjuntos, e a incerteza domina; aqui, com centenas de classes
+desbalanceadas em texto curto, a relação se inverte. A divergência é coerente
+com a leitura de regime: o valor da representatividade cresce com o número de
+classes a cobrir e diminui quando poucas classes já são cobertas por
+qualquer amostra.
+
+Há, por fim, um efeito de variância que as tabelas de média não mostram. A
+literatura reporta que a seleção estratégica reduz também a dispersão entre
+execuções, não só a média \citep{Griesshaber2020, Yu2023Patron}. O DRI-SL,
+determinístico, leva esse efeito ao limite: elimina por construção a
+amplitude de $6{,}4$ p.p.\ que o sorteio introduz em $I=100$
+(Seção~\ref{sec:res-l0-sens}), o que importa na aplicação, em que o $L_0$ é
+construído uma única vez.
+
 \section{Reexecução independente e efeito da circularidade}
 \label{sec:res-l0-replay}
 
@@ -179,7 +240,11 @@ A reexecução do AG usou 2 tamanhos $\times$ 2 cenários com $N_{pop}=30$ e 40
 gerações, a menor configuração que reproduz o \emph{mecanismo} (a aptidão
 estabiliza bem antes da 40\textsuperscript{a} geração em todas as células),
 pois o objetivo aqui é validar o fenômeno e quantificar a circularidade, não
-re-estimar o envelope completo, que permanece o do estudo original. A
+re-estimar o envelope completo, que permanece o do estudo original. Reduzir a
+malha por custo computacional, declarando o que se perde, tem precedente
+publicado: \citet{Griesshaber2020} restringem o \textit{pool} de não
+rotulados a 20 mil elementos pela mesma razão, registrando o risco de excluir
+instâncias relevantes. A
 reexecução aplicou ainda o protocolo anticircularidade da Seção~\ref{sec:metodo-l0-ag}: aptidão
 medida em partição de aferição, indivíduo final \emph{reavaliado} no teste
 intocado. O mecanismo se reproduz (melhor indivíduo evolui $+5{,}2$ p.p.\ de
@@ -204,4 +269,7 @@ percentuais entre composições boas e ruins; (iii) o DRI-SL captura esse espaç
 sem usar rótulos, superando o melhor indivíduo do AG até $I=5.000$, e é por
 isso a estratégia da Fase~1 do FALCO; (iv) a reexecução independente reproduz
 os três achados e quantifica o viés de circularidade do protocolo original de
-AG, corrigido nesta tese.
+AG, corrigido nesta tese. Lidos em conjunto contra a literatura, os achados
+confirmam que a representatividade domina o regime de orçamento baixo e a
+estendem em um ponto: nem um otimizador com acesso aos rótulos supera, nesse
+regime, uma heurística estrutural que não os consulta.
