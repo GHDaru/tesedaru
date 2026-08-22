@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 79,
-  "atualizado_em": "2026-08-20T17:40:00Z",
-  "atualizado_por": "revisor2: as 24 pendências de fichamento do Cap. 2 fecham ZERADAS — 23 fichadas e 1 (Castro2011Desbalanceados, que substitui a Barros2014 por decisão (b) do autor) com o PDF pedido ao autor porque o SciELO bloqueia cliente automatizado. Branch ciclo/016-fecha-as-24 @3da6ce0. Ressalva de conteúdo: o Ahmed2022 é survey de CLUSTERING e a tese o cita ao falar de classificação — conserto de uma palavra, com o principal.",
+  "versao": 80,
+  "atualizado_em": "2026-08-22T13:25:00Z",
+  "atualizado_por": "site (tarefa 20260822-1130_principal_site_elementos-pos-textuais), sobre o v79 do expurgo E da banca (fe58d2e): campo pos_textuais[] novo — referências (337 entradas, medido em referencias.bib) + 7 apêndices individuais (a1..a7), estado medido por arquivo (existe/sem marcador de rascunho). Não reescreve capitulos[].ap nem suas rodadas — divisão editorial R1-R7 por apêndice fica para o principal decidir.",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -781,6 +781,65 @@
         "citacoes": 3,
         "tokens": 973
       }
+    }
+  ],
+  "pos_textuais_doc": "Elementos pós-textuais da tese (referências + apêndices individuais), lidos na ordem real dos \\include/\\input de principal.tex (tarefa 20260822-1130_principal_site). Diferente de capitulos[]: não têm rodadas de revisão R1-R7 próprias ainda (ap em capitulos[] segue sendo o agregado editorial dos 7 apêndices, com rodadas e pontos — a divisão editorial rodada a rodada é decisão do principal, fora do escopo desta medição). 'estado' é medido diretamente do arquivo (existe = tem prosa real, sem marcador de rascunho/TODO; 'medida' é a evidência rastreável).",
+  "pos_textuais": [
+    {
+      "id": "referencias",
+      "titulo": "Referências",
+      "arquivo": "referencias.bib",
+      "estado": "existe",
+      "medida": "337 entradas bibliográficas (3199 linhas)"
+    },
+    {
+      "id": "a1",
+      "titulo": "Apêndice A1 — Métrica LCE (formalização)",
+      "arquivo": "a1-lce/texto.tex",
+      "estado": "existe",
+      "medida": "295 palavras"
+    },
+    {
+      "id": "a2",
+      "titulo": "Apêndice A2 — Algoritmo genético para otimização de L0",
+      "arquivo": "a2-ag/texto.tex",
+      "estado": "existe",
+      "medida": "217 palavras"
+    },
+    {
+      "id": "a3",
+      "titulo": "Apêndice A3 — Algoritmo DRI-SL (cold start)",
+      "arquivo": "a3-drisl/texto.tex",
+      "estado": "existe",
+      "medida": "276 palavras"
+    },
+    {
+      "id": "a4",
+      "titulo": "Apêndice A4 — Biblioteca activelearning (arquitetura e reprodução)",
+      "arquivo": "a4-biblioteca/texto.tex",
+      "estado": "existe",
+      "medida": "291 palavras"
+    },
+    {
+      "id": "a5",
+      "titulo": "Apêndice A5 — Prompts e schemas do oráculo LLM",
+      "arquivo": "a5-prompts/texto.tex",
+      "estado": "existe",
+      "medida": "343 palavras"
+    },
+    {
+      "id": "a6",
+      "titulo": "Apêndice A6 — Tabelas completas (estatísticas de L0)",
+      "arquivo": "a6-tabelas/texto.tex",
+      "estado": "existe",
+      "medida": "2275 palavras"
+    },
+    {
+      "id": "a7",
+      "titulo": "Apêndice A7 — Parada, liberação e monitoramento de deriva",
+      "arquivo": "a7-parada-drift/texto.tex",
+      "estado": "existe",
+      "medida": "606 palavras"
     }
   ],
   "artefatos": [

@@ -519,11 +519,17 @@ def build_plano() -> tuple[str, str]:
 
 <section class="card">
   <h2>Capítulos × rodadas</h2>
+  <p class="estrutura-resumo" id="estrutura-resumo"></p>
   <div class="rodadas-def" id="rodadas-def"></div>
   <div class="scroll"><table id="matriz">
     <caption>✓ feito · 🔒 em gate (espera você) · ◐ andamento · ○ pendente · – não se aplica · ⛓ bloqueado</caption>
   </table></div>
   <div id="aberturas"></div>
+  <h3 class="pos-textuais-h">Elementos pós-textuais</h3>
+  <p class="vazia">Referências e apêndices, na ordem real de <code>principal.tex</code> — ainda
+  sem rodadas de revisão próprias (a divisão editorial rodada a rodada dos 7 apêndices,
+  hoje um agregado só na matriz acima, é decisão do agente principal).</p>
+  <div id="pos-textuais"></div>
 </section>
 
 <section class="card" id="quebra-card">
@@ -665,6 +671,19 @@ def build_plano() -> tuple[str, str]:
     <details><summary>${{c.titulo}} — o que abre esta frente</summary>
       <ul class="notes">${{c.abertura.map(a => `<li>${{esc(a)}}</li>`).join('')}}</ul></details>` : '').join('');
 
+  // elementos pós-textuais (referências + apêndices individuais) — tarefa do
+  // principal 20260822-1130: existem fora de capitulos[] porque, ao contrário
+  // dos capítulos, ainda não têm rodadas de revisão próprias medidas
+  const PT = P.pos_textuais || [];
+  el('estrutura-resumo').textContent = PT.length
+    ? `Estrutura completa da tese: ${{P.capitulos.length}} capítulos + ${{PT.length}} elementos pós-textuais (referências e apêndices) — ver lista abaixo da matriz.`
+    : `Estrutura: ${{P.capitulos.length}} capítulos.`;
+  el('pos-textuais').innerHTML = PT.length ? PT.map(x => `
+    <div class="item"><span class="pill ${{x.estado === 'existe' ? 'feito' : 'pendente'}}">${{x.estado === 'existe' ? '✓' : '○'}} ${{esc(x.estado)}}</span>
+      <span class="t">${{esc(x.titulo)}} <small style="color:var(--muted)">· ${{esc(x.medida)}}</small></span>
+      <span class="who">${{esc(x.arquivo)}}</span></div>`).join('')
+    : '<p class="vazia">sem dados ainda</p>';
+
   // quebra por tema: capítulos grandes demais para uma rodada só (hoje só o
   // Cap.2) viram frentes menores, cada uma com sua própria sequência de
   // etapas — ver capitulos[].quebra / sequencia_rodadas no plano
@@ -765,6 +784,8 @@ def build_plano() -> tuple[str, str]:
 .tema-dim{{margin:0; font-size:var(--fs-1); color:var(--muted)}}
 tr.chap-encerrado{{background:var(--st-feito-bg)}}
 .chap-selo{{margin-left:.5rem; font-size:var(--fs-1); vertical-align:middle; cursor:help}}
+.estrutura-resumo{{margin:.2rem 0 var(--sp-3); color:var(--muted); font-size:var(--fs-2)}}
+.pos-textuais-h{{margin:var(--sp-5) 0 .2rem; font-size:var(--fs-3)}}
 </style>"""
     return body, script
 

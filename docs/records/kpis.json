@@ -1,13 +1,13 @@
 {
  "schema": "kpis/v1",
  "computado_em": "2026-08-22",
- "git_sha": "bcad626",
+ "git_sha": "fe58d2e",
  "prontidao": {
-  "global_pct": 38.4,
-  "texto_pct": 45.1,
+  "global_pct": 36.7,
+  "texto_pct": 43.2,
   "artefatos_pct": 0.0,
   "pontos_totais": 2032,
-  "pontos_feitos": 917,
+  "pontos_feitos": 877,
   "por_rodada": [
    {
     "id": "R1",
@@ -42,7 +42,7 @@
    {
     "id": "R7",
     "pontos": 150,
-    "feitos": 40
+    "feitos": 0
    }
   ],
   "por_capitulo": [
@@ -54,12 +54,12 @@
    {
     "id": "cap1",
     "pontos": 96,
-    "feitos": 96
+    "feitos": 76
    },
    {
     "id": "cap2",
     "pontos": 506,
-    "feitos": 506
+    "feitos": 486
    },
    {
     "id": "cap3",
@@ -89,10 +89,10 @@
   ]
  },
  "ritmo": {
-  "velocidade_pontos_semana": 698.8,
+  "velocidade_pontos_semana": 652.2,
   "janela_dias": 6,
-  "eta_semanas": 1.6,
-  "eta_data": "2026-09-02",
+  "eta_semanas": 1.8,
+  "eta_data": "2026-09-03",
   "eta_confiavel": true,
   "serie": [
    {
@@ -132,15 +132,15 @@
    },
    {
     "data": "2026-08-22",
-    "commit": "5890a18",
-    "pontos": 917,
-    "pct": 45.1,
+    "commit": "fe58d2e",
+    "pontos": 877,
+    "pct": 43.2,
     "evento": null
    }
   ]
  },
  "fila_autor": {
-  "total": 18,
+  "total": 12,
   "itens": [
    {
     "id": "seed7",
@@ -206,13 +206,6 @@
     "pontos_destravados": 0
    },
    {
-    "id": "dec-fecho-cap6",
-    "tipo": "decisao",
-    "trilha": "texto",
-    "titulo": "Fecho do Cap. 6: manter tríade+aforismo (estilo) sabendo que 2 trechos são apontados como mérito (DA-C1/C2/C3), ou reescrever",
-    "pontos_destravados": 0
-   },
-   {
     "id": "dec-gate-85",
     "tipo": "decisao",
     "trilha": "texto",
@@ -224,41 +217,6 @@
     "tipo": "decisao",
     "trilha": "texto",
     "titulo": "Política de parada: dois racionais incompatíveis (fator ~20) para a mesma constante — causa-raiz atribuída ao resultado negativo (parecer R3/R4/R6)",
-    "pontos_destravados": 0
-   },
-   {
-    "id": "dec-divida-vocabulario",
-    "tipo": "decisao",
-    "trilha": "processo",
-    "titulo": "Dívida antiga: 342 entidades fora do vocabulário controlado nos 140 fichamentos legados — entra no plano ou fica como está? (retirada do DoD do lote 5)",
-    "pontos_destravados": 0
-   },
-   {
-    "id": "dec-nome-e3",
-    "tipo": "decisao",
-    "trilha": "experimentos",
-    "titulo": "Rebatismo do E3': autor incomoda-se com a plica; recomendação do principal = E3' assume o nome E3 (o E3 original nunca teve resultados; exige reescrever o desenho em 3-metodo:443 + renomear ~35 ocorrências + código/artefatos/notebooks via executor01). Autor: 'voltemos com ela' — retomar.",
-    "pontos_destravados": 0
-   },
-   {
-    "id": "dec-reforco-cap4",
-    "tipo": "decisao",
-    "trilha": "texto",
-    "titulo": "F6 da refatoração (separada por decisão do autor): reforçar o Cap. 4 — hoje com zero citações, embora 6 fichamentos o prometam; exige escrever conteúdo novo (discussão + interlocução com a literatura)",
-    "pontos_destravados": 0
-   },
-   {
-    "id": "dec-regime-do-veredito",
-    "tipo": "decisao",
-    "trilha": null,
-    "titulo": "Qual regime de avaliacao a tese reporta no veredito da hipotese: antigo (eval 20.092, Cap.5 atual) ou canonico (eval 177.490, 3 sementes). Medido pelo revisor2 nos artefatos primarios: no canonico o E25 nao cruza (-0,044) e o unico que cruza (E35, 2 de 3 sementes, +0,0021 na media) esta 276 rotulos acima do teto de 34.724. Braco A sem numero canonico (cache bloqueado). As 4 superficies de veredito da branch da banca (@d0d35ed) estao SEGURADAS no gate ate esta decisao; a higiene de denominador vai em branch separada.",
-    "pontos_destravados": 0
-   },
-   {
-    "id": "dec-lastro-cap1-dois-denominadores",
-    "tipo": "decisao",
-    "trilha": null,
-    "titulo": "Frase de lastro do Cap.1: Settles (<10%) e Schroder Tab.3 (15,45%) medem fracao do conjunto SELECIONAVEL (analogo: pool de 50k), nao da base; nessa regua o criterio de 34.724 e 69,4% do pool. Saida barata proposta pelo revisor2: declarar o numero nos dois denominadores na primeira ocorrencia (15% da base = 69,4% do pool) e reescrever o lastro dizendo que a literatura reporta fracoes do conjunto selecionavel.",
     "pontos_destravados": 0
    },
    {
