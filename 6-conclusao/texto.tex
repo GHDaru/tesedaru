@@ -47,8 +47,7 @@ significativa comprovada). A validação com o classificador forte fora do
 laço julgou o pipeline completo, com três sementes e avaliação na população
 reservada inteira: na configuração executada a hipótese central \emph{não}
 se atinge
-% PROVISORIO-ate-regeracao (valores desta frase)
-(acurácia de $0{,}711$ contra critério de $0{,}839$, com 11.936 rótulos,
+(acurácia de $0{,}705$ contra critério de $0{,}843$, com 11.936 rótulos,
 $5{,}2\%$ da população), e a decomposição pareada atribui a perda ao
 \emph{orçamento}: não ao ruído do oráculo, que em Macro F1 até ajuda as
 caudas (o braço com rótulos do oráculo supera o de gabarito nos mesmos
@@ -59,14 +58,13 @@ o BERTimbau para de converter rótulos em desempenho. A varredura de
 orçamento localiza a correção (achado \textit{post hoc}, executado com
 rótulos de \emph{gabarito}, não do oráculo da hipótese): o critério, na
 métrica pré-registrada, passa a ser atendido
-% PROVISORIO-ate-regeracao (ponto de cruzamento)
 com 20 mil rótulos ($8{,}6\%$ da população), nas três sementes, dentro do
-teto de 34.724; em Macro F1, na média das sementes, também dentro do teto; e
-com 35 mil rótulos selecionados por entropia o modelo forte \emph{supera} a
-supervisão completa do \textit{pool} em ambas as métricas, com
-significância pareada nas três sementes: a vantagem de cobertura do ``menos
-é mais'' medida em escala populacional reaparece no \textit{transformer},
-agora com força estatística.
+teto de 34.724; em Macro F1, com 30 mil ($13{,}0\%$), também nas três
+sementes e dentro do teto; e, na média das três sementes, 35 mil rótulos
+selecionados por entropia ficam à frente da supervisão completa do
+\textit{pool} nas duas métricas, com heterogeneidade entre sementes
+declarada: a vantagem de cobertura do ``menos é mais'' medida em escala
+populacional reaparece no \textit{transformer} como efeito de média.
 O veredito que os dados sustentam: \textbf{o critério é atingível dentro do
 teto da hipótese, com folga e robustez a sementes na métrica pré-registrada};
 a configuração executada parou por estagnação aquém do piso, com orçamento e
@@ -206,18 +204,18 @@ da acurácia da supervisão completa do \textit{pool} de referência, a
 métrica do pré-registro, com no máximo 34.724 rótulos, $15\%$ da população
 deduplicada) foi submetida ao teste com três sementes e avaliação na
 população reservada: \textbf{o critério é atingível dentro do teto}
-% PROVISORIO-ate-regeracao (ponto de cruzamento)
 (cruzamento em 20 mil rótulos, $8{,}6\%$ da população, nas três sementes,
 em varredura \textit{post hoc} com rótulos de gabarito), \textbf{enquanto
 a configuração executada parou por estagnação aquém do piso} (11.936
 rótulos, $5{,}2\%$), com o diagnóstico identificando a causa: não o ruído
 do oráculo nem a seleção, e sim o critério de parada herdado do
 classificador leve, que subestima o apetite do classificador forte. Em
-Macro F1, a análise de robustez, o critério é atingido na média das
-sementes, dentro do teto; e 35 mil rótulos ativamente selecionados superam
-a supervisão completa do \textit{pool} em ambas as métricas, com
-significância pareada nas três sementes: para o desempenho final, a fração
-restante dos rótulos do \textit{pool} não compra nada. Uma tese que termina com
+Macro F1, a análise de robustez, o critério é atingido com 30 mil rótulos,
+nas três sementes, dentro do teto; e, na média das sementes, 35 mil rótulos
+ativamente selecionados ficam à frente da supervisão completa do
+\textit{pool} nas duas métricas, com heterogeneidade declarada: para o
+desempenho final, a fração restante dos rótulos do \textit{pool} não
+compra nada em média. Uma tese que termina com
 um número honesto, uma causa identificada e o piso corrigido medido vale
 mais que uma que termina com uma promessa: os resultados dos experimentos
 executados, com as reexecuções dos dois primeiros pilares, delimitam
