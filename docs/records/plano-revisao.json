@@ -1,6 +1,6 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 89,
+  "versao": 90,
   "atualizado_em": "2026-08-22T17:00:00Z",
   "atualizado_por": "site (tarefa 20260822-1640_principal_site_granularidade-por-elemento-aprovada): desagrega pre em Resumo+Abstract e ap em 7 apêndices (A1-A7), cada um agora um elemento próprio em capitulos[] com rodadas R1-R7 medidas por arquivo (R3 'na' onde 0 citações; travessões/citações recontados diretamente no arquivo — a nota antiga do agregado pré-textual dizia 32 travessões, a contagem direta deu 22, divergência flagrada, não corrigida por mim). R7 de TODOS os 15 elementos + dos 6 capítulos ganha campo reauditar:true (reset do autor). pos_textuais[] fica só com Referências.",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
@@ -1482,7 +1482,7 @@
     },
     {
       "id": "lembrete-defesa-artigo-vintages-atras",
-      "texto": "apresentacao/defesa.tex e artigos/a4 carregam numeros de varredura antiga (E20/E35 e A=8.937) — 2 vintages atras. Autor adiou defesa/artigos para pos-tese; atualizar junto quando reabrir (revisor2 0638 §4)."
+      "texto": "apresentacao/defesa.tex e artigos/a4 carregam numeros de varredura antiga (E20/E35 e A=8.937) — 2 vintages atras. Autor adiou defesa/artigos para pos-tese; atualizar junto quando reabrir (revisor2 0638 §4). ACRESCENTADO 2026-08-22 (achado do revisor2 2200): ALEM de E20/E35 e A=8.937, a defesa e os artigos tambem carregam o L0=100 do AG com o valor ANTIGO (38,76% etc.) — os slides arredondam para 1 casa e os artigos usam ponto decimal, por isso escaparam do grep por virgula. Atualizar TAMBEM o L0=100 no passe da versao final; NAO tocar antes."
     },
     {
       "id": "aprovacao-merges-cross-checked",
