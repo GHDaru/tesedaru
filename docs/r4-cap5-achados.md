@@ -145,3 +145,64 @@ palavra e diz a mesma coisa sem exceder.
 O $p=0{,}58$ da calibração de lote vem de outro experimento (aviso `0818` do
 revisor2, ainda sem resposta do principal). Aparece no capítulo; o dono do
 achado é ele.
+
+---
+
+# ADENDO — o achado 7 está MEDIDO e FECHADO (2026-08-23)
+
+Artefato: `scripts/mede-composicao-amostra-ativa.py` (exit 0). Reconstrói o
+*pool* pela receita da biblioteca e lê os `labeled_idx` já salvos nos
+`*_state.json` do E6 — **nada foi re-executado**.
+
+| amostra | n | classes | nº efetivo | top-1 | classes raras | massa das raras | razão |
+|---|---|---|---|---|---|---|---|
+| **POOL INTEIRO (natural)** | 50.000 | 649 | **172,6** | 5,97% | 179 | **0,762%** | 1,00× |
+| SGD entropia @15k | 15.000 | 644 | **331,7** | 1,87% | 174 | **2,347%** | **3,08×** |
+| SGD aleatório @15k (controle) | 15.000 | 556 | 167,6 | 6,01% | 94 | 0,807% | 1,06× |
+| PVBin entropia @15k | 15.000 | 632 | **261,1** | 3,78% | 164 | **1,933%** | **2,54×** |
+| PVBin aleatório @15k (controle) | 15.000 | 536 | 168,5 | 5,94% | 80 | 0,687% | 0,90× |
+
+*Nº efetivo* = exp(entropia de Shannon): quantas classes equiprováveis
+produziriam a mesma dispersão. Maior = mais balanceado.
+
+## As duas proposições do capítulo, agora com número
+
+**(a) "a amostra ativa é mais balanceada por classe que a distribuição
+natural"** — **confirmada**. A entropia com 15 mil rótulos tem número efetivo
+de classes de **331,7** contra **172,6** do pool inteiro: **1,92× mais
+balanceada**, com 30% dos dados. A classe majoritária cai de 5,97% para
+**1,87%**.
+
+**(b) "a amostra ativa sobre-representa classes raras"** — **confirmada**. A
+massa das classes raras (menos de 5 exemplos no pool) sai de **0,762%** no
+natural para **2,347%** na amostra ativa: **3,08×**. E a cobertura: a entropia
+alcança **174 das 179** classes raras com 30% dos dados.
+
+## O controle é o que fecha o argumento
+
+O braço **aleatório** é a testemunha: se o efeito viesse de subamostrar, e não
+de selecionar, ele apareceria lá também. **Não aparece.** O aleatório fica em
+167,6 de número efetivo contra 172,6 do natural — indistinguível — e a massa
+de raras em 1,06×. E colhe só **94** das 179 classes raras, contra 174 da
+entropia.
+
+Ou seja: não é o tamanho da amostra que rebalanceia, **é a seleção por
+incerteza**. Os dois parágrafos do capítulo podem passar de "porque" assertivo
+a "porque", medido, com este número ao lado.
+
+O padrão se repete no PVBin (1,51× em número efetivo, 2,54× em massa de raras),
+o que mostra que o mecanismo não depende do classificador — coerente com o
+capítulo dizer que o PVBin é imune ao *efeito no Macro F1* por construir um
+protótipo por classe, e não por selecionar diferente.
+
+## Escopo honesto do que este adendo fecha
+
+Fecha o **achado 7 inteiro** — que embalava as duas afirmações do capítulo.
+**Não** fecha o achado 6 (a redundância intra-lote que explicaria a degradação
+em $b=200$): é outro mecanismo, e continua afirmado sem medição.
+
+## De quebra, dois números de controle da tese conferidos
+
+O script reproduz, de passagem, dois números que o Cap. 3 declara sobre o
+*pool*: **65** classes ausentes e **179** com menos de cinco exemplos. Os dois
+batem exatos.

@@ -1,6 +1,6 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 92,
+  "versao": 93,
   "atualizado_em": "2026-08-22T18:40:00Z",
   "atualizado_por": "site (checagem pedida pelo principal — painel reflete F6/lote-2100?): dimensoes.travessoes de cap2/3/4/5/6 estava com o número PRÉ-merge (a nota de R1 já dizia o número pós-merge, só nunca foi propagado ao campo usado no cálculo de pontos — cap2 92→1, cap3 59→4, cap4 17→3, cap5 64→6, cap6 35→6, todos citados na própria nota de R1). dimensoes.citacoes do cap4 estava 0, F6 (commit 47076d3) levou a 11 citações — contei \\cite/\\citep/\\citet em 4-resultados-l0/texto.tex e bate exatamente com a mensagem do merge ('Cap.4 de 0 para 11 citações'). Não toquei citacoes de cap2/3/5/6 nem tokens de nenhum: não achei número declarado em nota para propagar sem inventar.",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
@@ -471,20 +471,24 @@
           "nota": "gate aprovado e mergeado 2026-08-17 (17→3 travessões)"
         },
         "R2": {
-          "status": "pendente"
+          "status": "andamento",
+          "nota": "varredura R2-R6 despachada 2026-08-23 (banca R2/R6, revisor2 R3/R5, revisor1 R4; modo auditoria)"
         },
         "R3": {
-          "status": "pendente"
+          "status": "andamento",
+          "nota": "varredura R2-R6 despachada 2026-08-23 (banca R2/R6, revisor2 R3/R5, revisor1 R4; modo auditoria)"
         },
         "R4": {
-          "status": "pendente"
+          "status": "andamento",
+          "nota": "varredura R2-R6 despachada 2026-08-23 (banca R2/R6, revisor2 R3/R5, revisor1 R4; modo auditoria)"
         },
         "R5": {
-          "status": "pendente",
-          "nota": "tab:replay-vs-original referenciada em 2026-08; varrer números"
+          "status": "andamento",
+          "nota": "varredura R2-R6 despachada 2026-08-23 (banca R2/R6, revisor2 R3/R5, revisor1 R4; modo auditoria)"
         },
         "R6": {
-          "status": "pendente"
+          "status": "andamento",
+          "nota": "varredura R2-R6 despachada 2026-08-23 (banca R2/R6, revisor2 R3/R5, revisor1 R4; modo auditoria)"
         },
         "R7": {
           "status": "pendente",
@@ -691,22 +695,24 @@
           "nota": "gate aprovado e mergeado 2026-08-17 (40→6 travessões; fecho preservado por ordem do autor)"
         },
         "R2": {
-          "status": "pendente"
+          "status": "andamento",
+          "nota": "varredura R2-R6 despachada 2026-08-23 (idem cap4)"
         },
         "R3": {
-          "status": "pendente"
+          "status": "andamento",
+          "nota": "varredura R2-R6 despachada 2026-08-23 (idem cap4)"
         },
         "R4": {
-          "status": "pendente"
+          "status": "andamento",
+          "nota": "varredura R2-R6 despachada 2026-08-23 (idem cap4)"
         },
         "R5": {
-          "status": "pendente",
-          "bloqueado_por": [
-            "consolidar-seeds"
-          ]
+          "status": "andamento",
+          "nota": "varredura R2-R6 despachada 2026-08-23 (idem cap4)"
         },
         "R6": {
-          "status": "pendente"
+          "status": "andamento",
+          "nota": "varredura R2-R6 despachada 2026-08-23 (idem cap4)"
         },
         "R7": {
           "status": "pendente",
@@ -796,8 +802,8 @@
       "medida": "295 palavras",
       "rodadas": {
         "R1": {
-          "status": "pendente",
-          "nota": "3 travessões"
+          "status": "andamento",
+          "nota": "apendices despachados 2026-08-23; mapa de aplicabilidade (n/a) por revisor1/revisor2"
         },
         "R2": {
           "status": "pendente"
@@ -834,8 +840,8 @@
       "medida": "217 palavras",
       "rodadas": {
         "R1": {
-          "status": "pendente",
-          "nota": "2 travessões"
+          "status": "andamento",
+          "nota": "apendices despachados 2026-08-23; mapa de aplicabilidade (n/a) por revisor1/revisor2"
         },
         "R2": {
           "status": "pendente"
@@ -871,8 +877,8 @@
       "medida": "276 palavras",
       "rodadas": {
         "R1": {
-          "status": "pendente",
-          "nota": "3 travessões"
+          "status": "andamento",
+          "nota": "apendices despachados 2026-08-23; mapa de aplicabilidade (n/a) por revisor1/revisor2"
         },
         "R2": {
           "status": "pendente"
@@ -909,8 +915,8 @@
       "medida": "291 palavras",
       "rodadas": {
         "R1": {
-          "status": "pendente",
-          "nota": "4 travessões"
+          "status": "andamento",
+          "nota": "apendices despachados 2026-08-23; mapa de aplicabilidade (n/a) por revisor1/revisor2"
         },
         "R2": {
           "status": "pendente"
@@ -947,8 +953,8 @@
       "medida": "343 palavras",
       "rodadas": {
         "R1": {
-          "status": "pendente",
-          "nota": "4 travessões"
+          "status": "andamento",
+          "nota": "apendices despachados 2026-08-23; mapa de aplicabilidade (n/a) por revisor1/revisor2"
         },
         "R2": {
           "status": "pendente",
@@ -985,8 +991,8 @@
       "medida": "2275 palavras",
       "rodadas": {
         "R1": {
-          "status": "pendente",
-          "nota": "1 travessões"
+          "status": "andamento",
+          "nota": "apendices despachados 2026-08-23; mapa de aplicabilidade (n/a) por revisor1/revisor2"
         },
         "R2": {
           "status": "pendente"
@@ -1023,8 +1029,8 @@
       "medida": "606 palavras",
       "rodadas": {
         "R1": {
-          "status": "pendente",
-          "nota": "9 travessões"
+          "status": "andamento",
+          "nota": "apendices despachados 2026-08-23; mapa de aplicabilidade (n/a) por revisor1/revisor2"
         },
         "R2": {
           "status": "pendente"
@@ -1502,6 +1508,10 @@
     {
       "id": "divida-vocab-aceita",
       "texto": "As ~330 pendencias de vocabulario nas fichas da tese ficam como DIVIDA DECLARADA E ACEITA (autor 2026-08-23): as fichas da tese continuam como estao; o acervo do local (fluxo independente) padroniza no privado se quiser. check-fichamentos.py da tese segue com as pendencias, nao e item a fechar."
+    },
+    {
+      "id": "resumo-abstract-reconstrucao",
+      "texto": "banca reconstroi resumo/abstract com o veredito final (tarefa 20260823-1045), apos fechar o lote do Cap.5. O 'sera refeito' do autor."
     }
   ],
   "limites_operacionais": [

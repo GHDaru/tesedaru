@@ -13,3 +13,8 @@
 # Python bytecode (gerado ao regenerar o KG via app)
 __pycache__/
 *.pyc
+
+# A skill acervo-referencias mora no repositorio PRIVADO referenciastese.
+# Uma copia antiga dela vive solta neste working tree e ja subiu para o publico
+# uma vez por engano (3e00948, removida em 7db17b8). Ignorada para que nao volte.
+.claude/skills/acervo-referencias/
