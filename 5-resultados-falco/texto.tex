@@ -41,10 +41,10 @@ deepseek-v4-pro   & S-rand  & 82,1\% & [79,6; 84,4] & 0,785 & 0,1\% \\
 gpt-4o            & S-rand  & 80,9\% & [78,4; 83,2] & 0,788 & 0,0\% \\
 deepseek-v4-flash & S-rand  & 78,3\% & [75,6; 80,8] & 0,750 & 0,7\% \\
 nemotron-3-ultra (grátis) & S-rand & 77,9\% & [75,2; 80,4] & 0,752 & 1,2\% \\
-glm-5.2           & S-rand  & 77,3\% & [74,6; 79,8] & 0,742 & 0,0\% \\
+glm-5.2           & S-rand  & 77,3\% & [74,6; 79,8] & 0,742 & 0,7\% \\
 gpt-4o-mini       & S-rand  & 61,3\% & [58,2; 64,3] & 0,518 & 0,0\% \\
 \midrule
-deepseek-v4-pro   & S-strat & 82,6\% & [80,8; 84,2] & 0,793 & 0,0\% \\
+deepseek-v4-pro   & S-strat & 82,6\% & [80,8; 84,2] & 0,793 & 0,2\% \\
 gpt-4o            & S-strat & 82,1\% & [80,3; 83,8] & 0,797 & 0,0\% \\
 deepseek-v4-flash & S-strat & 81,6\% & [79,7; 83,3] & 0,781 & 0,9\% \\
 glm-5.2           & S-strat & 80,9\% & [79,1; 82,6] & 0,782 & 0,0\% \\
@@ -444,7 +444,8 @@ PVBin & DRI-SL    & 0,527 & 45.500 & 0,284 & 0,356 \\
 
 Cinco achados (Tabela~\ref{tab:e6}). \textbf{(i)~A entropia domina em
 escala}: satura a 95\% do teto com 8.000 rótulos no SGD (19.000 no PVBin),
-metade ou um quarto do que a seleção aleatória exige, o que confirma a
+cerca de metade do que a seleção aleatória exige nos dois
+classificadores, o que confirma a
 varredura com oráculo perfeito (Seção~\ref{sec:res-e1}) fora
 do regime de orçamento pequeno. \textbf{(ii)~Rotular tudo pode piorar}: no
 SGD, o Macro F1 populacional atinge $0{,}59$ com $\approx 15$ mil rótulos
