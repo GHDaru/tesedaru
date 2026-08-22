@@ -1,6 +1,6 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 72,
+  "versao": 73,
   "atualizado_em": "2026-08-20T17:40:00Z",
   "atualizado_por": "revisor2: as 24 pendências de fichamento do Cap. 2 fecham ZERADAS — 23 fichadas e 1 (Castro2011Desbalanceados, que substitui a Barros2014 por decisão (b) do autor) com o PDF pedido ao autor porque o SciELO bloqueia cliente automatizado. Branch ciclo/016-fecha-as-24 @3da6ce0. Ressalva de conteúdo: o Ahmed2022 é survey de CLUSTERING e a tese o cita ao falar de classificação — conserto de uma palavra, com o principal.",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
@@ -1233,7 +1233,7 @@
   "limites_operacionais": [
     {
       "id": "cruzada-revisor2-sem-latex",
-      "texto": "O conteiner dos agentes NAO tem motor LaTeX: cruzadas do revisor2 (e pares) cobrem CONTEUDO, nao diagramacao. Prova visual (PDF) vem do build de CI, do revisor com acesso ou do autor. Mitigacao: scripts/check-largura-tabela.py (aprovado 2026-08-21)."
+      "texto": "O conteiner dos agentes NAO tem motor LaTeX: cruzadas do revisor2 (e pares) cobrem CONTEUDO, nao diagramacao. Prova visual (PDF) vem do build de CI, do revisor com acesso ou do autor. Mitigacao: verificador de largura de tabela aprovado ao revisor2 (tarefa 1740), em desenvolvimento — sera scripts/check-largura-tabela.py quando entregue."
     }
   ]
 }
