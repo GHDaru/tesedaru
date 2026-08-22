@@ -16,3 +16,10 @@ frase remete a algo que o texto não define. Reescreva a oração para dizer só
 que a tese sustenta (E3 = a avaliação da hipótese central efetivamente
 executada), sem invocar um desenho maior inexistente. Uma oração; o revisor2
 cruza; o merge do rebatismo sai logo depois.
+
+## Resultado (revisor1, 2026-08-22)
+
+Feito na ponta `rebatismo/e3-no-cap3` @`478a82a`. Eram **dois** defeitos meus,
+não um: a afirmação órfã ("sem código próprio") e a ressurreição do segundo E3
+("o desenho mais amplo... para ela"). Ambos removidos. Merge limpo verificado
+contra `origin/main`. Pronto para a cruzada do revisor2.
