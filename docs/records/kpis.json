@@ -1,13 +1,13 @@
 {
  "schema": "kpis/v1",
  "computado_em": "2026-08-22",
- "git_sha": "9daad49",
+ "git_sha": "9cfef30",
  "prontidao": {
-  "global_pct": 36.7,
-  "texto_pct": 43.2,
+  "global_pct": 38.4,
+  "texto_pct": 45.1,
   "artefatos_pct": 0.0,
   "pontos_totais": 2032,
-  "pontos_feitos": 878,
+  "pontos_feitos": 917,
   "por_rodada": [
    {
     "id": "R1",
@@ -27,12 +27,12 @@
    {
     "id": "R4",
     "pontos": 140,
-    "feitos": 40
+    "feitos": 58
    },
    {
     "id": "R5",
     "pontos": 743,
-    "feitos": 45
+    "feitos": 66
    },
    {
     "id": "R6",
@@ -64,7 +64,7 @@
    {
     "id": "cap3",
     "pontos": 211,
-    "feitos": 150
+    "feitos": 189
    },
    {
     "id": "cap4",
@@ -89,10 +89,10 @@
   ]
  },
  "ritmo": {
-  "velocidade_pontos_semana": 653.3,
+  "velocidade_pontos_semana": 698.8,
   "janela_dias": 6,
-  "eta_semanas": 1.8,
-  "eta_data": "2026-09-03",
+  "eta_semanas": 1.6,
+  "eta_data": "2026-09-02",
   "eta_confiavel": true,
   "serie": [
    {
@@ -132,15 +132,15 @@
    },
    {
     "data": "2026-08-22",
-    "commit": "1f16390",
-    "pontos": 878,
-    "pct": 43.2,
+    "commit": "5890a18",
+    "pontos": 917,
+    "pct": 45.1,
     "evento": null
    }
   ]
  },
  "fila_autor": {
-  "total": 17,
+  "total": 18,
   "itens": [
    {
     "id": "seed7",
@@ -155,6 +155,13 @@
     "trilha": null,
     "titulo": "Rodar semente 123 no Colab",
     "pontos_destravados": 234
+   },
+   {
+    "id": "cap3.R4",
+    "tipo": "gate",
+    "trilha": "texto",
+    "titulo": "Aprovar 3 · Método · rodada R4",
+    "pontos_destravados": 20
    },
    {
     "id": "zenodo",
