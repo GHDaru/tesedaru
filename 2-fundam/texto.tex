@@ -397,10 +397,14 @@ requerendo apenas as probabilidades preditas. Reúne custo baixo, aplicabilidade
 geral e relação teórica com a bissecção do espaço de versão em
 classificadores de margem \citep{Tong2000}, e permanece linha de base forte em
 \textit{deep learning} \citep{Gal2017}, com uma ressalva de regime que importa
-a esta tese: em classificação com rótulo extremo (centenas de classes),
-nenhuma estratégia de seleção supera a aleatória de forma consistente
-\citep{Wertz2022}. Suas três medidas canônicas são
-usadas nos experimentos desta tese:
+a esta tese: em classificação multirrótulo extrema (centenas de rótulos
+possíveis e vários rótulos por texto), nenhuma estratégia de seleção supera a
+aleatória de forma consistente \citep{Wertz2022}. O próprio estudo localiza o
+ganho de seleção nos conjuntos em que os rótulos pouco co-ocorrem, condição
+da qual a classificação de rótulo único, caso desta tese, é o extremo; e em
+tarefas de rótulo único com poucas classes a seleção supera a aleatória de
+forma consistente \citep{Rouzegar2024}. As três medidas canônicas da
+amostragem por incerteza são usadas nos experimentos desta tese:
 \begin{equation}
 x^*_{LC} = \arg\max_x \left[ 1 - P_\theta(\hat{y}|x) \right]
 \label{eq:lc}

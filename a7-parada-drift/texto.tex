@@ -19,7 +19,14 @@ $B$; \textbf{(iii) exaustão do pool}. O racional do gatilho (i) é
 estatístico: o ganho marginal por lote decai ao longo da curva de
 aprendizado, enquanto o custo marginal do rótulo é constante; quando o ganho
 observável cai abaixo da resolução do próprio conjunto de validação
-($\approx 1/\sqrt{n_V}$), rotular mais é pagar para medir ruído. O gatilho
+($\approx 1/\sqrt{n_V}$), rotular mais é pagar para medir ruído. A tolerância
+$\varepsilon_{\max}=10^{-3}$ não deriva desse limite amostral: com
+$n_V = 2.000$, o limite vale $1/\sqrt{n_V} = 0{,}0224$, e a tolerância é
+deliberadamente cerca de vinte vezes menor, de modo que a parada só ocorre
+após $p$ iterações sem qualquer ganho registrado, e não por o ganho ser
+pequeno demais para se distinguir do ruído. A parada observada no ciclo real,
+portanto, não é efeito de uma tolerância estrita: o critério executado é o
+mais permissivo dos dois. O gatilho
 foi exercitado em duas execuções ponta a ponta da biblioteca: com oráculo
 simulado (ruído 0,2), encerrou o ciclo em 910 de 1.000 rótulos orçados; com
 \textbf{oráculo LLM real e gratuito} (nemotron via NIM, acurácia
