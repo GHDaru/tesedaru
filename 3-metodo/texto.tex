@@ -30,6 +30,15 @@ estão disponíveis, o processo é simulado com fidelidade: o oráculo LLM pode 
 avaliado contra o padrão-ouro, e um modelo treinado com supervisão completa fornece o
 limite superior de desempenho.
 
+O desenho desta pesquisa tem proveniência documentada: o laço de aprendizado
+ativo com oráculo, a meta de redução do esforço de rotulagem e a avaliação da
+generalização contra um conjunto externo foram apresentados no exame de
+qualificação do autor (PPGMNE/UFPR, junho de 2023) e constam de material
+datado de maio de 2022, na versão de maio de 2023, preservado no repositório
+da tese (\texttt{docs/pre-registro/}). É a esse desenho que o termo
+\emph{pré-registrado} se refere neste documento; números e partições fixados
+depois desse marco são decisões da tese, registradas como tal.
+
 A Tabela~\ref{tab:metodo-experimentos} resume o programa experimental e serve de
 \textbf{mapa de rastreabilidade}: para cada experimento, o pilar que ele
 sustenta, a seção em que o resultado é discutido e o diretório de artefatos que
@@ -38,14 +47,14 @@ interno} — servem para localizar código e dados, não para nomear achados, e 
 isso não reaparecem no texto corrido dos capítulos de resultados, que se
 organiza pelo que foi descoberto. Quem quiser ir do achado ao artefato usa esta
 tabela; quem quiser ler a tese não precisa dela. A linha em E3$'$ marca a
-variante efetivamente executada do experimento E3 pré-registrado, cujo
-desenho completo permanece registrado como extensão
+variante efetivamente executada do desenho completo do E3, que permanece
+registrado como extensão
 (Seção~\ref{sec:metodo-falco-baselines}).
 
 Uma dependência entre experimentos não cabe na tabela e precisa ser dita: a
 avaliação de robustez ao ruído do oráculo é \textbf{condicional} ao desempenho
-medido na avaliação dos oráculos, e o critério que decide se ela ocorre está
-pré-registrado na Seção~\ref{sec:metodo-oraculo-decisao}.
+medido na avaliação dos oráculos, e o critério que decide se ela ocorre foi
+fixado de antemão e está registrado na Seção~\ref{sec:metodo-oraculo-decisao}.
 
 \begin{table}[htb]
 \centering
@@ -175,7 +184,7 @@ posto à prova.
 \subsection{Particionamento}
 \label{sec:metodo-dados-particionamento}
 
-O desenho \emph{pré-registrado} previa particionamento estratificado em
+O desenho \emph{inicialmente planejado} previa particionamento estratificado em
 conjunto de teste $T$ ($20\%$), validação $V$ ($10\%$) e \textit{pool} de
 aprendizado ativo $U_0$ ($70\%$), com orçamento de rotulagem $B = 30\%$ de
 $|U_0|$. O protocolo \emph{executado} nos experimentos em escala populacional
@@ -398,7 +407,7 @@ como limite empírico de referência.
 A avaliação de oráculos exige, antes de qualquer comparação, um instrumento
 de medição confiável. Por isso esta seção define primeiro a instrumentação
 (contrato de saída, custo e proveniência), depois o desenho fatorial da
-avaliação e, por fim, o critério pré-registrado que converte as medições em decisão
+avaliação e, por fim, o critério fixado de antemão que converte as medições em decisão
 de arquitetura para o FALCO.
 
 \subsection{Instrumentação da medição}
@@ -470,7 +479,8 @@ limita o ganho de precisão adicional). A temperatura é fixada em 0 em todos os
 \label{sec:metodo-oraculo-decisao}
 
 Dessa avaliação deriva a configuração de oráculos do FALCO, por um critério de aprovação
-pré-registrado, adiante referido também como \emph{gate} do oráculo: o
+fixado de antemão, antes de qualquer medição de oráculo, e registrado no
+repositório da tese, adiante referido também como \emph{gate} do oráculo: o
 \textbf{LLM Inicial} é o de
 melhor razão acurácia/custo sujeito a acurácia mínima de $85\%$ na S-rand; o
 \textbf{LLM Avançado} é o de maior acurácia, \emph{desde que} significativamente
@@ -619,7 +629,7 @@ custo de anotação zero, pois reutilizam as anotações reais já pagas. O
 desenho completo original (FALCO, seleção aleatória e seleção por incerteza
 com re-treino do BERTimbau no laço,
 ablações de $L_0$ e de progressão de oráculo, 8 sementes com Wilcoxon pareado
-e \textit{bootstrap} sobre LCE) permanece pré-registrado como extensão para
+e \textit{bootstrap} sobre LCE) permanece registrado como extensão para
 hardware dedicado; a comparação executada tem semente única e estatuto
 descritivo, como os experimentos em escala populacional. A avaliação de
 robustez, executada se o critério do
@@ -649,8 +659,8 @@ envelope do AG reavaliado em partição intocada). O viés distribucional que a
 amostragem ativa induz no conjunto rotulado \citep{Santos2016Vies} não afeta a
 medição, feita sempre em $T$ fixo e aleatório.
 
-\textbf{Desenho executado vs.\ pré-registrado.} Duas divergências entre o
-desenho pré-registrado e o executado são declaradas e têm consequências
+\textbf{Desenho executado vs.\ planejado.} Duas divergências entre o desenho
+inicialmente planejado e o executado são declaradas e têm consequências
 mensuráveis. Primeira: o \textit{pool} de 50 mil é amostra aleatória uniforme
 (Seção~\ref{sec:metodo-dados-particionamento}), não estratificada; 65 das 714
 classes não têm nenhum exemplo no \textit{pool} e 179 têm menos de cinco, de
@@ -658,7 +668,7 @@ modo que o teto de Macro F1 alcançável por \emph{qualquer} braço treinado no
 \textit{pool} é estruturalmente rebaixado nas classes de cauda; as
 comparações \emph{entre} braços permanecem justas, pois todos compartilham o
 mesmo \textit{pool}, mas os valores absolutos de Macro F1 subestimam o que uma
-amostra estratificada permitiria. Segunda: o orçamento pré-registrado
+amostra estratificada permitiria. Segunda: o orçamento inicialmente planejado
 ($B=30\%$ de $|U_0|$) foi re-baseado para fração do \textit{pool} de 50 mil
 com a mudança de régua dessa comparação; os percentuais reportados no
 Capítulo~\ref{ch:resultados-falco} referem-se sempre ao denominador de 50 mil,
