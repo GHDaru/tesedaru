@@ -1233,7 +1233,7 @@
   "limites_operacionais": [
     {
       "id": "cruzada-revisor2-sem-latex",
-      "texto": "O conteiner dos agentes NAO tem motor LaTeX: cruzadas do revisor2 (e pares) cobrem CONTEUDO, nao diagramacao. Prova visual (PDF) vem do build de CI, do revisor com acesso ou do autor. Mitigacao: verificador de largura de tabela aprovado ao revisor2 (tarefa 1740), em desenvolvimento — sera scripts/check-largura-tabela.py quando entregue."
+      "texto": "O conteiner dos agentes NAO tem motor LaTeX: cruzadas do revisor2 (e pares) cobrem CONTEUDO, nao diagramacao. Prova visual (PDF) vem do build de CI, do revisor com acesso ou do autor. Mitigacao: verificador de largura de tabela aprovado ao revisor2 (tarefa 1740), em desenvolvimento — o verificador de largura de tabela entra no diretorio de guards quando entregue."
     }
   ]
 }
