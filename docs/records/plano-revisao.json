@@ -400,7 +400,7 @@
         },
         {
           "id": "c3t5",
-          "tema": "Pilar P1: composição do conjunto inicial \\texorpdfstring{$L_0$",
+          "tema": "Composição do conjunto inicial $L_0$",
           "linhas": "256-293",
           "palavras": 284,
           "travessoes": 0,
@@ -410,7 +410,7 @@
         },
         {
           "id": "c3t6",
-          "tema": "Pilar P2: \\textit{cold start",
+          "tema": "Partida a frio sem rótulos: o algoritmo DRI-SL",
           "linhas": "294-310",
           "palavras": 154,
           "travessoes": 1,
@@ -420,7 +420,7 @@
         },
         {
           "id": "c3t7",
-          "tema": "Pilar P3: LLMs como oráculo de rotulagem (experimento E0)",
+          "tema": "LLMs como oráculo de rotulagem (experimento E0)",
           "linhas": "311-393",
           "palavras": 720,
           "travessoes": 0,
@@ -430,7 +430,7 @@
         },
         {
           "id": "c3t8",
-          "tema": "Pilar P4: o framework FALCO e sua avaliação (experimentos E1--E4)",
+          "tema": "O framework FALCO e sua avaliação (experimentos E1--E4)",
           "linhas": "394-487",
           "palavras": 882,
           "travessoes": 3,
@@ -463,7 +463,7 @@
     },
     {
       "id": "cap4",
-      "titulo": "4 · Resultados P1/P2",
+      "titulo": "4 · Resultados — Conjunto inicial e partida a frio",
       "arquivo": "4-resultados-l0/texto.tex",
       "rodadas": {
         "R1": {
@@ -559,7 +559,7 @@
     },
     {
       "id": "cap5",
-      "titulo": "5 · Resultados P3/P4",
+      "titulo": "5 · Resultados — Oráculo LLM e framework",
       "arquivo": "5-resultados-falco/texto.tex",
       "rodadas": {
         "R1": {
@@ -657,7 +657,7 @@
         },
         {
           "id": "c5t6",
-          "tema": "E3': o classificador forte julga o pipeline e a hipótese central",
+          "tema": "E3: o classificador forte julga o pipeline e a hipótese central",
           "linhas": "467-595",
           "palavras": 1038,
           "travessoes": 0,
@@ -1064,7 +1064,7 @@
   "artefatos": [
     {
       "id": "experimentos",
-      "nome": "Experimentos (robustez E3′)",
+      "nome": "Experimentos (robustez E3)",
       "itens": [
         {
           "id": "seed7",
@@ -1216,7 +1216,7 @@
         },
         {
           "id": "multiseed-infra",
-          "titulo": "E3′ multi-semente: --seed/--out-dir + notebook Colab/Databricks (7dbe5d9)",
+          "titulo": "E3 multi-semente: --seed/--out-dir + notebook Colab/Databricks (7dbe5d9)",
           "dono": "agente",
           "status": "feito"
         },
@@ -1234,7 +1234,7 @@
       "itens": [
         {
           "id": "a7-parada",
-          "titulo": "Atualizar Apêndice A7: política de parada pós-E3′ (hoje ensina a política refutada)",
+          "titulo": "Atualizar Apêndice A7: política de parada pós-E3 (hoje ensina a política refutada)",
           "dono": "agente",
           "status": "pendente"
         },
@@ -1380,7 +1380,7 @@
     "itens": [
       {
         "id": "e3p-seed7",
-        "o_que": "E3′ semente 7 — 5 braços + varredura de orçamento",
+        "o_que": "E3 semente 7 — 5 braços + varredura de orçamento",
         "onde": "Kaggle, GPU T4 · kernel ghdaru/falco-e3-semente-7 (executor01) · resultados publicados na main pelo executor02",
         "estado": "bloqueado",
         "dono": "executor02",
@@ -1391,7 +1391,7 @@
       },
       {
         "id": "e3p-seed123",
-        "o_que": "E3′ semente 123 — 5 braços + varredura de orçamento",
+        "o_que": "E3 semente 123 — 5 braços + varredura de orçamento",
         "onde": "Kaggle, GPU T4 · kernel ghdaru/falco-e3prime-s123 · activelearning/experiments/e2e3/kaggle/",
         "estado": "bloqueado",
         "dono": "executor02",
@@ -1402,7 +1402,7 @@
       },
       {
         "id": "e3p-seed42-canonico",
-        "o_que": "E3′ semente 42 REFEITA em regime canônico — decisão do autor (2026-08-16, sessão executor02): mais barato que refazer 7 e 123 em pareado. Regime antigo preservado em results/legacy_s42_bs16_eval20k/ (activelearning@176f703); mcnemar/bootstrap _s42 referem-se ao regime antigo e precisarão ser refeitos.",
+        "o_que": "E3 semente 42 REFEITA em regime canônico — decisão do autor (2026-08-16, sessão executor02): mais barato que refazer 7 e 123 em pareado. Regime antigo preservado em results/legacy_s42_bs16_eval20k/ (activelearning@176f703); mcnemar/bootstrap _s42 referem-se ao regime antigo e precisarão ser refeitos.",
         "onde": "Kaggle, GPU T4 · kernel ghdaru/falco-e3prime-s42 · mesma receita",
         "estado": "concluido",
         "dono": "executor02",
