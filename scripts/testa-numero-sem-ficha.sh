@@ -74,6 +74,19 @@ t "'Tabela 3' nao e' dado"                   limpo    1-cap/texto.tex
 cap 'O parametro vale $0{,}01 \cdot B$ conforme o desenho \citep{SemNumero}.'
 t "parametro do proprio metodo (sem %)"      limpo    1-cap/texto.tex
 
+echo "as superficies padrao (sem argumento) alcancam o que devem"
+# Sem este caso, alguem pode encolher PADROES_PADRAO e o guarda passa a pular
+# a defesa EM SILENCIO — o modo de falha mais perigoso de um guarda.
+cap 'Nada demais aqui.'
+mkdir -p "$FIX/apresentacao" "$FIX/artigos/a9"
+echo 'Reporta-se $10\%$ do total \citep{SemNumero}.' > "$FIX/apresentacao/defesa.tex"
+t "sem argumento, varre apresentacao/"       SINALIZA
+rm -f "$FIX/apresentacao/defesa.tex"
+echo 'Reporta-se $10\%$ do total \citep{SemNumero}.' > "$FIX/artigos/a9/main.tex"
+t "sem argumento, varre artigos/*/main.tex"  SINALIZA
+rm -f "$FIX/artigos/a9/main.tex"
+t "sem argumento e sem defeito -> limpo"     limpo
+
 echo "robustez"
 rm -rf "$FIX/fichamentos"; mkdir -p "$FIX/fichamentos"
 cap 'Reporta-se $10\%$ do total \citep{SemNumero}.'

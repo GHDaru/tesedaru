@@ -178,6 +178,27 @@ def analisa(caminho: str, estado: dict):
     return achados
 
 
+# Superficies onde um numero pode ser atribuido a uma citacao. Nao e' "todo
+# .tex do repositorio" de proposito: preambulo, folhas de rosto e arquivos
+# gerados nao tem prosa com citacao, e varrer o que nao interessa so gera
+# ruido. A defesa e os artigos entram porque numero errado ali chega a banca
+# e a revisores externos antes de chegar a tese.
+PADROES_PADRAO = (
+    "[0-9]-*/texto.tex",
+    "a4-biblioteca/texto.tex",
+    "apresentacao/*.tex",
+    "artigos/*/main.tex",
+)
+
+
+def superficies_padrao():
+    import glob
+    achados = []
+    for padrao in PADROES_PADRAO:
+        achados.extend(glob.glob(padrao))
+    return sorted(set(achados))
+
+
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     p.add_argument("arquivos", nargs="*", help="padrão: os capítulos N-*/texto.tex")
@@ -202,8 +223,7 @@ def main() -> int:
 
     alvos = args.arquivos
     if not alvos:
-        import glob
-        alvos = sorted(glob.glob("[0-9]-*/texto.tex"))
+        alvos = superficies_padrao()
 
     total = 0
     for arq in alvos:
