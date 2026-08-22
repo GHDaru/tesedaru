@@ -1,7 +1,7 @@
 {
  "schema": "kpis/v1",
- "computado_em": "2026-08-21",
- "git_sha": "f35cd55",
+ "computado_em": "2026-08-22",
+ "git_sha": "db5b9cd",
  "prontidao": {
   "global_pct": 36.7,
   "texto_pct": 43.2,

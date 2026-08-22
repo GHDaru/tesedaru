@@ -1355,12 +1355,16 @@ document.getElementById('entregas').innerHTML = entregas.length ? entregas.map(e
 }).join('') : '<p class="vazia">Nenhuma entrega registrada ainda.</p>';
 
 const experimentos = R.experimentos || [];
-const cab = '<thead><tr><th>Experimento</th><th>Pergunta</th><th>Resultado</th><th>Artefato</th></tr></thead>';
+const cab = '<thead><tr><th>Experimento</th><th>Pergunta</th><th>Resultado</th><th>Artefato</th><th>Notebook Kaggle</th></tr></thead>';
+const notebookCell = x => x.notebook_kaggle
+  ? `<a href="${esc(x.notebook_kaggle)}" target="_blank" rel="noopener">abrir ↗</a>`
+  : '<span class="vazia" title="Sem notebook publicamente rastreável nesta versão — não é ausência de execução, é ausência de link confirmado">—</span>';
 const linha = x => `<tr>
   <td class="chap">${esc(x.id)}</td>
   <td>${x.pergunta ? esc(x.pergunta) : '<span class="vazia">—</span>'}</td>
   <td>${x.resultado ? esc(x.resultado) : '<span class="vazia">pendente' + (x.nota ? ': ' + esc(x.nota) : '') + '</span>'}</td>
-  <td class="tot">${x.artefato ? esc(x.artefato) : '—'}</td></tr>`;
+  <td class="tot">${x.artefato ? esc(x.artefato) : '—'}</td>
+  <td>${notebookCell(x)}</td></tr>`;
 const expTab = document.getElementById('experimentos');
 expTab.innerHTML = experimentos.length ? cab + '<tbody>' + experimentos.map(linha).join('') + '</tbody>' : '';
 if (!experimentos.length) expTab.outerHTML = '<p class="vazia">Nenhum experimento registrado ainda.</p>';
