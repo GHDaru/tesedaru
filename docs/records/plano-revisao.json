@@ -1251,6 +1251,12 @@
       "titulo": "Apagar as branches humanize/cap2-t2 e cap2-t3 (superadas; conteudo util ja resgatado em 5218ccd). Enquanto existirem, o guarda do harness mantem 2-fundam/texto.tex BLOQUEADO para todos. Credencial das sessoes nao apaga branch (403) — so o autor: git push origin --delete humanize/cap2-t2 (2438c68) e humanize/cap2-t3 (dc7247e).",
       "origem": "revisor2 0440",
       "estado": "aguardando comando do autor"
+    },
+    {
+      "id": "dec-canais-do-autor",
+      "titulo": "Governanca: a banca (1050 §3) afirma que o autor aprovou 'o mapa/gate' na CONVERSA DELE COM A BANCA — canal separado do principal. ADR 0009 pressupoe um canal (o principal). Proposta da banca: ordem do autor em QUALQUER conversa dele vale como gate, com o agente que a recebeu obrigado a ecoar na caixa em 1 mensagem. PENDENTE: confirmacao do autor de que usa dois canais e como quer o roteamento.",
+      "origem": "banca 1050 §3 + principal 0800",
+      "estado": "aguardando o autor"
     }
   ],
   "lembretes": [
