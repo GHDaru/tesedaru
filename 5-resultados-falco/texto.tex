@@ -516,9 +516,8 @@ sementes.}
 \textbf{Braço} & \textbf{Conjunto de treino} & $n$ & \textbf{Acurácia} & \textbf{Macro F1} \\
 \midrule
 A & pipeline real, rótulos do oráculo & 11.936 & $0{,}705$ & $0{,}297$ \\
-% PROVISORIO: B e C aguardam medias homogeneas (_bs16v2) do executor02
-B & mesmos itens, gabarito & 11.936 & $0{,}775$ & $0{,}291$ \\
-C & aleatório, gabarito & 11.936 & $0{,}781$ & $0{,}235$ \\
+B & mesmos itens, gabarito & 11.936 & $0{,}777$ & $0{,}299$ \\
+C & aleatório, gabarito & 11.936 & $0{,}788$ & $0{,}246$ \\
 E & 15 mil por entropia, gabarito & 15.000 & $0{,}816$ & $0{,}341$ \\
 D & \emph{pool} inteiro, gabarito (régua) & 50.000 & $\mathbf{0{,}887}$ & $\mathbf{0{,}459}$ \\
 \bottomrule
@@ -538,24 +537,25 @@ critério admite. O valor do resultado está na decomposição, que o desenho
 pareado permite:
 
 \textbf{(i) O ruído do oráculo não é o gargalo.} Nos mesmos 11.936 itens,
-os rótulos do oráculo custam $6{,}4$ p.p.\ de acurácia frente ao gabarito
+os rótulos do oráculo custam $7{,}2$ p.p.\ de acurácia frente ao gabarito
 (A~vs.~B) --- itens selecionados por incerteza e portanto mais difíceis que
-a média. Em Macro F1, porém, A \emph{supera} B na média das sementes
-% PROVISORIO: par A-B aguarda a media homogenea de B (_bs16v2)
-($0{,}297$ vs.\ $0{,}291$ da varredura mista): o erro estruturado do oráculo espalha rótulos
-por mais classes e atua como regularizador involuntário das caudas,
-corroborando, agora no classificador forte, a previsão da avaliação de
-robustez (Seção~\ref{sec:res-e4}) de que ruído estruturado é o regime
-benigno.
-% PROVISORIO-ate-regeracao: contagens de cobertura de classes dos conjuntos
-% A/B/C no cache canônico a preencher pelo artefato da regeração.
+a média. Em Macro F1, os dois braços praticamente empatam ($0{,}297$ vs.\
+$0{,}299$, com B à frente em duas das três sementes): o erro estruturado do
+oráculo espalha rótulos por mais classes (o treino de A cobre 643 classes,
+contra 634 de B), mas a cobertura extra não se converte em Macro F1
+superior. A leitura de que ruído estruturado é o regime benigno segue
+sustentada pela avaliação de robustez com ruído controlado
+(Seção~\ref{sec:res-e4}); o que esta comparação mostra é que o custo do
+oráculo concentra-se na acurácia, sem perda correspondente em Macro F1 ---
+o gargalo do braço A é orçamento, não rótulo.
 
 \textbf{(ii) A seleção ativa compra Macro F1 e cobertura, não acurácia.}
 Com o mesmo orçamento e gabarito, a diferença de acurácia entre o braço
-aleatório e o selecionado é pequena (C~vs.~B: $0{,}781$ vs.\ $0{,}775$,
+aleatório e o selecionado é pequena (C~vs.~B: $0{,}788$ vs.\ $0{,}777$,
 dentro da dispersão entre sementes), mas em Macro F1 a seleção vence com
-consistência: B~$-$~C é positivo e significativo nas três sementes
-(\textit{bootstrap} pareado). É o mesmo padrão dos seletores em escala
+consistência --- B~$-$~C é positivo e significativo nas três sementes
+(\textit{bootstrap} pareado) --- e em cobertura: o treino selecionado
+alcança 634 classes, contra 525 do sorteio aleatório. É o mesmo padrão dos seletores em escala
 populacional (Seção~\ref{sec:res-e6}), reproduzido no
 \textit{transformer}.
 
