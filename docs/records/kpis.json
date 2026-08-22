@@ -1,43 +1,43 @@
 {
  "schema": "kpis/v1",
  "computado_em": "2026-08-22",
- "git_sha": "206508c",
+ "git_sha": "a086890",
  "prontidao": {
-  "global_pct": 28.9,
-  "texto_pct": 34.0,
+  "global_pct": 35.2,
+  "texto_pct": 41.4,
   "artefatos_pct": 0.0,
   "pontos_totais": 1992,
-  "pontos_feitos": 677,
+  "pontos_feitos": 825,
   "por_rodada": [
    {
     "id": "R1",
     "pontos": 94,
-    "feitos": 33
+    "feitos": 52
    },
    {
     "id": "R2",
     "pontos": 225,
-    "feitos": 52
+    "feitos": 68
    },
    {
     "id": "R3",
     "pontos": 498,
-    "feitos": 402
+    "feitos": 439
    },
    {
     "id": "R4",
     "pontos": 260,
-    "feitos": 68
+    "feitos": 88
    },
    {
     "id": "R5",
     "pontos": 485,
-    "feitos": 66
+    "feitos": 113
    },
    {
     "id": "R6",
     "pontos": 150,
-    "feitos": 55
+    "feitos": 65
    },
    {
     "id": "R7",
@@ -74,7 +74,7 @@
    {
     "id": "cap4",
     "pontos": 172,
-    "feitos": 5
+    "feitos": 78
    },
    {
     "id": "cap5",
@@ -84,50 +84,50 @@
    {
     "id": "cap6",
     "pontos": 135,
-    "feitos": 6
+    "feitos": 61
    },
    {
     "id": "ap-a1",
     "pontos": 91,
-    "feitos": 0
+    "feitos": 2
    },
    {
     "id": "ap-a2",
     "pontos": 86,
-    "feitos": 0
+    "feitos": 2
    },
    {
     "id": "ap-a3",
     "pontos": 91,
-    "feitos": 0
+    "feitos": 2
    },
    {
     "id": "ap-a4",
     "pontos": 91,
-    "feitos": 0
+    "feitos": 2
    },
    {
     "id": "ap-a5",
     "pontos": 86,
-    "feitos": 0
+    "feitos": 2
    },
    {
     "id": "ap-a6",
     "pontos": 86,
-    "feitos": 0
+    "feitos": 2
    },
    {
     "id": "ap-a7",
     "pontos": 90,
-    "feitos": 0
+    "feitos": 4
    }
   ]
  },
  "ritmo": {
-  "velocidade_pontos_semana": 418.8,
+  "velocidade_pontos_semana": 591.5,
   "janela_dias": 6,
-  "eta_semanas": 3.1,
-  "eta_data": "2026-09-12",
+  "eta_semanas": 2.0,
+  "eta_data": "2026-09-04",
   "eta_confiavel": true,
   "serie": [
    {
@@ -175,9 +175,9 @@
    },
    {
     "data": "2026-08-22",
-    "commit": "206508c",
-    "pontos": 677,
-    "pct": 34.0,
+    "commit": "a086890",
+    "pontos": 825,
+    "pct": 41.4,
     "evento": null
    }
   ]
@@ -190,14 +190,14 @@
     "tipo": "acao",
     "trilha": null,
     "titulo": "Rodar semente 7 no Colab (notebook e3prime_colab, 1 sessão)",
-    "pontos_destravados": 253
+    "pontos_destravados": 234
    },
    {
     "id": "seed123",
     "tipo": "acao",
     "trilha": null,
     "titulo": "Rodar semente 123 no Colab",
-    "pontos_destravados": 253
+    "pontos_destravados": 234
    },
    {
     "id": "cap3.R4",
@@ -265,7 +265,7 @@
   ]
  },
  "represados": {
-  "pontos": 253
+  "pontos": 234
  },
  "divida_fundamentacao": {
   "citacoes_pendentes": 38,
