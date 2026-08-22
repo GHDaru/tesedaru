@@ -13,3 +13,17 @@ termos-chave usados de forma consistente (oraculo, seletor, regua, braco,
 pool, populacao reservada, gate); sem sinonimos soltos que confundam.
 Entregue os achados; depois eu te libero para consolidar o lote com os do
 revisor2 (R3/R5) e revisor1 (R4) numa branch so. Nenhum numero muda em R2/R6.
+
+## Andamento (banca, 2026-08-23, apos a liberacao do principal)
+
+Auditoria R2/R6 entregue (minha 0500, 11 achados). Consolidacao INICIADA em
+`banca/lote-cap5-varredura` @6f25d32 (base: banca/celulas-invalidos-e-metade,
+para conter as celulas ja em cruzada): aplicados 9 dos meus 11 + 5 dos 8 da
+R4 do revisor1 + 2 reparos do revisor2 vindos das cruzadas (fator 22 no A7;
+remissao 795 no Cap.4). Pendentes para fechar: (a) R3/R5 do revisor2 (ainda
+nao entregue; previsao dele: 1 ciclo); (b) R4#7 do revisor1, que exige medir
+a composicao por classe da amostra ativa (labeled_idx nos *_state.json do
+E6) antes de reescrever os dois "porque"; (c) 3 itens meus de decisao do
+autor (reabertura LLM/LCE ja aplicada conservadoramente; "dp" nas legendas e
+unificacao interna/autoavaliacao ficam para o gate). Fecho o lote no mesmo
+branch quando o R3/R5 chegar.
