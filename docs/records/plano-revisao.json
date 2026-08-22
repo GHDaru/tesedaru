@@ -286,7 +286,7 @@
         },
         "R4": {
           "status": "gate",
-          "nota": "revisor1 branch r4/cap3-afirmacoes @908a840: 0 afirmacoes orfas; 7 lastros corrigidos (E5 apontava e6population, e o correto e e5cycle; nota de reprodutibilidade das duas chaves de texto; E2 com desfecho; artefato da calibracao de lote; 'ordens de grandeza' virou argumento; 5x->4,6x com denominador; verificador executavel citado). 3 DIVERGENCIAS declaradas e nao corrigidas, exigem decisao: gate 85% invertido (esta 4,56 p.p. ABAIXO de 89,56%, nao acima); Fase 2 roda entropia mas o E1 elege menor margem/menor confianca; epsilon=1e-3 x 1/sqrt(nV)=0,0224 do A7 (fator 22). Relatorio docs/r4-cap3-afirmacoes.md. DoD: compila exit 0, 0 refs indefinidas novas, overfull identico a main."
+          "nota": "revisor1 branch r4/cap3-afirmacoes @908a840: 0 afirmacoes orfas; 7 lastros corrigidos (E5 apontava e6population, e o correto e e5cycle; nota de reprodutibilidade das duas chaves de texto; E2 com desfecho; artefato da calibracao de lote; 'ordens de grandeza' virou argumento; 5x->4,6x com denominador; verificador executavel citado). 3 DIVERGENCIAS declaradas e nao corrigidas, exigem decisao: gate 85% invertido (esta 4,56 p.p. ABAIXO de 89,56%, nao acima); Fase 2 roda entropia mas o E1 elege menor margem/menor confianca; epsilon=1e-3 x 1/sqrt(nV)=0,0224 do A7 (fator 22). Relatorio o relatorio de afirmacoes da R4 (a entregar pelo revisor1). DoD: compila exit 0, 0 refs indefinidas novas, overfull identico a main."
         },
         "R5": {
           "status": "feito",
