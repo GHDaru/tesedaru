@@ -1,33 +1,33 @@
 {
  "schema": "kpis/v1",
  "computado_em": "2026-08-22",
- "git_sha": "b249448",
+ "git_sha": "206508c",
  "prontidao": {
-  "global_pct": 34.1,
-  "texto_pct": 40.2,
+  "global_pct": 28.9,
+  "texto_pct": 34.0,
   "artefatos_pct": 0.0,
-  "pontos_totais": 2209,
-  "pontos_feitos": 887,
+  "pontos_totais": 1992,
+  "pontos_feitos": 677,
   "por_rodada": [
    {
     "id": "R1",
-    "pontos": 334,
-    "feitos": 273
+    "pontos": 94,
+    "feitos": 33
    },
    {
     "id": "R2",
     "pontos": 225,
-    "feitos": 45
+    "feitos": 52
    },
    {
     "id": "R3",
-    "pontos": 475,
-    "feitos": 395
+    "pontos": 498,
+    "feitos": 402
    },
    {
     "id": "R4",
     "pontos": 260,
-    "feitos": 58
+    "feitos": 68
    },
    {
     "id": "R5",
@@ -37,7 +37,7 @@
    {
     "id": "R6",
     "pontos": 150,
-    "feitos": 50
+    "feitos": 55
    },
    {
     "id": "R7",
@@ -63,28 +63,28 @@
    },
    {
     "id": "cap2",
-    "pontos": 506,
-    "feitos": 486
+    "pontos": 419,
+    "feitos": 399
    },
    {
     "id": "cap3",
-    "pontos": 211,
-    "feitos": 189
+    "pontos": 157,
+    "feitos": 135
    },
    {
     "id": "cap4",
-    "pontos": 161,
-    "feitos": 17
+    "pontos": 172,
+    "feitos": 5
    },
    {
     "id": "cap5",
-    "pontos": 326,
-    "feitos": 64
+    "pontos": 268,
+    "feitos": 36
    },
    {
     "id": "cap6",
-    "pontos": 164,
-    "feitos": 35
+    "pontos": 135,
+    "feitos": 6
    },
    {
     "id": "ap-a1",
@@ -124,38 +124,38 @@
   ]
  },
  "ritmo": {
-  "velocidade_pontos_semana": 663.8,
+  "velocidade_pontos_semana": 418.8,
   "janela_dias": 6,
-  "eta_semanas": 2.0,
-  "eta_data": "2026-09-04",
+  "eta_semanas": 3.1,
+  "eta_data": "2026-09-12",
   "eta_confiavel": true,
   "serie": [
    {
     "data": "2026-08-16",
     "commit": "07bd867",
     "pontos": 318,
-    "pct": 14.4,
+    "pct": 16.0,
     "evento": null
    },
    {
     "data": "2026-08-17",
     "commit": "53c0ca2",
     "pontos": 808,
-    "pct": 36.6,
+    "pct": 40.6,
     "evento": null
    },
    {
     "data": "2026-08-18",
     "commit": "e9b8d9b",
     "pontos": 808,
-    "pct": 36.6,
+    "pct": 40.6,
     "evento": null
    },
    {
     "data": "2026-08-19",
     "commit": "e9b8d9b",
     "pontos": 808,
-    "pct": 36.6,
+    "pct": 40.6,
     "evento": null,
     "carregado": true
    },
@@ -163,21 +163,21 @@
     "data": "2026-08-20",
     "commit": "faef7a1",
     "pontos": 878,
-    "pct": 39.7,
+    "pct": 44.1,
     "evento": null
    },
    {
     "data": "2026-08-21",
     "commit": "f35cd55",
     "pontos": 878,
-    "pct": 39.7,
+    "pct": 44.1,
     "evento": null
    },
    {
     "data": "2026-08-22",
-    "commit": "b249448",
-    "pontos": 887,
-    "pct": 40.1,
+    "commit": "206508c",
+    "pontos": 677,
+    "pct": 34.0,
     "evento": null
    }
   ]
@@ -268,8 +268,8 @@
   "pontos": 253
  },
  "divida_fundamentacao": {
-  "citacoes_pendentes": 27,
-  "chaves_citadas": 152,
+  "citacoes_pendentes": 38,
+  "chaves_citadas": 153,
   "fichamentos": 176,
   "chaves_sem_fichamento": 0
  },

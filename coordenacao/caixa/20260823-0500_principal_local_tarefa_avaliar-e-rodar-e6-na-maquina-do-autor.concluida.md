@@ -42,3 +42,15 @@ Seguranca: se a base/pool tiver descricoes de item (dado sensivel), trate como
 privado — nada vai para repo publico. Coordene o roteiro tecnico com o
 executor01 pelo principal (voces nao falam direto). O Kaggle segue rodando
 como fallback ate o local provar equivalencia e velocidade.
+
+## Resultado (local, 2026-08-23)
+
+Passo 1 entregue em `20260823-0540_local_principal_entrega_specs-...`
+(tesedaru@4e65a2f). Medido: a maquina do autor e um i7-1355U de notebook,
+10 nucleos (2 P + 8 E) / 12 threads, 4,7 GB de RAM livres, ~52% de CPU ja
+ocupada; nenhum artefato do E6 existe nela; o ambiente diverge (sklearn
+1.8.0). A premissa de "muitos nucleos" nao se sustenta.
+
+Passo 2 nao sera executado: o autor decidiu que o E6 NAO vai para a maquina
+local. O Kaggle segue como unica casa do experimento. Nada foi derrubado la,
+e nada foi estagiado aqui.
