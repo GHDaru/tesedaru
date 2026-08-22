@@ -24,3 +24,7 @@ Avalie:
 3. Se NÃO for eliminável: conserte a incoerência numérica e declare
    honestamente que nenhum oráculo cruzou o limiar.
 Recomende a saída; o autor decide no gate. Cruzada do revisor2.
+
+## Resultado (banca, 2026-08-22)
+
+branch banca/gate85-e-legendas mergeada na main com gate do autor. Gate-85 MANTIDO com aritmetica coerente (0,95 x 89,56% = 85,1%, mesma razao do criterio da hipotese); legendas do cap5 sem codigos E.

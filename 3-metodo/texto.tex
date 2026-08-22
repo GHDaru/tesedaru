@@ -46,10 +46,9 @@ permite reexecutá-lo. Os identificadores da primeira coluna são \emph{controle
 interno} — servem para localizar código e dados, não para nomear achados, e por
 isso não reaparecem no texto corrido dos capítulos de resultados, que se
 organiza pelo que foi descoberto. Quem quiser ir do achado ao artefato usa esta
-tabela; quem quiser ler a tese não precisa dela. A linha em E3$'$ marca a
-variante efetivamente executada do desenho completo do E3, que permanece
-registrado como extensão
-(Seção~\ref{sec:metodo-falco-baselines}).
+tabela; quem quiser ler a tese não precisa dela. O E3 designa, em toda a tese,
+a avaliação da hipótese central efetivamente executada; o que ficou fora dela
+está registrado como extensão na Seção~\ref{sec:metodo-falco-baselines}.
 
 Uma dependência entre experimentos não cabe na tabela e precisa ser dita: a
 avaliação de robustez ao ruído do oráculo é \textbf{condicional} ao desempenho
@@ -80,7 +79,7 @@ E2 & Épocas de ajuste fino do BERTimbau por iteração & apoio ao framework & (
 E4 & Robustez do aprendizado a ruído do oráculo & framework\newline (condicional) & Seção~\ref{sec:res-e4} \\
 E5 & Ciclo real de rotulagem com oráculo LLM e critério de parada & framework & (executado)$^{\dagger}$ \\
 E6 & Seletores em escala populacional e viés de autoavaliação & framework & Seção~\ref{sec:res-e6} \\
-E3$'$ & Avaliação da hipótese central com o classificador forte & framework & Seção~\ref{sec:res-e3p} \\
+E3 & Avaliação da hipótese central com o classificador forte & framework & Seção~\ref{sec:res-e3p} \\
 \bottomrule
 \end{tabular}
 
@@ -90,7 +89,7 @@ descrita na Seção~\ref{sec:metodo-reprodutibilidade}):
 \texttt{experiments/e0} (E0) $\cdot$ \texttt{experiments/e0p} (E0-P) $\cdot$
 \texttt{experiments/e1e4} (E1, E4) $\cdot$ \texttt{experiments/e5cycle}
 (E5) $\cdot$ \texttt{experiments/e6population} (E6) $\cdot$
-\texttt{experiments/e2e3} (E2, E3$'$) $\cdot$
+\texttt{experiments/e2e3} (E2, E3) $\cdot$
 \texttt{experiments/p1} (conjunto inicial e partida a frio).\\[2pt]
 $^{\dagger}$ O E5 foi executado, mas nenhuma seção dos capítulos de resultados o
 reporta isoladamente; os artefatos estão em \texttt{experiments/e5cycle} e o
@@ -742,7 +741,7 @@ mantida explícita em toda a tese. Os resultados \emph{originais} dos pilares do
 conjunto inicial e da partida a frio (estudo de sensibilidade de $L_0$, envelope
 do algoritmo genético e DRI-SL na partida a frio) foram produzidos no repositório
 \texttt{activetextclassification}; os pilares do oráculo LLM e do framework
-(E0, E0-P, E1, E4, E5, E6 e E3$'$), com as \emph{reexecuções} de verificação
+(E0, E0-P, E1, E4, E5, E6 e E3), com as \emph{reexecuções} de verificação
 dos dois primeiros, foram produzidos
 na biblioteca \texttt{activelearning}, reescrita sob a arquitetura acima.
 Onde a tese reporta um número originado no repositório legado, o porte para a

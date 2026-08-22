@@ -25,3 +25,7 @@ Duas afirmações do parágrafo MUDAM ao fechar:
 
 Feche as 3 marcas PROVISORIO com esses valores E o desfecho reescrito, numa
 passada. Não deixe a afirmação invertida no texto. Cruzada do revisor2.
+
+## Resultado (banca, 2026-08-22)
+
+branch banca/paragrafo-axb mergeada na main com gate do autor. Paragrafo A x B reescrito com empate em F1 (B 0,299 > A 0,297 em 2/3 sementes), cobertura sem conversao a F1 e custo de 7,2 p.p. declarado.

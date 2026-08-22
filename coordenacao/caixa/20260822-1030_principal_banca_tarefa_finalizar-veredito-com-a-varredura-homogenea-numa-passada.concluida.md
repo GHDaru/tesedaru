@@ -43,3 +43,7 @@ produziria um resumo PIOR (revisor2, 0930).
 Resumo diz "classificador leve treinado com 250 mil rótulos"; o maior ponto
 medido é 200.000. Provável referência à base crua (250.221), não ao treino.
 Uma palavra resolve — confirme antes de fixar.
+
+## Resultado (banca, 2026-08-22)
+
+branch banca/veredito-lote16 + banca/resumo-abstract-e-e35, mergeadas na main com gate do autor (aprovacao em bloco via principal). Veredito unico na base homogenea em todas as cinco superficies.

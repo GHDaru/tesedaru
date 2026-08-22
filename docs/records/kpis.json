@@ -1,7 +1,7 @@
 {
  "schema": "kpis/v1",
  "computado_em": "2026-08-22",
- "git_sha": "b09f616",
+ "git_sha": "b249448",
  "prontidao": {
   "global_pct": 34.1,
   "texto_pct": 40.2,
@@ -175,7 +175,7 @@
    },
    {
     "data": "2026-08-22",
-    "commit": "a68cebf",
+    "commit": "b249448",
     "pontos": 887,
     "pct": 40.1,
     "evento": null
@@ -249,17 +249,17 @@
     "pontos_destravados": 0
    },
    {
-    "id": "dec-gate-85",
-    "tipo": "decisao",
-    "trilha": "texto",
-    "titulo": "Gate de 85%: justificativa diz 'um desvio acima' de 89,56% quando está 4,6 p.p. abaixo; configuração final derivada sem oráculo atingir o limiar e sem declarar violação do pré-registro (parecer R3/R4/R6)",
-    "pontos_destravados": 0
-   },
-   {
     "id": "dec-politica-parada",
     "tipo": "decisao",
     "trilha": "texto",
     "titulo": "Política de parada: dois racionais incompatíveis (fator ~20) para a mesma constante — causa-raiz atribuída ao resultado negativo (parecer R3/R4/R6)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "dec-cap4-L0-100-valor-canonico",
+    "tipo": "decisao",
+    "trilha": null,
+    "titulo": "Cap.4 L0=100: tab:drisl-vs-ag (l.117) usa 38,76% (valor ERRADO). Canonico medido pelo executor02 (3 evidencias: convencao _old do sweep, cabecalho CSV, historico git) = 36,71% melhor / 10,86% pior, de activetextclassification@b540533 (_100old). A alegacao central SOBREVIVE e MELHORA: margem do DRI-SL vai de +2,47 p.p. para +4,52 p.p. Decisao do autor: aprovar a troca 38,76->36,71 (recomendado) e despachar a correcao de 1 linha.",
     "pontos_destravados": 0
    }
   ]
