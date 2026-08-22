@@ -75,6 +75,10 @@ SHARED_CSS = """
      com accent/atencao/st-andamento, que já carregam outro significado */
   --ag-principal:#6E42C1; --ag-banca:#0E7C86; --ag-revisor1:#B15C2E;
   --ag-revisor2:#9C3F76; --ag-autor:#4A4E9E;
+  /* 4 agentes novos (ciclo 010, mapa de agentes) — mesmos 5 matizes acima,
+     3 tons a mais no espectro; "todos" (difusão, não é agente) fica de
+     propósito fora — cai no fallback oco já existente para "sem cor própria" */
+  --ag-site:#1F7A52; --ag-executor01:#B23A46; --ag-executor02:#A67C00; --ag-local:#3E6E8E;
   /* tipografia: escala fixa 12/13/15/20/28/44 — nunca tamanho arbitrário */
   --fs-1:12px; --fs-2:13px; --fs-3:15px; --fs-4:20px; --fs-5:28px; --fs-6:44px;
   /* espaço em múltiplos de 4px */
@@ -94,6 +98,7 @@ SHARED_CSS = """
     --grid:#242A25;
     --ag-principal:#B79AF0; --ag-banca:#7FDBE0; --ag-revisor1:#E3A67A;
     --ag-revisor2:#E091C4; --ag-autor:#A7ABE8;
+    --ag-site:#6FD1A0; --ag-executor01:#E38A93; --ag-executor02:#E0C466; --ag-local:#8FC4E0;
   }
 }
 :root[data-theme="dark"]{
@@ -108,6 +113,7 @@ SHARED_CSS = """
   --grid:#242A25;
   --ag-principal:#B79AF0; --ag-banca:#7FDBE0; --ag-revisor1:#E3A67A;
   --ag-revisor2:#E091C4; --ag-autor:#A7ABE8;
+  --ag-site:#6FD1A0; --ag-executor01:#E38A93; --ag-executor02:#E0C466; --ag-local:#8FC4E0;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -260,9 +266,13 @@ summary{cursor:pointer; font-size:var(--fs-2); font-weight:600}
 .k-ag-dot[data-ag="revisor1"]{background:var(--ag-revisor1)}
 .k-ag-dot[data-ag="revisor2"]{background:var(--ag-revisor2)}
 .k-ag-dot[data-ag="autor"]{background:var(--ag-autor)}
+.k-ag-dot[data-ag="site"]{background:var(--ag-site)}
+.k-ag-dot[data-ag="executor01"]{background:var(--ag-executor01)}
+.k-ag-dot[data-ag="executor02"]{background:var(--ag-executor02)}
+.k-ag-dot[data-ag="local"]{background:var(--ag-local)}
 /* responsável ainda não atribuído ("a definir") — pontinho oco, nunca
    invisível: a ausência de cor já é informação (ninguém assumiu ainda) */
-.k-ag-dot:not([data-ag="principal"]):not([data-ag="banca"]):not([data-ag="revisor1"]):not([data-ag="revisor2"]):not([data-ag="autor"]){
+.k-ag-dot:not([data-ag="principal"]):not([data-ag="banca"]):not([data-ag="revisor1"]):not([data-ag="revisor2"]):not([data-ag="autor"]):not([data-ag="site"]):not([data-ag="executor01"]):not([data-ag="executor02"]):not([data-ag="local"]){
   background:transparent; border:1px solid var(--muted)}
 """
 
@@ -318,6 +328,7 @@ NAV = [
     ("referencias.html", "Referências", "❐"),
     ("grafo.html", "Grafo", "⬡"),
     ("bibliometria.html", "Bibliometria", "◫"),
+    ("agentes.html", "Agentes", "◈"),
 ]
 
 
@@ -508,19 +519,15 @@ def build_plano() -> tuple[str, str]:
 
 <section class="card">
   <h2>Capítulos × rodadas</h2>
+  <p class="estrutura-resumo" id="estrutura-resumo"></p>
   <div class="rodadas-def" id="rodadas-def"></div>
-  <div class="scroll"><table id="matriz">
-    <caption>✓ feito · 🔒 em gate (espera você) · ◐ andamento · ○ pendente · – não se aplica · ⛓ bloqueado</caption>
-  </table></div>
-  <div id="aberturas"></div>
-</section>
-
-<section class="card" id="quebra-card">
-  <h2>Quebra por tema</h2>
-  <p class="vazia">Capítulos grandes demais para uma rodada só viram frentes
-  menores — cada tema segue sua própria sequência R3→R4→R1 antes de entrar
-  na reescrita do capítulo inteiro.</p>
-  <div id="quebras"></div>
+  <p class="cap-grid-legenda">✓ feito · 🔒 em gate (espera você) · ◐ andamento · ○ pendente · – não se aplica · ⛓ bloqueado — abra um capítulo para ver as 7 rodadas em detalhe</p>
+  <div id="cap-grid" class="cap-grid"></div>
+  <h3 class="pos-textuais-h">Elementos pós-textuais</h3>
+  <p class="vazia">Referências e apêndices, na ordem real de <code>principal.tex</code> — ainda
+  sem rodadas de revisão próprias (a divisão editorial rodada a rodada dos 7 apêndices,
+  hoje um agregado só na matriz acima, é decisão do agente principal).</p>
+  <div id="pos-textuais"></div>
 </section>
 
 <section class="card">
@@ -635,60 +642,114 @@ def build_plano() -> tuple[str, str]:
     const aria = `${{capTit}}, rodada ${{rid}}: ${{s}}${{bloq ? ', bloqueada' : ''}}${{cell?.nota ? ' — ' + cell.nota : ''}}`;
     return `<span class="pill ${{s}}${{cell?.nota ? ' has-note' : ''}}"${{note}} aria-label="${{esc(aria)}}">${{GLIFO[s]}}${{bloq}}</span>`;
   }};
-  el('matriz').innerHTML += '<thead><tr><th scope="col">Capítulo</th>' +
-    P.rodadas.map(r => `<th scope="col" title="${{esc(r.nome)}} — ${{esc(r.descricao)}}">${{r.id}}</th>`).join('') +
-    '<th scope="col">Pontos</th></tr></thead><tbody>' +
-    P.capitulos.map(c => {{
-      const t = ptsCap[c.id] || {{pontos: 0, feitos: 0}};
-      return `<tr><th scope="row" class="chap">${{c.titulo}}<small>${{c.arquivo}}</small></th>` +
-        P.rodadas.map(r => `<td>${{pill(c.rodadas[r.id], c.titulo, r.id)}}</td>`).join('') +
-        `<td class="tot">${{t.feitos}}/${{t.pontos}}</td></tr>`;
-    }}).join('') + '</tbody>';
+  // quebra por tema — precisa existir antes do grid de capítulos porque a
+  // quebra de cada capítulo, quando existe, agora é fundida dentro do
+  // próprio card (parecer dos 3 especialistas do ciclo 014: é a mesma
+  // pergunta do capítulo, granularidade menor — não uma seção à parte).
+  // Temas viraram lista leve (ícone único + nome), não cards — correção do
+  // autor: "não precisa ser cards, bullet points já atendem".
+  const STAGE_ORDER = ['aberto', 'r3', 'r4', 'r1', 'gate', 'feito'];
+  const STAGE_CLASS = {{aberto: 'pendente', r3: 'andamento', r4: 'andamento', r1: 'andamento', gate: 'gate', feito: 'feito'}};
+  const rodadaDef = Object.fromEntries(P.rodadas.map(r => [r.id, r]));
+  const quebraHtml = c => {{
+    if (!(c.quebra || []).length) return '';
+    const temas = c.quebra;
+    const pct = Math.round(100 * temas.reduce((s, t) => s + STAGE_ORDER.indexOf(t.status), 0)
+      / (temas.length * (STAGE_ORDER.length - 1)));
+    const linhas = temas.map(t => {{
+      const cls = STAGE_CLASS[t.status] || 'pendente';
+      const note = t.nota ? ` title="${{esc(t.nota)}}"` : '';
+      return `<div class="item"><span class="pill ${{cls}}${{t.nota ? ' has-note' : ''}}"${{note}}>${{GLIFO[cls]}} ${{esc(t.status)}}</span>
+        <span class="t">${{esc(t.tema)}}</span>
+        <span class="who"><span class="k-ag-dot" data-ag="${{esc(t.responsavel)}}" aria-hidden="true"></span>${{esc(t.responsavel)}}</span></div>`;
+    }}).join('');
+    return `<div class="quebra-cap">
+      <div class="quebra-cap-head"><h4>Quebra por tema</h4>
+        <span class="quebra-pct">${{pct}}% <small>(ponderado pela etapa de cada tema)</small></span></div>
+      <div class="progress" role="progressbar" aria-valuenow="${{pct}}" aria-valuemin="0" aria-valuemax="100"
+        aria-label="Progresso por tema de ${{esc(c.titulo)}}"><div class="progress-bar" style="width:${{pct}}%"></div></div>
+      ${{c.sequencia_rodadas ? `<p class="quebra-seq">${{esc(c.sequencia_rodadas)}}</p>` : ''}}
+      ${{linhas}}
+    </div>`;
+  }};
 
-  el('aberturas').innerHTML = P.capitulos.map(c => c.abertura ? `
-    <details><summary>${{c.titulo}} — o que abre esta frente</summary>
-      <ul class="notes">${{c.abertura.map(a => `<li>${{esc(a)}}</li>`).join('')}}</ul></details>` : '').join('');
+  // partes de um capítulo-agregado (pre = resumo+abstract; ap = 7 apêndices)
+  // — mesmo dado do capítulo (não existe rodada rastreada por arquivo ainda),
+  // só reapresentado por nome de arquivo, ícones apenas, sem nota nem texto
+  // (correção do autor). PT já foi calculado mais abaixo — repetimos aqui
+  // porque partesHtml roda antes; leitura segura, mesmo objeto.
+  const PTlocal = P.pos_textuais || [];
+  const partesHtml = c => {{
+    let partes = null;
+    if (c.id === 'pre') {{
+      partes = c.arquivo.split('·').map(s => s.trim()).map(f => ({{
+        nome: /resumo/i.test(f) ? 'Resumo' : /abstract/i.test(f) ? 'Abstract' : f, arquivo: f
+      }}));
+    }} else if (c.id === 'ap') {{
+      partes = PTlocal.filter(x => x.id.startsWith('a')).map(x => ({{
+        nome: x.titulo.replace(/^Apêndice /, ''), arquivo: x.arquivo
+      }}));
+    }}
+    if (!partes) return '';
+    const naCount = P.rodadas.filter(r => (c.rodadas[r.id]?.status) === 'na').length;
+    const feitoCount = P.rodadas.filter(r => (c.rodadas[r.id]?.status) === 'feito').length;
+    const denom = P.rodadas.length - naCount;
+    return `<div class="partes-lista">${{partes.map(pt => `
+      <div class="parte-linha"><span class="parte-nome">${{esc(pt.nome)}}</span>
+        <span class="parte-rodadas">${{P.rodadas.map(r => pill(c.rodadas[r.id], c.titulo, r.id)).join('')}}</span>
+        <span class="parte-resumo">${{feitoCount}}/${{denom}} rodadas</span></div>`).join('')}}
+    </div>
+    <p class="parte-obs">mesma revisão do capítulo — ainda sem rodada rastreada por arquivo</p>`;
+  }};
+
+  // grid de capítulos — MOCKUP ciclo 014 v3 (2ª correção do autor: 3 níveis
+  // — 1) linha fechada, igual hoje; 2) aberto = partes do agregado (só
+  // ícones) OU quebra por tema, quando existirem; 3) "o que abre esta
+  // frente" nested, exatamente como hoje, só que dentro do card em vez de
+  // solto abaixo da matriz)
+  el('cap-grid').innerHTML = P.capitulos.map(c => {{
+    const t = ptsCap[c.id] || {{pontos: 0, feitos: 0}};
+    const enc = c.encerrado
+      ? ` <span class="pill feito chap-selo" title="${{esc(c.encerrado)}}">✓ encerrado</span>` : '';
+    const naCount = P.rodadas.filter(r => (c.rodadas[r.id]?.status) === 'na').length;
+    const feitoCount = P.rodadas.filter(r => (c.rodadas[r.id]?.status) === 'feito').length;
+    const denom = P.rodadas.length - naCount;
+    const dims = c.dimensoes ? `<p class="cap-dims">${{c.dimensoes.travessoes}} travessões · ${{c.dimensoes.citacoes}} citações · ${{c.dimensoes.tokens}} tokens numéricos</p>` : '';
+    const abertura = c.abertura ? `<details class="cap-abertura"><summary>O que abre esta frente</summary>
+      <ul class="notes">${{c.abertura.map(a => `<li>${{esc(a)}}</li>`).join('')}}</ul></details>` : '';
+    return `<details class="cap-card">
+      <summary class="cap-card-head">
+        <span class="cap-card-titulo">${{c.titulo}}${{enc}}</span>
+        <span class="cap-card-arquivo">${{esc(c.arquivo)}}</span>
+        <span class="cap-card-rodadas">${{P.rodadas.map(r => pill(c.rodadas[r.id], c.titulo, r.id)).join('')}}</span>
+        <span class="cap-card-resumo"><span class="cap-card-pontos">${{t.feitos}}/${{t.pontos}} pts</span>
+          <span class="cap-card-rd-count">${{feitoCount}}/${{denom}} rodadas</span></span>
+      </summary>
+      <div class="cap-card-body">
+        ${{partesHtml(c)}}
+        ${{quebraHtml(c)}}
+        ${{dims}}
+        ${{abertura}}
+      </div>
+    </details>`;
+  }}).join('');
+
+  // elementos pós-textuais (referências + apêndices individuais) — tarefa do
+  // principal 20260822-1130: existem fora de capitulos[] porque, ao contrário
+  // dos capítulos, ainda não têm rodadas de revisão próprias medidas
+  const PT = P.pos_textuais || [];
+  el('estrutura-resumo').textContent = PT.length
+    ? `Estrutura completa da tese: ${{P.capitulos.length}} capítulos + ${{PT.length}} elementos pós-textuais (referências e apêndices) — ver lista abaixo da matriz.`
+    : `Estrutura: ${{P.capitulos.length}} capítulos.`;
+  el('pos-textuais').innerHTML = PT.length ? PT.map(x => `
+    <div class="item"><span class="pill ${{x.estado === 'existe' ? 'feito' : 'pendente'}}">${{x.estado === 'existe' ? '✓' : '○'}} ${{esc(x.estado)}}</span>
+      <span class="t">${{esc(x.titulo)}} <small style="color:var(--muted)">· ${{esc(x.medida)}}</small></span>
+      <span class="who">${{esc(x.arquivo)}}</span></div>`).join('')
+    : '<p class="vazia">sem dados ainda</p>';
 
   // quebra por tema: capítulos grandes demais para uma rodada só (hoje só o
   // Cap.2) viram frentes menores, cada uma com sua própria sequência de
   // etapas — ver capitulos[].quebra / sequencia_rodadas no plano
-  const STAGE_ORDER = ['aberto', 'r3', 'r4', 'r1', 'gate', 'feito'];
-  const STAGE_CLASS = {{aberto: 'pendente', r3: 'andamento', r4: 'andamento', r1: 'andamento', gate: 'gate', feito: 'feito'}};
-  const capsComQuebra = P.capitulos.filter(c => (c.quebra || []).length);
-  if (capsComQuebra.length) {{
-    el('quebras').innerHTML = capsComQuebra.map(c => {{
-      const temas = c.quebra;
-      const pct = Math.round(100 * temas.reduce((s, t) => s + STAGE_ORDER.indexOf(t.status), 0)
-        / (temas.length * (STAGE_ORDER.length - 1)));
-      const cards = temas.map(t => {{
-        const cls = STAGE_CLASS[t.status] || 'pendente';
-        const semDef = t.responsavel === 'a definir';
-        // Cap.2 usa "citacoes", Caps.3-6 usam "citacoes_chaves" — mesmo dado,
-        // nome de campo diferente entre capítulos no plano; aceita os dois
-        const citacoes = t.citacoes ?? t.citacoes_chaves;
-        const note = t.nota ? ` title="${{esc(t.nota)}}"` : '';
-        return `<div class="tema-card">
-          <div class="tema-top">
-            <span class="pill ${{cls}}${{t.nota ? ' has-note' : ''}}"${{note}}>${{GLIFO[cls]}} ${{esc(t.status)}}</span>
-            <span class="tema-resp${{semDef ? ' tema-resp-indef' : ''}}"><span class="k-ag-dot" data-ag="${{esc(t.responsavel)}}" aria-hidden="true"></span>${{esc(t.responsavel)}}</span>
-          </div>
-          <p class="tema-nome">${{esc(t.tema)}}</p>
-          <p class="tema-dim">linhas ${{esc(t.linhas)}} · ${{t.palavras}} palavras · ${{t.travessoes}} travessões · ${{citacoes ?? '—'}} citações</p>
-        </div>`;
-      }}).join('');
-      return `<div class="quebra-cap">
-        <div class="quebra-cap-head"><h3>${{esc(c.titulo)}}</h3>
-          <span class="quebra-pct">${{pct}}% <small>(ponderado pela etapa de cada tema)</small></span></div>
-        <div class="progress" role="progressbar" aria-valuenow="${{pct}}" aria-valuemin="0" aria-valuemax="100"
-          aria-label="Progresso por tema de ${{esc(c.titulo)}}"><div class="progress-bar" style="width:${{pct}}%"></div></div>
-        ${{c.sequencia_rodadas ? `<p class="quebra-seq">${{esc(c.sequencia_rodadas)}}</p>` : ''}}
-        <div class="temas-grid">${{cards}}</div>
-      </div>`;
-    }}).join('');
-  }} else {{
-    el('quebra-card').style.display = 'none';
-  }}
-
   // dois formatos convivem em execucoes.itens: experimentos (o_que/onde/
   // duracao/resultado_esperado/dono) e itens de texto em gate (descricao/
   // branch/commit/responsavel/bloqueado_por) — normaliza os dois aqui
@@ -747,6 +808,36 @@ def build_plano() -> tuple[str, str]:
 .tema-resp-indef{{opacity:.6; font-style:italic}}
 .tema-nome{{margin:0; font-size:var(--fs-2); font-weight:600}}
 .tema-dim{{margin:0; font-size:var(--fs-1); color:var(--muted)}}
+tr.chap-encerrado{{background:var(--st-feito-bg)}}
+.chap-selo{{margin-left:.5rem; font-size:var(--fs-1); vertical-align:middle; cursor:help}}
+.estrutura-resumo{{margin:.2rem 0 var(--sp-3); color:var(--muted); font-size:var(--fs-2)}}
+.pos-textuais-h{{margin:var(--sp-5) 0 .2rem; font-size:var(--fs-3)}}
+.cap-grid-legenda{{color:var(--muted); font-size:var(--fs-1); margin:0 0 var(--sp-3)}}
+.cap-grid{{display:flex; flex-direction:column; gap:var(--sp-3)}}
+.cap-card{{border:1px solid var(--border); border-radius:8px; background:var(--panel)}}
+.cap-card-head{{display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-3); padding:var(--sp-3) var(--sp-4);
+  cursor:pointer; list-style:none}}
+.cap-card-head::-webkit-details-marker{{display:none}}
+.cap-card-head::before{{content:'▸'; color:var(--muted); flex:0 0 auto}}
+.cap-card[open] .cap-card-head::before{{content:'▾'}}
+.cap-card-titulo{{font-weight:700}}
+.cap-card-arquivo{{color:var(--muted); font-size:var(--fs-1); font-family:monospace}}
+.cap-card-rodadas{{display:flex; gap:.2rem; margin-left:auto}}
+.cap-card-resumo{{display:flex; flex-direction:column; align-items:flex-end; gap:.1rem; font-size:var(--fs-1); color:var(--muted); min-width:6rem}}
+.cap-card-pontos{{font-weight:600; color:var(--ink)}}
+.cap-card-body{{padding:0 var(--sp-4) var(--sp-4); border-top:1px solid var(--border)}}
+.cap-dims{{margin:var(--sp-2) 0 0; color:var(--muted); font-size:var(--fs-1)}}
+.partes-lista{{margin-top:.2rem}}
+.parte-linha{{display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-3);
+  padding:.5rem 0; border-bottom:1px dotted var(--border)}}
+.parte-linha:last-child{{border-bottom:none}}
+.parte-nome{{font-weight:600; font-size:var(--fs-2)}}
+.parte-rodadas{{display:flex; gap:.2rem; margin-left:auto}}
+.parte-resumo{{min-width:6rem; text-align:right; color:var(--muted); font-size:var(--fs-1)}}
+.parte-obs{{margin:.3rem 0 0; color:var(--muted); font-size:var(--fs-1); font-style:italic}}
+.cap-abertura{{margin-top:var(--sp-3)}}
+.cap-abertura summary{{cursor:pointer; color:var(--muted); font-size:var(--fs-1)}}
+.cap-card-body .quebra-cap{{margin-top:var(--sp-4)}}
 </style>"""
     return body, script
 
@@ -763,6 +854,7 @@ def build_coordenacao() -> tuple[str, str]:
 
 <section class="card">
   <p class="ro-nota">🔒 quadro somente leitura — o estado muda pelos agentes no repositório (renomeação do arquivo é a reserva atômica do protocolo)</p>
+  <div class="vida" id="vida" aria-label="Sinal de vida dos agentes"></div>
   <div class="filtros" id="filtros" aria-label="Filtros do quadro"></div>
 </section>
 
@@ -915,6 +1007,26 @@ function renderFiltros() {
   }));
 }
 
+// sinal de vida: ativo = postou mensagem ou renovou lock nos últimos
+// M.ativo_janela_min (o dado mais recente dos dois, computado no build) —
+// não é o autor do commit git (quase todo commit aparece como "Claude" no
+// git log, não distingue agente nenhum)
+function renderVida() {
+  const at = M.atividade || [];
+  const wrap = document.getElementById('vida');
+  if (!at.length) { wrap.innerHTML = ''; return; }
+  const janela = M.ativo_janela_min || 120;
+  wrap.innerHTML = `<span class="vida-rotulo">Sinal de vida</span>` +
+    at.map(a => {
+      const txt = a.minutos_atras == null ? 'sem atividade registrada' : `há ${idade(a.minutos_atras / 60)}`;
+      const tt = `${esc(a.agente)}: ${txt}${a.ativo ? ` (ativo — postou ou renovou lock nos últimos ${janela} min)` : ' (sem sinal recente)'}`;
+      return `<span class="vida-item${a.ativo ? '' : ' vida-inativo'}" title="${esc(tt)}">
+        <span class="k-ag-dot" data-ag="${esc(a.agente)}" aria-hidden="true"></span>${esc(a.agente)}
+        <small>${txt}</small></span>`;
+    }).join('');
+}
+
+renderVida();
 renderFiltros();
 renderBoard();
 
@@ -948,6 +1060,12 @@ document.getElementById('saude').textContent = doente
 .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
   clip:rect(0,0,0,0); white-space:nowrap; border:0}
 .ro-nota{margin:0 0 var(--sp-3); color:var(--muted); font-size:var(--fs-2)}
+.vida{display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-3); margin:0 0 var(--sp-4);
+  padding-bottom:var(--sp-3); border-bottom:1px dashed var(--border)}
+.vida-rotulo{font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); font-size:var(--fs-1)}
+.vida-item{display:inline-flex; align-items:center; gap:.3rem; font-size:var(--fs-2); cursor:help}
+.vida-item small{color:var(--muted); font-size:var(--fs-1)}
+.vida-item.vida-inativo{opacity:.5}
 .filtros{display:flex; flex-wrap:wrap; gap:var(--sp-4)}
 .pilulas{display:flex; flex-wrap:wrap; gap:var(--sp-2)}
 .pilula{border:1px solid var(--border); background:var(--panel); color:var(--muted); border-radius:99px;
@@ -1005,6 +1123,241 @@ td.assunto small{color:var(--muted)}
 
 
 # --------------------------------------------------------------------------
+# Agentes (agentes.html) — ciclo 010, pedido direto do autor: mapa visual de
+# quem troca mensagem com quem (nós + arcos direcionados) e quantas tarefas
+# cada agente tem aberta agora (número dentro do nó). Sem lib de grafo — SVG
+# à mão, layout fixo (principal no centro, hub obrigatório do protocolo; os
+# outros 9 num anel), igual ao gráfico de evolução do Plano. Fonte: o mesmo
+# docs/records/mensagens.json já carregado em `mens` — nenhum script novo.
+# --------------------------------------------------------------------------
+def build_agentes() -> tuple[str, str]:
+    body = """
+<header class="page-head"><h1>Agentes</h1>
+  <span class="meta" id="meta"></span></header>
+
+<section class="card">
+  <div class="kpis" id="kpis-row"></div>
+</section>
+
+<section class="card">
+  <div id="hub"></div>
+</section>
+
+<section class="card">
+  <h2>Quem tem trabalho agora</h2>
+  <div class="ag-cards" id="ag-cards"></div>
+  <p class="ag-vazios" id="ag-vazios"></p>
+  <p class="ag-nota" id="ag-difusao"></p>
+</section>
+
+<section class="card">
+  <details><summary id="t-hist">Histórico de tráfego (desde o início da coordenação)</summary>
+    <p class="ro-nota">Um arco por par de agentes que já trocou mensagem
+    diretamente com o <code>principal</code> — sem seta, porque o arco
+    representa o par, não uma direção. <code>[in]</code> = mensagens que o
+    agente <strong>recebeu</strong> do principal; <code>[out]</code> =
+    mensagens que o agente <strong>enviou</strong> ao principal. Espessura ∝
+    total do par. Trocas fora do hub e mensagens de difusão ficam de fora do
+    desenho (ver notas abaixo) — são raras ou não são, por definição, uma
+    relação entre dois agentes.</p>
+    <div id="hgraf" class="hgraf-wrap"></div>
+    <p class="ag-nota" id="hg-excecoes"></p>
+    <p class="ag-nota" id="hg-sem-principal"></p>
+    <div class="mapa-tabelas">
+      <div><h3>Arcos (todas as direções)</h3><div class="scroll"><table id="arestas-tab"></table></div></div>
+      <div><h3>Tarefas abertas agora</h3><div class="scroll"><table id="tarefas-tab"></table></div></div>
+    </div>
+  </details>
+</section>
+"""
+    json_blocks = as_json_script('mensagens', mens)
+    script = json_blocks + """
+<script>
+(function(){
+const M = JSON.parse(document.getElementById('mensagens').textContent);
+const esc = s => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const msgs = M.mensagens || [];
+document.getElementById('meta').textContent =
+  `Atualizada em ${M.computado_em} · fonte: coordenacao/ no repositório (${msgs.length} mensagens)`;
+
+// trio de revisão primeiro, depois execução/infra — mesma ordem usada no
+// resto do site para listar agentes; 'todos' e 'principal' são tratados à
+// parte (não são satélites comuns: um é hub obrigatório, o outro nem é agente)
+const AGENTES_SAT = ['revisor1', 'revisor2', 'banca', 'site', 'executor01', 'executor02', 'local', 'autor'];
+const TODOS_NOS = ['principal', ...AGENTES_SAT, 'todos'];
+const ATIVIDADE = Object.fromEntries((M.atividade || []).map(a => [a.agente, a]));
+
+const edgeCount = {};
+for (const m of msgs) { const k = m.de + '>' + m.para; edgeCount[k] = (edgeCount[k] || 0) + 1; }
+const tarefasAbertas = {};
+for (const m of msgs) {
+  if (m.tipo === 'tarefa' && m.estado !== 'concluida') tarefasAbertas[m.para] = (tarefasAbertas[m.para] || 0) + 1;
+}
+const par = a => (edgeCount[a + '>principal'] || 0) + (edgeCount['principal>' + a] || 0);
+const idade = h => h < 1 ? `${Math.round(h*60)} min` : h < 48 ? `${Math.round(h)} h` : `${Math.round(h/24)} dias`;
+
+// -------- KPIs: o "agora" primeiro, histórico só como ponteiro pequeno --------
+const totalAbertas = TODOS_NOS.reduce((s, n) => s + (tarefasAbertas[n] || 0), 0);
+const nosComPendencia = TODOS_NOS.filter(n => (tarefasAbertas[n] || 0) > 0).length;
+document.getElementById('kpis-row').innerHTML = `
+  <div class="kpi hero"><span class="label">Tarefas abertas agora</span>
+    <span class="v">${totalAbertas}</span>
+    <span class="ctx">${nosComPendencia} de ${TODOS_NOS.length} nós com pendência</span></div>
+  <div class="kpi"><span class="label">Histórico de tráfego</span>
+    <span class="v">${msgs.length}</span>
+    <span class="ctx">mensagens desde o início — ver "Histórico" recolhido abaixo</span></div>`;
+
+// -------- hub: principal não entra no grid de cards, é a régua de comparação --------
+const principalEnviou = Object.entries(edgeCount).filter(([k]) => k.startsWith('principal>'))
+  .reduce((s, [, n]) => s + n, 0);
+const principalRecebeu = Object.entries(edgeCount).filter(([k]) => k.endsWith('>principal'))
+  .reduce((s, [, n]) => s + n, 0);
+document.getElementById('hub').innerHTML = `<div class="ag-hub">
+  <div class="ag-hub-id"><span class="k-ag-dot" data-ag="principal" aria-hidden="true"></span>
+    <strong>principal</strong> <small>hub obrigatório do protocolo — toda troca entre agentes passa por ele</small></div>
+  <div class="ag-hub-n">${tarefasAbertas.principal || 0}<small>tarefas abertas agora</small></div>
+  <div class="ag-hub-hist">enviou ${principalEnviou} · recebeu ${principalRecebeu} <small>(histórico completo)</small></div>
+</div>`;
+
+// -------- cards: só quem tem tarefa aberta agora, ordenado por volume --------
+const comPendencia = AGENTES_SAT.filter(a => (tarefasAbertas[a] || 0) > 0)
+  .sort((a, b) => (tarefasAbertas[b] || 0) - (tarefasAbertas[a] || 0));
+const zerados = AGENTES_SAT.filter(a => !((tarefasAbertas[a] || 0) > 0));
+
+function card(nome) {
+  const n = tarefasAbertas[nome] || 0;
+  const at = ATIVIDADE[nome];
+  const vidaLinha = at
+    ? `<p class="ag-card-sub">${at.ativo ? '● ativo' : '○ sem sinal recente'} há ${idade(at.minutos_atras != null ? at.minutos_atras / 60 : Infinity)}</p>`
+    : '';
+  const recebeu = edgeCount['principal>' + nome] || 0, enviou = edgeCount[nome + '>principal'] || 0;
+  return `<div class="ag-card">
+    <div class="ag-card-head"><span class="k-ag-dot" data-ag="${esc(nome)}" aria-hidden="true"></span>${esc(nome)}</div>
+    <p class="ag-card-n">${n}<small>tarefa${n === 1 ? '' : 's'} aberta${n === 1 ? '' : 's'}</small></p>
+    ${vidaLinha}
+    <p class="ag-card-sub">recebeu do principal ${recebeu} · enviou ao principal ${enviou} <small>(histórico)</small></p>
+  </div>`;
+}
+const todosAbertas = tarefasAbertas.todos || 0;
+const cardsHtml = comPendencia.map(card).join('') +
+  (todosAbertas > 0 ? `<div class="ag-card ag-todos">
+    <div class="ag-card-head">todos <small>(difusão)</small></div>
+    <p class="ag-card-n">${todosAbertas}<small>tarefa${todosAbertas === 1 ? '' : 's'} aberta${todosAbertas === 1 ? '' : 's'}</small></p>
+    <p class="ag-card-sub">endereçada a todos os agentes, não a um só</p>
+  </div>` : '');
+document.getElementById('ag-cards').innerHTML = cardsHtml ||
+  '<p class="vazia">Nenhum agente com tarefa aberta agora.</p>';
+document.getElementById('ag-vazios').textContent = zerados.length
+  ? `Sem pendências agora: ${zerados.join(', ')}.` : '';
+
+let difusaoTotal = 0;
+for (const [k, n] of Object.entries(edgeCount)) { if (k.endsWith('>todos')) difusaoTotal += n; }
+document.getElementById('ag-difusao').textContent =
+  `Mensagens em difusão (endereçadas a "todos"): ${difusaoTotal} no histórico` +
+  (todosAbertas > 0 ? `, ${todosAbertas} tarefa${todosAbertas === 1 ? '' : 's'} ainda aberta${todosAbertas === 1 ? '' : 's'} (card acima).` : '.');
+
+// -------- histórico (recolhido): 1 arco por par com o principal, [in]/[out], sem seta --------
+const comPrincipal = AGENTES_SAT.filter(a => par(a) > 0).sort((a, b) => par(b) - par(a));
+const semPrincipal = AGENTES_SAT.filter(a => par(a) === 0);
+
+const W = 760, ROWH = 56, TOPPAD = 30, H = TOPPAD * 2 + Math.max(1, comPrincipal.length - 1) * ROWH + 60;
+const PX = 110, SX = 640, CY = H / 2;
+const maxPar = Math.max(1, ...comPrincipal.map(par));
+const hgNodes = `<circle class="hg-node" data-ag="principal" cx="${PX}" cy="${CY}" r="34"></circle>
+  <text class="hg-node-n" x="${PX}" y="${CY + 1}" text-anchor="middle">${tarefasAbertas.principal || 0}</text>
+  <text class="hg-node-label" x="${PX}" y="${CY + 52}" text-anchor="middle">principal</text>`;
+const hgLines = comPrincipal.map((nome, i) => {
+  const y = TOPPAD + i * ROWH + 20;
+  const recebeu = edgeCount['principal>' + nome] || 0, enviou = edgeCount[nome + '>principal'] || 0;
+  const w = (1 + 6 * (par(nome) / maxPar)).toFixed(2);
+  const midx = (PX + SX) / 2;
+  return `<line class="hg-line" data-ag="${esc(nome)}" x1="${PX + 36}" y1="${CY}" x2="${SX - 24}" y2="${y}" stroke-width="${w}">
+      <title>${esc(nome)} ⇄ principal: recebeu ${recebeu} do principal, enviou ${enviou} ao principal</title></line>
+    <rect class="hg-label-bg" x="${midx - 46}" y="${(CY + y) / 2 - 11}" width="92" height="16" rx="4"></rect>
+    <text class="hg-label" x="${midx}" y="${(CY + y) / 2 + 1}" text-anchor="middle">[in ${recebeu}] [out ${enviou}]</text>
+    <circle class="hg-node" data-ag="${esc(nome)}" cx="${SX}" cy="${y}" r="22"></circle>
+    <text class="hg-node-n hg-node-n-sat" x="${SX}" y="${y + 1}" text-anchor="middle">${tarefasAbertas[nome] || 0}</text>
+    <text class="hg-node-label" x="${SX + 34}" y="${y + 4}" text-anchor="start">${esc(nome)}</text>`;
+}).join('');
+document.getElementById('hgraf').innerHTML = comPrincipal.length ? `<svg viewBox="0 0 ${W} ${H}" role="img"
+  aria-label="Histórico de tráfego direto com o principal, por agente, com contagem de entrada e saída">
+  ${hgLines}${hgNodes}</svg>` : '<p class="vazia">Nenhum par com troca direta com o principal ainda.</p>';
+
+const excArr = Object.entries(edgeCount).filter(([k]) => {
+  const [de, para] = k.split('>'); return de !== 'principal' && para !== 'principal' && para !== 'todos';
+});
+document.getElementById('hg-excecoes').textContent = excArr.length
+  ? `Trocas diretas fora do hub (exceção ao protocolo, raras): ${excArr.map(([k, n]) => {
+      const [de, para] = k.split('>'); return `${de}→${para} (${n})`;
+    }).join(', ')}.` : '';
+document.getElementById('hg-sem-principal').textContent = semPrincipal.length
+  ? `Sem troca direta com o principal ainda: ${semPrincipal.join(', ')}.` : '';
+
+const arestasOrdenadas = Object.entries(edgeCount).sort((a, b) => b[1] - a[1]);
+document.getElementById('t-hist').textContent =
+  `Histórico de tráfego (desde o início da coordenação · ${arestasOrdenadas.length} arcos · ${msgs.length} mensagens)`;
+document.getElementById('arestas-tab').innerHTML =
+  '<thead><tr><th>De</th><th>Para</th><th>Mensagens</th></tr></thead><tbody>' +
+  arestasOrdenadas.map(([k, n]) => {
+    const [de, para] = k.split('>');
+    return `<tr><td>${esc(de)}</td><td>${esc(para)}</td><td class="tot">${n}</td></tr>`;
+  }).join('') + '</tbody>';
+document.getElementById('tarefas-tab').innerHTML =
+  '<thead><tr><th>Agente</th><th>Tarefas abertas</th></tr></thead><tbody>' +
+  TODOS_NOS.map(nome => `<tr><td>${esc(nome)}</td><td class="tot">${tarefasAbertas[nome] || 0}</td></tr>`).join('') +
+  '</tbody>';
+})();
+</script>
+<style>
+.ag-hub{display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-4)}
+.ag-hub-id{display:flex; align-items:center; gap:.4rem; flex:1 1 220px; min-width:0}
+.ag-hub-id small{display:block; color:var(--muted); font-size:var(--fs-1); font-weight:400}
+.ag-hub-n{font-size:var(--fs-6); font-weight:700; color:var(--accent); line-height:1; display:flex; align-items:baseline; gap:.4rem}
+.ag-hub-n small{font-size:var(--fs-1); font-weight:400; color:var(--muted)}
+.ag-hub-hist{color:var(--muted); font-size:var(--fs-2)}
+.ag-cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:var(--sp-3)}
+.ag-card{background:var(--ground); border:1px solid var(--border); border-radius:8px; padding:var(--sp-3);
+  display:flex; flex-direction:column; gap:.3rem}
+.ag-card.ag-todos{border-style:dashed}
+.ag-card-head{display:flex; align-items:center; gap:.4rem; font-weight:600}
+.ag-card-head small{color:var(--muted); font-weight:400}
+.ag-card-n{margin:0; font-size:var(--fs-6); font-weight:700; color:var(--accent); line-height:1; display:flex; align-items:baseline; gap:.4rem}
+.ag-card-n small{font-size:var(--fs-1); font-weight:400; color:var(--muted)}
+.ag-card-sub{margin:0; font-size:var(--fs-1); color:var(--muted)}
+.ag-vazios{color:var(--muted); font-size:var(--fs-2); margin:var(--sp-3) 0 0}
+.ag-nota{color:var(--muted); font-size:var(--fs-1); margin:.4rem 0 0}
+.hgraf-wrap svg{width:100%; height:auto; max-height:60vh; margin-top:var(--sp-2)}
+.hg-node{fill:var(--panel); stroke:var(--muted); stroke-width:2.5}
+.hg-node[data-ag="principal"]{stroke:var(--ag-principal); stroke-width:3.5}
+.hg-node[data-ag="banca"]{stroke:var(--ag-banca)}
+.hg-node[data-ag="revisor1"]{stroke:var(--ag-revisor1)}
+.hg-node[data-ag="revisor2"]{stroke:var(--ag-revisor2)}
+.hg-node[data-ag="autor"]{stroke:var(--ag-autor)}
+.hg-node[data-ag="site"]{stroke:var(--ag-site)}
+.hg-node[data-ag="executor01"]{stroke:var(--ag-executor01)}
+.hg-node[data-ag="executor02"]{stroke:var(--ag-executor02)}
+.hg-node[data-ag="local"]{stroke:var(--ag-local)}
+.hg-node-n{fill:var(--ink); font:700 18px system-ui; text-anchor:middle}
+.hg-node-n-sat{font-size:14px}
+.hg-node-label{fill:var(--ink); font:12px system-ui}
+.hg-line{stroke:var(--muted); stroke-linecap:round; opacity:.6}
+.hg-line[data-ag="banca"]{stroke:var(--ag-banca)}
+.hg-line[data-ag="revisor1"]{stroke:var(--ag-revisor1)}
+.hg-line[data-ag="revisor2"]{stroke:var(--ag-revisor2)}
+.hg-line[data-ag="autor"]{stroke:var(--ag-autor)}
+.hg-line[data-ag="site"]{stroke:var(--ag-site)}
+.hg-line[data-ag="executor01"]{stroke:var(--ag-executor01)}
+.hg-line[data-ag="executor02"]{stroke:var(--ag-executor02)}
+.hg-line[data-ag="local"]{stroke:var(--ag-local)}
+.hg-label-bg{fill:var(--panel)}
+.hg-label{fill:var(--muted); font:11px system-ui; text-anchor:middle}
+.mapa-tabelas{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:var(--sp-5); margin-top:var(--sp-3)}
+.mapa-tabelas h3{font-size:var(--fs-3); margin:0 0 var(--sp-2)}
+</style>"""
+    return body, script
+
+
+# --------------------------------------------------------------------------
 # Resultados (resultados.html) — Fatia 2: o que a tese já produziu, para o
 # autor e a banca. Três blocos com papéis diferentes: achados (conclusão
 # científica sustentada por evidência), entregas (artefato que existe) e
@@ -1020,20 +1373,21 @@ def build_resultados() -> tuple[str, str]:
 <section class="card">
   <p class="vazia">O que a tese já produziu, com a evidência que sustenta cada
   número — vitrine para o autor e a banca, sem afirmação sem fonte.</p>
+  <nav class="resumo-secoes" id="resumo-secoes" aria-label="Ir para seção"></nav>
 </section>
 
-<section aria-label="Achados por pilar">
+<section id="sec-achados" aria-label="Achados por pilar">
   <div id="achados-pilares"></div>
 </section>
 
-<section class="card">
+<section id="sec-entregas" class="card">
   <h2>Entregas</h2>
   <div class="entregas" id="entregas"></div>
 </section>
 
-<section class="card">
+<section id="sec-experimentos" class="card">
   <h2>Experimentos executados</h2>
-  <div class="scroll"><table id="experimentos"></table></div>
+  <div class="experimentos-grid" id="experimentos"></div>
 </section>
 """
     json_blocks = as_json_script('resultados', resultados)
@@ -1046,20 +1400,29 @@ document.getElementById('meta').textContent = R.atualizado_em ? `atualizado em $
 
 const pilares = R.pilares || {};
 const achados = R.achados || [];
+// pilar sem achado ainda não compete pelo mesmo peso visual que pilar com
+// achado — card cheio só quando há conteúdo real; vazio vira uma linha
+// tracejada compacta (achado de UX: dois cards vazios seguidos, na frente
+// de dados reais, atrasam a leitura de quem abre a página pela 1ª vez)
 document.getElementById('achados-pilares').innerHTML = Object.entries(pilares).map(([id, nome]) => {
   const itens = achados.filter(a => a.pilar === id);
-  const corpo = itens.length ? itens.map(a => `
+  if (!itens.length) {
+    return `<div class="pilar-vazio"><h2>${esc(id)} — ${esc(nome)}</h2>
+      <span class="vazia">sem achados registrados nesta versão</span></div>`;
+  }
+  const corpo = itens.map(a => `
     <div class="achado">
       <p class="achado-afirmacao">${esc(a.afirmacao)}</p>
       <p class="achado-numero">${esc(a.numero)}</p>
       <p class="achado-evidencia">${esc(a.evidencia)}</p>
       ${a.detalhe ? `<p class="achado-detalhe">${esc(a.detalhe)}</p>` : ''}
-    </div>`).join('') : '<p class="vazia">Sem achados registrados nesta versão.</p>';
+    </div>`).join('');
   return `<div class="card" style="margin-bottom:var(--sp-4)">
     <h2>${esc(id)} — ${esc(nome)}</h2>
     ${corpo}
   </div>`;
 }).join('');
+const pilaresComAchado = Object.keys(pilares).filter(id => achados.some(a => a.pilar === id)).length;
 
 const entregas = R.entregas || [];
 document.getElementById('entregas').innerHTML = entregas.length ? entregas.map(e => {
@@ -1075,29 +1438,67 @@ document.getElementById('entregas').innerHTML = entregas.length ? entregas.map(e
 }).join('') : '<p class="vazia">Nenhuma entrega registrada ainda.</p>';
 
 const experimentos = R.experimentos || [];
-const cab = '<thead><tr><th>Experimento</th><th>Pergunta</th><th>Resultado</th><th>Artefato</th></tr></thead>';
-const linha = x => `<tr>
-  <td class="chap">${esc(x.id)}</td>
-  <td>${x.pergunta ? esc(x.pergunta) : '<span class="vazia">—</span>'}</td>
-  <td>${x.resultado ? esc(x.resultado) : '<span class="vazia">pendente' + (x.nota ? ': ' + esc(x.nota) : '') + '</span>'}</td>
-  <td class="tot">${x.artefato ? esc(x.artefato) : '—'}</td></tr>`;
-const expTab = document.getElementById('experimentos');
-expTab.innerHTML = experimentos.length ? cab + '<tbody>' + experimentos.map(linha).join('') + '</tbody>' : '';
-if (!experimentos.length) expTab.outerHTML = '<p class="vazia">Nenhum experimento registrado ainda.</p>';
+// cada experimento é um mini-relatório (pergunta + parágrafo de resultado +
+// artefato), não um registro tabular curto — 3 pareceres de especialistas
+// (ciclo 013) confirmaram que uma tabela de 5 colunas força texto de
+// 150-400 caracteres numa grade estreita e empurra a coluna mais nova
+// (notebook Kaggle) para fora da tela sem nenhum aviso de rolagem. Card por
+// experimento (mesmo padrão de "Entregas" acima) resolve os dois problemas
+// de uma vez: nenhuma rolagem horizontal, e o selo do notebook sempre
+// visível no topo do card, nunca escondido atrás de scroll.
+const notebookPill = x => x.notebook_kaggle
+  ? `<a class="pill feito" href="${esc(x.notebook_kaggle)}" target="_blank" rel="noopener"
+      aria-label="abrir notebook Kaggle do experimento ${esc(x.id)}">✓ notebook ↗</a>`
+  : `<span class="pill pendente" title="Sem notebook publicamente rastreável nesta versão — não é ausência de execução, é ausência de link confirmado">— sem notebook</span>`;
+const cardExperimento = x => {
+  const pergunta = x.pergunta ? `<p class="experimento-pergunta">${esc(x.pergunta)}</p>` : '';
+  const resultado = x.resultado ? esc(x.resultado) : 'pendente' + (x.nota ? ': ' + esc(x.nota) : '');
+  const artefato = x.artefato ? `<p class="experimento-artefato">${esc(x.artefato)}</p>` : '';
+  return `<div class="experimento-card">
+    <div class="experimento-topo"><span class="experimento-id">${esc(x.id)}</span>${notebookPill(x)}</div>
+    ${pergunta}
+    <p class="experimento-resultado${x.resultado ? '' : ' vazia'}">${resultado}</p>
+    ${artefato}
+  </div>`;
+};
+document.getElementById('experimentos').innerHTML = experimentos.length
+  ? experimentos.map(cardExperimento).join('')
+  : '<p class="vazia">Nenhum experimento registrado ainda.</p>';
+
+document.getElementById('resumo-secoes').innerHTML = `
+  <a href="#sec-achados">Achados (${pilaresComAchado} de ${Object.keys(pilares).length} pilares)</a>
+  <a href="#sec-entregas">Entregas (${entregas.length})</a>
+  <a href="#sec-experimentos">Experimentos (${experimentos.length})</a>`;
 })();
 </script>
 <style>
+.resumo-secoes{display:flex; flex-wrap:wrap; gap:var(--sp-4); margin-top:var(--sp-3); font-size:var(--fs-2)}
+[id^="sec-"]{scroll-margin-top:1rem}
 .achado{border-top:1px dashed var(--border); padding:var(--sp-3) 0}
 .achado:first-of-type{border-top:none; padding-top:0}
 .achado-afirmacao{margin:0 0 var(--sp-1); font-size:var(--fs-3)}
 .achado-numero{margin:0; font-size:var(--fs-5); font-weight:700; color:var(--accent)}
 .achado-evidencia{margin:.2rem 0 0; color:var(--muted); font-size:var(--fs-1)}
 .achado-detalhe{margin:.3rem 0 0; color:var(--muted); font-size:var(--fs-2)}
+/* pilar sem achado: linha tracejada compacta, não um card cheio do mesmo
+   peso visual de um pilar com dado real (ciclo 013, parecer de tipografia) */
+.pilar-vazio{border:1px dashed var(--border); border-radius:8px; padding:var(--sp-2) var(--sp-3);
+  margin-bottom:var(--sp-3); display:flex; align-items:baseline; gap:var(--sp-3); flex-wrap:wrap}
+.pilar-vazio h2{margin:0; font-size:var(--fs-2); font-weight:500; color:var(--muted)}
 .entregas{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:var(--sp-3)}
 .entrega{border:1px solid var(--border); border-radius:8px; padding:var(--sp-3); background:var(--ground)}
 .entrega-nome{margin:0; font-weight:600; font-size:var(--fs-3)}
 .entrega-descricao{margin:.25rem 0; color:var(--muted); font-size:var(--fs-2)}
 .entrega-link{margin:0; font-size:var(--fs-1); word-break:break-word}
+.experimentos-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:var(--sp-3)}
+.experimento-card{border:1px solid var(--border); border-radius:8px; padding:var(--sp-3); background:var(--ground);
+  display:flex; flex-direction:column; gap:.4rem}
+.experimento-topo{display:flex; align-items:center; justify-content:space-between; gap:var(--sp-2); flex-wrap:wrap}
+.experimento-id{font-weight:700; font-size:var(--fs-3)}
+.experimento-pergunta{margin:0; font-style:italic; color:var(--muted); font-size:var(--fs-2)}
+.experimento-resultado{margin:0; font-size:var(--fs-2); line-height:1.5}
+.experimento-resultado.vazia{font-size:var(--fs-2)}
+.experimento-artefato{margin:0; font-size:var(--fs-1); color:var(--muted); word-break:break-word}
 </style>"""
     return body, script
 
@@ -1522,11 +1923,12 @@ def main() -> None:
         "referencias.html": build_referencias,
         "grafo.html": build_grafo,
         "bibliometria.html": build_bibliometria,
+        "agentes.html": build_agentes,
     }
     titles = {"index.html": "Controle", "plano.html": "Plano",
               "mensagens.html": "Coordenação", "resultados.html": "Resultados",
               "referencias.html": "Referências", "grafo.html": "Grafo",
-              "bibliometria.html": "Bibliometria"}
+              "bibliometria.html": "Bibliometria", "agentes.html": "Agentes"}
     for fname, builder in pages.items():
         body, script = builder()
         html = page_shell(titles[fname], fname, FOOTER_TEXT, body, script)

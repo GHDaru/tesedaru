@@ -101,6 +101,18 @@ O agente **principal é o hub obrigatório** de todo o fluxo:
   **Exceção**: mudanças do site/painel (`docs/records/*`, scripts de render,
   `coordenacao/`) dispensam gate — reversíveis, não tocam texto nem dados.
 
+- **Canal de entrega de quem não alcança a main** (executor01, executor02, e
+  qualquer sessão restrita à própria branch pelo harness): a mensagem ao
+  principal nasce na `coordenacao/caixa/` **da branch designada** — ela NÃO
+  chega à main sozinha, porque o agente não pode empurrar para lá. Isso é do
+  harness, não falha do agente. Consequências: (a) o executor entrega normal —
+  branch + `.aberta.md` ao principal, com hash — e segue; (b) **o principal não
+  espera mensagem de executor na main**: ele varre as branches. A varredura é
+  automática no hook `SessionStart` (`scripts/hooks/estado-da-sessao.py`), que
+  lista "ENTREGAS/AVISOS AO PRINCIPAL PRESOS EM BRANCH"; o principal recupera
+  com `git show <branch>:<caminho>`, integra na main e responde. O ciclo de
+  15 min do principal repete essa varredura.
+
 ## 3. Cadência — só 4 eventos geram mensagem
 
 1. **Claim** — iniciei ciclo/tarefa (evita colisão).

@@ -15,14 +15,14 @@ capítulos seguintes dependem: a tarefa multiclasse, as métricas sob
 desbalanceamento, as estratégias de validação e os testes estatísticos usados
 nas comparações. A Seção~\ref{sec:fund-al} formaliza o aprendizado ativo, o
 laço que compra rótulos seletivamente, e identifica as duas limitações do laço
-clássico que o FALCO ataca: a partida a frio e a suposição de oráculo
+clássico que o FALCO enfrenta: a partida a frio e a suposição de oráculo
 perfeito. A Seção~\ref{sec:fund-llm} examina o que muda quando o oráculo é um
 modelo de linguagem de grande porte: capacidades, arquiteturas de integração,
 ruído de rótulo e a estrutura de custo e medição que passa a existir. A
 Seção~\ref{sec:fund-stc} caracteriza o domínio de aplicação, a classificação
-de texto curto em português, e mostra por que ele tensiona simultaneamente as
-métricas, o \textit{cold start} e o oráculo. A Seção~\ref{sec:fund-soa}
-fecha o capítulo com a revisão sistemática da interseção dessas frentes e a
+de texto curto em português, e mostra por que ele agrava, ao mesmo tempo, os
+desafios de métrica, de \textit{cold start} e de oráculo. A Seção~\ref{sec:fund-soa}
+fecha o capítulo com a revisão narrativa focada da interseção dessas frentes e a
 lacuna de pesquisa que o Capítulo~\ref{ch:metodo} ocupa.
 
 \section{Aprendizado supervisionado: conceitos, métricas e validação}
@@ -47,7 +47,7 @@ direções de maior variância \cite{Murphy2012}. O \textbf{semi-supervisionado}
 combina uma pequena parcela rotulada com muitos exemplos não rotulados,
 explorando a estrutura destes para melhorar a generalização
 \cite{Chapelle2006}. O \textbf{aprendizado ativo}, objeto desta tese e
-formalizado na Seção~\ref{sec:fund-al}, ataca o mesmo gargalo do
+formalizado na Seção~\ref{sec:fund-al}, trata o mesmo gargalo do
 semi-supervisionado (o custo do rótulo) por via oposta: o próprio algoritmo
 escolhe, de forma interativa, quais instâncias submeter a um oráculo,
 priorizando as de maior benefício esperado \cite{Settles2009}. A distinção
@@ -602,7 +602,7 @@ parte inicial do \textit{prompt} (instruções e exemplos da tarefa, idênticos
 em cada chamada), com economia estimada superior a 42 vezes frente à
 anotação humana.
 
-Como \textbf{seletor}, o LLM ataca a partida a frio: o ActiveLLM
+Como \textbf{seletor}, o LLM mitiga a partida a frio: o ActiveLLM
 \citep{Bayer2024ActiveLLM} usa o conhecimento pré-treinado de modelos como o GPT-4 para
 escolher instâncias informativas em regime \textit{few-shot} (com poucos
 exemplos da tarefa no \textit{prompt}), sem depender de
@@ -707,7 +707,9 @@ minuto, cotas diárias), que definem o tempo total de execução
 (\textit{wall-clock}) independentemente do preço. A \textbf{medição} também muda: parte do erro aparente de um LLM
 anotador é erro de \emph{formato}, e não de semântica \citep{Kholodna2024}:
 resposta fora do espaço de classes ou inconsumível automaticamente. É o que
-torna a restrição da saída ao espaço fechado de rótulos parte do instrumento;
+torna a restrição da saída ao espaço fechado de rótulos parte do instrumento
+de medição: o conjunto de decisões que define como a resposta do LLM vira um
+rótulo e como o acerto é contado. Além disso,
 a confiança auto-reportada dos LLMs tende ao excesso \citep{Diao2023},
 exigindo calibração \citep{Tian2023}; as janelas de contexto limitam o lote
 \citep{Bayer2024ActiveLLM}; e a
@@ -729,9 +731,9 @@ decisão que o FALCO opera.
 
 O domínio de aplicação desta tese, descrições de produtos de varejo em
 português, pertence à classificação de texto curto (\textit{short text
-classification}), subcampo com desafios próprios que tensionam tanto as
+classification}), subcampo com desafios próprios que afetam ao mesmo tempo as
 métricas da Seção~\ref{sec:fund-super} quanto o laço da
-Seção~\ref{sec:fund-al}. Textos curtos abundam em plataformas digitais
+Seção~\ref{sec:fund-al}. Textos curtos são comuns em plataformas digitais
 (consultas de busca, mensagens, títulos) e sua classificação sustenta
 aplicações de análise de sentimento a categorização de catálogos
 \cite{Ahmed2022, Song2014}.
@@ -811,9 +813,9 @@ um forte, para a validação final.
 Três consequências do regime de texto curto estruturam os experimentos desta
 tese. Primeiro, a cauda longa de classes torna o Macro F1 sensível a classes não cobertas: com
 centenas de categorias e poucas instâncias nas raras, cada classe descoberta
-tarde reduz o Macro F1 de forma desproporcional; é por isso que a cobertura de classes do
-conjunto inicial domina o desempenho no regime pequeno
-(Capítulo~\ref{ch:resultados-l0}). Segundo, a partida a frio é mais severa: com
+tarde reduz o Macro F1 de forma desproporcional; o quanto a cobertura de
+classes do conjunto inicial pesa nesse regime é examinado no
+Capítulo~\ref{ch:resultados-l0}. Segundo, a partida a frio é mais severa: com
 pouca informação por instância, o modelo inicial precisa de mais exemplos para
 sustentar seleções informadas, elevando o valor de heurísticas de
 representatividade que operam sem rótulos. Terceiro, o desbalanceamento
@@ -834,23 +836,21 @@ delimita a lacuna que o restante da tese ocupa.
 \subsection{Escopo e método da revisão}
 \label{sec:revisao_sistematica_focada}
 
-Esta revisão concentrou-se em publicações revisadas por pares e pré-prints
-significativos (ACL Anthology, arXiv e periódicos da área) do período de 2020
-até o primeiro semestre de 2026, com uma atualização dedicada cobrindo o
-último ano (meados de 2025 a meados de 2026). A busca utilizou combinações de
-termos como \textit{active learning}, \textit{text classification},
-\textit{short text}, \textit{LLM}, \textit{large language model},
-\textit{cold start}, \textit{few-shot learning} e \textit{oracle},
-priorizando trabalhos que conectassem explicitamente essas áreas. A análise
-focou em identificar tendências na aplicação de LLMs em AA, abordagens para a
-partida a frio e as lacunas remanescentes. Registre-se o estatuto
-metodológico: trata-se de uma \emph{revisão narrativa focada} na interseção
-das frentes, e não de uma revisão sistemática completa com protocolo
-registrado e fluxo de seleção documentado \citep{Kitchenham2004}, escolha
-adequada ao papel do capítulo (fundamentar a lacuna, não inventariar um
-campo), cuja contrapartida é a tabela de lacunas
-(Tabela~\ref{tab:lacunas}) explicitar os critérios pelos quais os trabalhos
-mais próximos foram confrontados.
+Esta é uma \emph{revisão narrativa focada} na interseção das frentes, e não
+uma revisão sistemática completa com protocolo registrado e fluxo de seleção
+documentado \citep{Kitchenham2004}: o papel do capítulo é fundamentar a
+lacuna, não inventariar um campo, e a contrapartida do formato é a tabela de
+lacunas (Tabela~\ref{tab:lacunas}) explicitar os critérios pelos quais os
+trabalhos mais próximos são confrontados. A revisão concentrou-se em
+publicações revisadas por pares e em pré-prints (ACL Anthology, arXiv e
+periódicos da área) de 2020 até o primeiro semestre de 2026, com uma
+atualização dedicada ao último ano (meados de 2025 a meados de 2026). A busca
+utilizou combinações de termos como \textit{active learning}, \textit{text
+classification}, \textit{short text}, \textit{LLM}, \textit{large language
+model}, \textit{cold start}, \textit{few-shot learning} e \textit{oracle},
+priorizando trabalhos que conectassem explicitamente essas áreas, e a análise
+buscou tendências na aplicação de LLMs em AA, abordagens para a partida a
+frio e as lacunas remanescentes.
 
 \subsection{Síntese por frente}
 \label{sec:integracao_llm_al}
@@ -858,7 +858,11 @@ mais próximos foram confrontados.
 \textbf{Partida a frio informada.} A linha que antecede os LLMs usa
 representações pré-treinadas para selecionar o conjunto inicial: ALPS
 \cite{Yuan2020} seleciona pela surpresa (\textit{surprisal}) que a instância
-causa ao modelo de linguagem, na acepção da teoria da informação, e
+causa ao modelo de linguagem, medida como a perda de modelagem mascarada do
+próprio BERT: quanto pior o modelo prevê os tokens escondidos da instância,
+maior a surpresa, sem exigir nenhum rótulo; o ALPS então agrupa as
+instâncias por essa assinatura e seleciona pelos centros, para não sacar
+várias frases surpreendentes pelo mesmo motivo. Na mesma linha,
 \citet{EinDor2020} e \citet{Griesshaber2020} adaptam AA ao
 BERT. A linha culmina no DEUCE \cite{Guo2025Deuce}, que combina diversidade
 textual e de classe prevista num grafo duplo-vizinho para evitar o que seus autores chamam de efeito
@@ -903,7 +907,7 @@ partida a frio; (ii) adapte as estratégias de seleção para considerar,
 além do classificador em treinamento, a confiança e o custo do oráculo LLM;
 (iii) seja otimizado para as características do texto curto; e (iv) balanceie
 explicitamente o custo financeiro das consultas com o ganho de informação,
-com avaliação rigorosa desse \textit{trade-off}, ainda rara mesmo nos
+com medição quantitativa desse compromisso (\textit{trade-off}), ainda rara mesmo nos
 trabalhos que tocam o custo \cite{Zhang2025, EinDor2020}. A
 Tabela~\ref{tab:lacunas} cruza os trabalhos mais próximos com as cinco
 dimensões cuja combinação define a lacuna.
@@ -938,7 +942,7 @@ A leitura da tabela confirma que a lacuna permanece após a atualização
 cobre a robustez do anotador sem progressão de custo; os estudos de produto
 cobrem o domínio sem aprendizado ativo. A ausência combinada (partida a
 frio informada + oráculo LLM progressivo + texto curto em português + custo
-instrumentado) é a lacuna que o Capítulo~\ref{ch:metodo} ataca.
+instrumentado) é a lacuna que o Capítulo~\ref{ch:metodo} ocupa.
 
 \subsection{Conclusão do capítulo}
 \label{sec:fund-conclusao}
@@ -948,7 +952,7 @@ inferência que as compara (Seção~\ref{sec:fund-super}); o \emph{laço} que
 compra informação e suas duas limitações, partida a frio e oráculo imperfeito
 (Seção~\ref{sec:fund-al}); o \emph{oráculo LLM} que transforma qualidade,
 custo e instrumento em variáveis de projeto (Seção~\ref{sec:fund-llm}); o
-\emph{domínio} de texto curto que tensiona tudo simultaneamente
+\emph{domínio} de texto curto que agrava todos esses desafios ao mesmo tempo
 (Seção~\ref{sec:fund-stc}); e o \emph{estado da arte} que resolve cada
 limitação isoladamente, mas não as três em conjunto
 (Seção~\ref{sec:fund-soa}). O Capítulo~\ref{ch:metodo} apresenta o framework

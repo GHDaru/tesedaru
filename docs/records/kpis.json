@@ -1,48 +1,48 @@
 {
  "schema": "kpis/v1",
- "computado_em": "2026-08-17",
- "git_sha": "0e7abdf",
+ "computado_em": "2026-08-22",
+ "git_sha": "fe58d2e",
  "prontidao": {
-  "global_pct": 30.0,
-  "texto_pct": 35.3,
+  "global_pct": 36.7,
+  "texto_pct": 43.2,
   "artefatos_pct": 0.0,
   "pontos_totais": 2032,
-  "pontos_feitos": 718,
+  "pontos_feitos": 877,
   "por_rodada": [
    {
     "id": "R1",
     "pontos": 331,
-    "feitos": 227
+    "feitos": 273
    },
    {
     "id": "R2",
     "pontos": 120,
-    "feitos": 15
+    "feitos": 45
    },
    {
     "id": "R3",
     "pontos": 468,
-    "feitos": 350
+    "feitos": 395
    },
    {
     "id": "R4",
     "pontos": 140,
-    "feitos": 40
+    "feitos": 58
    },
    {
     "id": "R5",
     "pontos": 743,
-    "feitos": 26
+    "feitos": 66
    },
    {
     "id": "R6",
     "pontos": 80,
-    "feitos": 20
+    "feitos": 40
    },
    {
     "id": "R7",
     "pontos": 150,
-    "feitos": 40
+    "feitos": 0
    }
   ],
   "por_capitulo": [
@@ -54,17 +54,17 @@
    {
     "id": "cap1",
     "pontos": 96,
-    "feitos": 96
+    "feitos": 76
    },
    {
     "id": "cap2",
     "pontos": 506,
-    "feitos": 416
+    "feitos": 486
    },
    {
     "id": "cap3",
     "pontos": 211,
-    "feitos": 80
+    "feitos": 189
    },
    {
     "id": "cap4",
@@ -89,10 +89,10 @@
   ]
  },
  "ritmo": {
-  "velocidade_pontos_semana": 1435.0,
-  "janela_dias": 1,
-  "eta_semanas": 1.1,
-  "eta_data": "2026-08-24",
+  "velocidade_pontos_semana": 652.2,
+  "janela_dias": 6,
+  "eta_semanas": 1.8,
+  "eta_data": "2026-09-03",
   "eta_confiavel": true,
   "serie": [
    {
@@ -104,15 +104,43 @@
    },
    {
     "data": "2026-08-17",
-    "commit": "6f6a05e",
-    "pontos": 523,
-    "pct": 25.7,
+    "commit": "53c0ca2",
+    "pontos": 808,
+    "pct": 39.8,
+    "evento": null
+   },
+   {
+    "data": "2026-08-18",
+    "commit": "e9b8d9b",
+    "pontos": 808,
+    "pct": 39.8,
+    "evento": null
+   },
+   {
+    "data": "2026-08-20",
+    "commit": "faef7a1",
+    "pontos": 878,
+    "pct": 43.2,
+    "evento": null
+   },
+   {
+    "data": "2026-08-21",
+    "commit": "f35cd55",
+    "pontos": 878,
+    "pct": 43.2,
+    "evento": null
+   },
+   {
+    "data": "2026-08-22",
+    "commit": "fe58d2e",
+    "pontos": 877,
+    "pct": 43.2,
     "evento": null
    }
   ]
  },
  "fila_autor": {
-  "total": 14,
+  "total": 12,
   "itens": [
    {
     "id": "seed7",
@@ -127,6 +155,13 @@
     "trilha": null,
     "titulo": "Rodar semente 123 no Colab",
     "pontos_destravados": 234
+   },
+   {
+    "id": "cap3.R4",
+    "tipo": "gate",
+    "trilha": "texto",
+    "titulo": "Aprovar 3 · Método · rodada R4",
+    "pontos_destravados": 20
    },
    {
     "id": "zenodo",
@@ -171,13 +206,6 @@
     "pontos_destravados": 0
    },
    {
-    "id": "dec-fecho-cap6",
-    "tipo": "decisao",
-    "trilha": "texto",
-    "titulo": "Fecho do Cap. 6: manter tríade+aforismo (estilo) sabendo que 2 trechos são apontados como mérito (DA-C1/C2/C3), ou reescrever",
-    "pontos_destravados": 0
-   },
-   {
     "id": "dec-gate-85",
     "tipo": "decisao",
     "trilha": "texto",
@@ -192,24 +220,10 @@
     "pontos_destravados": 0
    },
    {
-    "id": "dec-divida-vocabulario",
+    "id": "dec-apagar-humanize-cap2",
     "tipo": "decisao",
-    "trilha": "processo",
-    "titulo": "Dívida antiga: 342 entidades fora do vocabulário controlado nos 140 fichamentos legados — entra no plano ou fica como está? (retirada do DoD do lote 5)",
-    "pontos_destravados": 0
-   },
-   {
-    "id": "dec-nome-e3",
-    "tipo": "decisao",
-    "trilha": "experimentos",
-    "titulo": "Rebatismo do E3': autor incomoda-se com a plica; recomendação do principal = E3' assume o nome E3 (o E3 original nunca teve resultados; exige reescrever o desenho em 3-metodo:443 + renomear ~35 ocorrências + código/artefatos/notebooks via executor01). Autor: 'voltemos com ela' — retomar.",
-    "pontos_destravados": 0
-   },
-   {
-    "id": "dec-reforco-cap4",
-    "tipo": "decisao",
-    "trilha": "texto",
-    "titulo": "F6 da refatoração (separada por decisão do autor): reforçar o Cap. 4 — hoje com zero citações, embora 6 fichamentos o prometam; exige escrever conteúdo novo (discussão + interlocução com a literatura)",
+    "trilha": null,
+    "titulo": "Apagar as branches humanize/cap2-t2 e cap2-t3 (superadas; conteudo util ja resgatado em 5218ccd). Enquanto existirem, o guarda do harness mantem 2-fundam/texto.tex BLOQUEADO para todos. Credencial das sessoes nao apaga branch (403) — so o autor: git push origin --delete humanize/cap2-t2 (2438c68) e humanize/cap2-t3 (dc7247e).",
     "pontos_destravados": 0
    }
   ]
@@ -218,9 +232,9 @@
   "pontos": 234
  },
  "divida_fundamentacao": {
-  "citacoes_pendentes": 45,
-  "chaves_citadas": 151,
-  "fichamentos": 170,
+  "citacoes_pendentes": 27,
+  "chaves_citadas": 152,
+  "fichamentos": 176,
   "chaves_sem_fichamento": 0
  },
  "meta_saida": {

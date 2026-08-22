@@ -1,7 +1,7 @@
 \chapter{Resultados: Composição e Construção do Conjunto Inicial}
 \label{ch:resultados-l0}
 
-Este capítulo apresenta os resultados dos pilares P1 e P2: a sensibilidade da
+Este capítulo apresenta os resultados dos dois primeiros pilares: a sensibilidade da
 generalização à composição do conjunto inicial $L_0$ (Seção~\ref{sec:res-l0-sens}),
 os limites estimados por otimização evolutiva (Seção~\ref{sec:res-l0-ag}) e a
 avaliação do DRI-SL como estratégia de \textit{cold start}
@@ -52,7 +52,7 @@ Três padrões estruturam a leitura:
   fator dominante é \emph{quais classes} entram no sorteio.
 \end{enumerate}
 
-Esses resultados fundamentam o P2: se a composição importa tanto no regime
+Esses resultados fundamentam a partida a frio: se a composição importa tanto no regime
 pequeno (exatamente o regime do \textit{cold start} do aprendizado ativo),
 então construir $L_0$ deliberadamente (em vez de sorteá-lo) é a alavanca
 disponível antes de existir qualquer rótulo.
@@ -123,7 +123,7 @@ até $|L_0|=5.000$. Classificador PVBin.}
 \end{tabular}
 \end{table}
 
-O resultado central do P2: \textbf{o DRI-SL supera não só a amostragem
+O resultado central da partida a frio: \textbf{o DRI-SL supera não só a amostragem
 aleatória média, mas o próprio melhor indivíduo encontrado pelo AG} em todos os
 tamanhos de 100 a 5.000 (ex.: $I=1.000$: $67{,}4\%$ vs.\ $62{,}2\%$ de
 acurácia). Uma heurística construtiva de custo linear e sem acesso a rótulos

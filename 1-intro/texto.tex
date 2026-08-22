@@ -36,7 +36,7 @@ leves para análises exploratórias específicas.
 
 Apesar desses avanços, a limitação central permanece: dados não rotulados são
 abundantes, mas a obtenção de rótulos confiáveis continua custosa. O aprendizado
-ativo (\textit{active learning}) ataca diretamente esse custo: seleciona
+ativo (\textit{active learning}) enfrenta diretamente esse custo: seleciona
 iterativamente os exemplos
 potencialmente mais informativos para anotação. No entanto, revisões
 recentes mostram que sua aplicação prática envolve dificuldades adicionais, como
@@ -93,12 +93,28 @@ perda relevante de desempenho final}. Para torná-la falseável, adota-se um cri
 quantitativo de aceitação, enunciado com dois termos do aprendizado ativo: o conjunto
 de exemplos ainda não rotulados de onde se escolhe o que anotar é o \textit{pool},
 e quem fornece o rótulo de cada exemplo escolhido é o \emph{oráculo}; nesta tese,
-esse papel é exercido por um modelo de linguagem, não por um anotador humano. O
-critério: treinado com no máximo $30\%$ dos exemplos do \textit{pool}, rotulados
-pelo oráculo, o framework deve alcançar pelo menos $95\%$ do Macro F1-Score que o
-mesmo classificador obtém com o \textit{pool} inteiro rotulado, superando com
+esse papel é exercido por um modelo de linguagem, não por um anotador humano. O critério: treinado com no máximo \textbf{34.724 rótulos} frente à população
+deduplicada de 231.490 textos únicos (o equivalente a $15\%$ dela), o framework
+deve alcançar pelo menos $95\%$ da acurácia que o mesmo classificador
+obtém com o \textit{pool} de referência inteiramente rotulado, superando com
 significância estatística a seleção aleatória e a seleção por incerteza sob o
-mesmo orçamento. A hipótese é condicional à qualidade do oráculo disponível. Por
+mesmo orçamento. A acurácia é a métrica do critério porque é a métrica do
+pré-registro; o Macro F1 acompanha toda a avaliação como análise de
+robustez, introduzida nesta tese para o espaço de centenas de classes
+desbalanceadas.
+O teto de $15\%$ vem do pré-registro do estudo: o documento apresentado no
+exame de qualificação do autor (PPGMNE/UFPR, junho de 2023; material datado de
+maio de 2022, na versão de maio de 2023, preservado no repositório da tese)
+conclui que ``com 15\% dos dados foi possível atingir uma performance similar
+ao modelo populacional'' com seleção por incerteza. O documento enuncia o
+teto; o denominador adotado aqui, a população deduplicada, é decisão declarada
+desta tese. A ordem de grandeza é compatível com a literatura, que reporta
+desempenho equivalente ao da supervisão passiva rotulando frações comparáveis
+\emph{do conjunto selecionável}: menos de $10\%$ na ilustração canônica de
+\citet{Settles2009} e até $15{,}45\%$ nos benchmarks com transformers de
+\citet[Tab.~3]{Schroder2022Uncertainty}; medido contra o mesmo tipo de
+conjunto, o teto desta tese corresponde a $69{,}4\%$ do \textit{pool} de
+referência. A hipótese é condicional à qualidade do oráculo disponível. Por
 isso, fixou-se de antemão tanto o piso de acurácia que um modelo de linguagem
 precisa atingir para ser aprovado como oráculo quanto o que conta como refutação:
 se nem o melhor oráculo aprovado sustentar o critério, a hipótese é considerada
@@ -123,16 +139,16 @@ organizada em quatro pilares empíricos, que estruturam também os capítulos de
 resultados:
 
 \begin{enumerate}
-  \item \textbf{P1 — composição do conjunto inicial}: quantificar o impacto da
+  \item \textbf{Composição do conjunto inicial}: quantificar o impacto da
   composição e do tamanho do conjunto inicial de rotulagem ($L_0$) na generalização
   do classificador, incluindo a estimativa de limites por otimização evolutiva;
-  \item \textbf{P2 — \textit{cold start} sem rótulos}: propor e avaliar o algoritmo
+  \item \textbf{Partida a frio sem rótulos}: propor e avaliar o algoritmo
   DRI-SL (\textit{Diversidade Representativa Inicial via densidade Semântica e
   variedade Lexical}), que constrói um $L_0$ informativo sem acesso a rótulos;
-  \item \textbf{P3 — LLM como oráculo}: medir, com instrumentação validada, a
+  \item \textbf{LLM como oráculo}: medir, com instrumentação validada, a
   assertividade, o custo e o perfil de erro de LLMs como rotuladores para o domínio,
   derivando a configuração de oráculos do framework;
-  \item \textbf{P4 — o framework integrado}: avaliar o FALCO contra métodos de
+  \item \textbf{O framework integrado}: avaliar o FALCO contra métodos de
   referência sob o mesmo orçamento, com testes de significância, verificando a
   hipótese central.
 \end{enumerate}
@@ -165,8 +181,8 @@ aprendizado ativo e modelos de linguagem, e a revisão narrativa focada da liter
 recente. O Capítulo~\ref{ch:metodo} descreve a metodologia: dados e sua auditoria, os
 quatro pilares, o programa experimental e o instrumental de reprodutibilidade.
 O Capítulo~\ref{ch:resultados-l0} apresenta os resultados sobre a composição e a
-construção do conjunto inicial (P1 e P2). O Capítulo~\ref{ch:resultados-falco}
-apresenta a avaliação dos oráculos LLM e do framework FALCO (P3 e P4). O
+construção do conjunto inicial. O Capítulo~\ref{ch:resultados-falco}
+apresenta a avaliação dos oráculos LLM e do framework FALCO. O
 Capítulo~\ref{ch:conclusao} discute os achados, limitações e trabalhos futuros. Os
 apêndices formalizam a métrica LCE, o algoritmo genético, o DRI-SL, a biblioteca
 \texttt{activelearning} e os \textit{prompts} utilizados.
