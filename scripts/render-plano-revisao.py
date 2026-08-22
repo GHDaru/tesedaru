@@ -639,8 +639,15 @@ def build_plano() -> tuple[str, str]:
     const s = cell?.status || 'pendente';
     const bloq = (cell?.bloqueado_por || []).length ? ' ⛓' : '';
     const note = cell?.nota ? ` title="${{esc(cell.nota)}}"` : '';
-    const aria = `${{capTit}}, rodada ${{rid}}: ${{s}}${{bloq ? ', bloqueada' : ''}}${{cell?.nota ? ' — ' + cell.nota : ''}}`;
-    return `<span class="pill ${{s}}${{cell?.nota ? ' has-note' : ''}}"${{note}} aria-label="${{esc(aria)}}">${{GLIFO[s]}}${{bloq}}</span>`;
+    // R7 resetado pelo autor (2026-08-22): mostra "a reauditar" em vez de
+    // "pendente" — mesmo status internamente (entra na mesma conta de
+    // pontos), só o rótulo visível muda, para não sugerir "nunca revisado"
+    // quando na verdade é "revisado antes, releitura final pendente"
+    const reaud = cell?.reauditar;
+    const label = reaud ? 'a reauditar' : s;
+    const glifo = reaud ? '↻' : GLIFO[s];
+    const aria = `${{capTit}}, rodada ${{rid}}: ${{label}}${{bloq ? ', bloqueada' : ''}}${{cell?.nota ? ' — ' + cell.nota : ''}}`;
+    return `<span class="pill ${{s}}${{reaud ? ' reauditar' : ''}}${{cell?.nota ? ' has-note' : ''}}"${{note}} aria-label="${{esc(aria)}}">${{glifo}}${{bloq}}</span>`;
   }};
   // quebra por tema — precisa existir antes do grid de capítulos porque a
   // quebra de cada capítulo, quando existe, agora é fundida dentro do
@@ -673,40 +680,11 @@ def build_plano() -> tuple[str, str]:
     </div>`;
   }};
 
-  // partes de um capítulo-agregado (pre = resumo+abstract; ap = 7 apêndices)
-  // — mesmo dado do capítulo (não existe rodada rastreada por arquivo ainda),
-  // só reapresentado por nome de arquivo, ícones apenas, sem nota nem texto
-  // (correção do autor). PT já foi calculado mais abaixo — repetimos aqui
-  // porque partesHtml roda antes; leitura segura, mesmo objeto.
-  const PTlocal = P.pos_textuais || [];
-  const partesHtml = c => {{
-    let partes = null;
-    if (c.id === 'pre') {{
-      partes = c.arquivo.split('·').map(s => s.trim()).map(f => ({{
-        nome: /resumo/i.test(f) ? 'Resumo' : /abstract/i.test(f) ? 'Abstract' : f, arquivo: f
-      }}));
-    }} else if (c.id === 'ap') {{
-      partes = PTlocal.filter(x => x.id.startsWith('a')).map(x => ({{
-        nome: x.titulo.replace(/^Apêndice /, ''), arquivo: x.arquivo
-      }}));
-    }}
-    if (!partes) return '';
-    const naCount = P.rodadas.filter(r => (c.rodadas[r.id]?.status) === 'na').length;
-    const feitoCount = P.rodadas.filter(r => (c.rodadas[r.id]?.status) === 'feito').length;
-    const denom = P.rodadas.length - naCount;
-    return `<div class="partes-lista">${{partes.map(pt => `
-      <div class="parte-linha"><span class="parte-nome">${{esc(pt.nome)}}</span>
-        <span class="parte-rodadas">${{P.rodadas.map(r => pill(c.rodadas[r.id], c.titulo, r.id)).join('')}}</span>
-        <span class="parte-resumo">${{feitoCount}}/${{denom}} rodadas</span></div>`).join('')}}
-    </div>
-    <p class="parte-obs">mesma revisão do capítulo — ainda sem rodada rastreada por arquivo</p>`;
-  }};
-
-  // grid de capítulos (ciclo 014, aprovado pelo autor 2026-08-22): 3 níveis
-  // — 1) linha fechada, igual à antiga matriz; 2) aberto = partes do
-  // agregado (só ícones) OU quebra por tema, quando existirem; 3) "o que
-  // abre esta frente" aninhado, mesmo conteúdo de antes, só que dentro do
-  // card em vez de solto abaixo da matriz
+  // grid de capítulos (ciclo 014, aprovado pelo autor 2026-08-22; tarefa
+  // 1640 do principal desagregou pre/ap em elementos próprios em
+  // capitulos[] — cada elemento agora é uma linha real, sem agregado):
+  // 1) linha fechada, igual à antiga matriz; 2) aberto = Quebra por tema,
+  // quando existir; 3) "o que abre esta frente" aninhado
   el('cap-grid').innerHTML = P.capitulos.map(c => {{
     const t = ptsCap[c.id] || {{pontos: 0, feitos: 0}};
     const enc = c.encerrado
@@ -714,7 +692,12 @@ def build_plano() -> tuple[str, str]:
     const naCount = P.rodadas.filter(r => (c.rodadas[r.id]?.status) === 'na').length;
     const feitoCount = P.rodadas.filter(r => (c.rodadas[r.id]?.status) === 'feito').length;
     const denom = P.rodadas.length - naCount;
-    const dims = c.dimensoes ? `<p class="cap-dims">${{c.dimensoes.travessoes}} travessões · ${{c.dimensoes.citacoes}} citações · ${{c.dimensoes.tokens}} tokens numéricos</p>` : '';
+    const dimsPartes = [
+      c.dimensoes?.travessoes != null ? `${{c.dimensoes.travessoes}} travessões` : null,
+      c.dimensoes?.citacoes != null ? `${{c.dimensoes.citacoes}} citações` : null,
+      c.dimensoes?.tokens != null ? `${{c.dimensoes.tokens}} tokens numéricos` : null,
+    ].filter(Boolean);
+    const dims = dimsPartes.length ? `<p class="cap-dims">${{dimsPartes.join(' · ')}}</p>` : '';
     const abertura = c.abertura ? `<details class="cap-abertura"><summary>O que abre esta frente</summary>
       <ul class="notes">${{c.abertura.map(a => `<li>${{esc(a)}}</li>`).join('')}}</ul></details>` : '';
     return `<details class="cap-card">
@@ -726,7 +709,6 @@ def build_plano() -> tuple[str, str]:
           <span class="cap-card-rd-count">${{feitoCount}}/${{denom}} rodadas</span></span>
       </summary>
       <div class="cap-card-body">
-        ${{partesHtml(c)}}
         ${{quebraHtml(c)}}
         ${{dims}}
         ${{abertura}}
@@ -734,22 +716,19 @@ def build_plano() -> tuple[str, str]:
     </details>`;
   }}).join('');
 
-  // elementos pós-textuais (referências + apêndices individuais) — tarefa do
-  // principal 20260822-1130: existem fora de capitulos[] porque, ao contrário
-  // dos capítulos, ainda não têm rodadas de revisão próprias medidas
+  // referências bibliográficas — não passam por rodadas R1-R7 (não são
+  // prosa revisada por rodada); apêndices e resumo/abstract viraram
+  // capitulos[] de verdade na desagregação (tarefa 1640)
   const PT = P.pos_textuais || [];
-  el('estrutura-resumo').textContent = PT.length
-    ? `Estrutura completa da tese: ${{P.capitulos.length}} capítulos + ${{PT.length}} elementos pós-textuais (referências e apêndices) — ver lista abaixo da matriz.`
-    : `Estrutura: ${{P.capitulos.length}} capítulos.`;
+  el('estrutura-resumo').textContent =
+    `Estrutura completa da tese: ${{P.capitulos.length}} elementos rastreados por rodada `
+    + `(6 capítulos + Resumo + Abstract + 7 apêndices) + referências bibliográficas.`;
   el('pos-textuais').innerHTML = PT.length ? PT.map(x => `
     <div class="item"><span class="pill ${{x.estado === 'existe' ? 'feito' : 'pendente'}}">${{x.estado === 'existe' ? '✓' : '○'}} ${{esc(x.estado)}}</span>
       <span class="t">${{esc(x.titulo)}} <small style="color:var(--muted)">· ${{esc(x.medida)}}</small></span>
       <span class="who">${{esc(x.arquivo)}}</span></div>`).join('')
     : '<p class="vazia">sem dados ainda</p>';
 
-  // quebra por tema: capítulos grandes demais para uma rodada só (hoje só o
-  // Cap.2) viram frentes menores, cada uma com sua própria sequência de
-  // etapas — ver capitulos[].quebra / sequencia_rodadas no plano
   // dois formatos convivem em execucoes.itens: experimentos (o_que/onde/
   // duracao/resultado_esperado/dono) e itens de texto em gate (descricao/
   // branch/commit/responsavel/bloqueado_por) — normaliza os dois aqui
@@ -827,16 +806,9 @@ tr.chap-encerrado{{background:var(--st-feito-bg)}}
 .cap-card-pontos{{font-weight:600; color:var(--ink)}}
 .cap-card-body{{padding:0 var(--sp-4) var(--sp-4); border-top:1px solid var(--border)}}
 .cap-dims{{margin:var(--sp-2) 0 0; color:var(--muted); font-size:var(--fs-1)}}
-.partes-lista{{margin-top:.2rem}}
-.parte-linha{{display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-3);
-  padding:.5rem 0; border-bottom:1px dotted var(--border)}}
-.parte-linha:last-child{{border-bottom:none}}
-.parte-nome{{font-weight:600; font-size:var(--fs-2)}}
-.parte-rodadas{{display:flex; gap:.2rem; margin-left:auto}}
-.parte-resumo{{min-width:6rem; text-align:right; color:var(--muted); font-size:var(--fs-1)}}
-.parte-obs{{margin:.3rem 0 0; color:var(--muted); font-size:var(--fs-1); font-style:italic}}
 .cap-abertura{{margin-top:var(--sp-3)}}
 .cap-abertura summary{{cursor:pointer; color:var(--muted); font-size:var(--fs-1)}}
+.pill.reauditar{{background:var(--st-andamento-bg); color:var(--st-andamento); border:1px dashed var(--st-andamento)}}
 .cap-card-body .quebra-cap{{margin-top:var(--sp-4)}}
 </style>"""
     return body, script

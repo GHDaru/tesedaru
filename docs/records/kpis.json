@@ -1,54 +1,59 @@
 {
  "schema": "kpis/v1",
  "computado_em": "2026-08-22",
- "git_sha": "0d5ba4a",
+ "git_sha": "fb83499",
  "prontidao": {
-  "global_pct": 36.7,
-  "texto_pct": 43.2,
+  "global_pct": 34.1,
+  "texto_pct": 40.2,
   "artefatos_pct": 0.0,
-  "pontos_totais": 2032,
-  "pontos_feitos": 877,
+  "pontos_totais": 2209,
+  "pontos_feitos": 887,
   "por_rodada": [
    {
     "id": "R1",
-    "pontos": 331,
+    "pontos": 334,
     "feitos": 273
    },
    {
     "id": "R2",
-    "pontos": 120,
+    "pontos": 225,
     "feitos": 45
    },
    {
     "id": "R3",
-    "pontos": 468,
+    "pontos": 475,
     "feitos": 395
    },
    {
     "id": "R4",
-    "pontos": 140,
+    "pontos": 260,
     "feitos": 58
    },
    {
     "id": "R5",
-    "pontos": 743,
+    "pontos": 485,
     "feitos": 66
    },
    {
     "id": "R6",
-    "pontos": 80,
-    "feitos": 40
+    "pontos": 150,
+    "feitos": 50
    },
    {
     "id": "R7",
-    "pontos": 150,
+    "pontos": 280,
     "feitos": 0
    }
   ],
   "por_capitulo": [
    {
-    "id": "pre",
-    "pontos": 80,
+    "id": "pre-resumo",
+    "pontos": 62,
+    "feitos": 10
+   },
+   {
+    "id": "pre-abstract",
+    "pontos": 62,
     "feitos": 10
    },
    {
@@ -82,8 +87,38 @@
     "feitos": 35
    },
    {
-    "id": "ap",
-    "pontos": 488,
+    "id": "ap-a1",
+    "pontos": 91,
+    "feitos": 0
+   },
+   {
+    "id": "ap-a2",
+    "pontos": 86,
+    "feitos": 0
+   },
+   {
+    "id": "ap-a3",
+    "pontos": 91,
+    "feitos": 0
+   },
+   {
+    "id": "ap-a4",
+    "pontos": 91,
+    "feitos": 0
+   },
+   {
+    "id": "ap-a5",
+    "pontos": 86,
+    "feitos": 0
+   },
+   {
+    "id": "ap-a6",
+    "pontos": 86,
+    "feitos": 0
+   },
+   {
+    "id": "ap-a7",
+    "pontos": 90,
     "feitos": 0
    }
   ]
@@ -91,50 +126,50 @@
  "ritmo": {
   "velocidade_pontos_semana": 652.2,
   "janela_dias": 6,
-  "eta_semanas": 1.8,
-  "eta_data": "2026-09-03",
+  "eta_semanas": 2.0,
+  "eta_data": "2026-09-05",
   "eta_confiavel": true,
   "serie": [
    {
     "data": "2026-08-16",
     "commit": "07bd867",
     "pontos": 318,
-    "pct": 15.7,
+    "pct": 14.4,
     "evento": null
    },
    {
     "data": "2026-08-17",
     "commit": "53c0ca2",
     "pontos": 808,
-    "pct": 39.8,
+    "pct": 36.6,
     "evento": null
    },
    {
     "data": "2026-08-18",
     "commit": "e9b8d9b",
     "pontos": 808,
-    "pct": 39.8,
+    "pct": 36.6,
     "evento": null
    },
    {
     "data": "2026-08-20",
     "commit": "faef7a1",
     "pontos": 878,
-    "pct": 43.2,
+    "pct": 39.7,
     "evento": null
    },
    {
     "data": "2026-08-21",
     "commit": "f35cd55",
     "pontos": 878,
-    "pct": 43.2,
+    "pct": 39.7,
     "evento": null
    },
    {
     "data": "2026-08-22",
     "commit": "d206321",
     "pontos": 877,
-    "pct": 43.2,
+    "pct": 39.7,
     "evento": null
    }
   ]
@@ -147,14 +182,14 @@
     "tipo": "acao",
     "trilha": null,
     "titulo": "Rodar semente 7 no Colab (notebook e3prime_colab, 1 sessão)",
-    "pontos_destravados": 234
+    "pontos_destravados": 253
    },
    {
     "id": "seed123",
     "tipo": "acao",
     "trilha": null,
     "titulo": "Rodar semente 123 no Colab",
-    "pontos_destravados": 234
+    "pontos_destravados": 253
    },
    {
     "id": "cap3.R4",
@@ -222,7 +257,7 @@
   ]
  },
  "represados": {
-  "pontos": 234
+  "pontos": 253
  },
  "divida_fundamentacao": {
   "citacoes_pendentes": 27,
