@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 91,
-  "atualizado_em": "2026-08-22T17:00:00Z",
-  "atualizado_por": "site (tarefa 20260822-1640_principal_site_granularidade-por-elemento-aprovada): desagrega pre em Resumo+Abstract e ap em 7 apêndices (A1-A7), cada um agora um elemento próprio em capitulos[] com rodadas R1-R7 medidas por arquivo (R3 'na' onde 0 citações; travessões/citações recontados diretamente no arquivo — a nota antiga do agregado pré-textual dizia 32 travessões, a contagem direta deu 22, divergência flagrada, não corrigida por mim). R7 de TODOS os 15 elementos + dos 6 capítulos ganha campo reauditar:true (reset do autor). pos_textuais[] fica só com Referências.",
+  "versao": 92,
+  "atualizado_em": "2026-08-22T18:40:00Z",
+  "atualizado_por": "site (checagem pedida pelo principal — painel reflete F6/lote-2100?): dimensoes.travessoes de cap2/3/4/5/6 estava com o número PRÉ-merge (a nota de R1 já dizia o número pós-merge, só nunca foi propagado ao campo usado no cálculo de pontos — cap2 92→1, cap3 59→4, cap4 17→3, cap5 64→6, cap6 35→6, todos citados na própria nota de R1). dimensoes.citacoes do cap4 estava 0, F6 (commit 47076d3) levou a 11 citações — contei \\cite/\\citep/\\citet em 4-resultados-l0/texto.tex e bate exatamente com a mensagem do merge ('Cap.4 de 0 para 11 citações'). Não toquei citacoes de cap2/3/5/6 nem tokens de nenhum: não achei número declarado em nota para propagar sem inventar.",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -242,7 +242,7 @@
         "R5: 48 tokens numéricos (números de terceiros: conferir contra fichamento, não artefato)"
       ],
       "dimensoes": {
-        "travessoes": 92,
+        "travessoes": 1,
         "citacoes": 132,
         "tokens": 48
       },
@@ -353,7 +353,7 @@
         "R6: explicar o nome E3′ (corte do E3) na 1ª aparição — anotado no ciclo do Cap. 1"
       ],
       "dimensoes": {
-        "travessoes": 59,
+        "travessoes": 4,
         "citacoes": 18,
         "tokens": 105
       },
@@ -499,8 +499,8 @@
         "R5: 185 tokens numéricos × artefatos do repositório legado (activetextclassification) + replays"
       ],
       "dimensoes": {
-        "travessoes": 17,
-        "citacoes": 0,
+        "travessoes": 3,
+        "citacoes": 11,
         "tokens": 185
       },
       "quebra": [
@@ -603,7 +603,7 @@
         "R5: 455 tokens numéricos — a maior rodada de números; EXECUTAR APÓS multi-semente do E3′"
       ],
       "dimensoes": {
-        "travessoes": 64,
+        "travessoes": 6,
         "citacoes": 6,
         "tokens": 455
       },
@@ -720,7 +720,7 @@
         "R5: 48 tokens numéricos, todos espelhos de números dos Caps. 4-5"
       ],
       "dimensoes": {
-        "travessoes": 35,
+        "travessoes": 6,
         "citacoes": 18,
         "tokens": 48
       },
@@ -1498,6 +1498,10 @@
     {
       "id": "E-fora-das-legendas",
       "texto": "Regra final P/E: leitor nao ve P nem E. E so em controle interno (tabela-mapa Cap.3 coluna Id + labels sec:res-* + proveniencia). Legendas do Cap.5 descritivas puras (banca 1030)."
+    },
+    {
+      "id": "divida-vocab-aceita",
+      "texto": "As ~330 pendencias de vocabulario nas fichas da tese ficam como DIVIDA DECLARADA E ACEITA (autor 2026-08-23): as fichas da tese continuam como estao; o acervo do local (fluxo independente) padroniza no privado se quiser. check-fichamentos.py da tese segue com as pendencias, nao e item a fechar."
     }
   ],
   "limites_operacionais": [
