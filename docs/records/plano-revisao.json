@@ -1,8 +1,8 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 84,
-  "atualizado_em": "2026-08-22T13:25:00Z",
-  "atualizado_por": "site (tarefa 20260822-1130_principal_site_elementos-pos-textuais), sobre o v79 do expurgo E da banca (fe58d2e): campo pos_textuais[] novo — referências (337 entradas, medido em referencias.bib) + 7 apêndices individuais (a1..a7), estado medido por arquivo (existe/sem marcador de rascunho). Não reescreve capitulos[].ap nem suas rodadas — divisão editorial R1-R7 por apêndice fica para o principal decidir.",
+  "versao": 86,
+  "atualizado_em": "2026-08-22T17:00:00Z",
+  "atualizado_por": "site (tarefa 20260822-1640_principal_site_granularidade-por-elemento-aprovada): desagrega pre em Resumo+Abstract e ap em 7 apêndices (A1-A7), cada um agora um elemento próprio em capitulos[] com rodadas R1-R7 medidas por arquivo (R3 'na' onde 0 citações; travessões/citações recontados diretamente no arquivo — a nota antiga do agregado pré-textual dizia 32 travessões, a contagem direta deu 22, divergência flagrada, não corrigida por mim). R7 de TODOS os 15 elementos + dos 6 capítulos ganha campo reauditar:true (reset do autor). pos_textuais[] fica só com Referências.",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
     "Abrir este JSON e ler o campo 'proximo'",
@@ -67,17 +67,19 @@
   },
   "capitulos": [
     {
-      "id": "pre",
-      "titulo": "Pré-textuais (resumo + abstract)",
-      "arquivo": "0-iniciais/resumo.tex · abstract.tex",
+      "id": "pre-resumo",
+      "titulo": "Resumo",
+      "arquivo": "0-iniciais/resumo.tex",
+      "estado": "existe",
+      "medida": "797 palavras",
       "rodadas": {
         "R1": {
           "status": "pendente",
-          "nota": "maior densidade de travessões da tese (21–22/1000 palavras)"
+          "nota": "11 travessões (medido direto no arquivo; a nota antiga do agregado citava 16 — divergência a conferir com quem escreveu)"
         },
         "R2": {
           "status": "pendente",
-          "nota": "abrem FALCO/LLM; auditar todas"
+          "nota": "abrem FALCO/LLM; auditar o restante"
         },
         "R3": {
           "status": "na"
@@ -94,22 +96,60 @@
         },
         "R6": {
           "status": "feito",
-          "nota": "sem jargão de experimento"
+          "nota": "sem jargão de experimento (herdado da revisão conjunta anterior à desagregação)"
         },
         "R7": {
           "status": "pendente",
+          "reauditar": true,
           "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
         }
       },
-      "abertura": [
-        "R1: 32 travessões (16 no resumo + 16 no abstract) — maior densidade da tese (21–22/1000 palavras)",
-        "R2: abrir as siglas de forma independente do corpo (FALCO/LLM já abertos; auditar o restante)",
-        "R5: 32 tokens numéricos a rechecar contra o corpo APÓS a consolidação multi-semente"
-      ],
       "dimensoes": {
-        "travessoes": 32,
-        "citacoes": 0,
-        "tokens": 32
+        "travessoes": 11,
+        "citacoes": 0
+      }
+    },
+    {
+      "id": "pre-abstract",
+      "titulo": "Abstract",
+      "arquivo": "abstract.tex",
+      "estado": "existe",
+      "medida": "773 palavras",
+      "rodadas": {
+        "R1": {
+          "status": "pendente",
+          "nota": "11 travessões (medido direto no arquivo; a nota antiga do agregado citava 16 — divergência a conferir com quem escreveu)"
+        },
+        "R2": {
+          "status": "pendente",
+          "nota": "abrem FALCO/LLM; auditar o restante"
+        },
+        "R3": {
+          "status": "na"
+        },
+        "R4": {
+          "status": "na"
+        },
+        "R5": {
+          "status": "andamento",
+          "nota": "espelhos alinhados em 2026-08 (P4, 250.221); rechecar ao final",
+          "bloqueado_por": [
+            "consolidar-seeds"
+          ]
+        },
+        "R6": {
+          "status": "feito",
+          "nota": "sem jargão de experimento (herdado da revisão conjunta anterior à desagregação)"
+        },
+        "R7": {
+          "status": "pendente",
+          "reauditar": true,
+          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+        }
+      },
+      "dimensoes": {
+        "travessoes": 11,
+        "citacoes": 0
       }
     },
     {
@@ -143,7 +183,8 @@
         },
         "R7": {
           "status": "pendente",
-          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas.",
+          "reauditar": true
         }
       },
       "abertura": [
@@ -190,7 +231,8 @@
         },
         "R7": {
           "status": "pendente",
-          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas.",
+          "reauditar": true
         }
       },
       "abertura": [
@@ -298,7 +340,8 @@
         },
         "R7": {
           "status": "pendente",
-          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas.",
+          "reauditar": true
         }
       },
       "abertura": [
@@ -445,7 +488,8 @@
         },
         "R7": {
           "status": "pendente",
-          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas.",
+          "reauditar": true
         }
       },
       "abertura": [
@@ -544,7 +588,8 @@
         },
         "R7": {
           "status": "pendente",
-          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas.",
+          "reauditar": true
         }
       },
       "abertura": [
@@ -662,7 +707,8 @@
         },
         "R7": {
           "status": "pendente",
-          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas.",
+          "reauditar": true
         }
       },
       "abertura": [
@@ -740,50 +786,272 @@
       "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor."
     },
     {
-      "id": "ap",
-      "titulo": "Apêndices A1–A7",
-      "arquivo": "a1-lce … a7-parada-drift/texto.tex",
+      "id": "ap-a1",
+      "titulo": "Apêndice A1 — Métrica LCE (formalização)",
+      "arquivo": "a1-lce/texto.tex",
+      "estado": "existe",
+      "medida": "295 palavras",
       "rodadas": {
         "R1": {
           "status": "pendente",
-          "nota": "26 travessões em 7 apêndices — leve"
+          "nota": "3 travessões"
         },
         "R2": {
-          "status": "pendente",
-          "nota": "prompts/schemas cheios de siglas técnicas (A5) — conferir contra a lista"
+          "status": "pendente"
         },
         "R3": {
           "status": "pendente",
-          "nota": "3 citações distintas"
+          "nota": "1 citação distinta a validar contra fichamento"
         },
         "R4": {
           "status": "pendente"
         },
         "R5": {
-          "status": "pendente",
-          "nota": "973 tokens numéricos — 2ª maior R5 da tese; tabelas do A6 são espelho do Cap. 4; A7 espelha política de parada"
+          "status": "pendente"
         },
         "R6": {
           "status": "pendente"
         },
         "R7": {
           "status": "pendente",
+          "reauditar": true,
           "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
         }
       },
-      "abertura": [
-        "R5: 973 tokens numéricos (tabelas A6 = espelho do Cap. 4; princípio VIII vale para apêndice↔corpo)",
-        "A7 tem item próprio no grupo melhorias-r6: atualizar política de parada pós-E3′ (hoje ensina a política refutada)",
-        "R2: A5-prompts usa o CategorySchema — expansões devem bater com a lista de siglas"
-      ],
       "dimensoes": {
-        "travessoes": 26,
-        "citacoes": 3,
-        "tokens": 973
+        "travessoes": 3,
+        "citacoes": 1
+      }
+    },
+    {
+      "id": "ap-a2",
+      "titulo": "Apêndice A2 — Algoritmo genético para otimização de L0",
+      "arquivo": "a2-ag/texto.tex",
+      "estado": "existe",
+      "medida": "217 palavras",
+      "rodadas": {
+        "R1": {
+          "status": "pendente",
+          "nota": "2 travessões"
+        },
+        "R2": {
+          "status": "pendente"
+        },
+        "R3": {
+          "status": "na"
+        },
+        "R4": {
+          "status": "pendente"
+        },
+        "R5": {
+          "status": "pendente"
+        },
+        "R6": {
+          "status": "pendente"
+        },
+        "R7": {
+          "status": "pendente",
+          "reauditar": true,
+          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+        }
+      },
+      "dimensoes": {
+        "travessoes": 2,
+        "citacoes": 0
+      }
+    },
+    {
+      "id": "ap-a3",
+      "titulo": "Apêndice A3 — Algoritmo DRI-SL (cold start)",
+      "arquivo": "a3-drisl/texto.tex",
+      "estado": "existe",
+      "medida": "276 palavras",
+      "rodadas": {
+        "R1": {
+          "status": "pendente",
+          "nota": "3 travessões"
+        },
+        "R2": {
+          "status": "pendente"
+        },
+        "R3": {
+          "status": "pendente",
+          "nota": "1 citação distinta a validar contra fichamento"
+        },
+        "R4": {
+          "status": "pendente"
+        },
+        "R5": {
+          "status": "pendente"
+        },
+        "R6": {
+          "status": "pendente"
+        },
+        "R7": {
+          "status": "pendente",
+          "reauditar": true,
+          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+        }
+      },
+      "dimensoes": {
+        "travessoes": 3,
+        "citacoes": 1
+      }
+    },
+    {
+      "id": "ap-a4",
+      "titulo": "Apêndice A4 — Biblioteca activelearning (arquitetura e reprodução)",
+      "arquivo": "a4-biblioteca/texto.tex",
+      "estado": "existe",
+      "medida": "291 palavras",
+      "rodadas": {
+        "R1": {
+          "status": "pendente",
+          "nota": "4 travessões"
+        },
+        "R2": {
+          "status": "pendente"
+        },
+        "R3": {
+          "status": "pendente",
+          "nota": "1 citação distinta a validar contra fichamento"
+        },
+        "R4": {
+          "status": "pendente"
+        },
+        "R5": {
+          "status": "pendente"
+        },
+        "R6": {
+          "status": "pendente"
+        },
+        "R7": {
+          "status": "pendente",
+          "reauditar": true,
+          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+        }
+      },
+      "dimensoes": {
+        "travessoes": 4,
+        "citacoes": 1
+      }
+    },
+    {
+      "id": "ap-a5",
+      "titulo": "Apêndice A5 — Prompts e schemas do oráculo LLM",
+      "arquivo": "a5-prompts/texto.tex",
+      "estado": "existe",
+      "medida": "343 palavras",
+      "rodadas": {
+        "R1": {
+          "status": "pendente",
+          "nota": "4 travessões"
+        },
+        "R2": {
+          "status": "pendente",
+          "nota": "usa o CategorySchema — siglas técnicas; expansões devem bater com a lista"
+        },
+        "R3": {
+          "status": "na"
+        },
+        "R4": {
+          "status": "pendente"
+        },
+        "R5": {
+          "status": "pendente"
+        },
+        "R6": {
+          "status": "pendente"
+        },
+        "R7": {
+          "status": "pendente",
+          "reauditar": true,
+          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+        }
+      },
+      "dimensoes": {
+        "travessoes": 4,
+        "citacoes": 0
+      }
+    },
+    {
+      "id": "ap-a6",
+      "titulo": "Apêndice A6 — Tabelas completas (estatísticas de L0)",
+      "arquivo": "a6-tabelas/texto.tex",
+      "estado": "existe",
+      "medida": "2275 palavras",
+      "rodadas": {
+        "R1": {
+          "status": "pendente",
+          "nota": "1 travessões"
+        },
+        "R2": {
+          "status": "pendente"
+        },
+        "R3": {
+          "status": "na"
+        },
+        "R4": {
+          "status": "pendente"
+        },
+        "R5": {
+          "status": "pendente",
+          "nota": "tabelas — espelho do Cap. 4 (dado numérico denso; contagem exata de tokens numéricos pendente de metodologia — a do agregado não bate com contagem direta)"
+        },
+        "R6": {
+          "status": "pendente"
+        },
+        "R7": {
+          "status": "pendente",
+          "reauditar": true,
+          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+        }
+      },
+      "dimensoes": {
+        "travessoes": 1,
+        "citacoes": 0
+      }
+    },
+    {
+      "id": "ap-a7",
+      "titulo": "Apêndice A7 — Parada, liberação e monitoramento de deriva",
+      "arquivo": "a7-parada-drift/texto.tex",
+      "estado": "existe",
+      "medida": "606 palavras",
+      "rodadas": {
+        "R1": {
+          "status": "pendente",
+          "nota": "9 travessões"
+        },
+        "R2": {
+          "status": "pendente"
+        },
+        "R3": {
+          "status": "na"
+        },
+        "R4": {
+          "status": "pendente"
+        },
+        "R5": {
+          "status": "pendente",
+          "nota": "espelha a política de parada do Cap. 3/5"
+        },
+        "R6": {
+          "status": "pendente"
+        },
+        "R7": {
+          "status": "pendente",
+          "reauditar": true,
+          "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+        }
+      },
+      "dimensoes": {
+        "travessoes": 9,
+        "citacoes": 0
       }
     }
   ],
-  "pos_textuais_doc": "Elementos pós-textuais da tese (referências + apêndices individuais), lidos na ordem real dos \\include/\\input de principal.tex (tarefa 20260822-1130_principal_site). Diferente de capitulos[]: não têm rodadas de revisão R1-R7 próprias ainda (ap em capitulos[] segue sendo o agregado editorial dos 7 apêndices, com rodadas e pontos — a divisão editorial rodada a rodada é decisão do principal, fora do escopo desta medição). 'estado' é medido diretamente do arquivo (existe = tem prosa real, sem marcador de rascunho/TODO; 'medida' é a evidência rastreável).",
+  "pos_textuais_doc": "Só a bibliografia fica aqui: não passa por rodadas R1-R7 (não é prosa revisada por rodada). Os 7 apêndices e o Resumo/Abstract migraram para capitulos[] em 2026-08-22 (tarefa 1640) — cada um com suas próprias rodadas, aplicáveis medidas por arquivo.",
   "pos_textuais": [
     {
       "id": "referencias",
@@ -791,55 +1059,6 @@
       "arquivo": "referencias.bib",
       "estado": "existe",
       "medida": "337 entradas bibliográficas (3199 linhas)"
-    },
-    {
-      "id": "a1",
-      "titulo": "Apêndice A1 — Métrica LCE (formalização)",
-      "arquivo": "a1-lce/texto.tex",
-      "estado": "existe",
-      "medida": "295 palavras"
-    },
-    {
-      "id": "a2",
-      "titulo": "Apêndice A2 — Algoritmo genético para otimização de L0",
-      "arquivo": "a2-ag/texto.tex",
-      "estado": "existe",
-      "medida": "217 palavras"
-    },
-    {
-      "id": "a3",
-      "titulo": "Apêndice A3 — Algoritmo DRI-SL (cold start)",
-      "arquivo": "a3-drisl/texto.tex",
-      "estado": "existe",
-      "medida": "276 palavras"
-    },
-    {
-      "id": "a4",
-      "titulo": "Apêndice A4 — Biblioteca activelearning (arquitetura e reprodução)",
-      "arquivo": "a4-biblioteca/texto.tex",
-      "estado": "existe",
-      "medida": "291 palavras"
-    },
-    {
-      "id": "a5",
-      "titulo": "Apêndice A5 — Prompts e schemas do oráculo LLM",
-      "arquivo": "a5-prompts/texto.tex",
-      "estado": "existe",
-      "medida": "343 palavras"
-    },
-    {
-      "id": "a6",
-      "titulo": "Apêndice A6 — Tabelas completas (estatísticas de L0)",
-      "arquivo": "a6-tabelas/texto.tex",
-      "estado": "existe",
-      "medida": "2275 palavras"
-    },
-    {
-      "id": "a7",
-      "titulo": "Apêndice A7 — Parada, liberação e monitoramento de deriva",
-      "arquivo": "a7-parada-drift/texto.tex",
-      "estado": "existe",
-      "medida": "606 palavras"
     }
   ],
   "artefatos": [
@@ -1245,6 +1464,18 @@
       "id": "dec-politica-parada",
       "titulo": "Política de parada: dois racionais incompatíveis (fator ~20) para a mesma constante — causa-raiz atribuída ao resultado negativo (parecer R3/R4/R6)",
       "trilha": "texto"
+    },
+    {
+      "id": "dec-cap4-L0-100-valor-canonico",
+      "titulo": "Cap.4 L0=100: tab:drisl-vs-ag (l.117) usa 38,76% (valor ERRADO). Canonico medido pelo executor02 (3 evidencias: convencao _old do sweep, cabecalho CSV, historico git) = 36,71% melhor / 10,86% pior, de activetextclassification@b540533 (_100old). A alegacao central SOBREVIVE e MELHORA: margem do DRI-SL vai de +2,47 p.p. para +4,52 p.p. Decisao do autor: aprovar a troca 38,76->36,71 (recomendado) e despachar a correcao de 1 linha.",
+      "origem": "executor02 tarefa 1800",
+      "estado": "APROVADA pelo autor 2026-08-22: troca 38,76->36,71 / 5,75->10,86 em l.117; despachada a banca (adendo F6, l.117), cruzada revisor2. Alinha com tab:ag-evolucao l.83."
+    },
+    {
+      "id": "dec-0120-oraculos-nunca-rodou",
+      "titulo": "Tarefa 0120 (reconstruir cache + curva sem parada + oraculos nova geracao GLM 5.1/5.2, DeepSeek v4 Pro/Flash) esta .concluida/arquivada MAS NUNCA foi executada (executor02): os numeros de DeepSeek/GLM-5.2 no Cap.5 datam de 20/jul, ~1 mes ANTES da 0120 (18/ago); GLM-5.1 nao existe em lugar nenhum; sem mensagem de plano/custo. Provavel fechamento por engano na integracao em massa de 21/08. Decisao: reabrir como tarefa nova (custa creditos; valor depende do gate-85) ou arquivar conscientemente. Os numeros de oraculo JA no Cap.5 sao reais (rodada de julho), so nao vieram da 0120.",
+      "origem": "executor02 tarefa 1800",
+      "estado": "AGUARDANDO (decisao do autor 'aguardamos'): decisao presa ao veredito do gate-85 da banca. Se gate-85 eliminado -> arquivar 0120 conscientemente; se mantido -> reabrir ao menos para GLM-5.1. Nao gastar credito no escuro."
     }
   ],
   "lembretes": [
