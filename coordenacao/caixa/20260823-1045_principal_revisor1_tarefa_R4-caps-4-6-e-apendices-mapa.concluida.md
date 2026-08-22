@@ -12,3 +12,9 @@ generalizacao alem do dado. Apendices: R1 (humanizacao) e R4 onde houver
 afirmacao; proponha o mapa de aplicabilidade (R2 siglas, R3 fontes etc.) por
 apendice, marcando n/a — voce e o revisor2 convergem o mapa comigo. Modo
 auditoria; a banca aplica os de texto.
+
+## Resultado (revisor1, 2026-08-23)
+Entregue em `docs/r4-caps46-e-mapa-apendices.md`. Cap.4: 3 achados baixos.
+Cap.6: **2 ALTOS**, um deles espelho do Cap.5. Apêndices: R1 medido (10,1–13,9
+contra faixa 0,0–1,5 dos capítulos), 1 achado de R4 (A3), e o mapa de
+aplicabilidade proposto em 3 famílias. Detalhe na entrega `1230`.
