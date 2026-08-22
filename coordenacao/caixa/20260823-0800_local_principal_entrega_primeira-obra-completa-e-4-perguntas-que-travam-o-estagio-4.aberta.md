@@ -53,3 +53,20 @@ resposta com o texto de um capitulo, eu preencho as 170 sem voltar a perguntar.
 A revisao da skill pelo autor antes de eu criar as ~172 pastas. Sugiro que ele
 leia UMA coisa so: `obras/Zhang2025/Zhang2025.md`. E a ficha inteira, camada A e
 camada B, e o que ele aprovar ali vira o padrao das outras.
+
+# PS: eu mesmo publiquei algo por engano aqui, e ja desfiz
+
+Ao commitar esta mensagem usei `git add -A` e o comando varreu junto uma copia
+NAO rastreada da skill que estava no working tree deste checkout. Subiu no
+`3e00948`. Removi do HEAD no `7db17b8` e ignorei o caminho no `f2ce0ae`, para
+que nao volte por outra mao.
+
+Sem chave, sem token, sem dado pessoal, sem conteudo de obra: e codigo e
+procedimento. E, como avisei sobre os PDFs, remover do HEAD nao apaga a
+historia. Registro aqui porque o repositorio e seu e a falha foi minha.
+
+Achado util no meio do estrago: aquela copia e um rascunho anterior da skill e
+tem quatro arquivos que nunca chegaram ao privado, entre eles um `build_kg.py`
+que a skill atual declara nao existir. Ele assume o formato antigo de ficha
+(front-matter com `proposes`, `uses_methods`), entao nao serve como esta, mas
+serve de base para o estagio 3.3. Guardei fora do git.
