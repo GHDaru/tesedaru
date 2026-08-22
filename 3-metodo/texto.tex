@@ -88,11 +88,13 @@ E3$'$ & Avaliação da hipótese central com o classificador forte & framework &
 {\footnotesize \textbf{Artefatos por experimento} (todos sob a raiz de execução
 descrita na Seção~\ref{sec:metodo-reprodutibilidade}):
 \texttt{experiments/e0} (E0) $\cdot$ \texttt{experiments/e0p} (E0-P) $\cdot$
-\texttt{experiments/e1e4} (E1, E4) $\cdot$ \texttt{experiments/e6population}
-(E5, E6) $\cdot$ \texttt{experiments/e2e3} (E2, E3$'$) $\cdot$
+\texttt{experiments/e1e4} (E1, E4) $\cdot$ \texttt{experiments/e5cycle}
+(E5) $\cdot$ \texttt{experiments/e6population} (E6) $\cdot$
+\texttt{experiments/e2e3} (E2, E3$'$) $\cdot$
 \texttt{experiments/p1} (conjunto inicial e partida a frio).\\[2pt]
 $^{\dagger}$ O E5 foi executado, mas nenhuma seção dos capítulos de resultados o
-reporta isoladamente; os artefatos estão em \texttt{experiments/e6population}.}
+reporta isoladamente; os artefatos estão em \texttt{experiments/e5cycle} e o
+gatilho de parada que ele exercitou é descrito no Apêndice~\ref{ap:parada-laco}.}
 \end{table}
 
 \section{Conjunto de dados}
@@ -162,7 +164,26 @@ desenho experimental e a interpretação dos resultados:
 
 O pré-processamento textual é mínimo: conversão para minúsculas e remoção de
 acentos, delegando ao tokenizador de subpalavras do classificador o tratamento de
-variações lexicais. Rótulos passam pela mesma normalização. Classes com menos de
+variações lexicais. Rótulos passam pela mesma normalização.
+
+Duas observações de reprodutibilidade acompanham essa normalização, porque
+sem elas as contagens desta seção não se refazem. A primeira é que
+\textbf{duas chaves de texto distintas} convivem no processamento: o censo de
+conflitos e a contagem de duplicatas
+(Seção~\ref{sec:metodo-dados-auditoria}) comparam descrições com os espaços
+internos colapsados, ao passo que a deduplicação que precede o
+particionamento usa a descrição apenas aparada e convertida a minúsculas.
+Nesta base a remoção de acentos não altera contagem alguma --- não há um
+único caractere acentuado nas descrições ou nos rótulos ---, de modo que a
+diferença entre as duas chaves está no tratamento de espaços, e não na
+acentuação. A segunda é que \textbf{a ordem das operações importa}: o filtro
+brando de $\ge 2$ instâncias é aplicado sobre as \emph{linhas}, antes da
+deduplicação, e é essa ordem que faz uma classe
+(\textit{pomada massageadora}) desaparecer no passo das 715 classes que
+sobrevivem ao filtro para as \textbf{714 classes presentes} na visão
+deduplicada. A receita completa é executável e reproduz todas as contagens
+desta seção (\texttt{scripts/check\_dataset.py}, na biblioteca
+\texttt{activelearning}). Classes com menos de
 cinco instâncias são agrupadas na categoria sentinela \texttt{\_rare\_}
 ($0{,}13\%$ das linhas), resultando em um espaço fechado de \textbf{621 categorias}
 (620 classes frequentes + \texttt{\_rare\_}). Esse espaço fechado, denominado
@@ -278,7 +299,9 @@ Três classificadores $\theta$ são empregados, com papéis distintos e explíci
   \citep{Loshchilov2019AdamW}, taxa de aprendizado $3\times10^{-5}$, lote de
   treinamento 32 e decaimento de peso $0{,}01$. O número de épocas por iteração do
   ciclo ativo é determinado empiricamente (curvas de perda em validação para
-  $|L| \in \{10^3, 10^4, 5\times10^4\}$), em vez de fixado por convenção.
+  $|L| \in \{10^3, 10^4, 5\times10^4\}$), em vez de fixado por convenção; o
+  valor daí resultante --- três épocas --- é o adotado, uniforme entre braços,
+  na avaliação com o classificador forte (Seção~\ref{sec:res-e3p}).
   \item \textbf{Classificador vetorial binário} (\textit{PVBin}): representação
   \textit{bag-of-words} binária com uni e bigramas, protótipos de classe por
   concatenação de documentos e predição por similaridade de cosseno com
@@ -441,7 +464,8 @@ com efeito direto no custo por rótulo. A rotulagem é feita \textbf{em lote} (i
 numerados em uma única chamada; resposta como vetor indexado), com o tamanho do
 lote calibrado em etapa prévia (lotes de 1, 10 e 25 itens, pareados nas mesmas
 instâncias) e adotando-se o maior lote que não degrade a acurácia (teste de
-McNemar), decisão registrada junto aos resultados.
+McNemar), decisão registrada junto aos resultados e reproduzível pelo
+artefato de calibração (\texttt{experiments/e5cycle/calibrate\_batch.py}).
 
 \subsection{Desenho fatorial da avaliação de oráculos}
 \label{sec:metodo-oraculo-desenho}
@@ -595,15 +619,18 @@ A validação com o classificador forte segue o próprio desenho do FALCO: quem
 executa o laço é o classificador leve, re-treinado a cada lote; o BERTimbau é
 treinado \emph{uma única vez por braço}, sobre o conjunto que o processo
 coletou. Essa decisão, a de manter o classificador forte \emph{fora do laço}, reduz o
-custo computacional em ordens de grandeza sem alterar o objeto medido, pois é
-exatamente assim que o framework opera em produção. Duas escolhas de régua
+custo computacional sem alterar o objeto medido: mantido o classificador forte
+fora do laço, cada braço custa \emph{um} ajuste fino do BERTimbau, e não um
+ajuste por iteração do ciclo, e é exatamente assim que o framework opera em
+produção. Duas escolhas de régua
 completam o desenho, ambas registradas como decisão metodológica:
 \textbf{(a)} a ``supervisão completa'' de referência é o \emph{pool} de
 50.000 instâncias (o mesmo dos experimentos em escala populacional e do ciclo
 real, com semente e
 embaralhamento idênticos), e não a base inteira, porque o aprendizado ativo só
-enxerga o pool, e compará-lo com um braço treinado em $5\times$ mais dados
-confundiria o valor da \emph{seleção} com o valor de \emph{ter mais dados};
+enxerga o pool, e compará-lo com um braço treinado na base deduplicada inteira
+(231.490 textos, cerca de $4{,}6\times$ o pool) confundiria o valor da
+\emph{seleção} com o valor de \emph{ter mais dados};
 \textbf{(b)} a avaliação de todos os braços ocorre na \textbf{população
 reservada} ($\approx 177$ mil instâncias fora do pool e fora dos conjuntos de
 validação/teste usados pelo ciclo real nas decisões de parada), com amostra
