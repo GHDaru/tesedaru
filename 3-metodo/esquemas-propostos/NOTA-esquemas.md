@@ -279,6 +279,33 @@ Extensão da série ao `a3-drisl/texto.tex` (DRI-SL), mesmo goal:
   do rótulo (subido 1,5mm — conferido por zoom). Final: 0 erros,
   0 overfull nas medidas reais (corpo 12, textwidth 16cm).
 
+## Passe de excelência no Apêndice D (ordem do autor, 2026-08-23)
+
+Extensão ao `a4-biblioteca/texto.tex` (a biblioteca `activelearning`):
+- **Fluidez**: o parágrafo único e denso da Arquitetura (núcleo, adapters e
+  casos de uso espremidos) virou lista nomeada de três camadas; título do
+  capítulo com `\texttt{activelearning}` (via `\texorpdfstring`).
+- **Siglas/estrangeirismos**: MaaS expandido (*Model as a Service*) e SBERT
+  expandido (*Sentence-BERT*) na primeira ocorrência; JSONL glosado ("um
+  registro JSON por linha").
+- **Autocontenção**: os códigos internos de experimento (E0, E0-P, P1/AG,
+  E1/E4, E2/E3) saíram da seção de Reprodução — a frase fala em "cada
+  experimento" e "identificador de experimento" sem o jargão de controle;
+  os caminhos de arquivo já haviam sido removidos pelo principal.
+- **Figura NOVA**: `esq-biblioteca-arquitetura.tex` (nascida em corpo 12) —
+  a arquitetura hexagonal em 4 camadas: FlowBuilder (borda) → casos de uso
+  → domínio (núcleo, cinza escuro) ← adapters (base, 4 caixas), com a nota
+  "toda dependência aponta para dentro". Inserida como
+  `fig:ap-biblioteca-arq`.
+- **Loop (2 renders)**: overfull de 36pt no item dos adapters
+  ("OpenAI-compatível/MaaS" inquebrável — reescrito com pontos de quebra);
+  na figura, a nota dos adapters era atravessada pelas setas diagonais
+  (movida para baixo da fileira) e três hifenizações ("prove-dores",
+  "e da-dos", "SQ-Lite") corrigidas com quebras forçadas. Final: 0 erros /
+  0 overfull nas medidas reais.
+- Conteúdo técnico intacto (arquitetura, diferencial vs small-text,
+  reprodução, FlowBuilder dizem o mesmo).
+
 ## Loop de melhoria com goal (registro, como a tarefa pede)
 
 Goal: "muito boa e ilustrativa" = fluxo inequívoco, rótulos claros, coerente
