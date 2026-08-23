@@ -16,6 +16,8 @@
 % consequência = cinza médio; condicional/remissão = tracejado.
 % FREEZE respeitado: todos os números são os já fixados no texto
 % (85%; 0,95 x 89,56%; 0,95 x acc(D); 34.724; 231.490; 15%).
+% Compilado e inspecionado visualmente (pdflatex + render PNG) — ver
+% NOTA-esquemas.md, iterações 4-5 do loop.
 % ============================================================================
 \begin{tikzpicture}[
     x=1cm, y=1cm,
@@ -28,40 +30,43 @@
     rot/.style={font=\scriptsize, align=center, inner sep=2pt}
 ]
     % ---------------- faixa superior: o GATE do oráculo -------------------
-    \node[rot, anchor=west] (tit1) at (-1.7,1.5)
+    \node[rot, anchor=west] (tit1) at (-1.9,1.7)
         {\textbf{Gate do oráculo} (fixado de antemão, Seção~\ref{sec:metodo-oraculo-decisao})};
 
     \node[medida]  (e0)   at (0,0)
         {avaliação dos oráculos\\LLM (S-rand $n=1.000$;\\S-strat $n\approx1.863$)};
     \node[decisao] (gate) at (4.6,0)
         {algum oráculo com\\acurácia $\ge 85\%$\\na S-rand?};
-    \node[caixa]   (sim)  at (9.2,1.2)
+    \node[caixa]   (sim)  at (9.4,1.3)
         {oráculo \textbf{aprovado}:\\papéis pelo critério\\original};
-    \node[consequencia] (nao) at (9.2,-1.5)
+    \node[consequencia] (nao) at (9.4,-1.3)
         {robustez ao ruído\\\textbf{obrigatória}; oráculo ruidoso\\vira cenário central};
 
     \draw[seta] (e0) -- (gate);
-    \draw[seta] (gate.east) -- node[rot, above, pos=0.35] {sim} (sim.west);
-    \draw[seta] (gate.east) -- node[rot, below, pos=0.35] {não} (nao.west);
+    % âncoras deixam o rótulo inteiro do lado livre da diagonal
+    % (a seta cortava o "m"/"o" — achado da inspeção visual)
+    \draw[seta] (gate.east) -- node[rot, anchor=south east, pos=0.55] {sim} (sim.west);
+    \draw[seta] (gate.east) -- node[rot, anchor=north east, pos=0.55] {não} (nao.west);
 
-    \node[consequencia] (papeis) at (9.2,-3.9)
-        {papéis: LLM Inicial pela razão\\acurácia/custo; LLM Avançado\\se superior com significância\\(senão a Fase~3 é eliminada)};
+    \node[consequencia, text width=44mm] (papeis) at (9.4,-3.5)
+        {papéis: LLM Inicial pela razão acurácia/custo; LLM Avançado se
+         superior com significância (senão a Fase~3 é eliminada)};
     \draw[seta] (nao) -- (papeis);
 
-    \node[rot, text width=42mm, anchor=east] (ramo) at (7.0,-3.9)
-        {o ramo efetivamente seguido, e a\\divergência que ele exige declarar,\\
-         são reportados com os resultados\\(Seção~\ref{sec:res-gate})};
-    \draw[seta, dashed] (ramo.east) -- (papeis.west);
+    \node[rot, text width=50mm, anchor=north] (ramo) at (9.4,-4.75)
+        {o ramo efetivamente seguido, e a divergência que ele exige
+         declarar, são reportados com os resultados (Seção~\ref{sec:res-gate})};
+    \draw[seta, dashed] (ramo.north) -- (papeis.south);
 
     % ---------------- faixa inferior: a RÉGUA da hipótese ------------------
-    \node[rot, anchor=west] (tit2) at (-1.7,-5.9)
+    \node[rot, anchor=west] (tit2) at (-1.9,-5.9)
         {\textbf{Critério da hipótese} (Seção~\ref{sec:intro-hipotese})};
 
     \node[medida] (regua) at (0,-7.4)
         {régua $D$: o mesmo\\classificador com o\\\textit{pool} de referência\\inteiramente rotulado};
     \node[decisao] (crit) at (4.6,-7.4)
         {$\mathrm{acc} \ge 0{,}95 \times \mathrm{acc}(D)$\\com no máximo\\34.724 rótulos?};
-    \node[caixa] (veredito) at (9.2,-7.4)
+    \node[caixa] (veredito) at (9.4,-7.4)
         {veredito da hipótese\\(julgado nos resultados,\\Seção~\ref{sec:res-e3p})};
 
     \draw[seta] (regua) -- (crit);
@@ -72,10 +77,12 @@
          acompanha como análise de robustez};
 
     % ---------------- amarração entre as duas réguas -----------------------
-    % (definida por último porque referencia nós das duas faixas)
-    \node[rot, text width=30mm, anchor=north] (liga) at (0,-3.0)
-        {a mesma razão de $0{,}95$\\nas duas réguas:\\
-         $85\% \approx 0{,}95 \times 89{,}56\%$\\do melhor baseline\\supervisionado leve};
-    \draw[seta, dashed] (liga.north) to[out=90, in=250] (gate.south west);
-    \draw[seta, dashed] (liga.south) to[out=270, in=110] (crit.north west);
+    % conector vertical reto entre as duas caixas de decisão, com o rótulo
+    % ancorado à esquerda da linha (nada cruza título nem seta).
+    % Fica por último porque referencia nós das duas faixas.
+    \draw[seta, dashed] (gate.south) -- (crit.north);
+    \node[rot, text width=40mm, anchor=east] at (4.3,-3.3)
+        {a mesma razão de $0{,}95$ nas duas réguas:
+         $85\% \approx 0{,}95 \times 89{,}56\%$ do melhor
+         baseline supervisionado leve};
 \end{tikzpicture}

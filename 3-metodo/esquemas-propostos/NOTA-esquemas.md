@@ -65,14 +65,32 @@ com o texto, sem poluição visual, legível em P&B.
   recebe ainda..." (menos tinta, mesma informação, zero cruzamentos);
   (d) rótulo do E5→E3 corrigido de "braço A" para "um dos braços" (as letras
   são do Cap. 5 — terminologia em camadas).
-- **Iteração 3** (autoavaliação — aprovada): geometria reconferida nó a nó
-  (larguras de texto vs. espaçamento de centros, sem sobreposição), P&B
-  verificado pela paleta (cinza 8/14/25 + tracejado, sem depender de cor),
+- **Iteração 3** (autoavaliação por leitura): geometria reconferida nó a nó,
+  P&B verificado pela paleta (cinza 8/14/25 + tracejado, sem depender de cor),
   todos os números conferidos contra o texto da main (85; 0,95x89,56; 34.724;
   231.490; 15%; n=1.000; n≈1.863), e cada rótulo relido contra a prosa que
-  ilustra. **Julgo os dois "muito bons e ilustrativos" por este goal.**
+  ilustra.
+- **Iteração 4** (ordem do autor: COMPILAR e VISUALIZAR — reprovada): TeX Live
+  instalado no contêiner; os dois esquemas compilaram com 0 erros e 0
+  overfull, mas a inspeção do PNG renderizado achou defeitos que a leitura de
+  coordenadas não pegou: (a) no esquema 1, a seta tracejada da amarração
+  atravessava o título "Critério da hipótese", e a caixa "papéis" rewrapava as
+  quebras forçadas em 9 linhas estreitas — a amarração virou um conector
+  vertical reto entre as duas caixas de decisão (rótulo ao lado, nada cruza
+  nada) e a nota do ramo desceu para baixo da caixa; (b) no esquema 2,
+  hifenizações feias ("par-tida", "per-feito", "in-dependente") pelo mesmo
+  rewrap de quebras forçadas — todos os textos passaram a fluir sem `\\` — e o
+  rótulo da dependência E0→E4 era cortado pela própria seta — a condição
+  entrou no texto da caixa do E4 e a seta ficou sem rótulo.
+- **Iteração 5** (zoom nas regiões suspeitas — 2 defeitos finos, corrigidos e
+  reaprovada): as setas sim/não do gate cortavam o "m"/"o" dos rótulos, e a
+  diagonal E6→E3 cortava a 1ª linha do seu rótulo; corrigidos com âncoras que
+  deixam o texto inteiro do lado livre da linha (`anchor=south east`/`north
+  east`/`north west`). Recompilado, zoom reconferido, figura inteira relida.
+  **Julgo os dois "muito bons e ilustrativos" por este goal.**
 
-**Limite declarado**: este contêiner não tem LaTeX — os arquivos não foram
-compilados; a geometria foi raciocinada coordenada a coordenada e a sintaxe
-conferida por leitura (inclusive o erro de referência-adiante, achado e
-corrigido). A primeira compilação real deve ser a cruzada.
+**Evidência visual**: os renders finais estão versionados ao lado
+(`preview-esq-gate-e-regua.png`, `preview-esq-mapa-experimental.png`),
+gerados por `pdflatex` + `pdftoppm` com as `\ref{...}` simuladas pelos
+números reais das seções (invólucro standalone descrito no cabeçalho de cada
+`.tex`). Ambas as compilações: 0 erros, 0 overfull.

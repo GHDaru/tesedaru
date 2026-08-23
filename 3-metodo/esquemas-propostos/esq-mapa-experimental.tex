@@ -16,12 +16,14 @@
 % destino de leitura = cinza claro.
 % FREEZE respeitado: nenhum número; os identificadores E0..E6/E3 são os da
 % tabela (controle interno, permitidos no Cap. 3).
+% Compilado e inspecionado visualmente (pdflatex + render PNG) — ver
+% NOTA-esquemas.md, iterações 4-5 do loop.
 % ============================================================================
 \begin{tikzpicture}[
     x=1cm, y=1cm,
-    exp/.style={draw, rounded corners=2pt, align=center, text width=32mm,
+    exp/.style={draw, rounded corners=2pt, align=center, text width=36mm,
                 minimum height=11mm, inner sep=3pt, font=\footnotesize},
-    pilar/.style={draw, rounded corners=2pt, align=center, text width=23mm,
+    pilar/.style={draw, rounded corners=2pt, align=center, text width=28mm,
                   minimum height=11mm, inner sep=3pt, font=\footnotesize\bfseries,
                   fill=gray!25},
     saida/.style={exp, fill=gray!8},
@@ -31,52 +33,56 @@
     rot/.style={font=\scriptsize, align=center, inner sep=2pt}
 ]
     % ---------- linha 1: pilares 1-2 (Cap. 4) -----------------------------
-    \node[pilar] (p1) at (0,0)    {conjunto inicial\\$+$ partida a frio};
-    \node[exp]   (P1) at (4.6,0)
-        {sensibilidade do $L_0$ $\cdot$\\envelope do AG $\cdot$ DRI-SL $\cdot$\\reexecução independente};
-    \node[saida] (cap4) at (9.4,0)
-        {Capítulo~\ref{ch:resultados-l0}:\\composição e construção\\do conjunto inicial};
+    \node[pilar] (p1) at (0,0)    {conjunto inicial\\(partida a frio)};
+    \node[exp]   (P1) at (4.8,0)
+        {sensibilidade do $L_0$, envelope do AG, DRI-SL e reexecução independente};
+    \node[saida] (cap4) at (9.8,0)
+        {Capítulo~\ref{ch:resultados-l0}: composição e construção do conjunto inicial};
     \draw[seta] (p1) -- (P1);
     \draw[seta] (P1) -- (cap4);
 
     % ---------- linha 2: pilar 3, o oráculo (Cap. 5, primeira metade) ------
     \node[pilar] (p3) at (0,-2.6) {oráculo LLM};
-    \node[exp]   (E0) at (4.6,-2.6)
-        {\textbf{E0/E0-P}: avaliação\\fatorial dos oráculos e do\\\textit{prompt} (RQ1--RQ4)};
-    \node[saida] (cap5o) at (9.4,-2.6)
-        {Capítulo~\ref{ch:resultados-falco}:\\oráculos, custo\\e instrumento};
+    \node[exp]   (E0) at (4.8,-2.6)
+        {\textbf{E0/E0-P}: avaliação fatorial dos oráculos e do \textit{prompt} (RQ1--RQ4)};
+    \node[saida] (cap5o) at (9.8,-2.6)
+        {Capítulo~\ref{ch:resultados-falco}: oráculos, custo e instrumento};
     \draw[seta] (p3) -- (E0);
     \draw[seta] (E0) -- (cap5o);
 
     % ---------- linha 3: apoios e o condicional ----------------------------
+    % a condição do E4 vai no texto da própria caixa (rótulo sobre a seta
+    % tracejada colidia com a linha — achado da inspeção visual)
     \node[pilar] (p4) at (0,-5.2) {framework\\integrado};
-    \node[exp]   (E1) at (4.6,-5.2)
-        {\textbf{E1/E2}: estratégias sob\\oráculo perfeito; épocas do\\BERTimbau (interno)};
-    \node[cond]  (E4) at (9.4,-5.2)
-        {\textbf{E4} (condicional):\\robustez do aprendizado\\ao ruído do oráculo};
+    \node[exp]   (E1) at (4.8,-5.2)
+        {\textbf{E1/E2}: estratégias sob oráculo perfeito; épocas do BERTimbau (interno)};
+    \node[cond]  (E4) at (9.8,-5.2)
+        {\textbf{E4} (condicional --- o gate do E0 decide se ocorre): robustez do aprendizado ao ruído do oráculo};
     \draw[seta] (p4) -- (E1);
-    \draw[dep]  (E0.south) -- node[rot, right, text width=30mm, pos=0.45]
-        {o gate do oráculo decide\\se o E4 ocorre} (E4.north west);
+    \draw[dep]  (E0.south east) -- (E4.north west);
 
     % ---------- linha 4: execução e escala ---------------------------------
-    \node[exp] (E5) at (4.6,-7.6)
-        {\textbf{E5}: ciclo real de\\rotulagem com LLM\\e critério de parada};
-    \node[exp] (E6) at (9.4,-7.6)
-        {\textbf{E6}: seletores em escala\\populacional e viés\\de autoavaliação};
+    \node[exp] (E5) at (4.8,-7.8)
+        {\textbf{E5}: ciclo real de rotulagem com LLM e critério de parada};
+    \node[exp] (E6) at (9.8,-7.8)
+        {\textbf{E6}: seletores em escala populacional e viés de autoavaliação};
 
     % ---------- linha 5: a síntese (E3) ------------------------------------
-    \node[exp] (E3) at (4.6,-10.2)
-        {\textbf{E3}: avaliação da hipótese\\central com o classificador\\forte};
-    \node[saida] (verd) at (9.4,-10.2)
-        {veredito da hipótese\\(Seção~\ref{sec:res-e3p})};
-    \draw[seta] (E5) -- node[rot, left, text width=26mm]
-        {o conjunto coletado no\\ciclo real é um dos braços} (E3);
-    \draw[seta] (E6.south) -- node[rot, right, text width=30mm, pos=0.4]
-        {o padrão dos seletores é\\reavaliado no \textit{transformer}} (E3.north east);
+    \node[exp] (E3) at (4.8,-10.6)
+        {\textbf{E3}: avaliação da hipótese central com o classificador forte};
+    \node[saida] (verd) at (9.8,-10.6)
+        {veredito da hipótese (Seção~\ref{sec:res-e3p})};
+    \draw[seta] (E5) -- node[rot, left=1pt, text width=26mm]
+        {o conjunto coletado no ciclo real é um dos braços} (E3);
+    % anchor=north west pendura o rótulo abaixo-à-direita do ponto,
+    % inteiro do lado livre da diagonal (a linha cortava a 1ª linha)
+    \draw[seta] (E6.south) -- node[rot, anchor=north west, pos=0.42, xshift=1mm,
+        text width=34mm] {o padrão dos seletores é reavaliado no
+        \textit{transformer}} (E3.north east);
     \draw[seta] (E3) -- (verd);
 
-    \node[rot, text width=44mm, anchor=north] (recebe) at (0.4,-9.6)
-        {o E3 recebe ainda: a configuração\\de oráculos (do E0, via gate) e o\\
+    \node[rot, text width=42mm, anchor=north east] (recebe) at (2.2,-10.0)
+        {o E3 recebe ainda: a configuração de oráculos (do E0, via gate) e o
          tamanho de lote da Fase~2 (do E1)};
     \draw[dep] (recebe.east) -- (E3.west);
 \end{tikzpicture}
