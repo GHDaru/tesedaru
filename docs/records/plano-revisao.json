@@ -1,6 +1,6 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 93,
+  "versao": 94,
   "atualizado_em": "2026-08-22T18:40:00Z",
   "atualizado_por": "site (checagem pedida pelo principal — painel reflete F6/lote-2100?): dimensoes.travessoes de cap2/3/4/5/6 estava com o número PRÉ-merge (a nota de R1 já dizia o número pós-merge, só nunca foi propagado ao campo usado no cálculo de pontos — cap2 92→1, cap3 59→4, cap4 17→3, cap5 64→6, cap6 35→6, todos citados na própria nota de R1). dimensoes.citacoes do cap4 estava 0, F6 (commit 47076d3) levou a 11 citações — contei \\cite/\\citep/\\citet em 4-resultados-l0/texto.tex e bate exatamente com a mensagem do merge ('Cap.4 de 0 para 11 citações'). Não toquei citacoes de cap2/3/5/6 nem tokens de nenhum: não achei número declarado em nota para propagar sem inventar.",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
@@ -471,24 +471,24 @@
           "nota": "gate aprovado e mergeado 2026-08-17 (17→3 travessões)"
         },
         "R2": {
-          "status": "andamento",
-          "nota": "varredura R2-R6 despachada 2026-08-23 (banca R2/R6, revisor2 R3/R5, revisor1 R4; modo auditoria)"
+          "status": "feito",
+          "nota": "banca R2/R6 mergeado (gate autor @2dbc3d4); cruzada revisor2"
         },
         "R3": {
-          "status": "andamento",
-          "nota": "varredura R2-R6 despachada 2026-08-23 (banca R2/R6, revisor2 R3/R5, revisor1 R4; modo auditoria)"
+          "status": "feito",
+          "nota": "revisor2 verde total: 13 afirmações conferidas contra fichamento"
         },
         "R4": {
-          "status": "andamento",
-          "nota": "varredura R2-R6 despachada 2026-08-23 (banca R2/R6, revisor2 R3/R5, revisor1 R4; modo auditoria)"
+          "status": "feito",
+          "nota": "revisor1: 3 baixos aplicados (confirma->indica com nulo declarado; razão da dedução; 'no regime pequeno'); mergeado @2dbc3d4"
         },
         "R5": {
-          "status": "andamento",
-          "nota": "varredura R2-R6 despachada 2026-08-23 (banca R2/R6, revisor2 R3/R5, revisor1 R4; modo auditoria)"
+          "status": "feito",
+          "nota": "revisor2: '5.000'->2.000 avaliações (era config _oldold abandonada) + parâmetros do AG declarados + X (L0=10=4.000, 200 gerações); A2 documenta o config abandonado (R5-reprova roteada aos apêndices)"
         },
         "R6": {
-          "status": "andamento",
-          "nota": "varredura R2-R6 despachada 2026-08-23 (banca R2/R6, revisor2 R3/R5, revisor1 R4; modo auditoria)"
+          "status": "feito",
+          "nota": "banca R2/R6 mergeado (gate autor @2dbc3d4)"
         },
         "R7": {
           "status": "pendente",
@@ -695,24 +695,24 @@
           "nota": "gate aprovado e mergeado 2026-08-17 (40→6 travessões; fecho preservado por ordem do autor)"
         },
         "R2": {
-          "status": "andamento",
-          "nota": "varredura R2-R6 despachada 2026-08-23 (idem cap4)"
+          "status": "feito",
+          "nota": "banca R2/R6 mergeado (gate autor @2dbc3d4)"
         },
         "R3": {
-          "status": "andamento",
-          "nota": "varredura R2-R6 despachada 2026-08-23 (idem cap4)"
+          "status": "feito",
+          "nota": "revisor2: 2 achados (Natarajan2013 sem ficha fora da exceção ADR 0012; Raczkowska ficha 2024×bib 2025) + padrão em 188 fichas (6 preprint×publicado, 8 anos divergentes) ROTEADOS ao autor; parte cai na dívida de ficha aceita"
         },
         "R4": {
-          "status": "andamento",
-          "nota": "varredura R2-R6 despachada 2026-08-23 (idem cap4)"
+          "status": "feito",
+          "nota": "revisor1: 2 ALTOS aplicados — Macro F1 0,79 com amostra E espaço de rótulo (Y: 621 vs 795, margem = limite superior); divergência do gate espelhada. Mergeado @2dbc3d4 + Y pelo principal"
         },
         "R5": {
-          "status": "andamento",
-          "nota": "varredura R2-R6 despachada 2026-08-23 (idem cap4)"
+          "status": "feito",
+          "nota": "revisor2: R5 verde 10/10 (48 tokens, espelhos dos Caps 4-5); faixa 78--83->77--83 já corrigida @8fa38d0"
         },
         "R6": {
-          "status": "andamento",
-          "nota": "varredura R2-R6 despachada 2026-08-23 (idem cap4)"
+          "status": "feito",
+          "nota": "banca R2/R6 mergeado (gate autor @2dbc3d4)"
         },
         "R7": {
           "status": "pendente",
@@ -853,7 +853,8 @@
           "status": "pendente"
         },
         "R5": {
-          "status": "pendente"
+          "status": "pendente",
+          "nota": "ACHADO GRAVE (revisor2): o A2 documenta a config ABANDONADA (população 50, geração _oldold) — raiz do '5.000 avaliações' do Cap.4. Corrigir ao canônico: pop 20, 2.000 avaliações, N_elite 2 (e 4.000 no L0=10). R5 aplica-se e REPROVA até o conserto."
         },
         "R6": {
           "status": "pendente"
@@ -968,7 +969,8 @@
           "nota": "n/a (autor 2026-08-23): texto literal do instrumento — nao se reescreve afirmacao dentro do prompt."
         },
         "R5": {
-          "status": "pendente"
+          "status": "feito",
+          "nota": "revisor2 (mapa corrigido): R5 aplica-se e PASSA — cache 88-95% bate com artefato (88,30-94,75%) e as 621 categorias conferem"
         },
         "R6": {
           "status": "pendente"

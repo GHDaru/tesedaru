@@ -15,7 +15,7 @@ repetições, reproduzida de forma independente com divergência $\le 0{,}7$
 p.p.) mostra amplitude de $6{,}4$ p.p.\ de acurácia em $|L_0|=100$ causada só
 pelo sorteio, decaindo até a irrelevância em $|L_0| \ge 10^5$. O envelope
 evolutivo confirma dezenas de pontos percentuais entre composições boas e
-ruins no regime pequeno, que é o regime do \textit{cold start}.
+ruins no regime pequeno, que é o regime da partida a frio.
 
 \textbf{É possível capturar esse espaço sem nenhum rótulo.} O DRI-SL,
 heurística determinística de densidade semântica + variedade lexical, superou
@@ -26,12 +26,15 @@ do AG estava inflacionado em até $6{,}3$ p.p.\ pela avaliação na própria
 partição de aptidão.
 
 \textbf{Oráculos LLM são viáveis, baratos e erram de forma estruturada.}
-No espaço fechado de 621 categorias, os melhores oráculos zero-shot atingem
+No espaço fechado de 621 categorias, os melhores oráculos \textit{zero-shot}
+baseados em modelos de linguagem de grande porte (LLMs) atingem
 77--83\% de acurácia (v4-pro: $82{,}6\%$ na S-strat), a $\approx 7$ p.p.\ do
 teto supervisionado com 250 mil rótulos, a custos entre US\$~0,035 e
 US\$~0,92 por mil rótulos, ordens de grandeza abaixo da anotação humana
-\citep{Gilardi2023}. O Macro F1 zero-shot ($\approx 0{,}79$) supera o do
-baseline supervisionado leve ($0{,}70$): o LLM é \emph{melhor nas classes
+\citep{Gilardi2023}. O Macro F1 zero-shot, medido na S-strat ($\approx
+0{,}79$) nas 621 categorias desta amostra, supera o do baseline supervisionado leve com supervisão completa
+($0{,}70$, no teste de distribuição natural e nas 795 categorias da hierarquia completa \citep{Daru2024Dissertacao}); como a S-strat é balanceada
+por construção, o suporte por classe difere entre as duas medições. Como o Macro F1 é média por classe e o espaço de 795 rótulos é tarefa mais difícil que o de 621, no mesmo recorte de 621 o baseline subiria e a diferença encolheria: a margem aqui é um limite superior da vantagem do LLM. Com essa ressalva, o LLM é \emph{melhor nas classes
 raras} e pior nas convenções do catálogo, pois quase metade dos seus erros são
 fronteiras entre categorias-irmãs e política de classes guarda-chuva,
 aprendíveis apenas com exemplos. O efeito do instrumento de medição (RQ4)
@@ -41,7 +44,10 @@ de fraseado.
 \textbf{O framework integrado: respondido, com veredito refinado e
 diagnóstico.} O gate
 de oráculo, fixado de antemão, decidiu: sem oráculo $\ge 85\%$, o aprendizado com oráculo
-ruidoso é o cenário central, e a configuração derivada do FALCO é
+ruidoso é o cenário central; a atribuição dos papéis manteve o critério de
+melhor razão acurácia/custo com a restrição de piso relaxada, divergência
+declarada onde o resultado é reportado (Seção~\ref{sec:res-gate}), e a
+configuração derivada do FALCO é
 deepseek-v4-flash (Inicial) + deepseek-v4-pro (Avançado, superioridade
 significativa comprovada). A validação com o classificador forte fora do
 laço julgou o pipeline completo, com três sementes e avaliação na população
@@ -74,8 +80,8 @@ rótulos de oráculo como trabalho futuro imediato.
 \section{Discussão}
 \label{sec:conc-discussao}
 
-\textbf{O que muda quando o oráculo é um LLM.} A literatura clássica de AL
-minimiza \emph{contagem de rótulos} assumindo oráculo correto
+\textbf{O que muda quando o oráculo é um LLM.} A literatura clássica de
+aprendizado ativo minimiza \emph{contagem de rótulos} assumindo oráculo correto
 \citep{Settles2012,Olsson2009}; a com custos reais mostra que contagem não é
 custo \citep{SettlesCravenFriedland2008}. Com oráculo LLM, a moeda muda duas
 vezes: o custo vira função de tokens (e do \textit{cache}, e do lote, os três
@@ -101,7 +107,8 @@ qualquer resultado positivo obtido nele.
 populacional acrescenta dois avisos operacionais ao quadro: treinar com o subconjunto
 ativamente selecionado pode superar o treino com \emph{todos} os rótulos em
 métrica macro (a amostra ativa é mais balanceada que a distribuição natural),
-e a avaliação feita sobre os próprios dados coletados é enviesada em direções
+e a autoavaliação, isto é, a avaliação feita sobre os próprios dados
+coletados, é enviesada em direções
 opostas conforme a métrica: subestima a acurácia e superestima o Macro F1.
 Ambos reforçam o mesmo princípio de desenho do FALCO: parar cedo pelo
 critério de estagnação e medir sempre em conjunto reservado.
@@ -117,8 +124,8 @@ quantificação do seu próprio erro.
 \section{Contribuições}
 \label{sec:conc-contribuicoes}
 
-(i) O framework FALCO, com fases de oráculo LLM progressivo e \textit{cold
-start} informado, em implementação aberta, testada e reprodutível;
+(i) O framework FALCO, com fases de oráculo LLM progressivo e partida a
+frio informada, em implementação aberta, testada e reprodutível;
 (ii) o algoritmo DRI-SL, com a evidência de que supera o envelope evolutivo
 supervisionado no regime de interesse, acompanhado da análise honesta do
 seu limite: no regime contínuo, a ablação da variante guiada pelo
@@ -131,8 +138,9 @@ usual na literatura de LLM-como-anotador, cujos estudos zero-shot recentes de
 classificação de produtos operam com dezenas a $\approx 250$ categorias
 \citep{Roumeliotis2025}, chegando a 370 folhas nos testes de robustez com
 catálogos públicos \citep{Gholamian2024}, incluindo custo real com
-\textit{cache} e lote; (iv) a métrica LCE (com posicionamento explícito frente
-à ALC); (v) o conjunto de dados público auditado, com censo de conflitos e
+\textit{cache} e lote; (iv) a métrica LCE (\textit{Learning Curve
+Efficiency}), com posicionamento explícito frente à ALC (\textit{Area under
+the Learning Curve}); (v) o conjunto de dados público auditado, com censo de conflitos e
 análise de sensibilidade; e (vi) a biblioteca \texttt{activelearning} e o
 FlowBuilder (ingestão com saneamento, execução parametrizada e curvas), que
 tornam o protocolo reutilizável fora desta tese.
@@ -185,8 +193,8 @@ hierárquicas
 \citep{Sun2003,Tan2020}; e \textbf{(v)} o ciclo de vida pós-treinamento: o
 critério de parada do laço (estagnação em validação) já está implementado e
 formalizado, mas a decisão de \emph{liberação} do modelo e o monitoramento de
-\textit{drift} em produção merecem tratamento próprio: o oráculo LLM barato
-da Fase Inicial vira instrumento de auditoria contínua (verificação amostral
+\textit{drift} em produção merecem tratamento próprio: o oráculo barato da
+Fase~1 (o LLM Inicial) vira instrumento de auditoria contínua (verificação amostral
 periódica a custo desprezível), e sinais sem rótulo (taxa de vocabulário
 novo, deriva da confiança predita) antecipam o gatilho de retreino, com desenho
 detalhado na documentação operacional da biblioteca.
