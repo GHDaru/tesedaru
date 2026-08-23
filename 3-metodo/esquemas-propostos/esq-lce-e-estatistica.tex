@@ -1,0 +1,101 @@
+% ============================================================================
+% ESQUEMA PROPOSTO (banca, sugestão — não mergeado): a geometria da LCE e o
+% mapa da análise estatística (Seção sec:metodo-metricas). A curva é
+% ILUSTRATIVA e o desenho diz isso no título interno: nenhum dado medido,
+% nenhum número além dos símbolos da própria equação — é a definição da
+% métrica desenhada, não um resultado (compatível com o princípio V).
+%
+% Uso no Cap. 3 (dentro de um ambiente figure):
+%   \input{3-metodo/esquemas-propostos/esq-lce-e-estatistica}
+%   As citações (Guyon2011ALC, Wilson1927, McNemar1947, Wilcoxon1945)
+%   permanecem na prosa/legenda — a figura usa apenas os nomes dos métodos.
+% Uso standalone (pré-visualização):
+%   \documentclass[tikz,border=6pt]{standalone}
+%   \usetikzlibrary{arrows.meta, positioning}
+%   \begin{document}\input{esq-lce-e-estatistica.tex}\end{document}
+%   (no modo standalone, troque as \ref{...} por texto fixo ou defina-as)
+% Requer apenas arrows.meta e positioning (já em packages.tex). Legível em
+% P&B: área sob a curva real = cinza escuro; retângulo ideal = cinza claro;
+% pontos observados marcados (é sobre eles que Simpson integra).
+% ============================================================================
+\begin{tikzpicture}[
+    x=1cm, y=1cm,
+    caixa/.style={draw, rounded corners=2pt, align=center, text width=42mm,
+                  minimum height=11mm, inner sep=3pt, font=\footnotesize},
+    seta/.style={-{Stealth[length=2.4mm]}, thick},
+    rot/.style={font=\scriptsize, align=center, inner sep=2pt}
+]
+    % ---------------- painel esquerdo: a geometria -------------------------
+    \node[rot, anchor=west] at (-0.4,5.2)
+        {\textbf{A geometria da LCE} (curva ilustrativa, sem dados medidos)};
+
+    % áreas (desenhadas antes dos eixos)
+    \fill[gray!8]  (0.8,0) rectangle (6.4,3.8);
+    \fill[gray!25] (0.8,1.0) -- (1.5,2.2) -- (2.4,2.9) -- (3.4,3.3)
+                   -- (4.6,3.55) -- (6.4,3.7) -- (6.4,0) -- (0.8,0) -- cycle;
+    \draw[thin] (0.8,0) rectangle (6.4,3.8);
+
+    % curva de aprendizado com os pontos observados
+    \draw[thick] (0.8,1.0) -- (1.5,2.2) -- (2.4,2.9) -- (3.4,3.3)
+                 -- (4.6,3.55) -- (6.4,3.7);
+    \foreach \p in {(0.8,1.0),(1.5,2.2),(2.4,2.9),(3.4,3.3),(4.6,3.55),(6.4,3.7)}
+        \fill \p circle (1.6pt);
+
+    % linha do baseline (rótulo à direita, longe do ponteiro da AUC_ideal)
+    \draw[dashed] (0,3.8) -- (7.0,3.8);
+    \node[rot, anchor=south east] at (6.95,3.86)
+        {\mbox{$\mathrm{Perf}_{\mathrm{baseline}}$} (supervisão completa)};
+
+    % eixos
+    \draw[seta] (-0.15,0) -- (7.35,0);
+    \draw[seta] (0,-0.15) -- (0,4.6);
+    \node[rot, anchor=south] at (0.3,4.6) {desempenho};
+    \node[rot, anchor=north] at (3.6,-0.62) {rótulos consumidos ($|L_t|$)};
+    \draw (0.8,0) -- (0.8,-0.12);
+    \draw (6.4,0) -- (6.4,-0.12);
+    \node[rot, anchor=north] at (0.8,-0.2) {$L_{\mathrm{ideal},0}$};
+    \node[rot, anchor=north] at (6.4,-0.2) {$L_{\mathrm{final}}$};
+
+    % rótulos das áreas: a fatia clara é estreita demais para texto dentro,
+    % então a AUC_ideal é apontada de fora (achado da inspeção visual)
+    \node[rot] at (4.5,1.7) {$\mathrm{AUC}_{\mathrm{real}}$};
+    \node[rot, anchor=west] (auci) at (0.7,4.32)
+        {$\mathrm{AUC}_{\mathrm{ideal}}$: o retângulo inteiro};
+    \draw[seta, dashed] (1.6,4.15) -- (1.4,3.5);
+
+    % ---------------- painel direito: fórmula e leitura --------------------
+    \node[caixa, text width=52mm] (formula) at (10.4,3.7)
+        {$\displaystyle \mathrm{LCE}=\frac{\mathrm{AUC}_{\mathrm{real}}}{\mathrm{AUC}_{\mathrm{ideal}}}$\\[3pt]
+         \mbox{$\mathrm{AUC}_{\mathrm{ideal}}=\mathrm{Perf}_{\mathrm{baseline}}\times(L_{\mathrm{final}}-L_{\mathrm{ideal},0})$}\\[2pt]
+         (Equação~\ref{eq:metodo-lce}; Apêndice~\ref{ap:lce})};
+    \node[rot, text width=50mm, anchor=north, align=left] at (10.4,2.5)
+        {$\mathrm{LCE}\approx 1$: a estratégia aproxima-se\\
+         rapidamente do desempenho de\\
+         referência com poucos rótulos.\\
+         Integração numérica: regra de Simpson\\
+         sobre os pontos observados (marcados).};
+    \node[rot, text width=50mm, anchor=north, align=left] at (10.4,0.5)
+        {precedente: a ALC do \textit{Active}\\
+         \textit{Learning Challenge}. Difere em dois\\
+         pontos: normaliza pelo teto do próprio\\
+         par (classificador, conjunto), comparável\\
+         entre tetos distintos; e integra por\\
+         Simpson na grade observada, sem\\
+         interpolação em escala logarítmica.};
+
+    % ---------------- faixa inferior: análise estatística ------------------
+    \node[rot, anchor=west] at (-0.4,-2.4)
+        {\textbf{Análise estatística} --- o teste segue a natureza dos dados
+         (referências na prosa da Seção~\ref{sec:metodo-metricas}):};
+
+    \node[caixa, text width=40mm] at (1.6,-3.8)
+        {\textbf{IC de Wilson a 95\%}:\\toda acurácia de oráculo\\
+         (proporção em qualquer faixa)};
+    \node[caixa] at (6.4,-3.8)
+        {\textbf{teste de McNemar}: oráculos\\sobre as mesmas instâncias\\
+         (pares discordantes; binomial\\exato se $<25$ discordâncias)};
+    \node[caixa] at (11.2,-3.8)
+        {\textbf{Wilcoxon} (postos sinalizados):\\
+         estratégias com múltiplas\\sementes, sobre as métricas\\
+         finais e a LCE};
+\end{tikzpicture}

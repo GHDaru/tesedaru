@@ -144,6 +144,31 @@ mutação quebrava a matemática no "=" — `\mbox{}`; hifenizações erradas ti
 `texlive-lang-portuguese` instalado e `babel brazilian` adicionado aos
 invólucros, tornando o teste de hifenização realista); render 2 aprovado.
 
+## Esquema 7 — `esq-lce-e-estatistica.tex` (pedido do autor: Seção 3.4)
+
+**O que esclarece**: a LCE é uma métrica de ÁREA — a figura desenha a
+geometria dela em vez de reexplicá-la em texto: a curva de aprendizado com
+os pontos observados marcados (é sobre eles que a regra de Simpson integra),
+a $\mathrm{AUC}_{real}$ sombreada, o retângulo
+$\mathrm{Perf}_{baseline}\times(L_{final}-L_{ideal,0})$ apontado como
+$\mathrm{AUC}_{ideal}$, a fórmula com remissão à Equação 3.1 e ao Apêndice
+A, a leitura ("$\approx 1$ = aproxima-se rápido do teto com poucos
+rótulos"), as DUAS diferenças para a ALC do Active Learning Challenge, e a
+faixa da análise estatística como mapa situação→teste (Wilson 95% para
+proporções; McNemar para os mesmos itens, binomial exato sob 25
+discordâncias; Wilcoxon para múltiplas sementes, sobre métricas finais e
+LCE). **Cuidado com o princípio V, declarado no próprio desenho**: o título
+interno diz "curva ilustrativa, sem dados medidos" — é a definição da
+métrica desenhada, não um resultado; citações ficam na prosa/legenda.
+**Onde entra**: Seção `sec:metodo-metricas`, ao lado da Equação 3.1.
+
+**Loop**: render 1 reprovado (rótulo do eixo x colidia com $L_{final}$ —
+centralizado sob o eixo; a nota da ALC invadia o título da faixa
+estatística — coluna compactada e faixa descida; o rótulo da AUC_ideal
+espremido dentro da fatia clara cruzava a borda e a curva — virou ponteiro
+tracejado de fora; "pon-tos" re-quebrado — linhas recalibradas); render 2 +
+zoom: aprovado.
+
 ## Loop de melhoria com goal (registro, como a tarefa pede)
 
 Goal: "muito boa e ilustrativa" = fluxo inequívoco, rótulos claros, coerente
