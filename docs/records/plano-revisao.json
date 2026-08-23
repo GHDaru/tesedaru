@@ -1,7 +1,7 @@
 {
  "schema": "plano-revisao/v1",
  "versao": 94,
- "atualizado_em": "2026-08-23T21:30:00Z",
+ "atualizado_em": "2026-08-23T21:55:00Z",
  "atualizado_por": "principal",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
@@ -831,6 +831,10 @@
    "dimensoes": {
     "travessoes": 3,
     "citacoes": 1
+   },
+   "passe_banca": {
+    "status": "feito",
+    "nota": "Passe de excelência da banca (com o autor) gateado na main (@c65c6ee A-E, @b3191fa F-G). Série dos 7 apêndices completa, com figuras TikZ próprias."
    }
   },
   {
@@ -872,7 +876,7 @@
    },
    "passe_banca": {
     "status": "feito",
-    "nota": "Passe de excelencia da banca (com o autor) gateado: autocontido + figura do laço (esq-ag-envelope); codigos internos (D-002, individual_id) removidos; ressalva pop-20 e reexecucao N=30/40 preservadas."
+    "nota": "Passe de excelência da banca (com o autor) gateado na main (@c65c6ee A-E, @b3191fa F-G). Série dos 7 apêndices completa, com figuras TikZ próprias."
    }
   },
   {
@@ -911,6 +915,10 @@
    "dimensoes": {
     "travessoes": 3,
     "citacoes": 1
+   },
+   "passe_banca": {
+    "status": "feito",
+    "nota": "Passe de excelência da banca (com o autor) gateado na main (@c65c6ee A-E, @b3191fa F-G). Série dos 7 apêndices completa, com figuras TikZ próprias."
    }
   },
   {
@@ -949,6 +957,10 @@
    "dimensoes": {
     "travessoes": 4,
     "citacoes": 1
+   },
+   "passe_banca": {
+    "status": "feito",
+    "nota": "Passe de excelência da banca (com o autor) gateado na main (@c65c6ee A-E, @b3191fa F-G). Série dos 7 apêndices completa, com figuras TikZ próprias."
    }
   },
   {
@@ -989,6 +1001,10 @@
    "dimensoes": {
     "travessoes": 4,
     "citacoes": 0
+   },
+   "passe_banca": {
+    "status": "feito",
+    "nota": "Passe de excelência da banca (com o autor) gateado na main (@c65c6ee A-E, @b3191fa F-G). Série dos 7 apêndices completa, com figuras TikZ próprias."
    }
   },
   {
@@ -1027,6 +1043,10 @@
    "dimensoes": {
     "travessoes": 1,
     "citacoes": 0
+   },
+   "passe_banca": {
+    "status": "feito",
+    "nota": "Passe de excelência da banca (com o autor) gateado na main (@c65c6ee A-E, @b3191fa F-G). Série dos 7 apêndices completa, com figuras TikZ próprias."
    }
   },
   {
@@ -1065,6 +1085,10 @@
    "dimensoes": {
     "travessoes": 9,
     "citacoes": 0
+   },
+   "passe_banca": {
+    "status": "feito",
+    "nota": "Passe de excelência da banca (com o autor) gateado na main (@c65c6ee A-E, @b3191fa F-G). Série dos 7 apêndices completa, com figuras TikZ próprias."
    }
   }
  ],
