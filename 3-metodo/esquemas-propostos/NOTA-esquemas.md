@@ -253,6 +253,32 @@ conteúdo + fluidez + compreensão + rigor):
 - Sem mudança de conteúdo técnico: equação, propriedades (afirmações),
   relação com a ALC e a frase da implementação de referência intactas.
 
+## Passe de excelência no Apêndice C (ordem do autor, 2026-08-23)
+
+Extensão da série ao `a3-drisl/texto.tex` (DRI-SL), mesmo goal:
+- **Forma/fluidez**: a abertura telegráfica ("Construir $L_0$...
+  Entradas: ...") virou prosa, com a sigla DRI-SL expandida no próprio
+  apêndice (autocontenção + princípio I) e as quatro entradas enumeradas
+  em frase corrida.
+- **Autocontenção**: removido o `\ref{ch:resultados-l0}` da Intuição
+  ("experimentos de composição do conjunto inicial", sem \ref); as Etapas
+  e a Intuição já eram autocontidas.
+- **Número verificado e tornado mais preciso**: "7,7% de duplicatas
+  exatas" conferido contra a Seção 3.2.2 (19.356 linhas = 7,7%) e
+  reescrito como "7,7% das linhas repetem descrição e rótulo" (o que a
+  fonte de fato mede).
+- **Figura**: `esq-drisl.tex` RECALIBRADO PARA CORPO 12 e adaptado ao novo
+  lar — notação do apêndice (grupo $c$, cota $q_c$, mínimo 1 por grupo não
+  vazio; $U$ em vez de $U_0$), citação na prosa, e a antiga faixa de
+  avaliação REMOVIDA (a avaliação pertence ao método — Cap. 3 e
+  esq-l0-tres-origens — não ao algoritmo). Inserida como
+  `fig:ap-drisl-fases` após as Etapas.
+- **Loop visual (3 renders + zoom)**: "es-paço" re-hifenizado (quebra
+  forçada recalibrada); o título da Fase (ii) raspava a caixa de cotas
+  (descido para junto da linha) e depois a linha cortava os descendentes
+  do rótulo (subido 1,5mm — conferido por zoom). Final: 0 erros,
+  0 overfull nas medidas reais (corpo 12, textwidth 16cm).
+
 ## Loop de melhoria com goal (registro, como a tarefa pede)
 
 Goal: "muito boa e ilustrativa" = fluxo inequívoco, rótulos claros, coerente
