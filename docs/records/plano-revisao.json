@@ -1,7 +1,7 @@
 {
  "schema": "plano-revisao/v1",
  "versao": 94,
- "atualizado_em": "2026-08-23T21:30:00Z",
+ "atualizado_em": "2026-08-23T22:20:00Z",
  "atualizado_por": "principal",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
@@ -560,7 +560,8 @@
      "status": "aberto"
     }
    ],
-   "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor."
+   "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor.",
+   "loop_excelencia": "CONCLUIDO e gateado @ca6f558 (revisor2, 2 iteracoes): 42,0->21,6 p/f, max 139->47, frase-topico nas 5 secoes, terminologia unificada."
   },
   {
    "id": "cap5",
@@ -684,7 +685,8 @@
      "status": "aberto"
     }
    ],
-   "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor."
+   "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor.",
+   "loop_excelencia": "CONCLUIDO e gateado @ca6f558 (revisor1, 2 iteracoes): 45,2->25,0 p/f; freeze medido (735 numeros identicos); P-01 e braco E intocados por diff."
   },
   {
    "id": "cap6",
@@ -831,6 +833,10 @@
    "dimensoes": {
     "travessoes": 3,
     "citacoes": 1
+   },
+   "passe_banca": {
+    "status": "feito",
+    "nota": "Passe de excelência da banca (com o autor) gateado na main (@c65c6ee A-E, @b3191fa F-G). Série dos 7 apêndices completa, com figuras TikZ próprias."
    }
   },
   {
@@ -872,7 +878,7 @@
    },
    "passe_banca": {
     "status": "feito",
-    "nota": "Passe de excelencia da banca (com o autor) gateado: autocontido + figura do laço (esq-ag-envelope); codigos internos (D-002, individual_id) removidos; ressalva pop-20 e reexecucao N=30/40 preservadas."
+    "nota": "Passe de excelência da banca (com o autor) gateado na main (@c65c6ee A-E, @b3191fa F-G). Série dos 7 apêndices completa, com figuras TikZ próprias."
    }
   },
   {
@@ -911,6 +917,10 @@
    "dimensoes": {
     "travessoes": 3,
     "citacoes": 1
+   },
+   "passe_banca": {
+    "status": "feito",
+    "nota": "Passe de excelência da banca (com o autor) gateado na main (@c65c6ee A-E, @b3191fa F-G). Série dos 7 apêndices completa, com figuras TikZ próprias."
    }
   },
   {
@@ -949,6 +959,10 @@
    "dimensoes": {
     "travessoes": 4,
     "citacoes": 1
+   },
+   "passe_banca": {
+    "status": "feito",
+    "nota": "Passe de excelência da banca (com o autor) gateado na main (@c65c6ee A-E, @b3191fa F-G). Série dos 7 apêndices completa, com figuras TikZ próprias."
    }
   },
   {
@@ -989,6 +1003,10 @@
    "dimensoes": {
     "travessoes": 4,
     "citacoes": 0
+   },
+   "passe_banca": {
+    "status": "feito",
+    "nota": "Passe de excelência da banca (com o autor) gateado na main (@c65c6ee A-E, @b3191fa F-G). Série dos 7 apêndices completa, com figuras TikZ próprias."
    }
   },
   {
@@ -1027,6 +1045,10 @@
    "dimensoes": {
     "travessoes": 1,
     "citacoes": 0
+   },
+   "passe_banca": {
+    "status": "feito",
+    "nota": "Passe de excelência da banca (com o autor) gateado na main (@c65c6ee A-E, @b3191fa F-G). Série dos 7 apêndices completa, com figuras TikZ próprias."
    }
   },
   {
@@ -1065,6 +1087,10 @@
    "dimensoes": {
     "travessoes": 9,
     "citacoes": 0
+   },
+   "passe_banca": {
+    "status": "feito",
+    "nota": "Passe de excelência da banca (com o autor) gateado na main (@c65c6ee A-E, @b3191fa F-G). Série dos 7 apêndices completa, com figuras TikZ próprias."
    }
   }
  ],
