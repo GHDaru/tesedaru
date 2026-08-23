@@ -94,7 +94,7 @@ def main():
         return q.isdigit() and int(q) <= 40
     alvo = [n for n in nomes if viva(n)][:15]
     if alvo:
-        refspecs = [f"+refs/heads/{n.replace('origin/', '')}:{n}" for n in alvo]
+        refspecs = [f"+refs/heads/{n.replace('origin/', '')}:refs/remotes/{n}" for n in alvo]
         git("fetch", "-q", "origin", *refspecs, timeout=20)
     # basenames ja presentes na main (em qualquer estado): serve para a mensagem
     # SUMIR do aviso assim que o principal a integrar.
