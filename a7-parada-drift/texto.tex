@@ -2,7 +2,7 @@
 \label{ap:parada-drift}
 
 Este apêndice consolida a política operacional do ciclo de vida do
-classificador treinado pelo FALCO — da decisão de parar de rotular à decisão
+classificador treinado pelo FALCO, da decisão de parar de rotular à decisão
 de retreinar em produção. As duas primeiras seções descrevem mecanismos
 implementados na biblioteca \texttt{activelearning}; a terceira é o desenho
 recomendado para operação contínua (FlowBuilder), com gatilhos numéricos.
@@ -11,10 +11,10 @@ recomendado para operação contínua (FlowBuilder), com gatilhos numéricos.
 \label{ap:parada-laco}
 
 O laço encerra a aquisição de rótulos pelo primeiro de três gatilhos:
-\textbf{(i) estagnação na validação} — o Macro F1 em $V$ não melhora mais que
+\textbf{(i) estagnação na validação}: o Macro F1 em $V$ não melhora mais que
 $\varepsilon_{\max}=10^{-3}$ por $p=5$ iterações consecutivas
 (Capítulo~\ref{ch:metodo} para o racional das constantes); o conjunto
-de teste jamais participa; \textbf{(ii) orçamento} — teto absoluto de rótulos
+de teste jamais participa; \textbf{(ii) orçamento}: teto absoluto de rótulos
 $B$; \textbf{(iii) exaustão do pool}. O racional do gatilho (i) é
 estatístico: o ganho marginal por lote decai ao longo da curva de
 aprendizado, enquanto o custo marginal do rótulo é constante; quando o ganho
@@ -31,7 +31,7 @@ foi exercitado em duas execuções ponta a ponta da biblioteca: com oráculo
 simulado (ruído 0,2), encerrou o ciclo em 910 de 1.000 rótulos orçados; com
 \textbf{oráculo LLM real e gratuito} (nemotron via NIM, acurácia
 $\approx 78\%$) e orçamento de 15.000, encerrou em \textbf{6.009} rótulos
-(PVBin) e \textbf{4.742} (SGD) — 32--40\% do orçamento —, com as curvas de
+(PVBin) e \textbf{4.742} (SGD), 32--40\% do orçamento, com as curvas de
 validação e teste estagnadas em conjunto. Os artefatos estão no repositório
 (\texttt{experiments/e5cycle}).
 
@@ -41,14 +41,14 @@ validação e teste estagnadas em conjunto. Os artefatos estão no repositório
 Recomenda-se liberar o modelo para produção quando três condições valem
 simultaneamente: \textbf{(a)} a estagnação foi atingida (o modelo parou de
 melhorar com o oráculo disponível); \textbf{(b)} o desempenho de validação
-alcança o alvo externo de negócio — na ausência de alvo, o teto empírico do
+alcança o alvo externo de negócio; na ausência de alvo, o teto empírico do
 braço \emph{oráculo-total} (treinar com todo o pool rotulado pelo mesmo
 oráculo, ao custo de inferência apenas) indica o máximo que \emph{este}
 oráculo permite: estagnar perto dele significa que mais rótulos não ajudam,
 apenas um oráculo melhor; \textbf{(c)} o intervalo de confiança de Wilson do
 desempenho de validação está inteiro acima do piso aceitável (com
 $n_V = 1.000$, a meia-largura é de 2--3 pontos percentuais). Só então o
-modelo é avaliado \emph{uma única vez} no conjunto de teste intocado — e esse
+modelo é avaliado \emph{uma única vez} no conjunto de teste intocado, e esse
 é o número reportado.
 
 \section{Monitoramento de deriva e política de retreinamento}
@@ -67,7 +67,7 @@ grafias). Três camadas de monitoramento, em ordem de custo:
   Gatilho: média móvel de 7 dias abaixo de $\mu - 2\sigma$ do período de
   referência.
   \item \textbf{Verificação amostral com oráculo} (custo quase nulo): acurácia
-  numa amostra pequena rotulada pelo LLM Inicial — com os custos medidos no
+  numa amostra pequena rotulada pelo LLM Inicial. Com os custos medidos no
   E0, 200 itens semanais custam da ordem de US\$~0,01. Gatilho: acurácia
   amostral abaixo do limite inferior do IC de validação da liberação.
 \end{enumerate}
@@ -76,7 +76,7 @@ Política: camadas 1--2 disparando antecipam a camada 3; a camada 3
 confirmando, retreina-se. O retreino reaproveita todos os rótulos históricos
 e roda um ciclo \emph{incremental} de aprendizado ativo apenas sobre o fluxo
 recente (o classificador atual seleciona o que não entende; o oráculo LLM
-rotula; treina-se do zero com $L_{\text{antigo}} \cup L_{\text{novo}}$ —
+rotula; treina-se do zero com $L_{\text{antigo}} \cup L_{\text{novo}}$;
 retreinar do zero, e não continuar do modelo anterior, preserva
 comparabilidade e evita a degradação associada a \textit{warm-starting}).
 Mesmo sem gatilho, recomenda-se a verificação amostral em cadência mensal:

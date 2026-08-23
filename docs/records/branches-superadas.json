@@ -1,0 +1,21 @@
+{
+  "schema": "branches-superadas/v1",
+  "proposito": "Branches que NÃO devem ser integradas à main — trabalho refeito/absorvido em outro lugar. Evita merge de versão obsoleta. Mantido pelo principal.",
+  "atualizado_em": "2026-08-24T02:30:00Z",
+  "superadas": [
+    {
+      "branch": "banca/a2-canonico-e-divergencia",
+      "ponta": "d481f98",
+      "motivo": "Conserto PARCIAL do A2 (só população/N_elite/avaliações). O laudo do executor02 (0230) revelou que torneio/cruzamento/mutação podem estar só no arquivo de config abandonado — o A2 será REFEITO POR INTEIRO no lote do laudo, junto com o Cap.3 l.396-400, com caveat honesto (Princípio VI) no que não for recuperável. A parte do polimento da divergência do Cap.5 foi extraída para banca/polimento-divergencia-cap5.",
+      "substituida_por": "banca/polimento-divergencia-cap5 (polimento) + lote futuro A2+Cap.3 do laudo",
+      "registrada_em": "2026-08-24T02:30:00Z"
+    },
+    {
+      "branch": "banca/reenunciado-v2-5-edicoes",
+      "ponta": "d0d35ed",
+      "motivo": "Reenunciado do veredito superado pela reescrita única já mergeada na main (gate do autor); não integrar.",
+      "substituida_por": "veredito na main (b4f3f80 e seguintes)",
+      "registrada_em": "2026-08-24T02:30:00Z"
+    }
+  ]
+}
