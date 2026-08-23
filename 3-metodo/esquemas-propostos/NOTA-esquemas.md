@@ -306,6 +306,33 @@ Extensão ao `a4-biblioteca/texto.tex` (a biblioteca `activelearning`):
 - Conteúdo técnico intacto (arquitetura, diferencial vs small-text,
   reprodução, FlowBuilder dizem o mesmo).
 
+## Passe de excelência no Apêndice E (ordem do autor, 2026-08-23)
+
+Extensão ao `a5-prompts/texto.tex` (prompts e esquemas do oráculo):
+- **FREEZE do instrumento**: o texto do prompt v3 (a citação) permaneceu
+  intocado palavra por palavra; a única intervenção foi TIPOGRÁFICA
+  (`\sloppy` no ambiente quote, com comentário explicando), porque as
+  abreviações "X=y" inquebráveis estouravam a linha.
+- **Autocontenção**: removidos os códigos internos "medido no E0" (→ "na
+  avaliação de oráculos"), "(somente RQ4)" (→ "usada somente para
+  quantificar o efeito do instrumento sobre a acurácia medida"),
+  "decisão D-004" (→ "para não contaminar a medição") e o título de seção
+  "Variantes do E0-P" (→ "Variantes do prompt").
+- **Número verificado**: "88--95% de acerto" de cache confere com o
+  Cap. 5 (l.106: "atinge 88--95% de acerto nos provedores que o
+  suportam").
+- **Fluidez**: o parágrafo único dos três modos de instrumentação virou
+  lista (enum / json-prompt / free), com o parágrafo do lote separado.
+- **Figura NOVA**: `esq-prompt-anatomia.tex` (nascida em corpo 12) — a
+  chamada em lote: contêiner tracejado (prefixo estático cacheável +
+  itens numerados) → oráculo → resposta como vetor indexado, com a nota
+  do cache. Inserida como `fig:ap-prompts-anatomia`.
+- **Loop (3 renders)**: estouro no quote (resolvido com \sloppy), figura
+  1cm mais larga que o textwidth (coluna direita comprimida),
+  `expanded_description` inquebrável pendurado no fim da linha (frase
+  reordenada para a quebra cair antes dele), contêiner com vão vertical
+  excessivo (apertado). Final: 0 erros / 0 overfull nas medidas reais.
+
 ## Loop de melhoria com goal (registro, como a tarefa pede)
 
 Goal: "muito boa e ilustrativa" = fluxo inequívoco, rótulos claros, coerente
