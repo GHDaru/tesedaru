@@ -30,25 +30,23 @@ estão disponíveis, o processo é simulado com fidelidade: o oráculo LLM pode 
 avaliado contra o padrão-ouro, e um modelo treinado com supervisão completa fornece o
 limite superior de desempenho.
 
-O desenho desta pesquisa tem proveniência documentada: o laço de aprendizado
-ativo com oráculo, a meta de redução do esforço de rotulagem e a avaliação da
-generalização contra um conjunto externo foram apresentados no exame de
-qualificação do autor (PPGMNE/UFPR, junho de 2023) e constam de material
-datado de maio de 2022, na versão de maio de 2023, preservado no repositório
-da tese (\texttt{docs/pre-registro/}). É a esse desenho que o termo
-\emph{pré-registrado} se refere neste documento; números e partições fixados
-depois desse marco são decisões da tese, registradas como tal.
+O desenho tem proveniência documentada. Três de seus elementos --- o laço de
+aprendizado ativo com oráculo, a meta de redução do esforço de rotulagem e a
+avaliação da generalização contra um conjunto externo --- foram apresentados no
+exame de qualificação do autor (PPGMNE/UFPR, junho de 2023) e constam de
+material datado de maio de 2022, na versão de maio de 2023, preservado no
+repositório da tese (\texttt{docs/pre-registro/}). É a esse desenho que o termo
+\emph{pré-registrado} se refere aqui. Números e partições fixados depois desse
+marco são decisões da tese, e estão registrados como tal.
 
 A Tabela~\ref{tab:metodo-experimentos} resume o programa experimental e serve de
 \textbf{mapa de rastreabilidade}: para cada experimento, o pilar que ele
 sustenta, a seção em que o resultado é discutido e o diretório de artefatos que
-permite reexecutá-lo. Os identificadores da primeira coluna são \emph{controle
-interno}: servem para localizar código e dados, não para nomear achados, e por
-isso não reaparecem no texto corrido dos capítulos de resultados, que se
-organiza pelo que foi descoberto. Quem quiser ir do achado ao artefato usa esta
-tabela; quem quiser ler a tese não precisa dela. O E3 designa, em toda a tese,
-a avaliação da hipótese central efetivamente executada; o que ficou fora dela
-está registrado como extensão na Seção~\ref{sec:metodo-falco-baselines}.
+permite reexecutá-lo. Os identificadores da primeira coluna localizam código e
+dados; os achados, nos capítulos de resultados, são nomeados pelo que foi
+descoberto. O E3 designa, em toda a tese, a avaliação da hipótese central
+efetivamente executada; o que ficou fora dela está registrado como extensão na
+Seção~\ref{sec:metodo-falco-baselines}.
 
 Uma dependência entre experimentos não cabe na tabela e precisa ser dita: a
 avaliação de robustez ao ruído do oráculo é \textbf{condicional} ao desempenho
@@ -165,43 +163,40 @@ O pré-processamento textual é mínimo: conversão para minúsculas e remoção
 acentos, delegando ao tokenizador de subpalavras do classificador o tratamento de
 variações lexicais. Rótulos passam pela mesma normalização.
 
-Duas observações de reprodutibilidade acompanham essa normalização, porque
-sem elas as contagens desta seção não se refazem. A primeira é que
-\textbf{duas chaves de texto distintas} convivem no processamento: o censo de
-conflitos e a contagem de duplicatas
-(Seção~\ref{sec:metodo-dados-auditoria}) comparam descrições com os espaços
-internos colapsados, ao passo que a deduplicação que precede o
-particionamento usa a descrição apenas aparada e convertida a minúsculas.
-Nesta base a remoção de acentos não altera contagem alguma (não há um
-único caractere acentuado nas descrições ou nos rótulos), de modo que a
-diferença entre as duas chaves está no tratamento de espaços, e não na
-acentuação. A segunda é que \textbf{o filtro brando de $\ge 2$ instâncias conta
-linhas, e não textos já deduplicados}: são 715 as classes com pelo menos duas
-\emph{linhas} na base corrigida, ao passo que a mesma contagem feita sobre os
-textos únicos devolveria 710. Dessas 715, uma
-(\textit{pomada massageadora}) ainda desaparece na deduplicação, cuja regra é
-manter a primeira ocorrência de cada texto: os dois textos dessa classe já
-haviam aparecido sob outro rótulo. Daí as \textbf{714 classes presentes} na
-visão deduplicada. A receita completa é executável e reproduz todas as contagens
-desta seção (\texttt{scripts/check\_dataset.py}, na biblioteca
-\texttt{activelearning}). Classes com menos de
-cinco instâncias são agrupadas na categoria sentinela \texttt{\_rare\_}
-($0{,}13\%$ das linhas), resultando em um espaço fechado de \textbf{621 categorias}
-(620 classes frequentes + \texttt{\_rare\_}). Esse espaço fechado, denominado
-\textit{CategorySchema}, é um objeto de primeira classe na implementação: é a fonte
-única da restrição de saída imposta aos oráculos LLM
+Sobre essa normalização, um espaço fechado de rótulos é construído para os
+experimentos de oráculo. Classes com menos de cinco instâncias são agrupadas na
+categoria sentinela \texttt{\_rare\_} ($0{,}13\%$ das linhas), o que resulta em
+\textbf{621 categorias} (620 classes frequentes mais a sentinela). Esse espaço,
+denominado \textit{CategorySchema}, é um objeto de primeira classe na
+implementação: é a fonte única da restrição de saída imposta aos oráculos LLM
 (Seção~\ref{sec:metodo-oraculo-instrumentacao}).
 
 Dois espaços de rótulos convivem na tese, com papéis distintos e ambos
-rastreáveis ao mesmo arquivo de dados: o \textit{CategorySchema} de 621
-categorias, contado sobre as \emph{linhas cruas} da versão corrigida (620
-classes com $\ge 5$ instâncias mais a sentinela), governa os experimentos de
-oráculo; já os experimentos em escala populacional
-(Capítulo~\ref{ch:resultados-falco}) operam sobre a visão \emph{deduplicada} com filtro
-brando ($\ge 2$ instâncias), na qual 231.490 textos únicos distribuem-se por
-\textbf{714 classes presentes}, sem o agrupamento \texttt{\_rare\_}, para não
-mascarar o comportamento da cauda longa justamente onde o aprendizado ativo é
-posto à prova.
+rastreáveis ao mesmo arquivo de dados. O \textit{CategorySchema} de 621
+categorias, contado sobre as \emph{linhas cruas} da versão corrigida (620 classes
+com $\ge 5$ instâncias mais a sentinela), governa os experimentos de oráculo. Já os experimentos em escala populacional
+(Capítulo~\ref{ch:resultados-falco}) operam sobre a visão \emph{deduplicada} com
+filtro brando de $\ge 2$ instâncias, na qual 231.490 textos únicos distribuem-se
+por \textbf{714 classes presentes}. Essa segunda visão dispensa a sentinela
+\texttt{\_rare\_} de propósito: agrupar a cauda longa mascararia justamente o
+comportamento que o aprendizado ativo é chamado a testar.\footnote{Duas
+convenções de contagem explicam a diferença entre as classes que sobrevivem ao
+filtro e as 714 presentes na visão deduplicada, e ambas são necessárias para
+refazer os números desta seção. Primeira: duas chaves de texto distintas
+convivem no processamento --- o censo de conflitos e a contagem de duplicatas
+(Seção~\ref{sec:metodo-dados-auditoria}) comparam descrições com os espaços
+internos colapsados, ao passo que a deduplicação que precede o particionamento
+usa a descrição apenas aparada e convertida a minúsculas. Nesta base a remoção
+de acentos não altera contagem alguma, pois não há um único caractere acentuado
+nas descrições ou nos rótulos, de modo que a diferença entre as chaves está no
+tratamento de espaços. Segunda: o filtro de $\ge 2$ instâncias conta linhas, e
+não textos já deduplicados --- são 715 as classes com pelo menos duas linhas na
+base corrigida, contra 710 pela contagem sobre textos únicos. Dessas 715, uma
+(\textit{pomada massageadora}) ainda desaparece na deduplicação, cuja regra é
+manter a primeira ocorrência de cada texto: os dois textos dessa classe já
+haviam aparecido sob outro rótulo. A receita completa é executável e reproduz
+todas as contagens desta seção (\texttt{scripts/check\_dataset.py}, na
+biblioteca \texttt{activelearning}).}
 
 \subsection{Particionamento}
 \label{sec:metodo-dados-particionamento}
@@ -210,35 +205,34 @@ O desenho \emph{inicialmente planejado} previa particionamento estratificado em
 conjunto de teste $T$ ($20\%$), validação $V$ ($10\%$) e \textit{pool} de
 aprendizado ativo $U_0$ ($70\%$), com orçamento de rotulagem $B = 30\%$ de
 $|U_0|$. O protocolo \emph{executado} nos experimentos em escala populacional
-integralmente registrado em código e artefatos, parte da
-base deduplicada (231.490 textos únicos, 714 classes presentes), embaralha-a
-com semente fixa e registrada (42) e particiona por posição
-(Figura~\ref{fig:dados-fluxo}): as primeiras
-50.000 instâncias formam o \textit{pool} de aprendizado ativo; as 4.000
-seguintes, os conjuntos de validação e teste do ciclo real (2.000 + 2.000,
-usados apenas nas decisões de parada); e as 177.490 restantes, a
-\textbf{população reservada}, usada exclusivamente na avaliação final. O
-\textit{pool} é, portanto, uma amostra \emph{aleatória uniforme} da base, e
-não estratificada por classe. Sua representatividade foi medida e é
-verificável por artefato: a distribuição de classes do \textit{pool} diverge
-da distribuição da base por divergência de Jensen--Shannon de $0{,}0022$, com
-correlação de Spearman de $0{,}983$ entre os ranks de frequência e desvio
-máximo de proporção de $0{,}20$ ponto percentual em uma classe. O custo da
-amostragem aleatória concentra-se na cauda: 649 das 714 classes ($90{,}9\%$)
-estão presentes no \textit{pool}, 65 estão ausentes e 179 têm menos de cinco
-exemplos, limitação declarada e relevante para métricas macro
-(Seção~\ref{sec:metodo-validade}). O tamanho de 50 mil resulta de viabilidade
-computacional: cada braço da avaliação com o classificador forte é um ajuste
-fino completo do BERTimbau, e o
-programa executa cinco braços mais a varredura de orçamento em uma única GPU,
-mantendo ainda uma média de 70 exemplos por classe no \textit{pool}. Com a
-mudança da referência de comparação dessa avaliação
-(a régua contra a qual os braços são medidos,
-Seção~\ref{sec:metodo-falco-baselines}), os
-orçamentos passam a ser medidos como fração do \textit{pool} de 50 mil
-($30\% = 15$ mil rótulos), e não de $|U_0|$; essa re-baseação do denominador é
-declarada e suas consequências são discutidas nas limitações
-(Seção~\ref{sec:metodo-validade}).
+seguiu outro caminho, integralmente registrado em código e artefatos: parte da
+base deduplicada (231.490 textos únicos, 714 classes presentes), embaralha-a com
+semente fixa e registrada (42) e particiona por posição
+(Figura~\ref{fig:dados-fluxo}). As primeiras 50.000 instâncias formam o
+\textit{pool} de aprendizado ativo; as 4.000 seguintes, os conjuntos de validação
+e teste do ciclo real (2.000 + 2.000, usados apenas nas decisões de parada); e as
+177.490 restantes, a \textbf{população reservada}, usada exclusivamente na
+avaliação final.
+
+O \textit{pool} é, portanto, uma amostra \emph{aleatória uniforme} da base, e não
+estratificada por classe. Sua representatividade foi medida e é verificável por
+artefato: a distribuição de classes do \textit{pool} diverge da distribuição da
+base por divergência de Jensen--Shannon de $0{,}0022$, com correlação de Spearman
+de $0{,}983$ entre os ranks de frequência e desvio máximo de proporção de $0{,}20$
+ponto percentual em uma classe. O custo dessa escolha concentra-se na cauda: 649
+das 714 classes ($90{,}9\%$) estão presentes no \textit{pool}, 65 estão ausentes e
+179 têm menos de cinco exemplos. É limitação declarada, e relevante para métricas
+macro (Seção~\ref{sec:metodo-validade}).
+
+O tamanho de 50 mil resulta de viabilidade computacional. Cada braço da avaliação
+com o classificador forte é um ajuste fino completo do BERTimbau, e o programa
+executa cinco braços mais a varredura de orçamento em uma única GPU --- mantendo
+ainda uma média de 70 exemplos por classe no \textit{pool}. Uma consequência
+precisa ser registrada: com a mudança da régua contra a qual os braços são
+medidos (Seção~\ref{sec:metodo-falco-baselines}), os orçamentos passam a ser
+medidos como fração do \textit{pool} de 50 mil ($30\% = 15$ mil rótulos), e não de
+$|U_0|$. Essa re-baseação do denominador é declarada, e suas consequências são
+discutidas nas limitações (Seção~\ref{sec:metodo-validade}).
 
 \begin{figure}[htbp]
     \centering
@@ -724,13 +718,13 @@ medição, feita sempre em $T$ fixo e aleatório.
 \textbf{Desenho executado vs.\ planejado.} Duas divergências entre o desenho
 inicialmente planejado e o executado são declaradas e têm consequências
 mensuráveis. Primeira: o \textit{pool} de 50 mil é amostra aleatória uniforme
-(Seção~\ref{sec:metodo-dados-particionamento}), não estratificada; 65 das 714
-classes não têm nenhum exemplo no \textit{pool} e 179 têm menos de cinco, de
-modo que o teto de Macro F1 alcançável por \emph{qualquer} braço treinado no
-\textit{pool} é estruturalmente rebaixado nas classes de cauda; as
-comparações \emph{entre} braços permanecem justas, pois todos compartilham o
-mesmo \textit{pool}, mas os valores absolutos de Macro F1 subestimam o que uma
-amostra estratificada permitiria. Segunda: o orçamento inicialmente planejado
+(Seção~\ref{sec:metodo-dados-particionamento}), não estratificada. Como 65 das
+714 classes não têm nenhum exemplo no \textit{pool} e 179 têm menos de cinco, o
+teto de Macro F1 alcançável por \emph{qualquer} braço treinado ali é
+estruturalmente rebaixado nas classes de cauda. Isso não compromete as
+comparações \emph{entre} braços, que compartilham o mesmo \textit{pool}; afeta
+os valores absolutos de Macro F1, que subestimam o que uma amostra estratificada
+permitiria. Segunda: o orçamento inicialmente planejado
 ($B=30\%$ de $|U_0|$) foi re-baseado para fração do \textit{pool} de 50 mil
 com a mudança de régua dessa comparação; os percentuais reportados no
 Capítulo~\ref{ch:resultados-falco} referem-se sempre ao denominador de 50 mil,
@@ -741,14 +735,14 @@ padrão-ouro com ruído conhecido (teto $\approx 99{,}3\%$; análise de
 sensibilidade na Seção~\ref{sec:metodo-dados-auditoria}), e o efeito do
 instrumento de medição é ele próprio quantificado (RQ4). O custo por rótulo
 depende de preços de API vigentes na execução, de modo que os valores absolutos datam, enquanto as
-razões entre modelos são mais estáveis. Mais amplamente, \textbf{toda medição
-de oráculo LLM nesta tese é uma fotografia da tripla (modelo, provedor,
-data)}: temperatura zero não garante determinismo entre versões de modelo nem
-entre serviços de \textit{serving}, e a própria avaliação de oráculos demonstra
-o mesmo modelo
-divergindo significativamente de si mesmo entre dois provedores
-(Seção~\ref{sec:res-e0-rq2}); por isso cada anotação é arquivada com
-proveniência completa, permitindo re-medição futura contra a mesma referência.
+razões entre modelos são mais estáveis. Mais amplamente, \textbf{toda medição de oráculo LLM nesta tese é uma
+fotografia da tripla (modelo, provedor, data)}. Temperatura zero não garante
+determinismo entre versões de modelo nem entre serviços de \textit{serving}, e a
+própria avaliação de oráculos mostra o mesmo modelo divergindo
+significativamente de si mesmo entre dois provedores
+(Seção~\ref{sec:res-e0-rq2}). Por isso cada anotação é arquivada com
+proveniência completa, o que permite re-medição futura contra a mesma
+referência.
 
 \section{Reprodutibilidade e ambiente}
 \label{sec:metodo-reprodutibilidade}
@@ -758,12 +752,14 @@ Toda a instrumentação é implementada na biblioteca \texttt{activelearning}
 (instâncias, esquema de categorias, estratégias, métricas, políticas de fase) é puro
 e testado isoladamente; LLMs, classificadores e armazenamento são adaptadores
 intercambiáveis. Cada experimento tem um ponto de entrada único parametrizado por
-arquivo de configuração versionado; execuções registram sementes, revisão do código
-e anotações linha a linha (JSONL), e são retomáveis após interrupção. Chamadas a
-oráculos registram tokens, tokens em \textit{cache}, latência e custo estimado,
-insumos da análise de custo do Capítulo~\ref{ch:resultados-falco}. O ambiente de
-treinamento é uma estação com GPU NVIDIA RTX 3090 (24~GB), 64~GB de RAM e Linux;
-as versões das dependências são fixadas pelo gerenciador de pacotes do repositório.
+arquivo de configuração versionado. As execuções registram sementes, revisão do
+código e anotações linha a linha (JSONL), e são retomáveis após interrupção; as
+chamadas a oráculos registram tokens, tokens em \textit{cache}, latência e custo
+estimado, insumos da análise de custo do Capítulo~\ref{ch:resultados-falco}.
+
+O ambiente de treinamento é uma estação com GPU NVIDIA RTX 3090 (24~GB), 64~GB
+de RAM e Linux, com as versões das dependências fixadas pelo gerenciador de
+pacotes do repositório.
 
 \textbf{Proveniência dupla dos resultados.} Por razões históricas, o programa
 experimental distribui-se em dois repositórios versionados, e a distinção é
@@ -775,7 +771,8 @@ do algoritmo genético e DRI-SL na partida a frio) foram produzidos no repositó
 dos dois primeiros, foram produzidos
 na biblioteca \texttt{activelearning}, reescrita sob a arquitetura acima.
 Onde a tese reporta um número originado no repositório legado, o porte para a
-biblioteca nova foi verificado: por igualdade de matrizes de escore (PVBin),
-por reexecução independente com protocolo mais rigoroso (sensibilidade de
-$L_0$, divergência $\le 0{,}7$ p.p.) ou por conferência direta contra o
-artefato de origem (DRI-SL); o registro dessa auditoria acompanha o código.
+biblioteca nova foi verificado por um de três caminhos: igualdade de matrizes de
+escore (PVBin), reexecução independente com protocolo mais rigoroso
+(sensibilidade de $L_0$, divergência $\le 0{,}7$ p.p.) ou conferência direta
+contra o artefato de origem (DRI-SL). O registro dessa auditoria acompanha o
+código.
