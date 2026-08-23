@@ -47,6 +47,42 @@ mapa de artefatos; a figura dá o fluxo).
 no Cap. 3) e fala "um dos braços" sem letra, porque as letras A–E só são
 apresentadas nos resultados.
 
+## Esquema 3 — `esq-drisl.tex` (pedido direto do autor, 2026-08-23)
+
+**Origem**: o autor apresentou um infográfico gerado por ferramenta de imagem
+para o DRI-SL e pediu a versão TikZ sóbria para a tese ("faça a versão TikZ
+sóbria para a tese em loop"). O parecer da banca sobre o infográfico:
+conteúdo correto (conferido linha a linha contra a Seção `sec:metodo-drisl`),
+mas inadequado ao PDF por assinatura visual de máquina (princípio X), por ser
+raster não reproduzível, e pelos mini-gráficos decorativos que parecem dado
+(risco frente ao princípio V). O infográfico serve aos slides da defesa.
+
+**O que a versão TikZ preserva do infográfico**: a decomposição didática em
+Fase (i) densidade semântica e Fase (ii) variedade lexical intragrupo, o laço
+de seleção iterativa com o escore de novidade ponderado pelo perfil TF--IDF,
+as cotas proporcionais com o somatório, e a faixa de avaliação (aleatório +
+envelope do AG). **O que ela corrige**: sem ícones, sem cores, sem curvas
+decorativas; a citação do codificador de sentenças vai na LEGENDA como
+`\citep{Reimers2019SBERT}` (o check-bib a enxerga); a avaliação vira texto
+com remissão à Seção `sec:res-l0-drisl` sem afirmar o resultado (terminologia
+em camadas: o veredito da comparação é do Capítulo 4).
+
+**Onde entra**: Seção `sec:metodo-drisl` (fim), com a citação na legenda.
+
+**Loop (5 iterações, todas com compilação e inspeção visual)**: (1) rascunho
+— referência-adiante do nó `cand` achada e corrigida antes de compilar;
+(2) render 1 reprovado: a descida da seta em L atravessava o título da
+Fase (ii), o rótulo "fechados os $N_c$ grupos" colidia com as duas caixas do
+vão curto, e havia hifenizações por quebra forçada — o título da fase virou o
+próprio rótulo da seta em L (um elemento, zero cruzamentos) e o rótulo do vão
+foi removido (o laço já diz "repete até $n_i$"); (3) zoom reprovou: o rótulo
+em uma linha ainda alcançava a descida vertical — dividido em duas linhas
+centradas; (4) a caixa do $L_0$ quebrava a matemática no "=" — blindada com
+`\mbox{}`; (5) alargar a caixa para 46mm piorou (duas hifenizações) —
+revertido para 44mm com quebras forçadas curtas. Render final: 0 erros,
+0 overfull, nenhuma sobreposição. **Julgo "muito boa e ilustrativa".**
+Evidência: `preview-esq-drisl.png`.
+
 ## Loop de melhoria com goal (registro, como a tarefa pede)
 
 Goal: "muito boa e ilustrativa" = fluxo inequívoco, rótulos claros, coerente

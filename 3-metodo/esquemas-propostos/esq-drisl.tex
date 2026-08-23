@@ -1,0 +1,85 @@
+% ============================================================================
+% ESQUEMA PROPOSTO (banca, sugestão — não mergeado): o algoritmo DRI-SL como
+% fluxo em duas fases — (i) densidade semântica e (ii) variedade lexical
+% intragrupo — seguido da avaliação. Ilustra a Seção sec:metodo-drisl.
+%
+% Uso no Cap. 3 (dentro de um ambiente figure):
+%   \input{3-metodo/esquemas-propostos/esq-drisl}
+%   A citação do codificador de sentenças (\citep{Reimers2019SBERT}) vai na
+%   LEGENDA da figure, não pintada no desenho — assim o check-bib a enxerga.
+% Uso standalone (pré-visualização):
+%   \documentclass[tikz,border=6pt]{standalone}
+%   \usetikzlibrary{arrows.meta, positioning}
+%   \begin{document}\input{esq-drisl.tex}\end{document}
+%   (no modo standalone, troque as \ref{...} por texto fixo ou defina-as)
+% Requer apenas arrows.meta e positioning (já em packages.tex). Legível em
+% P&B: etapa de medição/entrada = cinza claro; processamento = branco;
+% produto = cinza médio; remissão = texto simples.
+% FREEZE respeitado: nenhum número de resultado; só os símbolos da própria
+% seção (U0, L0, I, Nc, Gi, ni) e nenhum gráfico decorativo que pareça dado.
+% Terminologia em camadas: a figura não afirma o resultado da comparação
+% (isso é do Capítulo 4); só diz CONTRA O QUE o DRI-SL é avaliado.
+% ============================================================================
+\begin{tikzpicture}[
+    x=1cm, y=1cm,
+    caixa/.style={draw, rounded corners=2pt, align=center, text width=34mm,
+                  minimum height=11mm, inner sep=3pt, font=\footnotesize},
+    entrada/.style={caixa, fill=gray!8},
+    produto/.style={caixa, fill=gray!14},
+    seta/.style={-{Stealth[length=2.4mm]}, thick},
+    rot/.style={font=\scriptsize, align=center, inner sep=2pt}
+]
+    % ---------------- fase (i): densidade semântica ------------------------
+    \node[rot, anchor=west] (tit1) at (-1.9,1.1)
+        {\textbf{Fase (i) --- densidade semântica}};
+
+    \node[entrada] (u0) at (0,0)
+        {conjunto não rotulado $U_0$ (textos curtos)};
+    \node[caixa, text width=36mm] (enc) at (4.6,0)
+        {codificador de\\sentenças: projeção\\no espaço semântico};
+    \node[caixa] (km) at (9.2,0)
+        {$k$-médias em $N_c$ grupos semânticos};
+    \draw[seta] (u0) -- (enc);
+    \draw[seta] (enc) -- (km);
+
+    \node[produto] (aloc) at (9.2,-2.3)
+        {cotas proporcionais ao tamanho de cada grupo:
+         $\sum_{i=1}^{N_c} n_i = I$};
+    \draw[seta] (km) -- (aloc);
+
+    % ---------------- fase (ii): variedade lexical intragrupo --------------
+    % o título da fase É o rótulo da seta em L (um elemento só: título de
+    % banda separado era atravessado pela descida da seta — achado visual)
+    \node[caixa] (cand) at (0,-5.4)
+        {candidatos do grupo $G_i$ (ainda não selecionados)};
+    \node[caixa, text width=40mm] (sel) at (4.6,-5.4)
+        {seleciona a instância de maior escore de novidade, ponderado pelo
+         perfil TF--IDF do grupo};
+    \node[produto, text width=44mm] (l0) at (9.6,-5.4)
+        {conjunto inicial $L_0$ (\mbox{$|L_0|=I$}):\\
+         diversidade semântica entre\\
+         grupos $+$ variedade lexical\\
+         dentro de cada grupo};
+
+    % a linha em L conduz da alocação para o laço de seleção; o rótulo na
+    % horizontal é o título da fase (desenhada aqui, depois dos nós)
+    \draw[seta] (aloc.south) -- ++(0,-0.55) -| (cand.north);
+    % rótulo-título posicionado à mão sobre o trecho horizontal, com as
+    % bordas afastadas das duas descidas verticais (x=0 e x=9,2)
+    \node[rot, anchor=south] at (4.2,-3.42)
+        {\textbf{Fase (ii) --- variedade lexical intragrupo}:\\
+         para cada grupo $G_i$, com cota $n_i$};
+
+    \draw[seta] (cand) -- (sel);
+    \draw[seta] (sel) -- (l0);
+    \draw[seta] (sel.south) to[out=250, in=290]
+        node[rot, below=2pt] {atualiza os termos cobertos; repete até $n_i$ instâncias}
+        (cand.south);
+
+    % ---------------- avaliação (sem afirmar resultado) --------------------
+    \node[rot, anchor=west, text width=124mm, align=left] (tit3) at (-1.9,-8.6)
+        {\textbf{Avaliação} (resultados na Seção~\ref{sec:res-l0-drisl}): o
+         $L_0$ do DRI-SL é comparado ao da amostragem aleatória e ao envelope
+         de desempenho do algoritmo genético, que atua como limite empírico
+         de referência.};
+\end{tikzpicture}
