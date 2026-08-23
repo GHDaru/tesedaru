@@ -34,7 +34,12 @@ def pontos_celula(cap: dict, rid: str) -> float:
         "R5": 0.4 * dim.get("tokens", 40),
         "R6": 10.0,
         "R7": 10.0 if cap["id"] in ("pre-resumo", "pre-abstract") else 20.0,
-    }[rid]
+    }.get(rid)
+    # rodadas{} pode ganhar chaves fora de R1-R7 (ex.: passes extraordinarios
+    # registrados por engano ou de proposito); ignora em vez de quebrar o painel
+    # — inclusive ao reler snapshots historicos do plano, que sao imutaveis.
+    if calc is None:
+        return 0.0
     return max(5.0, calc)
 
 
