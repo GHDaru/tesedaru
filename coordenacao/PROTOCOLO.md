@@ -1,4 +1,4 @@
-# Protocolo de coordenação — agentes + autor (v1.8)
+# Protocolo de coordenação — agentes + autor (v1.9)
 
 > Regra única de mensageria, locks e processo multiagente da tese FALCO.
 > Todo agente LÊ este arquivo ao iniciar a sessão e segue o ritual de entrada.
@@ -354,3 +354,33 @@ Ao receber um poke, o principal **resolve o código** (`git fetch` + `git show`)
 - **Métrica de saúde (§8):** taxa de *poke órfão* (>0 = poke correndo à frente do
   push); *bytes/linhas por poke* crescendo = conteúdo vazando para o canal
   errado; *decisão tomada só por poke* sem medição registrada = uso indevido.
+
+### 9.7 O MOTOR: re-kick por tick, com Fibonacci no principal (v1.9, testado na Fase 1)
+
+**Descoberta medida (Fase 1):** um poke (`fire_trigger`) só **ENFILEIRA** um
+turno; ele **NÃO acorda** uma sessão ociosa. Quem **EXECUTA** uma sessão parada é
+um trigger **AGENDADO** — `create_trigger` com `run_once_at` (ou `cron`). (Validado:
+re-kick às 16:24 → revisor1 rodou às 16:26, leu a caixa na `mensageria`, entregou,
+e parou.) Além disso, o harness **bloqueia** um agente que se **auto-perpetua**
+(loop autônomo via `send_later` de si mesmo) — guarda-corpo legítimo. Por isso:
+
+1. **O principal é o RELÓGIO ÚNICO.** Quando um agente tem tarefa aberta
+   endereçada a ele, o principal dá um **re-kick**: `create_trigger` com
+   `run_once_at` (~min à frente) e prompt **"faça UM tick e pare; não se
+   reagende"**. O tick do agente: fetch `main`+`mensageria` (refspec explícito,
+   §0) → lê suas tarefas na `mensageria` → trabalha **na sua branch** → entrega +
+   poka o recibo → **para**.
+2. **Fibonacci fica no principal** (não no agente): o próximo re-kick é agendado
+   com backoff — houve trabalho/entrega → rápido (**1,1,2** min); ticks vazios →
+   desacelera (**3,5,8,13,21,34**) e **para de re-kickar** quando a fila do agente
+   esvazia (agente "desligado"). Tarefa nova → o principal re-kicka e o contador
+   reinicia. Custo: agente ocioso faz poucas checagens decrescentes e dorme.
+3. **Estado da caixa = mão única do principal.** A caixa na `mensageria` é escrita
+   **só** pelo principal; o agente **não** transiciona estado lá (não empurra a
+   `mensageria`). O agente entrega na **própria branch** + poka; o **principal**
+   marca `.concluida` na `mensageria` ao integrar. **Idempotência do agente** =
+   checar a **própria branch** ("já entreguei isto? então no-op"). Não há corrida
+   de claim porque toda tarefa é endereçada a um dono único (`para: <agente>`).
+4. **git = verdade + pickup confiável** (varredura agendada do principal, que
+   também pode usar Fibonacci); poke e re-kick são **aceleradores**. A medição
+   §2-ter do principal antes de qualquer gate permanece intocada.
