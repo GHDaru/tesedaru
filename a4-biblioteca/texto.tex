@@ -28,11 +28,10 @@ e cache são medidos e registrados em cada anotação.
 
 Cada experimento tem ponto de entrada único parametrizado por configuração
 versionada; execuções gravam sementes e registros por item/iteração (JSONL) e
-são retomáveis. Mapa: E0 → \texttt{experiments/e0/run\_e0.py} (+
-\texttt{analyze\_e0.py}, \texttt{analyze\_noise\_impact.py}); E0-P →
-\texttt{experiments/e0p/}; P1/AG → \texttt{experiments/p1/}; E1/E4 →
-\texttt{experiments/e1e4/}; E2/E3 (GPU) → runner do FALCO em
-\texttt{src/activelearning/application/run\_falco.py} com os cinco braços do desenho. A suíte de
+são retomáveis. Os pontos de entrada e analisadores de cada experimento (E0,
+E0-P, P1/AG, E1/E4) e o runner do FALCO com os cinco braços do desenho (E2/E3,
+GPU) acompanham o repositório de código, organizados por identificador de
+experimento. A suíte de
 testes unitários cobre domínio, adapters e casos de uso sem rede.
 
 \section{FlowBuilder}
