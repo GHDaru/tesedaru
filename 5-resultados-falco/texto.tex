@@ -11,9 +11,8 @@ oráculo (Seção~\ref{sec:res-e4}), os seletores em escala populacional
 (Seção~\ref{sec:res-e6}) e a validação com o classificador forte fora do
 laço (Seção~\ref{sec:res-e3p}), que responde a hipótese central.
 Todos os números reportados são rastreáveis a artefatos
-versionados no repositório \texttt{activelearning}
-(\texttt{experiments/e0}, \texttt{e0p}, \texttt{e1e4}, \texttt{e6population},
-\texttt{e2e3}).
+versionados que acompanham o repositório de código da tese, organizados por
+identificador de experimento.
 
 \section{Avaliação fatorial de oráculos LLM}
 \label{sec:res-e0}
@@ -109,8 +108,8 @@ o custo efetivo do tokens de entrada. Para referência externa, o custo fica
 duas a três ordens de grandeza abaixo do custo típico de anotação humana por
 item relatado na literatura \citep{Gilardi2023}. Custo, porém, não é a única
 restrição operacional: os limites de vazão dos provedores (3 requisições/min
-no MaaS, 18/min no plano gratuito do agregador OpenRouter, nos artefatos de latência de
-\texttt{experiments/e0}) moldaram o próprio desenho experimental e, em produção, definem o tempo de
+no MaaS, 18/min no plano gratuito do agregador OpenRouter, nos artefatos de latência
+do E0) moldaram o próprio desenho experimental e, em produção, definem o tempo de
 parede de um ciclo de rotulagem tanto quanto o preço: um oráculo barato e
 lento pode ser dominado por um caro e paralelo quando o gargalo é o prazo.
 
@@ -198,7 +197,7 @@ embaralhadas) foi dimensionado para detectar, via McNemar, deslocamentos da orde
 de 4--5 p.p.\ com o volume de discordâncias esperado ($\approx 60$--$80$
 pares), a um quinto do custo da amostra completa por variante.
 A Tabela~\ref{tab:e0p} resume o resultado
-(artefato: \texttt{experiments/e0p/results/analysis.json}).
+(artefato de análise do E0-P).
 
 \begin{table}[htb]
 \centering
@@ -257,7 +256,7 @@ vizinhança; e 8 sementes é o mínimo que permite $p<0{,}05$ no Wilcoxon
 pareado (Seção~\ref{sec:metodo-falco-baselines}).
 O teto supervisionado do \textit{pool} completo (20.000 rótulos) é Macro F1
 $= 0{,}540$. A Tabela~\ref{tab:e1} apresenta as células
-(artefato: \texttt{experiments/e1e4/results/analysis.json}).
+(artefato de análise do E1).
 
 \begin{table}[htb]
 \centering
@@ -405,7 +404,7 @@ remove o termo de novidade lexical e equivale, portanto, a
 \emph{amostragem estratificada pelas classes previstas}. A ablação isola a
 origem do ganho da variante: agrupamento por predição ou seleção lexical
 dentro dos grupos. Execução com semente única e orçamento até o
-\textit{pool} completo (artefatos em \texttt{experiments/e6population}); por
+\textit{pool} completo (artefatos do E6); por
 ser braço único por célula, os números da Tabela~\ref{tab:e6} são
 descritivos. Os dois braços centrais (entropia e aleatório, ambos
 classificadores) foram, contudo, reexecutados em \textbf{oito sementes}
@@ -521,7 +520,7 @@ braços na população reservada inteira (177.490 instâncias, excluídos o pool
 e os conjuntos de decisão do ciclo real), com três sementes de treinamento e
 análise pareada por semente; cada número vem como média e desvio-padrão
 entre sementes, e as comparações usam McNemar e \textit{bootstrap} pareados
-na mesma população (artefatos em \texttt{experiments/e2e3}). Configuração
+na mesma população (artefatos do E3). Configuração
 uniforme entre braços: 3 épocas, lote de treinamento 16 com limitação da
 norma do gradiente, comprimento máximo de 32 \textit{tokens}. O tamanho do
 lote é ele próprio um achado metodológico, não um detalhe: a configuração
@@ -535,8 +534,7 @@ Tabela~\ref{tab:e3p} consolida.
 \centering
 \caption{BERTimbau treinado por braço e avaliado na população
 reservada inteira (177.490 instâncias). Receita de agregação: regime
-homogêneo de treino (lote 16, artefatos \texttt{\_bs16v2} em
-\texttt{experiments/e2e3}); braços A--D são média simples das sementes 7,
+homogêneo de treino (lote 16, artefatos \texttt{\_bs16v2}); braços A--D são média simples das sementes 7,
 42 e 123; o braço E é média das sementes 7 e 42, pois a semente 123 não
 foi executada nesse regime; desvios-padrão nos artefatos.}
 \label{tab:e3p}
