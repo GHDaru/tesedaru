@@ -422,6 +422,9 @@
 \RequirePackage[plainpages,pdfpagelabels]{hyperref}	% PDF com links, metadados
 \RequirePackage{bookmark}				% cria um índice no PDF
 
+% cor sobria para citacoes (links e URLs seguem azul; citacoes discretas)
+\definecolor{citsobrio}{rgb}{0.20,0.25,0.45}
+
 % ajustar metadados e propriedades do PDF gerado
 \hypersetup{
   % pdftitle, author, etc definidos mais abaixo
@@ -431,10 +434,10 @@
 %  bookmarkstype = page,
   pdfview     = Fit,
   pdfborder   = {0 0 0},
-  colorlinks  = false,
+  colorlinks  = true,
   linkcolor   = blue,
   anchorcolor = blue,
-  citecolor   = blue,
+  citecolor   = citsobrio,
   filecolor   = blue,
 %  pagecolor   = blue,
   urlcolor    = blue
