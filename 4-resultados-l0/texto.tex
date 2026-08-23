@@ -4,11 +4,11 @@
 Este capítulo apresenta os resultados dos dois primeiros pilares: a sensibilidade da
 generalização à composição do conjunto inicial $L_0$ (Seção~\ref{sec:res-l0-sens}),
 os limites estimados por otimização evolutiva (Seção~\ref{sec:res-l0-ag}) e a
-avaliação do DRI-SL como estratégia de \textit{cold start}
+avaliação do DRI-SL como estratégia de partida a frio (\textit{cold start})
 (Seção~\ref{sec:res-l0-drisl}). Todos os experimentos usam o classificador leve
 PVBin (Capítulo~\ref{ch:metodo}); os resultados originais foram obtidos no
 programa experimental da pesquisa e, como verificação de robustez, o estudo de
-sensibilidade e o mecanismo do AG foram \textbf{reexecutados de forma
+sensibilidade e o mecanismo do algoritmo genético (AG) foram \textbf{reexecutados de forma
 independente} na biblioteca \texttt{activelearning}, com protocolo mais
 rigoroso (deduplicação antes do particionamento e reavaliação em teste
 intocado); as duas séries são apresentadas lado a lado
@@ -68,7 +68,7 @@ $I=200.000$; os métodos supervisionados clássicos avaliados sobre as mesmas
 descrições situam-se na mesma faixa \citep{Daru2022}. O estudo varre,
 portanto, o intervalo inteiro entre o quase-zero e o teto supervisionado do
 modelo. A variabilidade do regime pequeno também tem análogo publicado: em
-\textit{benchmarks} ingleses, o ajuste fino de um modelo pré-treinado com 32
+um \textit{benchmark} inglês, o ajuste fino de um modelo pré-treinado com 32
 rótulos varia até 10 pontos percentuais de acurácia conforme o subconjunto
 sorteado \citep{Yu2023Patron}; a amplitude de $6{,}4$ p.p.\ medida aqui em
 $I=100$ é o mesmo fenômeno, num espaço com duas ordens de grandeza mais
@@ -78,7 +78,7 @@ primeiros exemplos de um conjunto embaralhado \citep{Griesshaber2020}. O que
 esta seção mede é o custo dessa arbitrariedade.
 
 Esses resultados fundamentam a partida a frio: se a composição importa tanto no regime
-pequeno (exatamente o regime do \textit{cold start} do aprendizado ativo),
+pequeno (exatamente o regime da partida a frio do aprendizado ativo),
 então construir $L_0$ deliberadamente (em vez de sorteá-lo) é a alavanca
 disponível antes de existir qualquer rótulo.
 
@@ -88,7 +88,9 @@ disponível antes de existir qualquer rótulo.
 Para estimar o quanto a composição pode render além do sorteio, um algoritmo
 genético (Seção~\ref{sec:metodo-l0-ag}) otimizou a composição de $L_0$ em
 quatro cenários (maximização e minimização de Acurácia e Macro F1) para dez
-tamanhos. A Tabela~\ref{tab:ag-evolucao} resume a evolução do melhor (pior)
+tamanhos, com população de 20 indivíduos e 100 gerações por cenário (200
+gerações no caso $|L_0|=10$), o que corresponde a 2.000 avaliações
+supervisionadas por cenário. A Tabela~\ref{tab:ag-evolucao} resume a evolução do melhor (pior)
 indivíduo entre a 1\textsuperscript{a} e a 100\textsuperscript{a} geração nos
 cenários de acurácia.
 
@@ -120,7 +122,9 @@ Duas leituras: o envelope é \textbf{largo no regime pequeno} (em $I=100$, a
 distância entre pior e melhor indivíduo da última geração chega a
 $25{,}9$ pontos percentuais de acurácia) e \textbf{estreita com o tamanho}, coerente com a Seção~\ref{sec:res-l0-sens}: quanto maior o $L_0$, menos a
 composição importa. O ganho evolutivo sobre a 1\textsuperscript{a} geração
-(coluna $\Delta$) confirma que o AG explora estrutura real, não flutuação.
+(coluna $\Delta$) indica que o AG explora estrutura real, não flutuação;
+separar por completo estrutura de deriva de busca exigiria um controle de
+busca aleatória de mesmo orçamento, que não foi executado.
 
 \section{DRI-SL \textit{versus} aleatório e envelope do AG}
 \label{sec:res-l0-drisl}
@@ -130,14 +134,14 @@ rótulos, Seção~\ref{sec:metodo-drisl}) com o envelope do AG.
 
 \begin{table}[htb]
 \centering
-\caption{\textit{Cold start}: DRI-SL vs.\ envelope do AG (última geração),
+\caption{Partida a frio: DRI-SL vs.\ envelope do AG (última geração),
 até $|L_0|=5.000$. Classificador PVBin.}
 \label{tab:drisl-vs-ag}
 \small
 \begin{tabular}{r rr rr rr}
 \toprule
  & \multicolumn{2}{c}{\textbf{DRI-SL}} & \multicolumn{2}{c}{\textbf{AG (melhor)}} & \multicolumn{2}{c}{\textbf{AG (pior)}} \\
-\textbf{$|L_0|$} & Acc & Macro F1 & Acc & Macro F1 & Acc & Macro F1 \\
+\textbf{$|L_0|$} & Acurácia & Macro F1 & Acurácia & Macro F1 & Acurácia & Macro F1 \\
 \midrule
 100   & 41,23\% & 6,85\%  & 36,71\% & 5,39\%  & 10,86\% & 1,19\% \\
 500   & 59,22\% & 18,45\% & 56,00\% & 18,01\% & 36,17\% & 6,52\% \\
@@ -152,7 +156,8 @@ O resultado central da partida a frio: \textbf{o DRI-SL supera não só a amostr
 aleatória média, mas o próprio melhor indivíduo encontrado pelo AG} em todos os
 tamanhos de 100 a 5.000 (ex.: $I=1.000$: $67{,}4\%$ vs.\ $62{,}2\%$ de
 acurácia). Uma heurística construtiva de custo linear e sem acesso a rótulos
-supera um otimizador evolutivo com 5.000 avaliações supervisionadas, forte
+supera um otimizador evolutivo com 2.000 avaliações supervisionadas por
+cenário, forte
 indício de que densidade semântica + variedade lexical capturam exatamente a
 estrutura que torna um $L_0$ informativo. Há uma ressalva metodológica: os
 valores do AG aqui reportados herdam o protocolo original (aptidão e relato na
@@ -174,7 +179,7 @@ trabalhos, o que essa literatura leva a esperar.
 
 A surpresa está no adversário que a heurística supera. O AG não é um competidor
 fraco: otimiza a composição com acesso direto aos rótulos e à aptidão final,
-ao custo das 5.000 avaliações supervisionadas por cenário, e ainda assim
+ao custo das 2.000 avaliações supervisionadas por cenário, e ainda assim
 perde para uma heurística que não consulta rótulo algum. A literatura sugere
 a explicação: mesmo a incerteza calculada por um modelo treinado no conjunto
 inteiro perde da aleatória no orçamento baixo \citep{Hacohen2022TypiClust},
@@ -234,7 +239,8 @@ independente (10 rep., protocolo com deduplicação). Acurácia média.}
 A concordância entre as duas execuções (Tabela~\ref{tab:replay-vs-original})
 valida de forma independente tanto o estudo original quanto o porte do
 classificador para a biblioteca nova: a diferença fica em $\le 0{,}7$ p.p.\ em
-todos os tamanhos, sempre no sentido esperado, pois o protocolo com deduplicação
+todos os tamanhos, sempre no sentido esperado, pois a deduplicação remove
+quase-duplicatas que inflavam a concordância entre treino e teste, e o protocolo com deduplicação
 é ligeiramente mais difícil. A fidelidade do porte foi adicionalmente
 verificada por igualdade exata das matrizes de escore entre implementações.
 
@@ -267,7 +273,7 @@ conservadora.
 (i) A composição de $L_0$ tem efeito grande e mensurável no regime pequeno
 (amplitude de $6{,}4$ p.p.\ em $I=100$ só por sorteio), decaindo com o tamanho;
 (ii) o envelope evolutivo confirma espaço explorável de dezenas de pontos
-percentuais entre composições boas e ruins; (iii) o DRI-SL captura esse espaço
+percentuais entre composições boas e ruins no regime pequeno; (iii) o DRI-SL captura esse espaço
 sem usar rótulos, superando o melhor indivíduo do AG até $I=5.000$, e é por
 isso a estratégia da Fase~1 do FALCO; (iv) a reexecução independente reproduz
 os três achados e quantifica o viés de circularidade do protocolo original de
