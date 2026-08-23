@@ -18,24 +18,29 @@ de desempenho alcançável pela composição.
   (200 no caso $|L_0|=10$, o único que difere), o que dá 2.000 avaliações
   supervisionadas por cenário (4.000 no caso $|L_0|=10$); valores
   confirmados contra o artefato da corrida canônica
-  (\texttt{individual\_id} 0..19). A reexecução independente usa
+  (\texttt{individual\_id} 0..19). A população é o único parâmetro sem
+  fonte de configuração: o valor reportado (20) é o do artefato da corrida,
+  não o da configuração versionada. No caso $|L_0|=10$, a tabela do
+  Capítulo~\ref{ch:resultados-l0} reporta, como nas demais células, a
+  100\textsuperscript{a} geração ($18{,}82\%$); a corrida desse caso segue
+  até a 200\textsuperscript{a}, em que o melhor indivíduo alcança
+  $19{,}20\%$. A reexecução independente usa
   configuração reduzida de $N_{pop}=30$ por 40 gerações (decisão D-002 do
   registro de decisões);
-  \item \textbf{seleção}: torneio de tamanho $k_t=3$, valor consistente com
-  as configurações conhecidas do código, não confirmável contra o artefato
-  da corrida canônica;
-  \item \textbf{cruzamento}: um ponto sobre a lista de índices, seguido de
-  \emph{reparo de unicidade} (índices repetidos são substituídos por
-  sorteio até restaurar $|L_0|=I$); a probabilidade $p_c=0{,}8$ aqui
-  descrita vem do arquivo de configuração remanescente de uma geração
-  anterior do experimento e não é confirmável contra o artefato da corrida
-  canônica (o valor padrão do código é $0{,}7$);
-  \item \textbf{mutação}: com probabilidade $p_m=0{,}1$ (consistente com as
-  configurações conhecidas do código, não confirmada contra o artefato),
-  substituição de $m_s=\max(1,\lceil 0{,}01 \cdot I\rceil)$ genes por
-  índices inéditos;
-  \item \textbf{elitismo}: $10\%$ ($N_{elite}=2$, decorrente da população
-  de 20).
+  \item \textbf{seleção}: torneio de tamanho $k_t=3$, definido no
+  \textit{notebook} que executou as corridas, que sempre o passa (o arquivo
+  de configuração em JSON fixa apenas o tamanho de $L_0$);
+  \item \textbf{cruzamento}: um ponto sobre a lista de índices, com
+  probabilidade $p_c=0{,}8$ definida no \textit{notebook} da corrida (o
+  valor padrão da classe é $0{,}7$, sempre sobrescrito pelo
+  \textit{notebook}), seguido de \emph{reparo de unicidade} (índices
+  repetidos são substituídos por sorteio até restaurar $|L_0|=I$);
+  \item \textbf{mutação}: com probabilidade $p_m=0{,}1$, definida no
+  \textit{notebook} da corrida, substituição de
+  $m_s=\max(1,\lceil 0{,}01 \cdot I\rceil)$ genes por índices inéditos (a
+  fórmula de $m_s$ é o ramo dinâmico do \textit{notebook});
+  \item \textbf{elitismo}: $10\%$, definido no \textit{notebook}
+  ($N_{elite}=2$, decorrente da população de 20).
 \end{itemize}
 
 \section{Pseudocódigo}
