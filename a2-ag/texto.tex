@@ -8,7 +8,7 @@ Aptidão: desempenho (Acurácia ou Macro F1) do classificador PVBin treinado no
 indivíduo e avaliado em partição de \textbf{aferição} disjunta do conjunto de
 teste (protocolo anticircularidade; ver Seção~\ref{sec:res-l0-replay} para a
 quantificação do viés do protocolo ingênuo). Quatro cenários: maximização e
-minimização de cada métrica — o par (max, min) delimita o envelope empírico
+minimização de cada métrica: o par (max, min) delimita o envelope empírico
 de desempenho alcançável pela composição.
 
 \section{Operadores e parâmetros}
@@ -33,7 +33,7 @@ de desempenho alcançável pela composição.
   \item Por geração: copiar elite; completar a população por
   torneio $\to$ cruzamento $\to$ reparo $\to$ mutação; reavaliar.
   \item Ao final, \textbf{reavaliar o melhor indivíduo no conjunto de teste
-  intocado} — o valor reportado como envelope é este, não a aptidão.
+  intocado}; o valor reportado como envelope é este, não a aptidão.
 \end{enumerate}
 
 Implementação de referência da reexecução:

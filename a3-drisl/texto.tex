@@ -17,9 +17,9 @@ de grupos $N_c$ (padrão $\max(2, \lfloor\sqrt{I}\rfloor)$); semente.
   ajuste do resto pelas maiores frações).
   \item \textbf{Variedade lexical intragrupo}: para cada grupo $c$, computar o
   perfil TF--IDF médio; selecionar iterativamente, entre os membros ainda não
-  escolhidos, o texto que maximiza o \emph{escore de novidade} — a soma dos
+  escolhidos, o texto que maximiza o \emph{escore de novidade} (a soma dos
   pesos, no perfil do grupo, dos termos que o texto introduz e que ainda não
-  estão cobertos pelos já selecionados; atualizar o conjunto de termos
+  estão cobertos pelos já selecionados); atualizar o conjunto de termos
   cobertos; repetir até preencher $q_c$.
 \end{enumerate}
 
@@ -30,12 +30,12 @@ esparsas.
 
 \section{Intuição}
 
-A etapa 1 garante \emph{representatividade}: cada região semântica do pool
-contribui proporcionalmente — nenhum agrupamento relevante fica de fora do
-$L_0$. A etapa 2 garante \emph{não redundância}: dentro da região, evita
-quase-duplicatas (frequentes no domínio: 7,7\% de duplicatas exatas) e força
-cobertura de vocabulário — que, para um classificador por protótipo como o
-PVBin, é exatamente o recurso que constrói fronteiras. A combinação explica o
+A etapa 1 garante \emph{representatividade}: como o número de grupos é
+$N_c = \max(2, \lfloor\sqrt{I}\rfloor)$ e cada grupo não vazio tem cota mínima
+de um, nenhum agrupamento fica de fora do $L_0$. A etapa 2 \emph{reduz} a
+redundância: dentro da região, evita quase-duplicatas (frequentes no domínio:
+7,7\% de duplicatas exatas) e força a cobertura de vocabulário, o recurso que,
+para um classificador por protótipo como o PVBin, constrói as fronteiras. A combinação explica o
 resultado do Capítulo~\ref{ch:resultados-l0}: cobertura semântica dá o
 esqueleto de classes; cobertura lexical dá o poder discriminativo por classe.
 
