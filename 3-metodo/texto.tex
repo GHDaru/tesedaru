@@ -396,49 +396,50 @@ Apêndice~\ref{ap:tabelas} (Tabela~\ref{tab:l0-stats-completa}).
 \subsection{Otimização por algoritmo genético}
 \label{sec:metodo-l0-ag}
 
-Para estimar os \emph{limites} de desempenho alcançáveis pela escolha da composição
-de $L_0$ (inatingíveis por busca exaustiva no espaço combinatório), empregou-se um
-algoritmo genético (AG) \citep{Holland1975,Goldberg1989} sobre indivíduos que representam
-conjuntos de $I$ índices únicos do \textit{pool}. A configuração foi:
-população $N_{pop}=20$ e 100 gerações por cenário (200 gerações no caso
-$|L_0|=10$, o único que difere), valores confirmados contra os artefatos
-das corridas, sendo a população o único parâmetro sem fonte de
-configuração (o valor reportado é o do artefato, não o da configuração
-versionada); seleção por torneio de tamanho $k_t=3$, cruzamento de um
-ponto com probabilidade $p_c=0{,}8$ e reparo de unicidade, e mutação com
-probabilidade $p_m=0{,}1$ substituindo
-$m_s=\max(1,\lceil 0{,}01 \cdot I\rceil)$ genes, parâmetros definidos no
-\textit{notebook} que executou as corridas, que sempre os passa (o arquivo
-de configuração em JSON fixa apenas o tamanho de $L_0$; o valor padrão da
-classe para o cruzamento é $0{,}7$, sempre sobrescrito pelo
-\textit{notebook}); e elitismo de $10\%$ ($N_{elite}=2$), também definido
-no \textit{notebook}. Quatro cenários foram otimizados (maximização e minimização de
-Acurácia e de Macro F1) para dez tamanhos de $L_0$ entre 10 e 30.000. A função de
-aptidão é avaliada em uma \textbf{partição de aferição disjunta do conjunto de
-teste}: otimizar e reportar na mesma partição superajustaria o envelope ao
-conjunto de avaliação (circularidade); por isso, os indivíduos finais de cada
-cenário são \emph{reavaliados} no conjunto de teste intocado, e é esse valor,
-tipicamente inferior ao de aptidão, que os capítulos de resultados reportam como
-envelope. O fluxo completo e os operadores são formalizados no
-Apêndice~\ref{ap:ag}.
+O sorteio mostra o que a composição de $L_0$ faz em média; falta saber até onde
+ela pode ir. Como o espaço de composições é combinatório e a busca exaustiva é
+inviável, esses limites são estimados por um algoritmo genético (AG)
+\citep{Holland1975,Goldberg1989}, em que cada indivíduo é um conjunto de $I$
+índices únicos do \textit{pool}.
 
+A configuração usa população de 20 indivíduos e 100 gerações por cenário (200
+gerações no caso $|L_0|=10$, o único que difere), com seleção por torneio,
+cruzamento de um ponto seguido de reparo de unicidade e mutação proporcional ao
+tamanho de $L_0$. Os operadores e seus parâmetros estão no
+Apêndice~\ref{ap:ag}. Uma ressalva de reprodutibilidade acompanha a população:
+o valor 20 vem do artefato das corridas, não da configuração versionada.
+
+Foram otimizados quatro cenários (maximização e minimização de Acurácia e de
+Macro F1) para dez tamanhos de $L_0$ entre 10 e 30.000.
+
+A aptidão não é medida no conjunto de teste. Otimizar e reportar na mesma
+partição superajustaria o envelope ao conjunto de avaliação, que é o problema
+da circularidade; por isso a aptidão é avaliada em uma \textbf{partição de
+aferição disjunta do teste}, e os indivíduos finais de cada cenário são
+\emph{reavaliados} no teste intocado. É esse segundo valor, tipicamente
+inferior ao de aptidão, que os capítulos de resultados reportam como envelope.
 \section{Partida a frio sem rótulos: o algoritmo DRI-SL}
 \label{sec:metodo-drisl}
 
 O DRI-SL (\textit{Diversidade Representativa Inicial via densidade Semântica e
 variedade Lexical}) constrói um $L_0$ de tamanho alvo $I$ a partir de $U_0$ sem
-acesso a rótulos, combinando dois espaços de representação: (i) \textbf{densidade
-semântica}, em que as instâncias são projetadas por um codificador de sentenças
-\citep{Reimers2019SBERT} e agrupadas por $k$-médias em $N_c$ grupos, com alocação de
-amostras proporcional ao tamanho de cada grupo; e (ii) \textbf{variedade lexical
-intragrupo}, em que, dentro de cada grupo, as amostras são escolhidas iterativamente
-maximizando a introdução de termos relevantes ainda não cobertos (escore de
-novidade ponderado pelo perfil TF--IDF do grupo). A formalização, o pseudocódigo e
-as decisões de implementação constam do Apêndice~\ref{ap:drisl}. O DRI-SL é a
-estratégia da Fase~1 do FALCO (a máquina de fases é descrita na
-Seção~\ref{sec:metodo-falco-fases}) e é avaliado contra a amostragem aleatória e
-contra o envelope de desempenho estimado pelo algoritmo genético, que atua
-como limite empírico de referência.
+acesso a rótulo algum. Ele combina dois espaços de representação, um semântico
+e outro lexical, porque nenhum dos dois isolado dá conta: cobrir os temas do
+conjunto não garante cobrir o vocabulário, e o inverso também vale.
+
+A \textbf{densidade semântica} cuida do primeiro: as instâncias são projetadas
+por um codificador de sentenças \citep{Reimers2019SBERT} e agrupadas por
+$k$-médias em $N_c$ grupos, com alocação de amostras proporcional ao tamanho de
+cada grupo. A \textbf{variedade lexical intragrupo} cuida do segundo: dentro de
+cada grupo, as amostras são escolhidas iterativamente maximizando a introdução
+de termos relevantes ainda não cobertos, por um escore de novidade ponderado
+pelo perfil TF--IDF do grupo. A formalização, o pseudocódigo e as decisões de
+implementação constam do Apêndice~\ref{ap:drisl}.
+
+O DRI-SL é a estratégia da Fase~1 do FALCO (a máquina de fases é descrita na
+Seção~\ref{sec:metodo-falco-fases}). Ele é avaliado contra a amostragem
+aleatória e contra o envelope estimado pelo algoritmo genético, que atua como
+limite empírico de referência.
 
 \section{LLMs como oráculo de rotulagem}
 \label{sec:metodo-oraculo}
@@ -486,48 +487,58 @@ artefato de calibração que acompanha o repositório de código.
 \subsection{Desenho fatorial da avaliação de oráculos}
 \label{sec:metodo-oraculo-desenho}
 
-A avaliação responde a quatro perguntas: (RQ1) a acurácia e o Macro F1 de cada LLM
-candidato, com intervalos de confiança e comparações pareadas; (RQ2) o custo por mil
-rótulos e a latência; (RQ3) o perfil de erro por classe (matriz de confusão, taxa de
-rótulos inválidos); e (RQ4) o efeito do instrumento de medição (enum \textit{versus}
-free, mesmas instâncias). Os modelos candidatos abrangem três regimes de custo:
-APIs comerciais (gpt-4o-mini e gpt-4o), modelos servidos por
-plataformas de modelo como serviço (\textit{Model-as-a-Service}, MaaS:
-DeepSeek-V4-Flash, DeepSeek-V4-Pro e GLM-5.2) e o regime de
-custo zero via agregador (representado pela variante \textit{free} do
-Nemotron-3-Ultra; a redução de escopo deste braço, imposta pela vazão do plano
-gratuito, é registrada na decisão D-005 e discutida nos resultados).
+A avaliação responde a quatro perguntas: (RQ1) a acurácia e o Macro F1 de cada
+LLM candidato, com intervalos de confiança e comparações pareadas; (RQ2) o
+custo por mil rótulos e a latência; (RQ3) o perfil de erro por classe (matriz
+de confusão, taxa de rótulos inválidos); e (RQ4) o efeito do instrumento de
+medição (enum \textit{versus} free, nas mesmas instâncias).
 
-Duas amostras pareadas (todos os modelos rotulam \emph{as mesmas} instâncias) são
-usadas: \textbf{S-rand} ($n=1.000$, amostragem aleatória simples), que preserva a
-distribuição de produção e serve a RQ1/RQ2/RQ4; o tamanho é dimensionado pela
-precisão exigida da medição: com $n=1.000$, a meia-largura do IC de Wilson é de
-no máximo $\approx 3$ p.p.\ (pior caso $p=0{,}5$; $\approx 2{,}5$ p.p.\ no platô
-observado), suficiente para separar os oráculos do limiar de 85\% do critério
-de aprovação (Seção~\ref{sec:metodo-oraculo-decisao}) e
-entre regimes de custo, com custo pareado de anotação linear no número de
-modelos; e \textbf{S-strat} (3 por classe,
-$n \approx 1.863$), que dá suporte por classe ao Macro F1 e à matriz de confusão
-(RQ3), necessária porque, com 621 classes, a amostra aleatória deixa a maioria das
-classes sem representação; três instâncias por classe é o mínimo que distingue
-erro sistemático de classe (0/3, 3/3) de erro esporádico (1/3, 2/3), e valores
-maiores dobrariam ou triplicariam o custo pareado de \emph{todos} os oráculos
-sem alterar as decisões (a sensibilidade do gabarito, Seção~\ref{sec:metodo-dados-auditoria},
-limita o ganho de precisão adicional). A temperatura é fixada em 0 em todos os modelos.
+Os modelos candidatos abrangem três regimes de custo: APIs comerciais
+(gpt-4o-mini e gpt-4o); modelos servidos por plataformas de modelo como serviço
+(\textit{Model-as-a-Service}, MaaS: DeepSeek-V4-Flash, DeepSeek-V4-Pro e
+GLM-5.2); e o regime de custo zero via agregador, representado pela variante
+\textit{free} do Nemotron-3-Ultra. O escopo desse último braço foi reduzido
+pela vazão do plano gratuito, e a redução é discutida nos resultados.
+
+Todos os modelos rotulam \emph{as mesmas} instâncias, em duas amostras
+pareadas. A \textbf{S-rand} ($n=1.000$, amostragem aleatória simples) preserva
+a distribuição de produção e serve a RQ1, RQ2 e RQ4. A \textbf{S-strat}
+(3 por classe, $n \approx 1.863$) dá suporte por classe ao Macro F1 e à matriz
+de confusão (RQ3).
+
+Cada tamanho responde a uma exigência distinta. O de S-rand vem da precisão
+necessária à medição: com $n=1.000$, a meia-largura do intervalo de Wilson é de
+no máximo $\approx 3$ p.p.\ (pior caso $p=0{,}5$; $\approx 2{,}5$ p.p.\ no
+platô observado), o suficiente para separar os oráculos do limiar de 85\% do
+critério de aprovação (Seção~\ref{sec:metodo-oraculo-decisao}) e para separá-los
+entre regimes de custo, mantendo o custo pareado de anotação linear no número
+de modelos. O de S-strat vem da estrutura do espaço de rótulos: com 621
+classes, a amostra aleatória deixa a maioria sem representação, e três
+instâncias por classe é o mínimo que distingue erro sistemático (0/3, 3/3) de
+erro esporádico (1/3, 2/3). Valores maiores dobrariam ou triplicariam o custo
+pareado de \emph{todos} os oráculos sem alterar as decisões, até porque a
+sensibilidade do gabarito (Seção~\ref{sec:metodo-dados-auditoria}) limita o
+ganho de precisão adicional.
+
+A temperatura é fixada em 0 em todos os modelos.
 
 \subsection{Critério de decisão para o FALCO}
 \label{sec:metodo-oraculo-decisao}
 
-Dessa avaliação deriva a configuração de oráculos do FALCO, por um critério de aprovação
-fixado de antemão, antes de qualquer medição de oráculo, e registrado no
-repositório da tese, adiante referido também como \emph{gate} do oráculo: o
-\textbf{LLM Inicial} é o de
-melhor razão acurácia/custo sujeito a acurácia mínima de $85\%$ na S-rand; o
-\textbf{LLM Avançado} é o de maior acurácia, \emph{desde que} significativamente
-superior ao Inicial (McNemar, $\alpha=0{,}05$); caso contrário, a Fase~3 do
-framework é eliminada e o FALCO opera com oráculo único. Se nenhum modelo atingir o
-limiar, a avaliação de robustez a ruído do oráculo torna-se obrigatória e a
-discussão da tese passa a
+Dessa avaliação deriva a configuração de oráculos do FALCO. O critério de
+aprovação foi fixado de antemão, antes de qualquer medição de oráculo, e
+registrado no repositório da tese. Adiante ele é referido também como
+\emph{gate} do oráculo.
+
+O critério tem duas cláusulas. O \textbf{LLM Inicial} é o de melhor razão
+acurácia/custo entre os que atingem acurácia mínima de $85\%$ na S-rand. O
+\textbf{LLM Avançado} é o de maior acurácia, \emph{desde que} seja
+significativamente superior ao Inicial (McNemar, $\alpha=0{,}05$). Não se
+confirmando essa superioridade, a Fase~3 do framework é eliminada e o FALCO
+opera com oráculo único.
+
+Resta o caso em que nenhum modelo atinge o limiar. Nele, a avaliação de
+robustez a ruído do oráculo torna-se obrigatória, e a discussão da tese passa a
 tratar o aprendizado com oráculo ruidoso como cenário central.
 
 \section{O framework FALCO e sua avaliação}
@@ -643,56 +654,61 @@ como extensão imediata.
 \label{sec:metodo-falco-baselines}
 
 A validação com o classificador forte segue o próprio desenho do FALCO: quem
-executa o laço é o classificador leve, re-treinado a cada lote; o BERTimbau é
-treinado \emph{uma única vez por braço}, sobre o conjunto que o processo
-coletou. Essa decisão, a de manter o classificador forte \emph{fora do laço}, reduz o
-custo computacional sem alterar o objeto medido: mantido o classificador forte
-fora do laço, cada braço custa \emph{um} ajuste fino do BERTimbau, e não um
-ajuste por iteração do ciclo, e é exatamente assim que o framework opera em
-produção. Duas escolhas de régua
-completam o desenho, ambas registradas como decisão metodológica:
-\textbf{(a)} a ``supervisão completa'' de referência é o \emph{pool} de
-50.000 instâncias (o mesmo dos experimentos em escala populacional e do ciclo
-real, com semente e
-embaralhamento idênticos), e não a base inteira, porque o aprendizado ativo só
-enxerga o pool, e compará-lo com um braço treinado na base deduplicada inteira
-(231.490 textos, cerca de $4{,}6\times$ o pool) confundiria o valor da
-\emph{seleção} com o valor de \emph{ter mais dados};
-\textbf{(b)} a avaliação de todos os braços ocorre na \textbf{população
+executa o laço é o classificador leve, re-treinado a cada lote, enquanto o
+BERTimbau é treinado \emph{uma única vez por braço}, sobre o conjunto que o
+processo coletou. Manter o classificador forte \emph{fora do laço} reduz o
+custo computacional sem alterar o objeto medido: cada braço custa \emph{um}
+ajuste fino do BERTimbau, e não um ajuste por iteração do ciclo, que é
+exatamente como o framework opera em produção.
+
+Duas escolhas de régua completam o desenho, ambas registradas como decisão
+metodológica. A primeira é que a ``supervisão completa'' de referência é o
+\emph{pool} de 50.000 instâncias, o mesmo dos experimentos em escala
+populacional e do ciclo real, com semente e embaralhamento idênticos, e não a
+base inteira: o aprendizado ativo só enxerga o pool, e compará-lo com um braço
+treinado na base deduplicada inteira (231.490 textos, cerca de $4{,}6\times$ o
+pool) confundiria o valor da \emph{seleção} com o valor de \emph{ter mais
+dados}. A segunda é que todos os braços são avaliados na \textbf{população
 reservada} ($\approx 177$ mil instâncias fora do pool e fora dos conjuntos de
-validação/teste usados pelo ciclo real nas decisões de parada), com amostra
-estratificada fixa entre braços, acurácia com IC de Wilson e Macro F1, e
+validação e teste usados pelo ciclo real nas decisões de parada), com amostra
+estratificada fixa entre braços, acurácia com intervalo de Wilson e Macro F1, e
 predições persistidas por braço para os pareamentos de McNemar.
 
-O experimento executado compara cinco braços, cada qual um
-ajuste fino do BERTimbau: \textbf{(A)} os itens selecionados e anotados pelo
-\emph{pipeline real} (os ciclos ponta a ponta com oráculo LLM gratuito,
-Apêndice~\ref{ap:parada-laco}, cujo cache de anotações define o conjunto),
-com os rótulos \emph{do oráculo}; \textbf{(B)} os mesmos itens de (A) com
-rótulos do gabarito, de modo que a diferença $A{-}B$ isola o custo do \emph{ruído do
-oráculo} no modelo forte; \textbf{(C)} igual cardinalidade de itens sorteados
-uniformemente do pool, com gabarito, de modo que a diferença $B{-}C$ isola o valor da
-\emph{seleção}; \textbf{(D)} o pool inteiro com gabarito, que é a régua; e
-\textbf{(E)} o prefixo de 15 mil da trajetória de entropia em escala
-populacional, que mede se
-orçamento adicional ajudaria. O critério de aceitação da hipótese central
-torna-se direto: $\mathrm{acc}(A) \ge 0{,}95 \cdot \mathrm{acc}(D)$ na
-métrica do pré-registro, com o Macro F1 acompanhando como análise de
-robustez, e com $|A|$ limitado ao teto de 34.724 rótulos
-(Seção~\ref{sec:intro-hipotese}). Os braços pareados $A$/$B$ cumprem o papel do braço
-\emph{oráculo-total} do desenho original, o de separar ruído de parcimônia, a
-custo de anotação zero, pois reutilizam as anotações reais já pagas. O
-desenho completo original (FALCO, seleção aleatória e seleção por incerteza
-com re-treino do BERTimbau no laço,
-ablações de $L_0$ e de progressão de oráculo, 8 sementes com Wilcoxon pareado
-e \textit{bootstrap} sobre LCE) permanece registrado como extensão para
-hardware dedicado; a comparação executada tem semente única e estatuto
-descritivo, como os experimentos em escala populacional. A avaliação de
-robustez, executada se o critério do
-oráculo indicar ruído relevante, repete o desenho de comparação com oráculo
-simulado de ruído paramétrico $\varepsilon \in \{0; 0{,}1; 0{,}2; 0{,}4\}$,
-quantificando a degradação do aprendizado em função da qualidade do oráculo.
+O experimento executado compara cinco braços, cada qual um ajuste fino do
+BERTimbau sobre um conjunto diferente:
 
+\begin{itemize}
+  \item \textbf{(A) \emph{pipeline} real, rótulos do oráculo}: os itens
+  selecionados e anotados pelos ciclos ponta a ponta com oráculo LLM gratuito
+  (Apêndice~\ref{ap:parada-laco}), cujo cache de anotações define o conjunto;
+  \item \textbf{(B) os mesmos itens de (A), com rótulos do gabarito}: a
+  diferença $A{-}B$ isola o custo do \emph{ruído do oráculo} no modelo forte;
+  \item \textbf{(C) igual cardinalidade de itens sorteados uniformemente do
+  pool, com gabarito}: a diferença $B{-}C$ isola o valor da \emph{seleção};
+  \item \textbf{(D) o pool inteiro, com gabarito}: a régua;
+  \item \textbf{(E) o prefixo de 15 mil da trajetória de entropia} em escala
+  populacional: mede se orçamento adicional ajudaria.
+\end{itemize}
+
+Com esses braços, o critério de aceitação da hipótese central torna-se direto:
+$\mathrm{acc}(A) \ge 0{,}95 \cdot \mathrm{acc}(D)$ na métrica do
+pré-registro, com o Macro F1 acompanhando como análise de robustez e com $|A|$
+limitado ao teto de 34.724 rótulos (Seção~\ref{sec:intro-hipotese}). Os braços
+pareados $A$ e $B$ cumprem o papel do braço \emph{oráculo-total} do desenho
+original, o de separar ruído de parcimônia, a custo de anotação zero, pois
+reutilizam as anotações reais já pagas.
+
+O desenho completo original permanece registrado como extensão para hardware
+dedicado: FALCO, seleção aleatória e seleção por incerteza com re-treino do
+BERTimbau no laço, ablações de $L_0$ e de progressão de oráculo, 8 sementes com
+Wilcoxon pareado e \textit{bootstrap} sobre LCE. A comparação executada tem
+semente única e estatuto descritivo, como os experimentos em escala
+populacional.
+
+A avaliação de robustez, executada se o critério do oráculo indicar ruído
+relevante, repete o desenho de comparação com oráculo simulado de ruído
+paramétrico $\varepsilon \in \{0; 0{,}1; 0{,}2; 0{,}4\}$, quantificando a
+degradação do aprendizado em função da qualidade do oráculo.
 \section{Ameaças à validade}
 \label{sec:metodo-validade}
 
