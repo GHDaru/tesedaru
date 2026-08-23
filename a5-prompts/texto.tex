@@ -3,8 +3,8 @@
 
 \section{Prompt v3 (produção)}
 
-Contexto de tarefa comum a todos os modos (o texto integral e versionado está
-em \texttt{src/activelearning/adapters/oracles/prompt.py}):
+Contexto de tarefa comum a todos os modos (o texto integral e versionado
+acompanha o repositório de código da tese):
 
 \begin{quote}\small
 ``Você é um especialista em catalogação de produtos do varejo brasileiro. As
@@ -28,12 +28,12 @@ O prefixo estático (contexto + esquema) precede o item variável, habilitando o
 \textbf{enum}: saída estruturada com \texttt{strict:true}; o campo
 \texttt{predicted\_category} é restrito por \texttt{enum} às 621 categorias do
 \textit{CategorySchema}; campos \texttt{expanded\_description} e
-\texttt{rationale} completam o objeto (todos obrigatórios — exigência do modo
+\texttt{rationale} completam o objeto (todos obrigatórios, exigência do modo
 estrito). \textbf{json-prompt} (provedores sem saída estruturada): a lista de
 categorias e o formato JSON são instruídos no texto; a resposta passa por
 extração tolerante e validação exata contra o esquema, com rótulos fora do
 espaço contabilizados como inválidos. \textbf{free} (somente RQ4): saída
-estruturada sem \texttt{enum} — réplica controlada do instrumento defeituoso
+estruturada sem \texttt{enum}: réplica controlada do instrumento defeituoso
 do trabalho anterior. Na rotulagem em lote, os itens são numerados e a
 resposta é um vetor indexado; o esquema do lote não fixa
 \texttt{minItems}/\texttt{maxItems} para preservar a cacheabilidade do
@@ -46,5 +46,5 @@ anatomia de erros (ex.: medicamentos $\to$ \textit{outro farma}; produto
 bucal líquido $\to$ \textit{antisseptico bucal}; pó para suco $\to$
 \textit{preparo para suco}; fones com fio $\to$ \textit{acessorio de audio});
 \textbf{v4b} soma dez exemplos \emph{inventados} de fronteiras difíceis
-(nunca instâncias das amostras de avaliação — decisão D-004). Texto integral
+(nunca instâncias das amostras de avaliação, decisão D-004). Texto integral
 das variantes no mesmo módulo versionado.

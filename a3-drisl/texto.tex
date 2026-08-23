@@ -3,7 +3,7 @@
 
 \section{Objetivo e entradas}
 
-Construir $L_0$ de tamanho alvo $I$ a partir do pool não rotulado $U$, sem
+Construir $L_0$ de tamanho alvo $I$ a partir do \textit{pool} não rotulado $U$, sem
 acesso a rótulos. Entradas: textos de $U$; codificador de sentenças $\phi$
 (SBERT multilíngue \citep{Reimers2019SBERT} na configuração da tese); número
 de grupos $N_c$ (padrão $\max(2, \lfloor\sqrt{I}\rfloor)$); semente.
@@ -39,7 +39,6 @@ para um classificador por protótipo como o PVBin, constrói as fronteiras. A co
 resultado do Capítulo~\ref{ch:resultados-l0}: cobertura semântica dá o
 esqueleto de classes; cobertura lexical dá o poder discriminativo por classe.
 
-Implementação de referência:
-\texttt{src/activelearning/adapters/strategies/drisl.py} (com codificador
-alternativo TF--IDF+SVD para ambientes leves), testes em
-\texttt{tests/unit/test\_drisl.py}.
+A implementação de referência acompanha o repositório de código da tese, com
+codificador alternativo TF--IDF+SVD para ambientes leves e testes unitários
+dedicados.

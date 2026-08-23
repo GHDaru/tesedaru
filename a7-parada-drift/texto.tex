@@ -15,7 +15,7 @@ O laço encerra a aquisição de rótulos pelo primeiro de três gatilhos:
 $\varepsilon_{\max}=10^{-3}$ por $p=5$ iterações consecutivas
 (Capítulo~\ref{ch:metodo} para o racional das constantes); o conjunto
 de teste jamais participa; \textbf{(ii) orçamento}: teto absoluto de rótulos
-$B$; \textbf{(iii) exaustão do pool}. O racional do gatilho (i) é
+$B$; \textbf{(iii) exaustão do \textit{pool}}. O racional do gatilho (i) é
 estatístico: o ganho marginal por lote decai ao longo da curva de
 aprendizado, enquanto o custo marginal do rótulo é constante; quando o ganho
 observável cai abaixo da resolução do próprio conjunto de validação
@@ -32,8 +32,8 @@ foi exercitado em duas execuções ponta a ponta da biblioteca, ambas com
 $\approx 78\%$): com orçamento de 1.000, encerrou o ciclo em 991 rótulos
 (PVBin) e 982 (SGD); com orçamento de 15.000, encerrou em \textbf{6.009}
 rótulos (PVBin) e \textbf{4.742} (SGD), 32--40\% do orçamento, com as
-curvas de validação e teste estagnadas em conjunto. Os artefatos estão no
-repositório (\texttt{experiments/e5cycle}).
+curvas de validação e teste estagnadas em conjunto. Os artefatos acompanham o
+repositório de código da tese.
 
 \section{Critério de liberação do modelo}
 \label{ap:liberacao}
@@ -42,7 +42,7 @@ Recomenda-se liberar o modelo para produção quando três condições valem
 simultaneamente: \textbf{(a)} a estagnação foi atingida (o modelo parou de
 melhorar com o oráculo disponível); \textbf{(b)} o desempenho de validação
 alcança o alvo externo de negócio; na ausência de alvo, o teto empírico do
-braço \emph{oráculo-total} (treinar com todo o pool rotulado pelo mesmo
+braço \emph{oráculo-total} (treinar com todo o \textit{pool} rotulado pelo mesmo
 oráculo, ao custo de inferência apenas) indica o máximo que \emph{este}
 oráculo permite: estagnar perto dele significa que mais rótulos não ajudam,
 apenas um oráculo melhor; \textbf{(c)} o intervalo de confiança de Wilson do

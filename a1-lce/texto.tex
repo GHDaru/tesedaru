@@ -17,7 +17,7 @@ em que a integral do numerador ($\mathrm{AUC}_{\mathrm{real}}$) é calculada
 numericamente pela regra composta de Simpson sobre os pontos observados (com
 recuo para a regra do trapézio quando $K=2$) e
 $\mathrm{Perf}_{\mathrm{baseline}}$ é o desempenho do MESMO classificador
-treinado com supervisão completa do pool. O denominador é a área da curva
+treinado com supervisão completa do \textit{pool}. O denominador é a área da curva
 ideal: desempenho de referência atingido instantaneamente no início do
 processo ($L_{\mathrm{ideal},0} = n_1$). A Figura~\ref{fig:ap-lce-geometria}
 ilustra essa geometria.
@@ -56,6 +56,5 @@ Challenge} \citep{Guyon2011ALC} também sumariza a curva por área normalizada.
 As diferenças da LCE: normalização pelo baseline de supervisão completa do
 próprio par (a ALC normaliza pelo máximo global da métrica) e integração de
 Simpson na grade observada (a ALC interpola em escala logarítmica de
-consultas). A implementação de referência está em
-\texttt{src/activelearning/domain/metrics.py} (função \texttt{lce}), com
-testes unitários de propriedades.
+consultas). A implementação de referência acompanha o repositório de código
+da tese, com testes unitários de propriedades.

@@ -1,7 +1,7 @@
 {
  "schema": "plano-revisao/v1",
  "versao": 94,
- "atualizado_em": "2026-08-23T18:35:00Z",
+ "atualizado_em": "2026-08-23T19:50:00Z",
  "atualizado_por": "principal",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
@@ -74,8 +74,8 @@
    "medida": "797 palavras",
    "rodadas": {
     "R1": {
-     "status": "pendente",
-     "nota": "11 travessões (medido direto no arquivo; a nota antiga do agregado citava 16 — divergência a conferir com quem escreveu)"
+     "status": "feito",
+     "nota": "Fluidez gateada @e68150e (revisor1): densidade -34%, parágrafo único, PT/EN espelhados, freeze (dígitos idênticos). BLOQ de norma SiBi (>500 palavras) -> P-09 na matriz."
     },
     "R2": {
      "status": "pendente",
@@ -117,8 +117,8 @@
    "medida": "773 palavras",
    "rodadas": {
     "R1": {
-     "status": "pendente",
-     "nota": "11 travessões (medido direto no arquivo; a nota antiga do agregado citava 16 — divergência a conferir com quem escreveu)"
+     "status": "feito",
+     "nota": "Fluidez gateada @e68150e (revisor1): densidade -34%, parágrafo único, PT/EN espelhados, freeze (dígitos idênticos). BLOQ de norma SiBi (>500 palavras) -> P-09 na matriz."
     },
     "R2": {
      "status": "pendente",
@@ -802,8 +802,8 @@
    "medida": "295 palavras",
    "rodadas": {
     "R1": {
-     "status": "andamento",
-     "nota": "apendices despachados 2026-08-23; mapa de aplicabilidade (n/a) por revisor1/revisor2"
+     "status": "feito",
+     "nota": "R1/R2/R6 de forma gateados @e68150e (revisor2)."
     },
     "R2": {
      "status": "pendente"
@@ -840,8 +840,8 @@
    "medida": "217 palavras",
    "rodadas": {
     "R1": {
-     "status": "andamento",
-     "nota": "apendices despachados 2026-08-23; mapa de aplicabilidade (n/a) por revisor1/revisor2"
+     "status": "feito",
+     "nota": "R1/R2/R6 de forma gateados @e68150e (revisor2)."
     },
     "R2": {
      "status": "pendente"
@@ -878,8 +878,8 @@
    "medida": "276 palavras",
    "rodadas": {
     "R1": {
-     "status": "andamento",
-     "nota": "apendices despachados 2026-08-23; mapa de aplicabilidade (n/a) por revisor1/revisor2"
+     "status": "feito",
+     "nota": "R1/R2/R6 de forma gateados @e68150e (revisor2)."
     },
     "R2": {
      "status": "pendente"
@@ -916,8 +916,8 @@
    "medida": "291 palavras",
    "rodadas": {
     "R1": {
-     "status": "andamento",
-     "nota": "apendices despachados 2026-08-23; mapa de aplicabilidade (n/a) por revisor1/revisor2"
+     "status": "feito",
+     "nota": "R1/R2/R6 de forma gateados @e68150e (revisor2)."
     },
     "R2": {
      "status": "pendente"
@@ -994,8 +994,8 @@
    "medida": "2275 palavras",
    "rodadas": {
     "R1": {
-     "status": "andamento",
-     "nota": "apendices despachados 2026-08-23; mapa de aplicabilidade (n/a) por revisor1/revisor2"
+     "status": "feito",
+     "nota": "R1/R2/R6 de forma gateados @e68150e (revisor2)."
     },
     "R2": {
      "status": "pendente"
@@ -1032,8 +1032,8 @@
    "medida": "606 palavras",
    "rodadas": {
     "R1": {
-     "status": "andamento",
-     "nota": "apendices despachados 2026-08-23; mapa de aplicabilidade (n/a) por revisor1/revisor2"
+     "status": "feito",
+     "nota": "R1/R2/R6 de forma gateados @e68150e (revisor2)."
     },
     "R2": {
      "status": "pendente"
