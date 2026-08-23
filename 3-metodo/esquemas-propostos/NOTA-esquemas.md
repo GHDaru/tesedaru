@@ -226,6 +226,33 @@ em corpo 10 — re-verificar em corpo 12 ANTES de qualquer inserção na tese.
 As prévias `preview-esq-ag-envelope.png` e `preview-esq-lce.png` agora são
 renders em corpo 12.
 
+## Passe de excelência no Apêndice A (ordem do autor, 2026-08-23)
+
+Extensão do passe do Apêndice B ao `a1-lce/texto.tex` (mesmo goal: figura +
+conteúdo + fluidez + compreensão + rigor):
+- **Forma/humanização**: título com o estrangeirismo em itálico
+  (`\textit{Learning Curve Efficiency}` via `\texorpdfstring`); "MESMO
+  classificador" em caixa alta virou ênfase acadêmica (`\emph{mesmo}`); a
+  Definição agora ABRE dizendo para que a métrica serve (um escalar para
+  comparar e ordenar estratégias) antes do "Seja uma execução...".
+- **Compreensão**: as quatro propriedades, antes espremidas num parágrafo
+  "(i)...(iv)", viraram lista com nomes (Imagem; Invariância de escala;
+  Comparabilidade entre tetos distintos; Dependência do intervalo); a
+  invariância ganhou a justificativa de uma linha (numerador e denominador
+  escalam pelo mesmo fator).
+- **Autocontenção**: o símbolo $T$ (notação do Cap. 3) saiu da Definição
+  ("conjunto de teste, fixo ao longo das iterações").
+- **Legenda da figura**: repetia a fórmula da AUC_ideal (que já está na
+  caixa da figura e na Equação A.1) — virou prosa ("de altura Perf, base
+  L_final − L_ideal,0"), removendo a redundância e um overfull de legenda.
+- **Medidas reais confirmadas**: o ppginf tem textwidth de 16cm (a4,
+  margens 2+2cm + lombada 1cm) — os invólucros de prévia foram ajustados
+  de 15cm para 16cm. Com isso, Apêndices A e B compilam com **0 erros e
+  0 overfull**. O último overfull (1,89pt) estava DENTRO do nó da fórmula
+  do esq-lce (o `\mbox` mede ~64,7mm): caixa alargada para 66mm.
+- Sem mudança de conteúdo técnico: equação, propriedades (afirmações),
+  relação com a ALC e a frase da implementação de referência intactas.
+
 ## Loop de melhoria com goal (registro, como a tarefa pede)
 
 Goal: "muito boa e ilustrativa" = fluxo inequívoco, rótulos claros, coerente
