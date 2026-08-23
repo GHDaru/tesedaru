@@ -12,6 +12,8 @@ de lá): antes dela, 8 números da metodologia ficavam invisíveis à checagem.
 
 Uso: python3 scripts/mede-freeze-tex.py <antes.tex> <depois.tex>
 """
+import re, sys, collections
+
 def sig(t):
     t = re.sub(r'(?m)(?<!\\)%.*$','',t)
     nums = re.findall(r'(?<![A-Za-z0-9_])\d+(?:[.,]\d+)*(?![A-Za-z0-9_])', t)
@@ -19,10 +21,15 @@ def sig(t):
     ckeys = [k.strip() for c in cites for k in c.split(',')]
     refs  = re.findall(r'\\(?:ref|autoref|eqref|pageref)\{([^}]*)\}', t)
     labs  = re.findall(r'\\label\{([^}]*)\}', t)
-    return nums, ckeys, refs, labs
+    # enfase: o principal exige \emph e \textbf identicos numa edicao de forma.
+    # Conta OCORRENCIAS (nao o conteudo): reescrever uma frase pode mover a
+    # enfase de lugar, mas nao pode criar nem apagar enfase.
+    emph  = ['\\emph'] * len(re.findall(r'\\emph\{', t))
+    bold  = ['\\textbf'] * len(re.findall(r'\\textbf\{', t))
+    return nums, ckeys, refs, labs, emph, bold
 a = sig(open(sys.argv[1],encoding='utf-8').read())
 b = sig(open(sys.argv[2],encoding='utf-8').read())
-nomes=['numeros','citacoes','refs','labels']
+nomes=['numeros','citacoes','refs','labels','emph','textbf']
 ok=True
 for n,x,y in zip(nomes,a,b):
     ca,cb = collections.Counter(x), collections.Counter(y)
