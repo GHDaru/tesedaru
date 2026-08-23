@@ -1,7 +1,7 @@
 {
  "schema": "plano-revisao/v1",
  "versao": 94,
- "atualizado_em": "2026-08-24T17:25:00Z",
+ "atualizado_em": "2026-08-24T17:40:00Z",
  "atualizado_por": "principal",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
@@ -316,7 +316,7 @@
    "rodadas": {
     "R1": {
      "status": "feito",
-     "nota": "59→4 travessões (mergeado 2026-08-17) + títulos sem código + 2 figuras TikZ aceitas pelo autor"
+     "nota": "R1 de forma (travessões) aplicado pelo principal, aprovado pelo autor via laudo humanize: 6 conversões de prosa (l.46 dois-pontos; l.175-176 e l.304 parênteses; rótulos Fase 1/2/3 parênteses). Restam só os --- da tab:metodo-experimentos (formatação de tabela, fora de escopo). Demais tells (paralelismo negativo, filler, vocabulário-IA, regra de três, gerúndio, cópula): ausentes/legítimos."
     },
     "R2": {
      "status": "feito",
