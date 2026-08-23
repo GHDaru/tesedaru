@@ -83,6 +83,45 @@ revertido para 44mm com quebras forçadas curtas. Render final: 0 erros,
 0 overfull, nenhuma sobreposição. **Julgo "muito boa e ilustrativa".**
 Evidência: `preview-esq-drisl.png`.
 
+## Esquema 4 — `esq-preproc-espacos-rotulos.tex` (pedido do autor, 2026-08-23)
+
+**O que esclarece**: a Seção 3.2.3 é a mais densa em contagens do capítulo de
+dados; a figura mostra a estrutura que as organiza — a MESMA base normalizada
+bifurca em dois espaços de rótulos com papéis distintos: o `CategorySchema`
+de 621 categorias (contado sobre as linhas, com a sentinela `_rare_`), que
+governa os oráculos, e a visão populacional deduplicada (231.490 textos
+únicos, 714 classes presentes, sem `_rare_`), que governa os experimentos do
+Capítulo 5. A nota de rodapé da figura carrega as duas chaves de texto e a
+receita executável (`scripts/check_dataset.py`). Todos os números são os da
+própria seção. **Onde entra**: fim da Seção `sec:metodo-dados-preproc`.
+
+**Loop**: referência-adiante das setas da bifurcação pega antes de compilar;
+render 1 reprovado (setas atravessavam os títulos das colunas — os títulos
+viraram a 1ª linha das próprias caixas; hifenizações); render 2 reprovado
+(quebra forçada mais larga que a caixa re-quebrou "catego-rias" — linhas
+recalibradas); render 3 aprovado.
+
+## Esquema 5 — `esq-l0-tres-origens.tex` (pedido do autor: "um do P2")
+
+**Interpretação de "P2"** (registrada porque o termo não aparece no Cap. 3):
+no vocabulário da defesa (`apresentacao/defesa.tex`) e do `principal.tex`,
+P1 = sensibilidade do conjunto inicial + envelope do AG e P2 = partida a
+frio DRI-SL. Como o ALGORITMO do DRI-SL já tem o `esq-drisl.tex`, o que
+faltava é o DESENHO DA AVALIAÇÃO do pilar: três origens para o mesmo
+$L_0$-alvo (aleatória com 47 tamanhos × 30 repetições; AG com 4 cenários
+em 10 tamanhos; DRI-SL determinístico) medidas pelo MESMO protocolo (PVBin
+treinado no $L_0$, Acurácia e Macro F1 no teste), com a nota de
+anti-circularidade do envelope (aptidão em partição de aferição disjunta;
+reavaliação no teste intocado) e a leitura remetida às quatro seções do
+Cap. 4 — sem afirmar resultado. **Onde entra**: Seção `sec:metodo-l0`
+(abertura do pilar), casando com o `esq-drisl` da Seção 3.6.
+
+**Loop**: render 1 reprovado (a seta tracejada da anti-circularidade
+atravessava a caixa do DRI-SL — o AG desceu para a linha de baixo, vizinho
+da sua nota; hifenizações); render 2 reprovado (quebras forçadas largas
+demais re-quebraram "DRI-SL" no próprio hífen — linhas recalibradas e
+`\mbox{DRI-SL}`); render 3 aprovado.
+
 ## Loop de melhoria com goal (registro, como a tarefa pede)
 
 Goal: "muito boa e ilustrativa" = fluxo inequívoco, rótulos claros, coerente

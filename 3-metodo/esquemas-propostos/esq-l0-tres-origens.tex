@@ -1,0 +1,68 @@
+% ============================================================================
+% ESQUEMA PROPOSTO (banca, sugestão — não mergeado): o desenho da avaliação
+% da composição do L0 e da partida a frio (P1/P2 no vocabulário da defesa):
+% três origens para o conjunto inicial, um único protocolo de medição, e a
+% nota de anti-circularidade do envelope. Ilustra a Seção sec:metodo-l0 e
+% complementa o esq-drisl (que mostra o algoritmo; este mostra a avaliação).
+%
+% Uso no Cap. 3 (dentro de um ambiente figure):
+%   \input{3-metodo/esquemas-propostos/esq-l0-tres-origens}
+% Uso standalone (pré-visualização):
+%   \documentclass[tikz,border=6pt]{standalone}
+%   \usetikzlibrary{arrows.meta, positioning}
+%   \begin{document}\input{esq-l0-tres-origens.tex}\end{document}
+%   (no modo standalone, troque as \ref{...} por texto fixo ou defina-as)
+% Requer apenas arrows.meta e positioning (já em packages.tex). Legível em
+% P&B: origem = branco; protocolo = cinza claro; leitura = cinza médio.
+% FREEZE respeitado: todos os números são os da própria Seção 3.6
+% (47 tamanhos, 10 a 200.000, 30 repetições; 4 cenários, 10 tamanhos,
+% 10 a 30.000), nenhum resultado afirmado — a leitura remete ao Cap. 4.
+% ============================================================================
+\begin{tikzpicture}[
+    x=1cm, y=1cm,
+    caixa/.style={draw, rounded corners=2pt, align=center, text width=42mm,
+                  minimum height=11mm, inner sep=3pt, font=\footnotesize},
+    protocolo/.style={caixa, fill=gray!8},
+    leitura/.style={caixa, fill=gray!14},
+    seta/.style={-{Stealth[length=2.4mm]}, thick},
+    rot/.style={font=\scriptsize, align=center, inner sep=2pt}
+]
+    % ------------- três origens para o conjunto inicial --------------------
+    % (o AG fica na linha de baixo, vizinho da sua nota de anti-circularidade:
+    % com ele no meio, a seta tracejada atravessava a caixa do DRI-SL)
+    \node[caixa, text width=44mm] (aleat) at (0.6,0)
+        {\textbf{amostragem aleatória}\\(dispersão do sorteio):\\
+         47 tamanhos de $L_0$, de 10 a 200.000; 30 repetições por tamanho};
+    \node[caixa, text width=44mm] (drisl) at (0.6,-2.9)
+        {\textbf{DRI-SL} (proposto):\\determinístico e sem acesso a
+         rótulos; algoritmo na Seção~\ref{sec:metodo-drisl}};
+    \node[caixa, text width=44mm] (ag) at (0.6,-5.8)
+        {\textbf{algoritmo genético}\\(envelope: teto e piso):\\
+         4 cenários (max/min de Acurácia\\e de Macro F1) em 10 tamanhos,\\
+         de 10 a 30.000};
+
+    % ------------- protocolo único e leitura -------------------------------
+    \node[protocolo, text width=46mm] (proto) at (6.8,-2.9)
+        {protocolo comum a toda origem:\\o classificador PVBin é treinado\\
+         no $L_0$; Acurácia e Macro F1\\medidas no conjunto de teste};
+    \node[leitura, text width=46mm] (leit) at (6.8,-6.4)
+        {leitura nos resultados:\\
+         sensibilidade (Seção~\ref{sec:res-l0-sens}),\\
+         envelope (Seção~\ref{sec:res-l0-ag}),\\
+         \mbox{DRI-SL} \textit{versus} aleatório e\\
+         envelope (Seção~\ref{sec:res-l0-drisl}), reexecução\\
+         independente (Seção~\ref{sec:res-l0-replay})};
+
+    \draw[seta] (aleat.east) -- (proto.150);
+    \draw[seta] (drisl.east) -- (proto.west);
+    \draw[seta] (ag.east) -- (proto.210);
+    \draw[seta] (proto) -- (leit);
+
+    % ------------- anti-circularidade do envelope --------------------------
+    \node[rot, text width=44mm, anchor=north] (anticirc) at (0.6,-7.5)
+        {anti-circularidade do envelope: a aptidão do AG usa uma partição de
+         aferição disjunta do teste; os indivíduos finais são reavaliados no
+         conjunto de teste intocado, e é esse valor, tipicamente inferior,
+         que os resultados reportam};
+    \draw[seta, dashed] (anticirc.north) -- (ag.south);
+\end{tikzpicture}
