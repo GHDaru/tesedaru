@@ -122,6 +122,28 @@ da sua nota; hifenizações); render 2 reprovado (quebras forçadas largas
 demais re-quebraram "DRI-SL" no próprio hífen — linhas recalibradas e
 `\mbox{DRI-SL}`); render 3 aprovado.
 
+## Esquema 6 — `esq-ag-envelope.tex` (pedido do autor: Seção 3.5.2)
+
+**O que esclarece**: a Seção 3.5.2 carrega o laço evolutivo inteiro em um
+único parágrafo denso. A figura o desdobra: população ($N_{pop}=20$,
+indivíduo = $I$ índices únicos) → torneio ($k_t=3$) → cruzamento de um ponto
+($p_c=0{,}8$, reparo de unicidade) → mutação ($p_m=0{,}1$, $m_s$ genes) →
+aptidão na partição de aferição **disjunta** → elitismo 10% ($N_{elite}=2$)
+→ repete; saída após 100 gerações (200 só no $|L_0|=10$) para a
+**reavaliação no teste intocado** (o envelope reportado), com a razão da
+anti-circularidade em nota tracejada. A figura também carrega a proveniência
+da configuração (notebook define; JSON fixa só $|L_0|$; população é o único
+valor lido do artefato) — a tripartição honesta que o autor ratificou no
+lote A2. Todos os números são os da própria seção. **Onde entra**: fim da
+Seção `sec:metodo-l0-ag`, casando com o Apêndice B (`ap:ag`).
+
+**Loop**: render 1 reprovado (a seta curva da nota de proveniência
+atravessava o próprio texto da nota — virou seta reta curta; a caixa da
+mutação quebrava a matemática no "=" — `\mbox{}`; hifenizações erradas tipo
+"ex-ecutou" porque o invólucro não tinha os padrões do português — pacote
+`texlive-lang-portuguese` instalado e `babel brazilian` adicionado aos
+invólucros, tornando o teste de hifenização realista); render 2 aprovado.
+
 ## Loop de melhoria com goal (registro, como a tarefa pede)
 
 Goal: "muito boa e ilustrativa" = fluxo inequívoco, rótulos claros, coerente

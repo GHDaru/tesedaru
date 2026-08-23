@@ -1,0 +1,90 @@
+% ============================================================================
+% ESQUEMA PROPOSTO (banca, sugestão — não mergeado): o envelope por algoritmo
+% genético (Seção sec:metodo-l0-ag) como laço evolutivo + saída com
+% anti-circularidade. A prosa da seção carrega o laço inteiro em um
+% parágrafo; a figura o desdobra: população -> torneio -> cruzamento ->
+% mutação -> aptidão (partição de aferição) -> elitismo -> repete; ao fim,
+% reavaliação no teste intocado = o envelope reportado.
+%
+% Uso no Cap. 3 (dentro de um ambiente figure):
+%   \input{3-metodo/esquemas-propostos/esq-ag-envelope}
+%   As citações Holland1975/Goldberg1989 ficam na prosa; a legenda pode
+%   remeter ao Apêndice ap:ag (fluxo e operadores formalizados).
+% Uso standalone (pré-visualização):
+%   \documentclass[tikz,border=6pt]{standalone}
+%   \usetikzlibrary{arrows.meta, positioning}
+%   \begin{document}\input{esq-ag-envelope.tex}\end{document}
+%   (no modo standalone, troque as \ref{...} por texto fixo ou defina-as)
+% Requer apenas arrows.meta e positioning (já em packages.tex). Legível em
+% P&B: entrada = cinza claro; operação = branco; medição = cinza claro;
+% produto = cinza médio; anotação = texto pequeno com tracejado.
+% FREEZE respeitado: todos os números são os da própria Seção 3.5.2
+% (N_pop=20, 100/200 gerações, k_t=3, p_c=0,8, p_m=0,1, m_s, 10%,
+% N_elite=2, 4 cenários, 10 tamanhos, 10 a 30.000), nenhum novo.
+% ============================================================================
+\begin{tikzpicture}[
+    x=1cm, y=1cm,
+    caixa/.style={draw, rounded corners=2pt, align=center, text width=34mm,
+                  minimum height=11mm, inner sep=3pt, font=\footnotesize},
+    entrada/.style={caixa, fill=gray!8},
+    medida/.style={caixa, fill=gray!8},
+    produto/.style={caixa, fill=gray!14},
+    seta/.style={-{Stealth[length=2.4mm]}, thick},
+    rot/.style={font=\scriptsize, align=center, inner sep=2pt}
+]
+    % ------------------ população e proveniência da configuração -----------
+    \node[entrada, text width=40mm] (pop) at (0,0)
+        {população com $N_{pop}=20$;\\cada indivíduo é um conjunto\\
+         de $I$ índices únicos do \textit{pool}};
+    \node[rot, anchor=west, text width=54mm, align=left] (prov) at (2.9,-0.1)
+        {parâmetros definidos no \textit{notebook}\\
+         que executou as corridas (o JSON fixa\\
+         apenas $|L_0|$; o padrão $0{,}7$ do cruzamento\\
+         é sempre sobrescrito); a população é\\
+         o único valor lido do artefato};
+
+    % ------------------ o laço por geração ---------------------------------
+    \node[caixa] (torneio) at (0,-2.7)
+        {seleção por torneio\\($k_t=3$)};
+    \node[caixa] (cruz) at (4.6,-2.7)
+        {cruzamento de um ponto\\($p_c=0{,}8$), com reparo\\de unicidade};
+    \node[caixa, text width=38mm] (mut) at (9.4,-2.7)
+        {mutação (\mbox{$p_m=0{,}1$}):\\
+         substitui \mbox{$m_s=\max(1,\lceil 0{,}01\cdot I\rceil)$}\\
+         genes};
+    \node[medida, text width=38mm] (apt) at (9.4,-5.3)
+        {aptidão medida na partição\\de aferição, \textbf{disjunta}\\do
+         conjunto de teste};
+    \node[caixa] (elit) at (0,-5.3)
+        {elitismo de $10\%$\\($N_{elite}=2$): forma\\a nova geração};
+
+    % ------------------ saída: anti-circularidade --------------------------
+    \node[produto, text width=52mm] (reaval) at (4.6,-8.2)
+        {fim do cenário: os indivíduos finais são \textbf{reavaliados no
+         conjunto de teste intocado}; esse valor, tipicamente inferior ao
+         de aptidão, é o envelope que os resultados reportam};
+    \node[rot, text width=40mm, anchor=north] (circ) at (9.8,-7.4)
+        {otimizar e reportar na mesma partição superajustaria o envelope ao
+         conjunto de avaliação (circularidade)};
+
+    % ------------------ setas (depois de todos os nós) ----------------------
+    \draw[seta] (pop) -- (torneio);
+    \draw[seta, dashed] (prov.west) -- (pop.east);
+    \draw[seta] (torneio) -- (cruz);
+    \draw[seta] (cruz) -- (mut);
+    \draw[seta] (mut) -- (apt);
+    \draw[seta] (apt) -- (elit);
+    \draw[seta] (elit) -- (torneio);
+    \draw[seta] (elit.south) |- node[rot, anchor=west, pos=0.28,
+        text width=30mm, align=left]
+        {após 100 gerações\\(200 só no caso \mbox{$|L_0|=10$})}
+        (reaval.west);
+    \draw[seta, dashed] (circ.north) -- (apt.south);
+
+    % ------------------ cenários e remissão ---------------------------------
+    \node[rot, anchor=west, text width=118mm, align=left] at (-1.9,-10.3)
+        {4 cenários por tamanho (maximização e minimização de Acurácia e de
+         Macro F1) $\times$ 10 tamanhos de $L_0$, de 10 a 30.000; o fluxo
+         completo e os operadores são formalizados no
+         Apêndice~\ref{ap:ag}.};
+\end{tikzpicture}
