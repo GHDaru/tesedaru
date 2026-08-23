@@ -67,7 +67,9 @@
     \draw[seta, dashed] (1.6,4.15) -- (1.4,3.5);
 
     % ---------------- painel direito: fórmula e leitura --------------------
-    \node[caixa, text width=58mm] (formula) at (10.6,3.5)
+    % 64mm: em corpo 12 (o corpo real da tese) a linha da AUC_ideal media
+    % ~62mm e transbordava a caixa de 58mm — achado do teste em 12pt
+    \node[caixa, text width=64mm] (formula) at (10.5,3.5)
         {$\displaystyle \mathrm{LCE}=\frac{\mathrm{AUC}_{\mathrm{real}}}{\mathrm{AUC}_{\mathrm{ideal}}}$\\[3pt]
          \mbox{$\mathrm{AUC}_{\mathrm{ideal}}=\mathrm{Perf}_{\mathrm{baseline}}\times(L_{\mathrm{final}}-L_{\mathrm{ideal},0})$}\\[2pt]
          (Equação~\ref{eq:ap-lce})};

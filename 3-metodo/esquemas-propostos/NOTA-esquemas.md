@@ -183,6 +183,49 @@ avisado por tarefa na caixa. O DoD completo (tese inteira compilando com a
 figura) fica com a cruzada/principal — este contêiner não tem a toolchain
 completa do ppginf.
 
+## Passe de excelência no Apêndice B (ordem do autor, 2026-08-23)
+
+O autor ordenou um passe completo no Apêndice B (`a2-ag/texto.tex`) — as
+rodadas de forma, humanização, fluidez, AUTOCONTENÇÃO ("tire as referências
+de coisas da tese se tiver e arquivos"), verificação dos números e a
+inserção da figura do laço — em LOOP até a excelência acadêmica (figura +
+conteúdo + fluidez + compreensão + rigor).
+
+**Texto** (base: a versão da main, que já continha o lote A2 ratificado):
+- Autocontenção: removidos `\ref{sec:res-l0-replay}` e
+  `\ref{ch:resultados-l0}` (substituídos por explicação em linha e "nos
+  resultados"), o campo de artefato `individual_id 0..19`, o código de
+  governança "decisão D-002" e o nome de formato "JSON" ("a configuração
+  versionada"). A anti-circularidade agora é EXPLICADA onde aparece, não
+  referenciada.
+- Humanização/fluidez: a Formulação telegráfica ("Indivíduo: ...
+  Aptidão: ...") virou prosa contínua; a repetição de "definido no
+  notebook" (4 ocorrências) foi consolidada em um preâmbulo único de
+  proveniência que preserva a tripartição do laudo ratificado (notebook
+  define; população e gerações conferidas contra artefatos; população sem
+  fonte de configuração); título do capítulo com $L_0$ em matemática
+  (`\texorpdfstring`); um par de travessões convertido em parênteses (R1).
+- Números conferidos contra o canônico da Seção 3.5.2 e o laudo:
+  20×100=2.000, 20×200=4.000, k=3, 0,8 (padrão 0,7 sobrescrito), 0,1,
+  m_s, 10% (N_elite=2), 18,82%/19,20%, reexecução 30×40, 4 cenários ×
+  10 tamanhos (10 a 30.000). Nenhum número novo.
+- Figura inserida no fim (fig:ap-ag-laco), com legenda amarrando aptidão →
+  aferição → reavaliação no teste intocado.
+
+**ACHADO SISTÊMICO — corpo 12**: as prévias da série foram feitas em corpo
+10; ao compilar o apêndice inteiro no corpo REAL da tese (ppginf = book
+12pt), o `esq-ag-envelope` quebrou (caixas transbordando, rótulo colidindo
+com a caixa final). Foi REDESENHADO para corpo 12 (larguras +25%,
+espaçamentos maiores, rótulo de saída realocado; 0 erros, overfull 0,7pt =
+imperceptível). O `esq-lce`, JÁ INTEGRADO ao Apêndice A na main, tinha o
+mesmo defeito em grau menor (a fórmula transbordava a caixa em ~4mm) —
+corrigido nesta branch (caixa 58→64mm; o principal deve integrar).
+**Pendência para a cruzada**: os esquemas 1, 2, 4 e 5 (gate-e-régua, mapa
+experimental, preproc, l0-três-origens) e o esq-drisl continuam calibrados
+em corpo 10 — re-verificar em corpo 12 ANTES de qualquer inserção na tese.
+As prévias `preview-esq-ag-envelope.png` e `preview-esq-lce.png` agora são
+renders em corpo 12.
+
 ## Loop de melhoria com goal (registro, como a tarefa pede)
 
 Goal: "muito boa e ilustrativa" = fluxo inequívoco, rótulos claros, coerente
