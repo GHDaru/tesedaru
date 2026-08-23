@@ -43,7 +43,7 @@ A Tabela~\ref{tab:metodo-experimentos} resume o programa experimental e serve de
 \textbf{mapa de rastreabilidade}: para cada experimento, o pilar que ele
 sustenta, a seção em que o resultado é discutido e o diretório de artefatos que
 permite reexecutá-lo. Os identificadores da primeira coluna são \emph{controle
-interno} — servem para localizar código e dados, não para nomear achados, e por
+interno}: servem para localizar código e dados, não para nomear achados, e por
 isso não reaparecem no texto corrido dos capítulos de resultados, que se
 organiza pelo que foi descoberto. Quem quiser ir do achado ao artefato usa esta
 tabela; quem quiser ler a tese não precisa dela. O E3 designa, em toda a tese,
@@ -172,8 +172,8 @@ conflitos e a contagem de duplicatas
 (Seção~\ref{sec:metodo-dados-auditoria}) comparam descrições com os espaços
 internos colapsados, ao passo que a deduplicação que precede o
 particionamento usa a descrição apenas aparada e convertida a minúsculas.
-Nesta base a remoção de acentos não altera contagem alguma --- não há um
-único caractere acentuado nas descrições ou nos rótulos ---, de modo que a
+Nesta base a remoção de acentos não altera contagem alguma (não há um
+único caractere acentuado nas descrições ou nos rótulos), de modo que a
 diferença entre as duas chaves está no tratamento de espaços, e não na
 acentuação. A segunda é que \textbf{o filtro brando de $\ge 2$ instâncias conta
 linhas, e não textos já deduplicados}: são 715 as classes com pelo menos duas
@@ -301,7 +301,7 @@ Três classificadores $\theta$ são empregados, com papéis distintos e explíci
   treinamento 32 e decaimento de peso $0{,}01$. O número de épocas por iteração do
   ciclo ativo é determinado empiricamente (curvas de perda em validação para
   $|L| \in \{10^3, 10^4, 5\times10^4\}$), em vez de fixado por convenção; o
-  valor daí resultante --- três épocas --- é o adotado, uniforme entre braços,
+  valor daí resultante (três épocas) é o adotado, uniforme entre braços,
   na avaliação com o classificador forte (Seção~\ref{sec:res-e3p}).
   \item \textbf{Classificador vetorial binário} (\textit{PVBin}): representação
   \textit{bag-of-words} binária com uni e bigramas, protótipos de classe por
@@ -392,12 +392,20 @@ estatísticas descritivas completas constam do Apêndice~\ref{ap:tabelas}.
 Para estimar os \emph{limites} de desempenho alcançáveis pela escolha da composição
 de $L_0$ (inatingíveis por busca exaustiva no espaço combinatório), empregou-se um
 algoritmo genético (AG) \citep{Holland1975,Goldberg1989} sobre indivíduos que representam
-conjuntos de $I$ índices únicos do \textit{pool}. A configuração, idêntica em todas
-as execuções, foi: população $N_{pop}=50$; 100 gerações; seleção por torneio de
-tamanho $k_t=3$; cruzamento de um ponto com probabilidade $p_c=0{,}8$ e reparo de
-unicidade; mutação com probabilidade $p_m=0{,}1$ substituindo
-$m_s=\max(1,\lceil 0{,}01 \cdot I\rceil)$ genes; elitismo de $10\%$
-($N_{elite}=5$). Quatro cenários foram otimizados (maximização e minimização de
+conjuntos de $I$ índices únicos do \textit{pool}. A configuração foi:
+população $N_{pop}=20$ e 100 gerações por cenário (200 gerações no caso
+$|L_0|=10$, o único que difere), valores confirmados contra os artefatos
+das corridas, sendo a população o único parâmetro sem fonte de
+configuração (o valor reportado é o do artefato, não o da configuração
+versionada); seleção por torneio de tamanho $k_t=3$, cruzamento de um
+ponto com probabilidade $p_c=0{,}8$ e reparo de unicidade, e mutação com
+probabilidade $p_m=0{,}1$ substituindo
+$m_s=\max(1,\lceil 0{,}01 \cdot I\rceil)$ genes, parâmetros definidos no
+\textit{notebook} que executou as corridas, que sempre os passa (o arquivo
+de configuração em JSON fixa apenas o tamanho de $L_0$; o valor padrão da
+classe para o cruzamento é $0{,}7$, sempre sobrescrito pelo
+\textit{notebook}); e elitismo de $10\%$ ($N_{elite}=2$), também definido
+no \textit{notebook}. Quatro cenários foram otimizados (maximização e minimização de
 Acurácia e de Macro F1) para dez tamanhos de $L_0$ entre 10 e 30.000. A função de
 aptidão é avaliada em uma \textbf{partição de aferição disjunta do conjunto de
 teste}: otimizar e reportar na mesma partição superajustaria o envelope ao
@@ -530,17 +538,17 @@ O FALCO opera em três fases, adaptando estratégia de seleção e oráculo ao
 amadurecimento do classificador (Figura~\ref{fig:falco-arquitetura}):
 
 \begin{enumerate}
-  \item \textbf{Fase 1 — \textit{cold start} informado}: o lote inicial
+  \item \textbf{Fase 1} (\textit{cold start} informado): o lote inicial
   ($b_0 = \lceil 0{,}01 \cdot B \rceil$) é selecionado pelo DRI-SL
   (Seção~\ref{sec:metodo-drisl}) e rotulado pelo LLM Inicial, formando $L_0$;
-  \item \textbf{Fase 2 — seleção por incerteza com LLM Inicial}: a cada iteração,
+  \item \textbf{Fase 2} (seleção por incerteza com LLM Inicial): a cada iteração,
   as $b$ instâncias de maior entropia preditiva de $\theta$
   \citep{Settles2012} são consultadas ao LLM Inicial; a transição ocorre quando o
   Macro F1 no conjunto de \emph{validação} $V$ estagna por $p=5$ iterações
   consecutivas (tolerância $\epsilon = 10^{-3}$). O conjunto de teste $T$ jamais
   participa de decisões do processo, porque usá-lo aqui contaminaria a avaliação final
   (vazamento de teste);
-  \item \textbf{Fase 3 — refinamento com LLM Avançado}: mantida a seleção por
+  \item \textbf{Fase 3} (refinamento com LLM Avançado): mantida a seleção por
   incerteza, o oráculo passa ao LLM Avançado, concentrando o custo do modelo mais
   capaz nas instâncias mais difíceis. A fase existe apenas se o critério da
   Seção~\ref{sec:metodo-oraculo-decisao} a justificar.

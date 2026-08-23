@@ -27,13 +27,13 @@ após $p$ iterações sem qualquer ganho registrado, e não por o ganho ser
 pequeno demais para se distinguir do ruído. A parada observada no ciclo real,
 portanto, não é efeito de uma tolerância estrita: o critério executado é o
 mais permissivo dos dois. O gatilho
-foi exercitado em duas execuções ponta a ponta da biblioteca: com oráculo
-simulado (ruído 0,2), encerrou o ciclo em 910 de 1.000 rótulos orçados; com
+foi exercitado em duas execuções ponta a ponta da biblioteca, ambas com
 \textbf{oráculo LLM real e gratuito} (nemotron via NIM, acurácia
-$\approx 78\%$) e orçamento de 15.000, encerrou em \textbf{6.009} rótulos
-(PVBin) e \textbf{4.742} (SGD), 32--40\% do orçamento, com as curvas de
-validação e teste estagnadas em conjunto. Os artefatos estão no repositório
-(\texttt{experiments/e5cycle}).
+$\approx 78\%$): com orçamento de 1.000, encerrou o ciclo em 991 rótulos
+(PVBin) e 982 (SGD); com orçamento de 15.000, encerrou em \textbf{6.009}
+rótulos (PVBin) e \textbf{4.742} (SGD), 32--40\% do orçamento, com as
+curvas de validação e teste estagnadas em conjunto. Os artefatos estão no
+repositório (\texttt{experiments/e5cycle}).
 
 \section{Critério de liberação do modelo}
 \label{ap:liberacao}
