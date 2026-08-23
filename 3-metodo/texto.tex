@@ -107,13 +107,15 @@ normalizados e como o conjunto foi particionado para os experimentos.
 
 O conjunto de dados é o \textit{Retail Product Description-Ptbr}
 \citep{Daru2022,Daru2024Dissertacao}, publicado pelo autor no Kaggle com
-identificador persistente \citep[DOI 10.34740/kaggle/dsv/4265348;][]{Daru2022Dataset},
-com $N=250.365$ descrições de produtos de
-varejo na versão original (250.221 na versão corrigida utilizada,
-Seção~\ref{sec:metodo-dados-auditoria}), em português brasileiro, coletadas de 18
-grandes varejistas, cada qual associada a uma categoria de produto. As descrições são curtas (4 a 50 caracteres;
-mediana de 32), tipicamente em caixa alta e com abreviações características de cupons
-fiscais (\textit{e.g.}, \texttt{CERV BRAHMA LT 350ML}), configurando os desafios de
+identificador persistente \citep[DOI 10.34740/kaggle/dsv/4265348;][]{Daru2022Dataset}.
+São $N=250.365$ descrições de produtos de varejo em português brasileiro,
+coletadas de 18 grandes varejistas e cada qual associada a uma categoria de
+produto; a versão corrigida, efetivamente utilizada, tem 250.221
+(Seção~\ref{sec:metodo-dados-auditoria}).
+
+As descrições são curtas, de 4 a 50 caracteres, com mediana de 32. Vêm
+tipicamente em caixa alta e com as abreviações características de cupons fiscais
+(\textit{e.g.}, \texttt{CERV BRAHMA LT 350ML}), o que configura os desafios de
 esparsidade lexical e baixo contexto discutidos no Capítulo~\ref{ch:fundam}. A
 distribuição de classes é fortemente desbalanceada: a classe mais frequente
 (\textit{biscoito}) concentra 14.292 instâncias ($5{,}7\%$), enquanto centenas de
@@ -134,16 +136,16 @@ desenho experimental e a interpretação dos resultados:
   \textit{farinha de milho}, \textit{floco de milho}, \textit{fubá} e
   \textit{polenta}). Esse ruído impõe um teto de aproximadamente $99{,}3\%$ à
   acurácia mensurável de qualquer classificador ou oráculo na distribuição de
-  produção. As instâncias foram mantidas por representarem o ruído real do domínio;
-  o teto é considerado na interpretação (Capítulo~\ref{ch:resultados-falco}).
-  Uma análise de sensibilidade quantifica o efeito dessa decisão: reavaliando
-  as anotações dos oráculos (i) com as instâncias conflitantes excluídas
-  e (ii) sob pontuação \emph{multi-gold} (acerto quando o rótulo predito
-  coincide com \emph{qualquer} dos rótulos observados para a mesma descrição
-  na base), a acurácia de todos os oráculos varia no máximo $+0{,}7$ ponto
-  percentual, sem alteração de nenhum ordenamento ou decisão. O ruído de
-  gabarito, portanto, limita a medição, mas não a contamina de forma
-  relevante, o que justifica manter as instâncias.
+  produção. As instâncias foram mantidas por representarem o ruído real do
+  domínio, e o teto é considerado na interpretação
+  (Capítulo~\ref{ch:resultados-falco}). Uma análise de sensibilidade mostra que a
+  decisão limita a medição sem contaminá-la: a acurácia de todos os oráculos
+  varia no máximo $+0{,}7$ ponto percentual, sem alterar nenhum ordenamento nem
+  nenhuma decisão.\footnote{A sensibilidade foi medida de duas formas
+  independentes: reavaliando as anotações dos oráculos com as instâncias
+  conflitantes excluídas, e sob pontuação \emph{multi-gold}, em que se conta
+  acerto quando o rótulo predito coincide com \emph{qualquer} dos rótulos
+  observados para a mesma descrição na base.}
   \item \textbf{Rótulo operacional}: a categoria \texttt{inativo} (144 linhas)
   registra um status de cadastro, não um tipo de produto (\textit{e.g.},
   \texttt{UVA PASSA ESCURA 150G} $\rightarrow$ \texttt{inativo}). As linhas foram
@@ -292,10 +294,10 @@ Três classificadores $\theta$ são empregados, com papéis distintos e explíci
   dos métodos de referência. O ajuste fino usa a biblioteca
   \texttt{transformers} \citep{Wolf2020Transformers} com otimizador AdamW
   \citep{Loshchilov2019AdamW}, taxa de aprendizado $3\times10^{-5}$, lote de
-  treinamento 32 e decaimento de peso $0{,}01$. O número de épocas por iteração do
-  ciclo ativo é determinado empiricamente (curvas de perda em validação para
-  $|L| \in \{10^3, 10^4, 5\times10^4\}$), em vez de fixado por convenção; o
-  valor daí resultante (três épocas) é o adotado, uniforme entre braços,
+  treinamento 32 e decaimento de peso $0{,}01$. O número de épocas por iteração
+  do ciclo ativo não foi fixado por convenção, e sim determinado empiricamente,
+  por curvas de perda em validação para $|L| \in \{10^3, 10^4, 5\times10^4\}$. O
+  valor daí resultante, três épocas, é o adotado de forma uniforme entre braços
   na avaliação com o classificador forte (Seção~\ref{sec:res-e3p}).
   \item \textbf{Classificador vetorial binário} (\textit{PVBin}): representação
   \textit{bag-of-words} binária com uni e bigramas, protótipos de classe por
@@ -315,9 +317,9 @@ Três classificadores $\theta$ são empregados, com papéis distintos e explíci
   classificador, e não são artefato do PVBin.
 \end{itemize}
 
-Essa separação isola a contribuição metodológica: o FALCO é validado com o
+Essa separação isola a contribuição metodológica. O FALCO é validado com o
 classificador forte, enquanto as análises exploratórias massivas usam os
-classificadores leves: são dois, PVBin e SGD, para que os achados de
+classificadores leves. São dois deles, o PVBin e o SGD, para que os achados de
 seleção não dependam de um único modelo.
 
 \section{Métricas de avaliação e análise estatística}
@@ -339,29 +341,30 @@ tese e formalizada no Apêndice~\ref{ap:lce}:
   \mathrm{AUC}_{\mathrm{ideal}} = \mathrm{Perf}_{\mathrm{baseline}} \times (L_{\mathrm{final}} - L_{\mathrm{ideal},0}),
   \label{eq:metodo-lce}
 \end{equation}
-em que $\mathrm{AUC}_{\mathrm{real}}$ é a área sob a curva de aprendizado medida,
-integrada numericamente pela regra de Simpson sobre os pontos observados,
+Nela, $\mathrm{AUC}_{\mathrm{real}}$ é a área sob a curva de aprendizado medida,
+integrada numericamente pela regra de Simpson sobre os pontos observados, e
 $\mathrm{Perf}_{\mathrm{baseline}}$ é o desempenho do classificador com supervisão
-completa e $L_{\mathrm{ideal},0}$ é a abscissa inicial da curva ideal (o menor
-tamanho de conjunto rotulado observado, de modo que curvas reais e ideal integrem
-o mesmo intervalo). Valores próximos de 1 indicam que a estratégia se aproxima
-rapidamente do desempenho de referência com poucos rótulos. A LCE tem precedente
+completa. Já $L_{\mathrm{ideal},0}$ é a abscissa inicial da curva ideal, tomada
+como o menor tamanho de conjunto rotulado observado, para que a curva real e a
+ideal integrem o mesmo intervalo. Valores próximos de 1 indicam que a estratégia
+se aproxima rapidamente do desempenho de referência com poucos rótulos. A LCE tem precedente
 direto na \textbf{ALC} (\textit{Area under the Learning Curve}) do
-\textit{Active Learning Challenge} \citep{Guyon2011ALC}; difere dela em dois
-pontos: a normalização usa o desempenho de supervisão completa do próprio par
-(classificador, conjunto), e não o máximo teórico da métrica, tornando o valor
-comparável entre classificadores de tetos distintos; e a integração usa Simpson
+\textit{Active Learning Challenge} \citep{Guyon2011ALC}, e dela difere em dois
+pontos. A normalização usa o desempenho de supervisão completa do próprio par
+(classificador, conjunto), e não o máximo teórico da métrica, o que torna o valor
+comparável entre classificadores de tetos distintos. E a integração usa Simpson
 sobre a grade observada, em vez de interpolação em escala logarítmica.
 
-\textbf{Análise estatística.} Três testes acompanham as comparações, conforme a
-natureza dos dados: (i) toda acurácia de oráculo é reportada com \textbf{intervalo
-de confiança (IC) de Wilson} a $95\%$ \citep{Wilson1927}, apropriado para proporções em
-qualquer faixa; (ii) comparações entre oráculos que rotularam \emph{as mesmas
-instâncias} usam o \textbf{teste de McNemar} \citep{McNemar1947} sobre os pares
-discordantes (com teste binomial exato quando as discordâncias somam menos de 25);
-e (iii) comparações entre estratégias de aprendizado ativo executadas com múltiplas
-sementes usam o \textbf{teste de postos sinalizados de Wilcoxon}
-\citep{Wilcoxon1945} sobre as métricas finais e a LCE.
+\textbf{Análise estatística.} Três testes acompanham as comparações, cada um
+conforme a natureza dos dados. Toda acurácia de oráculo é reportada com
+\textbf{intervalo de confiança (IC) de Wilson} a $95\%$ \citep{Wilson1927},
+apropriado para proporções em qualquer faixa. As comparações entre oráculos que
+rotularam \emph{as mesmas instâncias} usam o \textbf{teste de McNemar}
+\citep{McNemar1947} sobre os pares discordantes, com teste binomial exato quando
+as discordâncias somam menos de 25. Já as comparações entre estratégias de
+aprendizado ativo executadas com múltiplas sementes usam o \textbf{teste de
+postos sinalizados de Wilcoxon} \citep{Wilcoxon1945} sobre as métricas finais e a
+LCE.
 
 \section{Composição do conjunto inicial \texorpdfstring{$L_0$}{L0}}
 \label{sec:metodo-l0}
