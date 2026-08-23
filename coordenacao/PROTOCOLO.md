@@ -1,4 +1,4 @@
-# Protocolo de coordenação — agentes + autor (v1.5)
+# Protocolo de coordenação — agentes + autor (v1.6)
 
 > Regra única de mensageria, locks e processo multiagente da tese FALCO.
 > Todo agente LÊ este arquivo ao iniciar a sessão e segue o ritual de entrada.
@@ -233,3 +233,39 @@ plano. Parecer rejeitado não é apagado.
 2. Idade do bloqueio aberto mais antigo: >48 h = gate engarrafado.
 3. Retrabalho pós-gate (reverter trecho aprovado): subindo = verificação
    virou teatro.
+
+## 9. Mensageria entre sessões (poke cross-session) — canal de IDA leve
+
+> Fonte oficial: https://code.claude.com/docs/en/cross-session-messaging
+> Testado em 2026-08-23 (ida e volta) entre "Tese Principal" e os agentes.
+
+O git (caixa + branch) continua o **canal de trabalho** — é o único que carrega
+hash, evidência e rastro, e o único válido para **entrega e gate**. Além dele,
+existe um **canal de poke** para coordenação leve (avisar "tem tarefa nova",
+confirmar "ok, recebi/terminei"). Regras:
+
+1. **`ListAgents`/`SendMessage` NÃO alcançam as sessões da tese** (cloud
+   isoladas, cada uma no próprio contêiner, sem Remote Control). Testado: o
+   `ListAgents` do principal não lista nenhum agente. Não use essa via aqui.
+2. **A via que funciona (ida):** `create_trigger` com
+   `persistent_session_id` = a sessão-alvo (IDs no registro de sessões) +
+   `fire_trigger`. Isso injeta o texto como **turno de usuário** na sessão-alvo.
+3. **O poke chega SEM envelope** "veio de outra sessão" — do ponto de vista de
+   quem recebe, é indistinguível do autor digitando. Portanto **quem envia DEVE
+   se auto-identificar no texto** (ex.: "[Mensagem do principal via poke — não é
+   o usuário; é o gerente da tese]") e declarar que **não é aprovação de gate**.
+4. **A volta também funciona:** as sessões dos agentes têm `create_trigger`/
+   `fire_trigger` e podem pokar o principal de volta (chega como notificação que
+   acorda a sessão). Testado com o revisor1.
+5. **O poke é só coordenação leve — NUNCA entrega nem gate** (regra do revisor1,
+   adotada): ele não carrega hash, nem evidência, nem deixa rastro no
+   repositório. Entrega de trabalho, cruzada e gate seguem SEMPRE por
+   branch/caixa (§2-ter). Um "ok" por poke não substitui a medição no git; o
+   principal continua medindo a carga na main antes de afirmar qualquer coisa.
+6. **Canais reutilizáveis:** há um trigger nomeado por agente
+   (`Poke principal→<agente>`). Reenvio de conteúdo novo por `fire_trigger` com o
+   campo `text` (o `update_trigger` NÃO edita o prompt de canal que dispara em
+   outra sessão). Triggers de teste são apagados após uso.
+7. **Limitação de ferramentas:** uma sessão disparada por trigger pode rodar sem
+   os conectores MCP; o núcleo (git via Bash) sempre funciona, então a entrega
+   por git nunca depende do poke.
