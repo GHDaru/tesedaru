@@ -30,19 +30,20 @@ estão disponíveis, o processo é simulado com fidelidade: o oráculo LLM pode 
 avaliado contra o padrão-ouro, e um modelo treinado com supervisão completa fornece o
 limite superior de desempenho.
 
-O desenho tem proveniência documentada. Três de seus elementos --- o laço de
-aprendizado ativo com oráculo, a meta de redução do esforço de rotulagem e a
-avaliação da generalização contra um conjunto externo --- foram apresentados no
-exame de qualificação do autor (PPGMNE/UFPR, junho de 2023) e constam de
-material datado de maio de 2022, na versão de maio de 2023, preservado no
-repositório da tese (\texttt{docs/pre-registro/}). É a esse desenho que o termo
-\emph{pré-registrado} se refere aqui. Números e partições fixados depois desse
-marco são decisões da tese, e estão registrados como tal.
+O desenho desta pesquisa tem proveniência documentada: o laço de aprendizado
+ativo com oráculo, a meta de redução do esforço de rotulagem e a avaliação da
+generalização contra um conjunto externo foram apresentados no exame de
+qualificação do autor (PPGMNE/UFPR, junho de 2023) e constam de material
+datado de maio de 2022, na versão de maio de 2023, preservado com a tese. É a
+esse desenho que o termo \emph{pré-registrado} se refere neste documento;
+números e partições fixados depois desse marco são decisões da tese,
+registradas como tal.
 
 A Tabela~\ref{tab:metodo-experimentos} resume o programa experimental e serve de
 \textbf{mapa de rastreabilidade}: para cada experimento, o pilar que ele
-sustenta, a seção em que o resultado é discutido e o diretório de artefatos que
-permite reexecutá-lo. Os identificadores da primeira coluna localizam código e
+sustenta e a seção em que o resultado é discutido; os artefatos que permitem
+reexecutá-lo acompanham o repositório de código da tese
+(Seção~\ref{sec:metodo-reprodutibilidade}). Os identificadores da primeira coluna localizam código e
 dados; os achados, nos capítulos de resultados, são nomeados pelo que foi
 descoberto. O E3 designa, em toda a tese, a avaliação da hipótese central
 efetivamente executada; o que ficou fora dela está registrado como extensão na
@@ -63,7 +64,7 @@ para a seção que discute o resultado e para os artefatos que o reproduzem.}
 \toprule
 \textbf{Id} & \textbf{Objetivo} & \textbf{Pilar} & \textbf{Resultado em} \\
 \midrule
-\multicolumn{4}{l}{\textit{Composição do conjunto inicial} --- artefatos em \texttt{experiments/p1}}\\
+\multicolumn{4}{l}{\textit{Composição do conjunto inicial}}\\
 --- & Sensibilidade à composição e ao tamanho de $L_0$ & conjunto inicial & Seção~\ref{sec:res-l0-sens} \\
 --- & Envelope por otimização evolutiva & conjunto inicial & Seção~\ref{sec:res-l0-ag} \\
 --- & DRI-SL \textit{versus} sorteio aleatório & partida a frio & Seção~\ref{sec:res-l0-drisl} \\
@@ -82,15 +83,11 @@ E3 & Avaliação da hipótese central com o classificador forte & framework & Se
 \end{tabular}
 
 \vspace{0.4em}
-{\footnotesize \textbf{Artefatos por experimento} (todos sob a raiz de execução
-descrita na Seção~\ref{sec:metodo-reprodutibilidade}):
-\texttt{experiments/e0} (E0) $\cdot$ \texttt{experiments/e0p} (E0-P) $\cdot$
-\texttt{experiments/e1e4} (E1, E4) $\cdot$ \texttt{experiments/e5cycle}
-(E5) $\cdot$ \texttt{experiments/e6population} (E6) $\cdot$
-\texttt{experiments/e2e3} (E2, E3) $\cdot$
-\texttt{experiments/p1} (conjunto inicial e partida a frio).\\[2pt]
+{\footnotesize Os artefatos de todos os experimentos acompanham o repositório
+de código da tese, organizados por identificador de experimento
+(Seção~\ref{sec:metodo-reprodutibilidade}).\\[2pt]
 $^{\dagger}$ O E5 foi executado, mas nenhuma seção dos capítulos de resultados o
-reporta isoladamente; os artefatos estão em \texttt{experiments/e5cycle} e o
+reporta isoladamente; seus artefatos acompanham o repositório de código e o
 gatilho de parada que ele exercitou é descrito no Apêndice~\ref{ap:parada-laco}.}
 \end{table}
 
@@ -183,20 +180,19 @@ comportamento que o aprendizado ativo é chamado a testar.\footnote{Duas
 convenções de contagem explicam a diferença entre as classes que sobrevivem ao
 filtro e as 714 presentes na visão deduplicada, e ambas são necessárias para
 refazer os números desta seção. Primeira: duas chaves de texto distintas
-convivem no processamento --- o censo de conflitos e a contagem de duplicatas
+convivem no processamento. O censo de conflitos e a contagem de duplicatas
 (Seção~\ref{sec:metodo-dados-auditoria}) comparam descrições com os espaços
 internos colapsados, ao passo que a deduplicação que precede o particionamento
 usa a descrição apenas aparada e convertida a minúsculas. Nesta base a remoção
 de acentos não altera contagem alguma, pois não há um único caractere acentuado
 nas descrições ou nos rótulos, de modo que a diferença entre as chaves está no
 tratamento de espaços. Segunda: o filtro de $\ge 2$ instâncias conta linhas, e
-não textos já deduplicados --- são 715 as classes com pelo menos duas linhas na
+não textos já deduplicados. São 715 as classes com pelo menos duas linhas na
 base corrigida, contra 710 pela contagem sobre textos únicos. Dessas 715, uma
 (\textit{pomada massageadora}) ainda desaparece na deduplicação, cuja regra é
 manter a primeira ocorrência de cada texto: os dois textos dessa classe já
-haviam aparecido sob outro rótulo. A receita completa é executável e reproduz
-todas as contagens desta seção (\texttt{scripts/check\_dataset.py}, na
-biblioteca \texttt{activelearning}).}
+haviam aparecido sob outro rótulo. A receita completa é executável no
+repositório de código da tese e reproduz todas as contagens desta seção.}
 
 \subsection{Particionamento}
 \label{sec:metodo-dados-particionamento}
@@ -226,8 +222,8 @@ macro (Seção~\ref{sec:metodo-validade}).
 
 O tamanho de 50 mil resulta de viabilidade computacional. Cada braço da avaliação
 com o classificador forte é um ajuste fino completo do BERTimbau, e o programa
-executa cinco braços mais a varredura de orçamento em uma única GPU --- mantendo
-ainda uma média de 70 exemplos por classe no \textit{pool}. Uma consequência
+executa cinco braços mais a varredura de orçamento em uma única GPU, e ainda
+mantém uma média de 70 exemplos por classe no \textit{pool}. Uma consequência
 precisa ser registrada: com a mudança da régua contra a qual os braços são
 medidos (Seção~\ref{sec:metodo-falco-baselines}), os orçamentos passam a ser
 medidos como fração do \textit{pool} de 50 mil ($30\% = 15$ mil rótulos), e não de
@@ -481,7 +477,7 @@ numerados em uma única chamada; resposta como vetor indexado), com o tamanho do
 lote calibrado em etapa prévia (lotes de 1, 10 e 25 itens, pareados nas mesmas
 instâncias) e adotando-se o maior lote que não degrade a acurácia (teste de
 McNemar), decisão registrada junto aos resultados e reproduzível pelo
-artefato de calibração (\texttt{experiments/e5cycle/calibrate\_batch.py}).
+artefato de calibração que acompanha o repositório de código.
 
 \subsection{Desenho fatorial da avaliação de oráculos}
 \label{sec:metodo-oraculo-desenho}
