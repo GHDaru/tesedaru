@@ -1,4 +1,4 @@
-# Protocolo de coordenação — agentes + autor (v1.4)
+# Protocolo de coordenação — agentes + autor (v1.5)
 
 > Regra única de mensageria, locks e processo multiagente da tese FALCO.
 > Todo agente LÊ este arquivo ao iniciar a sessão e segue o ritual de entrada.
@@ -118,6 +118,36 @@ O agente **principal é o hub obrigatório** de todo o fluxo:
   lista "ENTREGAS/AVISOS AO PRINCIPAL PRESOS EM BRANCH"; o principal recupera
   com `git show <branch>:<caminho>`, integra na main e responde. O ciclo de
   15 min do principal repete essa varredura.
+
+## 2-ter. Quem escreve na main, e nota de merge exige carga (anti-progresso-fantasma)
+
+> Existe por um erro concreto (23/08): uma sessão-agente empurrou para a main a
+> NOTA "lote-cap5 APROVADO, merge limpo" **sem levar o `.tex`** — o texto ficou
+> preso na branch. Quem lê a main (o autor) acreditou que o Cap.5 estava no PDF;
+> não estava. Duas mãos diferentes escrevendo na main, e a carga caiu na fenda.
+
+1. **A main tem UMA mão: o principal, e só a mando do autor (gate).** É o
+   principal quem materializa todo merge/push na main (§6, "autor: único merge
+   na main" — na prática o principal são as mãos do autor no gate). **Nenhum
+   outro papel empurra para a main** — nem prosa, nem artefato, nem "nota de
+   coordenação/parecer/medição/APROVADO". Agente (banca, revisor1, revisor2,
+   executor01/02, local, externo) entrega SEMPRE em branch/caixa da sua branch;
+   o principal integra. Exceção única já existente: site/painel e
+   `docs/records/*` (ADR 0010), reversíveis e sem tocar texto/dados.
+
+2. **Nota de merge/aprovação é PROIBIDA sem a carga na main.** Ninguém escreve
+   "mergeado / merge limpo / APROVADO / feito / fechado na main" sobre um
+   conteúdo sem antes MEDIR que ele está de fato na main:
+   - `git merge-base --is-ancestor <sha-do-conteúdo> origin/main` → verdadeiro; **ou**
+   - `grep` de um marcador distintivo do conteúdo no arquivo-alvo em `origin/main`.
+   Não está na main? O registro é "**recomendo o merge**" (pendente do
+   principal/gate), nunca "feito". **Quem aprova o merge, mergeia no mesmo ato**:
+   a nota de aprovação e o `.tex`/artefato vão juntos, ou a nota é só recomendação.
+
+3. **O principal não confia na nota; mede.** Antes de dizer ao autor que algo
+   está na main (ex.: "o PDF já tem o Cap.5"), o principal confere a carga pelos
+   dois testes acima. Uma "APROVADO" na main sem a carga é um bug a consertar
+   (fazer o merge que falta, ou rebaixar a nota), não um fato.
 
 ## 3. Cadência — só 4 eventos geram mensagem
 
