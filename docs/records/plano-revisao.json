@@ -953,18 +953,19 @@
       "medida": "343 palavras",
       "rodadas": {
         "R1": {
-          "status": "andamento",
-          "nota": "apendices despachados 2026-08-23; mapa de aplicabilidade (n/a) por revisor1/revisor2"
+          "status": "na",
+          "nota": "n/a APROVADO pelo autor 2026-08-23: o corpo do A5 e o texto LITERAL do prompt/schema que produziu os resultados — e o instrumento. Humanizar um travessao ali falsificaria o instrumento (proposta do revisor1)."
         },
         "R2": {
-          "status": "pendente",
-          "nota": "usa o CategorySchema — siglas técnicas; expansões devem bater com a lista"
+          "status": "na",
+          "nota": "n/a (autor 2026-08-23): texto literal do instrumento. Contexto preservado: o A5 usa o CategorySchema (siglas tecnicas) — se alguma sigla aparecer na PROSA em torno do prompt, a expansao deve bater com a lista, mas o prompt em si nao se altera."
         },
         "R3": {
           "status": "na"
         },
         "R4": {
-          "status": "pendente"
+          "status": "na",
+          "nota": "n/a (autor 2026-08-23): texto literal do instrumento — nao se reescreve afirmacao dentro do prompt."
         },
         "R5": {
           "status": "pendente"
