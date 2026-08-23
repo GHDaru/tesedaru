@@ -39,7 +39,11 @@ def prosa(tex):
     # remove ambientes nao-prosa
     for env in ['table','tabular','figure','equation','align','itemize','enumerate','description','lstlisting','verbatim']:
         t = re.sub(r'\\begin\{'+env+r'\*?\}.*?\\end\{'+env+r'\*?\}', ' ', t, flags=re.S)
-    # matematica PRIMEIRO: remover footnote antes quebra a paridade de $
+    # cifrao ESCAPADO primeiro: \$ nao e delimitador, e tratado como um
+    # desloca a paridade e faz o stripper engolir paragrafos inteiros
+    t = t.replace(r'\$', '\x00CIFRAO\x00')
+    # matematica DEPOIS do escapado, e ANTES de footnote (footnote com
+    # numero impar de $ quebraria a paridade do resto do arquivo)
     t = re.sub(r'\$[^$]*\$', 'M', t)
     for c in ['footnote','label','caption','index','cite','citep','citet','citeonline','textcite']:
         t = strip_braced(t, c)
