@@ -31,8 +31,11 @@ baseados em modelos de linguagem de grande porte (LLMs) atingem
 77--83\% de acurácia (v4-pro: $82{,}6\%$ na S-strat), a $\approx 7$ p.p.\ do
 teto supervisionado com 250 mil rótulos, a custos entre US\$~0,035 e
 US\$~0,92 por mil rótulos, ordens de grandeza abaixo da anotação humana
-\citep{Gilardi2023}. O Macro F1 zero-shot ($\approx 0{,}79$) supera o do
-baseline supervisionado leve ($0{,}70$): o LLM é \emph{melhor nas classes
+\citep{Gilardi2023}. O Macro F1 zero-shot, medido na S-strat ($\approx
+0{,}79$), supera o do baseline supervisionado leve com supervisão completa
+($0{,}70$, no teste de distribuição natural); como a S-strat é balanceada
+por construção, o suporte por classe difere entre as duas medições, e a
+leitura vale com essa ressalva: o LLM é \emph{melhor nas classes
 raras} e pior nas convenções do catálogo, pois quase metade dos seus erros são
 fronteiras entre categorias-irmãs e política de classes guarda-chuva,
 aprendíveis apenas com exemplos. O efeito do instrumento de medição (RQ4)
@@ -42,7 +45,10 @@ de fraseado.
 \textbf{O framework integrado: respondido, com veredito refinado e
 diagnóstico.} O gate
 de oráculo, fixado de antemão, decidiu: sem oráculo $\ge 85\%$, o aprendizado com oráculo
-ruidoso é o cenário central, e a configuração derivada do FALCO é
+ruidoso é o cenário central; a atribuição dos papéis manteve o critério de
+melhor razão acurácia/custo com a restrição de piso relaxada, divergência
+declarada onde o resultado é reportado (Seção~\ref{sec:res-gate}), e a
+configuração derivada do FALCO é
 deepseek-v4-flash (Inicial) + deepseek-v4-pro (Avançado, superioridade
 significativa comprovada). A validação com o classificador forte fora do
 laço julgou o pipeline completo, com três sementes e avaliação na população
