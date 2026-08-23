@@ -3,20 +3,21 @@
 
 Este capítulo descreve a metodologia empregada para desenvolver e avaliar o
 \textbf{FALCO} (\textit{Framework de Aprendizado Ativo com LLM para texto CurtO}).
-A investigação está organizada em quatro pilares empíricos, cada qual associado a um
-experimento identificado e reprodutível: o impacto da composição do conjunto
-inicial de rotulagem $L_0$; a construção de um $L_0$ informativo sem acesso a
-rótulos, via o algoritmo DRI-SL; a viabilidade, o custo e o perfil de erro de
-modelos de linguagem de grande porte (LLMs) como oráculos de rotulagem; e a
-avaliação integrada do FALCO contra métodos de referência sob o mesmo orçamento de
-rotulagem. Uma métrica transversal, a \textit{Learning Curve Efficiency} (LCE),
+A investigação está organizada em quatro pilares empíricos, cada qual associado
+a um experimento identificado e reprodutível. O primeiro mede o impacto da
+composição do conjunto inicial de rotulagem $L_0$. O segundo trata da construção
+de um $L_0$ informativo sem acesso a rótulos, pelo algoritmo DRI-SL. O terceiro
+examina a viabilidade, o custo e o perfil de erro de modelos de linguagem de
+grande porte (LLMs) como oráculos de rotulagem. O quarto avalia o FALCO de forma
+integrada, contra métodos de referência e sob o mesmo orçamento de rotulagem. Uma métrica transversal, a \textit{Learning Curve Efficiency} (LCE),
 sumariza a eficiência das curvas de aprendizado em todos os pilares.
 
 Todos os experimentos são implementados na biblioteca \texttt{activelearning}
-(Apêndice~\ref{ap:biblioteca}), desenvolvida nesta pesquisa sob arquitetura hexagonal
-com domínio isolado, e cada número reportado nos capítulos de resultados é rastreável
-a um artefato de execução versionado (configuração, sementes, revisão do código e
-registros por iteração), conforme a Seção~\ref{sec:metodo-reprodutibilidade}.
+(Apêndice~\ref{ap:biblioteca}), desenvolvida nesta pesquisa sob arquitetura
+hexagonal com domínio isolado. Cada número reportado nos capítulos de resultados
+é rastreável a um artefato de execução versionado, com configuração, sementes,
+revisão do código e registros por iteração, conforme a
+Seção~\ref{sec:metodo-reprodutibilidade}.
 
 \section{Desenho da pesquisa}
 \label{sec:metodo-desenho}
@@ -95,9 +96,9 @@ gatilho de parada que ele exercitou é descrito no Apêndice~\ref{ap:parada-laco
 \label{sec:metodo-dados}
 
 Esta seção documenta o material empírico da tese em quatro decisões
-encadeadas: de onde vêm os dados e o que os caracteriza, quanto se pode
-confiar nos rótulos de referência, como textos e espaço de classes foram
-normalizados e como o conjunto foi particionado para os experimentos.
+encadeadas. De onde vêm os dados e o que os caracteriza; quanto se pode confiar
+nos rótulos de referência; como textos e espaço de classes foram normalizados; e
+como o conjunto foi particionado para os experimentos.
 
 \subsection{Fonte e características}
 \label{sec:metodo-dados-fonte}
@@ -724,14 +725,13 @@ degradação do aprendizado em função da qualidade do oráculo.
 dados, construído pelo próprio autor \citep{Daru2022}. Isso maximiza o realismo
 (dados de produção de 18 varejistas) e a comparabilidade com o trabalho anterior,
 mas limita a generalização: as conclusões valem, a rigor, para descrições curtas
-de produtos de varejo em português. Três mitigações são adotadas: as decisões do
-framework não usam nenhuma propriedade específica do conjunto além das
-características públicas do gênero (texto curto, desbalanceamento, abreviações);
-os achados de instrumentação do oráculo são mecanismos do par LLM--API, não do
-dado; e
-o protocolo completo é reprodutível em qualquer conjunto rotulado com a mesma
-estrutura, ficando a réplica em benchmark público (\textit{e.g.}, STOPS
-\citep{Karl2023}) registrada como trabalho futuro.
+de produtos de varejo em português. Três mitigações são adotadas. As decisões do framework não usam nenhuma
+propriedade específica do conjunto além das características públicas do gênero:
+texto curto, desbalanceamento e abreviações. Os achados de instrumentação do
+oráculo são mecanismos do par LLM--API, não do dado. E o protocolo completo é
+reprodutível em qualquer conjunto rotulado com a mesma estrutura; a réplica em
+benchmark público, como o STOPS \citep{Karl2023}, fica registrada como trabalho
+futuro.
 
 \textbf{Validade interna.} O conjunto de teste é isolado de todas as decisões do
 processo (particionamento com deduplicação prévia; transição de fase por $V$;
@@ -748,11 +748,11 @@ teto de Macro F1 alcançável por \emph{qualquer} braço treinado ali é
 estruturalmente rebaixado nas classes de cauda. Isso não compromete as
 comparações \emph{entre} braços, que compartilham o mesmo \textit{pool}; afeta
 os valores absolutos de Macro F1, que subestimam o que uma amostra estratificada
-permitiria. Segunda: o orçamento inicialmente planejado
-($B=30\%$ de $|U_0|$) foi re-baseado para fração do \textit{pool} de 50 mil
-com a mudança de régua dessa comparação; os percentuais reportados no
-Capítulo~\ref{ch:resultados-falco} referem-se sempre ao denominador de 50 mil,
-e a primeira menção de cada resultado o explicita.
+permitiria. Segunda: o orçamento inicialmente planejado ($B=30\%$ de $|U_0|$) foi
+re-baseado para fração do \textit{pool} de 50 mil com a mudança de régua dessa
+comparação. Os percentuais reportados no Capítulo~\ref{ch:resultados-falco}
+referem-se sempre ao denominador de 50 mil, e a primeira menção de cada
+resultado o explicita.
 
 \textbf{Validade de constructo.} A acurácia do oráculo é medida contra um
 padrão-ouro com ruído conhecido (teto $\approx 99{,}3\%$; análise de
