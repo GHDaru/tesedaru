@@ -32,10 +32,9 @@ baseados em modelos de linguagem de grande porte (LLMs) atingem
 teto supervisionado com 250 mil rótulos, a custos entre US\$~0,035 e
 US\$~0,92 por mil rótulos, ordens de grandeza abaixo da anotação humana
 \citep{Gilardi2023}. O Macro F1 zero-shot, medido na S-strat ($\approx
-0{,}79$), supera o do baseline supervisionado leve com supervisão completa
-($0{,}70$, no teste de distribuição natural); como a S-strat é balanceada
-por construção, o suporte por classe difere entre as duas medições, e a
-leitura vale com essa ressalva: o LLM é \emph{melhor nas classes
+0{,}79$) nas 621 categorias desta amostra, supera o do baseline supervisionado leve com supervisão completa
+($0{,}70$, no teste de distribuição natural e nas 795 categorias da hierarquia completa \citep{Daru2024Dissertacao}); como a S-strat é balanceada
+por construção, o suporte por classe difere entre as duas medições. Como o Macro F1 é média por classe e o espaço de 795 rótulos é tarefa mais difícil que o de 621, no mesmo recorte de 621 o baseline subiria e a diferença encolheria: a margem aqui é um limite superior da vantagem do LLM. Com essa ressalva, o LLM é \emph{melhor nas classes
 raras} e pior nas convenções do catálogo, pois quase metade dos seus erros são
 fronteiras entre categorias-irmãs e política de classes guarda-chuva,
 aprendíveis apenas com exemplos. O efeito do instrumento de medição (RQ4)
