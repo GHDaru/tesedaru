@@ -530,16 +530,20 @@ A temperatura é fixada em 0 em todos os modelos.
 \subsection{Critério de decisão para o FALCO}
 \label{sec:metodo-oraculo-decisao}
 
-Dessa avaliação deriva a configuração de oráculos do FALCO, por um critério de aprovação
-fixado de antemão, antes de qualquer medição de oráculo, e registrado no
-repositório da tese, adiante referido também como \emph{gate} do oráculo: o
-\textbf{LLM Inicial} é o de
-melhor razão acurácia/custo sujeito a acurácia mínima de $85\%$ na S-rand; o
-\textbf{LLM Avançado} é o de maior acurácia, \emph{desde que} significativamente
-superior ao Inicial (McNemar, $\alpha=0{,}05$); caso contrário, a Fase~3 do
-framework é eliminada e o FALCO opera com oráculo único. Se nenhum modelo atingir o
-limiar, a avaliação de robustez a ruído do oráculo torna-se obrigatória e a
-discussão da tese passa a
+Dessa avaliação deriva a configuração de oráculos do FALCO. O critério de
+aprovação foi fixado de antemão, antes de qualquer medição de oráculo, e
+registrado no repositório da tese. Adiante ele é referido também como
+\emph{gate} do oráculo.
+
+O critério tem duas cláusulas. O \textbf{LLM Inicial} é o de melhor razão
+acurácia/custo entre os que atingem acurácia mínima de $85\%$ na S-rand. O
+\textbf{LLM Avançado} é o de maior acurácia, \emph{desde que} seja
+significativamente superior ao Inicial (McNemar, $\alpha=0{,}05$). Não se
+confirmando essa superioridade, a Fase~3 do framework é eliminada e o FALCO
+opera com oráculo único.
+
+Resta o caso em que nenhum modelo atinge o limiar. Nele, a avaliação de
+robustez a ruído do oráculo torna-se obrigatória, e a discussão da tese passa a
 tratar o aprendizado com oráculo ruidoso como cenário central.
 
 \section{O framework FALCO e sua avaliação}
