@@ -1,65 +1,65 @@
 {
  "schema": "kpis/v1",
- "computado_em": "2026-08-22",
- "git_sha": "206508c",
+ "computado_em": "2026-08-23",
+ "git_sha": "0e4749a",
  "prontidao": {
-  "global_pct": 28.9,
-  "texto_pct": 34.0,
+  "global_pct": 73.7,
+  "texto_pct": 86.7,
   "artefatos_pct": 0.0,
-  "pontos_totais": 1992,
-  "pontos_feitos": 677,
+  "pontos_totais": 1952,
+  "pontos_feitos": 1692,
   "por_rodada": [
    {
     "id": "R1",
-    "pontos": 94,
-    "feitos": 33
+    "pontos": 89,
+    "feitos": 89
    },
    {
     "id": "R2",
-    "pontos": 225,
-    "feitos": 52
+    "pontos": 210,
+    "feitos": 210
    },
    {
     "id": "R3",
     "pontos": 498,
-    "feitos": 402
+    "feitos": 498
    },
    {
     "id": "R4",
-    "pontos": 260,
-    "feitos": 68
+    "pontos": 240,
+    "feitos": 240
    },
    {
     "id": "R5",
     "pontos": 485,
-    "feitos": 66
+    "feitos": 485
    },
    {
     "id": "R6",
     "pontos": 150,
-    "feitos": 55
+    "feitos": 150
    },
    {
     "id": "R7",
     "pontos": 280,
-    "feitos": 0
+    "feitos": 20
    }
   ],
   "por_capitulo": [
    {
     "id": "pre-resumo",
     "pontos": 62,
-    "feitos": 10
+    "feitos": 52
    },
    {
     "id": "pre-abstract",
     "pontos": 62,
-    "feitos": 10
+    "feitos": 52
    },
    {
     "id": "cap1",
     "pontos": 96,
-    "feitos": 76
+    "feitos": 96
    },
    {
     "id": "cap2",
@@ -69,93 +69,93 @@
    {
     "id": "cap3",
     "pontos": 157,
-    "feitos": 135
+    "feitos": 137
    },
    {
     "id": "cap4",
     "pontos": 172,
-    "feitos": 5
+    "feitos": 152
    },
    {
     "id": "cap5",
     "pontos": 268,
-    "feitos": 36
+    "feitos": 248
    },
    {
     "id": "cap6",
     "pontos": 135,
-    "feitos": 6
+    "feitos": 115
    },
    {
     "id": "ap-a1",
     "pontos": 91,
-    "feitos": 0
+    "feitos": 71
    },
    {
     "id": "ap-a2",
     "pontos": 86,
-    "feitos": 0
+    "feitos": 66
    },
    {
     "id": "ap-a3",
     "pontos": 91,
-    "feitos": 0
+    "feitos": 71
    },
    {
     "id": "ap-a4",
     "pontos": 91,
-    "feitos": 0
+    "feitos": 71
    },
    {
     "id": "ap-a5",
-    "pontos": 86,
-    "feitos": 0
+    "pontos": 46,
+    "feitos": 26
    },
    {
     "id": "ap-a6",
     "pontos": 86,
-    "feitos": 0
+    "feitos": 66
    },
    {
     "id": "ap-a7",
     "pontos": 90,
-    "feitos": 0
+    "feitos": 70
    }
   ]
  },
  "ritmo": {
-  "velocidade_pontos_semana": 418.8,
-  "janela_dias": 6,
-  "eta_semanas": 3.1,
-  "eta_data": "2026-09-12",
+  "velocidade_pontos_semana": 687.0,
+  "janela_dias": 7,
+  "eta_semanas": 1.4,
+  "eta_data": "2026-09-01",
   "eta_confiavel": true,
   "serie": [
    {
     "data": "2026-08-16",
     "commit": "07bd867",
     "pontos": 318,
-    "pct": 16.0,
+    "pct": 16.3,
     "evento": null
    },
    {
     "data": "2026-08-17",
     "commit": "53c0ca2",
     "pontos": 808,
-    "pct": 40.6,
+    "pct": 41.4,
     "evento": null
    },
    {
     "data": "2026-08-18",
     "commit": "e9b8d9b",
     "pontos": 808,
-    "pct": 40.6,
+    "pct": 41.4,
     "evento": null
    },
    {
     "data": "2026-08-19",
     "commit": "e9b8d9b",
     "pontos": 808,
-    "pct": 40.6,
+    "pct": 41.4,
     "evento": null,
     "carregado": true
    },
@@ -163,21 +163,28 @@
     "data": "2026-08-20",
     "commit": "faef7a1",
     "pontos": 878,
-    "pct": 44.1,
+    "pct": 45.0,
     "evento": null
    },
    {
     "data": "2026-08-21",
     "commit": "f35cd55",
     "pontos": 878,
-    "pct": 44.1,
+    "pct": 45.0,
     "evento": null
    },
    {
     "data": "2026-08-22",
-    "commit": "206508c",
-    "pontos": 677,
-    "pct": 34.0,
+    "commit": "a086890",
+    "pontos": 825,
+    "pct": 42.3,
+    "evento": null
+   },
+   {
+    "data": "2026-08-23",
+    "commit": "8e7a176",
+    "pontos": 1005,
+    "pct": 51.5,
     "evento": null
    }
   ]
@@ -190,20 +197,13 @@
     "tipo": "acao",
     "trilha": null,
     "titulo": "Rodar semente 7 no Colab (notebook e3prime_colab, 1 sessão)",
-    "pontos_destravados": 253
+    "pontos_destravados": 20
    },
    {
     "id": "seed123",
     "tipo": "acao",
     "trilha": null,
     "titulo": "Rodar semente 123 no Colab",
-    "pontos_destravados": 253
-   },
-   {
-    "id": "cap3.R4",
-    "tipo": "gate",
-    "trilha": "texto",
-    "titulo": "Aprovar 3 · Método · rodada R4",
     "pontos_destravados": 20
    },
    {
@@ -249,27 +249,34 @@
     "pontos_destravados": 0
    },
    {
-    "id": "dec-politica-parada",
+    "id": "p09-resumo-500",
     "tipo": "decisao",
-    "trilha": "texto",
-    "titulo": "Política de parada: dois racionais incompatíveis (fator ~20) para a mesma constante — causa-raiz atribuída ao resultado negativo (parecer R3/R4/R6)",
+    "trilha": null,
+    "titulo": "P-09: adotar resumo-500/abstract-500 (teto SiBi)",
     "pontos_destravados": 0
    },
    {
-    "id": "dec-cap4-L0-100-valor-canonico",
+    "id": "esquemas-tikz-cap3",
     "tipo": "decisao",
     "trilha": null,
-    "titulo": "Cap.4 L0=100: tab:drisl-vs-ag (l.117) usa 38,76% (valor ERRADO). Canonico medido pelo executor02 (3 evidencias: convencao _old do sweep, cabecalho CSV, historico git) = 36,71% melhor / 10,86% pior, de activetextclassification@b540533 (_100old). A alegacao central SOBREVIVE e MELHORA: margem do DRI-SL vai de +2,47 p.p. para +4,52 p.p. Decisao do autor: aprovar a troca 38,76->36,71 (recomendado) e despachar a correcao de 1 linha.",
+    "titulo": "Esquemas TikZ da banca para o Cap.3",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "matriz-pos-freeze",
+    "tipo": "decisao",
+    "trilha": null,
+    "titulo": "Matriz de pendências P-01..P-12 (pós-congelamento)",
     "pontos_destravados": 0
    }
   ]
  },
  "represados": {
-  "pontos": 253
+  "pontos": 20
  },
  "divida_fundamentacao": {
-  "citacoes_pendentes": 38,
-  "chaves_citadas": 153,
+  "citacoes_pendentes": 0,
+  "chaves_citadas": 155,
   "fichamentos": 176,
   "chaves_sem_fichamento": 0
  },

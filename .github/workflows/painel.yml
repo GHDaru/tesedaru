@@ -57,6 +57,18 @@ jobs:
           fetch-depth: 0   # histórico completo: a série de evolução vem do git log do plano
       - name: Instala dependências (PyYAML — parsing de front-matter dos fichamentos)
         run: pip install --quiet pyyaml
+      # A caixa viva migrou para a branch `mensageria` (PROTOCOLO v1.8; decisão I4
+      # congela o snapshot da main). Para a página Coordenação refletir o estado
+      # real, a caixa viva sobrepõe o snapshot no working tree só durante o build.
+      - name: Caixa viva (branch mensageria) sobrepõe o snapshot congelado da main
+        run: |
+          if git fetch origin mensageria; then
+            rm -rf coordenacao/caixa
+            git checkout origin/mensageria -- coordenacao/caixa/
+            echo "caixa viva da mensageria aplicada"
+          else
+            echo "branch mensageria indisponível; segue com o snapshot da main"
+          fi
       - name: Computa KPIs, grafo e renderiza as 7 páginas do site
         run: |
           mkdir -p _site

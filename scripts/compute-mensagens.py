@@ -128,7 +128,10 @@ def main():
             "ativo": minutos is not None and minutos <= ATIVO_JANELA_MIN,
         })
 
-    ativas = [x for x in mensagens if x["estado"] != "concluida"]
+    # arquivada nunca é ativa, mesmo quando o nome preservou o sufixo .aberta
+    # da época do arquivamento (o arquivo/ congela o nome; só a caixa é viva)
+    ativas = [x for x in mensagens
+              if x["estado"] != "concluida" and not x["arquivada"]]
     bloqueios = [x for x in ativas if x["tipo"] == "tarefa" and "bloque" in x["slug"]]
     saude = {
         "mensagens_ativas": len(ativas),

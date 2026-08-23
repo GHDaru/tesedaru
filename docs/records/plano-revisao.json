@@ -1,7 +1,7 @@
 {
  "schema": "plano-revisao/v1",
- "versao": 94,
- "atualizado_em": "2026-08-23T23:20:00Z",
+ "versao": 95,
+ "atualizado_em": "2026-08-23T23:42:48Z",
  "atualizado_por": "principal",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
@@ -78,8 +78,8 @@
      "nota": "Fluidez gateada @e68150e (revisor1): densidade -34%, parágrafo único, PT/EN espelhados, freeze (dígitos idênticos). BLOQ de norma SiBi (>500 palavras) -> P-09 na matriz."
     },
     "R2": {
-     "status": "pendente",
-     "nota": "abrem FALCO/LLM; auditar o restante"
+     "status": "feito",
+     "nota": "Régua MÁXIMA gateada @2958062 (cruzadas revisor1×revisor2 aprovadas); proposta-500 da P-09 pronta em 0-iniciais/resumo-500.tex e abstract-500.tex (≈464/455 palavras) — adoção é decisão editorial do autor."
     },
     "R3": {
      "status": "na"
@@ -88,11 +88,8 @@
      "status": "na"
     },
     "R5": {
-     "status": "andamento",
-     "nota": "espelhos alinhados em 2026-08 (P4, 250.221); rechecar ao final",
-     "bloqueado_por": [
-      "consolidar-seeds"
-     ]
+     "status": "feito",
+     "nota": "CONGELAMENTO v1: espelhos numéricos conferidos nas cruzadas da régua máxima (@2958062); números congelados por decisão do autor. Teto SiBi de 500 palavras = P-09."
     },
     "R6": {
      "status": "feito",
@@ -100,8 +97,7 @@
     },
     "R7": {
      "status": "pendente",
-     "reauditar": true,
-     "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
     }
    },
    "dimensoes": {
@@ -122,8 +118,8 @@
      "nota": "Fluidez gateada @e68150e (revisor1): densidade -34%, parágrafo único, PT/EN espelhados, freeze (dígitos idênticos). BLOQ de norma SiBi (>500 palavras) -> P-09 na matriz."
     },
     "R2": {
-     "status": "pendente",
-     "nota": "abrem FALCO/LLM; auditar o restante"
+     "status": "feito",
+     "nota": "Régua MÁXIMA gateada @2958062 (cruzadas revisor1×revisor2 aprovadas); proposta-500 da P-09 pronta em 0-iniciais/resumo-500.tex e abstract-500.tex (≈464/455 palavras) — adoção é decisão editorial do autor."
     },
     "R3": {
      "status": "na"
@@ -132,11 +128,8 @@
      "status": "na"
     },
     "R5": {
-     "status": "andamento",
-     "nota": "espelhos alinhados em 2026-08 (P4, 250.221); rechecar ao final",
-     "bloqueado_por": [
-      "consolidar-seeds"
-     ]
+     "status": "feito",
+     "nota": "CONGELAMENTO v1: espelhos numéricos conferidos nas cruzadas da régua máxima (@2958062); números congelados por decisão do autor. Teto SiBi de 500 palavras = P-09."
     },
     "R6": {
      "status": "feito",
@@ -144,8 +137,7 @@
     },
     "R7": {
      "status": "pendente",
-     "reauditar": true,
-     "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
     }
    },
    "dimensoes": {
@@ -184,9 +176,8 @@
      "nota": "banca: capítulo auto-suficiente; ressalva única resolvida no item 3 do R4"
     },
     "R7": {
-     "status": "pendente",
-     "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas.",
-     "reauditar": true
+     "status": "feito",
+     "nota": "Auditoria pessoal do autor CONCLUÍDA 2026-08-23 (@d971d28..@0e4749a): critério relativo sem 34.724 absoluto; nota de rodapé enxuta (sem 69,4% e sem frase do denominador); biblioteca activelearning citada como referência só na 1ª menção (Contribuições); organização do trabalho completa (Cap.2 c/ aprendizado supervisionado, Cap.3 c/ 8 blocos, 7 apêndices) e sem siglas (opção a). Fecho do autor: \"Com isto, teremos concluído o capítulo 01.\""
     }
    },
    "abertura": [
@@ -233,8 +224,7 @@
     },
     "R7": {
      "status": "pendente",
-     "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas.",
-     "reauditar": true
+     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
     }
    },
    "abertura": [
@@ -329,8 +319,8 @@
      "nota": "revisor2: 18 chaves, 12 fichadas, 3 canônicas, 3 fichamentos novos (AdamW, SBERT, Transformers)"
     },
     "R4": {
-     "status": "gate",
-     "nota": "revisor1 branch r4/cap3-afirmacoes @908a840: 0 afirmacoes orfas; 7 lastros corrigidos (E5 apontava e6population, e o correto e e5cycle; nota de reprodutibilidade das duas chaves de texto; E2 com desfecho; artefato da calibracao de lote; 'ordens de grandeza' virou argumento; 5x->4,6x com denominador; verificador executavel citado). 3 DIVERGENCIAS declaradas e nao corrigidas, exigem decisao: gate 85% invertido (esta 4,56 p.p. ABAIXO de 89,56%, nao acima); Fase 2 roda entropia mas o E1 elege menor margem/menor confianca; epsilon=1e-3 x 1/sqrt(nV)=0,0224 do A7 (fator 22). Relatorio o relatorio de afirmacoes da R4 (a entregar pelo revisor1). DoD: compila exit 0, 0 refs indefinidas novas, overfull identico a main."
+     "status": "feito",
+     "nota": "Fechado no ciclo de fluidez+excelência do Cap.3 (gates @ad944b2/@7202536/@dd4e21c): 0 afirmações órfãs; sensibilidade do §3.5.1 explicada com link e justificativa de cada número (aprovada pelo autor). As 3 divergências declaradas foram roteadas: epsilon×1/sqrt(nV) = P-05 (adiada); gate/critério = família P-01/P-12 na matriz."
     },
     "R5": {
      "status": "feito",
@@ -342,8 +332,7 @@
     },
     "R7": {
      "status": "pendente",
-     "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas.",
-     "reauditar": true
+     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
     }
    },
    "abertura": [
@@ -495,8 +484,7 @@
     },
     "R7": {
      "status": "pendente",
-     "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas.",
-     "reauditar": true
+     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
     }
    },
    "abertura": [
@@ -575,32 +563,28 @@
      "nota": "R1 forma GATEADO na main @d595709 (revisor2, entrega @b4497fe): 12 conversoes (titulos RQ1-RQ4 dois-pontos + 8 travessoes de prosa -> pontuacao). §2-ter: multiconjunto de digitos IDENTICO (freeze). B~$-$~C (menos matematico) e 8 travessoes de tabela preservados. Sem colisao com braco E."
     },
     "R2": {
-     "status": "andamento",
-     "nota": "banca (siglas) - despachado 0330"
+     "status": "feito",
+     "nota": "Fechado no loop de excelência do Cap.5 (revisor1, mesmo padrão do Cap.3), gateado na main @ca6f558 com prova de freeze (multiconjunto de dígitos idêntico)."
     },
     "R3": {
-     "status": "andamento",
-     "nota": "revisor2 (fontes) - despachado 0330"
+     "status": "feito",
+     "nota": "Fechado no loop de excelência do Cap.5 (revisor1, mesmo padrão do Cap.3), gateado na main @ca6f558 com prova de freeze (multiconjunto de dígitos idêntico)."
     },
     "R4": {
-     "status": "andamento",
-     "nota": "revisor1 (afirmacoes) - despachado 0330"
+     "status": "feito",
+     "nota": "Fechado no loop de excelência do Cap.5 (revisor1, mesmo padrão do Cap.3), gateado na main @ca6f558 com prova de freeze (multiconjunto de dígitos idêntico)."
     },
     "R5": {
-     "status": "andamento",
-     "nota": "varredura marcada post hoc (a4617e8); ATENÇÃO: multi-semente E3' vai reescrever números deste capítulo",
-     "bloqueado_por": [
-      "consolidar-seeds"
-     ]
+     "status": "feito",
+     "nota": "CONGELAMENTO v1 (decisão do autor 2026-08-22): números e artefatos valem como verdade; não se executa mais código. Achados remanescentes registrados na matriz: P-01 (p-valor Fase 3, vermelha), P-02 (braço E s123, opcional), P-06 (tab:e6 denominadores, opcional)."
     },
     "R6": {
-     "status": "andamento",
-     "nota": "banca (terminologia) - despachado 0330"
+     "status": "feito",
+     "nota": "Fechado no loop de excelência do Cap.5 (revisor1, mesmo padrão do Cap.3), gateado na main @ca6f558 com prova de freeze (multiconjunto de dígitos idêntico)."
     },
     "R7": {
      "status": "pendente",
-     "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas.",
-     "reauditar": true
+     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
     }
    },
    "abertura": [
@@ -721,8 +705,7 @@
     },
     "R7": {
      "status": "pendente",
-     "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas.",
-     "reauditar": true
+     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
     }
    },
    "abertura": [
@@ -812,25 +795,28 @@
      "nota": "R1/R2/R6 de forma gateados @e68150e (revisor2)."
     },
     "R2": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R3": {
-     "status": "pendente",
-     "nota": "1 citação distinta a validar contra fichamento"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R4": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R5": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R6": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R7": {
      "status": "pendente",
-     "reauditar": true,
-     "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
     }
    },
    "dimensoes": {
@@ -854,25 +840,27 @@
      "nota": "R1/R2/R6 de forma gateados @e68150e (revisor2)."
     },
     "R2": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R3": {
      "status": "na"
     },
     "R4": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R5": {
-     "status": "pendente",
-     "nota": "ACHADO GRAVE (revisor2, ampliado na convergencia): a config ABANDONADA (população 50, N_elite 5, geração _oldold) esta em DOIS locais vivos — A2 E Cap.3 3-metodo/texto.tex l.396-400 (bloco 'idêntica em todas as execuções'). Raiz do '5.000 avaliações' do Cap.4 (ja corrigido). Como o bloco inteiro veio do arquivo abandonado, pode nao ser so populacao: executor02 deve extrair a config CANONICA do artefato _old (pop, geracoes, N_elite, torneio k_t, p_c, p_m, mutacao) antes de reescrever; depois banca corrige A2+Cap.3 no MESMO lote; revisor1/revisor2 cruzam; gate do autor. Canonico confirmado ate agora: pop 20 -> 2.000 aval (4.000 no L0=10), N_elite 2. R5 aplica-se e REPROVA ate o conserto."
+     "status": "feito",
+     "nota": "Achado grave FECHADO NA V1: config canônica do AG (pop 20, N_elite 2, torneio 3, p_c 0,8, p_m 0,1) espelhada Cap.3↔A2 + nota L0=10. Resta P-04 (pop 20×50, documental) na matriz. Passe de excelência da banca gateado @c65c6ee."
     },
     "R6": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R7": {
      "status": "pendente",
-     "reauditar": true,
-     "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
     }
    },
    "dimensoes": {
@@ -896,25 +884,28 @@
      "nota": "R1/R2/R6 de forma gateados @e68150e (revisor2)."
     },
     "R2": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R3": {
-     "status": "pendente",
-     "nota": "1 citação distinta a validar contra fichamento"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R4": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R5": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R6": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R7": {
      "status": "pendente",
-     "reauditar": true,
-     "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
     }
    },
    "dimensoes": {
@@ -938,25 +929,28 @@
      "nota": "R1/R2/R6 de forma gateados @e68150e (revisor2)."
     },
     "R2": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R3": {
-     "status": "pendente",
-     "nota": "1 citação distinta a validar contra fichamento"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R4": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R5": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R6": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R7": {
      "status": "pendente",
-     "reauditar": true,
-     "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
     }
    },
    "dimensoes": {
@@ -995,12 +989,12 @@
      "nota": "revisor2 (mapa corrigido): R5 aplica-se e PASSA — cache 88-95% bate com artefato (88,30-94,75%) e as 621 categorias conferem"
     },
     "R6": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R7": {
      "status": "pendente",
-     "reauditar": true,
-     "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
     }
    },
    "dimensoes": {
@@ -1024,25 +1018,27 @@
      "nota": "R1/R2/R6 de forma gateados @e68150e (revisor2)."
     },
     "R2": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R3": {
      "status": "na"
     },
     "R4": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R5": {
-     "status": "pendente",
-     "nota": "tabelas — espelho do Cap. 4 (dado numérico denso; contagem exata de tokens numéricos pendente de metodologia — a do agregado não bate com contagem direta)"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R6": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R7": {
      "status": "pendente",
-     "reauditar": true,
-     "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
     }
    },
    "dimensoes": {
@@ -1066,25 +1062,27 @@
      "nota": "R1/R2/R6 de forma gateados @e68150e (revisor2)."
     },
     "R2": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R3": {
      "status": "na"
     },
     "R4": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R5": {
-     "status": "pendente",
-     "nota": "espelha a política de parada do Cap. 3/5"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R6": {
-     "status": "pendente"
+     "status": "feito",
+     "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R7": {
      "status": "pendente",
-     "reauditar": true,
-     "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
+     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
     }
    },
    "dimensoes": {
@@ -1410,15 +1408,14 @@
   }
  ],
  "proximo": {
-  "descricao": "V1 ENTREGUE na main @2b07f8d (gate bloco A2+braco-E + fix §2.2.3); PDF em build. ACHADOS CONGELADOS por decisao do autor: nao se mexe mais em numeros/artefatos nem se executa codigo; o feito vale como verdade. Pendencias em docs/records/MATRIZ-DE-PENDENCIAS.md (P-01 p-valor Fase 3 ABERTO/nao cruzado; P-05 politica-parada B aprovada mas ADIADA; etc.). Decisoes antes pendentes RESOLVIDAS: politica-parada (B aprovada, adiada->P-05) e Cap.4 L0=100 (36,71 ja na main, l.111/146). Autor conduz correcao de metodologia/resultados sobre a base v1; depois voltamos as R's. Sob o congelamento, as R's vivas sao as de FORMA/ESTILO (R1 travessoes, R2 siglas, R6 jargao, humanizacao); R5 numeros esta congelado; R3/R4 so onde nao toca achado.",
+  "descricao": "TESE CONGELADA: v1.0-régua na main @70874db (ponteiro: branch congelada/v1.0-regua; tag local v1.0-regua-congelada aguarda push do autor). Campanha de excelência COMPLETA: Caps.1-5 + apêndices A-G na régua padrão; Cap.6 + resumo/abstract na régua MÁXIMA com cruzadas obrigatórias; tudo com prova de freeze (multiconjunto de dígitos, labels/refs/cites). FASE ATUAL: auditoria pessoal do autor, capítulo a capítulo — o autor faz marcações visuais, o principal aplica e commita, o autor aprova no chat (o principal pode criticar observações quando couber). CAP.1 CONCLUÍDO @0e4749a: critério relativo sem número absoluto, nota de rodapé enxuta, biblioteca activelearning citada só na 1ª menção, organização do trabalho completa e sem siglas (opção a do autor). Pendências pós-freeze na matriz (docs/records/MATRIZ-DE-PENDENCIAS.md): P-01 e P-12 são as vermelhas.",
   "fila": [
-   "revisor1: bib lote 0 (em curso) -> bib lote 2 -> humanização Caps. 3 e 4",
-   "revisor2: bib lotes 1 e 3 -> humanização Caps. 5 e 6",
-   "banca: lote 4 (verificação do bib) + re-checagem do veredito mergeado",
-   "executor01/02: sementes 7 e 123 (Kaggle) -> consolidação estatística",
-   "principal: lotes 2 e 3 do mínimo-banca (números R5-imediato, declaração de IA) + Cap. 2 lotes 2-5 após o bib",
-   "site: fatia 2 (kanban + página de Resultados)",
-   "depois: R2 siglas · R5 números × artefatos · R3 fichamento · R4 · R6 · R7 + ARS final"
+   "autor: marcações da auditoria — próximo capítulo (Cap.2 em diante)",
+   "principal: aplicar marcações do autor + gate hunk a hunk; sem tocar números (congelamento)",
+   "autor (fila editorial): P-09 — adotar ou não resumo-500/abstract-500 (0-iniciais/resumo-500.tex, abstract-500.tex; decidir frase de robustez Macro F1: fora=500, dentro=516, ou troca pela 3ª descoberta)",
+   "autor (fila editorial): 5 sugestões de esquemas TikZ da banca para o Cap.3 (branch da banca) — escolher quais entram",
+   "autor (fila editorial): matriz P-01..P-12 — priorizar as vermelhas (P-01 p-valor Fase 3; P-12 conjunção 3 do veredito)",
+   "agentes: em repouso — reativação sob demanda do autor"
   ]
  },
  "execucoes": {
@@ -1500,7 +1497,26 @@
   ]
  },
  "gate": "NADA entra na main sem gate humano do autor: toda rodada roda em branch, apresenta antes/depois na conversa e só mergeia com aprovação explícita. Vale para texto, código e plano.",
- "decisoes_pendentes": [],
+ "decisoes_pendentes": [
+  {
+   "id": "p09-resumo-500",
+   "titulo": "P-09: adotar resumo-500/abstract-500 (teto SiBi)",
+   "contexto": "Propostas prontas e cruzadas em 0-iniciais/resumo-500.tex e abstract-500.tex (≈464/455 palavras). Decidir também a frase de robustez do Macro F1: fora (500 palavras), dentro (516), ou trocar pela 3ª descoberta.",
+   "dono": "autor"
+  },
+  {
+   "id": "esquemas-tikz-cap3",
+   "titulo": "Esquemas TikZ da banca para o Cap.3",
+   "contexto": "5 sugestões de esquemas na branch da banca (além dos 6 já na main). Escolher quais entram no corpo do Cap.3.",
+   "dono": "autor"
+  },
+  {
+   "id": "matriz-pos-freeze",
+   "titulo": "Matriz de pendências P-01..P-12 (pós-congelamento)",
+   "contexto": "Vermelhas: P-01 (p-valor da Fase 3 sem lastro, não cruzado) e P-12 (conjunção 3 do veredito do Cap.6). Demais: médias/baixas na matriz.",
+   "dono": "autor"
+  }
+ ],
  "lembretes": [
   {
    "id": "lembrete-glm51-cap3",
