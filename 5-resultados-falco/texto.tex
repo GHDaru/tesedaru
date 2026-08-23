@@ -163,34 +163,31 @@ construção, e é por isso o modo de produção do FALCO.
 \label{sec:res-e0-ruido-gabarito}
 
 Duas verificações de instrumentação completam a avaliação de oráculos.
-\textbf{Gabarito}:
-reavaliando todos os oráculos (a) sem as instâncias de rótulo conflitante e
-(b) sob pontuação \emph{multi-gold}, a acurácia varia no máximo $+0{,}7$
-p.p., sem alterar nenhum ordenamento: o ruído conhecido do gabarito limita o
-teto de medição ($\approx 99{,}3\%$), mas não contamina as comparações
-(Seção~\ref{sec:metodo-dados-auditoria}). \textbf{Lote}: na calibração
-pareada (lotes de 1, 10 e 25 itens nas mesmas instâncias), o McNemar não
-detecta degradação ($b=1$ vs.\ $b=10$: $p=0{,}58$), e o lote reduz o custo por
-rótulo em até 10 vezes ao amortizar o prefixo, e por isso adotou-se $b=10$ (OpenAI) e
-$b=25$ (MaaS), registrado por anotação. O ganho é consistente com o precedente
-de anotação em lote em laços de aprendizado ativo com LLM \citep{Kholodna2024}, que reporta o
-mesmo mecanismo de amortização de \textit{prompt} como componente central da
-economia frente à anotação humana.
+\textbf{Gabarito}: todos os oráculos foram reavaliados de duas formas, sem as
+instâncias de rótulo conflitante e sob pontuação \emph{multi-gold}. A acurácia
+varia no máximo $+0{,}7$ p.p., sem alterar nenhum ordenamento. O ruído
+conhecido do gabarito limita o teto de medição ($\approx 99{,}3\%$), mas não
+contamina as comparações (Seção~\ref{sec:metodo-dados-auditoria}). \textbf{Lote}: na calibração pareada, com lotes de 1, 10 e 25 itens nas mesmas
+instâncias, o McNemar não detecta degradação ($b=1$ vs.\ $b=10$: $p=0{,}58$). O
+lote reduz o custo por rótulo em até 10 vezes ao amortizar o prefixo. Por isso
+adotou-se $b=10$ (OpenAI) e $b=25$ (MaaS), registrado por anotação. O ganho é consistente com o precedente de anotação em lote em laços de
+aprendizado ativo com LLM \citep{Kholodna2024}, que reporta o mesmo mecanismo:
+a amortização do \textit{prompt} como componente central da economia frente à
+anotação humana.
 
 \section{O \textit{prompt} como variável do instrumento de medição}
 \label{sec:res-e0p}
 
 A anatomia de erros (RQ3) indica que $\approx 48\%$ dos erros do oráculo são
-de convenção de catálogo, ou seja, atacáveis por \textit{prompt}. Esta seção mede
-esse potencial no modelo de MENOR custo com cache (gpt-4o-mini): variantes
-\textbf{v4a} (dez regras de fronteira explícitas derivadas do perfil de erro
-da S-strat) e \textbf{v4b} (v4a + dez exemplos \emph{inventados} de fronteiras
-difíceis, nunca instâncias das amostras, desenho anti-vazamento registrado
-na decisão D-004 do mesmo registro),
-pareadas com o v3 oficial nos mesmos 500 primeiros itens de cada amostra. Esse
-subconjunto-prefixo (aleatório por construção, pois as amostras já são
-embaralhadas) foi dimensionado para detectar, via McNemar, deslocamentos da ordem
-de 4--5 p.p.\ com o volume de discordâncias esperado ($\approx 60$--$80$
+de convenção de catálogo, ou seja, atacáveis por \textit{prompt}. Esta seção mede esse potencial no modelo de MENOR custo com cache
+(gpt-4o-mini), em duas variantes pareadas com o v3 oficial nos mesmos 500
+primeiros itens de cada amostra. A \textbf{v4a} traz dez regras de fronteira
+explícitas, derivadas do perfil de erro da S-strat. A \textbf{v4b} acrescenta
+dez exemplos \emph{inventados} de fronteiras difíceis, nunca instâncias das
+amostras, num desenho anti-vazamento registrado na decisão D-004 do mesmo
+registro. Esse subconjunto-prefixo é aleatório por construção, já que as amostras vêm
+embaralhadas. Ele foi dimensionado para detectar, via McNemar, deslocamentos da
+ordem de 4--5 p.p.\ com o volume de discordâncias esperado ($\approx 60$--$80$
 pares), a um quinto do custo da amostra completa por variante.
 A Tabela~\ref{tab:e0p} resume o resultado
 (artefato de análise do E0-P).
@@ -215,23 +212,22 @@ S-strat & v4b (regras+ex.)   & $41{,}0\%$ & $14/68$ & $<0{,}001$ \\
 \end{tabular}
 \end{table}
 
-O resultado é uma faca de dois gumes, e por isso mesmo informativo. Na
-S-rand, que espelha a distribuição de produção, as regras de fronteira
+O resultado é uma faca de dois gumes, e por isso mesmo informativo. Na S-rand, que espelha a distribuição de produção, as regras de fronteira
 recuperam parte do erro de convenção: $+3{,}8$ p.p.\ com v4a ($p=0{,}045$) e
-$+4{,}6$ p.p.\ com v4b ($p=0{,}012$), confirmando que uma fração do déficit
-do modelo fraco é atacável por \textit{prompt} sem nenhum rótulo adicional.
+$+4{,}6$ p.p.\ com v4b ($p=0{,}012$). Uma fração do déficit do modelo fraco é,
+portanto, atacável por \textit{prompt} sem nenhum rótulo adicional.
 Na S-strat, porém, as mesmas regras \emph{destroem} desempenho: $-7{,}0$ e
 $-10{,}8$ p.p.\ ($p<0{,}001$), com os exemplos inventados piorando
-significativamente sobre as regras puras ($p=0{,}0013$). A leitura é direta:
-regras derivadas do perfil de erro agregado empurram o modelo para as
-convenções das classes \emph{frequentes}, exatamente o comportamento que
-penaliza a amostra estratificada, dominada por classes raras. Duas
-implicações para o FALCO: (i) otimização de \textit{prompt} deve ser validada
-nas \emph{duas} distribuições antes de adoção, pois um ganho medido só na
-amostra natural pode mascarar regressão severa nas caudas; e (ii) o ganho
-barato na distribuição de produção existe e justifica a direção de trabalho
-futuro de gerar regras automaticamente a partir da matriz de confusão
-(Seção~\ref{sec:conc-futuro}), desde que com salvaguarda estratificada.
+significativamente sobre as regras puras ($p=0{,}0013$). A leitura é direta. Regras derivadas do perfil de erro agregado empurram o
+modelo para as convenções das classes \emph{frequentes}, exatamente o
+comportamento que penaliza a amostra estratificada, dominada por classes
+raras. Daí decorrem duas implicações para o FALCO. A primeira: otimização de
+\textit{prompt} deve ser validada nas \emph{duas} distribuições antes da
+adoção, pois um ganho medido só na amostra natural pode mascarar regressão
+severa nas caudas. A segunda: o ganho barato na distribuição de produção
+existe, e justifica a direção de trabalho futuro de gerar regras
+automaticamente a partir da matriz de confusão (Seção~\ref{sec:conc-futuro}),
+desde que com salvaguarda estratificada.
 
 \section{Estratégias de seleção com oráculo perfeito}
 \label{sec:res-e1}
@@ -286,11 +282,10 @@ ablação com entropia, $b=50$ (LCE $0{,}492 \pm 0{,}009$) e $b=100$
 ($0{,}493 \pm 0{,}006$) são indistinguíveis, mas $b=200$ degrada para
 $0{,}481 \pm 0{,}012$; uma explicação compatível, não medida diretamente, é
 que com lotes grandes a seleção repete redundância dentro do próprio lote
-antes de o modelo se atualizar. Para o FALCO, isso fixa o
-lote operacional em $b \le 100$ e recomenda menor margem/menor confiança como
-estratégias da Fase~2, com a ressalva explícita de que o ordenamento foi
-medido com o classificador leve e deve ser revalidado com BERTimbau
-(desenho na Seção~\ref{sec:metodo-falco-baselines}):
+antes de o modelo se atualizar. Para o FALCO, isso fixa o lote operacional em $b \le 100$ e recomenda menor
+margem e menor confiança como estratégias da Fase~2. A ressalva é explícita: o
+ordenamento foi medido com o classificador leve e deve ser revalidado com
+BERTimbau (desenho na Seção~\ref{sec:metodo-falco-baselines}), porque
 probabilidades mais calibradas do \textit{transformer} podem reordenar
 entropia e margens.
 
@@ -359,41 +354,39 @@ de LLM \citep{Yuan2025NoiseAL}.
 \section{Seletores em escala populacional e o viés da autoavaliação}
 \label{sec:res-e6}
 
-Esta seção estende a comparação de seletores (as estratégias de seleção,
-aqui aplicadas como política contínua ao longo de todo o orçamento) para a
-escala completa da base e
-operacionaliza a distinção entre a \emph{autoavaliação} (medir nos próprios
-dados que o processo coletou) e a avaliação \emph{externa}.
+Esta seção estende a comparação de seletores para a escala completa da base,
+com as estratégias de seleção aplicadas como política contínua ao longo de todo
+o orçamento. Ela também operacionaliza a distinção entre a \emph{autoavaliação},
+que mede nos próprios dados que o processo coletou, e a avaliação
+\emph{externa}.
 O viés estatístico de avaliar em dados coletados ativamente é conhecido da
 literatura \citep{Farquhar2021Bias,Kossen2021ActiveTesting}; a contribuição
 aqui é quantificá-lo em espaço de classes amplo, onde o sinal se revela
 dependente da métrica. A base deduplicada é dividida em um
 \textit{pool} rotulável de 50.000 instâncias (oráculo perfeito, isto é, o
 próprio gabarito) e uma \textbf{população reservada} com todo o restante
-(181.490 instâncias), jamais tocada pela seleção. Registre-se a diferença de
-denominador em relação ao Capítulo~\ref{ch:metodo}, que declara 177.490: a
-avaliação em escala populacional desta seção não desconta as 4.000 instâncias
-do \emph{conjunto retido} (2.000 de validação e 2.000 de teste,
-Seção~\ref{sec:metodo-dados-particionamento}), que existem para decidir a
-parada do ciclo real. O desconto é feito na avaliação com o classificador
-forte (Seção~\ref{sec:res-e3p}) por precaução, e não é necessário aqui porque
-esta varredura \textbf{não tem critério de parada}: ela percorre o orçamento
-inteiro e, portanto, nunca consulta aquelas instâncias para decidir coisa
-alguma. A diferença é de 2,2\% da amostra de avaliação e, como o
+(181.490 instâncias), jamais tocada pela seleção. Registre-se a diferença de denominador em relação ao
+Capítulo~\ref{ch:metodo}, que declara 177.490. A avaliação em escala
+populacional desta seção não desconta as 4.000 instâncias do \emph{conjunto
+retido}: 2.000 de validação e 2.000 de teste
+(Seção~\ref{sec:metodo-dados-particionamento}), que existem para decidir a
+parada do ciclo real. O desconto é feito na avaliação com o classificador forte
+(Seção~\ref{sec:res-e3p}) por precaução. Aqui ele não é necessário, porque esta
+varredura \textbf{não tem critério de parada}: ela percorre o orçamento inteiro
+e nunca consulta aquelas instâncias para decidir coisa alguma. A diferença é de 2,2\% da amostra de avaliação e, como o
 particionamento é feito por posição \emph{depois} do embaralhamento, os dois
-recortes são intercambiáveis. A cada lote de
-500, o conjunto rotulado acumulado sofre uma divisão convencional 80/20 e o
-modelo treinado é medido em dois lugares: no \emph{teste de autoavaliação} (os 20\% do
-que o processo rotulou, isto é, o que um praticante sem conjunto reservado
-conseguiria medir) e na \emph{população} (o desempenho real de implantação).
+recortes são intercambiáveis. A cada lote de 500, o conjunto rotulado acumulado sofre uma divisão
+convencional 80/20, e o modelo treinado é medido em dois lugares. Um é o
+\emph{teste de autoavaliação}, os 20\% do que o processo rotulou, isto é, o que
+um praticante sem conjunto reservado conseguiria medir. O outro é a
+\emph{população}, o desempenho real de implantação.
 Cinco seletores são comparados com PVBin e SGD logístico: entropia,
 aleatório, DRI-SL como política contínua, a variante \textbf{DRI-SL-C} e um
-braço de \textbf{ablação} da própria DRI-SL-C. Na DRI-SL-C, após o
-\textit{cold start}, os grupos do DRI-SL deixam de vir de $k$-means e passam a
-ser as \emph{classes previstas pelo próprio classificador}, mantidas a
-alocação proporcional e a novidade lexical intra-grupo; a ablação
-remove o termo de novidade lexical e equivale, portanto, a
-\emph{amostragem estratificada pelas classes previstas}. A ablação isola a
+braço de \textbf{ablação} da própria DRI-SL-C. Na DRI-SL-C, depois do \textit{cold start}, os grupos do DRI-SL deixam de vir
+de $k$-means e passam a ser as \emph{classes previstas pelo próprio
+classificador}, mantidas a alocação proporcional e a novidade lexical
+intra-grupo. A ablação remove o termo de novidade lexical, e equivale portanto
+a \emph{amostragem estratificada pelas classes previstas}. A ablação isola a
 origem do ganho da variante: agrupamento por predição ou seleção lexical
 dentro dos grupos. Execução com semente única e orçamento até o
 \textit{pool} completo (artefatos do E6); por
@@ -402,12 +395,11 @@ descritivos. Os dois braços centrais (entropia e aleatório, ambos
 classificadores) foram, contudo, reexecutados em \textbf{oito sementes}
 que variam o sorteio inicial, os desempates e a divisão interna mantendo o
 \textit{pool} fixo, permitindo inferência sobre a comparação principal
-(artefato \texttt{analysis\_multiseed.json}). A robustez confirma o quadro:
-a saturação da entropia no SGD é $9{,}1\text{k}\pm0{,}6\text{k}$ rótulos
-(faixa 8,5--10k) contra $15{,}5\text{k}\pm1{,}1\text{k}$ do aleatório, e o
-teto da entropia supera o do aleatório em \textbf{8 das 8 sementes}
-(Wilcoxon pareado, $p=0{,}0078$, a significância máxima alcançável com
-oito pares); no PVBin a vantagem de teto é pequena e não significativa
+(artefato de análise multissemente). A robustez confirma o quadro. A saturação
+da entropia no SGD é $9{,}1\text{k}\pm0{,}6\text{k}$ rótulos (faixa 8,5--10k)
+contra $15{,}5\text{k}\pm1{,}1\text{k}$ do aleatório, e o teto da entropia
+supera o do aleatório em \textbf{8 das 8 sementes} (Wilcoxon pareado,
+$p=0{,}0078$, a significância máxima alcançável com oito pares). No PVBin a vantagem de teto é pequena e não significativa
 (6/8), mas a saturação ($19{,}3\text{k}\pm0{,}7\text{k}$) permanece menos
 da metade da do aleatório ($40{,}6\text{k}\pm1{,}4\text{k}$). O viés de
 autoavaliação da acurácia é igualmente estável: em $|L|=10\text{k}$ o
@@ -555,15 +547,13 @@ pareado permite:
 \textbf{(i) O ruído do oráculo não é o gargalo.} Nos mesmos 11.936 itens,
 os rótulos do oráculo custam $7{,}2$ p.p.\ de acurácia frente ao gabarito
 (A~vs.~B), itens selecionados por incerteza e portanto mais difíceis que
-a média. Em Macro F1, os dois braços praticamente empatam ($0{,}297$ vs.\
-$0{,}299$, com B à frente em duas das três sementes): o erro estruturado do
-oráculo espalha rótulos por mais classes (o treino de A cobre 643 classes,
-contra 634 de B), mas a cobertura extra não se converte em Macro F1
-superior. A leitura de que ruído estruturado é o regime benigno segue
-sustentada pela avaliação de robustez com ruído controlado
-(Seção~\ref{sec:res-e4}); o que esta comparação mostra é que o custo do
-oráculo concentra-se na acurácia, sem perda correspondente em Macro F1:
-o gargalo do braço A é orçamento, não rótulo.
+a média. Em Macro F1, os dois braços praticamente empatam ($0{,}297$ vs.\ $0{,}299$,
+com B à frente em duas das três sementes). O erro estruturado do oráculo
+espalha rótulos por mais classes, e o treino de A cobre 643 classes contra 634
+de B, mas a cobertura extra não se converte em Macro F1 superior. A leitura de que ruído estruturado é o regime benigno segue sustentada pela
+avaliação de robustez com ruído controlado (Seção~\ref{sec:res-e4}). O que esta
+comparação mostra é que o custo do oráculo concentra-se na acurácia, sem perda
+correspondente em Macro F1: o gargalo do braço A é orçamento, não rótulo.
 
 \textbf{(ii) A seleção ativa compra Macro F1 e cobertura, não acurácia.}
 Com o mesmo orçamento e gabarito, a diferença de acurácia entre o braço
@@ -576,16 +566,14 @@ populacional (Seção~\ref{sec:res-e6}), reproduzido no
 \textit{transformer}.
 
 \textbf{(iii) O fator dominante é orçamento, e o critério de parada do laço
-leve subserve o modelo forte.} O braço E, com 15 mil rótulos perfeitos
-selecionados por entropia (um quarto a mais do que o ciclo real coletou),
-sobe para $0{,}822$ de acurácia ($92{,}7\%$ da régua) e $0{,}351$ de Macro
-F1, ainda aquém do critério; este braço é média de duas sementes (7 e 42),
-pois a terceira semente não foi executada no regime homogêneo, divergência
-declarada na Tabela~\ref{tab:e3p}. A estagnação da validação do classificador
-\emph{leve}, que encerrou o ciclo real em 11.936 rótulos, é, portanto, um
-\textit{proxy} inadequado para o ponto de parada do classificador
-\emph{forte}: o BERTimbau segue convertendo rótulos em desempenho muito
-além do ponto em que o PVBin/SGD saturam. Como os braços B e E usam
+leve subserve o modelo forte.} O braço E usa 15 mil rótulos perfeitos selecionados por entropia, um quarto a
+mais do que o ciclo real coletou. Ele sobe para $0{,}822$ de acurácia
+($92{,}7\%$ da régua) e $0{,}351$ de Macro F1, ainda aquém do critério. Este
+braço é média de duas sementes (7 e 42), pois a terceira não foi executada no
+regime homogêneo, divergência declarada na Tabela~\ref{tab:e3p}. A estagnação da validação do classificador \emph{leve}, que encerrou o ciclo
+real em 11.936 rótulos, é portanto um \textit{proxy} inadequado para o ponto de
+parada do classificador \emph{forte}. O BERTimbau segue convertendo rótulos em
+desempenho muito além do ponto em que o PVBin e o SGD saturam. Como os braços B e E usam
 gabarito (oráculo perfeito), essa conclusão independe da qualidade do
 oráculo: nenhum oráculo sustentaria o critério sob a política de parada
 executada.
