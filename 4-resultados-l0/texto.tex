@@ -6,18 +6,18 @@ generalização à composição do conjunto inicial $L_0$ (Seção~\ref{sec:res-
 os limites estimados por otimização evolutiva (Seção~\ref{sec:res-l0-ag}) e a
 avaliação do DRI-SL como estratégia de partida a frio (\textit{cold start})
 (Seção~\ref{sec:res-l0-drisl}). Todos os experimentos usam o classificador leve
-PVBin (Capítulo~\ref{ch:metodo}); os resultados originais foram obtidos no
-programa experimental da pesquisa e, como verificação de robustez, o estudo de
-sensibilidade e o mecanismo do algoritmo genético (AG) foram \textbf{reexecutados de forma
-independente} na biblioteca \texttt{activelearning}, com protocolo mais
-rigoroso (deduplicação antes do particionamento e reavaliação em teste
-intocado); as duas séries são apresentadas lado a lado
-(Seção~\ref{sec:res-l0-replay}). Todos os resultados são medidos sobre a base
+PVBin (Capítulo~\ref{ch:metodo}). Os resultados originais vêm do programa
+experimental da pesquisa. Como verificação de robustez, o estudo de
+sensibilidade e o mecanismo do algoritmo genético (AG) foram
+\textbf{reexecutados de forma independente} na biblioteca de aprendizado ativo
+da tese \citep{DaruActiveLearning}, sob protocolo mais rigoroso: deduplicação
+antes do particionamento e reavaliação em teste intocado. As duas séries são
+apresentadas lado a lado (Seção~\ref{sec:res-l0-replay}). Todos os resultados são medidos sobre a base
 real de varejo descrita no Capítulo~\ref{ch:metodo}, com centenas de classes
-desbalanceadas, cenário que os \textit{benchmarks} usuais da área não cobrem;
-a dependência excessiva de \textit{benchmarks} com características limitadas
-é uma restrição apontada pela própria literatura de classificação de texto
-curto \citep{Karl2023}.
+desbalanceadas. É um cenário que os \textit{benchmarks} usuais da área não
+cobrem, e a própria literatura de classificação de texto curto aponta a
+dependência excessiva de \textit{benchmarks} com características limitadas
+como restrição \citep{Karl2023}.
 
 \section{Sensibilidade à composição e ao tamanho de \texorpdfstring{$L_0$}{L0}}
 \label{sec:res-l0-sens}
@@ -58,41 +58,43 @@ Três padrões estruturam a leitura:
 \end{enumerate}
 
 Lidos contra a literatura, esses padrões ganham referência externa. O patamar
-de saturação coincide com o teto conhecido do classificador sobre esta base: a
+de saturação coincide com o teto conhecido do classificador sobre esta base. A
 melhor configuração leve da dissertação que origina o PVBin mede $89{,}56\%$
 de acurácia e $70{,}09\%$ de Macro F1 com supervisão completa
-\citep{Daru2024Dissertacao}, medidos nas 795 categorias da hierarquia
-completa (a relação com as 621 desta amostra está declarada no
-Capítulo~\ref{ch:metodo}), valores que a curva só alcança no extremo de
-$I=200.000$; os métodos supervisionados clássicos avaliados sobre as mesmas
-descrições situam-se na mesma faixa \citep{Daru2022}. O estudo varre,
+\citep{Daru2024Dissertacao}, valores que a curva só alcança no extremo de
+$I=200.000$. Essa referência foi medida nas 795 categorias da hierarquia
+completa, e a relação com as 621 desta amostra está declarada no
+Capítulo~\ref{ch:metodo}. Os métodos supervisionados clássicos avaliados
+sobre as mesmas descrições situam-se na mesma faixa \citep{Daru2022}. O estudo varre,
 portanto, o intervalo inteiro entre o quase-zero e o teto supervisionado do
-modelo. A variabilidade do regime pequeno também tem análogo publicado: em
+modelo. A variabilidade do regime pequeno também tem análogo publicado. Em
 um \textit{benchmark} inglês, o ajuste fino de um modelo pré-treinado com 32
 rótulos varia até 10 pontos percentuais de acurácia conforme o subconjunto
-sorteado \citep{Yu2023Patron}; a amplitude de $6{,}4$ p.p.\ medida aqui em
+sorteado \citep{Yu2023Patron}. A amplitude de $6{,}4$ p.p.\ medida aqui em
 $I=100$ é o mesmo fenômeno, num espaço com duas ordens de grandeza mais
 classes. A prática corrente, no entanto, trata essa escolha como detalhe de
 implementação: há estudos de aprendizado ativo com BERT que partem dos dez
 primeiros exemplos de um conjunto embaralhado \citep{Griesshaber2020}. O que
 esta seção mede é o custo dessa arbitrariedade.
 
-Esses resultados fundamentam a partida a frio: se a composição importa tanto no regime
-pequeno (exatamente o regime da partida a frio do aprendizado ativo),
-então construir $L_0$ deliberadamente (em vez de sorteá-lo) é a alavanca
-disponível antes de existir qualquer rótulo.
+Esses resultados fundamentam a partida a frio. A composição importa muito no
+regime pequeno, que é exatamente o regime da partida a frio do aprendizado
+ativo. Construir $L_0$ deliberadamente, em vez de sorteá-lo, é portanto a
+alavanca disponível antes de existir qualquer rótulo.
 
 \section{Limites por otimização evolutiva}
 \label{sec:res-l0-ag}
 
 Para estimar o quanto a composição pode render além do sorteio, um algoritmo
 genético (Seção~\ref{sec:metodo-l0-ag}) otimizou a composição de $L_0$ em
-quatro cenários (maximização e minimização de Acurácia e Macro F1) para dez
-tamanhos, com população de 20 indivíduos e 100 gerações por cenário (200
-gerações no caso $|L_0|=10$), o que corresponde a 2.000 avaliações
-supervisionadas por cenário (4.000 no caso $|L_0|=10$, pelas 200 gerações). A Tabela~\ref{tab:ag-evolucao} resume a evolução do melhor (pior)
-indivíduo entre a 1\textsuperscript{a} e a 100\textsuperscript{a} geração nos
-cenários de acurácia.
+quatro cenários, a maximização e a minimização de Acurácia e de Macro F1,
+para dez tamanhos. Cada cenário rodou com população de 20 indivíduos e 100
+gerações, ou 200 gerações no caso $|L_0|=10$. São 2.000 avaliações
+supervisionadas por cenário, e 4.000 no caso $|L_0|=10$, pelas 200 gerações.
+
+A Tabela~\ref{tab:ag-evolucao} resume a evolução do melhor (pior) indivíduo
+entre a 1\textsuperscript{a} e a 100\textsuperscript{a} geração nos cenários
+de acurácia.
 
 \begin{table}[htb]
 \centering
@@ -118,13 +120,16 @@ geração): cenários de Acurácia. Envelope entre minimização e maximização
 \end{tabular}
 \end{table}
 
-Duas leituras: o envelope é \textbf{largo no regime pequeno} (em $I=100$, a
-distância entre pior e melhor indivíduo da última geração chega a
-$25{,}9$ pontos percentuais de acurácia) e \textbf{estreita com o tamanho}, coerente com a Seção~\ref{sec:res-l0-sens}: quanto maior o $L_0$, menos a
-composição importa. O ganho evolutivo sobre a 1\textsuperscript{a} geração
-(coluna $\Delta$) indica que o AG explora estrutura real, não flutuação;
-separar por completo estrutura de deriva de busca exigiria um controle de
-busca aleatória de mesmo orçamento, que não foi executado.
+A tabela admite duas leituras. O envelope é \textbf{largo no regime pequeno}:
+em $I=100$, a distância entre pior e melhor indivíduo da última geração chega
+a $25{,}9$ pontos percentuais de acurácia. E ele \textbf{estreita com o
+tamanho}, coerente com a Seção~\ref{sec:res-l0-sens}: quanto maior o $L_0$,
+menos a composição importa.
+
+O ganho evolutivo sobre a 1\textsuperscript{a} geração (coluna $\Delta$)
+indica que o AG explora estrutura real, não flutuação. Separar por completo
+estrutura de deriva de busca exigiria um controle de busca aleatória de mesmo
+orçamento, que não foi executado.
 
 \section{DRI-SL \textit{versus} aleatório e envelope do AG}
 \label{sec:res-l0-drisl}
@@ -167,13 +172,15 @@ seguinte, e reforça a conclusão.
 Esse desfecho confirma a expectativa mais bem estabelecida da literatura de
 partida a frio: em orçamento baixo, representatividade supera incerteza.
 \citet{Hacohen2022TypiClust} formalizam a transição de regime já apresentada
-no Capítulo~\ref{ch:fundam} e mostram que, abaixo dela, as estratégias clássicas de consulta
-empatam com a seleção aleatória ou pioram; em texto, \citet{Yu2023Patron}
-medem a incerteza estimada pelo modelo perdendo da aleatória, a seleção por
-conjunto-núcleo abaixo da aleatória e o $k$-médias simples superando
-alternativas mais elaboradas justamente nos conjuntos com mais classes. O
-DRI-SL combina representatividade (densidade semântica) e cobertura
-(variedade lexical), e vence no espaço de 621 classes: o resultado replica,
+no Capítulo~\ref{ch:fundam} e mostram que, abaixo dela, as estratégias
+clássicas de consulta empatam com a seleção aleatória ou pioram. Em texto,
+\citet{Yu2023Patron} medem a incerteza estimada pelo modelo perdendo da
+aleatória, a seleção por conjunto-núcleo abaixo da aleatória e o $k$-médias
+simples superando alternativas mais elaboradas justamente nos conjuntos com
+mais classes.
+
+O DRI-SL combina representatividade (densidade semântica) e cobertura
+(variedade lexical), e vence no espaço de 621 classes. O resultado replica,
 em português e numa escala de classes maior do que a testada por esses
 trabalhos, o que essa literatura leva a esperar.
 
@@ -182,14 +189,15 @@ fraco: otimiza a composição com acesso direto aos rótulos e à aptidão final
 ao custo das 2.000 avaliações supervisionadas por cenário, e ainda assim
 perde para uma heurística que não consulta rótulo algum. A literatura sugere
 a explicação: mesmo a incerteza calculada por um modelo treinado no conjunto
-inteiro perde da aleatória no orçamento baixo \citep{Hacohen2022TypiClust},
+inteiro perde da aleatória no orçamento baixo \citep{Hacohen2022TypiClust}. É
 indício de que o gargalo da partida a frio não é falta de informação
 supervisionada, e sim a cobertura da estrutura do espaço de entrada, que
-densidade e variedade capturam sem rótulo. O contraste com
-\citet{Zhang2023LLMaAA} delimita o alcance: em tarefas de extração com poucos
-tipos de saída, a diversidade pura por $k$-médias só supera a aleatória em um
-de três conjuntos, e a incerteza domina; aqui, com centenas de classes
-desbalanceadas em texto curto, a relação se inverte. A divergência é coerente
+densidade e variedade capturam sem rótulo.
+
+O contraste com \citet{Zhang2023LLMaAA} delimita o alcance. Em tarefas de
+extração com poucos tipos de saída, a diversidade pura por $k$-médias só
+supera a aleatória em um de três conjuntos, e a incerteza domina; aqui, com
+centenas de classes desbalanceadas em texto curto, a relação se inverte. A divergência é coerente
 com a leitura de regime: o valor da representatividade cresce com o número de
 classes a cobrir e diminui quando poucas classes já são cobertas por
 qualquer amostra.
@@ -205,14 +213,15 @@ construído uma única vez.
 \section{Reexecução independente e efeito da circularidade}
 \label{sec:res-l0-replay}
 
-A reexecução na biblioteca \texttt{activelearning} usa grade reduzida de
-15 tamanhos $\times$ 10 repetições (artefatos no repositório de código): os
-15 tamanhos são log-espaçados cobrindo
-todo o intervalo original ($10$ a $2 \times 10^5$), pois a forma da curva, e não a
-sua densidade, é o objeto da validação, e 10 repetições estimam a média com
-erro-padrão inferior à divergência que se pretende detectar (a amplitude
-entre repetições do original), a um nono do custo computacional das $47
-\times 30$ células originais. A reexecução reproduz a estrutura completa do
+A reexecução na biblioteca de aprendizado ativo da tese
+\citep{DaruActiveLearning} usa grade reduzida de
+15 tamanhos $\times$ 10 repetições, com artefatos no repositório de código.
+Os 15 tamanhos são log-espaçados e cobrem todo o intervalo original ($10$ a
+$2 \times 10^5$), porque o objeto da validação é a forma da curva, não a sua
+densidade. As 10 repetições estimam a média com erro-padrão inferior à
+divergência que se pretende detectar, a amplitude entre repetições do
+original, a um nono do custo computacional das $47 \times 30$ células
+originais. A reexecução reproduz a estrutura completa do
 estudo original com protocolo mais rigoroso: deduplicação por texto
 normalizado \emph{antes} do particionamento e teste fixo de 20.000 instâncias.
 
@@ -237,30 +246,30 @@ independente (10 rep., protocolo com deduplicação). Acurácia média.}
 \end{table}
 
 A concordância entre as duas execuções (Tabela~\ref{tab:replay-vs-original})
-valida de forma independente tanto o estudo original quanto o porte do
-classificador para a biblioteca nova: a diferença fica em $\le 0{,}7$ p.p.\ em
-todos os tamanhos, sempre no sentido esperado, pois a deduplicação remove
-quase-duplicatas que inflavam a concordância entre treino e teste, e o protocolo com deduplicação
-é ligeiramente mais difícil. A fidelidade do porte foi adicionalmente
+valida de forma independente o estudo original e o porte do classificador
+para a biblioteca nova. A diferença fica em $\le 0{,}7$ p.p.\ em todos os
+tamanhos, sempre no sentido esperado: a deduplicação remove quase-duplicatas
+que inflavam a concordância entre treino e teste, e o protocolo com
+deduplicação é ligeiramente mais difícil. A fidelidade do porte foi adicionalmente
 verificada por igualdade exata das matrizes de escore entre implementações.
 
 A reexecução do AG usou 2 tamanhos $\times$ 2 cenários com $N_{pop}=30$ e 40
-gerações, a menor configuração que reproduz o \emph{mecanismo} (a aptidão
-estabiliza bem antes da 40\textsuperscript{a} geração em todas as células),
-pois o objetivo aqui é validar o fenômeno e quantificar a circularidade, não
-re-estimar o envelope completo, que permanece o do estudo original. Reduzir a
+gerações. É a menor configuração que reproduz o \emph{mecanismo}, pois a
+aptidão estabiliza bem antes da 40\textsuperscript{a} geração em todas as
+células. O objetivo aqui é validar o fenômeno e quantificar a circularidade,
+não re-estimar o envelope completo, que permanece o do estudo original. Reduzir a
 malha por custo computacional, declarando o que se perde, tem precedente
 publicado: \citet{Griesshaber2020} restringem o \textit{pool} de não
 rotulados a 20 mil elementos pela mesma razão, registrando o risco de excluir
 instâncias relevantes. A
 reexecução aplicou ainda o protocolo anticircularidade da Seção~\ref{sec:metodo-l0-ag}: aptidão
 medida em partição de aferição, indivíduo final \emph{reavaliado} no teste
-intocado. O mecanismo se reproduz (melhor indivíduo evolui $+5{,}2$ p.p.\ de
-acurácia em $I=50$; envelope acima da média aleatória em todos os casos), mas a
-reavaliação honesta revela a inflação da circularidade: para maximização de
-Macro F1 com $I=500$, a aptidão final é $19{,}4\%$, mas o mesmo indivíduo mede
-$13{,}1\%$ no teste intocado, isto é, $6{,}3$ pontos percentuais de superajuste ao
-conjunto de aferição. Para acurácia a inflação é menor ($\approx 1$ p.p.).
+intocado. O mecanismo se reproduz: o melhor indivíduo evolui $+5{,}2$ p.p.\ de acurácia
+em $I=50$, e o envelope fica acima da média aleatória em todos os casos. A
+reavaliação honesta, porém, revela a inflação da circularidade. Para
+maximização de Macro F1 com $I=500$, a aptidão final é $19{,}4\%$, enquanto o
+mesmo indivíduo mede $13{,}1\%$ no teste intocado, isto é, $6{,}3$ pontos
+percentuais de superajuste ao conjunto de aferição. Para acurácia a inflação é menor ($\approx 1$ p.p.).
 Conclusão metodológica incorporada à tese: \textbf{envelopes evolutivos devem
 ser reportados exclusivamente em partição não usada como aptidão}; os valores
 de AG das Tabelas~\ref{tab:ag-evolucao} e \ref{tab:drisl-vs-ag} devem ser lidos
@@ -270,14 +279,21 @@ conservadora.
 \section{Síntese do capítulo}
 \label{sec:res-l0-sintese}
 
-(i) A composição de $L_0$ tem efeito grande e mensurável no regime pequeno
-(amplitude de $6{,}4$ p.p.\ em $I=100$ só por sorteio), decaindo com o tamanho;
-(ii) o envelope evolutivo confirma espaço explorável de dezenas de pontos
-percentuais entre composições boas e ruins no regime pequeno; (iii) o DRI-SL captura esse espaço
-sem usar rótulos, superando o melhor indivíduo do AG até $I=5.000$, e é por
-isso a estratégia da Fase~1 do FALCO; (iv) a reexecução independente reproduz
-os três achados e quantifica o viés de circularidade do protocolo original de
-AG, corrigido nesta tese. Lidos em conjunto contra a literatura, os achados
-confirmam que a representatividade domina o regime de orçamento baixo e a
-estendem em um ponto: nem um otimizador com acesso aos rótulos supera, nesse
-regime, uma heurística estrutural que não os consulta.
+O capítulo sustenta quatro achados.
+
+\begin{enumerate}
+  \item A composição de $L_0$ tem efeito grande e mensurável no regime
+  pequeno, com amplitude de $6{,}4$ p.p.\ em $I=100$ só por sorteio, e esse
+  efeito decai com o tamanho.
+  \item O envelope evolutivo confirma espaço explorável de dezenas de pontos
+  percentuais entre composições boas e ruins no regime pequeno.
+  \item O DRI-SL captura esse espaço sem usar rótulos e supera o melhor
+  indivíduo do AG até $I=5.000$. É por isso a estratégia da Fase~1 do FALCO.
+  \item A reexecução independente reproduz os três achados e quantifica o
+  viés de circularidade do protocolo original de AG, corrigido nesta tese.
+\end{enumerate}
+
+Lidos em conjunto contra a literatura, os achados confirmam que a
+representatividade domina o regime de orçamento baixo. Eles a estendem em um
+ponto: nesse regime, nem um otimizador com acesso aos rótulos supera uma
+heurística estrutural que não os consulta.
