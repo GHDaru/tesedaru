@@ -1,58 +1,81 @@
-\chapter{Algoritmo Genético para Otimização de L0}
+\chapter{Algoritmo Genético para Otimização de \texorpdfstring{$L_0$}{L0}}
 \label{ap:ag}
+
+Este apêndice formaliza o algoritmo genético (AG) usado para estimar o
+envelope de desempenho da composição do conjunto inicial $L_0$: os limites
+superior e inferior que uma composição muito boa, ou muito ruim, consegue
+alcançar. Seguem a formulação, os operadores com seus parâmetros e sua
+proveniência, e o laço completo, resumido na Figura~\ref{fig:ap-ag-laco}.
 
 \section{Formulação}
 
-Indivíduo: conjunto de $I$ índices únicos do \textit{pool} ($L_0$ candidato).
-Aptidão: desempenho (Acurácia ou Macro F1) do classificador PVBin treinado no
-indivíduo e avaliado em partição de \textbf{aferição} disjunta do conjunto de
-teste (protocolo anticircularidade; ver Seção~\ref{sec:res-l0-replay} para a
-quantificação do viés do protocolo ingênuo). Quatro cenários: maximização e
-minimização de cada métrica: o par (max, min) delimita o envelope empírico
-de desempenho alcançável pela composição.
+Cada \textbf{indivíduo} é um conjunto de $I$ índices únicos do
+\textit{pool}, ou seja, um $L_0$ candidato de tamanho fixo. A
+\textbf{aptidão} de um indivíduo é o desempenho (Acurácia ou Macro F1) do
+classificador leve PVBin treinado nesse candidato. A aptidão é medida em
+uma partição de \textbf{aferição}, reservada para este fim e disjunta do
+conjunto de teste, porque
+otimizar e reportar na mesma partição superajustaria o envelope ao conjunto
+de avaliação; por isso, ao final de cada cenário, o melhor indivíduo é
+\textbf{reavaliado no conjunto de teste intocado}, e é esse valor,
+tipicamente inferior ao de aptidão, que se reporta como envelope.
+
+São otimizados \textbf{quatro cenários} por tamanho (maximização e
+minimização de cada uma das duas métricas), para dez tamanhos de $L_0$
+entre 10 e 30.000: o par de extremos delimita o envelope empírico de
+desempenho alcançável pela composição.
 
 \section{Operadores e parâmetros}
 
+Salvo indicação em contrário, os parâmetros abaixo foram definidos no
+\textit{notebook} que executou as corridas, que sempre os passa ao
+algoritmo (a configuração versionada fixa apenas o tamanho de $L_0$).
+População e gerações foram, além disso, conferidas contra os artefatos das
+corridas; a população é o único parâmetro sem fonte de configuração, e o
+valor reportado é o lido do artefato.
+
 \begin{itemize}
-  \item \textbf{População} $N_{pop}=20$; \textbf{gerações} 100 por cenário
-  (200 no caso $|L_0|=10$, o único que difere), o que dá 2.000 avaliações
-  supervisionadas por cenário (4.000 no caso $|L_0|=10$); valores
-  confirmados contra o artefato da corrida canônica
-  (\texttt{individual\_id} 0..19). A população é o único parâmetro sem
-  fonte de configuração: o valor reportado (20) é o do artefato da corrida,
-  não o da configuração versionada. No caso $|L_0|=10$, a tabela do
-  Capítulo~\ref{ch:resultados-l0} reporta, como nas demais células, a
-  100\textsuperscript{a} geração ($18{,}82\%$); a corrida desse caso segue
+  \item \textbf{população e gerações}: $N_{pop}=20$ indivíduos por 100
+  gerações em cada cenário, o que dá 2.000 avaliações supervisionadas por
+  cenário. O caso $|L_0|=10$ é o único que difere: corre por 200 gerações
+  (4.000 avaliações). Nos resultados, esse caso é reportado, como os
+  demais, na 100\textsuperscript{a} geração ($18{,}82\%$); a corrida segue
   até a 200\textsuperscript{a}, em que o melhor indivíduo alcança
-  $19{,}20\%$. A reexecução independente usa
-  configuração reduzida de $N_{pop}=30$ por 40 gerações (decisão D-002 do
-  registro de decisões);
-  \item \textbf{seleção}: torneio de tamanho $k_t=3$, definido no
-  \textit{notebook} que executou as corridas, que sempre o passa (o arquivo
-  de configuração em JSON fixa apenas o tamanho de $L_0$);
-  \item \textbf{cruzamento}: um ponto sobre a lista de índices, com
-  probabilidade $p_c=0{,}8$ definida no \textit{notebook} da corrida (o
-  valor padrão da classe é $0{,}7$, sempre sobrescrito pelo
-  \textit{notebook}), seguido de \emph{reparo de unicidade} (índices
-  repetidos são substituídos por sorteio até restaurar $|L_0|=I$);
-  \item \textbf{mutação}: com probabilidade $p_m=0{,}1$, definida no
-  \textit{notebook} da corrida, substituição de
-  $m_s=\max(1,\lceil 0{,}01 \cdot I\rceil)$ genes por índices inéditos (a
-  fórmula de $m_s$ é o ramo dinâmico do \textit{notebook});
-  \item \textbf{elitismo}: $10\%$, definido no \textit{notebook}
-  ($N_{elite}=2$, decorrente da população de 20).
+  $19{,}20\%$;
+  \item \textbf{seleção}: torneio de tamanho $k_t=3$;
+  \item \textbf{cruzamento}: de um ponto sobre a lista de índices, com
+  probabilidade $p_c=0{,}8$ (o valor padrão da implementação é $0{,}7$,
+  sempre sobrescrito na execução), seguido de \emph{reparo de unicidade}:
+  índices repetidos são substituídos por sorteio até restaurar $|L_0|=I$;
+  \item \textbf{mutação}: com probabilidade $p_m=0{,}1$, substitui
+  $m_s=\max(1,\lceil 0{,}01 \cdot I\rceil)$ genes por índices inéditos;
+  \item \textbf{elitismo}: $10\%$ da população ($N_{elite}=2$).
 \end{itemize}
+
+A reexecução independente do envelope, feita para checar a sensibilidade do
+resultado à própria busca, usa configuração reduzida: $N_{pop}=30$ por 40
+gerações.
 
 \section{Pseudocódigo}
 
 \begin{enumerate}
   \item Inicializar $N_{pop}$ indivíduos por amostragem uniforme sem reposição.
-  \item Avaliar aptidão de todos na partição de aferição.
-  \item Por geração: copiar elite; completar a população por
+  \item Avaliar a aptidão de todos na partição de aferição.
+  \item Por geração: copiar a elite; completar a população por
   torneio $\to$ cruzamento $\to$ reparo $\to$ mutação; reavaliar.
   \item Ao final, \textbf{reavaliar o melhor indivíduo no conjunto de teste
   intocado}; o valor reportado como envelope é este, não a aptidão.
 \end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \input{3-metodo/esquemas-propostos/esq-ag-envelope}
+    \caption{O laço do algoritmo genético e a saída anticircular, em resumo
+    visual: a aptidão que orienta a busca é medida na partição de aferição,
+    disjunta do teste, e o envelope reportado é o do melhor indivíduo
+    reavaliado no conjunto de teste intocado.}
+    \label{fig:ap-ag-laco}
+\end{figure}
 
 A implementação de referência da reexecução e seus resultados acompanham o
 repositório de código da tese.
