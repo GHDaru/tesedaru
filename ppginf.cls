@@ -431,7 +431,7 @@
 %  bookmarkstype = page,
   pdfview     = Fit,
   pdfborder   = {0 0 0},
-  colorlinks  = false,
+  colorlinks  = true,
   linkcolor   = blue,
   anchorcolor = blue,
   citecolor   = blue,

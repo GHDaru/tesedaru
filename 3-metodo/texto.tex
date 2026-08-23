@@ -380,11 +380,24 @@ só faz sentido se a primeira acusar efeito relevante.
 \subsection{Sensibilidade à amostragem aleatória}
 \label{sec:metodo-l0-sensibilidade}
 
-Para quantificar o impacto da composição de $L_0$, o classificador PVBin foi
-treinado com conjuntos iniciais amostrados aleatoriamente em \textbf{47 tamanhos}
-entre 10 e 200.000 instâncias, com \textbf{30 repetições independentes} por tamanho
-(sementes distintas), avaliando Acurácia e Macro F1 no conjunto de teste. As
-estatísticas descritivas completas constam do Apêndice~\ref{ap:tabelas}.
+Esta seção mede quanto o desempenho do classificador depende do conjunto
+inicial $L_0$: tanto do seu tamanho quanto da amostra específica sorteada para
+um dado tamanho. A primeira dependência é a curva de aprendizado; a segunda, a
+dispersão entre sorteios distintos do mesmo tamanho, que mede o quanto o
+resultado fica refém do acaso da amostragem, e que mais pesa na partida a frio,
+onde poucos rótulos podem, por sorte, cobrir bem ou mal as classes.
+
+Para quantificá-las, o classificador PVBin foi treinado com conjuntos iniciais
+amostrados aleatoriamente em \textbf{47 tamanhos} entre 10 e 200.000 instâncias,
+com \textbf{30 repetições independentes} por tamanho (sementes distintas),
+avaliando Acurácia e Macro F1 no conjunto de teste. As escolhas de grade
+acompanham o que se quer medir: 10 é a partida a frio extrema; 200.000 é o teto
+prático, próximo do total de textos únicos (231.490 após deduplicação), de modo
+que o maior $L_0$ representa treinar com quase todo o dado; os 47 tamanhos
+distribuem-se por décadas (passos de 10, 100, 1.000 e 10.000), densos onde a
+curva muda rápido e esparsos onde satura; e as 30 repetições estabilizam a
+média e medem a dispersão. As estatísticas descritivas completas constam do
+Apêndice~\ref{ap:tabelas} (Tabela~\ref{tab:l0-stats-completa}).
 
 \subsection{Otimização por algoritmo genético}
 \label{sec:metodo-l0-ag}
