@@ -6,31 +6,51 @@ classificador treinado pelo FALCO, da decisão de parar de rotular à decisão
 de retreinar em produção. As duas primeiras seções descrevem mecanismos
 implementados na biblioteca \texttt{activelearning}; a terceira é o desenho
 recomendado para operação contínua (FlowBuilder), com gatilhos numéricos.
+A Figura~\ref{fig:ap-ciclo-vida} resume o ciclo completo; as seções
+detalham cada transição.
+
+\begin{figure}[htbp]
+    \centering
+    \input{3-metodo/esquemas-propostos/esq-ciclo-vida-modelo}
+    \caption{O ciclo de vida do classificador: o laço de aprendizado ativo
+    para pelo primeiro de três gatilhos; a liberação exige três condições e
+    uma única medida no teste intocado; em produção, três camadas de
+    monitoramento de deriva, em ordem de custo, decidem quando retreinar; o
+    retreino parte do zero com todos os rótulos e devolve o modelo à
+    produção.}
+    \label{fig:ap-ciclo-vida}
+\end{figure}
 
 \section{Parada do laço de aprendizado ativo}
 \label{ap:parada-laco}
 
 O laço encerra a aquisição de rótulos pelo primeiro de três gatilhos:
-\textbf{(i) estagnação na validação}: o Macro F1 em $V$ não melhora mais que
-$\varepsilon_{\max}=10^{-3}$ por $p=5$ iterações consecutivas
-(Capítulo~\ref{ch:metodo} para o racional das constantes); o conjunto
-de teste jamais participa; \textbf{(ii) orçamento}: teto absoluto de rótulos
-$B$; \textbf{(iii) exaustão do \textit{pool}}. O racional do gatilho (i) é
+
+\begin{enumerate}
+  \item \textbf{estagnação na validação}: o Macro F1 no conjunto de
+  validação não melhora mais que $\varepsilon_{\max}=10^{-3}$ por $p=5$
+  iterações consecutivas; o conjunto de teste jamais participa;
+  \item \textbf{orçamento}: teto absoluto de rótulos $B$;
+  \item \textbf{exaustão do \textit{pool}}: não há mais o que rotular.
+\end{enumerate}
+
+O racional do gatilho 1 é
 estatístico: o ganho marginal por lote decai ao longo da curva de
 aprendizado, enquanto o custo marginal do rótulo é constante; quando o ganho
 observável cai abaixo da resolução do próprio conjunto de validação
 ($\approx 1/\sqrt{n_V}$), rotular mais é pagar para medir ruído. A tolerância
 $\varepsilon_{\max}=10^{-3}$ não deriva desse limite amostral: com
-$n_V = 2.000$, o limite vale $1/\sqrt{n_V} = 0{,}0224$, e a tolerância é
+um conjunto de validação de $n_V = 2.000$ instâncias, o limite vale $1/\sqrt{n_V} = 0{,}0224$, e a tolerância é
 deliberadamente cerca de vinte e duas vezes menor, de modo que a parada só ocorre
 após $p$ iterações sem qualquer ganho registrado, e não por o ganho ser
 pequeno demais para se distinguir do ruído. A parada observada no ciclo real,
 portanto, não é efeito de uma tolerância estrita: o critério executado é o
 mais permissivo dos dois. O gatilho
 foi exercitado em duas execuções ponta a ponta da biblioteca, ambas com
-\textbf{oráculo LLM real e gratuito} (nemotron via NIM, acurácia
-$\approx 78\%$): com orçamento de 1.000, encerrou o ciclo em 991 rótulos
-(PVBin) e 982 (SGD); com orçamento de 15.000, encerrou em \textbf{6.009}
+\textbf{oráculo LLM real e gratuito} (nemotron, servido via NIM, \textit{NVIDIA
+Inference Microservice}; acurácia $\approx 78\%$): com orçamento de 1.000, encerrou o ciclo em 991 rótulos com o
+classificador PVBin e 982 com o SGD (\textit{Stochastic Gradient
+Descent}); com orçamento de 15.000, encerrou em \textbf{6.009}
 rótulos (PVBin) e \textbf{4.742} (SGD), 32--40\% do orçamento, com as
 curvas de validação e teste estagnadas em conjunto. Os artefatos acompanham o
 repositório de código da tese.
@@ -60,15 +80,15 @@ grafias). Três camadas de monitoramento, em ordem de custo:
 \begin{enumerate}
   \item \textbf{Deriva de entrada} (sem rótulo, custo zero): fração de tokens
   fora do vocabulário de treino e divergência da distribuição de
-  representações (PSI sobre projeções). Gatilho sugerido: taxa de vocabulário
-  novo em dobro da taxa do treino, ou PSI $> 0{,}2$.
+  representações (PSI, \textit{Population Stability Index}, sobre projeções). Gatilho sugerido: taxa de vocabulário
+  novo em dobro da taxa do treino, ou PSI acima de $0{,}2$.
   \item \textbf{Deriva de confiança} (sem rótulo, custo zero): queda da
   confiança média (ou aumento da entropia média) das predições em produção.
   Gatilho: média móvel de 7 dias abaixo de $\mu - 2\sigma$ do período de
   referência.
   \item \textbf{Verificação amostral com oráculo} (custo quase nulo): acurácia
-  numa amostra pequena rotulada pelo LLM Inicial. Com os custos medidos no
-  E0, 200 itens semanais custam da ordem de US\$~0,01. Gatilho: acurácia
+  numa amostra pequena rotulada pelo LLM Inicial. Com os custos medidos na
+  avaliação de oráculos, 200 itens semanais custam da ordem de US\$~0,01. Gatilho: acurácia
   amostral abaixo do limite inferior do IC de validação da liberação.
 \end{enumerate}
 

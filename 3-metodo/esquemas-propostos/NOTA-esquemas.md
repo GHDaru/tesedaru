@@ -360,6 +360,40 @@ sensibilidade do $L_0$):
   V); um esquema decorativo não acrescentaria nada a uma tabela.
 - 0 erros / 0 overfull nas medidas reais (3 páginas de longtable).
 
+## Passe de excelência no Apêndice G (ordem do autor, 2026-08-23) — SÉRIE COMPLETA
+
+Extensão final ao `a7-parada-drift/texto.tex` (parada, liberação, deriva):
+- **Fluidez**: os três gatilhos de parada saíram do parágrafo-monólito
+  para lista numerada; o excelente parágrafo do racional estatístico
+  (tolerância vs. limite amostral) ficou como estava.
+- **Autocontenção**: removidos `\ref{ch:metodo}` (o racional já é
+  explicado em linha), o símbolo solto $V$ ("no conjunto de validação"),
+  e "medidos no E0" ("na avaliação de oráculos").
+- **Siglas** (princípio I): NIM e SGD abertos conforme a lista oficial
+  (*NVIDIA Inference Microservice*; *Stochastic Gradient Descent*); PSI
+  aberto em linha (*Population Stability Index*) — **PSI NÃO está na
+  lista de siglas** (`0-iniciais/acronimos.tex`, superfície do principal):
+  pedido de inclusão na entrega.
+- **Números reconferidos**: 1/√2000 = 0,0224 ✓; tolerância 22,4× menor
+  ("cerca de vinte e duas vezes") ✓; 4.742/15.000 = 31,6% e 6.009/15.000 =
+  40,1% → "32–40%" ✓; 991/982/6.009/4.742 = laudo ratificado ✓; meia
+  largura de Wilson com n=1.000 ≈ 2,5 p.p. → "2–3 pontos" ✓.
+- **Figura NOVA**: `esq-ciclo-vida-modelo.tex` (nascida em corpo 12) — o
+  ciclo de vida completo: laço ativo → parada → liberação → produção →
+  retreino → volta, com a nota das camadas de deriva. Requer amsmath
+  (\text), que a tese já carrega. Achado do loop: os vãos de 1,2–1,4cm
+  entre colunas NÃO comportam rótulos de seta em corpo 12 — a semântica
+  foi para as caixas e para a nota (2 colisões corrigidas), mais um
+  "gati-lhos" re-hifenizado (quebras recalibradas).
+- 0 erros / 0 overfull nas medidas reais (3 páginas).
+
+**Balanço da série (7 apêndices, A–G)**: todos com passe de excelência,
+todos autocontidos, 6 com figura (F sem, por decisão fundamentada), todas
+as figuras calibradas em corpo 12 nas medidas reais do ppginf, tudo
+compilando com 0 erros / 0 overfull. Pendências de terceiros: PSI na lista
+de siglas (principal); CV do Apêndice F contra o artefato bruto
+(revisor1); compilação completa da tese na integração (principal).
+
 ## Loop de melhoria com goal (registro, como a tarefa pede)
 
 Goal: "muito boa e ilustrativa" = fluxo inequívoco, rótulos claros, coerente
