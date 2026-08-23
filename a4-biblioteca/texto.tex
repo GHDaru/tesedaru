@@ -7,8 +7,8 @@ A biblioteca segue arquitetura hexagonal com domínio isolado: o núcleo
 (\texttt{domain/}) contém instâncias, o espaço fechado de categorias
 (\textit{CategorySchema}), anotações com contabilidade de uso
 (\textit{OracleUsage}: tokens, tokens em cache, custo, latência), estratégias
-de incerteza e métricas (LCE, Wilson, McNemar) — puro, sem dependência de
-rede ou framework. Os \textbf{adapters} implementam as portas: oráculos
+de incerteza e métricas (LCE, Wilson, McNemar). O núcleo é puro, sem
+dependência de rede ou framework. Os \textbf{adapters} implementam as portas: oráculos
 (OpenAI, OpenAI-compatível/MaaS, OpenRouter, Gemini, Ollama, Simulado com
 ruído $\varepsilon$), classificadores (PVBin; BERTimbau via
 \texttt{transformers}), estratégias com infraestrutura (DRI-SL com SBERT),
@@ -17,9 +17,9 @@ uso} (\texttt{application/}) orquestram: avaliação de oráculo (E0, retomável
 laço de aprendizado ativo (E1/E4), runner do FALCO (fases com transição por
 validação) e saneamento de dados.
 
-O diferencial frente a bibliotecas existentes de AL para texto — notadamente
+O diferencial frente a bibliotecas existentes de AL para texto, notadamente a
 \textit{small-text} \citep{Schroder2021SmallText}, que padroniza
-classificador $\times$ estratégia $\times$ critério de parada — é elevar o
+classificador $\times$ estratégia $\times$ critério de parada, é elevar o
 \textbf{oráculo} a porta de primeira classe: custo por consulta, modos de
 instrumentação (enum/json-prompt/free), variantes de prompt, lote por chamada
 e cache são medidos e registrados em cada anotação.
@@ -40,6 +40,6 @@ testes unitários cobre domínio, adapters e casos de uso sem rede.
 Interface web (FastAPI + React) sobre a biblioteca: envio de CSV com
 saneamento automático (remoção de rótulos operacionais; censo de conflitos e
 duplicatas; download da base saneada), execução parametrizada de fluxos
-(semente, orçamento, lote, $L_0$, estratégia, oráculo — incluindo modelos de
+(semente, orçamento, lote, $L_0$, estratégia, oráculo, incluindo modelos de
 custo zero) e acompanhamento de curvas de aprendizado. O banco guarda o
 índice das execuções; os artefatos brutos permanecem em disco, versionáveis.
