@@ -1,0 +1,81 @@
+% ============================================================================
+% ESQUEMA PROPOSTO (banca, sugestão — não mergeado): o gate do oráculo e a
+% régua da hipótese como fluxo de decisão. Complementa a Seção
+% sec:metodo-oraculo-decisao e a Seção sec:intro-hipotese.
+%
+% Uso no Cap. 3 (dentro de um ambiente figure):
+%   \input{3-metodo/esquemas-propostos/esq-gate-e-regua}
+% Uso standalone (pré-visualização):
+%   \documentclass[tikz,border=6pt]{standalone}
+%   \usetikzlibrary{arrows.meta, positioning}
+%   \begin{document}\input{esq-gate-e-regua.tex}\end{document}
+%   (no modo standalone, troque as \ref{...} por texto fixo ou defina-as)
+% Requer apenas as bibliotecas já carregadas em packages.tex
+% (arrows.meta, positioning). Desenhado para ser legível em preto e branco:
+% decisão = borda grossa + cinza escuro; medição = cinza claro;
+% consequência = cinza médio; condicional/remissão = tracejado.
+% FREEZE respeitado: todos os números são os já fixados no texto
+% (85%; 0,95 x 89,56%; 0,95 x acc(D); 34.724; 231.490; 15%).
+% ============================================================================
+\begin{tikzpicture}[
+    x=1cm, y=1cm,
+    caixa/.style={draw, rounded corners=2pt, align=center, text width=34mm,
+                  minimum height=11mm, inner sep=3pt, font=\footnotesize},
+    decisao/.style={caixa, thick, fill=gray!25},
+    medida/.style={caixa, fill=gray!8},
+    consequencia/.style={caixa, fill=gray!14},
+    seta/.style={-{Stealth[length=2.4mm]}, thick},
+    rot/.style={font=\scriptsize, align=center, inner sep=2pt}
+]
+    % ---------------- faixa superior: o GATE do oráculo -------------------
+    \node[rot, anchor=west] (tit1) at (-1.7,1.5)
+        {\textbf{Gate do oráculo} (fixado de antemão, Seção~\ref{sec:metodo-oraculo-decisao})};
+
+    \node[medida]  (e0)   at (0,0)
+        {avaliação dos oráculos\\LLM (S-rand $n=1.000$;\\S-strat $n\approx1.863$)};
+    \node[decisao] (gate) at (4.6,0)
+        {algum oráculo com\\acurácia $\ge 85\%$\\na S-rand?};
+    \node[caixa]   (sim)  at (9.2,1.2)
+        {oráculo \textbf{aprovado}:\\papéis pelo critério\\original};
+    \node[consequencia] (nao) at (9.2,-1.5)
+        {robustez ao ruído\\\textbf{obrigatória}; oráculo ruidoso\\vira cenário central};
+
+    \draw[seta] (e0) -- (gate);
+    \draw[seta] (gate.east) -- node[rot, above, pos=0.35] {sim} (sim.west);
+    \draw[seta] (gate.east) -- node[rot, below, pos=0.35] {não} (nao.west);
+
+    \node[consequencia] (papeis) at (9.2,-3.9)
+        {papéis: LLM Inicial pela razão\\acurácia/custo; LLM Avançado\\se superior com significância\\(senão a Fase~3 é eliminada)};
+    \draw[seta] (nao) -- (papeis);
+
+    \node[rot, text width=42mm, anchor=east] (ramo) at (7.0,-3.9)
+        {o ramo efetivamente seguido, e a\\divergência que ele exige declarar,\\
+         são reportados com os resultados\\(Seção~\ref{sec:res-gate})};
+    \draw[seta, dashed] (ramo.east) -- (papeis.west);
+
+    % ---------------- faixa inferior: a RÉGUA da hipótese ------------------
+    \node[rot, anchor=west] (tit2) at (-1.7,-5.9)
+        {\textbf{Critério da hipótese} (Seção~\ref{sec:intro-hipotese})};
+
+    \node[medida] (regua) at (0,-7.4)
+        {régua $D$: o mesmo\\classificador com o\\\textit{pool} de referência\\inteiramente rotulado};
+    \node[decisao] (crit) at (4.6,-7.4)
+        {$\mathrm{acc} \ge 0{,}95 \times \mathrm{acc}(D)$\\com no máximo\\34.724 rótulos?};
+    \node[caixa] (veredito) at (9.2,-7.4)
+        {veredito da hipótese\\(julgado nos resultados,\\Seção~\ref{sec:res-e3p})};
+
+    \draw[seta] (regua) -- (crit);
+    \draw[seta] (crit) -- (veredito);
+    \node[rot, below=2.5mm of crit, text width=62mm]
+        {teto de 34.724 rótulos $= 15\%$ da população deduplicada de 231.490;
+         a acurácia é a métrica do critério (pré-registro); o Macro F1
+         acompanha como análise de robustez};
+
+    % ---------------- amarração entre as duas réguas -----------------------
+    % (definida por último porque referencia nós das duas faixas)
+    \node[rot, text width=30mm, anchor=north] (liga) at (0,-3.0)
+        {a mesma razão de $0{,}95$\\nas duas réguas:\\
+         $85\% \approx 0{,}95 \times 89{,}56\%$\\do melhor baseline\\supervisionado leve};
+    \draw[seta, dashed] (liga.north) to[out=90, in=250] (gate.south west);
+    \draw[seta, dashed] (liga.south) to[out=270, in=110] (crit.north west);
+\end{tikzpicture}
