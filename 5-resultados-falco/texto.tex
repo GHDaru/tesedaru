@@ -18,7 +18,7 @@ versionados no repositório \texttt{activelearning}
 \section{Avaliação fatorial de oráculos LLM}
 \label{sec:res-e0}
 
-\subsection{RQ1 --- assertividade}
+\subsection{RQ1: assertividade}
 \label{sec:res-e0-rq1}
 
 A Tabela~\ref{tab:e0-principal} apresenta acurácia (com intervalo de
@@ -74,7 +74,7 @@ Macro F1 do PVBin treinado com supervisão completa ($0{,}70$): o conhecimento
 de mundo do LLM compensa exatamente onde o supervisionado leve sofre, ou seja,
 nas classes com pouquíssimos exemplos.
 
-\subsection{RQ2 --- custo e o efeito do \textit{cache}}
+\subsection{RQ2: custo e o efeito do \textit{cache}}
 \label{sec:res-e0-rq2}
 
 \begin{table}[htb]
@@ -128,7 +128,7 @@ pela NVIDIA nas mesmas instâncias ($p<0{,}001$ no subconjunto pareado de 850
 itens). Medições de oráculo LLM devem registrar, portanto, não só o modelo, mas
 quem o serve e como.
 
-\subsection{RQ3 --- perfil de erro}
+\subsection{RQ3: perfil de erro}
 \label{sec:res-e0-rq3}
 
 A anatomia dos 324 erros do melhor oráculo (v4-pro, S-strat) revela estrutura,
@@ -148,7 +148,7 @@ Seção~\ref{sec:res-e0p} (regras de fronteira explícitas) e prevê que o ruíd
 classificador treinado que ruído uniforme \citep{Frenay2014,Song2023NoisyLabels};
 é a hipótese testada na Seção~\ref{sec:res-e4}.
 
-\subsection{RQ4 --- efeito do instrumento de medição}
+\subsection{RQ4: efeito do instrumento de medição}
 \label{sec:res-e0-rq4}
 
 Com o mesmo modelo (gpt-4o-mini), as mesmas 1.000 instâncias da S-rand e o
@@ -415,7 +415,7 @@ que variam o sorteio inicial, os desempates e a divisão interna mantendo o
 a saturação da entropia no SGD é $9{,}1\text{k}\pm0{,}6\text{k}$ rótulos
 (faixa 8,5--10k) contra $15{,}5\text{k}\pm1{,}1\text{k}$ do aleatório, e o
 teto da entropia supera o do aleatório em \textbf{8 das 8 sementes}
-(Wilcoxon pareado, $p=0{,}0078$ --- a significância máxima alcançável com
+(Wilcoxon pareado, $p=0{,}0078$, a significância máxima alcançável com
 oito pares); no PVBin a vantagem de teto é pequena e não significativa
 (6/8), mas a saturação ($19{,}3\text{k}\pm0{,}7\text{k}$) permanece menos
 da metade da do aleatório ($40{,}6\text{k}\pm1{,}4\text{k}$). O viés de
@@ -568,7 +568,7 @@ pareado permite:
 
 \textbf{(i) O ruído do oráculo não é o gargalo.} Nos mesmos 11.936 itens,
 os rótulos do oráculo custam $7{,}2$ p.p.\ de acurácia frente ao gabarito
-(A~vs.~B) --- itens selecionados por incerteza e portanto mais difíceis que
+(A~vs.~B), itens selecionados por incerteza e portanto mais difíceis que
 a média. Em Macro F1, os dois braços praticamente empatam ($0{,}297$ vs.\
 $0{,}299$, com B à frente em duas das três sementes): o erro estruturado do
 oráculo espalha rótulos por mais classes (o treino de A cobre 643 classes,
@@ -576,15 +576,15 @@ contra 634 de B), mas a cobertura extra não se converte em Macro F1
 superior. A leitura de que ruído estruturado é o regime benigno segue
 sustentada pela avaliação de robustez com ruído controlado
 (Seção~\ref{sec:res-e4}); o que esta comparação mostra é que o custo do
-oráculo concentra-se na acurácia, sem perda correspondente em Macro F1 ---
+oráculo concentra-se na acurácia, sem perda correspondente em Macro F1:
 o gargalo do braço A é orçamento, não rótulo.
 
 \textbf{(ii) A seleção ativa compra Macro F1 e cobertura, não acurácia.}
 Com o mesmo orçamento e gabarito, a diferença de acurácia entre o braço
 aleatório e o selecionado é pequena (C~vs.~B: $0{,}788$ vs.\ $0{,}777$,
 dentro da dispersão entre sementes), mas em Macro F1 a seleção vence com
-consistência --- B~$-$~C é positivo e significativo nas três sementes
-(\textit{bootstrap} pareado) --- e em cobertura: o treino selecionado
+consistência (B~$-$~C é positivo e significativo nas três sementes,
+\textit{bootstrap} pareado) e em cobertura: o treino selecionado
 alcança 634 classes, contra 525 do sorteio aleatório. É o mesmo padrão dos seletores em escala
 populacional (Seção~\ref{sec:res-e6}), reproduzido no
 \textit{transformer}.
@@ -606,7 +606,7 @@ executada.
 
 Em síntese: na configuração executada (oráculo gratuito, parada por
 estagnação do classificador leve, 3 épocas), o critério não é atingido, e a
-decomposição pareada aponta a causa para a política de parada --- não para o
+decomposição pareada aponta a causa para a política de parada, não para o
 oráculo nem para a seleção. A varredura da subseção seguinte localiza o ponto em que o
 critério passa a valer e mostra que ele cabe no teto de rotulagem que a
 hipótese admite.
@@ -616,7 +616,7 @@ hipótese admite.
 
 A varredura desta seção é um \textbf{achado \emph{post hoc}}: foi
 desenhada e executada \emph{depois} de observado o resultado da
-configuração executada, e não altera o critério --- apenas localiza
+configuração executada, e não altera o critério, apenas localiza
 empiricamente o orçamento em que ele passa a valer. Para isso, o BERTimbau
 foi treinado sobre prefixos crescentes da mesma trajetória de entropia (20,
 25, 30 e 35 mil rótulos, com gabarito), avaliados na população reservada
@@ -654,7 +654,7 @@ D (régua)         & 50.000 & 100\%  & 21,6\% & 0,887 & 0,459 & --- & --- \\
 Três leituras fecham o pilar. \textbf{(i)~A hipótese é atingível dentro
 do teto.} Na métrica do critério, a acurácia, o cruzamento ocorre em 20 mil
 rótulos ($8{,}6\%$ da população), nas três sementes e com folga (a menor
-semente do braço fica em $0{,}850$, acima do critério de $0{,}843$) --- bem
+semente do braço fica em $0{,}850$, acima do critério de $0{,}843$), bem
 abaixo do teto de 34.724 rótulos que a hipótese admite.
 \textbf{(ii)~A robustez em Macro F1 acompanha, sem gradação}: com o regime
 homogêneo, o critério em F1 é atingido em 30 mil rótulos ($13{,}0\%$ da
@@ -670,8 +670,8 @@ $0{,}463$ contra $0{,}459$ em Macro F1), mas o efeito não é unânime: duas
 sementes mantêm vantagem significativa (McNemar e \textit{bootstrap}
 pareados), enquanto uma inverte em Macro F1 ($-0{,}0050$, IC 95\%
 $[-0{,}0084;-0{,}0017]$) e empata em acurácia ($p=0{,}67$). O sinal
-qualitativo --- a fração final dos rótulos do \textit{pool} não compra
-desempenho --- reproduz no BERTimbau o efeito medido em escala populacional
+qualitativo (a fração final dos rótulos do \textit{pool} não compra
+desempenho) reproduz no BERTimbau o efeito medido em escala populacional
 (Seção~\ref{sec:res-e6}), e a tese o reporta como efeito de média com
 dispersão declarada, não como unanimidade. A conclusão consolidada: com uma
 política de parada ancorada no modelo forte, o critério é atingido dentro
