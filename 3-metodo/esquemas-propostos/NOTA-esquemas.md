@@ -144,7 +144,7 @@ mutação quebrava a matemática no "=" — `\mbox{}`; hifenizações erradas ti
 `texlive-lang-portuguese` instalado e `babel brazilian` adicionado aos
 invólucros, tornando o teste de hifenização realista); render 2 aprovado.
 
-## Esquema 7 — `esq-lce-e-estatistica.tex` (pedido do autor: Seção 3.4)
+## Esquema 7 — `esq-lce.tex` (pedido do autor: Seção 3.4; revisado por ele)
 
 **O que esclarece**: a LCE é uma métrica de ÁREA — a figura desenha a
 geometria dela em vez de reexplicá-la em texto: a curva de aprendizado com
@@ -152,22 +152,22 @@ os pontos observados marcados (é sobre eles que a regra de Simpson integra),
 a $\mathrm{AUC}_{real}$ sombreada, o retângulo
 $\mathrm{Perf}_{baseline}\times(L_{final}-L_{ideal,0})$ apontado como
 $\mathrm{AUC}_{ideal}$, a fórmula com remissão à Equação 3.1 e ao Apêndice
-A, a leitura ("$\approx 1$ = aproxima-se rápido do teto com poucos
-rótulos"), as DUAS diferenças para a ALC do Active Learning Challenge, e a
-faixa da análise estatística como mapa situação→teste (Wilson 95% para
-proporções; McNemar para os mesmos itens, binomial exato sob 25
-discordâncias; Wilcoxon para múltiplas sementes, sobre métricas finais e
-LCE). **Cuidado com o princípio V, declarado no próprio desenho**: o título
-interno diz "curva ilustrativa, sem dados medidos" — é a definição da
-métrica desenhada, não um resultado; citações ficam na prosa/legenda.
+A, e a leitura ("$\approx 1$ = aproxima-se rápido do teto com poucos
+rótulos"). **Cuidado com o princípio V, declarado no próprio desenho**: o
+título interno diz "curva ilustrativa, sem dados medidos" — é a definição
+da métrica desenhada, não um resultado; citações ficam na prosa/legenda.
 **Onde entra**: Seção `sec:metodo-metricas`, ao lado da Equação 3.1.
 
 **Loop**: render 1 reprovado (rótulo do eixo x colidia com $L_{final}$ —
-centralizado sob o eixo; a nota da ALC invadia o título da faixa
-estatística — coluna compactada e faixa descida; o rótulo da AUC_ideal
-espremido dentro da fatia clara cruzava a borda e a curva — virou ponteiro
-tracejado de fora; "pon-tos" re-quebrado — linhas recalibradas); render 2 +
-zoom: aprovado.
+centralizado sob o eixo; o rótulo da AUC_ideal espremido dentro da fatia
+clara cruzava a borda e a curva — virou ponteiro tracejado de fora;
+"pon-tos" re-quebrado — linhas recalibradas); render 2 + zoom: aprovado.
+**Revisão do autor (2026-08-23, aplicada)**: (a) a faixa da análise
+estatística saiu da figura (fica só na prosa); (b) a precedência da ALC
+saiu da figura (fica só na prosa); (c) o estouro do texto da fórmula na
+borda direita da caixa foi corrigido (caixa alargada para 58mm, conferido
+por zoom). O arquivo foi renomeado de `esq-lce-e-estatistica.tex` para
+`esq-lce.tex` porque a estatística deixou de fazer parte do desenho.
 
 ## Loop de melhoria com goal (registro, como a tarefa pede)
 
