@@ -23,7 +23,7 @@ def git(*args, timeout=10):
 
 def main():
     linhas = ["=== ESTADO REAL DO REPOSITORIO (medido agora, nao de memoria) ==="]
-    git("fetch", "-q", "origin", "main", timeout=15)
+    git("fetch", "-q", "origin", "main", "mensageria", timeout=15)
 
     anc = git("log", "--oneline", "-1", "origin/main")
     linhas.append(f"main: {anc[:150] if anc else '(nao foi possivel medir)'}")
@@ -55,8 +55,9 @@ def main():
     linhas.append(f"locks: {len(vivos)}")
     linhas.extend(vivos[:8])
 
-    # caixa: mensagens abertas por remetente
-    caixa = git("ls-tree", "--name-only", "origin/main", "coordenacao/caixa/")
+    # caixa: mensagens abertas por remetente (v1.8: a caixa VIVA mora na branch
+    # mensageria, nao na main — a main so guarda a caixa historica congelada)
+    caixa = git("ls-tree", "--name-only", "origin/mensageria", "coordenacao/caixa/")
     abertas = {}
     for c in caixa.splitlines():
         if not c.endswith(".aberta.md"):

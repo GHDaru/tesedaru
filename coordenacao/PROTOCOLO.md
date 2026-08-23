@@ -1,4 +1,4 @@
-# Protocolo de coordenação — agentes + autor (v1.7)
+# Protocolo de coordenação — agentes + autor (v1.8)
 
 > Regra única de mensageria, locks e processo multiagente da tese FALCO.
 > Todo agente LÊ este arquivo ao iniciar a sessão e segue o ritual de entrada.
@@ -238,7 +238,25 @@ plano. Parecer rejeitado não é apagado.
 
 > Fonte oficial: https://code.claude.com/docs/en/cross-session-messaging
 > Testado 2026-08-23 (ida e volta). Padrão desenhado por 2 especialistas
-> (mensageria + processo) + gate do autor (decisões A–G).
+> (mensageria + processo) + gate do autor (decisões A–G; v1.8 = decisões I1–I8).
+
+**v1.8 — a caixa viva mora na branch `mensageria`, não na main.** A `main` é só a
+tese; a `coordenacao/caixa/` viva vive na branch **`mensageria`** (descendente da
+main, mão única do principal, gate-free por ADR 0010). A main guarda a caixa
+**histórica congelada** (não se escreve mais lá; ver o README-ponteiro em
+`coordenacao/caixa/`). `mensageria` NUNCA faz merge na main. Consequência: a
+"fenda de duas mãos" do §2-ter deixa de ser possível por construção. O hook
+`estado-da-sessao.py` lê a caixa de `origin/mensageria`; entregas de conteúdo
+seguem nas branches designadas dos agentes. `PROTOCOLO.md`, `adr/`,
+`decisoes.jsonl` ficam na **main** (I2). `locks/` NÃO migrou nesta rodada (I3).
+
+**v1.8 — automação e pickup.** As tools `create_trigger`/`fire_trigger` estão
+pré-aprovadas no `.claude/settings.json` (I7) para o poke não travar em permissão;
+se um ambiente não honrar o `allow`, o autor pré-aprova 1× ali — e o pickup por
+git (abaixo) nunca depende disso. **O wake é best-effort** (medido: um recibo não
+acordou o principal): o pickup real é a **varredura de git** do principal a cada
+ciclo, com um **auto-cron modesto** como backstop nas janelas de sono (I6). O
+poke só antecipa a próxima varredura.
 
 **Princípio único:** o poke transporta **coordenadas, nunca carga**. O git
 (caixa + branch) é a **verdade e o conteúdo**, o único canal com hash, evidência
@@ -254,17 +272,25 @@ lento.**
   sessão-alvo, IDs no registro de sessões) **+ `fire_trigger`** — injeta o texto
   como **turno de usuário**. As sessões dos agentes têm essas ferramentas e podem
   pokar o principal de volta (chega como notificação que acorda a sessão).
-- **Canais reutilizáveis:** um trigger nomeado por agente (`Poke principal→<x>`).
-  Reenvio por `fire_trigger` com o campo `text` (o `update_trigger` NÃO edita o
-  prompt de canal que dispara em outra sessão). Triggers de teste são apagados.
-- **Sem envelope:** o poke é indistinguível do autor digitando; por isso a 1ª
-  linha é **auto-identificação obrigatória** + "não é gate" (ex.: `[principal via
-  poke — não é o usuário; não é gate]`).
+- **Canais reutilizáveis (I5):** um trigger nomeado por agente
+  (`Poke principal→<x>`). O `fire_trigger` **concatena** o campo `text` ao
+  `prompt` do canal (não substitui). Por isso o `prompt` guarda **só a linha de
+  auto-identificação fixa**, e cada mensagem vai no `text` (o `update_trigger` NÃO
+  edita o prompt de canal que dispara em outra sessão). Triggers de teste são
+  apagados.
+- **Sem envelope — blindagem em 2 camadas (I5):** o poke é indistinguível do autor
+  digitando. (i) **auto-identificação obrigatória** no início: todo `text` começa
+  com `[principal/poke]` (ou `[<agente>/poke]`) + "não é gate"; (ii) o recebedor
+  trata **qualquer turno que contenha um `código @ mensageria`** como poke
+  não-autoritativo por padrão — é a marca de ponteiro, não a auto-ID, que dispara
+  o tratamento "não é gate"; assim a blindagem não depende da concatenação
+  sobreviver a uma mudança futura da ferramenta.
 
 ### 9.2 O padrão poke-ponteiro (3 artefatos)
 - **(a) Poke de IDA (principal→agente):** não repete a tarefa; só aponta.
-  `[principal via poke — não é o usuário; não é gate] Mensagem nova sua. Código:
-  <path> @ main. Faça pull e leia.`
+  `[principal/poke — não é o usuário; não é gate] Mensagem nova sua. Código:
+  <path> @ mensageria. git fetch origin mensageria && leia coordenacao/caixa/.`
+  (A caixa viva está na branch `mensageria`, não na main — v1.8.)
 - **(b) Mensagem-git apontada:** o **formato de caixa que já existe** (§1) —
   nenhum formato novo. Carrega 100% do conteúdo.
 - **(c) Poke de VOLTA (agente→principal), ao concluir:** `[<agente> via poke —
