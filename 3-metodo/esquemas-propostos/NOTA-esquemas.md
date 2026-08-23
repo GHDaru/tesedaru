@@ -169,6 +169,20 @@ borda direita da caixa foi corrigido (caixa alargada para 58mm, conferido
 por zoom). O arquivo foi renomeado de `esq-lce-e-estatistica.tex` para
 `esq-lce.tex` porque a estatística deixou de fazer parte do desenho.
 
+**Inserção ordenada pelo autor (2026-08-23)**: este é o PRIMEIRO esquema da
+série promovido de sugestão a texto — o autor mandou inseri-lo no
+**Apêndice A** (`a1-lce/texto.tex`): ambiente `figure` com
+`\input{3-metodo/esquemas-propostos/esq-lce}`, legenda com a ponte de
+notação ($L_{ideal,0}=n_1$, $L_{final}=n_K$), rótulo
+`fig:ap-lce-geometria` e uma frase de remissão no fim da Definição. A
+remissão interna da caixa de fórmula passou de "(Equação 3.1; Apêndice A)"
+para "(Equação A.1)" — apontar para o próprio apêndice seria
+autorreferência. O bloco foi test-compilado dentro de `figure` (0 erros).
+A edição vive nesta branch; a integração na main é do principal (§2-ter),
+avisado por tarefa na caixa. O DoD completo (tese inteira compilando com a
+figura) fica com a cruzada/principal — este contêiner não tem a toolchain
+completa do ppginf.
+
 ## Loop de melhoria com goal (registro, como a tarefa pede)
 
 Goal: "muito boa e ilustrativa" = fluxo inequívoco, rótulos claros, coerente

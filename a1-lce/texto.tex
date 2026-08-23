@@ -19,7 +19,22 @@ recuo para a regra do trapézio quando $K=2$) e
 $\mathrm{Perf}_{\mathrm{baseline}}$ é o desempenho do MESMO classificador
 treinado com supervisão completa do pool. O denominador é a área da curva
 ideal: desempenho de referência atingido instantaneamente no início do
-processo ($L_{\mathrm{ideal},0} = n_1$).
+processo ($L_{\mathrm{ideal},0} = n_1$). A Figura~\ref{fig:ap-lce-geometria}
+ilustra essa geometria.
+
+\begin{figure}[htbp]
+    \centering
+    \input{3-metodo/esquemas-propostos/esq-lce}
+    \caption{Geometria da LCE, em curva ilustrativa (sem dados medidos): a
+    área sob a curva de aprendizado observada ($\mathrm{AUC}_{\mathrm{real}}$,
+    integrada pela regra de Simpson sobre os pontos marcados) é normalizada
+    pelo retângulo da curva ideal,
+    $\mathrm{AUC}_{\mathrm{ideal}}=\mathrm{Perf}_{\mathrm{baseline}}\times
+    (L_{\mathrm{final}}-L_{\mathrm{ideal},0})$. Na notação da
+    Equação~\ref{eq:ap-lce}, $L_{\mathrm{ideal},0}=n_1$ e
+    $L_{\mathrm{final}}=n_K$.}
+    \label{fig:ap-lce-geometria}
+\end{figure}
 
 \section{Propriedades}
 
