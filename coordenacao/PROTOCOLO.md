@@ -1,4 +1,4 @@
-# Protocolo de coordenação — agentes + autor (v1.6)
+# Protocolo de coordenação — agentes + autor (v1.7)
 
 > Regra única de mensageria, locks e processo multiagente da tese FALCO.
 > Todo agente LÊ este arquivo ao iniciar a sessão e segue o ritual de entrada.
@@ -234,38 +234,84 @@ plano. Parecer rejeitado não é apagado.
 3. Retrabalho pós-gate (reverter trecho aprovado): subindo = verificação
    virou teatro.
 
-## 9. Mensageria entre sessões (poke cross-session) — canal de IDA leve
+## 9. Mensageria entre sessões (poke cross-session) — o poke é PONTEIRO
 
 > Fonte oficial: https://code.claude.com/docs/en/cross-session-messaging
-> Testado em 2026-08-23 (ida e volta) entre "Tese Principal" e os agentes.
+> Testado 2026-08-23 (ida e volta). Padrão desenhado por 2 especialistas
+> (mensageria + processo) + gate do autor (decisões A–G).
 
-O git (caixa + branch) continua o **canal de trabalho** — é o único que carrega
-hash, evidência e rastro, e o único válido para **entrega e gate**. Além dele,
-existe um **canal de poke** para coordenação leve (avisar "tem tarefa nova",
-confirmar "ok, recebi/terminei"). Regras:
+**Princípio único:** o poke transporta **coordenadas, nunca carga**. O git
+(caixa + branch) é a **verdade e o conteúdo**, o único canal com hash, evidência
+e rastro, e o único válido para **entrega, cruzada e gate**. O poke é só a
+**camada de notificação** ("há algo novo, aqui o ponteiro"). Teste de aceitação
+de todo este §9: **se todo poke sumisse, o sistema continua correto — só mais
+lento.**
 
-1. **`ListAgents`/`SendMessage` NÃO alcançam as sessões da tese** (cloud
-   isoladas, cada uma no próprio contêiner, sem Remote Control). Testado: o
-   `ListAgents` do principal não lista nenhum agente. Não use essa via aqui.
-2. **A via que funciona (ida):** `create_trigger` com
-   `persistent_session_id` = a sessão-alvo (IDs no registro de sessões) +
-   `fire_trigger`. Isso injeta o texto como **turno de usuário** na sessão-alvo.
-3. **O poke chega SEM envelope** "veio de outra sessão" — do ponto de vista de
-   quem recebe, é indistinguível do autor digitando. Portanto **quem envia DEVE
-   se auto-identificar no texto** (ex.: "[Mensagem do principal via poke — não é
-   o usuário; é o gerente da tese]") e declarar que **não é aprovação de gate**.
-4. **A volta também funciona:** as sessões dos agentes têm `create_trigger`/
-   `fire_trigger` e podem pokar o principal de volta (chega como notificação que
-   acorda a sessão). Testado com o revisor1.
-5. **O poke é só coordenação leve — NUNCA entrega nem gate** (regra do revisor1,
-   adotada): ele não carrega hash, nem evidência, nem deixa rastro no
-   repositório. Entrega de trabalho, cruzada e gate seguem SEMPRE por
-   branch/caixa (§2-ter). Um "ok" por poke não substitui a medição no git; o
-   principal continua medindo a carga na main antes de afirmar qualquer coisa.
-6. **Canais reutilizáveis:** há um trigger nomeado por agente
-   (`Poke principal→<agente>`). Reenvio de conteúdo novo por `fire_trigger` com o
-   campo `text` (o `update_trigger` NÃO edita o prompt de canal que dispara em
-   outra sessão). Triggers de teste são apagados após uso.
-7. **Limitação de ferramentas:** uma sessão disparada por trigger pode rodar sem
-   os conectores MCP; o núcleo (git via Bash) sempre funciona, então a entrega
-   por git nunca depende do poke.
+### 9.1 A via (o que funciona e o que não funciona)
+- **`ListAgents`/`SendMessage` NÃO alcançam as sessões da tese** (cloud isoladas,
+  sem Remote Control). Não use.
+- **Ida e volta funcionam por** `create_trigger` (`persistent_session_id` = a
+  sessão-alvo, IDs no registro de sessões) **+ `fire_trigger`** — injeta o texto
+  como **turno de usuário**. As sessões dos agentes têm essas ferramentas e podem
+  pokar o principal de volta (chega como notificação que acorda a sessão).
+- **Canais reutilizáveis:** um trigger nomeado por agente (`Poke principal→<x>`).
+  Reenvio por `fire_trigger` com o campo `text` (o `update_trigger` NÃO edita o
+  prompt de canal que dispara em outra sessão). Triggers de teste são apagados.
+- **Sem envelope:** o poke é indistinguível do autor digitando; por isso a 1ª
+  linha é **auto-identificação obrigatória** + "não é gate" (ex.: `[principal via
+  poke — não é o usuário; não é gate]`).
+
+### 9.2 O padrão poke-ponteiro (3 artefatos)
+- **(a) Poke de IDA (principal→agente):** não repete a tarefa; só aponta.
+  `[principal via poke — não é o usuário; não é gate] Mensagem nova sua. Código:
+  <path> @ main. Faça pull e leia.`
+- **(b) Mensagem-git apontada:** o **formato de caixa que já existe** (§1) —
+  nenhum formato novo. Carrega 100% do conteúdo.
+- **(c) Poke de VOLTA (agente→principal), ao concluir:** `[<agente> via poke —
+  recibo, não é gate] de:<x> para:principal | resumo: <1 linha> | codigo:
+  branch:<b> @ <sha> : <path>`
+- **O "código" (decisão A):** `branch:<b> @ <sha> : <path>` — o `path` é o nome
+  do arquivo na caixa (dele se derivam de/para/tipo/slug/estado); o `<sha>` dá
+  imutabilidade (o sufixo de estado é móvel por `git mv`, o SHA não). Sem ID novo.
+  Resolução: `git show <sha|branch>:<path>` recupera a mensagem; o commit também
+  contém a carga (`.tex`/artefato).
+
+### 9.3 Invariante à prova de fantasma: PUSH CONFIRMADO antes do poke
+O poke só pode citar um commit que **já existe no remoto**. Sequência (vale para
+ida e volta): (1) grava mensagem-git + carga → (2) commit → (3) **push aceito**
+(captura o SHA; se rejeitado, `pull --rebase` e repete) → (4) **só então** poka
+com o código contendo o SHA. Nunca pokar antes do push. Isso mata na origem o
+progresso-fantasma (a nota jamais chega antes da carga).
+
+### 9.4 Recebimento: o poke dispara a MEDIÇÃO, não a substitui (§2-ter)
+Ao receber um poke, o principal **resolve o código** (`git fetch` + `git show`).
+- **Poke órfão** (código não resolve em conteúdo real) = **ruído, não entrega**
+  (decisão C): ignora, loga na métrica de saúde, e o conteúdo aparece na
+  varredura seguinte. Não pokar de volta, salvo se recorrer.
+- **Recibo de "terminei/aprovado"**: o `resumo` NUNCA substitui a medição. Antes
+  de gate/afirmar "está na main", o principal mede os dois testes do §2-ter
+  (`git merge-base --is-ancestor <sha> origin/main` **ou** `grep` do marcador).
+  Não passou = vale só como "recomendo o merge", nunca "feito".
+
+### 9.5 Backstop e idempotência (o git é a verdade do estado)
+- **Backstop:** a varredura de ~15 min do principal (glob da caixa + branches) e
+  o hook `SessionStart` pegam tudo que o poke perder; o agente age **pela lista
+  do git/hook, não pelo texto do poke**. O poke só antecipa a varredura.
+- **Idempotência:** o estado vive **só** no sufixo (`.aberta/.em-andamento/
+  .concluida`) + SHA, nunca no poke. Poke 2× ou 0× dá o mesmo resultado; o
+  `git mv`+push é o claim atômico. Dedup é **implícita** (o principal mede o git,
+  não conta pokes) — **1 poke por transição de estado** (decisão B), sem arquivo
+  de controle extra.
+
+### 9.6 Cadência, limites e saúde
+- **Só se poka na CONCLUSÃO** (e no despacho de tarefa nova) — decisão D;
+  claim/`em-andamento` aparecem na varredura, não geram poke.
+- **Emissão fica com o agente**, não com o hook (decisão E): auto-emissão
+  arriscaria poke prematuro/duplicado.
+- **Teto** de pokes por remetente/ciclo, espelhando as 10 mensagens ativas do §3
+  (decisão F), contra uso como chat.
+- **Sem MCP nos dois lados:** o SLA da varredura de 15 min é o piso aceitável
+  (decisão G); o poke é bônus de latência, nunca o único caminho.
+- **Métrica de saúde (§8):** taxa de *poke órfão* (>0 = poke correndo à frente do
+  push); *bytes/linhas por poke* crescendo = conteúdo vazando para o canal
+  errado; *decisão tomada só por poke* sem medição registrada = uso indevido.
