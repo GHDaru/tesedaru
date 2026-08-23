@@ -14,15 +14,18 @@ de desempenho alcançável pela composição.
 \section{Operadores e parâmetros}
 
 \begin{itemize}
-  \item \textbf{População} $N_{pop}=50$; \textbf{gerações} 100 (reexecução
-  reduzida: $30 \times 40$; decisão D-002 do registro de decisões);
+  \item \textbf{População} $N_{pop}=20$; \textbf{gerações} 100 por cenário
+  (200 no caso $|L_0|=10$), o que dá 2.000 avaliações supervisionadas por
+  cenário (4.000 no caso $|L_0|=10$); a reexecução independente usa
+  configuração reduzida de $N_{pop}=30$ por 40 gerações (decisão D-002 do
+  registro de decisões);
   \item \textbf{seleção}: torneio de tamanho $k_t=3$;
   \item \textbf{cruzamento}: um ponto sobre a lista de índices, com
   probabilidade $p_c=0{,}8$, seguido de \emph{reparo de unicidade}
   (índices repetidos são substituídos por sorteio até restaurar $|L_0|=I$);
   \item \textbf{mutação}: com probabilidade $p_m=0{,}1$, substituição de
   $m_s=\max(1,\lceil 0{,}01 \cdot I\rceil)$ genes por índices inéditos;
-  \item \textbf{elitismo}: $10\%$ ($N_{elite}=5$ na configuração original).
+  \item \textbf{elitismo}: $10\%$ ($N_{elite}=2$ com a população de 20).
 \end{itemize}
 
 \section{Pseudocódigo}
