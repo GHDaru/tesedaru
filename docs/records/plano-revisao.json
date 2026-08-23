@@ -1,7 +1,7 @@
 {
  "schema": "plano-revisao/v1",
  "versao": 94,
- "atualizado_em": "2026-08-23T18:22:00Z",
+ "atualizado_em": "2026-08-23T18:35:00Z",
  "atualizado_por": "principal",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
@@ -568,7 +568,7 @@
    "rodadas": {
     "R1": {
      "status": "feito",
-     "nota": "gate aprovado e mergeado 2026-08-17 (64→6 travessões)"
+     "nota": "R1 forma GATEADO na main @d595709 (revisor2, entrega @b4497fe): 12 conversoes (titulos RQ1-RQ4 dois-pontos + 8 travessoes de prosa -> pontuacao). §2-ter: multiconjunto de digitos IDENTICO (freeze). B~$-$~C (menos matematico) e 8 travessoes de tabela preservados. Sem colisao com braco E."
     },
     "R2": {
      "status": "andamento",
