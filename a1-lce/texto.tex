@@ -1,12 +1,15 @@
-\chapter{Métrica Learning Curve Efficiency (LCE)}
+\chapter{Métrica \texorpdfstring{\textit{Learning Curve Efficiency}}{Learning Curve Efficiency} (LCE)}
 \label{ap:lce}
 
 \section{Definição}
 
-Seja uma execução de aprendizado ativo que produz a curva
+A LCE resume uma curva de aprendizado inteira em um único escalar, para que
+estratégias de aprendizado ativo possam ser comparadas e ordenadas por um
+número. Seja uma execução de aprendizado ativo que produz a curva
 $\{(n_k, m_k)\}_{k=1}^{K}$, em que $n_k$ é o número de instâncias rotuladas na
 iteração $k$ (estritamente crescente) e $m_k$ a métrica de interesse (nesta
-tese, Macro F1 no conjunto de teste fixo $T$). Define-se:
+tese, Macro F1, medido no conjunto de teste, fixo ao longo das iterações).
+Define-se:
 \begin{equation}
 \mathrm{LCE} \;=\;
 \frac{\displaystyle \int_{n_1}^{n_K} m(n)\, dn}
@@ -16,7 +19,7 @@ tese, Macro F1 no conjunto de teste fixo $T$). Define-se:
 em que a integral do numerador ($\mathrm{AUC}_{\mathrm{real}}$) é calculada
 numericamente pela regra composta de Simpson sobre os pontos observados (com
 recuo para a regra do trapézio quando $K=2$) e
-$\mathrm{Perf}_{\mathrm{baseline}}$ é o desempenho do MESMO classificador
+$\mathrm{Perf}_{\mathrm{baseline}}$ é o desempenho do \emph{mesmo} classificador
 treinado com supervisão completa do \textit{pool}. O denominador é a área da curva
 ideal: desempenho de referência atingido instantaneamente no início do
 processo ($L_{\mathrm{ideal},0} = n_1$). A Figura~\ref{fig:ap-lce-geometria}
@@ -28,9 +31,9 @@ ilustra essa geometria.
     \caption{Geometria da LCE, em curva ilustrativa (sem dados medidos): a
     área sob a curva de aprendizado observada ($\mathrm{AUC}_{\mathrm{real}}$,
     integrada pela regra de Simpson sobre os pontos marcados) é normalizada
-    pelo retângulo da curva ideal,
-    $\mathrm{AUC}_{\mathrm{ideal}}=\mathrm{Perf}_{\mathrm{baseline}}\times
-    (L_{\mathrm{final}}-L_{\mathrm{ideal},0})$. Na notação da
+    pelo retângulo da curva ideal ($\mathrm{AUC}_{\mathrm{ideal}}$), de
+    altura $\mathrm{Perf}_{\mathrm{baseline}}$ e base
+    $L_{\mathrm{final}}-L_{\mathrm{ideal},0}$. Na notação da
     Equação~\ref{eq:ap-lce}, $L_{\mathrm{ideal},0}=n_1$ e
     $L_{\mathrm{final}}=n_K$.}
     \label{fig:ap-lce-geometria}
@@ -38,16 +41,22 @@ ilustra essa geometria.
 
 \section{Propriedades}
 
-(i) $\mathrm{LCE} \in (0, 1]$ quando $m_k \le \mathrm{Perf}_{\mathrm{baseline}}$
-para todo $k$; valores maiores indicam aproximação mais rápida do teto.
-(ii) É invariante a transformações afins do eixo $n$ (mudança de unidade de
-orçamento). (iii) Ao normalizar pelo teto do próprio par (classificador,
-conjunto), e não pelo máximo teórico da métrica, permite comparar
-estratégias entre classificadores de tetos distintos: um classificador fraco
-bem servido pela estratégia pode ter LCE maior que um classificador forte mal
-servido. (iv) Depende do intervalo $[n_1, n_K]$: comparações exigem execuções
-com o mesmo orçamento e o mesmo $L_0$, condição imposta em todos os desenhos
-desta tese.
+\begin{itemize}
+  \item \textbf{Imagem}: $\mathrm{LCE} \in (0, 1]$ quando
+  $m_k \le \mathrm{Perf}_{\mathrm{baseline}}$ para todo $k$; valores
+  maiores indicam aproximação mais rápida do teto.
+  \item \textbf{Invariância de escala}: transformações afins do eixo $n$
+  (mudança de unidade do orçamento) não alteram a LCE, porque numerador e
+  denominador escalam pelo mesmo fator.
+  \item \textbf{Comparabilidade entre tetos distintos}: ao normalizar pelo
+  teto do próprio par (classificador, conjunto), e não pelo máximo teórico
+  da métrica, a LCE permite comparar estratégias entre classificadores de
+  tetos distintos: um classificador fraco bem servido pela estratégia pode
+  ter LCE maior que um classificador forte mal servido.
+  \item \textbf{Dependência do intervalo}: a LCE depende de $[n_1, n_K]$;
+  comparações exigem execuções com o mesmo orçamento e o mesmo $L_0$,
+  condição imposta em todos os desenhos desta tese.
+\end{itemize}
 
 \section{Relação com a ALC}
 

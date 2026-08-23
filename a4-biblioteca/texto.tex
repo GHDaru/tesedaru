@@ -1,44 +1,63 @@
-\chapter{A Biblioteca activelearning}
+\chapter{A Biblioteca \texorpdfstring{\texttt{activelearning}}{activelearning}}
 \label{ap:biblioteca}
 
 \section{Arquitetura}
 
-A biblioteca segue arquitetura hexagonal com domínio isolado: o núcleo
-(\texttt{domain/}) contém instâncias, o espaço fechado de categorias
-(\textit{CategorySchema}), anotações com contabilidade de uso
-(\textit{OracleUsage}: tokens, tokens em cache, custo, latência), estratégias
-de incerteza e métricas (LCE, Wilson, McNemar). O núcleo é puro, sem
-dependência de rede ou framework. Os \textbf{adapters} implementam as portas: oráculos
-(OpenAI, OpenAI-compatível/MaaS, OpenRouter, Gemini, Ollama, Simulado com
-ruído $\varepsilon$), classificadores (PVBin; BERTimbau via
-\texttt{transformers}), estratégias com infraestrutura (DRI-SL com SBERT),
-dados (CSV do domínio) e persistência (SQLite/PostgreSQL). Os \textbf{casos de
-uso} (\texttt{application/}) orquestram: avaliação de oráculo (E0, retomável),
-laço de aprendizado ativo (E1/E4), runner do FALCO (fases com transição por
-validação) e saneamento de dados.
+A biblioteca segue arquitetura hexagonal, com o domínio isolado no centro e
+toda dependência apontando para dentro, como resume a
+Figura~\ref{fig:ap-biblioteca-arq}:
 
-O diferencial frente a bibliotecas existentes de aprendizado ativo para texto, notadamente a
-\textit{small-text} \citep{Schroder2021SmallText}, que padroniza
-classificador $\times$ estratégia $\times$ critério de parada, é elevar o
-\textbf{oráculo} a porta de primeira classe: custo por consulta, modos de
-instrumentação (enum/json-prompt/free), variantes de prompt, lote por chamada
-e cache são medidos e registrados em cada anotação.
+\begin{itemize}
+  \item o \textbf{núcleo} (domínio) contém instâncias, o espaço fechado de
+  categorias (\textit{CategorySchema}), anotações com contabilidade de uso
+  (\textit{OracleUsage}: tokens, tokens em cache, custo, latência),
+  estratégias de incerteza e métricas (LCE, intervalo de Wilson, teste de
+  McNemar). É puro: não depende de rede nem de \textit{framework};
+  \item os \textbf{\textit{adapters}} implementam as portas definidas pelo
+  domínio: oráculos (OpenAI e provedores compatíveis, incluindo os de
+  MaaS, \textit{Model as a Service}; OpenRouter; Gemini; Ollama; e um
+  oráculo simulado com ruído $\varepsilon$), classificadores (PVBin;
+  BERTimbau via \texttt{transformers}), estratégias com infraestrutura
+  (DRI-SL com SBERT, \textit{Sentence-BERT}), dados (CSV do domínio) e
+  persistência (SQLite e PostgreSQL);
+  \item os \textbf{casos de uso} orquestram o conjunto: avaliação de
+  oráculo (retomável), laço de aprendizado ativo, \textit{runner} do FALCO
+  (fases com transição por validação) e saneamento de dados.
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \input{3-metodo/esquemas-propostos/esq-biblioteca-arquitetura}
+    \caption{Arquitetura hexagonal da biblioteca \texttt{activelearning}:
+    o domínio puro no centro, os casos de uso orquestrando acima, os
+    \textit{adapters} implementando as portas na base e a interface web na
+    borda. Toda dependência aponta para o núcleo.}
+    \label{fig:ap-biblioteca-arq}
+\end{figure}
+
+O diferencial frente a bibliotecas existentes de aprendizado ativo para
+texto, notadamente a \textit{small-text} \citep{Schroder2021SmallText}, que
+padroniza classificador $\times$ estratégia $\times$ critério de parada, é
+elevar o \textbf{oráculo} a porta de primeira classe: custo por consulta,
+modos de instrumentação (enum/json-prompt/free), variantes de prompt, lote
+por chamada e cache são medidos e registrados em cada anotação.
 
 \section{Reprodução dos experimentos}
 
 Cada experimento tem ponto de entrada único parametrizado por configuração
-versionada; execuções gravam sementes e registros por item/iteração (JSONL) e
-são retomáveis. Os pontos de entrada e analisadores de cada experimento (E0,
-E0-P, P1/AG, E1/E4) e o runner do FALCO com os cinco braços do desenho (E2/E3,
-GPU) acompanham o repositório de código, organizados por identificador de
-experimento. A suíte de
-testes unitários cobre domínio, adapters e casos de uso sem rede.
+versionada; execuções gravam sementes e registros por item e por iteração
+(JSONL, um registro JSON por linha) e são retomáveis. Os pontos de entrada
+e analisadores de cada experimento, e o \textit{runner} do FALCO com os
+cinco braços do desenho experimental, acompanham o repositório de código,
+organizados por identificador de experimento. A suíte de testes unitários
+cobre domínio, \textit{adapters} e casos de uso sem acesso à rede.
 
 \section{FlowBuilder}
 
-Interface web (FastAPI + React) sobre a biblioteca: envio de CSV com
-saneamento automático (remoção de rótulos operacionais; censo de conflitos e
-duplicatas; download da base saneada), execução parametrizada de fluxos
-(semente, orçamento, lote, $L_0$, estratégia, oráculo, incluindo modelos de
-custo zero) e acompanhamento de curvas de aprendizado. O banco guarda o
-índice das execuções; os artefatos brutos permanecem em disco, versionáveis.
+O FlowBuilder é a interface web (FastAPI + React) construída sobre a
+biblioteca: envio de CSV com saneamento automático (remoção de rótulos
+operacionais; censo de conflitos e duplicatas; \textit{download} da base
+saneada), execução parametrizada de fluxos (semente, orçamento, lote,
+$L_0$, estratégia, oráculo, incluindo modelos de custo zero) e
+acompanhamento de curvas de aprendizado. O banco guarda o índice das
+execuções; os artefatos brutos permanecem em disco, versionáveis.

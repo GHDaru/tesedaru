@@ -3,10 +3,14 @@
 
 \section{Objetivo e entradas}
 
-Construir $L_0$ de tamanho alvo $I$ a partir do \textit{pool} não rotulado $U$, sem
-acesso a rótulos. Entradas: textos de $U$; codificador de sentenças $\phi$
-(SBERT multilíngue \citep{Reimers2019SBERT} na configuração da tese); número
-de grupos $N_c$ (padrão $\max(2, \lfloor\sqrt{I}\rfloor)$); semente.
+O DRI-SL (\textit{Diversidade Representativa Inicial via densidade
+Semântica e variedade Lexical}) constrói o conjunto inicial $L_0$, de
+tamanho alvo $I$, a partir do \textit{pool} não rotulado $U$, sem acesso a
+rótulos. Recebe quatro entradas: os textos de $U$; um codificador de
+sentenças $\phi$ (SBERT multilíngue \citep{Reimers2019SBERT}, na
+configuração da tese); o número de grupos $N_c$, com padrão
+$\max(2, \lfloor\sqrt{I}\rfloor)$; e uma semente. A
+Figura~\ref{fig:ap-drisl-fases} resume as duas fases.
 
 \section{Etapas}
 
@@ -23,6 +27,17 @@ de grupos $N_c$ (padrão $\max(2, \lfloor\sqrt{I}\rfloor)$); semente.
   cobertos; repetir até preencher $q_c$.
 \end{enumerate}
 
+\begin{figure}[htbp]
+    \centering
+    \input{3-metodo/esquemas-propostos/esq-drisl}
+    \caption{As duas fases do DRI-SL: a densidade semântica agrupa o
+    \textit{pool} e distribui as cotas $q_c$; a variedade lexical preenche
+    cada cota pelo escore de novidade, ponderado pelo perfil TF--IDF do
+    grupo. O resultado combina diversidade semântica entre grupos e
+    variedade lexical dentro de cada grupo.}
+    \label{fig:ap-drisl-fases}
+\end{figure}
+
 A seleção é determinística dada a semente (inicialização do $k$-médias). O
 custo é dominado pela codificação ($O(|U|)$ passagens do codificador) e pelo
 $k$-médias; a etapa lexical é $O(q_c \cdot |c|)$ por grupo, com operações
@@ -34,10 +49,12 @@ A etapa 1 garante \emph{representatividade}: como o número de grupos é
 $N_c = \max(2, \lfloor\sqrt{I}\rfloor)$ e cada grupo não vazio tem cota mínima
 de um, nenhum agrupamento fica de fora do $L_0$. A etapa 2 \emph{reduz} a
 redundância: dentro da região, evita quase-duplicatas (frequentes no domínio:
-7,7\% de duplicatas exatas) e força a cobertura de vocabulário, o recurso que,
-para um classificador por protótipo como o PVBin, constrói as fronteiras. A combinação explica o
-resultado do Capítulo~\ref{ch:resultados-l0}: cobertura semântica dá o
-esqueleto de classes; cobertura lexical dá o poder discriminativo por classe.
+$7{,}7\%$ das linhas repetem descrição e rótulo) e força a cobertura de
+vocabulário, o recurso que, para um classificador por protótipo como o
+PVBin, constrói as fronteiras entre classes. A combinação explica o
+comportamento observado nos experimentos de composição do conjunto inicial:
+a cobertura semântica dá o esqueleto de classes; a cobertura lexical dá o
+poder discriminativo dentro de cada classe.
 
 A implementação de referência acompanha o repositório de código da tese, com
 codificador alternativo TF--IDF+SVD para ambientes leves e testes unitários
