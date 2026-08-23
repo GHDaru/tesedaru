@@ -31,16 +31,24 @@
    principal, sem assumir papel. Título apontando para papel que OUTRA sessão
    ativa já exerce → manter o papel que se vinha exercendo e avisar o
    principal; só o autor resolve renomeando/reatribuindo.
-1. `git fetch origin main` **e integrar `origin/main` na sua branch** — é a
-   MAIN, não a sua branch designada. Nenhuma leitura da caixa e nenhum claim
-   vale sem isso no mesmo turno. **Repita a cada CICLO de trabalho, não só ao
-   abrir a sessão**: execuções longas (executores) que só rebaseiam a própria
-   branch NÃO veem as tarefas novas nem as respostas do principal — foi a raiz
-   do descompasso do executor01 (22/08). Puxe a main antes de cada claim e de
-   cada entrega. O hook `SessionStart` faz isso ao abrir; o resto do ciclo é
-   com você.
-2. Ler a caixa SÓ por glob: `ls coordenacao/caixa/*_<eu>_*` + `*_todos_*`.
-   Nunca "ler tudo".
+1. **Fetch OBRIGATÓRIO da main E da `mensageria`** (a caixa viva mora na
+   `mensageria` desde a v1.8, e o clone do harness só rastreia a `main` — um
+   `git fetch origin main` "normal" NÃO traz a `mensageria`, e você concluiria em
+   silêncio que não há mensagem: o pior modo de falha). Rode SEMPRE, com o
+   refspec explícito:
+   ```
+   git fetch origin main "+refs/heads/mensageria:refs/remotes/origin/mensageria"
+   ```
+   E **integre `origin/main` na sua branch** — é a MAIN, não a sua branch
+   designada. Nenhuma leitura da caixa e nenhum claim vale sem isso no mesmo
+   turno. **Repita a cada CICLO de trabalho, não só ao abrir a sessão**:
+   execuções longas que só rebaseiam a própria branch NÃO veem tarefas novas —
+   foi a raiz do descompasso do executor01 (22/08). O hook `SessionStart` já faz
+   esse fetch (com o refspec da `mensageria`); o resto do ciclo é com você.
+2. Ler a caixa SÓ por glob, **em `origin/mensageria`** (não na main, que só tem a
+   caixa histórica congelada):
+   `git ls-tree -r --name-only origin/mensageria coordenacao/caixa/ | grep -E "_<eu>_|_todos_"`
+   e recuperar cada uma com `git show origin/mensageria:<path>`. Nunca "ler tudo".
 3. Arquivar (dever de quem chega): mover para `coordenacao/arquivo/AAAA-MM/`
    toda `.concluida` com >48 h e todo aviso com >7 dias; push.
 4. Postar o aviso de início do próprio ciclo (§3, evento "claim").
