@@ -1,4 +1,4 @@
-# Protocolo de coordenação — agentes + autor (v1.5)
+# Protocolo de coordenação — agentes + autor (v1.9)
 
 > Regra única de mensageria, locks e processo multiagente da tese FALCO.
 > Todo agente LÊ este arquivo ao iniciar a sessão e segue o ritual de entrada.
@@ -31,16 +31,24 @@
    principal, sem assumir papel. Título apontando para papel que OUTRA sessão
    ativa já exerce → manter o papel que se vinha exercendo e avisar o
    principal; só o autor resolve renomeando/reatribuindo.
-1. `git fetch origin main` **e integrar `origin/main` na sua branch** — é a
-   MAIN, não a sua branch designada. Nenhuma leitura da caixa e nenhum claim
-   vale sem isso no mesmo turno. **Repita a cada CICLO de trabalho, não só ao
-   abrir a sessão**: execuções longas (executores) que só rebaseiam a própria
-   branch NÃO veem as tarefas novas nem as respostas do principal — foi a raiz
-   do descompasso do executor01 (22/08). Puxe a main antes de cada claim e de
-   cada entrega. O hook `SessionStart` faz isso ao abrir; o resto do ciclo é
-   com você.
-2. Ler a caixa SÓ por glob: `ls coordenacao/caixa/*_<eu>_*` + `*_todos_*`.
-   Nunca "ler tudo".
+1. **Fetch OBRIGATÓRIO da main E da `mensageria`** (a caixa viva mora na
+   `mensageria` desde a v1.8, e o clone do harness só rastreia a `main` — um
+   `git fetch origin main` "normal" NÃO traz a `mensageria`, e você concluiria em
+   silêncio que não há mensagem: o pior modo de falha). Rode SEMPRE, com o
+   refspec explícito:
+   ```
+   git fetch origin main "+refs/heads/mensageria:refs/remotes/origin/mensageria"
+   ```
+   E **integre `origin/main` na sua branch** — é a MAIN, não a sua branch
+   designada. Nenhuma leitura da caixa e nenhum claim vale sem isso no mesmo
+   turno. **Repita a cada CICLO de trabalho, não só ao abrir a sessão**:
+   execuções longas que só rebaseiam a própria branch NÃO veem tarefas novas —
+   foi a raiz do descompasso do executor01 (22/08). O hook `SessionStart` já faz
+   esse fetch (com o refspec da `mensageria`); o resto do ciclo é com você.
+2. Ler a caixa SÓ por glob, **em `origin/mensageria`** (não na main, que só tem a
+   caixa histórica congelada):
+   `git ls-tree -r --name-only origin/mensageria coordenacao/caixa/ | grep -E "_<eu>_|_todos_"`
+   e recuperar cada uma com `git show origin/mensageria:<path>`. Nunca "ler tudo".
 3. Arquivar (dever de quem chega): mover para `coordenacao/arquivo/AAAA-MM/`
    toda `.concluida` com >48 h e todo aviso com >7 dias; push.
 4. Postar o aviso de início do próprio ciclo (§3, evento "claim").
@@ -233,3 +241,146 @@ plano. Parecer rejeitado não é apagado.
 2. Idade do bloqueio aberto mais antigo: >48 h = gate engarrafado.
 3. Retrabalho pós-gate (reverter trecho aprovado): subindo = verificação
    virou teatro.
+
+## 9. Mensageria entre sessões (poke cross-session) — o poke é PONTEIRO
+
+> Fonte oficial: https://code.claude.com/docs/en/cross-session-messaging
+> Testado 2026-08-23 (ida e volta). Padrão desenhado por 2 especialistas
+> (mensageria + processo) + gate do autor (decisões A–G; v1.8 = decisões I1–I8).
+
+**v1.8 — a caixa viva mora na branch `mensageria`, não na main.** A `main` é só a
+tese; a `coordenacao/caixa/` viva vive na branch **`mensageria`** (descendente da
+main, mão única do principal, gate-free por ADR 0010). A main guarda a caixa
+**histórica congelada** (não se escreve mais lá; ver o README-ponteiro em
+`coordenacao/caixa/`). `mensageria` NUNCA faz merge na main. Consequência: a
+"fenda de duas mãos" do §2-ter deixa de ser possível por construção. O hook
+`estado-da-sessao.py` lê a caixa de `origin/mensageria`; entregas de conteúdo
+seguem nas branches designadas dos agentes. `PROTOCOLO.md`, `adr/`,
+`decisoes.jsonl` ficam na **main** (I2). `locks/` NÃO migrou nesta rodada (I3).
+
+**v1.8 — automação e pickup.** As tools `create_trigger`/`fire_trigger` estão
+pré-aprovadas no `.claude/settings.json` (I7) para o poke não travar em permissão;
+se um ambiente não honrar o `allow`, o autor pré-aprova 1× ali — e o pickup por
+git (abaixo) nunca depende disso. **O wake é best-effort** (medido: um recibo não
+acordou o principal): o pickup real é a **varredura de git** do principal a cada
+ciclo, com um **auto-cron modesto** como backstop nas janelas de sono (I6). O
+poke só antecipa a próxima varredura.
+
+**Princípio único:** o poke transporta **coordenadas, nunca carga**. O git
+(caixa + branch) é a **verdade e o conteúdo**, o único canal com hash, evidência
+e rastro, e o único válido para **entrega, cruzada e gate**. O poke é só a
+**camada de notificação** ("há algo novo, aqui o ponteiro"). Teste de aceitação
+de todo este §9: **se todo poke sumisse, o sistema continua correto — só mais
+lento.**
+
+### 9.1 A via (o que funciona e o que não funciona)
+- **`ListAgents`/`SendMessage` NÃO alcançam as sessões da tese** (cloud isoladas,
+  sem Remote Control). Não use.
+- **Ida e volta funcionam por** `create_trigger` (`persistent_session_id` = a
+  sessão-alvo, IDs no registro de sessões) **+ `fire_trigger`** — injeta o texto
+  como **turno de usuário**. As sessões dos agentes têm essas ferramentas e podem
+  pokar o principal de volta (chega como notificação que acorda a sessão).
+- **Canais reutilizáveis (I5):** um trigger nomeado por agente
+  (`Poke principal→<x>`). O `fire_trigger` **concatena** o campo `text` ao
+  `prompt` do canal (não substitui). Por isso o `prompt` guarda **só a linha de
+  auto-identificação fixa**, e cada mensagem vai no `text` (o `update_trigger` NÃO
+  edita o prompt de canal que dispara em outra sessão). Triggers de teste são
+  apagados.
+- **Sem envelope — blindagem em 2 camadas (I5):** o poke é indistinguível do autor
+  digitando. (i) **auto-identificação obrigatória** no início: todo `text` começa
+  com `[principal/poke]` (ou `[<agente>/poke]`) + "não é gate"; (ii) o recebedor
+  trata **qualquer turno que contenha um `código @ mensageria`** como poke
+  não-autoritativo por padrão — é a marca de ponteiro, não a auto-ID, que dispara
+  o tratamento "não é gate"; assim a blindagem não depende da concatenação
+  sobreviver a uma mudança futura da ferramenta.
+
+### 9.2 O padrão poke-ponteiro (3 artefatos)
+- **(a) Poke de IDA (principal→agente):** não repete a tarefa; só aponta.
+  `[principal/poke — não é o usuário; não é gate] Mensagem nova sua. Código:
+  <path> @ mensageria. Leia com: git fetch origin mensageria && git show
+  FETCH_HEAD:<path>.` (A caixa viva está na branch `mensageria`, não na main — v1.8.)
+  **Cuidado de refspec (medido no teste):** o clone do harness só rastreia
+  `+refs/heads/main`, então `git fetch origin mensageria` NÃO atualiza
+  `origin/mensageria` — cai no `FETCH_HEAD`. Leia via `FETCH_HEAD` (como acima) ou
+  use o refspec explícito `+refs/heads/mensageria:refs/remotes/origin/mensageria`;
+  nunca leia `origin/mensageria` logo após um fetch simples (seria stale).
+- **(b) Mensagem-git apontada:** o **formato de caixa que já existe** (§1) —
+  nenhum formato novo. Carrega 100% do conteúdo.
+- **(c) Poke de VOLTA (agente→principal), ao concluir:** `[<agente> via poke —
+  recibo, não é gate] de:<x> para:principal | resumo: <1 linha> | codigo:
+  branch:<b> @ <sha> : <path>`
+- **O "código" (decisão A):** `branch:<b> @ <sha> : <path>` — o `path` é o nome
+  do arquivo na caixa (dele se derivam de/para/tipo/slug/estado); o `<sha>` dá
+  imutabilidade (o sufixo de estado é móvel por `git mv`, o SHA não). Sem ID novo.
+  Resolução: `git show <sha|branch>:<path>` recupera a mensagem; o commit também
+  contém a carga (`.tex`/artefato).
+
+### 9.3 Invariante à prova de fantasma: PUSH CONFIRMADO antes do poke
+O poke só pode citar um commit que **já existe no remoto**. Sequência (vale para
+ida e volta): (1) grava mensagem-git + carga → (2) commit → (3) **push aceito**
+(captura o SHA; se rejeitado, `pull --rebase` e repete) → (4) **só então** poka
+com o código contendo o SHA. Nunca pokar antes do push. Isso mata na origem o
+progresso-fantasma (a nota jamais chega antes da carga).
+
+### 9.4 Recebimento: o poke dispara a MEDIÇÃO, não a substitui (§2-ter)
+Ao receber um poke, o principal **resolve o código** (`git fetch` + `git show`).
+- **Poke órfão** (código não resolve em conteúdo real) = **ruído, não entrega**
+  (decisão C): ignora, loga na métrica de saúde, e o conteúdo aparece na
+  varredura seguinte. Não pokar de volta, salvo se recorrer.
+- **Recibo de "terminei/aprovado"**: o `resumo` NUNCA substitui a medição. Antes
+  de gate/afirmar "está na main", o principal mede os dois testes do §2-ter
+  (`git merge-base --is-ancestor <sha> origin/main` **ou** `grep` do marcador).
+  Não passou = vale só como "recomendo o merge", nunca "feito".
+
+### 9.5 Backstop e idempotência (o git é a verdade do estado)
+- **Backstop:** a varredura de ~15 min do principal (glob da caixa + branches) e
+  o hook `SessionStart` pegam tudo que o poke perder; o agente age **pela lista
+  do git/hook, não pelo texto do poke**. O poke só antecipa a varredura.
+- **Idempotência:** o estado vive **só** no sufixo (`.aberta/.em-andamento/
+  .concluida`) + SHA, nunca no poke. Poke 2× ou 0× dá o mesmo resultado; o
+  `git mv`+push é o claim atômico. Dedup é **implícita** (o principal mede o git,
+  não conta pokes) — **1 poke por transição de estado** (decisão B), sem arquivo
+  de controle extra.
+
+### 9.6 Cadência, limites e saúde
+- **Só se poka na CONCLUSÃO** (e no despacho de tarefa nova) — decisão D;
+  claim/`em-andamento` aparecem na varredura, não geram poke.
+- **Emissão fica com o agente**, não com o hook (decisão E): auto-emissão
+  arriscaria poke prematuro/duplicado.
+- **Teto** de pokes por remetente/ciclo, espelhando as 10 mensagens ativas do §3
+  (decisão F), contra uso como chat.
+- **Sem MCP nos dois lados:** o SLA da varredura de 15 min é o piso aceitável
+  (decisão G); o poke é bônus de latência, nunca o único caminho.
+- **Métrica de saúde (§8):** taxa de *poke órfão* (>0 = poke correndo à frente do
+  push); *bytes/linhas por poke* crescendo = conteúdo vazando para o canal
+  errado; *decisão tomada só por poke* sem medição registrada = uso indevido.
+
+### 9.7 O MOTOR: re-kick por tick, com Fibonacci no principal (v1.9, testado na Fase 1)
+
+**Descoberta medida (Fase 1):** um poke (`fire_trigger`) só **ENFILEIRA** um
+turno; ele **NÃO acorda** uma sessão ociosa. Quem **EXECUTA** uma sessão parada é
+um trigger **AGENDADO** — `create_trigger` com `run_once_at` (ou `cron`). (Validado:
+re-kick às 16:24 → revisor1 rodou às 16:26, leu a caixa na `mensageria`, entregou,
+e parou.) Além disso, o harness **bloqueia** um agente que se **auto-perpetua**
+(loop autônomo via `send_later` de si mesmo) — guarda-corpo legítimo. Por isso:
+
+1. **O principal é o RELÓGIO ÚNICO.** Quando um agente tem tarefa aberta
+   endereçada a ele, o principal dá um **re-kick**: `create_trigger` com
+   `run_once_at` (~min à frente) e prompt **"faça UM tick e pare; não se
+   reagende"**. O tick do agente: fetch `main`+`mensageria` (refspec explícito,
+   §0) → lê suas tarefas na `mensageria` → trabalha **na sua branch** → entrega +
+   poka o recibo → **para**.
+2. **Fibonacci fica no principal** (não no agente): o próximo re-kick é agendado
+   com backoff — houve trabalho/entrega → rápido (**1,1,2** min); ticks vazios →
+   desacelera (**3,5,8,13,21,34**) e **para de re-kickar** quando a fila do agente
+   esvazia (agente "desligado"). Tarefa nova → o principal re-kicka e o contador
+   reinicia. Custo: agente ocioso faz poucas checagens decrescentes e dorme.
+3. **Estado da caixa = mão única do principal.** A caixa na `mensageria` é escrita
+   **só** pelo principal; o agente **não** transiciona estado lá (não empurra a
+   `mensageria`). O agente entrega na **própria branch** + poka; o **principal**
+   marca `.concluida` na `mensageria` ao integrar. **Idempotência do agente** =
+   checar a **própria branch** ("já entreguei isto? então no-op"). Não há corrida
+   de claim porque toda tarefa é endereçada a um dono único (`para: <agente>`).
+4. **git = verdade + pickup confiável** (varredura agendada do principal, que
+   também pode usar Fibonacci); poke e re-kick são **aceleradores**. A medição
+   §2-ter do principal antes de qualquer gate permanece intocada.
