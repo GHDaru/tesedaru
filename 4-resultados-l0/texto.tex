@@ -22,6 +22,9 @@ como restrição \citep{Karl2023}.
 \section{Sensibilidade à composição e ao tamanho de \texorpdfstring{$L_0$}{L0}}
 \label{sec:res-l0-sens}
 
+A composição do sorteio inicial muda o desempenho do classificador, e o
+efeito é tanto maior quanto menor o $L_0$. Esta seção mede esse efeito.
+
 O experimento avaliou 47 tamanhos de $L_0$ (10 a 200.000), com 30 repetições
 aleatórias por tamanho, medindo Acurácia Global e Macro F1 no conjunto de teste
 $T$. As estatísticas completas constam do Apêndice~\ref{ap:tabelas}; a
@@ -134,8 +137,10 @@ orçamento, que não foi executado.
 \section{DRI-SL \textit{versus} aleatório e envelope do AG}
 \label{sec:res-l0-drisl}
 
-A Tabela~\ref{tab:drisl-vs-ag} compara o DRI-SL (heurística determinística sem
-rótulos, Seção~\ref{sec:metodo-drisl}) com o envelope do AG.
+Uma heurística que não consulta rótulo algum vence o otimizador que os
+consulta. A Tabela~\ref{tab:drisl-vs-ag} compara o DRI-SL (heurística
+determinística sem rótulos, Seção~\ref{sec:metodo-drisl}) com o envelope do
+AG.
 
 \begin{table}[htb]
 \centering
@@ -157,17 +162,19 @@ até $|L_0|=5.000$. Classificador PVBin.}
 \end{tabular}
 \end{table}
 
-O resultado central da partida a frio: \textbf{o DRI-SL supera não só a amostragem
-aleatória média, mas o próprio melhor indivíduo encontrado pelo AG} em todos os
-tamanhos de 100 a 5.000 (ex.: $I=1.000$: $67{,}4\%$ vs.\ $62{,}2\%$ de
-acurácia). Uma heurística construtiva de custo linear e sem acesso a rótulos
-supera um otimizador evolutivo com 2.000 avaliações supervisionadas por
-cenário, forte
-indício de que densidade semântica + variedade lexical capturam exatamente a
-estrutura que torna um $L_0$ informativo. Há uma ressalva metodológica: os
-valores do AG aqui reportados herdam o protocolo original (aptidão e relato na
-mesma partição), inflacionado por construção; a quantificação está na seção
-seguinte, e reforça a conclusão.
+Este é o resultado central da partida a frio: \textbf{o DRI-SL supera não só a
+amostragem aleatória média, mas o próprio melhor indivíduo encontrado pelo
+AG}, em todos os tamanhos de 100 a 5.000. Em $I=1.000$, por exemplo, são
+$67{,}4\%$ contra $62{,}2\%$ de acurácia.
+
+Uma heurística construtiva de custo linear e sem acesso a rótulos supera um
+otimizador evolutivo com 2.000 avaliações supervisionadas por cenário. É forte
+indício de que densidade semântica e variedade lexical capturam a estrutura
+que torna um $L_0$ informativo.
+
+Há uma ressalva metodológica. Os valores do AG aqui reportados herdam o
+protocolo original, com aptidão e relato na mesma partição, inflacionado por
+construção. A quantificação está na seção seguinte, e reforça a conclusão.
 
 Esse desfecho confirma a expectativa mais bem estabelecida da literatura de
 partida a frio: em orçamento baixo, representatividade supera incerteza.
@@ -212,6 +219,10 @@ construído uma única vez.
 
 \section{Reexecução independente e efeito da circularidade}
 \label{sec:res-l0-replay}
+
+Os achados anteriores sobrevivem a uma reexecução independente, e o protocolo
+original mostra-se otimista quanto ao envelope do AG. Esta seção documenta as
+duas coisas.
 
 A reexecução na biblioteca de aprendizado ativo da tese
 \citep{DaruActiveLearning} usa grade reduzida de
@@ -269,7 +280,7 @@ em $I=50$, e o envelope fica acima da média aleatória em todos os casos. A
 reavaliação honesta, porém, revela a inflação da circularidade. Para
 maximização de Macro F1 com $I=500$, a aptidão final é $19{,}4\%$, enquanto o
 mesmo indivíduo mede $13{,}1\%$ no teste intocado, isto é, $6{,}3$ pontos
-percentuais de superajuste ao conjunto de aferição. Para acurácia a inflação é menor ($\approx 1$ p.p.).
+percentuais de superajuste à partição de aferição. Para acurácia a inflação é menor ($\approx 1$ p.p.).
 Conclusão metodológica incorporada à tese: \textbf{envelopes evolutivos devem
 ser reportados exclusivamente em partição não usada como aptidão}; os valores
 de AG das Tabelas~\ref{tab:ag-evolucao} e \ref{tab:drisl-vs-ag} devem ser lidos
