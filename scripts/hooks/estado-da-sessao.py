@@ -23,7 +23,10 @@ def git(*args, timeout=10):
 
 def main():
     linhas = ["=== ESTADO REAL DO REPOSITORIO (medido agora, nao de memoria) ==="]
-    git("fetch", "-q", "origin", "main", "mensageria", timeout=15)
+    # main vem pelo refspec default; mensageria precisa de refspec EXPLICITO
+    # porque o clone do harness so rastreia +refs/heads/main (senao le stale).
+    git("fetch", "-q", "origin", "main",
+        "+refs/heads/mensageria:refs/remotes/origin/mensageria", timeout=15)
 
     anc = git("log", "--oneline", "-1", "origin/main")
     linhas.append(f"main: {anc[:150] if anc else '(nao foi possivel medir)'}")

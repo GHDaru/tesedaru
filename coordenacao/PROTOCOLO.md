@@ -289,8 +289,13 @@ lento.**
 ### 9.2 O padrão poke-ponteiro (3 artefatos)
 - **(a) Poke de IDA (principal→agente):** não repete a tarefa; só aponta.
   `[principal/poke — não é o usuário; não é gate] Mensagem nova sua. Código:
-  <path> @ mensageria. git fetch origin mensageria && leia coordenacao/caixa/.`
-  (A caixa viva está na branch `mensageria`, não na main — v1.8.)
+  <path> @ mensageria. Leia com: git fetch origin mensageria && git show
+  FETCH_HEAD:<path>.` (A caixa viva está na branch `mensageria`, não na main — v1.8.)
+  **Cuidado de refspec (medido no teste):** o clone do harness só rastreia
+  `+refs/heads/main`, então `git fetch origin mensageria` NÃO atualiza
+  `origin/mensageria` — cai no `FETCH_HEAD`. Leia via `FETCH_HEAD` (como acima) ou
+  use o refspec explícito `+refs/heads/mensageria:refs/remotes/origin/mensageria`;
+  nunca leia `origin/mensageria` logo após um fetch simples (seria stale).
 - **(b) Mensagem-git apontada:** o **formato de caixa que já existe** (§1) —
   nenhum formato novo. Carrega 100% do conteúdo.
 - **(c) Poke de VOLTA (agente→principal), ao concluir:** `[<agente> via poke —
