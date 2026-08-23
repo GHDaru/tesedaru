@@ -428,7 +428,11 @@ multi-semente, sem alterar nenhuma conclusão.
 \begin{table}[htb]
 \centering
 \caption{Macro F1 na população por seletor e classificador.
-Saturação: menor $|L|$ que atinge 95\% do teto do próprio braço.}
+Saturação: menor $|L|$ que atinge 95\% do teto do próprio braço. As linhas
+usam denominadores de avaliação diferentes: as reavaliadas medem na
+população reservada de 177.490; as duas curvas de PVBin Entropia e PVBin
+Aleatório permanecem em 181.490 (execuções travadas com seletor congelado,
+não reavaliáveis); a diferença entre denominadores vale 0,02 p.p.}
 \label{tab:e6}
 \small
 \begin{tabular}{ll rrrr}
@@ -436,15 +440,15 @@ Saturação: menor $|L|$ que atinge 95\% do teto do próprio braço.}
 \textbf{Classif.} & \textbf{Seletor} & \textbf{Teto F1} & \textbf{Saturação} &
 \textbf{F1@10k} & \textbf{F1@20k} \\
 \midrule
-SGD & Entropia   & \textbf{0,591} & \textbf{8.000} & 0,565 & 0,574 \\
-SGD & Estratif.\ por predição & 0,555 & 10.000 & 0,533 & 0,543 \\
+SGD & Entropia   & \textbf{0,590} & \textbf{8.000} & 0,565 & 0,573 \\
+SGD & Estratif.\ por predição & 0,555 & 9.500 & 0,533 & 0,543 \\
 SGD & DRI-SL-C   & 0,491 & 15.500 & 0,412 & 0,486 \\
-SGD & Aleatório  & 0,459 & 16.500 & 0,391 & 0,449 \\
+SGD & Aleatório  & 0,458 & 15.500 & 0,391 & 0,448 \\
 SGD & DRI-SL     & 0,441 & 41.500 & 0,310 & 0,365 \\
 \midrule
 PVBin & Entropia  & 0,529 & 19.000 & 0,438 & 0,509 \\
 PVBin & Estratif.\ por predição & 0,528 & 18.000 & 0,444 & 0,498 \\
-PVBin & DRI-SL-C  & 0,525 & 39.500 & 0,349 & 0,453 \\
+PVBin & DRI-SL-C  & 0,525 & 39.500 & 0,349 & 0,452 \\
 PVBin & Aleatório & 0,530 & 40.000 & 0,348 & 0,423 \\
 PVBin & DRI-SL    & 0,527 & 45.500 & 0,284 & 0,356 \\
 \bottomrule
@@ -480,7 +484,7 @@ $2{,}7\times$ (de 41.500 para 15.500) e supera o aleatório em toda a região
 aleatório como política contínua. \textbf{(iv)~A ablação atribui o ganho ao
 agrupamento, não à novidade lexical}: o braço estratificado por predição, que
 é a DRI-SL-C \emph{sem} o termo de novidade, supera a DRI-SL-C completa nos
-dois classificadores (SGD: teto $0{,}555$ e saturação em 10.000 contra
+dois classificadores (SGD: teto $0{,}555$ e saturação em 9.500 contra
 $0{,}491$ e 15.500; PVBin: saturação em 18.000 contra 39.500, empatando com
 a entropia) e em toda a região média da curva. A seleção lexical
 intra-grupo, valiosa na partida a frio sem nenhum rótulo, é
@@ -530,8 +534,11 @@ Tabela~\ref{tab:e3p} consolida.
 \begin{table}[htb]
 \centering
 \caption{BERTimbau treinado por braço e avaliado na população
-reservada inteira (177.490 instâncias); média $\pm$ desvio-padrão de três
-sementes.}
+reservada inteira (177.490 instâncias). Receita de agregação: regime
+homogêneo de treino (lote 16, artefatos \texttt{\_bs16v2} em
+\texttt{experiments/e2e3}); braços A--D são média simples das sementes 7,
+42 e 123; o braço E é média das sementes 7 e 42, pois a semente 123 não
+foi executada nesse regime; desvios-padrão nos artefatos.}
 \label{tab:e3p}
 \small
 \begin{tabular}{l l r r r}
@@ -541,7 +548,7 @@ sementes.}
 A & pipeline real, rótulos do oráculo & 11.936 & $0{,}705$ & $0{,}297$ \\
 B & mesmos itens, gabarito & 11.936 & $0{,}777$ & $0{,}299$ \\
 C & aleatório, gabarito & 11.936 & $0{,}788$ & $0{,}246$ \\
-E & 15 mil por entropia, gabarito & 15.000 & $0{,}816$ & $0{,}341$ \\
+E & 15 mil por entropia, gabarito & 15.000 & $0{,}822$ & $0{,}351$ \\
 D & \emph{pool} inteiro, gabarito (régua) & 50.000 & $\mathbf{0{,}887}$ & $\mathbf{0{,}459}$ \\
 \bottomrule
 \end{tabular}
@@ -585,8 +592,10 @@ populacional (Seção~\ref{sec:res-e6}), reproduzido no
 \textbf{(iii) O fator dominante é orçamento, e o critério de parada do laço
 leve subserve o modelo forte.} O braço E, com 15 mil rótulos perfeitos
 selecionados por entropia (um quarto a mais do que o ciclo real coletou),
-sobe para $0{,}816$ de acurácia ($92{,}0\%$ da régua) e $0{,}341$ de Macro
-F1, ainda aquém do critério. A estagnação da validação do classificador
+sobe para $0{,}822$ de acurácia ($92{,}7\%$ da régua) e $0{,}351$ de Macro
+F1, ainda aquém do critério; este braço é média de duas sementes (7 e 42),
+pois a terceira semente não foi executada no regime homogêneo, divergência
+declarada na Tabela~\ref{tab:e3p}. A estagnação da validação do classificador
 \emph{leve}, que encerrou o ciclo real em 11.936 rótulos, é, portanto, um
 \textit{proxy} inadequado para o ponto de parada do classificador
 \emph{forte}: o BERTimbau segue convertendo rótulos em desempenho muito
@@ -617,7 +626,8 @@ critério \emph{na média} das sementes e cruzá-lo \emph{em todas} elas.
 
 \begin{table}[htb]
 \centering
-\caption{Varredura de orçamento (média de três sementes;
+\caption{Varredura de orçamento (média de três sementes; braço E: média de
+duas, ver Tabela~\ref{tab:e3p};
 avaliação na população de 177.490; regime homogêneo). Critério
 $0{,}95\times$ régua ($D$): acurácia $\ge 0{,}843$, Macro F1 $\ge
 0{,}436$. As colunas de critério indicam em quantas sementes o braço cruza.}
@@ -630,7 +640,7 @@ $0{,}95\times$ régua ($D$): acurácia $\ge 0{,}843$, Macro F1 $\ge
 \textbf{acc} & \textbf{F1} \\
 \midrule
 A (pipeline real) & 11.936 & 23,9\% & 5,2\% & 0,705 & 0,297 & 0/3 & 0/3 \\
-E                 & 15.000 & 30\%   & 6,5\% & 0,816 & 0,341 & 0/3 & 0/3 \\
+E                 & 15.000 & 30\%   & 6,5\% & 0,822 & 0,351 & 0/2 & 0/2 \\
 E20               & 20.000 & 40\%   & 8,6\% & 0,858 & 0,407 & \cmark~3/3 & 0/3 \\
 E25               & 25.000 & 50\%   & 10,8\% & 0,876 & 0,432 & \cmark~3/3 & 1/3 \\
 E30               & 30.000 & 60\%   & 13,0\% & 0,884 & 0,455 & \cmark~3/3 & \cmark~3/3 \\
