@@ -333,6 +333,33 @@ Extensão ao `a5-prompts/texto.tex` (prompts e esquemas do oráculo):
   reordenada para a quebra cair antes dele), contêiner com vão vertical
   excessivo (apertado). Final: 0 erros / 0 overfull nas medidas reais.
 
+## Passe de excelência no Apêndice F (ordem do autor, 2026-08-23)
+
+Extensão ao `a6-tabelas/texto.tex` (estatísticas completas da
+sensibilidade do $L_0$):
+- **Verificação EXECUTÁVEL dos 94 valores** (47 tamanhos × 2 métricas):
+  script conferiu, linha a linha, mín ≤ P25 ≤ mediana ≤ P75 ≤ máx,
+  mín ≤ média ≤ máx, IQR = P75−P25 e CV = DP/mediana. Resultado: ordem,
+  média e IQR exatos em 94/94; o CV é consistente com a fonte NÃO
+  arredondada (as discrepâncias de 3ª casa são arredondamento composto —
+  confirmado por checagem de intervalos). A conferência contra o artefato
+  bruto fica para quem tem o repositório de dados.
+- **Consistência com a tese**: a tabela usava PONTO decimal (0.067) contra
+  a convenção de vírgula do resto da tese — convertidas as 94 linhas
+  (846 valores) por script, sem tocar nos dígitos.
+- **Limpeza de fonte**: removido o comentário-cicatriz "% DADOS DA TABELA
+  AQUI (COPIADOS DO SEU <DADOS>)" (assinatura de máquina no fonte) e o
+  vestígio "Base" no cabeçalho de duas linhas (virou cabeçalho de uma
+  linha, nas duas ocorrências do longtable).
+- **Prosa/autocontenção**: `\ref{sec:res-l0-sens}` e o símbolo $T$
+  removidos; a abertura agora define DP, P25/P75, IQR e CV (= DP/mediana,
+  conferido pelo script antes de afirmar); caption sem o anglicismo
+  "Performance" e com $L_0$ em matemática.
+- **Sem figura, por decisão**: a única figura natural seria a curva dos
+  próprios dados — gráfico de dados exige pipeline de artefato (princípio
+  V); um esquema decorativo não acrescentaria nada a uma tabela.
+- 0 erros / 0 overfull nas medidas reais (3 páginas de longtable).
+
 ## Loop de melhoria com goal (registro, como a tarefa pede)
 
 Goal: "muito boa e ilustrativa" = fluxo inequívoco, rótulos claros, coerente
