@@ -854,7 +854,7 @@
         },
         "R5": {
           "status": "pendente",
-          "nota": "ACHADO GRAVE (revisor2): o A2 documenta a config ABANDONADA (população 50, geração _oldold) — raiz do '5.000 avaliações' do Cap.4. Corrigir ao canônico: pop 20, 2.000 avaliações, N_elite 2 (e 4.000 no L0=10). R5 aplica-se e REPROVA até o conserto."
+          "nota": "ACHADO GRAVE (revisor2, ampliado na convergencia): a config ABANDONADA (população 50, N_elite 5, geração _oldold) esta em DOIS locais vivos — A2 E Cap.3 3-metodo/texto.tex l.396-400 (bloco 'idêntica em todas as execuções'). Raiz do '5.000 avaliações' do Cap.4 (ja corrigido). Como o bloco inteiro veio do arquivo abandonado, pode nao ser so populacao: executor02 deve extrair a config CANONICA do artefato _old (pop, geracoes, N_elite, torneio k_t, p_c, p_m, mutacao) antes de reescrever; depois banca corrige A2+Cap.3 no MESMO lote; revisor1/revisor2 cruzam; gate do autor. Canonico confirmado ate agora: pop 20 -> 2.000 aval (4.000 no L0=10), N_elite 2. R5 aplica-se e REPROVA ate o conserto."
         },
         "R6": {
           "status": "pendente"
