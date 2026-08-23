@@ -392,12 +392,18 @@ estatísticas descritivas completas constam do Apêndice~\ref{ap:tabelas}.
 Para estimar os \emph{limites} de desempenho alcançáveis pela escolha da composição
 de $L_0$ (inatingíveis por busca exaustiva no espaço combinatório), empregou-se um
 algoritmo genético (AG) \citep{Holland1975,Goldberg1989} sobre indivíduos que representam
-conjuntos de $I$ índices únicos do \textit{pool}. A configuração, idêntica em todas
-as execuções, foi: população $N_{pop}=50$; 100 gerações; seleção por torneio de
-tamanho $k_t=3$; cruzamento de um ponto com probabilidade $p_c=0{,}8$ e reparo de
-unicidade; mutação com probabilidade $p_m=0{,}1$ substituindo
-$m_s=\max(1,\lceil 0{,}01 \cdot I\rceil)$ genes; elitismo de $10\%$
-($N_{elite}=5$). Quatro cenários foram otimizados (maximização e minimização de
+conjuntos de $I$ índices únicos do \textit{pool}. A configuração foi:
+população $N_{pop}=20$ e 100 gerações por cenário (200 gerações no caso
+$|L_0|=10$, o único que difere), valores confirmados contra os artefatos
+das corridas; seleção por torneio de tamanho $k_t=3$ e mutação com
+probabilidade $p_m=0{,}1$ substituindo
+$m_s=\max(1,\lceil 0{,}01 \cdot I\rceil)$ genes, valores consistentes com
+as configurações conhecidas do código, não confirmáveis contra o artefato;
+cruzamento de um ponto com reparo de unicidade, cuja probabilidade
+$p_c=0{,}8$ vem do arquivo de configuração remanescente de uma geração
+anterior do experimento, sem confirmação possível contra o artefato da
+corrida canônica (o valor padrão do código é $0{,}7$); e elitismo de
+$10\%$ ($N_{elite}=2$). Quatro cenários foram otimizados (maximização e minimização de
 Acurácia e de Macro F1) para dez tamanhos de $L_0$ entre 10 e 30.000. A função de
 aptidão é avaliada em uma \textbf{partição de aferição disjunta do conjunto de
 teste}: otimizar e reportar na mesma partição superajustaria o envelope ao
