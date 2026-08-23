@@ -477,12 +477,13 @@ fiscais, abreviações), instrui a classificação do \emph{tipo} de produto ign
 marca e embalagem, e desestimula o uso indevido da categoria sentinela
 \texttt{\_rare\_}. A parte estática do \textit{prompt} e o esquema precedem o item
 variável, explorando o \textit{cache} de prefixo dos provedores que o oferecem,
-com efeito direto no custo por rótulo. A rotulagem é feita \textbf{em lote} (itens
-numerados em uma única chamada; resposta como vetor indexado), com o tamanho do
-lote calibrado em etapa prévia (lotes de 1, 10 e 25 itens, pareados nas mesmas
-instâncias) e adotando-se o maior lote que não degrade a acurácia (teste de
-McNemar), decisão registrada junto aos resultados e reproduzível pelo
-artefato de calibração que acompanha o repositório de código.
+com efeito direto no custo por rótulo. A rotulagem é feita \textbf{em lote}: os itens vão
+numerados em uma única chamada, e a resposta volta como vetor indexado. O
+tamanho do lote foi calibrado em etapa prévia, comparando lotes de 1, 10 e 25
+itens pareados nas mesmas instâncias. Adotou-se o maior lote que não degrada a
+acurácia, por teste de McNemar. A decisão fica registrada junto aos resultados
+e é reproduzível pelo artefato de calibração que acompanha o repositório de
+código.
 
 \subsection{Desenho fatorial da avaliação de oráculos}
 \label{sec:metodo-oraculo-desenho}
@@ -620,25 +621,32 @@ amadurecimento do classificador (Figura~\ref{fig:falco-arquitetura}):
 \end{figure}
 
 O processo encerra ao exaurir $B$ ou $U$. As constantes de projeto têm o
-seguinte racional, registrado como decisão de engenharia (não de otimização):
-$b_0 = \lceil 0{,}01 \cdot B\rceil$ dá à Fase~1 um custo máximo de $1\%$ do
-orçamento, suficiente para o DRI-SL cobrir os agrupamentos semânticos sem
-comprometer o orçamento das fases guiadas; a janela de estagnação $p=5$ com
-tolerância $\epsilon=10^{-3}$ exige cinco iterações consecutivas sem qualquer
-ganho registrado no Macro F1 de validação (a tolerância é deliberadamente
+seguinte racional, registrado como decisão de engenharia, não de otimização.
+
+O lote inicial, $b_0 = \lceil 0{,}01 \cdot B\rceil$, dá à Fase~1 um custo
+máximo de $1\%$ do orçamento. É quanto basta para o DRI-SL cobrir os
+agrupamentos semânticos sem comprometer o orçamento das fases guiadas.
+
+A janela de estagnação $p=5$ com tolerância $\epsilon=10^{-3}$ exige cinco
+iterações consecutivas sem qualquer ganho registrado no Macro F1 de validação,
+o que evita transições por flutuação isolada. A tolerância é deliberadamente
 menor que o ruído amostral da própria medição; a separação entre as duas
-grandezas está no Apêndice~\ref{ap:parada-drift}), evitando transições por
-flutuação isolada; e o limiar de $85\%$ do gate de oráculo (Seção~\ref{sec:metodo-oraculo-decisao})
-corresponde a exigir do oráculo \textit{zero-shot} cerca de $95\%$ da
-acurácia do melhor baseline supervisionado leve conhecido do conjunto de
-dados ($0{,}95 \times 89{,}56\% = 85{,}1\%$, com \emph{todos} os rótulos
-\citep{Daru2024Dissertacao}), a mesma razão de $0{,}95$ que o critério da
-hipótese aplica à régua do classificador forte; essa referência foi medida
-nas 795 categorias de menor nível da hierarquia completa, espaço de rótulo
-maior que as 621 categorias presentes na amostra em que os oráculos são
-avaliados, de modo que a régua está, no máximo, subestimada; abaixo do limiar, o
-tratamento de ruído torna-se obrigatório; a sensibilidade a
-essas escolhas é discutida com os resultados. O tamanho de lote $b$ é fixado
+grandezas está no Apêndice~\ref{ap:parada-drift}.
+
+O limiar de $85\%$ do gate de oráculo
+(Seção~\ref{sec:metodo-oraculo-decisao}) corresponde a exigir do oráculo
+\textit{zero-shot} cerca de $95\%$ da acurácia do melhor baseline
+supervisionado leve conhecido do conjunto de dados ($0{,}95 \times 89{,}56\% =
+85{,}1\%$, com \emph{todos} os rótulos \citep{Daru2024Dissertacao}). É a mesma
+razão de $0{,}95$ que o critério da hipótese aplica à régua do classificador
+forte.
+
+Essa referência traz uma ressalva de escopo. Ela foi medida nas 795 categorias
+de menor nível da hierarquia completa, espaço de rótulo maior que as 621
+categorias presentes na amostra em que os oráculos são avaliados, de modo que a
+régua está, no máximo, subestimada. Abaixo do limiar, o tratamento de ruído
+torna-se obrigatório. A sensibilidade a essas escolhas é discutida com os
+resultados. O tamanho de lote $b$ é fixado
 com base na varredura de estratégias (Seção~\ref{sec:res-e1}), que compara
 entropia, menor confiança, menor margem, híbrida e aleatória sob oráculo
 simulado perfeito com o classificador PVBin (barato o suficiente para
