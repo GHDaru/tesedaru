@@ -26,6 +26,7 @@
 | P-05 | ⚪ | STY | Critério de parada: descasamento ε=10⁻³ vs 1/√n_V=0,0224 (fator ~22) | `a7-parada-drift` §parada-laço | Autocrítica (política de parada "B") **aprovada mas adiada** por diretriz de não-autocrítica na v1. Texto já rascunhado | ABERTA (adiada) |
 | P-06 | ⚪ | REP | tab:e6 com denominadores mistos (8 curvas em 177.490; 2 travadas em 181.490) | `5-resultados-falco`, tab:e6 | Opcional: reamostrar as 2 curvas sem estado (PVBin×Entropia, PVBin×Aleatório) para regime único — requer código | ABERTA (opcional) |
 | P-07 | ⚪ | STY | Duas notas menores do A2 (revisor2) | `3-metodo`/`a2-ag` (Cap.3↔A2) | (a) "dez tamanhos entre 10 e 30.000" fecha só porque L0=250 é corrida abortada — frágil; (b) meia linha: sufixo da pasta não marca geração (`_100000v2`=pop20; `_30000v1`=pop100) | ABERTA (nota) |
+| P-09 | 🟡 | REP | Resumo (829) e abstract (796) excedem o teto de 500 palavras da SiBi/UFPR | `0-iniciais/resumo.tex`, `abstract.tex` | Corte editorial de ~40% (decisão do autor: o que o resumo anuncia) — freeze impede o principal de cortar | ABERTA |
 | P-08 | ⚪ | CIE | Erros de ano na bibliografia (ex.: `Bayer2024ActiveLLM` citado como 2026 em prosa) | `referencias.bib` / citações | Auditoria de anos da bib. Já levantado; revisor2 decidiu não reabrir na rodada anterior | DECIDIDA-NÃO-REABRIR |
 | — | ✅ | — | §2.2.3 `\ref{sec:fund-llm}` partido (render `??`) | `2-fundam` l.509 | — | FECHADA-NA-V1 |
 | — | ✅ | — | Célula braço E: regime misto → 2 sementes honestas `_bs16v2` (0,822/0,351) | `5-resultados-falco` tab:e3p | — | FECHADA-NA-V1 |
