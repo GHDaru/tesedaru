@@ -1,0 +1,74 @@
+% ============================================================================
+% ESQUEMA (banca): o algoritmo DRI-SL como fluxo em duas fases — (i)
+% densidade semântica e (ii) variedade lexical intragrupo. Inserido no
+% APÊNDICE C (a3-drisl/texto.tex) por ordem do autor (2026-08-23), dentro
+% de figure:
+%   \input{3-metodo/esquemas-propostos/esq-drisl}
+% AUTOCONTIDO: sem \ref para seções da tese (a antiga faixa de avaliação,
+% que remetia aos resultados, saiu — a avaliação pertence ao método, não ao
+% algoritmo; está no Cap. 3 e no esq-l0-tres-origens). A notação segue a do
+% próprio apêndice: grupo c, cota q_c. A citação do codificador
+% (Reimers2019SBERT) fica na prosa do apêndice.
+% Uso standalone (pré-visualização):
+%   \documentclass[tikz,border=6pt,12pt]{standalone}
+%   \usetikzlibrary{arrows.meta, positioning}
+%   \begin{document}\input{esq-drisl.tex}\end{document}
+% GEOMETRIA CALIBRADA PARA CORPO 12 (ppginf/book 12pt, textwidth 16cm) —
+% a primeira versão, em corpo 10, quebrava no corpo real.
+% Requer apenas arrows.meta e positioning (já em packages.tex). Legível em
+% P&B: entrada = cinza claro; operação = branco; produto = cinza médio.
+% FREEZE respeitado: nenhum número; só os símbolos do próprio apêndice
+% (U, L0, I, N_c, c, q_c).
+% ============================================================================
+\begin{tikzpicture}[
+    x=1cm, y=1cm,
+    caixa/.style={draw, rounded corners=2pt, align=center, text width=42mm,
+                  minimum height=12mm, inner sep=3pt, font=\footnotesize},
+    entrada/.style={caixa, fill=gray!8},
+    produto/.style={caixa, fill=gray!14},
+    seta/.style={-{Stealth[length=2.6mm]}, thick},
+    rot/.style={font=\scriptsize, align=center, inner sep=2pt}
+]
+    % ---------------- fase (i): densidade semântica ------------------------
+    \node[rot, anchor=west] at (-2.1,1.5)
+        {\textbf{Fase (i) --- densidade semântica}};
+
+    \node[entrada, text width=40mm] (u0) at (0,0)
+        {\textit{pool} não rotulado $U$\\(textos curtos)};
+    \node[caixa, text width=44mm] (enc) at (5.5,0)
+        {codificador de\\sentenças $\phi$: projeção\\no espaço semântico};
+    \node[caixa, text width=40mm] (km) at (11.0,0)
+        {$k$-médias em $N_c$\\grupos semânticos};
+    \draw[seta] (u0) -- (enc);
+    \draw[seta] (enc) -- (km);
+
+    \node[produto, text width=46mm] (aloc) at (11.0,-2.9)
+        {cotas $q_c$ proporcionais ao\\tamanho de cada grupo\\
+         (mínimo 1 por grupo não vazio)};
+    \draw[seta] (km) -- (aloc);
+
+    % ---------------- fase (ii): variedade lexical intragrupo --------------
+    % o título da fase É o rótulo da seta em L (título solto era
+    % atravessado pela descida — achado das inspeções anteriores)
+    \node[caixa] (cand) at (0,-6.8)
+        {candidatos do grupo $c$\\(ainda não selecionados)};
+    \node[caixa, text width=48mm] (sel) at (5.5,-6.8)
+        {seleciona o texto de maior\\escore de novidade, ponderado\\
+         pelo perfil TF--IDF do grupo};
+    \node[produto, text width=48mm] (l0) at (11.2,-6.8)
+        {conjunto inicial $L_0$ (\mbox{$|L_0|=I$}):\\
+         diversidade semântica entre\\
+         grupos $+$ variedade lexical\\
+         dentro de cada grupo};
+
+    \draw[seta] (aloc.south) -- ++(0,-0.6) -| (cand.north);
+    \node[rot, anchor=south] at (4.9,-4.35)
+        {\textbf{Fase (ii) --- variedade lexical intragrupo}:\\
+         para cada grupo $c$, com cota $q_c$};
+
+    \draw[seta] (cand) -- (sel);
+    \draw[seta] (sel) -- (l0);
+    \draw[seta] (sel.south) to[out=250, in=290]
+        node[rot, below=3pt] {atualiza os termos cobertos; repete até $q_c$ textos}
+        (cand.south);
+\end{tikzpicture}

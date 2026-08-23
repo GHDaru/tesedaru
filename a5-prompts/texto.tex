@@ -6,7 +6,9 @@
 Contexto de tarefa comum a todos os modos (o texto integral e versionado
 acompanha o repositório de código da tese):
 
-\begin{quote}\small
+% \sloppy: ajuste tipográfico apenas — o texto do prompt é artefato
+% congelado e as abreviações "X=y" não quebram linha sem ele
+\begin{quote}\small\sloppy
 ``Você é um especialista em catalogação de produtos do varejo brasileiro. As
 descrições vêm de cupons fiscais e cadastros de e-commerce: são curtas,
 geralmente em caixa alta e cheias de abreviações (ex.: CERV=cerveja,
@@ -20,31 +22,53 @@ se nenhuma categoria da lista descrever o tipo do produto. Exemplos:
 `REQUEIJAO LIGHT CP 200G' $\to$ requeijao.''
 \end{quote}
 
-O prefixo estático (contexto + esquema) precede o item variável, habilitando o
-\textit{cache} de prefixo dos provedores (88--95\% de acerto medido no E0).
+O prefixo estático (contexto + esquema) precede o item variável, habilitando
+o \textit{cache} de prefixo dos provedores (88--95\% de acerto medido na
+avaliação de oráculos). A Figura~\ref{fig:ap-prompts-anatomia} resume a
+anatomia de uma chamada.
+
+\begin{figure}[htbp]
+    \centering
+    \input{3-metodo/esquemas-propostos/esq-prompt-anatomia}
+    \caption{Anatomia de uma chamada de rotulagem em lote, no modo de
+    produção: o prefixo estático (contexto da tarefa $+$ esquema de saída)
+    é idêntico entre chamadas e habilita o \textit{cache} de prefixo; os
+    itens numerados variam; a resposta é um vetor indexado com um objeto
+    por item.}
+    \label{fig:ap-prompts-anatomia}
+\end{figure}
 
 \section{Modos de instrumentação}
 
-\textbf{enum}: saída estruturada com \texttt{strict:true}; o campo
-\texttt{predicted\_category} é restrito por \texttt{enum} às 621 categorias do
-\textit{CategorySchema}; campos \texttt{expanded\_description} e
-\texttt{rationale} completam o objeto (todos obrigatórios, exigência do modo
-estrito). \textbf{json-prompt} (provedores sem saída estruturada): a lista de
-categorias e o formato JSON são instruídos no texto; a resposta passa por
-extração tolerante e validação exata contra o esquema, com rótulos fora do
-espaço contabilizados como inválidos. \textbf{free} (somente RQ4): saída
-estruturada sem \texttt{enum}: réplica controlada do instrumento defeituoso
-do trabalho anterior. Na rotulagem em lote, os itens são numerados e a
-resposta é um vetor indexado; o esquema do lote não fixa
-\texttt{minItems}/\texttt{maxItems} para preservar a cacheabilidade do
-prefixo; o uso (tokens/custo) é rateado igualmente entre os itens da chamada.
+\begin{itemize}
+  \item \textbf{enum}: saída estruturada com \texttt{strict:true}; o campo
+  \texttt{predicted\_category} é restrito por \texttt{enum} às 621
+  categorias do \textit{CategorySchema}. Completam o objeto, ambos
+  obrigatórios por exigência do modo estrito, os campos
+  \texttt{expanded\_description} e \texttt{rationale};
+  \item \textbf{json-prompt} (provedores sem saída estruturada): a lista de
+  categorias e o formato JSON são instruídos no texto; a resposta passa por
+  extração tolerante e validação exata contra o esquema, com rótulos fora
+  do espaço contabilizados como inválidos;
+  \item \textbf{free}: saída estruturada sem \texttt{enum}, réplica
+  controlada do instrumento defeituoso do experimento preliminar, usada
+  somente para quantificar o efeito do instrumento sobre a acurácia
+  medida.
+\end{itemize}
 
-\section{Variantes do E0-P}
+Na rotulagem em lote, os itens são numerados e a resposta é um vetor
+indexado; o esquema do lote não fixa \texttt{minItems}/\texttt{maxItems}
+para preservar a cacheabilidade do prefixo; o uso (tokens e custo) é
+rateado igualmente entre os itens da chamada.
 
-\textbf{v4a} acrescenta dez regras de fronteira do catálogo derivadas da
-anatomia de erros (ex.: medicamentos $\to$ \textit{outro farma}; produto
-bucal líquido $\to$ \textit{antisseptico bucal}; pó para suco $\to$
-\textit{preparo para suco}; fones com fio $\to$ \textit{acessorio de audio});
-\textbf{v4b} soma dez exemplos \emph{inventados} de fronteiras difíceis
-(nunca instâncias das amostras de avaliação, decisão D-004). Texto integral
-das variantes no mesmo módulo versionado.
+\section{Variantes do prompt}
+
+Duas variantes foram avaliadas no estudo do prompt como variável do
+instrumento: \textbf{v4a} acrescenta dez regras de fronteira do catálogo
+derivadas da anatomia de erros (ex.: medicamentos $\to$ \textit{outro
+farma}; produto bucal líquido $\to$ \textit{antisseptico bucal}; pó para
+suco $\to$ \textit{preparo para suco}; fones com fio $\to$
+\textit{acessorio de audio}); \textbf{v4b} soma dez exemplos
+\emph{inventados} de fronteiras difíceis, nunca instâncias das amostras de
+avaliação, para não contaminar a medição. O texto integral das variantes
+está no mesmo módulo versionado.
