@@ -1,7 +1,7 @@
 {
  "schema": "plano-revisao/v1",
  "versao": 94,
- "atualizado_em": "2026-08-23T22:20:00Z",
+ "atualizado_em": "2026-08-23T23:20:00Z",
  "atualizado_por": "principal",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
@@ -107,7 +107,8 @@
    "dimensoes": {
     "travessoes": 11,
     "citacoes": 0
-   }
+   },
+   "loop_excelencia": "MAXIMA CONCLUIDA e gateada: 21,1/20,2 p/f, cruzada r2 APROVA sem ressalva; proposta P-09 (<=500) em arquivos separados aguarda decisao editorial do autor."
   },
   {
    "id": "pre-abstract",
@@ -150,7 +151,8 @@
    "dimensoes": {
     "travessoes": 11,
     "citacoes": 0
-   }
+   },
+   "loop_excelencia": "MAXIMA CONCLUIDA e gateada: 21,1/20,2 p/f, cruzada r2 APROVA sem ressalva; proposta P-09 (<=500) em arquivos separados aguarda decisao editorial do autor."
   },
   {
    "id": "cap1",
@@ -795,7 +797,8 @@
      "status": "aberto"
     }
    ],
-   "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor."
+   "sequencia_rodadas": "R1 concluída. Ordem restante POR TEMA: R3 (fontes) → R4 (afirmações) → R5 (números×artefatos, casada com a rastreabilidade do executor01) → R6; R2 (siglas) transversal ao capítulo. Gates pequenos: um por tema, agrupados por trilha na fila do autor.",
+   "loop_excelencia": "MAXIMA CONCLUIDA e gateada: 53,9->19,3 p/f (max 40), cruzada r1 APROVA com medicao independente; 13 numeros com origem; veredito INTOCADO por decisao do autor (3a conjuncao -> P-12)."
   },
   {
    "id": "ap-a1",
