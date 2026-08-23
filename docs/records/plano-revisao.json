@@ -864,15 +864,15 @@
      "status": "pendente",
      "reauditar": true,
      "nota": "RESET 2026-08-22 (ordem do autor): leitura final do autor sera refeita ao fechar a tese, apos os elementos pos-textuais entrarem e o recalculo geral das contas."
-    },
-    "passe_banca": {
-     "status": "feito",
-     "nota": "Passe de excelencia da banca (com o autor) gateado: autocontido + figura do laço (esq-ag-envelope); codigos internos (D-002, individual_id) removidos; ressalva pop-20 e reexecucao N=30/40 preservadas."
     }
    },
    "dimensoes": {
     "travessoes": 2,
     "citacoes": 0
+   },
+   "passe_banca": {
+    "status": "feito",
+    "nota": "Passe de excelencia da banca (com o autor) gateado: autocontido + figura do laço (esq-ag-envelope); codigos internos (D-002, individual_id) removidos; ressalva pop-20 e reexecucao N=30/40 preservadas."
    }
   },
   {
