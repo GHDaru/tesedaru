@@ -89,44 +89,28 @@ processo?}
 
 A hipótese central é que \textbf{um framework de aprendizado ativo apoiado por
 modelos de linguagem nas etapas iniciais pode reduzir a necessidade de rótulos sem
-perda relevante de desempenho final}. Para torná-la falseável, adota-se um critério
-quantitativo de aceitação, enunciado com dois termos do aprendizado ativo: o conjunto
-de exemplos ainda não rotulados de onde se escolhe o que anotar é o \textit{pool},
-e quem fornece o rótulo de cada exemplo escolhido é o \emph{oráculo}; nesta tese,
-esse papel é exercido por um modelo de linguagem, não por um anotador humano. O critério: treinado com no máximo \textbf{34.724 rótulos} frente à população
-deduplicada de 231.490 textos únicos (o equivalente a $15\%$ dela), o framework
-deve alcançar pelo menos $95\%$ da acurácia que o mesmo classificador
-obtém com o \textit{pool} de referência inteiramente rotulado, superando com
-significância estatística a seleção aleatória e a seleção por incerteza sob o
-mesmo orçamento. A acurácia é a métrica do critério porque é a métrica do
-pré-registro; o Macro F1 acompanha toda a avaliação como análise de
-robustez, introduzida nesta tese para o espaço de centenas de classes
-desbalanceadas.
-O teto de $15\%$ vem do pré-registro do estudo: o documento apresentado no
-exame de qualificação do autor (PPGMNE/UFPR, junho de 2023; material datado de
-maio de 2022, na versão de maio de 2023, preservado no repositório da tese)
-conclui que ``com 15\% dos dados foi possível atingir uma performance similar
-ao modelo populacional'' com seleção por incerteza. O documento enuncia o
-teto; o denominador adotado aqui, a população deduplicada, é decisão declarada
-desta tese. A ordem de grandeza é compatível com a literatura, que reporta
+perda relevante de desempenho final}.
+
+Para torná-la falseável, adota-se um critério quantitativo de aceitação, fixado
+de antemão: treinado com no máximo \textbf{34.724 rótulos} (o equivalente a
+$15\%$ da população deduplicada de 231.490 textos únicos), o framework deve
+alcançar pelo menos $95\%$ da acurácia que o mesmo classificador obtém com o
+\textit{pool} de referência inteiramente rotulado, superando com significância
+estatística a seleção aleatória e a seleção por incerteza sob o mesmo
+orçamento. A acurácia é a métrica do critério por ser a do pré-registro; o
+Macro F1 acompanha a avaliação como análise de robustez, para o espaço de
+centenas de classes desbalanceadas. O teto de $15\%$ vem do pré-registro do
+estudo.\footnote{A ordem de grandeza é compatível com a literatura, que reporta
 desempenho equivalente ao da supervisão passiva rotulando frações comparáveis
-\emph{do conjunto selecionável}: a revisão canônica de \citet{Settles2009}
-estabelece o fenômeno, e os \textit{benchmarks} com transformers de
-\citet[Tab.~3]{Schroder2022Uncertainty} o medem em até
-$15{,}45\%$; medido contra o mesmo tipo de
-conjunto, o teto desta tese corresponde a $69{,}4\%$ do \textit{pool} de
-referência. A hipótese é condicional à qualidade do oráculo disponível. Por
-isso, fixou-se de antemão tanto o piso de acurácia que um modelo de linguagem
-precisa atingir para ser aprovado como oráculo quanto o que conta como refutação:
-se nem o melhor oráculo aprovado sustentar o critério, a hipótese é considerada
-refutada para o conjunto de oráculos avaliado; se nenhum oráculo atingir o piso,
-o teste prossegue com o melhor disponível, a divergência em relação ao protocolo
-é registrada, e o veredito passa a valer para essa configuração degradada. Nesse
-caso, a tese reporta o resultado com uma análise que separa as causas possíveis
-da perda: o erro que o oráculo introduz nos rótulos, o valor da própria seleção
-ativa e o momento em que o laço para de rotular. O
-Capítulo~\ref{ch:metodo} formaliza cada elemento deste critério
-(Seções~\ref{sec:metodo-oraculo-decisao} e~\ref{sec:metodo-falco-baselines}).
+\emph{do conjunto selecionável}: \citet{Settles2009} estabelece o fenômeno e os
+\textit{benchmarks} com transformers de \citet[Tab.~3]{Schroder2022Uncertainty}
+o medem em até $15{,}45\%$; medido contra o mesmo tipo de conjunto, o teto desta
+tese corresponde a $69{,}4\%$ do \textit{pool} de referência. O denominador
+adotado aqui, a população deduplicada, é decisão declarada desta tese.}
+
+O Capítulo~\ref{ch:metodo} formaliza cada elemento deste critério, incluindo os
+oráculos que fornecem os rótulos (Seções~\ref{sec:metodo-oraculo-decisao}
+e~\ref{sec:metodo-falco-baselines}).
 
 \section{Objetivos}
 \label{sec:intro-objetivos}
