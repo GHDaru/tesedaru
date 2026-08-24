@@ -591,7 +591,10 @@ pareado de \emph{todos} os oráculos sem alterar as decisões, até porque a
 sensibilidade do gabarito (Seção~\ref{sec:metodo-dados-auditoria}) limita o
 ganho de precisão adicional.
 
-A temperatura é fixada em 0 em todos os modelos.
+Nos modelos que expõem o parâmetro de temperatura, ela é fixada em 0, o que
+torna a rotulagem determinística no que depende do amostrador; modelos de
+raciocínio encadeado não expõem esse controle e operam na configuração padrão
+do provedor.
 
 \subsection{Critério de decisão para o FALCO}
 \label{sec:metodo-oraculo-decisao}
