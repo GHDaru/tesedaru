@@ -124,53 +124,43 @@ quantificação do seu próprio erro.
 \section{Contribuições}
 \label{sec:conc-contribuicoes}
 
-Esta tese entrega seis contribuições.
+Esta tese entrega seis contribuições. A primeira é o framework FALCO, com
+fases de oráculo LLM progressivo e partida a frio informada, em implementação
+aberta, testada e reprodutível. A segunda é o algoritmo DRI-SL, com a
+evidência de que supera o envelope evolutivo supervisionado no regime de
+interesse. Acompanha-o a análise do seu limite: no regime contínuo, a ablação
+da variante guiada pelo classificador (DRI-SL-C) mostrou que o ganho vem do
+agrupamento pelas classes previstas, não da novidade lexical, o que aponta a
+estratificação por predição como política representativa de referência. A
+terceira é a avaliação instrumentada de oráculos LLM para português com 621
+classes, incluindo custo real com \textit{cache} e lote. É granularidade
+muito acima da usual na literatura de LLM-como-anotador: os estudos
+zero-shot recentes de classificação de produtos operam com dezenas a
+$\approx 250$ categorias \citep{Roumeliotis2025}, chegando a 370 folhas
+nos testes de robustez com catálogos públicos \citep{Gholamian2024}.
 
-\begin{enumerate}
-  \item O framework FALCO, com fases de oráculo LLM progressivo e partida a
-  frio informada, em implementação aberta, testada e reprodutível.
-  \item O algoritmo DRI-SL, com a evidência de que supera o envelope
-  evolutivo supervisionado no regime de interesse. Vem acompanhado da análise
-  do seu limite: no regime contínuo, a ablação da variante guiada pelo
-  classificador (DRI-SL-C) mostrou que o ganho vem do agrupamento pelas
-  classes previstas, não da novidade lexical. Isso aponta a estratificação
-  por predição como política representativa de referência.
-  \item A avaliação instrumentada de oráculos LLM para português com 621
-  classes, incluindo custo real com \textit{cache} e lote. É granularidade
-  muito acima da usual na literatura de LLM-como-anotador: os estudos
-  zero-shot recentes de classificação de produtos operam com dezenas a
-  $\approx 250$ categorias \citep{Roumeliotis2025}, chegando a 370 folhas
-  nos testes de robustez com catálogos públicos \citep{Gholamian2024}.
-  \item A métrica LCE (\textit{Learning Curve Efficiency}), com
-  posicionamento explícito frente à ALC (\textit{Area under the Learning
-  Curve}).
-  \item O conjunto de dados público auditado, com censo de conflitos e
-  análise de sensibilidade.
-  \item A biblioteca de aprendizado ativo da tese
-  \citep{DaruActiveLearning} e o FlowBuilder, com ingestão saneada, execução
-  parametrizada e curvas, que tornam o protocolo reutilizável fora desta
-  tese.
-\end{enumerate}
+A quarta contribuição é a métrica LCE (\textit{Learning Curve Efficiency}),
+com posicionamento explícito frente à ALC (\textit{Area under the Learning
+Curve}). A quinta é o conjunto de dados público auditado, com censo de
+conflitos e análise de sensibilidade. A sexta é a biblioteca de aprendizado
+ativo da tese \citep{DaruActiveLearning} e o FlowBuilder, com ingestão
+saneada, execução parametrizada e curvas, que tornam o protocolo
+reutilizável fora desta tese.
 
 \section{Limitações}
 \label{sec:conc-limitacoes}
 
-As ameaças à validade estão detalhadas na Seção~\ref{sec:metodo-validade}.
-As principais são quatro.
-
-\begin{enumerate}
-  \item Um único conjunto de dados, criado pelo autor. Mitigam-no o
-  protocolo replicável e os achados de mecanismo.
-  \item A validação com o classificador forte, executada em configuração
-  uniforme mas econômica: 3 épocas, contexto de 32 \textit{tokens}, semente
-  única e CPU. A régua absoluta do BERTimbau pode subir com mais épocas e
-  contexto, o que tornaria o critério \emph{mais} exigente, não menos,
-  preservando o sentido do veredito.
-  \item Custos de API datados. As \emph{razões} entre modelos são mais
-  estáveis que os valores.
-  \item Regras de fronteira derivadas do perfil de erro do próprio domínio.
-  O que generaliza é o método, não as regras.
-\end{enumerate}
+As ameaças à validade estão detalhadas na Seção~\ref{sec:metodo-validade};
+as principais são quatro. A primeira é o conjunto de dados único, criado
+pelo autor; mitigam-no o protocolo replicável e os achados de mecanismo. A
+segunda é a validação com o classificador forte em configuração uniforme mas
+econômica, com 3 épocas, contexto de 32 \textit{tokens}, semente única e
+CPU; a régua absoluta do BERTimbau pode subir com mais épocas e contexto, o
+que tornaria o critério \emph{mais} exigente, não menos, preservando o
+sentido do veredito. A terceira são os custos de API datados; as
+\emph{razões} entre modelos são mais estáveis que os valores. A quarta são
+as regras de fronteira derivadas do perfil de erro do próprio domínio; o que
+generaliza é o método, não as regras.
 
 \section{Trabalhos futuros}
 \label{sec:conc-futuro}
@@ -183,41 +173,37 @@ pontos de verificação da trajetória, ou fixar um piso de orçamento no ponto
 medido de cruzamento do critério (Seção~\ref{sec:res-e3p-varredura}). Em
 qualquer deles, a regra de liberação daí decorrente precisa ser formalizada.
 
-As demais direções são cinco.
+As demais direções são cinco. A primeira é a \textbf{composição de
+oráculos}: comparar a progressão sequencial do FALCO com
+\textit{mixture-of-LLMs} paralelo \citep{Qi2026MixtureLLMs} e com roteamento
+por confiança \citep{Rouzegar2024}; a formulação ideal trata a escolha de
+oráculo por fase como problema de \textit{bandit} com custo
+\citep{BlumMansour2007,Baykal2021}. A segunda é \textbf{o \textit{prompt}
+como componente otimizável}, porta que a ablação de \textit{prompt} abre. As
+extensões naturais são duas: gerar regras de fronteira automaticamente a
+partir da matriz de confusão de uma rodada anterior, e permitir que o
+oráculo emita \emph{rótulos candidatos} quando incerto, destilados pelo
+classificador leve \citep{Xia2025CanDist}. A segunda extensão também
+endereça os 2--4\% de respostas inválidas observadas; para as 621
+categorias, o desenho complementar é a contração prévia do espaço de classes
+por top-$K$ do classificador de domínio \citep{Cheng2024DualExpert}. A
+terceira direção são \textbf{os racionais do oráculo} como atributo auxiliar
+do classificador \citep{Sharma2015}.
 
-\begin{enumerate}
-  \item \textbf{Composição de oráculos}, comparando a progressão sequencial
-  do FALCO com \textit{mixture-of-LLMs} paralelo \citep{Qi2026MixtureLLMs} e
-  com roteamento por confiança \citep{Rouzegar2024}. A formulação ideal trata
-  a escolha de oráculo por fase como problema de \textit{bandit} com custo
-  \citep{BlumMansour2007,Baykal2021}.
-  \item \textbf{O \textit{prompt} como componente otimizável}, porta que a
-  ablação de \textit{prompt} abre. As extensões naturais são duas: gerar
-  regras de fronteira automaticamente a partir da matriz de confusão de uma
-  rodada anterior, e permitir que o oráculo emita \emph{rótulos candidatos}
-  quando incerto, destilados pelo classificador leve \citep{Xia2025CanDist}.
-  A segunda também endereça os 2--4\% de respostas inválidas observadas. Para
-  as 621 categorias, o desenho complementar é a contração prévia do espaço de
-  classes por top-$K$ do classificador de domínio
-  \citep{Cheng2024DualExpert}.
-  \item \textbf{Os racionais do oráculo} como atributo auxiliar do
-  classificador \citep{Sharma2015}.
-  \item \textbf{Réplica em benchmark público de produtos} e extensão a
-  taxonomias hierárquicas \citep{Sun2003,Tan2020}. Os candidatos são o STOPS
-  \citep{Karl2023} e o \textbf{AlleNoise}, com 500 mil títulos em 5.692
-  categorias e ruído \emph{real} de marketplace
-  \citep{Raczkowska2024AlleNoise}, o teste externo ideal para a avaliação de
-  robustez.
-  \item \textbf{O ciclo de vida pós-treinamento}. O critério de parada do
-  laço, a estagnação em validação, já está implementado e formalizado; a
-  decisão de \emph{liberação} do modelo e o monitoramento de \textit{drift}
-  em produção merecem tratamento próprio. O oráculo barato da Fase~1, o LLM
-  Inicial, vira instrumento de auditoria contínua por verificação amostral
-  periódica a custo desprezível. Sinais sem rótulo, como a taxa de
-  vocabulário novo e a deriva da confiança predita, antecipam o gatilho de
-  retreino. O desenho está detalhado na documentação operacional da
-  biblioteca.
-\end{enumerate}
+A quarta direção é a \textbf{réplica em benchmark público de produtos}, com
+extensão a taxonomias hierárquicas \citep{Sun2003,Tan2020}. Os candidatos
+são o STOPS \citep{Karl2023} e o AlleNoise, com 500 mil títulos em 5.692
+categorias e ruído \emph{real} de marketplace
+\citep{Raczkowska2024AlleNoise}, o teste externo ideal para a avaliação de
+robustez. A quinta é \textbf{o ciclo de vida pós-treinamento}. O critério de
+parada do laço, a estagnação em validação, já está implementado e
+formalizado; a decisão de \emph{liberação} do modelo e o monitoramento de
+\textit{drift} em produção merecem tratamento próprio. O oráculo barato da
+Fase~1, o LLM Inicial, vira instrumento de auditoria contínua por
+verificação amostral periódica a custo desprezível. Sinais sem rótulo, como
+a taxa de vocabulário novo e a deriva da confiança predita, antecipam o
+gatilho de retreino. O desenho está detalhado na documentação operacional da
+biblioteca.
 
 \section{Conclusão}
 \label{sec:conc-conclusao}
