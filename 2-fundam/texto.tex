@@ -66,8 +66,8 @@ função \textit{softmax},
 p_i = \frac{\exp(z_i)}{\sum_{j=1}^{K} \exp(z_j)}, \quad i = 1, \dots, K,
 \label{eq:softmax_ml}
 \end{equation}
-treinados com a perda de entropia cruzada, função de custo que penaliza cada
-exemplo com o negativo do logaritmo da probabilidade atribuída à classe
+O treinamento usa a perda de entropia cruzada, função de custo que penaliza
+cada exemplo com o negativo do logaritmo da probabilidade atribuída à classe
 correta: quanto menor essa probabilidade, maior a penalização
 \cite{Bishop2006, Murphy2012}. Essa
 distribuição $p$ é duplamente essencial no aprendizado ativo: além de fornecer
@@ -114,7 +114,7 @@ bases com forte desbalanceamento (caso do conjunto de dados desta tese), o
 \textbf{Macro F1-Score} é a métrica principal, por expor o desempenho nas
 classes raras. Alternativas com propósito semelhante (acurácia balanceada,
 coeficiente de correlação de Matthews e Kappa de Cohen) são apresentadas na
-revisão de \citet{Grandini2020}; para dados desbalanceados de classificação
+revisão de \citet{Grandini2020}. Para dados desbalanceados de classificação
 de texto multiclasse, o estudo comparativo de \citet{Riyanto2023Comparative}
 conclui que o F1 é a métrica que importa nesse regime. Esta tese dispensa as
 alternativas porque o par Macro F1 + acurácia global já separa os dois
@@ -124,7 +124,7 @@ métricas chegam a divergir em sinal, contraste que uma métrica única
 mascararia (Capítulo~\ref{ch:resultados-falco}). A
 \textbf{matriz de confusão} $K \times K$, cuja entrada $[i,j]$ conta exemplos
 da classe real $i$ preditos como $j$, complementa as métricas agregadas ao
-revelar confusões sistemáticas entre pares de classes \cite{Han2012}; é o
+revelar confusões sistemáticas entre pares de classes \cite{Han2012}. É o
 instrumento usado no Capítulo~\ref{ch:metodo} para caracterizar o perfil de
 erro dos oráculos LLM.
 
@@ -133,18 +133,18 @@ erro dos oráculos LLM.
 
 Avaliar um modelo nos mesmos dados de treino superestima seu desempenho
 (\textit{overfitting}); a validação exige dados independentes
-\cite{Kohavi1995}. As práticas empregadas nesta tese são: (i)
+\cite{Kohavi1995}. As práticas empregadas nesta tese são quatro. A primeira é o
 \textbf{hold-out}, separação treino/teste, adequada a bases grandes como a
-desta tese; (ii) \textbf{validação cruzada $k$-fold estratificada}, que
-particiona os dados em $k$ partições preservando as proporções de classe, o que é
-essencial sob desbalanceamento \cite{Kohavi1995, Forman2010, James2013,
-Widodo2022}, com $k$ tipicamente 5 ou 10, equilíbrio entre viés, variância e
-custo \cite{Nti2021, Reusens2024}; (iii) um conjunto de \textbf{validação}
-separado do teste para ajuste de hiperparâmetros, mantendo o teste intocado
-até a avaliação final \cite{Bishop2006}; e (iv) para modelos de aprendizado
-profundo, a \textbf{parada antecipada} (\textit{early stopping}), que
-interrompe o treinamento quando o desempenho em validação cessa de melhorar
-\cite{Prechelt2012, Goodfellow2016}. Uma exigência adicional surge em
+desta tese. A segunda é a \textbf{validação cruzada $k$-fold estratificada},
+que particiona os dados em $k$ partições preservando as proporções de classe,
+o que é essencial sob desbalanceamento \cite{Kohavi1995, Forman2010,
+James2013, Widodo2022}; adota-se $k$ tipicamente 5 ou 10, equilíbrio entre
+viés, variância e custo \cite{Nti2021, Reusens2024}. A terceira é um conjunto
+de \textbf{validação} separado do teste para ajuste de hiperparâmetros, que
+mantém o teste intocado até a avaliação final \cite{Bishop2006}. A quarta,
+para modelos de aprendizado profundo, é a \textbf{parada antecipada}
+(\textit{early stopping}), que interrompe o treinamento quando o desempenho
+em validação cessa de melhorar \cite{Prechelt2012, Goodfellow2016}. Uma exigência adicional surge em
 bases textuais com instâncias repetidas: uma duplicata exata que atravesse a
 partição coloca a mesma instância no treino e no teste, e o que se mede deixa
 de ser generalização para ser memorização. Por isso, o particionamento desta
@@ -201,7 +201,7 @@ exata: sob a nula, $b \sim \mathrm{Binomial}(b+c,\,1/2)$, e o $p$-valor
 bicaudal é $2\,P(X \le \min(b,c))$. A escolha segue \citet{Dietterich1998},
 que comparou empiricamente cinco testes e concluiu que o McNemar é o adequado
 quando cada modelo é avaliado uma única vez sobre um conjunto comum, o regime
-desta tese; nos experimentos daquele estudo, os demais testes apontaram
+desta tese. Nos experimentos daquele estudo, os demais testes apontaram
 diferença onde não existia com frequência maior do que o nível de
 significância prometia.
 
@@ -218,7 +218,7 @@ W^{+} = \sum_{i:\; d_i>0} \operatorname{posto}(|d_i|).
 Sob a hipótese nula, cada sinal é positivo ou negativo com probabilidade
 $1/2$, o que dá a $W^{+}$ distribuição conhecida sem supor normalidade,
 suposição difícil de sustentar para métricas limitadas ao intervalo $[0,1]$,
-como o Macro F1; é a recomendação de \citet{Demsar2006} para comparar dois
+como o Macro F1. É a recomendação de \citet{Demsar2006} para comparar dois
 algoritmos sobre múltiplas condições. Um limite aritmético importa ao
 desenho: o caso mais extremo, todos os $n$ sinais para o mesmo lado, tem
 probabilidade $1/2^{n}$ por cauda, logo o menor $p$-valor bicaudal é
@@ -234,7 +234,7 @@ inteira em um único número, como a área sob uma curva de aprendizado
 fórmula. O \textit{bootstrap} \citep{EfronTibshirani1993} contorna a ausência
 com um procedimento: dos $n$ pares observados, sorteiam-se $n$ com reposição;
 calcula-se a estatística de interesse na reamostra; repete-se o sorteio $B$
-vezes, obtendo as réplicas $\theta^{*}_{1},\dots,\theta^{*}_{B}$; e o
+vezes, obtendo as réplicas $\theta^{*}_{1},\dots,\theta^{*}_{B}$. O
 intervalo de confiança toma os percentis empíricos dessas réplicas,
 \begin{equation}
 \mathrm{IC}_{95\%} = \left[\theta^{*}_{(2{,}5\%)},\; \theta^{*}_{(97{,}5\%)}\right],
@@ -265,9 +265,9 @@ consolidação teórica e a taxonomia de cenários e estratégias devem-se a
 \citet{Settles2012}. O paradigma é a resposta natural aos domínios em que a
 anotação é o gargalo (de imagens médicas que exigem radiologistas a
 transcrições cuja anotação custa um múltiplo da duração do áudio
-\cite{Settles2012}), e ganhou novas camadas com o aprendizado profundo
-\cite{Ren2021} e, mais recentemente, com os LLMs no papel de oráculo ou de
-seletor \cite{Bayer2024ActiveLLM}. Esta seção formaliza o laço, apresenta o catálogo de
+\cite{Settles2012}). O paradigma ganhou novas camadas com o aprendizado
+profundo \cite{Ren2021} e, mais recentemente, com os LLMs no papel de oráculo
+ou de seletor \cite{Bayer2024ActiveLLM}. Esta seção formaliza o laço, apresenta o catálogo de
 estratégias de seleção e encerra nas duas limitações estruturais que motivam o
 desenho do FALCO.
 
@@ -279,7 +279,7 @@ pares rotulados $L = \{(x_i,y_i)\}_{i=1}^{n}$. O aprendizado ativo acrescenta
 um componente interativo: além de $L$, dispõe-se de um conjunto não rotulado
 $U=\{x_j\}_{j=1}^{m}$ com $L\cap U=\varnothing$, e a cada iteração uma
 \textbf{regra de seleção} $S:(U_t,\theta_t,L_t)\mapsto Q_t\subseteq U_t$
-escolhe um lote $Q_t$ a ser consultado; o oráculo rotula $Q_t$, os pares
+escolhe um lote $Q_t$ a ser consultado. O oráculo rotula $Q_t$, os pares
 entram em $L_t$, e o processo segue até esgotar o orçamento $B$ ou satisfazer
 um critério de parada. Entre as formulações existentes
 \cite{Settles2012, Roy2001, Goudjil2018}, adapta-se aqui o arcabouço de \citet{Cohn1996}, ampliado por
@@ -370,23 +370,26 @@ orçamento.
 
 O laço, que a Figura~\ref{fig:fund-laco-al} ilustra, admite três cenários
 clássicos, que diferem em como as instâncias
-chegam ao seletor \cite{Settles2012}: na \textbf{síntese de consultas}, o
-algoritmo gera instâncias artificiais, o que funciona quando o espaço de entrada tem estrutura conhecida, mas pode
-produzir exemplos ininteligíveis para anotadores humanos \cite{Baum1992}; na
-\textbf{amostragem seletiva em fluxo}, instâncias chegam uma a uma de uma
-distribuição natural e o algoritmo decide, por um limiar de utilidade, se
-consulta cada uma \cite{Dagan1995}; e no \textbf{aprendizado ativo com acervo
-fixo} (\textit{pool-based}), o cenário desta tese e o mais comum na prática
-\cite{Settles2012}, um conjunto finito $U$ está disponível desde o início e o algoritmo seleciona
-dele as instâncias de maior utilidade \cite{Lewis1994}. Três extensões do
-cenário básico são relevantes aqui: o modo em \textbf{lote}
-(\textit{batch-mode}), que seleciona múltiplas instâncias por iteração, necessário na prática quando cada re-treinamento é caro, ao custo de exigir
-diversidade dentro do lote \cite{Hoi2006}; o aprendizado ativo \textbf{federado}, que executa a
-seleção localmente em múltiplos clientes preservando privacidade
-\cite{Deng2023fedal}; e o cenário com \textbf{múltiplos oráculos} de custos e
-competências distintos \cite{Yan2011}, formulado originalmente para anotadores
-humanos em \textit{crowdsourcing}, o recrutamento de muitos anotadores pela
-internet, cada um rotulando pequenos lotes com qualidade variável. A mesma
+chegam ao seletor \cite{Settles2012}. Na \textbf{síntese de consultas}, o
+algoritmo gera instâncias artificiais, o que funciona quando o espaço de
+entrada tem estrutura conhecida, mas pode produzir exemplos ininteligíveis
+para anotadores humanos \cite{Baum1992}. Na \textbf{amostragem seletiva em
+fluxo}, instâncias chegam uma a uma de uma distribuição natural e o algoritmo
+decide, por um limiar de utilidade, se consulta cada uma \cite{Dagan1995}. E
+no \textbf{aprendizado ativo com acervo fixo} (\textit{pool-based}), o
+cenário desta tese e o mais comum na prática \cite{Settles2012}, um conjunto
+finito $U$ está disponível desde o início e o algoritmo seleciona dele as
+instâncias de maior utilidade \cite{Lewis1994}. Três extensões do
+cenário básico são relevantes aqui. O modo em \textbf{lote}
+(\textit{batch-mode}) seleciona múltiplas instâncias por iteração, necessário
+na prática quando cada re-treinamento é caro, ao custo de exigir diversidade
+dentro do lote \cite{Hoi2006}. O aprendizado ativo \textbf{federado} executa
+a seleção localmente em múltiplos clientes, preservando privacidade
+\cite{Deng2023fedal}. E o cenário com \textbf{múltiplos oráculos} reúne
+custos e competências distintos \cite{Yan2011}; foi formulado originalmente
+para anotadores humanos em \textit{crowdsourcing}, o recrutamento de muitos
+anotadores pela internet, cada um rotulando pequenos lotes com qualidade
+variável. A mesma
 estrutura se repete hoje na oferta de LLMs com preços e acurácias distintos,
 que é o cenário do FALCO. Essa oferta e
 seus preços são instrumentados no Capítulo~\ref{ch:metodo}.
@@ -449,7 +452,7 @@ garantias teóricas de melhoria exponencial em certos regimes
 amostragem bayesiana, \textit{bagging}, \textit{boosting} ou múltiplas visões
 \citep{Seung1992, Freund1997, McCallum1998, Abe1998, Muslea2000, Blum1998}
 vota, e as instâncias de maior desacordo (medido por entropia de votos ou
-divergência de Kullback--Leibler) são consultadas; a diversidade do comitê é
+divergência de Kullback--Leibler) são consultadas. A diversidade do comitê é
 determinante \citep{Melville2004}. O custo de manter múltiplos modelos torna a família menos adequada quando o classificador é re-treinado a cada
 lote.
 
@@ -515,9 +518,10 @@ estratégias de incerteza e desacordo pressupõem $\theta_0$ treinado em algum
 $L_0$; com $L_0$ minúsculo ou inexistente, situação conhecida como
 \textbf{partida a frio} (\textit{cold start}), o modelo não sustenta seleções
 melhores que o acaso
-\cite{Bayer2024ActiveLLM}, e o problema se agrava em texto curto, onde cada instância
-carrega pouca informação (Seção~\ref{sec:fund-stc}), e com classificadores
-profundos, cujo re-treinamento frequente é caro \cite{Wertz2022}. As respostas da literatura passam pela exploração da estrutura dos dados antes
+\cite{Bayer2024ActiveLLM}. O problema se agrava em texto curto, em que cada
+instância carrega pouca informação (Seção~\ref{sec:fund-stc}), e com
+classificadores profundos, cujo re-treinamento frequente é caro
+\cite{Wertz2022}. As respostas da literatura passam pela exploração da estrutura dos dados antes
 de existir modelo (a família da Eq.~\eqref{eq:id};
 \citealp{Hacohen2022TypiClust}) e, mais recentemente, por seletores externos
 com conhecimento pré-treinado \citep{Bayer2024ActiveLLM}
@@ -533,22 +537,22 @@ custo, uma função de tokens; o tratamento aprofundado está na
 Seção~\ref{sec:fund-llm}.
 
 Duas consequências operacionais do laço merecem registro porque reaparecem nos
-experimentos. Primeiro, o \textbf{critério de parada}: o ganho marginal por
-lote decresce ao longo da curva de aprendizado (comportamento que a curva
-populacional de aprendizado desta tese exibe,
-Capítulo~\ref{ch:resultados-falco}), e critérios baseados na
-estagnação do desempenho em um conjunto de validação (como o adotado pelo
-FALCO e formalizado no Apêndice~\ref{ap:parada-drift}) ou em razões de
+experimentos. Primeiro, o \textbf{critério de parada}. O ganho marginal por
+lote decresce ao longo da curva de aprendizado, comportamento que a curva
+populacional de aprendizado desta tese exibe
+(Capítulo~\ref{ch:resultados-falco}). Critérios baseados na estagnação do
+desempenho em um conjunto de validação, como o adotado pelo FALCO e
+formalizado no Apêndice~\ref{ap:parada-drift}, ou em razões de
 custo-benefício \cite{Rouzegar2024Thesis} evitam gastar orçamento em
 rótulos que já não melhoram o modelo.
-Segundo, o \textbf{viés de amostragem ativa}: o conjunto rotulado resultante
-não é uma amostra i.i.d.\ da população (a seleção por incerteza
+Segundo, o \textbf{viés de amostragem ativa}. O conjunto rotulado resultante
+não é uma amostra i.i.d.\ da população, pois a seleção por incerteza
 sobre-representa casos difíceis e classes raras \cite{Santos2016Vies,
-Settles2012}), o que afeta tanto o treinamento (às vezes a favor: o
-conjunto fica mais balanceado que a distribuição natural) quanto,
-criticamente, a \emph{avaliação}: métricas calculadas sobre os próprios dados
-coletados não estimam o desempenho populacional
-\citep{Farquhar2021Bias, Kossen2021ActiveTesting}, exigindo conjuntos
+Settles2012}. Isso afeta o treinamento, às vezes a favor, porque o conjunto
+fica mais balanceado que a distribuição natural, e afeta criticamente a
+\emph{avaliação}: métricas calculadas sobre os próprios dados coletados não
+estimam o desempenho populacional
+\citep{Farquhar2021Bias, Kossen2021ActiveTesting}, o que exige conjuntos
 reservados. O fenômeno é quantificado nesta tese
 (Capítulo~\ref{ch:resultados-falco}).
 
@@ -559,9 +563,9 @@ O surgimento dos \textit{Large Language Models} (LLMs) altera os dois lados do
 laço de aprendizado ativo: eles podem selecionar instâncias e podem
 rotulá-las. Esta seção examina quatro aspectos dessa mudança: a evidência
 empírica dessas capacidades, as arquiteturas de integração propostas na
-literatura, o regime de treinamento com rótulos ruidosos que o oráculo LLM
-inaugura e a estrutura de custo e de medição que passa a existir quando o
-oráculo é um serviço pago por token. Este último aspecto é o que esta tese
+literatura, o regime de treinamento com rótulos ruidosos e a estrutura de
+custo e de medição que passa a existir quando o oráculo é um serviço pago por
+token. Este último aspecto é o que esta tese
 toma como objeto de instrumentação.
 
 \subsection{Capacidades e evidência empírica}
@@ -572,9 +576,9 @@ A anotação humana é cara, lenta e sujeita a inconsistências
 escala \citep{zhang-etal-2022-survey}. A evidência seminal é o estudo de
 \citet{Gilardi2023}: o ChatGPT em modo \textit{zero-shot} (sem nenhum exemplo
 rotulado da tarefa no \textit{prompt}) superou anotadores
-de \textit{crowdsourcing} em cerca de 25 pontos percentuais de acurácia média,
-com maior concordância intercodificador e custo por anotação aproximadamente
-30 vezes menor. O estudo ilustra quatro vantagens estruturais: escalabilidade
+de \textit{crowdsourcing} em cerca de 25 pontos percentuais de acurácia
+média. A concordância intercodificador foi maior e o custo por anotação,
+aproximadamente 30 vezes menor. O estudo ilustra quatro vantagens estruturais: escalabilidade
 sem fadiga, consistência entre anotações, velocidade e custo
 \citep{Gilardi2023}.
 
@@ -591,9 +595,9 @@ concentram-se em tarefas com poucas classes. Os estudos recentes de
 classificação de produtos operam com dezenas a algumas centenas de
 categorias: 248 no comparativo zero-shot de \citet{Roumeliotis2025} e 370
 categorias terminais (as \emph{folhas} da taxonomia) nos testes de robustez
-de \citet{Gholamian2024}, que também mostram
-LLMs mais robustos que modelos supervisionados sob abreviação e truncamento
-de títulos. A transferência
+de \citet{Gholamian2024}. Esse último trabalho também mostra LLMs mais
+robustos que modelos supervisionados sob abreviação e truncamento de
+títulos. A transferência
 desse desempenho para espaços fechados com centenas de categorias em
 português não é automática e constitui uma das perguntas experimentais do
 Capítulo~\ref{ch:metodo}.
@@ -609,23 +613,23 @@ rotulam com o GPT (\textit{Generative Pre-trained Transformer}) as
 instâncias selecionadas por estratégias clássicas de
 incerteza e diversidade, treinando um único modelo compacto que atende várias
 tarefas (\textit{cross-task}) a
-custo muito inferior ao de classificar todo o conjunto com o LLM;
+custo muito inferior ao de classificar todo o conjunto com o LLM. Já
 \citet{Rouzegar2024} introduzem roteamento por limiar de confiança, em que o
 LLM anota quando confia e os casos difíceis vão ao humano, aproximando o F1 da
 anotação inteiramente humana a custo reduzido. Em línguas de baixo recurso,
 \citet{Kholodna2024} acrescentam duas práticas operacionais que esta tese
 incorpora: a \emph{seleção prévia do anotador} entre LLMs candidatos e a
-\emph{anotação em lote}, que dilui entre várias instâncias o custo fixo da
-parte inicial do \textit{prompt} (instruções e exemplos da tarefa, idênticos
-em cada chamada), com economia estimada superior a 42 vezes frente à
+\emph{anotação em lote}. A segunda dilui entre várias instâncias o custo fixo
+da parte inicial do \textit{prompt}, instruções e exemplos da tarefa
+idênticos em cada chamada, com economia estimada superior a 42 vezes frente à
 anotação humana.
 
 Como \textbf{seletor}, o LLM mitiga a partida a frio: o ActiveLLM
 \citep{Bayer2024ActiveLLM} usa o conhecimento pré-treinado de modelos como o GPT-4 para
 escolher instâncias informativas em regime \textit{few-shot} (com poucos
 exemplos da tarefa no \textit{prompt}), sem depender de
-um classificador inicial, superando estratégias tradicionais e técnicas
-específicas de poucos exemplos; a arquitetura conceitual está na
+um classificador inicial. Nos experimentos dos autores, o seletor supera
+estratégias tradicionais e técnicas específicas de poucos exemplos. A arquitetura conceitual está na
 Figura~\ref{fig:activellm_arch}. O desempenho do seletor depende da engenharia
 do \textit{prompt}: instruções claras de papel, encadeamento de pensamento
 \citep{Wei2022}, controle do tamanho do lote e recapitulação das seleções
@@ -675,8 +679,9 @@ O segundo são os \emph{sistemas híbridos humano--LLM}, que roteiam casos
 difíceis ao humano \citep{Margatina2023}. O terceiro é a \emph{mistura de
 LLMs} de \citet{Qi2026MixtureLLMs}, que substitui o anotador único por um
 comitê de modelos leves locais com mecanismos de discrepância e de
-\emph{aprendizado negativo}: treinar também com os rótulos que a instância
-provavelmente \emph{não} tem, uma informação mais confiável sob ruído. O quarto é o paradigma \emph{dual-expert} para taxonomias amplas de
+\emph{aprendizado negativo}. Este consiste em treinar também com os rótulos
+que a instância provavelmente \emph{não} tem, informação mais confiável sob
+ruído. O quarto é o paradigma \emph{dual-expert} para taxonomias amplas de
 produtos \citep{Cheng2024DualExpert}, em que um especialista de domínio contrai
 o espaço a $K$ candidatos e o LLM generalista decide entre eles.
 
@@ -684,8 +689,8 @@ o espaço a $K$ candidatos e o LLM generalista decide entre eles.
 \label{sssec:llm_desafios}
 
 Quando o LLM assume o papel de oráculo, o classificador da tarefa passa a ser
-treinado com \emph{rótulos ruidosos}, regime com literatura própria e madura:
-a revisão clássica de \citet{Frenay2014} organiza taxonomias de ruído
+treinado com \emph{rótulos ruidosos}, regime com literatura própria e madura.
+A revisão clássica de \citet{Frenay2014} organiza taxonomias de ruído
 (aleatório, dependente de classe, dependente de instância) e seus efeitos;
 \citet{Natarajan2013} estabelecem garantias de aprendizado sob ruído com
 funções de perda corrigidas; e \citet{Song2023NoisyLabels} revisam o estado da
@@ -702,8 +707,8 @@ examinado empiricamente nesta tese
 cautela metodológica: ruído \emph{real} de anotação é substancialmente mais
 nocivo que as corrupções sintéticas usadas em avaliação. Isso foi demonstrado
 em reconhecimento de entidades pelo NoiseBench
-\citep{Merdjanovska2024NoiseBench}, que inclui um
-uma condição explícita de ruído gerado por LLM, e em classificação de produtos em
+\citep{Merdjanovska2024NoiseBench}, que inclui uma condição explícita de
+ruído gerado por LLM, e em classificação de produtos em
 larga escala pelo AlleNoise \citep{Raczkowska2024AlleNoise}, meio milhão de
 títulos em 5.692 categorias com 15\% de ruído real de \textit{marketplace}.
 Estratégias que combinam filtragem por modelos pequenos com consulta seletiva
@@ -717,20 +722,21 @@ de interesse (Capítulo~\ref{ch:metodo}).
 O oráculo LLM introduz uma economia e uma metrologia próprias, que esta
 tese instrumenta de ponta a ponta (Capítulo~\ref{ch:metodo}). O
 \textbf{custo} deixa de ser por item e passa a
-ser por \emph{token}, com três alavancas operacionais: o tamanho do lote de
-anotação, que dilui entre as instâncias do lote o custo fixo da parte
-inicial do \textit{prompt} \citep{Kholodna2024}; o \textit{cache} de prefixo oferecido por provedores,
-que reduz o preço da porção repetida; e os limites de vazão (requisições por
-minuto, cotas diárias), que definem o tempo total de execução
-(\textit{wall-clock}) independentemente do preço. A \textbf{medição} também muda: parte do erro aparente de um LLM
+ser por \emph{token}, com três mecanismos operacionais. O primeiro é o
+tamanho do lote de anotação, que dilui entre as instâncias do lote o custo
+fixo da parte inicial do \textit{prompt} \citep{Kholodna2024}. O segundo é o
+\textit{cache} de prefixo oferecido por provedores, que reduz o preço da
+porção repetida. O terceiro são os limites de vazão (requisições por minuto,
+cotas diárias), que definem o tempo total de execução (\textit{wall-clock})
+independentemente do preço. A \textbf{medição} também muda: parte do erro aparente de um LLM
 anotador é erro de \emph{formato}, e não de semântica \citep{Kholodna2024}:
 resposta fora do espaço de classes ou inconsumível automaticamente. É o que
 torna a restrição da saída ao espaço fechado de rótulos parte do instrumento
 de medição: o conjunto de decisões que define como a resposta do LLM vira um
 rótulo e como o acerto é contado. Além disso,
 a confiança auto-reportada dos LLMs tende ao excesso \citep{Diao2023},
-exigindo calibração \citep{Tian2023}; as janelas de contexto limitam o lote
-\citep{Bayer2024ActiveLLM}; e a
+exigindo calibração \citep{Tian2023}, e as janelas de contexto limitam o lote
+\citep{Bayer2024ActiveLLM}. A
 resposta do mesmo modelo pode variar entre versões e provedores de
 \textit{serving}, fazendo com que cada medição valha para a tripla (modelo,
 provedor, data). A generalização natural desse cenário é estender a seleção
@@ -749,7 +755,7 @@ decisão que o FALCO opera.
 
 O domínio de aplicação desta tese, descrições de produtos de varejo em
 português, pertence à classificação de texto curto (\textit{short text
-classification}), subcampo com desafios próprios que afetam ao mesmo tempo as
+classification}), subcampo com desafios próprios que afetam tanto as
 métricas da Seção~\ref{sec:fund-super} quanto o laço da
 Seção~\ref{sec:fund-al}. Textos curtos são comuns em plataformas digitais
 (consultas de busca, mensagens, títulos) e sua classificação sustenta
@@ -761,23 +767,23 @@ aplicações de análise de sentimento a categorização de catálogos
 
 A classificação de texto aprende $f: X \rightarrow Y$ de documentos para um
 conjunto pré-definido de classes a partir de exemplos rotulados
-\cite{Aggarwal2012, Kowsari2019}; o texto \emph{curto} especializa a tarefa
+\cite{Aggarwal2012, Kowsari2019}. O texto \emph{curto} especializa a tarefa
 para sequências de comprimento limitado \cite{Song2014}, tipicamente até 200
 caracteres \cite{Alsmadi2019}, como \textit{tweets}, títulos de notícias,
 consultas e descrições de produtos \cite{Daru2024Dissertacao}. Quatro
-características tornam o regime difícil \cite{Ahmed2022, Song2014}: a
-\textbf{escassez de contexto}, que limita a desambiguação; a
-\textbf{esparsidade lexical} em alta dimensionalidade, que enfraquece métricas
-de similaridade e agrava a maldição da dimensionalidade; o \textbf{ruído e a
-informalidade} (erros, abreviações, gírias), que exigem normalização
-\cite{Aliero2023}; e a \textbf{ambiguidade} semântica acentuada pela falta de
-contexto. O pré-processamento usual (tokenização, minúsculas, remoção de
+características tornam o regime difícil \cite{Ahmed2022, Song2014}. A
+\textbf{escassez de contexto} limita a desambiguação, e a
+\textbf{esparsidade lexical} em alta dimensionalidade enfraquece métricas
+de similaridade e agrava a maldição da dimensionalidade. O \textbf{ruído e a
+informalidade} (erros, abreviações, gírias) exigem normalização
+\cite{Aliero2023}, e a \textbf{ambiguidade} semântica é acentuada pela falta
+de contexto. O pré-processamento usual (tokenização, minúsculas, remoção de
 pontuação e palavras funcionais de alta frequência (\textit{stopwords}),
 lematização ou redução ao radical (\textit{stemming}), tratamento
 de ruído específico) mitiga parte do problema, e sua escolha e ordem afetam o
-desempenho final \cite{Naseem2021HateSpeech, Aliero2023}; nesta tese ele é deliberadamente
-mínimo (Capítulo~\ref{ch:metodo}), delegando a variação lexical ao
-classificador. No domínio específico (cupons fiscais de varejo), os textos
+desempenho final \cite{Naseem2021HateSpeech, Aliero2023}. Nesta tese ele é
+deliberadamente mínimo (Capítulo~\ref{ch:metodo}) e delega a variação lexical
+ao classificador. No domínio específico (cupons fiscais de varejo), os textos
 têm 4 a 50 caracteres, caixa alta e abreviações extensas
 (\texttt{CERV BRAHMA LT 350ML}), combinando todos os quatro desafios de uma vez.
 
@@ -788,21 +794,22 @@ As \textbf{representações esparsas} projetam cada texto num vetor de
 dimensão igual ao vocabulário: \textit{one-hot},
 \textit{bag-of-words} nas variantes binária, por frequência e por frequência
 do termo ponderada pelo inverso da frequência nos documentos (TF--IDF)
-\citep{Salton1988}, estendidas por $n$-gramas; a similaridade do cosseno é a métrica de
-comparação usual nesse regime \cite{Baeza2013}. Suas propriedades em
-descrições curtas de produtos em português foram investigadas na dissertação de mestrado do autor \citep{Daru2024Dissertacao}, que este
-trabalho toma como ponto de partida: em texto curto a frequência de termos
-satura (quase todo termo ocorre uma única vez por descrição), o que explica a
-vantagem empírica da variante binária sobre TF e TF--IDF; e a configuração
-vencedora lá identificada (binária, uni e bigramas, sem normalização) é a
-adotada pelo classificador leve desta tese, o PVBin (protótipos de classe
-sobre vetores binários; Capítulo~\ref{ch:metodo}); para o panorama de
-ponderação e representação, ver \citet{Salton1988} e \citet{Naseem2021WordRep}.
+\citep{Salton1988}, estendidas por $n$-gramas. A similaridade do cosseno é a
+métrica de comparação usual nesse regime \cite{Baeza2013}. Suas propriedades em
+descrições curtas de produtos em português foram investigadas na dissertação
+de mestrado do autor \citep{Daru2024Dissertacao}, que este trabalho toma como
+ponto de partida. Em texto curto a frequência de termos satura, pois quase
+todo termo ocorre uma única vez por descrição, o que explica a vantagem
+empírica da variante binária sobre TF e TF--IDF. A configuração vencedora lá
+identificada (binária, uni e bigramas, sem normalização) é a adotada pelo
+classificador leve desta tese, o PVBin (protótipos de classe sobre vetores
+binários; Capítulo~\ref{ch:metodo}). Para o panorama de ponderação e
+representação, ver \citet{Salton1988} e \citet{Naseem2021WordRep}.
 As \textbf{representações densas} mapeiam palavras ou textos para espaços
 contínuos de baixa dimensão: os \textit{embeddings} estáticos (Word2Vec
 \cite{Mikolov2013}, GloVe \cite{Pennington2014}, FastText
 \cite{Bojanowski2017}) atribuem um vetor por palavra, sem tratar polissemia
-\cite{Birunda2021, Goldberg2017}; os \textbf{contextuais} condicionam a
+\cite{Birunda2021, Goldberg2017}. Os \textbf{contextuais} condicionam a
 representação de cada token à sequência inteira (o ELMo, de
 \textit{Embeddings from Language Models} \cite{Peters2018}, a
 família GPT \cite{Radford2018, Radford2019} e o BERT \cite{Devlin2019}),
@@ -814,20 +821,20 @@ de sentença comparáveis por cosseno, usado pelo DRI-SL, e o BERTimbau
 
 Quanto aos \textbf{classificadores}, os algoritmos clássicos seguem
 relevantes como linhas de base eficientes sobre representações esparsas
-\cite{Kowsari2019, Aliero2023}: as máquinas de vetores de
-suporte (SVM), da família dos classificadores de margem, que separam as
-classes pelo hiperplano de maior margem \cite{Cortes1995}; o Naive Bayes,
-probabilístico gerativo, que assume independência entre os termos, e a
-regressão logística, sua contraparte discriminativa, que modela diretamente a
-probabilidade da classe \cite{Murphy2012}; os $k$ vizinhos mais próximos
-(KNN), baseados em instâncias, que classificam pela maioria entre os exemplos
-mais próximos \cite{Cover1967}; e as árvores de decisão, que particionam o
+\cite{Kowsari2019, Aliero2023}. As máquinas de vetores de
+suporte (SVM), da família dos classificadores de margem, separam as
+classes pelo hiperplano de maior margem \cite{Cortes1995}. O Naive Bayes,
+probabilístico gerativo, assume independência entre os termos, e a
+regressão logística, sua contraparte discriminativa, modela diretamente a
+probabilidade da classe \cite{Murphy2012}. Os $k$ vizinhos mais próximos
+(KNN), baseados em instâncias, classificam pela maioria entre os exemplos
+mais próximos \cite{Cover1967}. E as árvores de decisão particionam o
 espaço por regras sucessivas, com seus \textit{ensembles}, que combinam
 muitas árvores para reduzir a variância \cite{Quinlan1993,
 Breiman2001, Dietterich2000}.
 Arquiteturas profundas convolucionais e recorrentes capturam padrões locais e
 sequenciais \cite{Goodfellow2016, Xu2017}, com benefício limitado em textos
-muito curtos; e os \textbf{Transformers ajustados} (BERT e variantes),
+muito curtos. Os \textbf{Transformers ajustados} (BERT e variantes),
 construídos exclusivamente sobre o mecanismo de atenção \citep{Vaswani2017},
 representam o estado da arte da tarefa \cite{Devlin2019, Li2020, Karl2023},
 ao custo de treinamento e inferência substancialmente maiores. Essa gradação
@@ -841,7 +848,7 @@ um forte, para a validação final.
 Três consequências do regime de texto curto estruturam os experimentos desta
 tese. Primeiro, a cauda longa de classes torna o Macro F1 sensível a classes não cobertas: com
 centenas de categorias e poucas instâncias nas raras, cada classe descoberta
-tarde reduz o Macro F1 de forma desproporcional; o quanto a cobertura de
+tarde reduz o Macro F1 de forma desproporcional. O quanto a cobertura de
 classes do conjunto inicial pesa nesse regime é examinado no
 Capítulo~\ref{ch:resultados-l0}. Segundo, a partida a frio é mais severa: com
 pouca informação por instância, o modelo inicial precisa de mais exemplos para
@@ -878,7 +885,7 @@ de 2026). A busca
 utilizou combinações de termos como \textit{active learning}, \textit{text
 classification}, \textit{short text}, \textit{LLM}, \textit{large language
 model}, \textit{cold start}, \textit{few-shot learning} e \textit{oracle},
-priorizando trabalhos que conectassem explicitamente essas áreas, e a análise
+priorizando trabalhos que conectassem explicitamente essas áreas. A análise
 buscou tendências na aplicação de LLMs em AA, abordagens para a partida a
 frio e as lacunas remanescentes.
 
@@ -890,8 +897,8 @@ representações pré-treinadas para selecionar o conjunto inicial: ALPS
 \cite{Yuan2020} seleciona pela surpresa (\textit{surprisal}) que a instância
 causa ao modelo de linguagem, medida como a perda de modelagem mascarada do
 próprio BERT: quanto pior o modelo prevê os tokens escondidos da instância,
-maior a surpresa, sem exigir nenhum rótulo; o ALPS então agrupa as
-instâncias por essa assinatura e seleciona pelos centros, para não sacar
+maior a surpresa, sem exigir nenhum rótulo. O ALPS então agrupa as
+instâncias por essa assinatura e seleciona pelos centros, para não escolher
 várias frases surpreendentes pelo mesmo motivo. Na mesma linha,
 \citet{EinDor2020} e \citet{Griesshaber2020} adaptam AA ao
 BERT. A linha culmina no DEUCE \cite{Guo2025Deuce}, que combina diversidade
@@ -907,38 +914,39 @@ redefiniu os papéis: seleção informada pelo conhecimento pré-treinado
 (ActiveLLM \cite{Bayer2024ActiveLLM}), rotulagem das instâncias selecionadas
 \cite{Zhang2025}, roteamento híbrido humano--LLM \cite{Rouzegar2024},
 rótulos candidatos com destilação \cite{Xia2025CanDist} e misturas de LLMs
-leves \cite{Qi2026MixtureLLMs}; a revisão de \citet{Xia2025} organiza o campo
-na progressão "da seleção para a geração". Os desafios transversais são a
+leves \cite{Qi2026MixtureLLMs}. A revisão de \citet{Xia2025} organiza o campo
+na progressão ``da seleção para a geração''. Os desafios transversais são a
 calibração da confiança, o custo por consulta e a propagação de vieses
 \cite{Bayer2024ActiveLLM, Zhang2025}. A pesquisa de comunidade de
 \citet{Romberg2025Reassessing} acrescenta uma ressalva de ordem prática: complexidade de
 implantação, incerteza sobre a redução real de custo e ferramental inadequado
-seguem sendo as barreiras à adoção: a viabilidade operacional, não a
+seguem sendo as barreiras à adoção; a viabilidade operacional, não a
 acurácia, é o obstáculo apontado.
 
 \textbf{Robustez a ruído e produto/e-commerce.} As duas frentes restantes
 foram detalhadas nas Seções~\ref{sssec:llm_desafios}
-e~\ref{sssec:llm_seletor}; na interseção com o domínio, o estudo de
+e~\ref{sssec:llm_seletor}. Na interseção com o domínio está o estudo de
 \citet{Machado2026RetailPt}, que classifica $\approx 100$ mil títulos de
 supermercados portugueses nas categorias da classificação europeia do consumo
-individual por finalidade (ECOICOP) para estatística oficial,
-corrobora a escolha do BERTimbau como classificador forte (97,0\% de
-acurácia, 94,0\% de Macro F1 após ajuste), mas depende de um fluxo de rotulagem humano sem protocolo definido iniciado com 12 mil rótulos manuais, sem estratégia
-formal de aprendizado ativo nem oráculo automatizado: exatamente o processo
-que o FALCO formaliza.
+individual por finalidade (ECOICOP) para estatística oficial. Ele corrobora a
+escolha do BERTimbau como classificador forte (97,0\% de acurácia, 94,0\% de
+Macro F1 após ajuste). O estudo depende, porém, de um
+fluxo de rotulagem humano sem protocolo definido, iniciado com 12 mil rótulos
+manuais, sem estratégia formal de aprendizado ativo nem oráculo automatizado.
+É exatamente o processo que o FALCO formaliza.
 
 \subsection{Lacuna de pesquisa}
 \label{sec:lacunas_pesquisa}
 
 A análise revela que as peças existem separadas, mas sua integração
-sistemática não: falta um framework que (i) utilize o conhecimento
+sistemática não. Falta um framework que (i) utilize o conhecimento
 pré-treinado de LLMs para informar a seleção inicial ou fornecer rótulos na
 partida a frio; (ii) adapte as estratégias de seleção para considerar,
 além do classificador em treinamento, a confiança e o custo do oráculo LLM;
 (iii) seja otimizado para as características do texto curto; e (iv) balanceie
-explicitamente o custo financeiro das consultas com o ganho de informação,
-com medição quantitativa desse compromisso (\textit{trade-off}), ainda rara mesmo nos
-trabalhos que tocam o custo \cite{Zhang2025, EinDor2020}. A
+explicitamente o custo financeiro das consultas com o ganho de informação. A
+medição quantitativa desse compromisso (\textit{trade-off}) é ainda rara
+mesmo nos trabalhos que tocam o custo \cite{Zhang2025, EinDor2020}. A
 Tabela~\ref{tab:lacunas} cruza os trabalhos mais próximos com as cinco
 dimensões cuja combinação define a lacuna.
 
@@ -980,10 +988,10 @@ instrumentado) é a lacuna que o Capítulo~\ref{ch:metodo} ocupa.
 O capítulo percorreu uma cadeia: as \emph{métricas} sob desbalanceamento e a
 inferência que as compara (Seção~\ref{sec:fund-super}); o \emph{laço} que
 compra informação e suas duas limitações, partida a frio e oráculo imperfeito
-(Seção~\ref{sec:fund-al}); o \emph{oráculo LLM} que transforma qualidade,
-custo e instrumento em variáveis de projeto (Seção~\ref{sec:fund-llm}); o
-\emph{domínio} de texto curto que agrava todos esses desafios ao mesmo tempo
-(Seção~\ref{sec:fund-stc}); e o \emph{estado da arte} que resolve cada
-limitação isoladamente, mas não as três em conjunto
+(Seção~\ref{sec:fund-al}); e o \emph{oráculo LLM} que transforma qualidade,
+custo e instrumento em variáveis de projeto (Seção~\ref{sec:fund-llm}).
+Vieram depois o \emph{domínio} de texto curto, que agrava todos esses
+desafios ao mesmo tempo (Seção~\ref{sec:fund-stc}), e o \emph{estado da
+arte}, que resolve cada limitação isoladamente, mas não as três em conjunto
 (Seção~\ref{sec:fund-soa}). O Capítulo~\ref{ch:metodo} apresenta o framework
 que ocupa essa interseção, e o programa experimental que o submete à prova.
