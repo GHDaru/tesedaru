@@ -245,24 +245,9 @@ procedimento usa a própria amostra como o melhor retrato disponível dela e
 mede quanto a estatística flutua ao repetir o experimento dentro desse
 retrato.
 
-A Tabela~\ref{tab:inferencia-mapa} resume o mapeamento situação--teste--uso.
-
-\begin{table}[htb]
-\centering
-\caption{Instrumentos de inferência estatística e seu emprego nesta tese.}
-\label{tab:inferencia-mapa}
-\small
-\begin{tabular}{p{0.34\textwidth} p{0.24\textwidth} p{0.32\textwidth}}
-\toprule
-\textbf{Situação} & \textbf{Instrumento} & \textbf{Uso na tese} \\
-\midrule
-Precisão de uma proporção estimada & IC de Wilson 95\% \cite{Wilson1927, Brown2001} & toda acurácia de oráculo (Cap.~\ref{ch:resultados-falco}) \\
-Dois oráculos, mesmas instâncias & McNemar; binomial exato se $b{+}c{<}25$ \cite{McNemar1947, Dietterich1998} & pareamentos de oráculos e de variantes de \textit{prompt}; condições comparadas (braços) do framework na mesma população (Cap.~\ref{ch:resultados-falco}) \\
-Duas estratégias, mesmas sementes & Wilcoxon de postos sinalizados \cite{Wilcoxon1945, Demsar2006} & estratégias de seleção contra a aleatória, pareadas por semente (Cap.~\ref{ch:resultados-falco}) \\
-Estatística de resumo sem distribuição conhecida & IC \textit{bootstrap} percentil \cite{EfronTibshirani1993} & comparações pareadas de Macro F1 e LCE entre braços do framework (Cap.~\ref{ch:resultados-falco}) \\
-\bottomrule
-\end{tabular}
-\end{table}
+O emprego de cada instrumento ao longo do processo experimental, junto com
+as métricas de desempenho, é mapeado na metodologia
+(Tabela~\ref{tab:metricas-mapa}, Seção~\ref{sec:metodo-metricas}).
 
 Com o instrumental de medição estabelecido, a próxima seção formaliza o
 processo cuja eficiência ele mede: o laço de aprendizado ativo.

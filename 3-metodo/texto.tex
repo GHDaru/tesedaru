@@ -461,21 +461,39 @@ aprendizado ativo executadas com múltiplas sementes usam o \textbf{teste de
 postos sinalizados de Wilcoxon} \citep{Wilcoxon1945} sobre as métricas finais e a
 LCE.
 
-\textbf{Em que fase cada métrica entra.} Nos estudos
-de composição do conjunto inicial e de estratégias de seleção, incluída a
-varredura de seletores em escala populacional, a régua é o Macro
-F1 medido no teste ao longo das iterações. As curvas resultantes são
-resumidas pela LCE, e as diferenças entre estratégias sob as mesmas sementes
-passam pelo Wilcoxon. Na avaliação de oráculos, a régua muda de
-natureza: o que se mede é acurácia de rotulagem contra o padrão-ouro, sempre
-com IC de Wilson; os pareamentos entre oráculos e entre variantes de
-\textit{prompt} passam pelo McNemar; e a matriz de confusão caracteriza o
-perfil de erro. Na validação final do framework, as duas
-famílias se encontram: Macro F1 e acurácia global avaliam os braços na
-população reservada, com comparações pareadas por McNemar e
-\textit{bootstrap}, e a cobertura de classes complementa a leitura sob cauda
-longa. Ao longo do ciclo real, as decisões de parada usam as métricas
-medidas no conjunto de validação, nunca no teste.
+A Tabela~\ref{tab:metricas-mapa} associa cada métrica e cada instrumento de
+inferência à fase do processo em que é empregado. As decisões de parada do
+ciclo usam as métricas medidas no conjunto de validação; o conjunto de
+teste não participa de nenhuma decisão do processo.
+
+\begin{table}[htb]
+\centering
+\caption{Métricas e instrumentos de inferência estatística, com a fase do
+processo em que cada um é empregado.}
+\label{tab:metricas-mapa}
+\small
+\begin{tabular}{p{0.28\textwidth} p{0.26\textwidth} p{0.36\textwidth}}
+\toprule
+\textbf{O que se avalia} & \textbf{Instrumento} & \textbf{Fase em que é empregado} \\
+\midrule
+Desempenho do classificador & Macro F1 (primária) e acurácia global
+(secundária) & composição de $L_0$, estratégias de seleção e validação
+final, em curvas de aprendizado no conjunto de teste \\
+Eficiência da curva de aprendizado & LCE & comparação de estratégias e de
+braços, resumindo cada curva em um escalar \\
+Precisão de uma proporção estimada & IC de Wilson 95\% & toda acurácia de
+oráculo \\
+Dois oráculos sobre as mesmas instâncias & McNemar; binomial exato se
+$b{+}c{<}25$ & pareamentos de oráculos e de variantes de \textit{prompt};
+comparação de braços na mesma população \\
+Duas estratégias sob as mesmas sementes & Wilcoxon de postos sinalizados &
+estratégias de seleção contra a aleatória \\
+Estatística de resumo sem distribuição conhecida & IC \textit{bootstrap}
+percentil & Macro F1 e LCE entre braços \\
+Perfil de erro por classe & matriz de confusão & avaliação de oráculos \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Composição do conjunto inicial \texorpdfstring{$L_0$}{L0}}
 \label{sec:metodo-l0}
