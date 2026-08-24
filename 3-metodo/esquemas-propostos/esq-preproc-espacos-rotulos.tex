@@ -1,0 +1,80 @@
+% ============================================================================
+% ESQUEMA (banca, v3 — adendo 0143 da tarefa 0138): a EXPLICAÇÃO DAS
+% CLASSES — o caminho das classes pelas visões da base, respondendo "por
+% que 621 num experimento e 714 no outro?". EXCEÇÃO CONTROLADA à regra
+% "zero números": por decisão do autor/principal (adendo 0143), esta figura
+% usa OS NÚMEROS JÁ IMPRESSOS no §3.2 (621, 620, 714, 715, 710, >=5, >=2,
+% 250.221, 231.490) — somente esses, nada recomputado; qualquer mudança na
+% prosa deve refletir aqui (checagem de espelho manual no gate).
+% Uso previsto (o principal gateia; a banca NÃO edita o Cap. 3):
+%   fim da Seção sec:metodo-dados-preproc, dentro de figure:
+%   \input{3-metodo/esquemas-propostos/esq-preproc-espacos-rotulos}
+% Uso standalone (pré-visualização):
+%   \documentclass[tikz,border=6pt,12pt]{standalone}
+%   \usetikzlibrary{arrows.meta, positioning}
+%   \begin{document}\input{esq-preproc-espacos-rotulos.tex}\end{document}
+%   (no modo standalone, troque as \ref{...} por texto fixo ou defina-as)
+% GEOMETRIA CALIBRADA PARA CORPO 12 (ppginf/book 12pt, textwidth 16cm).
+% Requer apenas arrows.meta e positioning. Legível em P&B: entrada = cinza
+% claro; operação = branco; produto = cinza médio. SEM travessões.
+% ============================================================================
+\begin{tikzpicture}[
+    x=1cm, y=1cm,
+    caixa/.style={draw, rounded corners=2pt, align=center, text width=46mm,
+                  minimum height=13mm, inner sep=3pt, font=\footnotesize},
+    entrada/.style={caixa, fill=gray!8},
+    produto/.style={caixa, fill=gray!14},
+    seta/.style={-{Stealth[length=2.6mm]}, thick},
+    rot/.style={font=\scriptsize, align=center, inner sep=2pt}
+]
+    \node[entrada, text width=52mm] (base) at (5.6,0)
+        {base corrigida: \textbf{250.221} linhas\\
+         (descrição curta $+$ rótulo),\\
+         normalizadas (minúsculas,\\sem acentos)};
+
+    % ---------------- via dos oráculos (linhas cruas) ----------------------
+    \node[caixa] (f5) at (1.6,-3.1)
+        {sobre as \textbf{linhas cruas}:\\filtro de $\ge 5$ instâncias\\
+         por classe; abaixo disso,\\sentinela \texttt{\_rare\_}};
+    \node[produto] (catsch) at (1.6,-6.4)
+        {\textit{CategorySchema}: \textbf{621}\\categorias (\textbf{620}
+         frequentes\\$+$ \texttt{\_rare\_}); espaço \textbf{fechado}\\dos
+         oráculos (Seção~\ref{sec:metodo-oraculo-instrumentacao})};
+
+    % ---------------- via populacional (textos únicos) ---------------------
+    \node[caixa, text width=48mm] (f2) at (9.6,-3.1)
+        {filtro brando de $\ge 2$ instâncias\\
+         por classe, contado em \textbf{linhas}:\\
+         \textbf{715} classes\\
+         (em textos únicos: \textbf{710})};
+    \node[caixa, text width=48mm] (dedup) at (9.6,-5.9)
+        {\textbf{deduplicação}: mantém a\\primeira ocorrência de cada\\
+         texto; uma classe fica\\sem representante};
+    \node[produto, text width=48mm] (pop) at (9.6,-9.2)
+        {visão deduplicada: \textbf{231.490}\\textos únicos, \textbf{714}
+         classes\\presentes, sem \texttt{\_rare\_}\\(cauda longa preservada:\\
+         escala populacional,\\Capítulo~\ref{ch:resultados-falco})};
+
+    % a classe que some, apontada no vão entre as vias
+    \node[rot, text width=28mm] (pomada) at (5.55,-5.9)
+        {(\textit{pomada}\\\textit{massageadora}: seus\\textos já apareciam\\
+         sob outro rótulo)};
+    \draw[seta, dashed] (pomada.east) -- (dedup.west);
+
+    % ---------------- setas -------------------------------------------------
+    \draw[seta] (base.south west) -- (f5.north);
+    \draw[seta] (base.south east) -- (f2.north);
+    \draw[seta] (f5) -- (catsch);
+    \draw[seta] (f2) -- (dedup);
+    \draw[seta] (dedup) -- node[rot, right=1pt] {$715 - 1 = 714$} (pop);
+
+    % ---------------- a resposta didática ----------------------------------
+    \node[rot, anchor=west, text width=140mm, align=left] at (-1.2,-11.4)
+        {por que \textbf{621} num experimento e \textbf{714} no outro?
+         Porque mudam o \textbf{espaço} (fechado com sentinela, para
+         restringir a saída dos oráculos; aberto na cauda, para a escala
+         populacional) e \textbf{duas convenções de contagem}: a chave de
+         texto (espaços internos colapsados no censo da auditoria;
+         descrição aparada e em minúsculas na deduplicação) e o que se
+         conta (linhas ou textos únicos).};
+\end{tikzpicture}

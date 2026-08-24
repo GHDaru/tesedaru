@@ -22,7 +22,20 @@ peças no FALCO e o avalia contra métodos de referência, sob o mesmo orçament
 de rotulagem. Uma métrica transversal, a \textit{Learning Curve Efficiency}
 (LCE), sumariza a eficiência das curvas de aprendizado em todos os pilares; o
 capítulo encerra com as ameaças à validade e o instrumental de
-reprodutibilidade.
+reprodutibilidade. A Figura~\ref{fig:metodo-sequencia} ilustra essa
+sequência.
+
+\begin{figure}[htbp]
+    \centering
+    \input{3-metodo/esquemas-propostos/esq-sequencia-metodologia}
+    \caption{A sequência da metodologia como fluxo de decisões: do problema,
+    sobre o terreno comum, aos quatro pilares na ordem em que o custo de
+    rotulagem aparece; cada seta indica o que precisa estar resolvido antes
+    do passo seguinte. A \textit{Learning Curve Efficiency} (LCE) atravessa
+    os quatro pilares, e o capítulo encerra com as ameaças à validade e o
+    instrumental de reprodutibilidade.}
+    \label{fig:metodo-sequencia}
+\end{figure}
 
 Todos os experimentos são implementados na biblioteca \texttt{activelearning}
 (Apêndice~\ref{ap:biblioteca}), desenvolvida nesta pesquisa sob arquitetura
@@ -235,7 +248,24 @@ dois textos dessa classe já haviam aparecido sob outro rótulo, e a classe
 fica sem representante na visão deduplicada. É assim que se chega às 714
 classes presentes. A receita completa é executável e reproduz todas as
 contagens desta seção; ela acompanha a biblioteca \texttt{activelearning}
-\cite{DaruActiveLearning}.
+\cite{DaruActiveLearning}. A Figura~\ref{fig:metodo-preproc-classes} percorre
+esse caminho de contagens de ponta a ponta.
+
+\begin{figure}[htbp]
+    \centering
+    \input{3-metodo/esquemas-propostos/esq-preproc-espacos-rotulos}
+    \caption{O pré-processamento e os dois espaços de rótulos, com o caminho
+    das contagens: da mesma base corrigida e normalizada (250.221 linhas), o
+    filtro de cinco ou mais instâncias sobre as linhas cruas produz o
+    \textit{CategorySchema} fechado de 621 categorias (620 frequentes mais a
+    sentinela), que governa os oráculos; o filtro brando de duas ou mais
+    instâncias (715 classes em linhas; 710 em textos únicos), seguido da
+    deduplicação, produz a visão populacional de 231.490 textos únicos com
+    714 classes presentes. As contagens diferem porque mudam o espaço
+    (fechado com sentinela ou aberto na cauda) e as convenções de contagem (a
+    chave de texto e o que se conta: linhas ou textos únicos).}
+    \label{fig:metodo-preproc-classes}
+\end{figure}
 
 \subsection{Particionamento}
 \label{sec:metodo-dados-particionamento}
