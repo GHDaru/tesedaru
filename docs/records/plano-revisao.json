@@ -1,7 +1,7 @@
 {
  "schema": "plano-revisao/v1",
- "versao": 95,
- "atualizado_em": "2026-08-23T23:42:48Z",
+ "versao": 96,
+ "atualizado_em": "2026-08-24T01:19:43Z",
  "atualizado_por": "principal",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
@@ -223,8 +223,8 @@
      "nota": "banca, commits ebb1f65+12dd24d na main; verificado pelo principal: 0 códigos de experimento, 15 criações da tese só como ponte com ref, glosas na 1ª ocorrência"
     },
     "R7": {
-     "status": "pendente",
-     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
+     "status": "feito",
+     "nota": "Auditoria pessoal do autor CONCLUIDA 2026-08-24 (@83b1283..@16bfa4c): §2.1-2.2 (8 marcacoes: tom sobrio, entropia cruzada/prototipos/BoW/crowdsourcing explicados, k particoes, tab:inferencia-mapa conferida contra resultados finais, citacoes Grandini/Riyanto reatribuidas por fichamento, ressalva Wertz/Rouzegar reescrita 2x ate clareza); figura do laco de AA (banca, fig:fund-laco-al) gateada e inserida; §2.4 ELMo/SBERT abertos + familias dos classificadores; §2.4.3 mantido por decisao do autor; §2.5.1 revisao narrativa definida, tom sobrio, fontes genericas."
     }
    },
    "abertura": [
@@ -1408,9 +1408,9 @@
   }
  ],
  "proximo": {
-  "descricao": "TESE CONGELADA: v1.0-régua na main @70874db (ponteiro: branch congelada/v1.0-regua; tag local v1.0-regua-congelada aguarda push do autor). Campanha de excelência COMPLETA: Caps.1-5 + apêndices A-G na régua padrão; Cap.6 + resumo/abstract na régua MÁXIMA com cruzadas obrigatórias; tudo com prova de freeze (multiconjunto de dígitos, labels/refs/cites). FASE ATUAL: auditoria pessoal do autor, capítulo a capítulo — o autor faz marcações visuais, o principal aplica e commita, o autor aprova no chat (o principal pode criticar observações quando couber). CAP.1 CONCLUÍDO @0e4749a: critério relativo sem número absoluto, nota de rodapé enxuta, biblioteca activelearning citada só na 1ª menção, organização do trabalho completa e sem siglas (opção a do autor). Pendências pós-freeze na matriz (docs/records/MATRIZ-DE-PENDENCIAS.md): P-01 e P-12 são as vermelhas.",
+  "descricao": "TESE CONGELADA: v1.0-régua na main @70874db (ponteiro: branch congelada/v1.0-regua; tag local v1.0-regua-congelada aguarda push do autor). Campanha de excelência COMPLETA: Caps.1-5 + apêndices A-G na régua padrão; Cap.6 + resumo/abstract na régua MÁXIMA com cruzadas obrigatórias; tudo com prova de freeze (multiconjunto de dígitos, labels/refs/cites). FASE ATUAL: auditoria pessoal do autor, capítulo a capítulo — o autor faz marcações visuais, o principal aplica e commita, o autor aprova no chat (o principal pode criticar observações quando couber). CAP.1 CONCLUÍDO @0e4749a e CAP.2 CONCLUÍDO (auditoria do autor completa nos dois): critério relativo sem número absoluto, nota de rodapé enxuta, biblioteca activelearning citada só na 1ª menção, organização do trabalho completa e sem siglas (opção a do autor). Pendências pós-freeze na matriz (docs/records/MATRIZ-DE-PENDENCIAS.md): P-01 e P-12 são as vermelhas.",
   "fila": [
-   "autor: marcações da auditoria — próximo capítulo (Cap.2 em diante)",
+   "autor: marcações da auditoria — próximo capítulo (Cap.3 em diante)",
    "principal: aplicar marcações do autor + gate hunk a hunk; sem tocar números (congelamento)",
    "autor (fila editorial): P-09 — adotar ou não resumo-500/abstract-500 (0-iniciais/resumo-500.tex, abstract-500.tex; decidir frase de robustez Macro F1: fora=500, dentro=516, ou troca pela 3ª descoberta)",
    "autor (fila editorial): 5 sugestões de esquemas TikZ da banca para o Cap.3 (branch da banca) — escolher quais entram",
