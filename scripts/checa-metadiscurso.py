@@ -22,6 +22,10 @@ PADROES = [
     r"[Aa] (pergunta|questão) (muda|final é|seguinte é|agora é)",
     r"(a peça|o passo) seguinte é",
     r"[Aa]parece o custo|[Rr]esolvido o custo",
+    # laudo do Cap.4 (revisor1): encenacao de surpresa e autoelogio de metodo.
+    # Medidos nos oito .tex de capitulo: 2 disparos, ambos reais, zero falso positivo.
+    r"[Aa] surpresa (está|é|fica)",
+    r"\b(reavaliação|análise|leitura|medição) honesta\b",
 ]
 RX = [re.compile(p) for p in PADROES]
 
