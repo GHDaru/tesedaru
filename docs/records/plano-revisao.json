@@ -1,7 +1,7 @@
 {
   "schema": "plano-revisao/v1",
-  "versao": 98,
-  "atualizado_em": "2026-08-25T00:20:00Z",
+  "versao": 99,
+  "atualizado_em": "2026-08-25T00:55:00Z",
   "atualizado_por": "principal",
   "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
   "ritual": [
@@ -816,7 +816,7 @@
         },
         "R7": {
           "status": "feito",
-          "nota": "Auditoria do autor: propriedades da LCE em prosa (@64c16e2 + quebra da frase de 49 palavras @be82f10; final 23,7 p/f, máx 34)."
+          "nota": "Passe LIDO (humanize + metadiscurso) @6b858ec: 2 achados — frame sintático repetido três vezes nas propriedades e frase sem verbo na comparação com a ALC. Média 25,4."
         }
       },
       "dimensoes": {
@@ -860,7 +860,7 @@
         },
         "R7": {
           "status": "feito",
-          "nota": "Auditoria do autor: operadores/parâmetros em tabela (tab:ap-ag-params) e pseudocódigo no ambiente algorithm (alg:ap-ag), padrão do Algoritmo 1 do Cap.2 (@64c16e2)."
+          "nota": "Passe LIDO @6b858ec: 1 achado — período de ~70 palavras terminando em clivada (\"e é esse valor ... que se reporta\"), dividido e desfeito."
         }
       },
       "dimensoes": {
@@ -904,8 +904,8 @@
           "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
         },
         "R7": {
-          "status": "pendente",
-          "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
+          "status": "feito",
+          "nota": "Passe LIDO @6b858ec: nada encontrado. Média 25,6, máxima 43, dentro da régua."
         }
       },
       "dimensoes": {
@@ -950,7 +950,7 @@
         },
         "R7": {
           "status": "feito",
-          "nota": "APROVADO pelo autor na auditoria (2026-08-24, \"Apêndices D, E e F. Aprovados.\")."
+          "nota": "Passe LIDO @6b858ec: 1 achado — a frase do FlowBuilder, de ~60 palavras e telegráfica, virou duas. A arquitetura hexagonal fica: aqui o termo vem definido na mesma frase, o que satisfaz \"define ou não coloca\"."
         }
       },
       "dimensoes": {
@@ -994,7 +994,7 @@
         },
         "R7": {
           "status": "feito",
-          "nota": "APROVADO pelo autor na auditoria (2026-08-24, \"Apêndices D, E e F. Aprovados.\")."
+          "nota": "Passe LIDO @6b858ec: 3 achados — o neologismo \"cacheabilidade\" e o período de ~73 palavras das duas variantes do prompt."
         }
       },
       "dimensoes": {
@@ -1038,7 +1038,7 @@
         },
         "R7": {
           "status": "feito",
-          "nota": "APROVADO pelo autor na auditoria (2026-08-24, \"Apêndices D, E e F. Aprovados.\")."
+          "nota": "Passe LIDO @6b858ec: nada encontrado na prosa; o apêndice é uma longtable com parágrafo de abertura."
         }
       },
       "dimensoes": {
@@ -1081,8 +1081,8 @@
           "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
         },
         "R7": {
-          "status": "pendente",
-          "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
+          "status": "feito",
+          "nota": "Passe LIDO @6b858ec: 6 achados, o apêndice mais fora da régua. \"O racional\" (anglicismo de rationale), \"warm-starting\" sem definição, gerúndios absolutos telegráficos na política de retreino e três períodos longos divididos (65, 75 e 95 palavras). Média de 37,6 para 29,0."
         }
       },
       "dimensoes": {
@@ -1408,7 +1408,7 @@
     }
   ],
   "proximo": {
-    "descricao": "TESE CONGELADA (v1.0-régua @70874db). FASE ATUAL: auditoria pessoal do autor, CONCLUÍDA nos seis capítulos e nos pré-textuais. Todos passaram pelo passe LIDO (metadiscurso encenado + registro acadêmico + régua) e foram aprovados pelo autor, capítulo a capítulo. Régua final: Cap.1 24,5 · Cap.2 26,7 · Cap.3 24,3 · Cap.4 22,5 · Cap.5 24,9 · Cap.6 20,6 palavras por frase. Resumo e abstract oficiais trocados pela versão em seis movimentos (475 e 446 palavras), com a P-09 fechada. Os sete achados da auditoria da banca sobre os Caps.4-6 estão tratados: seis aplicados, o do \"empate estatístico\" registrado dentro da P-01. RESTA: as quatro pendências adiadas por decisão do autor (P-01, P-12, P-14, P-15). CI do PDF verde em todos os pushes.",
+    "descricao": "TESE CONGELADA (v1.0-régua @70874db). FASE ATUAL: auditoria pessoal do autor, CONCLUÍDA nos seis capítulos, nos pré-textuais e nos sete apêndices. Todos passaram pelo passe LIDO (metadiscurso encenado + registro acadêmico + régua) e foram aprovados pelo autor, capítulo a capítulo. Régua final: Cap.1 24,5 · Cap.2 26,7 · Cap.3 24,3 · Cap.4 22,5 · Cap.5 24,9 · Cap.6 20,6 palavras por frase; apêndices entre 25,4 e 32,6, com o A7 saindo de 37,6 para 29,0. R7 fechada em todas as 15 peças. Resumo e abstract oficiais trocados pela versão em seis movimentos (475 e 446 palavras), com a P-09 fechada. Os sete achados da auditoria da banca sobre os Caps.4-6 estão tratados: seis aplicados, o do \"empate estatístico\" registrado dentro da P-01. RESTA: as quatro pendências adiadas por decisão do autor (P-01, P-12, P-14, P-15). CI do PDF verde em todos os pushes.",
     "fila": [
       "autor: releitura do Cap.3 em diante (PDF @be82f10) e novas marcações",
       "local (fork): tarefa 0226 na caixa — mapeamento execução->ambiente com evidência (bloqueia §3.10 e coerência do §6.4)",
