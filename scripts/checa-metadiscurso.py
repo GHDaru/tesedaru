@@ -26,6 +26,14 @@ PADROES = [
     # Medidos nos oito .tex de capitulo: 2 disparos, ambos reais, zero falso positivo.
     r"[Aa] surpresa (está|é|fica)",
     r"\b(reavaliação|análise|leitura|medição) honesta\b",
+    # passe do Cap.2 (principal, 2026-08-24): variacoes de drama de necessidade
+    # que escapavam dos padroes acima, metafora de palco e clivada de efeito.
+    # Medidos nos 13 .tex de capitulo e apendice: zero falso positivo.
+    r"merece(m)? (registro|mencao|menção|nota)",
+    r"[Cc]abe (ainda )?(a|uma) ressalva",
+    r"[Oo] pano de fundo",
+    r"culmina n[oa]",
+    r"[ÉéEe] (nesse|neste|nessa|nesta) (espaço|ponto|terreno|cenário) que",
 ]
 RX = [re.compile(p) for p in PADROES]
 
