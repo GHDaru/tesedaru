@@ -263,7 +263,11 @@ das 714 classes ($90{,}9\%$) estão presentes no \textit{pool}, 65 estão ausent
 179 têm menos de cinco exemplos. É limitação declarada, e relevante para métricas
 macro (Seção~\ref{sec:metodo-validade}).
 
-O tamanho de 50 mil resulta de viabilidade computacional. Cada braço da avaliação
+O tamanho de 50 mil resulta de viabilidade computacional. A avaliação final
+compara \emph{braços} experimentais: cada braço é uma condição completa do
+experimento (uma forma de coletar o conjunto de treinamento), avaliada sob as
+mesmas regras que as demais, à maneira dos braços de um ensaio controlado.
+Cada braço da avaliação
 com o classificador forte é um ajuste fino completo do BERTimbau, e o programa
 executa cinco braços mais a varredura de orçamento em uma única GPU, e ainda
 mantém uma média de 70 exemplos por classe no \textit{pool}. Uma consequência
@@ -533,7 +537,8 @@ fica registrado em cada anotação:
   validação posterior exata e contabilização explícita de rótulos inválidos;
   \item \textbf{free}: saída estruturada \emph{sem} restrição de rótulo, réplica
   controlada do instrumento defeituoso, usada exclusivamente para quantificar o
-  efeito do instrumento (RQ4 abaixo).
+  efeito do instrumento (pergunta RQ4, definida na
+  Seção~\ref{sec:metodo-oraculo-desenho}).
 \end{itemize}
 
 O \textit{prompt} (Apêndice~\ref{ap:prompts}) contextualiza o domínio (cupons
@@ -551,7 +556,9 @@ e é reproduzível pelo artefato de calibração que acompanha a biblioteca \cit
 \subsection{Desenho fatorial da avaliação de oráculos}
 \label{sec:metodo-oraculo-desenho}
 
-A avaliação responde a quatro perguntas: (RQ1) a acurácia e o Macro F1 de cada
+A avaliação responde a quatro perguntas, numeradas RQ1 a RQ4 (RQ, de
+\textit{research question}, é a convenção da tese para as questões que um
+experimento responde): (RQ1) a acurácia e o Macro F1 de cada
 LLM candidato, com intervalos de confiança e comparações pareadas; (RQ2) o
 custo por mil rótulos e a latência; (RQ3) o perfil de erro por classe (matriz
 de confusão, taxa de rótulos inválidos); e (RQ4) o efeito do instrumento de
