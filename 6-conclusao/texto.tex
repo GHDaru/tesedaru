@@ -209,11 +209,11 @@ biblioteca.
 \label{sec:conc-conclusao}
 
 No estado atual da evidência, o custo de rotulagem em classificação de textos
-curtos em português pode ser atacado nas três frentes que o FALCO integra.
-Começar bem: o DRI-SL supera até o envelope evolutivo. Perguntar bem:
-estratégias de incerteza sobre classificador barato. E pagar bem: oráculos
-LLM com 77--83\% de acurácia por centavos de dólar o milhar, com erro
-majoritariamente estruturado.
+curtos em português pode ser atacado nas três frentes que o FALCO integra. Na
+partida a frio, o DRI-SL supera até o envelope evolutivo. Na seleção, as
+estratégias de incerteza operam sobre um classificador barato. E na
+rotulagem, oráculos LLM entregam 77--83\% de acurácia por centavos de dólar o
+milhar, com erro majoritariamente estruturado.
 
 A hipótese quantitativa central foi submetida ao teste, com três sementes e
 avaliação na população reservada. O critério pede $\ge 95\%$ da
@@ -233,10 +233,9 @@ Em Macro F1, a análise de robustez, o critério é atingido com 30 mil rótulos
 nas três sementes, dentro do teto. E, na média das sementes, 35 mil rótulos
 ativamente selecionados ficam à frente da supervisão completa do
 \textit{pool} nas duas métricas, com heterogeneidade declarada: para o
-desempenho final, a fração restante dos rótulos do \textit{pool} não compra
-nada em média.
+desempenho final, a fração restante dos rótulos do \textit{pool} não
+acrescenta desempenho em média.
 
-Uma tese que termina com um número honesto, uma causa identificada e o piso
-corrigido medido vale mais que uma que termina com uma promessa. Os
-resultados dos experimentos executados, com as reexecuções dos dois primeiros
-pilares, delimitam com precisão as condições em que a hipótese se sustenta.
+Os resultados dos experimentos executados, com as reexecuções dos dois
+primeiros pilares, delimitam com precisão as condições em que a hipótese se
+sustenta.

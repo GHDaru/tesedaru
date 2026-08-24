@@ -10,9 +10,9 @@ sobre uma base auditada de cerca de 250~mil descrições
 longo da curva de aprendizado, e uma métrica transversal, a \textit{Learning
 Curve Efficiency} (LCE), resume cada curva em um único número relativo à
 supervisão completa (Seção~\ref{sec:metodo-metricas}). O custo de rotulagem
-que se quer reduzir não chega de uma vez: primeiro não há rótulo algum,
-depois cada rótulo consultado tem preço, e por fim as peças precisam
-funcionar juntas sob o mesmo orçamento. As seções deste capítulo seguem
+que se quer reduzir tem três momentos: no início não há rótulo algum; em
+seguida cada rótulo consultado tem preço; e por fim os componentes operam
+juntos sob o mesmo orçamento. As seções deste capítulo seguem
 essa ordem, e cada decisão metodológica é apresentada no ponto em que o
 custo que a motiva aparece.
 
@@ -29,20 +29,16 @@ classificador (Seção~\ref{sec:metodo-l0}). O segundo pilar constrói um
 $L_0$ informativo sem acesso a rótulos, pelo DRI-SL (\textit{Diversidade
 Representativa Inicial via densidade Semântica e variedade Lexical}),
 algoritmo proposto nesta tese (Seção~\ref{sec:metodo-drisl}). Definido o
-começo, cada rótulo passa a ter preço, e a pergunta muda: quem fornece os
-rótulos, a que custo e com que perfil de erro? O terceiro pilar examina os
+conjunto inicial, cada rótulo passa a ter preço. O terceiro pilar examina os
 modelos de linguagem de grande porte (LLMs) como oráculos de rotulagem
-(Seção~\ref{sec:metodo-oraculo}). Com o início e o oráculo resolvidos, o
-quarto pilar integra as peças no FALCO (\textit{Framework de Aprendizado
-Ativo com LLM para texto CurtO}). A pergunta final é o que o custo total
-compra: o framework é avaliado contra métodos de referência sob o mesmo
-orçamento de rotulagem (Seção~\ref{sec:metodo-falco}). Os resultados dos dois primeiros
+(Seção~\ref{sec:metodo-oraculo}). Definidos o conjunto inicial e o oráculo, o
+quarto pilar integra os componentes no FALCO (\textit{Framework de Aprendizado
+Ativo com LLM para texto CurtO}) e o avalia contra métodos de referência sob o
+mesmo orçamento de rotulagem (Seção~\ref{sec:metodo-falco}). Os resultados dos dois primeiros
 pilares são reportados no Capítulo~\ref{ch:resultados-l0}; os do terceiro e
 do quarto, no Capítulo~\ref{ch:resultados-falco}.
 
-A Figura~\ref{fig:metodo-sequencia} é o mapa dessa sequência, e cada seta
-se lê como uma dependência: o que precisa estar resolvido antes do passo
-seguinte.
+A Figura~\ref{fig:metodo-sequencia} apresenta essa sequência.
 
 \begin{figure}[htbp]
     \centering
@@ -318,7 +314,7 @@ Cada braço da avaliação
 com o classificador forte é um ajuste fino completo do BERTimbau, e o programa
 executa cinco braços mais a varredura de orçamento em uma única GPU, e ainda
 mantém uma média de 70 exemplos por classe no \textit{pool}. Uma
-consequência dessa escolha deve ser registrada: com a mudança da régua
+consequência dessa escolha é registrada aqui: com a mudança da régua
 contra a qual os braços são medidos
 (Seção~\ref{sec:metodo-falco-baselines}), os orçamentos passam a ser
 expressos como fração do \textit{pool} de 50 mil ($30\% = 15$ mil rótulos),
@@ -376,7 +372,7 @@ consequências são discutidas nas ameaças à validade
 \section{Classificadores da tarefa}
 \label{sec:metodo-classificadores}
 
-Definido o material, a peça seguinte é quem aprende com ele. Três
+Esta seção define os classificadores da tarefa. Três
 classificadores $\theta$ são empregados, com papéis distintos e explícitos:
 
 \begin{itemize}
@@ -416,8 +412,8 @@ seleção não dependam de um único modelo.
 \section{Métricas de avaliação e análise estatística}
 \label{sec:metodo-metricas}
 
-Esta seção completa o terreno comum: define as métricas de avaliação e os
-instrumentos de análise estatística empregados em todas as comparações.
+Esta seção define as métricas de avaliação e os instrumentos de análise
+estatística empregados em todas as comparações.
 
 \textbf{Desempenho do classificador.} A métrica primária é o \textbf{Macro
 F1-Score}, a média aritmética dos F1 por classe, que pondera igualmente classes
@@ -498,9 +494,9 @@ Perfil de erro por classe & matriz de confusão & avaliação de oráculos \\
 \section{Composição do conjunto inicial \texorpdfstring{$L_0$}{L0}}
 \label{sec:metodo-l0}
 
-Com dados, classificadores e métricas estabelecidos, começa o processo de
-rotulagem, e ele começa pelo seu primeiro custo: o conjunto inicial. O
-primeiro pilar responde a duas perguntas em sequência: quanto a composição
+Com dados, classificadores e métricas estabelecidos, o processo de rotulagem
+começa pelo seu primeiro custo: o conjunto inicial. Esta seção responde a
+duas perguntas em sequência: quanto a composição
 do conjunto inicial importa (medição de sensibilidade) e qual o teto de
 desempenho que uma composição otimizada alcança (busca evolutiva). A segunda
 só faz sentido se a primeira acusar efeito relevante.
@@ -556,18 +552,18 @@ inferior ao de aptidão, que os capítulos de resultados reportam como envelope.
 \label{sec:metodo-drisl}
 
 A seção anterior mede quanto a composição de $L_0$ importa e que teto uma
-composição otimizada alcança; esta, o segundo pilar, responde como construir
+composição otimizada alcança; esta seção responde como construir
 um bom $L_0$ na prática, quando não há rótulo algum. O DRI-SL (\textit{Diversidade
 Representativa Inicial via densidade Semântica e
 variedade Lexical}) constrói um $L_0$ de tamanho alvo $I$ a partir de $U_0$ sem
 acesso a rótulo algum. Ele combina dois espaços de representação, um semântico
-e outro lexical, porque nenhum dos dois isolado dá conta: cobrir os temas do
+e outro lexical, porque nenhum dos dois isolado é suficiente: cobrir os temas do
 conjunto não garante cobrir o vocabulário, e o inverso também vale.
 
-A \textbf{densidade semântica} cuida do primeiro: as instâncias são projetadas
+A \textbf{densidade semântica} atende ao primeiro requisito: as instâncias são projetadas
 por um codificador de sentenças \citep{Reimers2019SBERT} e agrupadas por
 $k$-médias em $N_c$ grupos, com alocação de amostras proporcional ao tamanho de
-cada grupo. A \textbf{variedade lexical intragrupo} cuida do segundo: dentro de
+cada grupo. A \textbf{variedade lexical intragrupo} atende ao segundo: dentro de
 cada grupo, as amostras são escolhidas iterativamente maximizando a introdução
 de termos relevantes ainda não cobertos, por um escore de novidade ponderado
 pelo perfil TF--IDF do grupo. A formalização, o pseudocódigo e as decisões de
@@ -581,8 +577,8 @@ limite empírico de referência.
 \section{LLMs como oráculo de rotulagem}
 \label{sec:metodo-oraculo}
 
-Resolvido o custo de começar, aparece o custo de continuar: a cada iteração,
-alguém precisa fornecer os rótulos, a um preço. É o terceiro pilar. A avaliação de oráculos exige, antes de qualquer comparação, um instrumento
+Definido o conjunto inicial, cada rótulo consultado passa a ter preço. A
+avaliação de oráculos exige, antes de qualquer comparação, um instrumento
 de medição confiável. Por isso esta seção define primeiro a instrumentação
 (contrato de saída, custo e registro de origem de cada resposta), depois o desenho fatorial da
 avaliação e, por fim, o critério fixado de antemão que converte as medições em decisão
@@ -688,8 +684,7 @@ tratar o aprendizado com oráculo ruidoso como cenário central.
 \section{O framework FALCO e sua avaliação}
 \label{sec:metodo-falco}
 
-O quarto pilar integra os anteriores no framework proposto e pergunta o que
-o custo total compra. A seção descreve
+Esta seção integra os componentes anteriores no framework proposto. Ela descreve
 primeiro os componentes e a máquina de fases do FALCO, o objeto em
 avaliação, e, em seguida, os métodos de referência e o desenho experimental
 que o colocam à prova.
@@ -874,8 +869,8 @@ degradação do aprendizado em função da qualidade do oráculo.
 \section{Ameaças à validade}
 \label{sec:metodo-validade}
 
-Montado o processo inteiro, do dado ao veredito, resta declarar onde ele pode
-falhar e o que foi feito a respeito de cada risco.
+Esta seção declara onde o processo pode falhar e o que foi feito a respeito
+de cada risco.
 
 \textbf{Validade externa.} Todo o programa empírico usa um único conjunto de
 dados, construído pelo próprio autor \citep{Daru2022}. Isso maximiza o realismo
@@ -934,7 +929,7 @@ biblioteca \texttt{activelearning}
 o padrão de engenharia de software conhecido como arquitetura hexagonal.
 Desse padrão, o que importa a esta tese é uma garantia: a lógica científica
 dos experimentos (instâncias, esquema de categorias, estratégias, métricas,
-políticas de fase) vive em um núcleo isolado e testado por si. Tudo o que é
+políticas de fase) concentra-se em um núcleo isolado e testado por si. Tudo o que é
 externo, como LLMs, classificadores e armazenamento, conecta-se a esse
 núcleo por adaptadores intercambiáveis. Trocar o provedor de LLM, por
 exemplo, não altera uma linha do núcleo experimental. Cada experimento tem um ponto de entrada único parametrizado por
