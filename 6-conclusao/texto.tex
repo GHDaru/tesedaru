@@ -4,7 +4,7 @@
 \section{Síntese dos achados}
 \label{sec:conc-sintese}
 
-Esta tese perguntou como reduzir o custo de rotulagem na classificação de
+Esta tese investigou como reduzir o custo de rotulagem na classificação de
 textos curtos em português sem perda relevante de desempenho, usando modelos de
 linguagem nas fases em que o aprendizado ativo tradicional é mais frágil. Os
 quatro pilares produziram um quadro coerente:
@@ -17,8 +17,8 @@ pelo sorteio, decaindo até a irrelevância em $|L_0| \ge 10^5$. O envelope
 evolutivo confirma dezenas de pontos percentuais entre composições boas e
 ruins no regime pequeno, que é o regime da partida a frio.
 
-\textbf{É possível capturar esse espaço sem nenhum rótulo.} O DRI-SL é heurística determinística
-de densidade semântica e variedade lexical. Ele superou o \emph{melhor
+\textbf{É possível capturar esse espaço sem nenhum rótulo.} O DRI-SL é uma
+heurística determinística de densidade semântica e variedade lexical. Ele superou o \emph{melhor
 indivíduo} encontrado pelo algoritmo genético supervisionado em todos os
 tamanhos de 100 a 5.000. A reexecução com protocolo anticircularidade mostrou
 que essa comparação é conservadora: o envelope do AG estava inflacionado em
@@ -41,13 +41,14 @@ recorte de 621, o baseline subiria e a diferença encolheria. A margem aqui é,
 portanto, um limite superior da vantagem do LLM. Com essa ressalva, o LLM é \emph{melhor nas classes
 raras} e pior nas convenções do catálogo, pois quase metade dos seus erros são
 fronteiras entre categorias-irmãs e política de classes guarda-chuva,
-aprendíveis apenas com exemplos. O efeito do instrumento de medição (RQ4)
-confirmou-se: sem restrição de saída, 6,8\% das respostas viram falsos erros
-de fraseado.
+aprendíveis apenas com exemplos. O efeito do instrumento de medição
+confirmou-se: sem restrição de saída, 6,8\% das respostas são contadas como
+falsos erros de fraseado.
 
-\textbf{O framework integrado: respondido, com veredito refinado e
-diagnóstico.} O gate de oráculo, fixado de antemão, decidiu: sem oráculo $\ge 85\%$, o
-aprendizado com oráculo ruidoso passa a ser o cenário central. A atribuição
+\textbf{O framework integrado: hipótese testada, com veredito e
+diagnóstico.} Como nenhum oráculo atingiu os $85\%$ de acurácia exigidos pelo
+gate, fixado de antemão, o aprendizado com oráculo ruidoso passa a ser o
+cenário central. A atribuição
 dos papéis manteve o critério de melhor razão acurácia/custo, com a restrição
 de piso relaxada e a divergência declarada onde o resultado é reportado
 (Seção~\ref{sec:res-gate}). A configuração derivada do FALCO é o
@@ -56,22 +57,23 @@ superioridade significativa comprovada. A validação com o classificador forte 
 completo, com três sementes e avaliação na população reservada inteira. Na
 configuração executada, a hipótese central \emph{não} se atinge: acurácia de
 $0{,}705$ contra critério de $0{,}843$, com 11.936 rótulos, $5{,}2\%$ da
-população. A decomposição pareada atribui a perda ao \emph{orçamento}. Não ao
-ruído do oráculo, que em Macro F1 até ajuda as caudas, pois o braço com
-rótulos do oráculo supera o de gabarito nos mesmos itens, na média das
-sementes. Nem à seleção, que compra Macro F1 e cobertura com consistência
-entre sementes, mas não acurácia. A parada por
+população. A decomposição pareada atribui a perda ao \emph{orçamento}, não ao
+ruído do oráculo nem à seleção. O ruído chega a favorecer as classes raras em
+Macro F1: o braço com rótulos do oráculo supera o de gabarito nos mesmos
+itens, na média das sementes. A seleção, por sua vez, ganha Macro F1 e
+cobertura com consistência entre sementes, mas não acurácia. A parada por
 estagnação do classificador leve encerra o laço muito antes do ponto em que
-o BERTimbau para de converter rótulos em desempenho. A varredura de orçamento localiza a correção. É achado \textit{post hoc},
+o BERTimbau deixa de converter rótulos adicionais em ganho de desempenho. A
+varredura de orçamento localiza a correção. É achado \textit{post hoc},
 executado com rótulos de \emph{gabarito}, não do oráculo da hipótese. Na
 métrica pré-registrada, o critério passa a ser atendido com 20 mil rótulos
 ($8{,}6\%$ da população), nas três sementes, dentro do teto de 34.724. Em
 Macro F1, com 30 mil ($13{,}0\%$), também nas três sementes e dentro do teto.
 E, na média das três sementes, 35 mil rótulos selecionados por entropia ficam
 à frente da supervisão completa do \textit{pool} nas duas métricas, com
-heterogeneidade entre sementes declarada. A vantagem de cobertura do ``menos
-é mais'', medida em escala populacional, reaparece no \textit{transformer}
-como efeito de média.
+heterogeneidade entre sementes declarada. A vantagem de cobertura do treino
+com o subconjunto selecionado sobre a supervisão completa, medida em escala
+populacional, reaparece no \textit{transformer} como efeito de média.
 O veredito que os dados sustentam tem duas partes. \textbf{O critério é
 atingível dentro do teto da hipótese, com folga e robustez a sementes na
 métrica pré-registrada.} E a configuração executada parou por estagnação
@@ -85,19 +87,21 @@ oráculo.
 \textbf{O que muda quando o oráculo é um LLM.} A literatura clássica de
 aprendizado ativo minimiza \emph{contagem de rótulos} assumindo oráculo correto
 \citep{Settles2012,Olsson2009}; a com custos reais mostra que contagem não é
-custo \citep{SettlesCravenFriedland2008}. Com oráculo LLM, a moeda muda duas vezes. O custo vira função de tokens, do
-\textit{cache} e do lote, os três medidos pela instrumentação desta tese. E a
-qualidade vira parâmetro escolhível, num cardápio com uma ordem de grandeza
-de variação de preço.
+custo \citep{SettlesCravenFriedland2008}. Com oráculo LLM, dois termos do problema
+mudam. O custo passa a ser função de tokens, do \textit{cache} e do lote, os
+três medidos pela instrumentação desta tese. E a qualidade torna-se parâmetro
+escolhível, num conjunto de opções com uma ordem de grandeza de variação de
+preço.
 
-A decisão ``qual oráculo em qual fase'' é o coração do FALCO, e só faz
-sentido nesse regime novo. Os dados da avaliação de oráculos mostram que ela
+A escolha de qual oráculo atua em qual fase é a decisão central do FALCO, e só
+faz sentido nesse regime novo. Os dados da avaliação de oráculos mostram que ela
 não é trivial: o modelo mais caro (gpt-4o) não é o mais acurado, e o segundo
 mais barato entrega 95\% da acurácia do melhor por 8,5\% do custo.
 
-\textbf{Erro estruturado é menos grave que erro uniforme, e é o que temos.}
-O perfil de erro do RQ3 concentra as confusões em pares vizinhos e classes
-guarda-chuva. É o cenário benigno da literatura de rótulos ruidosos
+\textbf{Erro estruturado é menos grave que erro uniforme, e é o caso do
+domínio estudado.}
+O perfil de erro dos oráculos concentra as confusões em pares vizinhos e
+classes guarda-chuva. É o cenário benigno da literatura de rótulos ruidosos
 \citep{Frenay2014,Natarajan2013,Song2023NoisyLabels}. Parte do ``erro'' do
 oráculo é inclusive defensável semanticamente: a análise multi-gold mostrou
 que o gabarito também erra. Isso sugere que a avaliação de robustez com ruído
@@ -105,7 +109,7 @@ que o gabarito também erra. Isso sugere que a avaliação de robustez com ruíd
 o desenho adotado, é um teste \emph{mais duro} que a realidade, o que fortalece
 qualquer resultado positivo obtido nele.
 
-\textbf{Mais rótulo não é sempre melhor, e a autoavaliação engana.} A escala populacional acrescenta dois avisos operacionais ao quadro.
+\textbf{Mais rótulo não é sempre melhor, e a autoavaliação é enviesada.} A escala populacional acrescenta dois avisos operacionais ao quadro.
 Primeiro, treinar com o subconjunto ativamente selecionado pode superar o
 treino com \emph{todos} os rótulos em métrica macro, porque a amostra ativa é
 mais balanceada que a distribuição natural. Segundo, a autoavaliação, isto é,
@@ -115,8 +119,8 @@ Ambos reforçam o mesmo princípio de desenho do FALCO: parar cedo pelo
 critério de estagnação e medir sempre em conjunto reservado.
 
 \textbf{A medição é parte do método.} Três achados desta tese são sobre instrumentos, não sobre modelos: o efeito
-do enum (RQ4), a inflação de circularidade no envelope evolutivo e o teto
-imposto pelo ruído do gabarito. A inflação é de $-6{,}3$ p.p.\ ao reavaliar
+da restrição do formato de saída, a inflação de circularidade no envelope
+evolutivo e o teto imposto pelo ruído do gabarito. A inflação é de $-6{,}3$ p.p.\ ao reavaliar
 em teste intocado; o teto está limitado a $+0{,}7$ p.p.\ nas comparações. Em conjunto, eles justificam a posição metodológica central
 do trabalho: nenhum número sem artefato rastreável, e nenhum instrumento sem
 quantificação do seu próprio erro.
@@ -150,8 +154,9 @@ reutilizável fora desta tese.
 \section{Limitações}
 \label{sec:conc-limitacoes}
 
-As principais limitações são quatro. A primeira é o conjunto de dados único, criado
-pelo autor; mitigam-no o protocolo replicável e os achados de mecanismo. A
+As principais limitações são quatro. A primeira é o conjunto de dados único,
+criado pelo autor; essa limitação é mitigada pelo protocolo replicável e pelos
+achados de mecanismo. A
 segunda é a validação com o classificador forte em configuração uniforme mas
 econômica, com 3 épocas, contexto de 32 \textit{tokens}, semente única e
 CPU. A régua absoluta do BERTimbau pode subir com mais épocas e contexto, o
@@ -178,7 +183,8 @@ oráculos}: comparar a progressão sequencial do FALCO com
 por confiança \citep{Rouzegar2024}; a formulação ideal trata a escolha de
 oráculo por fase como problema de \textit{bandit} com custo
 \citep{BlumMansour2007,Baykal2021}. A segunda é \textbf{o \textit{prompt}
-como componente otimizável}, porta que a ablação de \textit{prompt} abre. As
+como componente otimizável}, possibilidade aberta pela ablação de
+\textit{prompt}. As
 extensões naturais são duas: gerar regras de fronteira automaticamente a
 partir da matriz de confusão de uma rodada anterior, e permitir que o
 oráculo emita \emph{rótulos candidatos} quando incerto, destilados pelo
@@ -198,7 +204,7 @@ robustez. A quinta é \textbf{o ciclo de vida pós-treinamento}. O critério de
 parada do laço, a estagnação em validação, já está implementado e
 formalizado; a decisão de \emph{liberação} do modelo e o monitoramento de
 \textit{drift} em produção merecem tratamento próprio. O oráculo barato da
-Fase~1, o LLM Inicial, vira instrumento de auditoria contínua por
+Fase~1, o LLM Inicial, torna-se instrumento de auditoria contínua por
 verificação amostral periódica a custo desprezível. Sinais sem rótulo, como
 a taxa de vocabulário novo e a deriva da confiança predita, antecipam o
 gatilho de retreino. O desenho está detalhado na documentação operacional da
@@ -208,7 +214,7 @@ biblioteca.
 \label{sec:conc-conclusao}
 
 No estado atual da evidência, o custo de rotulagem em classificação de textos
-curtos em português pode ser atacado nas três frentes que o FALCO integra. Na
+curtos em português pode ser reduzido nas três etapas que o FALCO integra. Na
 partida a frio, o DRI-SL supera até o envelope evolutivo. Na seleção, as
 estratégias de incerteza operam sobre um classificador barato. E na
 rotulagem, oráculos LLM entregam 77--83\% de acurácia por centavos de dólar o
@@ -220,20 +226,19 @@ acurácia da supervisão completa do \textit{pool} de referência, que é a
 métrica do pré-registro, com no máximo 34.724 rótulos, ou $15\%$ da população
 deduplicada.
 
-O veredito tem duas metades. \textbf{O critério é atingível dentro do teto}:
+O veredito tem duas partes. \textbf{O critério é atingível dentro do teto}:
 o cruzamento ocorre em 20 mil rótulos, $8{,}6\%$ da população, nas três
-sementes, em varredura \textit{post hoc} com rótulos de gabarito.
-\textbf{Enquanto a configuração executada parou por estagnação aquém do
-piso}, com 11.936 rótulos, $5{,}2\%$. O diagnóstico identifica a causa: não o
+sementes, em varredura \textit{post hoc} com rótulos de gabarito. \textbf{Já a
+configuração executada parou por estagnação aquém do piso}, com 11.936
+rótulos, $5{,}2\%$. O diagnóstico identifica a causa: não o
 ruído do oráculo nem a seleção, e sim o critério de parada herdado do
-classificador leve, que subestima o apetite do classificador forte.
+classificador leve, que subestima a demanda de rótulos do classificador forte.
 
 Em Macro F1, a análise de robustez, o critério é atingido com 30 mil rótulos,
 nas três sementes, dentro do teto. E, na média das sementes, 35 mil rótulos
 ativamente selecionados ficam à frente da supervisão completa do
-\textit{pool} nas duas métricas, com heterogeneidade declarada: para o
-desempenho final, a fração restante dos rótulos do \textit{pool} não
-acrescenta desempenho em média.
+\textit{pool} nas duas métricas, com heterogeneidade declarada: a fração
+restante dos rótulos do \textit{pool} não acrescenta desempenho em média.
 
 Os resultados dos experimentos executados, com as reexecuções dos dois
 primeiros pilares, delimitam com precisão as condições em que a hipótese se
