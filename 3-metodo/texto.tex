@@ -49,14 +49,13 @@ A Figura~\ref{fig:metodo-sequencia} apresenta essa sequência.
     \label{fig:metodo-sequencia}
 \end{figure}
 
-O capítulo encerra declarando onde o processo pode falhar (ameaças à
-validade, Seção~\ref{sec:metodo-validade}) e como percorrê-lo de novo
-(Seção~\ref{sec:metodo-reprodutibilidade}). Todos os experimentos são
+O capítulo encerra com uma síntese do desenho experimental
+(Seção~\ref{sec:metodo-encerramento}). Todos os experimentos são
 implementados na biblioteca \texttt{activelearning}, desenvolvida nesta
 pesquisa (Apêndice~\ref{ap:biblioteca}), e cada número reportado nos
 capítulos de resultados é rastreável a um artefato de execução versionado,
-com configuração, sementes, revisão do código e registros por iteração,
-conforme a Seção~\ref{sec:metodo-reprodutibilidade}.
+com configuração, sementes, revisão do código e registros por iteração
+(Apêndice~\ref{ap:biblioteca}).
 
 \section{Desenho da pesquisa}
 \label{sec:metodo-desenho}
@@ -101,9 +100,7 @@ A Tabela~\ref{tab:metodo-experimentos} resume o programa experimental. Os
 identificadores da primeira coluna localizam código e dados; os achados,
 nos capítulos de resultados, são nomeados pelo que foi descoberto. Houve um desenho planejado mais amplo do que o
 executado; o que ficou fora está registrado como extensão na
-Seção~\ref{sec:metodo-falco-baselines}, e a divergência entre planejado e
-executado é declarada nas ameaças à validade
-(Seção~\ref{sec:metodo-validade}).
+Seção~\ref{sec:metodo-falco-baselines}.
 
 A avaliação de robustez ao ruído do oráculo é condicional: sua
 execução depende do desempenho medido na avaliação dos oráculos, segundo
@@ -142,11 +139,11 @@ E3 & Avaliação da hipótese central com o classificador forte & framework & Se
 {\footnotesize Cada identificador da primeira coluna nomeia uma configuração
 versionada da biblioteca \texttt{activelearning} \cite{DaruActiveLearning}, e é
 por ele que se recupera a execução correspondente; a
-Seção~\ref{sec:metodo-reprodutibilidade} descreve o ambiente. O E3 designa,
+documentação da biblioteca descreve o ambiente (Apêndice~\ref{ap:biblioteca}). O E3 designa,
 em toda a tese, a avaliação da hipótese central efetivamente executada. As linhas sem
 identificador pertencem ao estudo do conjunto inicial, produzido no
-repositório anterior da pesquisa; sua origem e verificação estão na
-Seção~\ref{sec:metodo-reprodutibilidade}. E1 e E2 apoiam decisões de desenho
+repositório anterior da pesquisa; sua origem e verificação acompanham o
+repositório de código da tese. E1 e E2 apoiam decisões de desenho
 do framework (estratégia da Fase~2 e épocas de ajuste fino), sem constituir
 um pilar próprio.\\[2pt]
 $^{\dagger}$ O E5 foi executado, mas nenhuma seção dos capítulos de resultados o
@@ -305,7 +302,7 @@ entre os ranks de frequência é de $0{,}983$, e o desvio máximo de proporção
 $0{,}20$ ponto percentual, em uma única classe. O custo dessa escolha concentra-se na cauda: 649
 das 714 classes ($90{,}9\%$) estão presentes no \textit{pool}, 65 estão ausentes e
 179 têm menos de cinco exemplos. É limitação declarada, e relevante para métricas
-macro (Seção~\ref{sec:metodo-validade}).
+macro (Seção~\ref{sec:conc-limitacoes}).
 
 O tamanho de 50 mil resulta de viabilidade computacional. A avaliação final
 compara \emph{braços} experimentais: cada braço é uma condição completa do
@@ -320,8 +317,8 @@ contra a qual os braços são medidos
 (Seção~\ref{sec:metodo-falco-baselines}), os orçamentos passam a ser
 expressos como fração do \textit{pool} de 50 mil ($30\% = 15$ mil rótulos),
 e não de $|U_0|$. Essa mudança de denominador é declarada aqui, e suas
-consequências são discutidas nas ameaças à validade
-(Seção~\ref{sec:metodo-validade}).
+consequências são discutidas nas limitações
+(Seção~\ref{sec:conc-limitacoes}).
 
 \begin{figure}[htbp]
     \centering
@@ -866,94 +863,117 @@ A avaliação de robustez, executada se o critério do oráculo indicar ruído
 relevante, repete o desenho de comparação com oráculo simulado de ruído
 paramétrico $\varepsilon \in \{0; 0{,}1; 0{,}2; 0{,}4\}$, quantificando a
 degradação do aprendizado em função da qualidade do oráculo.
-\section{Ameaças à validade}
-\label{sec:metodo-validade}
+\section{Encerramento do capítulo}
+\label{sec:metodo-encerramento}
 
-Esta seção declara onde o processo pode falhar e o que foi feito a
-respeito de cada risco.
+Este capítulo estabeleceu o desenho experimental da tese. O terreno comum
+reúne a base auditada com suas duas visões de trabalho, os três
+classificadores com papéis divididos por custo computacional e as métricas e
+instrumentos de inferência da Tabela~\ref{tab:metricas-mapa}. Sobre ele, os
+quatro pilares definem a composição e a construção do conjunto inicial, a
+avaliação instrumentada dos oráculos LLM e o framework FALCO, com seus
+métodos de referência e a comparação por braços que isola um efeito por vez.
+Cada experimento corresponde a uma configuração versionada, e cada número
+reportado nos capítulos seguintes é rastreável a um artefato de execução
+(Apêndice~\ref{ap:biblioteca}). O Capítulo~\ref{ch:resultados-l0} apresenta
+os resultados da composição e da construção do conjunto inicial; o
+Capítulo~\ref{ch:resultados-falco}, os da avaliação dos oráculos e do
+framework.
 
-\textbf{Validade externa.} Todo o programa empírico usa um único conjunto de
-dados, construído pelo próprio autor \citep{Daru2022}. Isso maximiza o realismo
-(dados de produção de 18 varejistas) e a comparabilidade com o trabalho anterior,
-mas limita a generalização: as conclusões valem, a rigor, para descrições curtas
-de produtos de varejo em português. Três mitigações são adotadas. As decisões do framework não usam nenhuma
-propriedade específica do conjunto além das características públicas do gênero:
-texto curto, desbalanceamento e abreviações. Os achados de instrumentação do
-oráculo são mecanismos do par LLM--API, não do dado. E o protocolo completo é
-reprodutível em qualquer conjunto rotulado com a mesma estrutura; a réplica em
-benchmark público, como o STOPS \citep{Karl2023}, fica registrada como trabalho
-futuro.
-
-\textbf{Validade interna.} O conjunto de teste é isolado de todas as decisões do
-processo (particionamento com deduplicação prévia; transição de fase por $V$;
-envelope do AG reavaliado em partição intocada). O viés distribucional que a
-amostragem ativa induz no conjunto rotulado \citep{Santos2016Vies} não afeta a
-medição, feita sempre em $T$ fixo e aleatório.
-
-\textbf{Desenho executado vs.\ planejado.} Duas divergências entre o desenho
-inicialmente planejado e o executado são declaradas e têm consequências
-mensuráveis. Primeira: o \textit{pool} de 50 mil é amostra aleatória uniforme
-(Seção~\ref{sec:metodo-dados-particionamento}), não estratificada. Como 65 das
-714 classes não têm nenhum exemplo no \textit{pool} e 179 têm menos de cinco, o
-teto de Macro F1 alcançável por \emph{qualquer} braço treinado ali é
-estruturalmente rebaixado nas classes de cauda. Isso não compromete as
-comparações \emph{entre} braços, que compartilham o mesmo \textit{pool}; afeta
-os valores absolutos de Macro F1, que subestimam o que uma amostra estratificada
-permitiria. Segunda: o orçamento inicialmente planejado
-($B=30\%$ de $|U_0|$) foi re-baseado para fração do \textit{pool} de 50 mil
-com a mudança de régua dessa comparação; os percentuais reportados no
-Capítulo~\ref{ch:resultados-falco} referem-se sempre ao denominador de 50 mil,
-e a primeira menção de cada resultado o explicita.
-
-\textbf{Validade de constructo.} A acurácia do oráculo é medida contra um
-padrão-ouro com ruído conhecido (teto $\approx 99{,}3\%$; análise de
-sensibilidade na Seção~\ref{sec:metodo-dados-auditoria}), e o efeito do
-instrumento de medição é ele próprio quantificado (RQ4). O custo por rótulo
-depende de preços de API vigentes na execução, de modo que os valores absolutos datam, enquanto as
-razões entre modelos são mais estáveis. Mais amplamente, \textbf{toda medição de oráculo LLM nesta tese é uma
-fotografia da tripla (modelo, provedor, data)}. Temperatura zero não garante
-determinismo entre versões de modelo nem entre serviços de \textit{serving}, e a
-própria avaliação de oráculos mostra o mesmo modelo divergindo
-significativamente de si mesmo entre dois provedores
-(Seção~\ref{sec:res-e0-rq2}). Por isso cada anotação é arquivada com
-registro completo de origem (modelo, provedor e data), o que permite re-medição futura contra a mesma
-referência.
-
-\section{Reprodutibilidade e ambiente}
-\label{sec:metodo-reprodutibilidade}
-
-Esta seção descreve o instrumental que permite reexecutar os experimentos e
-verificar cada resultado. Toda a instrumentação é implementada na
-biblioteca \texttt{activelearning}
-\cite{DaruActiveLearning} (Apêndice~\ref{ap:biblioteca}), organizada segundo
-o padrão de engenharia de software conhecido como arquitetura hexagonal.
-Desse padrão, o que importa a esta tese é uma garantia: a lógica científica
-dos experimentos (instâncias, esquema de categorias, estratégias, métricas,
-políticas de fase) concentra-se em um núcleo isolado e testado por si. Tudo o que é
-externo, como LLMs, classificadores e armazenamento, conecta-se a esse
-núcleo por adaptadores intercambiáveis. Trocar o provedor de LLM, por
-exemplo, não altera uma linha do núcleo experimental. Cada experimento tem um ponto de entrada único parametrizado por
-arquivo de configuração versionado. As execuções registram sementes, revisão do
-código e anotações linha a linha (JSONL), e são retomáveis após interrupção; as
-chamadas a oráculos registram tokens, tokens em \textit{cache}, latência e custo
-estimado, insumos da análise de custo do Capítulo~\ref{ch:resultados-falco}.
-
-O ambiente de treinamento é uma estação com GPU NVIDIA RTX 3090 (24~GB), 64~GB
-de RAM e Linux, com as versões das dependências fixadas pelo gerenciador de
-pacotes do repositório.
-
-\textbf{Origem dupla dos resultados.} Por razões históricas, o programa
-experimental distribui-se em dois repositórios versionados, e a distinção é
-mantida explícita em toda a tese. Os resultados \emph{originais} dos pilares do conjunto inicial e da partida a
-frio foram produzidos no repositório \texttt{activetextclassification}
-\cite{DaruActiveTextClassification}: o estudo de sensibilidade de $L_0$, o
-envelope do algoritmo genético e o DRI-SL na partida a frio. Os pilares do
-oráculo LLM e do framework (E0, E0-P, E1, E4, E5, E6 e E3) foram produzidos na
-biblioteca \texttt{activelearning}, reescrita sob a arquitetura acima, e com eles
-as \emph{reexecuções} de verificação dos dois primeiros.
-Onde a tese reporta um número originado no repositório legado, o porte para a
-biblioteca nova foi verificado por um de três caminhos: igualdade de matrizes de
-escore (PVBin), reexecução independente com protocolo mais rigoroso
-(sensibilidade de $L_0$, divergência $\le 0{,}7$ p.p.) ou conferência direta
-contra o artefato de origem (DRI-SL). O registro dessa auditoria acompanha o
-código.
+% =========================================================================
+% SEÇÕES COMENTADAS por ordem do autor (auditoria, 2026-08-24): Ameaças à
+% validade e Reprodutibilidade e ambiente. Conteúdo preservado abaixo;
+% destino em decisão (Cap.6/limitações, apêndice ou reescrita com o
+% levantamento docs/records/ambientes-por-experimento.md).
+% =========================================================================
+% \section{Ameaças à validade}
+% \label{sec:metodo-validade}
+% 
+% Esta seção declara onde o processo pode falhar e o que foi feito a
+% respeito de cada risco.
+% 
+% \textbf{Validade externa.} Todo o programa empírico usa um único conjunto de
+% dados, construído pelo próprio autor \citep{Daru2022}. Isso maximiza o realismo
+% (dados de produção de 18 varejistas) e a comparabilidade com o trabalho anterior,
+% mas limita a generalização: as conclusões valem, a rigor, para descrições curtas
+% de produtos de varejo em português. Três mitigações são adotadas. As decisões do framework não usam nenhuma
+% propriedade específica do conjunto além das características públicas do gênero:
+% texto curto, desbalanceamento e abreviações. Os achados de instrumentação do
+% oráculo são mecanismos do par LLM--API, não do dado. E o protocolo completo é
+% reprodutível em qualquer conjunto rotulado com a mesma estrutura; a réplica em
+% benchmark público, como o STOPS \citep{Karl2023}, fica registrada como trabalho
+% futuro.
+% 
+% \textbf{Validade interna.} O conjunto de teste é isolado de todas as decisões do
+% processo (particionamento com deduplicação prévia; transição de fase por $V$;
+% envelope do AG reavaliado em partição intocada). O viés distribucional que a
+% amostragem ativa induz no conjunto rotulado \citep{Santos2016Vies} não afeta a
+% medição, feita sempre em $T$ fixo e aleatório.
+% 
+% \textbf{Desenho executado vs.\ planejado.} Duas divergências entre o desenho
+% inicialmente planejado e o executado são declaradas e têm consequências
+% mensuráveis. Primeira: o \textit{pool} de 50 mil é amostra aleatória uniforme
+% (Seção~\ref{sec:metodo-dados-particionamento}), não estratificada. Como 65 das
+% 714 classes não têm nenhum exemplo no \textit{pool} e 179 têm menos de cinco, o
+% teto de Macro F1 alcançável por \emph{qualquer} braço treinado ali é
+% estruturalmente rebaixado nas classes de cauda. Isso não compromete as
+% comparações \emph{entre} braços, que compartilham o mesmo \textit{pool}; afeta
+% os valores absolutos de Macro F1, que subestimam o que uma amostra estratificada
+% permitiria. Segunda: o orçamento inicialmente planejado
+% ($B=30\%$ de $|U_0|$) foi re-baseado para fração do \textit{pool} de 50 mil
+% com a mudança de régua dessa comparação; os percentuais reportados no
+% Capítulo~\ref{ch:resultados-falco} referem-se sempre ao denominador de 50 mil,
+% e a primeira menção de cada resultado o explicita.
+% 
+% \textbf{Validade de constructo.} A acurácia do oráculo é medida contra um
+% padrão-ouro com ruído conhecido (teto $\approx 99{,}3\%$; análise de
+% sensibilidade na Seção~\ref{sec:metodo-dados-auditoria}), e o efeito do
+% instrumento de medição é ele próprio quantificado (RQ4). O custo por rótulo
+% depende de preços de API vigentes na execução, de modo que os valores absolutos datam, enquanto as
+% razões entre modelos são mais estáveis. Mais amplamente, \textbf{toda medição de oráculo LLM nesta tese é uma
+% fotografia da tripla (modelo, provedor, data)}. Temperatura zero não garante
+% determinismo entre versões de modelo nem entre serviços de \textit{serving}, e a
+% própria avaliação de oráculos mostra o mesmo modelo divergindo
+% significativamente de si mesmo entre dois provedores
+% (Seção~\ref{sec:res-e0-rq2}). Por isso cada anotação é arquivada com
+% registro completo de origem (modelo, provedor e data), o que permite re-medição futura contra a mesma
+% referência.
+% 
+% \section{Reprodutibilidade e ambiente}
+% \label{sec:metodo-reprodutibilidade}
+% 
+% Esta seção descreve o instrumental que permite reexecutar os experimentos e
+% verificar cada resultado. Toda a instrumentação é implementada na
+% biblioteca \texttt{activelearning}
+% \cite{DaruActiveLearning} (Apêndice~\ref{ap:biblioteca}), organizada segundo
+% o padrão de engenharia de software conhecido como arquitetura hexagonal.
+% Desse padrão, o que importa a esta tese é uma garantia: a lógica científica
+% dos experimentos (instâncias, esquema de categorias, estratégias, métricas,
+% políticas de fase) concentra-se em um núcleo isolado e testado por si. Tudo o que é
+% externo, como LLMs, classificadores e armazenamento, conecta-se a esse
+% núcleo por adaptadores intercambiáveis. Trocar o provedor de LLM, por
+% exemplo, não altera uma linha do núcleo experimental. Cada experimento tem um ponto de entrada único parametrizado por
+% arquivo de configuração versionado. As execuções registram sementes, revisão do
+% código e anotações linha a linha (JSONL), e são retomáveis após interrupção; as
+% chamadas a oráculos registram tokens, tokens em \textit{cache}, latência e custo
+% estimado, insumos da análise de custo do Capítulo~\ref{ch:resultados-falco}.
+% 
+% O ambiente de treinamento é uma estação com GPU NVIDIA RTX 3090 (24~GB), 64~GB
+% de RAM e Linux, com as versões das dependências fixadas pelo gerenciador de
+% pacotes do repositório.
+% 
+% \textbf{Origem dupla dos resultados.} Por razões históricas, o programa
+% experimental distribui-se em dois repositórios versionados, e a distinção é
+% mantida explícita em toda a tese. Os resultados \emph{originais} dos pilares do conjunto inicial e da partida a
+% frio foram produzidos no repositório \texttt{activetextclassification}
+% \cite{DaruActiveTextClassification}: o estudo de sensibilidade de $L_0$, o
+% envelope do algoritmo genético e o DRI-SL na partida a frio. Os pilares do
+% oráculo LLM e do framework (E0, E0-P, E1, E4, E5, E6 e E3) foram produzidos na
+% biblioteca \texttt{activelearning}, reescrita sob a arquitetura acima, e com eles
+% as \emph{reexecuções} de verificação dos dois primeiros.
+% Onde a tese reporta um número originado no repositório legado, o porte para a
+% biblioteca nova foi verificado por um de três caminhos: igualdade de matrizes de
+% escore (PVBin), reexecução independente com protocolo mais rigoroso
+% (sensibilidade de $L_0$, divergência $\le 0{,}7$ p.p.) ou conferência direta
+% contra o artefato de origem (DRI-SL). O registro dessa auditoria acompanha o
+% código.

@@ -6,8 +6,7 @@ generalização à composição do conjunto inicial $L_0$ (Seção~\ref{sec:res-
 os limites estimados por otimização evolutiva (Seção~\ref{sec:res-l0-ag}) e a
 avaliação do DRI-SL como estratégia de partida a frio (\textit{cold start})
 (Seção~\ref{sec:res-l0-drisl}). Todos os experimentos usam o classificador leve
-PVBin (Capítulo~\ref{ch:metodo}). Os resultados originais vêm do programa
-experimental da pesquisa. Como verificação de robustez, o estudo de
+PVBin (Capítulo~\ref{ch:metodo}). Como verificação de robustez, o estudo de
 sensibilidade e o mecanismo do algoritmo genético (AG) foram
 \textbf{reexecutados de forma independente} na biblioteca de aprendizado ativo
 da tese \citep{DaruActiveLearning}, sob protocolo mais rigoroso: deduplicação
@@ -39,7 +38,7 @@ Classificador PVBin.}
 \label{fig:tendencia-l0-log}
 \end{figure}
 
-Três padrões estruturam a leitura:
+Os resultados mostram três padrões:
 
 \begin{enumerate}
   \item \textbf{Crescimento com saturação}: a acurácia média sobe de $6{,}7\%$
@@ -60,7 +59,7 @@ Três padrões estruturam a leitura:
   fator dominante é \emph{quais classes} entram no sorteio.
 \end{enumerate}
 
-Lidos contra a literatura, esses padrões ganham referência externa. O patamar
+Esses padrões podem ser lidos contra a literatura. O patamar
 de saturação coincide com o teto conhecido do classificador sobre esta base. A
 melhor configuração leve da dissertação que origina o PVBin mede $89{,}56\%$
 de acurácia e $70{,}09\%$ de Macro F1 com supervisão completa
@@ -82,8 +81,8 @@ esta seção mede é o custo dessa arbitrariedade.
 
 Esses resultados fundamentam a partida a frio. A composição importa muito no
 regime pequeno, que é exatamente o regime da partida a frio do aprendizado
-ativo. Construir $L_0$ deliberadamente, em vez de sorteá-lo, é portanto a
-alavanca disponível antes de existir qualquer rótulo.
+ativo. Construir $L_0$ deliberadamente, em vez de sorteá-lo, é portanto o recurso
+disponível antes de existir qualquer rótulo.
 
 \section{Limites por otimização evolutiva}
 \label{sec:res-l0-ag}
@@ -137,8 +136,8 @@ orçamento, que não foi executado.
 \section{DRI-SL \textit{versus} aleatório e envelope do AG}
 \label{sec:res-l0-drisl}
 
-Uma heurística que não consulta rótulo algum vence o otimizador que os
-consulta. A Tabela~\ref{tab:drisl-vs-ag} compara o DRI-SL (heurística
+Esta seção compara o DRI-SL com o envelope do AG. A
+Tabela~\ref{tab:drisl-vs-ag} compara o DRI-SL (heurística
 determinística sem rótulos, Seção~\ref{sec:metodo-drisl}) com o envelope do
 AG.
 
@@ -176,7 +175,7 @@ Há uma ressalva metodológica. Os valores do AG aqui reportados herdam o
 protocolo original, com aptidão e relato na mesma partição, inflacionado por
 construção. A quantificação está na seção seguinte, e reforça a conclusão.
 
-Esse desfecho confirma a expectativa mais bem estabelecida da literatura de
+Esse resultado confirma a expectativa mais bem estabelecida da literatura de
 partida a frio: em orçamento baixo, representatividade supera incerteza.
 \citet{Hacohen2022TypiClust} formalizam a transição de regime já apresentada
 no Capítulo~\ref{ch:fundam} e mostram que, abaixo dela, as estratégias
@@ -191,10 +190,9 @@ O DRI-SL combina representatividade (densidade semântica) e cobertura
 em português e numa escala de classes maior do que a testada por esses
 trabalhos, o que essa literatura leva a esperar.
 
-A surpresa está no adversário que a heurística supera. O AG não é um competidor
-fraco: otimiza a composição com acesso direto aos rótulos e à aptidão final,
+O AG otimiza a composição com acesso direto aos rótulos e à aptidão final,
 ao custo das 2.000 avaliações supervisionadas por cenário, e ainda assim
-perde para uma heurística que não consulta rótulo algum. A literatura sugere
+fica atrás de uma heurística que não consulta rótulo algum. A literatura sugere
 a explicação: mesmo a incerteza calculada por um modelo treinado no conjunto
 inteiro perde da aleatória no orçamento baixo \citep{Hacohen2022TypiClust}. É
 indício de que o gargalo da partida a frio não é falta de informação
@@ -209,7 +207,8 @@ com a leitura de regime: o valor da representatividade cresce com o número de
 classes a cobrir e diminui quando poucas classes já são cobertas por
 qualquer amostra.
 
-Há, por fim, um efeito de variância que as tabelas de média não mostram. A
+A reexecução mede também um efeito de variância que as tabelas de média não
+registram. A
 literatura reporta que a seleção estratégica reduz também a dispersão entre
 execuções, não só a média \citep{Griesshaber2020, Yu2023Patron}. O DRI-SL,
 determinístico, leva esse efeito ao limite: elimina por construção a
@@ -277,7 +276,7 @@ reexecução aplicou ainda o protocolo anticircularidade da Seção~\ref{sec:met
 medida em partição de aferição, indivíduo final \emph{reavaliado} no teste
 intocado. O mecanismo se reproduz: o melhor indivíduo evolui $+5{,}2$ p.p.\ de acurácia
 em $I=50$, e o envelope fica acima da média aleatória em todos os casos. A
-reavaliação honesta, porém, revela a inflação da circularidade. Para
+reavaliação em partição intocada quantifica a inflação da circularidade. Para
 maximização de Macro F1 com $I=500$, a aptidão final é $19{,}4\%$, enquanto o
 mesmo indivíduo mede $13{,}1\%$ no teste intocado, isto é, $6{,}3$ pontos
 percentuais de superajuste à partição de aferição. Para acurácia a inflação é menor ($\approx 1$ p.p.).

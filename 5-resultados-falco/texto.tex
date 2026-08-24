@@ -294,8 +294,8 @@ entropia e margens.
 
 Esta seção injeta ruído uniforme $\varepsilon \in \{0{,}1;\, 0{,}2;\, 0{,}4\}$ no
 oráculo simulado e repete o desenho da Seção~\ref{sec:res-e1} para entropia e
-aleatória. A
-pergunta é quanto do valor do aprendizado ativo sobrevive quando o oráculo
+aleatória. O
+objeto da medição é quanto do valor do aprendizado ativo sobrevive quando o oráculo
 erra na taxa observada nos LLMs reais ($\varepsilon \approx 0{,}17$--$0{,}23$
 no platô de oráculos da Seção~\ref{sec:res-e0}). Os três níveis são escolhidos para \emph{cercar} essa faixa:
 $0{,}1$ abaixo dela (oráculo melhor que os disponíveis), $0{,}2$ dentro dela
@@ -558,7 +558,7 @@ correspondente em Macro F1: o gargalo do braço A é orçamento, não rótulo.
 \textbf{(ii) A seleção ativa compra Macro F1 e cobertura, não acurácia.}
 Com o mesmo orçamento e gabarito, a diferença de acurácia entre o braço
 aleatório e o selecionado é pequena (C~vs.~B: $0{,}788$ vs.\ $0{,}777$,
-dentro da dispersão entre sementes), mas em Macro F1 a seleção vence com
+dentro da dispersão entre sementes), mas em Macro F1 a seleção é superior com
 consistência (B~$-$~C é positivo e significativo nas três sementes,
 \textit{bootstrap} pareado) e em cobertura: o treino selecionado
 alcança 634 classes, contra 525 do sorteio aleatório. É o mesmo padrão dos seletores em escala
