@@ -233,19 +233,19 @@ Sobre essa normalização, um espaço fechado de rótulos é construído para os
 experimentos de oráculo. Classes com menos de cinco instâncias são agrupadas na
 categoria sentinela \texttt{\_rare\_} ($0{,}13\%$ das linhas), o que resulta em
 \textbf{621 categorias} (620 classes frequentes mais a sentinela). Esse espaço,
-denominado \textit{CategorySchema}, é um objeto de primeira classe na
-implementação: é a fonte única da restrição de saída imposta aos oráculos LLM
+denominado \textit{CategorySchema}, é definido explicitamente na
+implementação e é a fonte única da restrição de saída imposta aos oráculos LLM
 (Seção~\ref{sec:metodo-oraculo-instrumentacao}).
 
 Dois espaços de rótulos convivem na tese, com papéis distintos e ambos
 rastreáveis ao mesmo arquivo de dados. O \textit{CategorySchema} de 621
-categorias, contado sobre as \emph{linhas cruas} da versão corrigida (620 classes
+categorias, contado sobre as \emph{linhas originais} da versão corrigida (620 classes
 com $\ge 5$ instâncias mais a sentinela), governa os experimentos de oráculo. Já os experimentos em escala populacional
 (Capítulo~\ref{ch:resultados-falco}) operam sobre a visão \emph{deduplicada} com
 filtro brando de $\ge 2$ instâncias, na qual 231.490 textos únicos distribuem-se
-por \textbf{714 classes presentes}. Essa segunda visão dispensa a sentinela
-\texttt{\_rare\_} de propósito: agrupar a cauda longa mascararia justamente o
-comportamento que o aprendizado ativo é chamado a testar.
+por \textbf{714 classes presentes}. Essa segunda visão dispensa deliberadamente a sentinela
+\texttt{\_rare\_}: agrupar a cauda longa mascararia o
+comportamento que o aprendizado ativo se propõe a testar.
 
 As contagens de classes diferem entre essas visões em razão de duas
 convenções de contagem, e a reprodução dos números desta seção requer o
@@ -273,7 +273,7 @@ as duas convenções e o caminho das contagens.
     \input{3-metodo/esquemas-propostos/esq-preproc-espacos-rotulos}
     \caption{O pré-processamento e os dois espaços de rótulos, com o caminho
     das contagens: da mesma base corrigida e normalizada (250.221 linhas), o
-    filtro de cinco ou mais instâncias sobre as linhas cruas produz o
+    filtro de cinco ou mais instâncias sobre as linhas originais produz o
     \textit{CategorySchema} fechado de 621 categorias (620 frequentes mais a
     sentinela), que governa os oráculos; o filtro brando de duas ou mais
     instâncias (715 classes em linhas; 710 em textos únicos), seguido da
