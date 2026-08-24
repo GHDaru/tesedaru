@@ -46,7 +46,7 @@
 - **Artefato** (`activelearning:experiments/e0/results/e0_mcnemar.json`, par v4-flash×v4-pro, amostra `strat`): $b=73$, $c=91$, **$p=0{,}1844$** — não significativo a nenhum α usual.
 - **Por que importa:** o Cap.3 registra o critério **pré-registrado**: "[LLM Avançado] desde que significativamente superior ao Inicial (McNemar, α=0,05); caso contrário, a Fase 3 do framework é eliminada." Com o dado real, a regra da própria tese apontaria para **eliminar** a Fase 3 — o oposto do texto atual.
 - **Origem:** executor01, recomputado do cru; branch `claude/e3prime-seed-7-bx08ks` @`24bf91b` (aviso) e @`928fce6` (detalhe). Mesma causa-raiz do achado "E0/RQ1 sem lastro" (Onda 3a, já confirmado).
-- **Estado:** **não** cruzado por segundo revisor. **Ação:** cruzar antes de qualquer correção.
+- **Estado:** CRUZADA E CONFIRMADA em 2026-08-24 (leitura direta do principal no artefato; ver linha da tabela: escopo ampliado com o p=0,061 inexistente e o 'abaixo apenas' falso). **Ação:** ADIADA por decisão do autor; ao reabrir, corrigir prosa + inserir tabela de McNemar + reavaliar a Fase 3.
 
 ### P-02 🟡 Braço E — 2 vs 3 sementes
 
