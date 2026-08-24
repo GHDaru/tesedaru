@@ -34,6 +34,11 @@ PADROES = [
     r"[Oo] pano de fundo",
     r"culmina n[oa]",
     r"[ÉéEe] (nesse|neste|nessa|nesta) (espaço|ponto|terreno|cenário) que",
+    # passe do Cap.3 (principal, 2026-08-24): drama de falta e clivadas.
+    # Medidos nos 13 .tex: zero falso positivo.
+    r"[Ff]alta saber",
+    r"[ÉéEe] quanto basta",
+    r"[ÉéEe] a (esse|este|essa|esta) \w+ que",
 ]
 RX = [re.compile(p) for p in PADROES]
 
