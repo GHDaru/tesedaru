@@ -18,8 +18,8 @@ curtas de produtos em português, observou-se que métodos clássicos de recuper
 da informação alcançam desempenho relevante quando combinados com
 pré-processamento e parametrização adequados \citep{Daru2024Dissertacao}. São eles
 o \textit{bag-of-words}, a frequência de termos (TF) e sua ponderação TF--IDF
-(\textit{term frequency--inverse document frequency}). Esse resultado ancora empiricamente o problema e é a
-base da qual esta tese parte.
+(\textit{term frequency--inverse document frequency}). Esse resultado é o
+ponto de partida desta tese.
 
 Ao mesmo tempo, o avanço dos modelos de linguagem pré-treinados alterou
 significativamente o estado da arte em PLN. O BERT (\textit{Bidirectional
@@ -33,8 +33,8 @@ poucos dados anotados, superando o BERT multilíngue em tarefas importantes da l
 em BERTimbau na validação principal do framework proposto, reservando modelos mais
 leves para análises exploratórias específicas.
 
-Apesar desses avanços, a limitação central permanece: dados não rotulados são
-abundantes, mas a obtenção de rótulos confiáveis continua custosa. O aprendizado
+Apesar desses avanços, dados não rotulados são abundantes e a obtenção de
+rótulos confiáveis continua custosa. O aprendizado
 ativo (\textit{active learning}) enfrenta diretamente esse custo: seleciona
 iterativamente os exemplos
 potencialmente mais informativos para anotação. No entanto, revisões
@@ -67,14 +67,14 @@ ActiveLLM, indicaram que modelos de linguagem de grande porte (LLMs, de
 \textit{large language models}) podem apoiar a seleção
 de instâncias em cenários com poucos exemplos, mitigando o \textit{cold start}
 \citep{Bayer2024ActiveLLM}. Outro trabalho mostra LLMs atuando como rotuladores de
-baixo custo em ciclos de aprendizado ativo \citep{Zhang2025}. Ainda assim, permanece uma lacuna
-específica: \textbf{falta uma formulação metodológica voltada ao português e ao
-problema de textos curtos}. Essa formulação precisa articular, de forma explícita e
+baixo custo em ciclos de aprendizado ativo \citep{Zhang2025}. Ainda assim, \textbf{falta uma
+formulação metodológica voltada ao português e ao problema de textos
+curtos}. Essa formulação precisa articular, de forma explícita e
 com validação empírica em cada componente, aprendizado ativo, classificação em baixo
 regime de supervisão e uso de modelos de linguagem para apoiar a fase inicial de
 seleção e rotulagem. O
 confronto com os trabalhos mais próximos, dimensão a dimensão, está na
-Tabela~\ref{tab:lacunas}; é nesse espaço que esta tese se posiciona.
+Tabela~\ref{tab:lacunas}. Esta tese se posiciona nesse espaço.
 
 \section{Questão de pesquisa e hipótese}
 \label{sec:intro-hipotese}
