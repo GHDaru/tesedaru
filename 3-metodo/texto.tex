@@ -92,9 +92,9 @@ aprendizado ativo com oráculo, a meta de redução do esforço de rotulagem e
 a avaliação da generalização contra um conjunto externo foram apresentados
 no exame de qualificação do autor \citep{Daru2023Qualificacao}. Esses
 elementos constam de material datado de maio de 2022, na versão de maio de
-2023, preservado com a tese. É a esse desenho que o termo \emph{pré-registrado} se refere neste
-documento; números e partições fixados depois desse marco são decisões da
-tese, registradas como tal.
+2023, preservado com a tese. O termo \emph{pré-registrado} refere-se, neste
+documento, a esse desenho; números e partições fixados depois desse marco são
+decisões da tese, registradas como tal.
 
 A Tabela~\ref{tab:metodo-experimentos} resume o programa experimental. Os
 identificadores da primeira coluna localizam código e dados; os achados,
@@ -196,13 +196,13 @@ desenho experimental e a interpretação dos resultados:
   produção. As instâncias foram mantidas por representarem o ruído real do
   domínio, e o teto é considerado na interpretação
   (Capítulo~\ref{ch:resultados-falco}). Uma análise de sensibilidade mostra que a
-  decisão limita a medição sem contaminá-la: a acurácia de todos os oráculos
+  decisão limita a medição sem contaminá-la. A acurácia de todos os oráculos
   varia no máximo $+0{,}7$ ponto percentual, sem alterar nenhum ordenamento nem
   nenhuma decisão.\footnote{A sensibilidade foi medida de duas formas
-  independentes: reavaliando as anotações dos oráculos com as instâncias
-  conflitantes excluídas, e sob pontuação \emph{multi-gold}, em que se conta
-  acerto quando o rótulo predito coincide com \emph{qualquer} dos rótulos
-  observados para a mesma descrição na base.}
+  independentes. A primeira reavalia as anotações dos oráculos com as
+  instâncias conflitantes excluídas. A segunda usa pontuação
+  \emph{multi-gold}, em que se conta acerto quando o rótulo predito coincide
+  com \emph{qualquer} dos rótulos observados para a mesma descrição na base.}
   \item \textbf{Rótulo operacional}: a categoria \texttt{inativo} (144 linhas)
   registra um status de cadastro, não um tipo de produto (\textit{e.g.},
   \texttt{UVA PASSA ESCURA 150G} $\rightarrow$ \texttt{inativo}). As linhas foram
@@ -210,9 +210,10 @@ desenho experimental e a interpretação dos resultados:
   o registro exato das linhas removidas são preservados no repositório de código,
   garantindo a rastreabilidade da correção.
   \item \textbf{Duplicatas exatas}: 19.356 linhas ($7{,}7\%$) repetem o par
-  (descrição, rótulo). Isso é inócuo para a avaliação do oráculo, mas exige
-  \textbf{deduplicação por descrição normalizada antes do particionamento} nos
-  experimentos com treinamento, sob pena de vazamento entre treino e teste.
+  (descrição, rótulo). Isso é inócuo para a avaliação do oráculo. Nos
+  experimentos com treinamento, porém, exige \textbf{deduplicação por
+  descrição normalizada antes do particionamento}, sob pena de vazamento entre
+  treino e teste.
 \end{enumerate}
 
 \subsection{Pré-processamento e espaço de rótulos}
@@ -523,8 +524,8 @@ Apêndice~\ref{ap:tabelas} (Tabela~\ref{tab:l0-stats-completa}).
 \subsection{Otimização por algoritmo genético}
 \label{sec:metodo-l0-ag}
 
-O sorteio mostra o que a composição de $L_0$ faz em média; falta saber até onde
-ela pode ir. Como o espaço de composições é combinatório e a busca exaustiva é
+O sorteio mostra o que a composição de $L_0$ faz em média, não o limite que
+ela pode alcançar. Como o espaço de composições é combinatório e a busca exaustiva é
 inviável, esses limites são estimados por um algoritmo genético (AG)
 \citep{Holland1975,Goldberg1989}, em que cada indivíduo é um conjunto de $I$
 índices únicos do \textit{pool}.
@@ -620,7 +621,7 @@ e é reproduzível pelo artefato de calibração que acompanha a biblioteca \cit
 
 A avaliação responde a quatro perguntas, numeradas RQ1 a RQ4 (RQ, de
 \textit{research question}, é a convenção da tese para as questões que um
-experimento responde): (RQ1) a acurácia e o Macro F1 de cada
+experimento responde). São elas: (RQ1) a acurácia e o Macro F1 de cada
 LLM candidato, com intervalos de confiança e comparações pareadas; (RQ2) o
 custo por mil rótulos e a latência; (RQ3) o perfil de erro por classe (matriz
 de confusão, taxa de rótulos inválidos); e (RQ4) o efeito do instrumento de
@@ -642,8 +643,8 @@ de confusão (RQ3).
 Cada tamanho responde a uma exigência distinta. O de S-rand vem da precisão
 necessária à medição: com $n=1.000$, a meia-largura do intervalo de Wilson é de
 no máximo $\approx 3$ p.p.\ (pior caso $p=0{,}5$; $\approx 2{,}5$ p.p.\ no
-platô observado), o suficiente para separar os oráculos do limiar de 85\% do
-critério de aprovação (Seção~\ref{sec:metodo-oraculo-decisao}) e para separá-los
+platô observado). Essa precisão separa os oráculos do limiar de 85\% do
+critério de aprovação (Seção~\ref{sec:metodo-oraculo-decisao}) e os separa
 entre regimes de custo, mantendo o custo pareado de anotação linear no número
 de modelos. O de S-strat vem da estrutura do espaço de rótulos: com 621
 classes, a amostra aleatória deixa a maioria sem representação, e três
@@ -680,8 +681,8 @@ tratar o aprendizado com oráculo ruidoso como cenário central.
 \section{O framework FALCO e sua avaliação}
 \label{sec:metodo-falco}
 
-O quarto pilar integra os anteriores no framework proposto e pergunta o que
-o custo total compra. A seção descreve
+O quarto pilar integra os anteriores no framework proposto e mede o que o
+custo total produz. A seção descreve
 primeiro os componentes e a máquina de fases do FALCO, o objeto em
 avaliação, e, em seguida, os métodos de referência e o desenho experimental
 que o colocam à prova.
@@ -763,8 +764,8 @@ O processo encerra ao exaurir $B$ ou $U$. As constantes de projeto têm o
 seguinte racional, registrado como decisão de engenharia, não de otimização.
 
 O lote inicial, $b_0 = \lceil 0{,}01 \cdot B\rceil$, dá à Fase~1 um custo
-máximo de $1\%$ do orçamento. É quanto basta para o DRI-SL cobrir os
-agrupamentos semânticos sem comprometer o orçamento das fases guiadas.
+máximo de $1\%$ do orçamento. Esse volume é suficiente para o DRI-SL cobrir
+os agrupamentos semânticos sem comprometer o orçamento das fases guiadas.
 
 A janela de estagnação $p=5$ com tolerância $\epsilon=10^{-3}$ exige cinco
 iterações consecutivas sem qualquer ganho registrado no Macro F1 de validação,

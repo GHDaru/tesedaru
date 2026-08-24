@@ -8,8 +8,7 @@
 % =====================================================================
 
 Este capítulo estabelece a base teórica sobre a qual o framework FALCO,
-proposto no Capítulo~\ref{ch:metodo}, é construído, e o faz na ordem em que os
-conceitos se encadeiam no argumento da tese. A Seção~\ref{sec:fund-super}
+proposto no Capítulo~\ref{ch:metodo}, é construído. A Seção~\ref{sec:fund-super}
 apresenta o instrumental de aprendizado supervisionado do qual todos os
 capítulos seguintes dependem: a tarefa multiclasse, as métricas sob
 desbalanceamento, as estratégias de validação e os testes estatísticos usados
@@ -249,8 +248,8 @@ O emprego de cada instrumento ao longo do processo experimental, junto com
 as métricas de desempenho, é mapeado na metodologia
 (Tabela~\ref{tab:metricas-mapa}, Seção~\ref{sec:metodo-metricas}).
 
-Com o instrumental de medição estabelecido, a próxima seção formaliza o
-processo cuja eficiência ele mede: o laço de aprendizado ativo.
+A Seção~\ref{sec:fund-al} formaliza o processo cuja eficiência esse
+instrumental mede: o laço de aprendizado ativo.
 
 \section{Aprendizado ativo}
 \label{sec:fund-al}
@@ -536,8 +535,7 @@ o erro torna-se sistemático e estruturado \cite{Song2023NoisyLabels}, e o
 custo, uma função de tokens; o tratamento aprofundado está na
 Seção~\ref{sec:fund-llm}.
 
-Duas consequências operacionais do laço merecem registro porque reaparecem nos
-experimentos. Primeiro, o \textbf{critério de parada}. O ganho marginal por
+Duas consequências operacionais do laço reaparecem nos experimentos. Primeiro, o \textbf{critério de parada}. O ganho marginal por
 lote decresce ao longo da curva de aprendizado, comportamento que a curva
 populacional de aprendizado desta tese exibe
 (Capítulo~\ref{ch:resultados-falco}). Critérios baseados na estagnação do
@@ -590,7 +588,7 @@ usá-lo. Já os vieses herdados do pré-treinamento, a alucinação e o
 conhecimento datado entram nesta tese como parte do perfil de erro a medir, e
 não como pressuposto (Capítulo~\ref{ch:resultados-falco}).
 
-Cabe ainda a ressalva central para esta tese: os resultados positivos
+Uma ressalva é central para esta tese: os resultados positivos
 concentram-se em tarefas com poucas classes. Os estudos recentes de
 classificação de produtos operam com dezenas a algumas centenas de
 categorias: 248 no comparativo zero-shot de \citet{Roumeliotis2025} e 370
@@ -662,9 +660,9 @@ pode ser ativa \citep{Diao2023}.
 \end{figure}
 
 Como \textbf{componente de sistemas compostos}, quatro desenhos recentes
-importam ao posicionamento desta tese. O pano de fundo é a capacidade, já
-demonstrada, de o próprio modelo decidir quando e como acionar recursos
-externos: no Toolformer, o LLM aprende por auto-supervisão quais interfaces
+importam ao posicionamento desta tese. Esses desenhos apoiam-se numa
+capacidade já demonstrada, a de o próprio modelo decidir quando e como
+acionar recursos externos: no Toolformer, o LLM aprende por auto-supervisão quais interfaces
 chamar, em que momento e com quais argumentos \citep{Schick2023}.
 
 O primeiro é a \emph{destilação ativa de conhecimento}, em que o LLM-professor
@@ -747,8 +745,8 @@ Capítulo~\ref{ch:resultados-falco}. O Capítulo~\ref{ch:metodo} instrumenta
 cada um desses componentes.
 
 Em síntese: com um oráculo LLM, qualidade, custo e instrumento de medição
-tornam-se três dimensões \emph{escolhíveis} de projeto. É nesse espaço de
-decisão que o FALCO opera.
+tornam-se três dimensões \emph{escolhíveis} de projeto. O FALCO opera nesse
+espaço de decisão.
 
 \section{Classificação de texto curto}
 \label{sec:fund-stc}
@@ -901,7 +899,7 @@ maior a surpresa, sem exigir nenhum rótulo. O ALPS então agrupa as
 instâncias por essa assinatura e seleciona pelos centros, para não escolher
 várias frases surpreendentes pelo mesmo motivo. Na mesma linha,
 \citet{EinDor2020} e \citet{Griesshaber2020} adaptam AA ao
-BERT. A linha culmina no DEUCE \cite{Guo2025Deuce}, que combina diversidade
+BERT. A linha chega ao DEUCE \cite{Guo2025Deuce}, que combina diversidade
 textual e de classe prevista num grafo duplo-vizinho para evitar o que seus autores chamam de efeito
 de agrupamento não coberto (\textit{missed cluster effect}): classes inteiras
 que a amostra inicial deixa de representar. O DEUCE converge conceitualmente
