@@ -68,7 +68,11 @@ $\approx 7$ p.p.\ do teto supervisionado com 250 mil rótulos ($89{,}6\%$,
 \citealp{Daru2024Dissertacao}), e a consequência de desenho está na
 Seção~\ref{sec:res-gate}. \textbf{(iv)} Em compensação, o Macro F1 zero-shot dos oráculos do platô
 ($\approx 0{,}78$--$0{,}80$ na S-strat) \emph{supera} o Macro F1 do PVBin
-treinado com supervisão completa ($0{,}70$). O conhecimento de mundo do LLM
+treinado com supervisão completa ($0{,}70$). A comparação tem duas ressalvas:
+a S-strat é balanceada por construção, de modo que o suporte por classe difere
+entre as duas medições, e o baseline foi medido nas 795 categorias da
+hierarquia completa, tarefa mais difícil que a de 621. A margem é, portanto,
+um limite superior da vantagem do LLM. O conhecimento de mundo do LLM
 compensa exatamente onde o supervisionado leve sofre: nas classes com
 pouquíssimos exemplos.
 

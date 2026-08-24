@@ -35,7 +35,8 @@ individual found by a supervised genetic algorithm without using any label,
 and the advantage holds at every initial-set size from 100 to 5,000.
 Zero-shot LLM oracles reach 77--83\% accuracy at US\$~0.035--0.92 per
 thousand labels. Their Macro F1 exceeds that of a light supervised classifier
-trained on the full base. Without output restriction to the class space,
+trained on the full base, with the caveat that per-class support differs
+between the two measurements. Without output restriction to the class space,
 $6.8\%$ of responses are counted as spurious errors, and the same model
 diverges from itself across serving providers ($p<0.001$). Uncertainty-based
 selection outperforms random selection ($p=0.0078$) and keeps the advantage
