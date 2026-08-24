@@ -631,7 +631,10 @@ amadurecimento do classificador (Figura~\ref{fig:falco-arquitetura}):
 
 \begin{enumerate}
   \item \textbf{Fase 1} (\textit{cold start} informado): o lote inicial
-  ($b_0 = \lceil 0{,}01 \cdot B \rceil$) é selecionado pelo DRI-SL
+  ($b_0 = \lceil 0{,}01 \cdot B \rceil$, em que $B$ é o orçamento total de
+  consultas de rotulagem do arcabouço da Seção~\ref{sec:metodo-desenho}; o
+  lote corresponde, portanto, a um centésimo do orçamento, arredondado para
+  cima) é selecionado pelo DRI-SL
   (Seção~\ref{sec:metodo-drisl}) e rotulado pelo LLM Inicial, formando $L_0$;
   \item \textbf{Fase 2} (seleção por incerteza com LLM Inicial): a cada iteração,
   as $b$ instâncias de maior entropia preditiva de $\theta$
