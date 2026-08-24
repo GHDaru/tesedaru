@@ -3,20 +3,21 @@
 
 Este capítulo descreve a metodologia empregada para desenvolver e avaliar o
 \textbf{FALCO} (\textit{Framework de Aprendizado Ativo com LLM para texto CurtO}).
-A investigação está organizada em quatro pilares empíricos, cada qual associado a um
-experimento identificado e reprodutível: o impacto da composição do conjunto
-inicial de rotulagem $L_0$; a construção de um $L_0$ informativo sem acesso a
-rótulos, via o algoritmo DRI-SL; a viabilidade, o custo e o perfil de erro de
-modelos de linguagem de grande porte (LLMs) como oráculos de rotulagem; e a
-avaliação integrada do FALCO contra métodos de referência sob o mesmo orçamento de
-rotulagem. Uma métrica transversal, a \textit{Learning Curve Efficiency} (LCE),
+A investigação está organizada em quatro pilares empíricos, cada qual associado
+a um experimento identificado e reprodutível. O primeiro mede o impacto da
+composição do conjunto inicial de rotulagem $L_0$. O segundo trata da construção
+de um $L_0$ informativo sem acesso a rótulos, pelo algoritmo DRI-SL. O terceiro
+examina a viabilidade, o custo e o perfil de erro de modelos de linguagem de
+grande porte (LLMs) como oráculos de rotulagem. O quarto avalia o FALCO de forma
+integrada, contra métodos de referência e sob o mesmo orçamento de rotulagem. Uma métrica transversal, a \textit{Learning Curve Efficiency} (LCE),
 sumariza a eficiência das curvas de aprendizado em todos os pilares.
 
 Todos os experimentos são implementados na biblioteca \texttt{activelearning}
-(Apêndice~\ref{ap:biblioteca}), desenvolvida nesta pesquisa sob arquitetura hexagonal
-com domínio isolado, e cada número reportado nos capítulos de resultados é rastreável
-a um artefato de execução versionado (configuração, sementes, revisão do código e
-registros por iteração), conforme a Seção~\ref{sec:metodo-reprodutibilidade}.
+(Apêndice~\ref{ap:biblioteca}), desenvolvida nesta pesquisa sob arquitetura
+hexagonal com domínio isolado. Cada número reportado nos capítulos de resultados
+é rastreável a um artefato de execução versionado, com configuração, sementes,
+revisão do código e registros por iteração, conforme a
+Seção~\ref{sec:metodo-reprodutibilidade}.
 
 \section{Desenho da pesquisa}
 \label{sec:metodo-desenho}
@@ -83,21 +84,22 @@ E3 & Avaliação da hipótese central com o classificador forte & framework & Se
 \end{tabular}
 
 \vspace{0.4em}
-{\footnotesize Os artefatos de todos os experimentos acompanham o repositório
-de código da tese, organizados por identificador de experimento
-(Seção~\ref{sec:metodo-reprodutibilidade}).\\[2pt]
+{\footnotesize Cada identificador da primeira coluna nomeia uma configuração
+versionada da biblioteca \texttt{activelearning} \cite{DaruActiveLearning}, e é
+por ele que se recupera a execução correspondente; a
+Seção~\ref{sec:metodo-reprodutibilidade} descreve o ambiente.\\[2pt]
 $^{\dagger}$ O E5 foi executado, mas nenhuma seção dos capítulos de resultados o
-reporta isoladamente; seus artefatos acompanham o repositório de código e o
-gatilho de parada que ele exercitou é descrito no Apêndice~\ref{ap:parada-laco}.}
+reporta isoladamente; o gatilho de parada que ele exercitou é descrito no
+Apêndice~\ref{ap:parada-laco}.}
 \end{table}
 
 \section{Conjunto de dados}
 \label{sec:metodo-dados}
 
 Esta seção documenta o material empírico da tese em quatro decisões
-encadeadas: de onde vêm os dados e o que os caracteriza, quanto se pode
-confiar nos rótulos de referência, como textos e espaço de classes foram
-normalizados e como o conjunto foi particionado para os experimentos.
+encadeadas. De onde vêm os dados e o que os caracteriza; quanto se pode confiar
+nos rótulos de referência; como textos e espaço de classes foram normalizados; e
+como o conjunto foi particionado para os experimentos.
 
 \subsection{Fonte e características}
 \label{sec:metodo-dados-fonte}
@@ -193,8 +195,9 @@ não textos já deduplicados. São 715 as classes com pelo menos duas linhas na
 base corrigida, contra 710 pela contagem sobre textos únicos. Dessas 715, uma
 (\textit{pomada massageadora}) ainda desaparece na deduplicação, cuja regra é
 manter a primeira ocorrência de cada texto: os dois textos dessa classe já
-haviam aparecido sob outro rótulo. A receita completa é executável no
-repositório de código da tese e reproduz todas as contagens desta seção.}
+haviam aparecido sob outro rótulo. A receita completa é executável e reproduz
+todas as contagens desta seção; ela acompanha a biblioteca
+\texttt{activelearning} \cite{DaruActiveLearning}.}
 
 \subsection{Particionamento}
 \label{sec:metodo-dados-particionamento}
@@ -215,9 +218,9 @@ avaliação final.
 O \textit{pool} é, portanto, uma amostra \emph{aleatória uniforme} da base, e não
 estratificada por classe. Sua representatividade foi medida e é verificável por
 artefato: a distribuição de classes do \textit{pool} diverge da distribuição da
-base por divergência de Jensen--Shannon de $0{,}0022$, com correlação de Spearman
-de $0{,}983$ entre os ranks de frequência e desvio máximo de proporção de $0{,}20$
-ponto percentual em uma classe. O custo dessa escolha concentra-se na cauda: 649
+base por divergência de Jensen--Shannon de $0{,}0022$. A correlação de Spearman
+entre os ranks de frequência é de $0{,}983$, e o desvio máximo de proporção é de
+$0{,}20$ ponto percentual, em uma única classe. O custo dessa escolha concentra-se na cauda: 649
 das 714 classes ($90{,}9\%$) estão presentes no \textit{pool}, 65 estão ausentes e
 179 têm menos de cinco exemplos. É limitação declarada, e relevante para métricas
 macro (Seção~\ref{sec:metodo-validade}).
@@ -385,12 +388,12 @@ Para quantificá-las, o classificador PVBin foi treinado com conjuntos iniciais
 amostrados aleatoriamente em \textbf{47 tamanhos} entre 10 e 200.000 instâncias,
 com \textbf{30 repetições independentes} por tamanho (sementes distintas),
 avaliando Acurácia e Macro F1 no conjunto de teste. As escolhas de grade
-acompanham o que se quer medir: 10 é a partida a frio extrema; 200.000 é o teto
-prático, próximo do total de textos únicos (231.490 após deduplicação), de modo
-que o maior $L_0$ representa treinar com quase todo o dado; os 47 tamanhos
-distribuem-se por décadas (passos de 10, 100, 1.000 e 10.000), densos onde a
-curva muda rápido e esparsos onde satura; e as 30 repetições estabilizam a
-média e medem a dispersão. As estatísticas descritivas completas constam do
+acompanham o que se quer medir. O tamanho 10 é a partida a frio extrema. O
+tamanho 200.000 é o teto prático, próximo do total de textos únicos (231.490
+após deduplicação), de modo que o maior $L_0$ representa treinar com quase todo
+o dado. Os 47 tamanhos distribuem-se por décadas, com passos de 10, 100, 1.000 e
+10.000: densos onde a curva muda rápido, esparsos onde ela satura. E as 30
+repetições estabilizam a média e medem a dispersão. As estatísticas descritivas completas constam do
 Apêndice~\ref{ap:tabelas} (Tabela~\ref{tab:l0-stats-completa}).
 
 \subsection{Otimização por algoritmo genético}
@@ -454,10 +457,10 @@ de arquitetura para o FALCO.
 \label{sec:metodo-oraculo-instrumentacao}
 
 Medir a acurácia de um LLM como rotulador exige restringir a saída ao espaço de
-rótulos: em experimento preliminar da própria pesquisa, um esquema de saída sem
-restrição produziu variações de fraseado (\textit{e.g.}, ``ovos de páscoa'' quando o
-padrão-ouro registra ``ovo de páscoa'') contabilizadas como erro, deflacionando a
-acurácia medida. Três modos de instrumentação são definidos, e o modo utilizado
+rótulos. Em experimento preliminar da própria pesquisa, um esquema de saída sem
+restrição produziu variações de fraseado, como ``ovos de páscoa'' onde o
+padrão-ouro registra ``ovo de páscoa''. Essas variações foram contabilizadas
+como erro e deflacionaram a acurácia medida. Três modos de instrumentação são definidos, e o modo utilizado
 fica registrado em cada anotação:
 
 \begin{itemize}
@@ -482,8 +485,7 @@ numerados em uma única chamada, e a resposta volta como vetor indexado. O
 tamanho do lote foi calibrado em etapa prévia, comparando lotes de 1, 10 e 25
 itens pareados nas mesmas instâncias. Adotou-se o maior lote que não degrada a
 acurácia, por teste de McNemar. A decisão fica registrada junto aos resultados
-e é reproduzível pelo artefato de calibração que acompanha o repositório de
-código.
+e é reproduzível pelo artefato de calibração que acompanha a biblioteca \cite{DaruActiveLearning}.
 
 \subsection{Desenho fatorial da avaliação de oráculos}
 \label{sec:metodo-oraculo-desenho}
@@ -652,9 +654,9 @@ entropia, menor confiança, menor margem, híbrida e aleatória sob oráculo
 simulado perfeito com o classificador PVBin (barato o suficiente para
 varredura ampla). A Fase~2 seleciona por entropia. A varredura mostra que,
 com o classificador leve, menor margem e menor confiança apresentam
-estimativas pontuais de LCE superiores à da entropia, sem que o desenho
-tenha testado essas estratégias entre si: a comparação medida ali é a de
-cada estratégia contra a aleatória, e a entropia a supera com a mesma
+estimativas pontuais de LCE superiores à da entropia. O desenho, porém, não
+testou essas estratégias entre si: a comparação medida ali é a de cada
+estratégia contra a aleatória, e a entropia a supera com a mesma
 significância que as demais. A troca da estratégia da Fase~2 fica registrada
 como extensão imediata.
 
@@ -671,16 +673,16 @@ exatamente como o framework opera em produção.
 
 Duas escolhas de régua completam o desenho, ambas registradas como decisão
 metodológica. A primeira é que a ``supervisão completa'' de referência é o
-\emph{pool} de 50.000 instâncias, o mesmo dos experimentos em escala
-populacional e do ciclo real, com semente e embaralhamento idênticos, e não a
-base inteira: o aprendizado ativo só enxerga o pool, e compará-lo com um braço
+\emph{pool} de 50.000 instâncias (o mesmo dos experimentos em escala
+populacional e do ciclo real, com semente e embaralhamento idênticos), e não a
+base inteira. O aprendizado ativo só enxerga o pool; compará-lo com um braço
 treinado na base deduplicada inteira (231.490 textos, cerca de $4{,}6\times$ o
 pool) confundiria o valor da \emph{seleção} com o valor de \emph{ter mais
 dados}. A segunda é que todos os braços são avaliados na \textbf{população
 reservada} ($\approx 177$ mil instâncias fora do pool e fora dos conjuntos de
-validação e teste usados pelo ciclo real nas decisões de parada), com amostra
-estratificada fixa entre braços, acurácia com intervalo de Wilson e Macro F1, e
-predições persistidas por braço para os pareamentos de McNemar.
+validação e teste usados pelo ciclo real nas decisões de parada). A avaliação
+usa amostra estratificada fixa entre braços, acurácia com intervalo de Wilson e
+Macro F1, e predições persistidas por braço para os pareamentos de McNemar.
 
 O experimento executado compara cinco braços, cada qual um ajuste fino do
 BERTimbau sobre um conjunto diferente:
@@ -724,14 +726,13 @@ degradação do aprendizado em função da qualidade do oráculo.
 dados, construído pelo próprio autor \citep{Daru2022}. Isso maximiza o realismo
 (dados de produção de 18 varejistas) e a comparabilidade com o trabalho anterior,
 mas limita a generalização: as conclusões valem, a rigor, para descrições curtas
-de produtos de varejo em português. Três mitigações são adotadas: as decisões do
-framework não usam nenhuma propriedade específica do conjunto além das
-características públicas do gênero (texto curto, desbalanceamento, abreviações);
-os achados de instrumentação do oráculo são mecanismos do par LLM--API, não do
-dado; e
-o protocolo completo é reprodutível em qualquer conjunto rotulado com a mesma
-estrutura, ficando a réplica em benchmark público (\textit{e.g.}, STOPS
-\citep{Karl2023}) registrada como trabalho futuro.
+de produtos de varejo em português. Três mitigações são adotadas. As decisões do framework não usam nenhuma
+propriedade específica do conjunto além das características públicas do gênero:
+texto curto, desbalanceamento e abreviações. Os achados de instrumentação do
+oráculo são mecanismos do par LLM--API, não do dado. E o protocolo completo é
+reprodutível em qualquer conjunto rotulado com a mesma estrutura; a réplica em
+benchmark público, como o STOPS \citep{Karl2023}, fica registrada como trabalho
+futuro.
 
 \textbf{Validade interna.} O conjunto de teste é isolado de todas as decisões do
 processo (particionamento com deduplicação prévia; transição de fase por $V$;
@@ -772,7 +773,7 @@ referência.
 \label{sec:metodo-reprodutibilidade}
 
 Toda a instrumentação é implementada na biblioteca \texttt{activelearning}
-(Apêndice~\ref{ap:biblioteca}), sob arquitetura hexagonal: o núcleo de domínio
+\cite{DaruActiveLearning} (Apêndice~\ref{ap:biblioteca}), sob arquitetura hexagonal: o núcleo de domínio
 (instâncias, esquema de categorias, estratégias, métricas, políticas de fase) é puro
 e testado isoladamente; LLMs, classificadores e armazenamento são adaptadores
 intercambiáveis. Cada experimento tem um ponto de entrada único parametrizado por
@@ -787,13 +788,13 @@ pacotes do repositório.
 
 \textbf{Proveniência dupla dos resultados.} Por razões históricas, o programa
 experimental distribui-se em dois repositórios versionados, e a distinção é
-mantida explícita em toda a tese. Os resultados \emph{originais} dos pilares do
-conjunto inicial e da partida a frio (estudo de sensibilidade de $L_0$, envelope
-do algoritmo genético e DRI-SL na partida a frio) foram produzidos no repositório
-\texttt{activetextclassification}; os pilares do oráculo LLM e do framework
-(E0, E0-P, E1, E4, E5, E6 e E3), com as \emph{reexecuções} de verificação
-dos dois primeiros, foram produzidos
-na biblioteca \texttt{activelearning}, reescrita sob a arquitetura acima.
+mantida explícita em toda a tese. Os resultados \emph{originais} dos pilares do conjunto inicial e da partida a
+frio foram produzidos no repositório \texttt{activetextclassification}
+\cite{DaruActiveTextClassification}: o estudo de sensibilidade de $L_0$, o
+envelope do algoritmo genético e o DRI-SL na partida a frio. Os pilares do
+oráculo LLM e do framework (E0, E0-P, E1, E4, E5, E6 e E3) foram produzidos na
+biblioteca \texttt{activelearning}, reescrita sob a arquitetura acima, e com eles
+as \emph{reexecuções} de verificação dos dois primeiros.
 Onde a tese reporta um número originado no repositório legado, o porte para a
 biblioteca nova foi verificado por um de três caminhos: igualdade de matrizes de
 escore (PVBin), reexecução independente com protocolo mais rigoroso
