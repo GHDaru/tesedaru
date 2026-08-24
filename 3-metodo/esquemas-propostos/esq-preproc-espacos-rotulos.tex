@@ -1,72 +1,70 @@
 % ============================================================================
-% ESQUEMA PROPOSTO (banca, sugestão — não mergeado): pré-processamento e os
-% DOIS espaços de rótulos da tese (Seção sec:metodo-dados-preproc, 3.2.3).
-% A prosa da seção é densa em contagens; a figura mostra a bifurcação que as
-% explica: a mesma base normalizada é contada de dois jeitos, com papéis
-% distintos — CategorySchema (oráculos) e visão populacional (Cap. 5).
-%
-% Uso no Cap. 3 (dentro de um ambiente figure):
+% ESQUEMA (banca, v2 — polida na tarefa 0138): pré-processamento e os DOIS
+% espaços de rótulos da tese (Seção sec:metodo-dados-preproc). A figura é
+% ESTRUTURAL: mostra a bifurcação (a mesma base normalizada contada de dois
+% jeitos, com papéis distintos) e deixa TODAS as contagens para a prosa ao
+% lado — v1 carregava os números da seção; a restrição da série (zero
+% números medidos em figura, que escapa dos scripts de checagem) os
+% removeu nesta versão, por ordem do principal/autor.
+% Uso previsto (o principal gateia; a banca NÃO edita o Cap. 3):
+%   fim da Seção sec:metodo-dados-preproc, dentro de figure:
 %   \input{3-metodo/esquemas-propostos/esq-preproc-espacos-rotulos}
 % Uso standalone (pré-visualização):
-%   \documentclass[tikz,border=6pt]{standalone}
+%   \documentclass[tikz,border=6pt,12pt]{standalone}
 %   \usetikzlibrary{arrows.meta, positioning}
 %   \begin{document}\input{esq-preproc-espacos-rotulos.tex}\end{document}
 %   (no modo standalone, troque as \ref{...} por texto fixo ou defina-as)
-% Requer apenas arrows.meta e positioning (já em packages.tex). Legível em
+% GEOMETRIA CALIBRADA PARA CORPO 12 (ppginf/book 12pt, textwidth 16cm) —
+% a v1 era de corpo 10. Requer apenas arrows.meta e positioning. Legível em
 % P&B: entrada = cinza claro; operação = branco; produto = cinza médio.
-% FREEZE respeitado: todos os números são os da própria Seção 3.2.3
-% (>=5, >=2, 0,13%, 621, 620, 715, 714, 231.490), nenhum novo.
+% SEM números, SEM códigos internos, SEM caminhos, SEM travessões.
 % ============================================================================
 \begin{tikzpicture}[
     x=1cm, y=1cm,
-    caixa/.style={draw, rounded corners=2pt, align=center, text width=42mm,
-                  minimum height=11mm, inner sep=3pt, font=\footnotesize},
+    caixa/.style={draw, rounded corners=2pt, align=center, text width=50mm,
+                  minimum height=13mm, inner sep=3pt, font=\footnotesize},
     entrada/.style={caixa, fill=gray!8},
     produto/.style={caixa, fill=gray!14},
-    seta/.style={-{Stealth[length=2.4mm]}, thick},
+    seta/.style={-{Stealth[length=2.6mm]}, thick},
     rot/.style={font=\scriptsize, align=center, inner sep=2pt}
 ]
-    \node[entrada, text width=40mm] (base) at (4.6,0)
-        {base corrigida pela auditoria (Seção~\ref{sec:metodo-dados-auditoria}):
-         linhas de descrição curta $+$ rótulo};
-    \node[caixa, text width=46mm] (norm) at (4.6,-2.4)
-        {normalização mínima: minúsculas $+$ remoção de acentos (sem efeito
-         nas contagens desta base); rótulos idem; variações lexicais ficam
-         com o tokenizador de subpalavras};
+    \node[entrada, text width=46mm] (base) at (5.6,0)
+        {base corrigida pela auditoria\\(Seção~\ref{sec:metodo-dados-auditoria}):
+         linhas de\\descrição curta $+$ rótulo};
+    \node[caixa, text width=52mm] (norm) at (5.6,-2.7)
+        {\textbf{normalização mínima}:\\minúsculas e remoção de acentos;\\
+         variações lexicais ficam com o\\tokenizador de subpalavras};
+
+    % ------- bifurcação: a mesma base, contada de dois jeitos --------------
+    % (títulos de coluna na 1ª linha das caixas: soltos, eram atravessados
+    % pelas setas — achado do loop da v1)
+    \node[caixa] (filtro) at (1.6,-5.8)
+        {\textbf{espaço dos oráculos}\\(contado sobre as linhas):\\
+         classes muito raras agrupadas\\na sentinela \texttt{\_rare\_}};
+    \node[caixa] (dedup) at (9.6,-5.8)
+        {\textbf{visão deduplicada}\\(textos únicos): mantém a\\
+         primeira ocorrência de cada\\texto; filtro brando de classes};
+
+    \node[produto] (catsch) at (1.6,-8.9)
+        {\textit{CategorySchema}: espaço\\\textbf{fechado} de categorias,\\
+         fonte única da restrição de\\saída dos oráculos
+         (Seção~\ref{sec:metodo-oraculo-instrumentacao})};
+    \node[produto] (pop) at (9.6,-8.9)
+        {todas as classes presentes,\\sem \texttt{\_rare\_} (cauda longa\\
+         preservada): experimentos em\\escala populacional
+         (Capítulo~\ref{ch:resultados-falco})};
+
+    % ------- setas (depois dos nós) ----------------------------------------
     \draw[seta] (base) -- (norm);
-
-    % ------- bifurcação: a mesma base, contada de dois jeitos -------------
-    % (o título de cada coluna é a 1ª linha da própria caixa: títulos soltos
-    % eram atravessados pelas setas da bifurcação — achado visual)
-    \node[caixa, text width=44mm] (filtro5) at (1.4,-5.3)
-        {\textbf{espaço dos oráculos} (sobre as linhas): classes com $<5$
-         instâncias agrupadas na sentinela \texttt{\_rare\_} ($0{,}13\%$ das
-         linhas)};
-    \node[caixa, text width=44mm] (dedup) at (8.2,-5.3)
-        {\textbf{visão populacional}:\\deduplicação (chave: descrição
-         aparada, em minúsculas; mantém a 1ª ocorrência) $+$ filtro brando
-         $\ge 2$: 715 classes em linhas, 714 permanecem};
-
-    \node[produto, text width=44mm] (catsch) at (1.4,-8.3)
-        {\textit{CategorySchema}: espaço fechado\\
-         com \textbf{621 categorias}\\
-         (620 mais a sentinela \texttt{\_rare\_});\\
-         fonte única da restrição de saída\\
-         dos oráculos (Seção~\ref{sec:metodo-oraculo-instrumentacao})};
-    \node[produto, text width=44mm] (pop) at (8.2,-8.3)
-        {\textbf{231.490 textos únicos} em \textbf{714 classes presentes},
-         sem \texttt{\_rare\_} (cauda longa preservada): experimentos do
-         Capítulo~\ref{ch:resultados-falco}};
-
-    % setas da bifurcação desenhadas depois dos nós (referência-adiante)
-    \draw[seta] (norm.south west) -- (filtro5.north);
+    \draw[seta] (norm.south west) -- (filtro.north);
     \draw[seta] (norm.south east) -- (dedup.north);
-    \draw[seta] (filtro5) -- (catsch);
+    \draw[seta] (filtro) -- (catsch);
     \draw[seta] (dedup) -- (pop);
 
-    \node[rot, anchor=west, text width=118mm, align=left] at (-0.9,-10.4)
-        {Duas chaves de texto convivem: o censo da auditoria compara
+    \node[rot, anchor=west, text width=136mm, align=left] at (-1.0,-10.9)
+        {duas chaves de texto convivem: o censo da auditoria compara
          descrições com os espaços internos colapsados; a deduplicação usa a
-         descrição apenas aparada e em minúsculas. A receita executável
-         \texttt{scripts/check\_dataset.py} reproduz todas as contagens.};
+         descrição apenas aparada e em minúsculas. As contagens de cada
+         espaço estão no texto desta seção, e uma receita executável
+         versionada as reproduz.};
 \end{tikzpicture}
