@@ -1,0 +1,88 @@
+% ============================================================================
+% PROPOSTA (banca, painel de 3 especialistas, 2026-08-24): nova INTRODUÇÃO
+% METODOLÓGICA do Cap. 3 — substitui as linhas 4-26 (parágrafo de abertura)
+% e 40-45 (parágrafo da biblioteca) da versão atual; a figura
+% fig:metodo-sequencia permanece onde está, entre os parágrafos 3 e 4.
+% Objetivo (encomenda do autor): uma introdução que leve o leitor à
+% compreensão do que foi feito. A banca NÃO edita o Cap. 3: o principal
+% gateia. Parecer completo: docs/pareceres/2026-08-24-painel-introducao-
+% metodologica-cap3.md
+% SEM travessões; siglas abertas na 1ª ocorrência (LLM antes de FALCO;
+% DRI-SL com a expansão idêntica à lista de siglas).
+% ============================================================================
+
+O problema posto no Capítulo~\ref{ch:intro} é reduzir o custo de rotulagem
+sem perda relevante de desempenho final. A tarefa concreta em que ele é
+atacado é a classificação de descrições curtas de produtos de varejo em
+português, como \texttt{CERV BRAHMA LT 350ML}, em centenas de categorias,
+sobre uma base auditada de cerca de 250~mil descrições
+(Seção~\ref{sec:metodo-dados}). O desempenho é medido pelo Macro~F1 ao
+longo da curva de aprendizado, e uma métrica transversal, a \textit{Learning
+Curve Efficiency} (LCE), resume cada curva em um único número relativo à
+supervisão completa (Seção~\ref{sec:metodo-metricas}). O custo de rotulagem
+que se quer reduzir não chega de uma vez: primeiro não há rótulo algum,
+depois cada rótulo consultado tem preço, e por fim as peças precisam
+funcionar juntas sob o mesmo orçamento. As seções deste capítulo seguem
+essa ordem, e cada decisão metodológica é apresentada no ponto em que o
+custo que a motiva aparece.
+
+Antes de qualquer experimento, o capítulo estabelece o terreno comum a
+todos eles: o desenho da pesquisa e seu registro
+(Seção~\ref{sec:metodo-desenho}), os dados e sua auditoria
+(Seção~\ref{sec:metodo-dados}), os classificadores da tarefa
+(Seção~\ref{sec:metodo-classificadores}) e as métricas com os testes
+estatísticos (Seção~\ref{sec:metodo-metricas}). Sobre esse terreno, a
+investigação percorre quatro pilares empíricos. O processo começa sem
+rótulo algum; por isso o primeiro pilar mede quanto a composição do
+conjunto inicial de rotulagem $L_0$ importa para a generalização do
+classificador (Seção~\ref{sec:metodo-l0}), e o segundo constrói um $L_0$
+informativo sem acesso a rótulos, pelo DRI-SL (\textit{Diversidade
+Representativa Inicial via densidade Semântica e variedade Lexical}),
+algoritmo proposto nesta tese (Seção~\ref{sec:metodo-drisl}). Definido o
+começo, cada rótulo passa a ter preço, e a pergunta muda: quem fornece os
+rótulos, a que custo e com que perfil de erro? O terceiro pilar examina os
+modelos de linguagem de grande porte (LLMs) como oráculos de rotulagem
+(Seção~\ref{sec:metodo-oraculo}). Com o início e o oráculo resolvidos, o
+quarto pilar integra as peças no FALCO (\textit{Framework de Aprendizado
+Ativo com LLM para texto CurtO}) e pergunta o que o custo total compra: o
+framework é avaliado contra métodos de referência sob o mesmo orçamento de
+rotulagem (Seção~\ref{sec:metodo-falco}). Os resultados dos dois primeiros
+pilares são reportados no Capítulo~\ref{ch:resultados-l0}; os do terceiro e
+do quarto, no Capítulo~\ref{ch:resultados-falco}.
+
+A Figura~\ref{fig:metodo-sequencia} é o mapa dessa sequência, e cada seta
+se lê como uma dependência: o que precisa estar resolvido antes do passo
+seguinte.
+
+% (a figura fig:metodo-sequencia permanece aqui, com a legenda atual)
+
+O capítulo encerra declarando onde o processo pode falhar (ameaças à
+validade, Seção~\ref{sec:metodo-validade}) e como percorrê-lo de novo
+(Seção~\ref{sec:metodo-reprodutibilidade}). Todos os experimentos são
+implementados na biblioteca \texttt{activelearning}, desenvolvida nesta
+pesquisa (Apêndice~\ref{ap:biblioteca}), e cada número reportado nos
+capítulos de resultados é rastreável a um artefato de execução versionado,
+com configuração, sementes, revisão do código e registros por iteração,
+conforme a Seção~\ref{sec:metodo-reprodutibilidade}.
+
+% ============================================================================
+% AJUSTE ACOPLADO na Seção 3.1 (Desenho da pesquisa): o parágrafo de
+% "visão de conjunto" (linhas 59-78 atuais) é SUBSTITUÍDO pelo parágrafo
+% enxuto abaixo (apenas o conteúdo que não está na nova abertura: as duas
+% visões dos dados e a divisão de trabalho dos classificadores), colado
+% após a formalização pool-based e antes do parágrafo de proveniência.
+% A cauda atual (linhas 70-78), que re-lista as seções do capítulo, é
+% cortada: a nova abertura já carrega esse mapa, com as remissões.
+% ============================================================================
+
+Duas escolhas de engenharia atravessam todos os experimentos e convém
+fixá-las desde já. A base auditada fornece duas visões de trabalho: as
+linhas cruas, sobre as quais os oráculos são medidos, e a visão deduplicada
+e particionada, sobre a qual os classificadores treinam sem vazamento entre
+treino e teste (Seção~\ref{sec:metodo-dados}). Os três classificadores da
+tarefa dividem o trabalho por custo computacional: os dois leves executam
+as análises que exigem milhares de reexecuções, como a sensibilidade da
+composição de $L_0$ e a varredura de estratégias de seleção, e o forte
+treina poucas vezes e valida o framework de ponta a ponta. O forte é
+baseado no BERTimbau, um modelo BERT pré-treinado para o português
+(Seção~\ref{sec:metodo-classificadores}).
