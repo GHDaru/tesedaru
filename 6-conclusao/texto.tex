@@ -58,10 +58,10 @@ completo, com três sementes e avaliação na população reservada inteira. Na
 configuração executada, a hipótese central \emph{não} se atinge: acurácia de
 $0{,}705$ contra critério de $0{,}843$, com 11.936 rótulos, $5{,}2\%$ da
 população. A decomposição pareada atribui a perda ao \emph{orçamento}, não ao
-ruído do oráculo nem à seleção. O ruído chega a favorecer as classes raras em
-Macro F1: o braço com rótulos do oráculo supera o de gabarito nos mesmos
-itens, na média das sementes. A seleção, por sua vez, ganha Macro F1 e
-cobertura com consistência entre sementes, mas não acurácia. A parada por
+ruído do oráculo nem à seleção. O ruído não custa Macro F1: os dois braços
+praticamente empatam ($0{,}297$ contra $0{,}299$), apesar dos $7{,}2$ p.p.\ de
+custo em acurácia. A seleção, por sua vez, ganha Macro F1 e cobertura com
+consistência entre sementes, mas não acurácia. A parada por
 estagnação do classificador leve encerra o laço muito antes do ponto em que
 o BERTimbau deixa de converter rótulos adicionais em ganho de desempenho. A
 varredura de orçamento localiza a correção. É achado \textit{post hoc},
@@ -158,8 +158,7 @@ As principais limitações são quatro. A primeira é o conjunto de dados único
 criado pelo autor; essa limitação é mitigada pelo protocolo replicável e pelos
 achados de mecanismo. A
 segunda é a validação com o classificador forte em configuração uniforme mas
-econômica, com 3 épocas, contexto de 32 \textit{tokens}, semente única e
-CPU. A régua absoluta do BERTimbau pode subir com mais épocas e contexto, o
+econômica, com 3 épocas e contexto de 32 \textit{tokens}. A régua absoluta do BERTimbau pode subir com mais épocas e contexto, o
 que tornaria o critério \emph{mais} exigente, não menos, preservando o
 sentido do veredito. A terceira são os custos de API datados; as
 \emph{razões} entre modelos são mais estáveis que os valores. A quarta são
