@@ -2,15 +2,27 @@
 \label{ch:metodo}
 
 Este capítulo descreve a metodologia empregada para desenvolver e avaliar o
-\textbf{FALCO} (\textit{Framework de Aprendizado Ativo com LLM para texto CurtO}).
-A investigação está organizada em quatro pilares empíricos, cada qual associado
-a um experimento identificado e reprodutível. O primeiro mede o impacto da
-composição do conjunto inicial de rotulagem $L_0$. O segundo trata da construção
-de um $L_0$ informativo sem acesso a rótulos, pelo algoritmo DRI-SL. O terceiro
-examina a viabilidade, o custo e o perfil de erro de modelos de linguagem de
-grande porte (LLMs) como oráculos de rotulagem. O quarto avalia o FALCO de forma
-integrada, contra métodos de referência e sob o mesmo orçamento de rotulagem. Uma métrica transversal, a \textit{Learning Curve Efficiency} (LCE),
-sumariza a eficiência das curvas de aprendizado em todos os pilares.
+\textbf{FALCO} (\textit{Framework de Aprendizado Ativo com LLM para texto CurtO}),
+e suas seções seguem a ordem das decisões do processo metodológico. O ponto de
+partida é o problema posto no Capítulo~\ref{ch:intro}: reduzir o custo de
+rotulagem sem perda relevante de desempenho final. Antes de qualquer
+experimento, o capítulo estabelece o terreno comum a todos eles: o desenho da
+pesquisa e seu registro, os dados e sua auditoria, os classificadores e as
+métricas de avaliação. Sobre esse terreno, a investigação percorre o processo
+de rotulagem na ordem em que o custo aparece, em quatro pilares empíricos,
+cada qual associado a um experimento identificado e reprodutível. O processo
+começa sem rótulo algum; por isso, o primeiro pilar mede o impacto da
+composição do conjunto inicial de rotulagem $L_0$ na generalização do
+classificador, e o segundo constrói um $L_0$ informativo sem acesso a
+rótulos, pelo algoritmo DRI-SL. Definido o começo, a pergunta passa a ser
+quem fornece os rótulos: o terceiro pilar examina a viabilidade, o custo e o
+perfil de erro de modelos de linguagem de grande porte (LLMs) como oráculos
+de rotulagem. Com o início e o oráculo resolvidos, o quarto pilar integra as
+peças no FALCO e o avalia contra métodos de referência, sob o mesmo orçamento
+de rotulagem. Uma métrica transversal, a \textit{Learning Curve Efficiency}
+(LCE), sumariza a eficiência das curvas de aprendizado em todos os pilares; o
+capítulo encerra com as ameaças à validade e o instrumental de
+reprodutibilidade.
 
 Todos os experimentos são implementados na biblioteca \texttt{activelearning}
 (Apêndice~\ref{ap:biblioteca}), desenvolvida nesta pesquisa sob arquitetura
@@ -31,7 +43,8 @@ estão disponíveis, o processo é simulado com fidelidade: o oráculo LLM pode 
 avaliado contra o padrão-ouro, e um modelo treinado com supervisão completa fornece o
 limite superior de desempenho.
 
-O desenho desta pesquisa tem proveniência documentada: o laço de aprendizado
+O desenho desta pesquisa tem proveniência documentada, isto é, registro
+datado de onde e quando cada elemento do desenho foi definido: o laço de aprendizado
 ativo com oráculo, a meta de redução do esforço de rotulagem e a avaliação da
 generalização contra um conjunto externo foram apresentados no exame de
 qualificação do autor (PPGMNE/UFPR, junho de 2023) e constam de material
