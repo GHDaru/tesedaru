@@ -17,6 +17,11 @@ PADROES = [
     r"como veremos|veremos que",
     r"[Cc]hegou a hora",
     r"[Cc]onvém (fixá|dizer|lembrar|notar)",
+    r"[Rr]esta (declarar|dizer|registrar|notar|mencionar)",
+    r"deve(m)? ser (registrad|dit|mencionad|notad)[ao]s?\b",
+    r"[Aa] (pergunta|questão) (muda|final é|seguinte é|agora é)",
+    r"(a peça|o passo) seguinte é",
+    r"[Aa]parece o custo|[Rr]esolvido o custo",
 ]
 RX = [re.compile(p) for p in PADROES]
 
