@@ -1,66 +1,76 @@
 % ============================================================================
-% PROPOSTA (banca, 2026-08-24, encomenda do autor): resumo/abstract em
-% SEIS MOVIMENTOS (contexto -> lacuna -> objetivo -> método -> resultados ->
-% conclusão), ~380 palavras, gerado pela skill de abstract fornecida pelo
-% autor e verificado contra o resumo oficial da main.
+% PROPOSTA (banca, 2026-08-24; régua aplicada pelo principal no gate):
+% resumo em SEIS MOVIMENTOS (contexto -> lacuna -> objetivo -> método ->
+% resultados -> conclusão).
 %
-% NAO substitui 0-iniciais/resumo.tex nem resumo-500.tex sem gate do autor.
+% NAO substitui 0-iniciais/resumo.tex nem resumo-500.tex sem decisão do autor.
 % Uso natural: artigo derivado ou condensação mais agressiva do resumo.
 %
-% GARANTIA DE ESPELHO (princípio VIII), medida e não alegada: TODO número
-% desta proposta é SUBCONJUNTO dos números do resumo oficial (nenhum número
-% novo, nenhuma alegação nova). Qualificador inegociável: o marco de 20 mil
-% rótulos (8,6%) vale em varredura POST HOC com rótulos de GABARITO.
+% GARANTIA DE ESPELHO (princípio VIII), verificada no gate por multiconjunto:
+% TODO número desta proposta é SUBCONJUNTO dos números do resumo oficial
+% (nenhum número novo, nenhuma alegação nova). Qualificador inegociável,
+% preservado: o marco de 20 mil rótulos (8,6%) vale em varredura POST HOC
+% com rótulos de GABARITO.
 %
-% DUAS DECISÕES PENDENTES DO AUTOR (apontadas pela banca):
-% (1) TEMPO VERBAL: a skill manda passado ("propôs e avaliou"); o resumo
-%     oficial usa presente ("propõe e avalia"). Adotar exige espelhar a
-%     escolha em resumo, abstract EN e corpo.
-% (2) ALVO: se o alvo for a norma SiBi/UFPR de 500 palavras, o resumo-500
-%     já cumpre; esta versão serve a artigo/condensação de ~380 palavras.
+% GATE DO PRINCIPAL (2026-08-25). A proposta original tinha 430 palavras
+% (não os ~380 alegados), média de 39,1 palavras por frase e máxima de 76,
+% contra a régua MÁXIMA que governa resumo e abstract: 18 a 24 de média,
+% teto de 40. Foi reescrita aqui em períodos dentro da régua, sem alterar
+% nenhum número e sem acrescentar alegação.
+%
+% DECISAO DO AUTOR (2026-08-25): tempo verbal no PRESENTE, espelhando o
+% resumo oficial. A versão da banca vinha no passado, por exigência da skill.
+%
+% REGISTRO, divergência deliberada do texto oficial: "ataca o custo em três
+% frentes", "as respostas viram falsos erros" e "inocenta o ruído" foram
+% substituídos aqui pelas formas que o autor aprovou nos capítulos. Os
+% arquivos resumo.tex, resumo-500.tex, abstract.tex e abstract-500.tex ainda
+% usam as formas antigas: os pré-textuais não receberam o passe de registro
+% que os capítulos receberam. Pendência para decisão do autor.
+%
 % Cortes deliberados (disponíveis no resumo oficial, fora por concisão):
 % Macro F1 do critério (30 mil/13,0%), braço de 35 mil vs supervisão
 % completa, viés de autoavaliação, amplitude 6,4 p.p. da sensibilidade.
 % ============================================================================
 \begin{resumo}
 
-A classificação de textos curtos em português, como as descrições de produtos
-de notas fiscais eletrônicas, enfrenta vocabulário abreviado e ruidoso e
-centenas de categorias desbalanceadas. Os métodos supervisionados dependem de
-grandes volumes de rótulos, e a rotulagem é o principal custo desses
-sistemas; faltava um caminho que reduzisse esse custo sem perda relevante de
-desempenho final. Esta tese propôs e avaliou o FALCO (\textit{Framework} de
-Aprendizado Ativo com LLM para texto CurtO), que ataca o custo de rotulagem
-em três frentes: composição informada do conjunto inicial sem uso de
-rótulos, pela heurística DRI-SL; seleção ativa por incerteza; e substituição
-parcial do anotador humano por oráculos baseados em modelos de linguagem de
-grande porte (LLMs), organizados em fases de custo crescente. A avaliação
-usou uma base pública auditada de 250.365 descrições em 621 categorias, sob
-protocolo pré-registrado com partições imutáveis, testes pareados (McNemar,
-Wilcoxon) e artefato rastreável para cada número reportado; a validação
-final executou o framework ponta a ponta com oráculo LLM gratuito e o
-classificador BERTimbau, em três sementes, avaliado na população reservada
-de 177.490 instâncias. O DRI-SL superou, sem usar nenhum rótulo, o melhor
-indivíduo de um algoritmo genético supervisionado em todos os tamanhos de
-conjunto inicial de 100 a 5.000. Oráculos LLM \textit{zero-shot} atingiram
-77--83\% de acurácia a US\$~0,035--0,92 por mil rótulos, com Macro F1
-superior ao de um classificador supervisionado leve treinado com a base
-completa; sem restrição de saída ao espaço de classes, $6{,}8\%$ das
-respostas viraram falsos erros, e o mesmo modelo divergiu de si mesmo entre
-provedores de \textit{serving} ($p<0{,}001$). A seleção por incerteza
-superou a aleatória ($p=0{,}0078$) e manteve a vantagem sob ruído de oráculo
-até $\varepsilon=0{,}4$. Como nenhum oráculo alcançou o critério
+A classificação de textos curtos em português enfrenta vocabulário abreviado
+e ruidoso e centenas de categorias desbalanceadas, como no caso das
+descrições de produtos de notas fiscais eletrônicas. Os métodos
+supervisionados dependem de grandes volumes de rótulos, e a rotulagem é o
+principal custo desses sistemas. Falta um caminho que reduza esse custo sem
+perda relevante de desempenho final. Esta tese propõe e avalia o FALCO
+(\textit{Framework} de Aprendizado Ativo com LLM para texto CurtO), que reduz
+o custo de rotulagem em três etapas. A primeira é a composição informada do
+conjunto inicial sem uso de rótulos, pela heurística DRI-SL; a segunda é a
+seleção ativa por incerteza. A terceira é a substituição parcial do anotador
+humano por oráculos baseados em modelos de linguagem de grande porte (LLMs),
+organizados em fases de custo crescente. A avaliação usa uma base pública
+auditada de 250.365 descrições em 621 categorias. O protocolo é
+pré-registrado, com partições imutáveis, testes pareados (McNemar, Wilcoxon)
+e artefato rastreável para cada número reportado. A validação final executa o
+framework ponta a ponta, com oráculo LLM gratuito e o classificador
+BERTimbau, em três sementes, avaliadas na população reservada de 177.490
+instâncias. O DRI-SL supera o melhor indivíduo de um algoritmo genético
+supervisionado sem usar nenhum rótulo, e a vantagem vale em todos os tamanhos
+de conjunto inicial de 100 a 5.000. Oráculos LLM \textit{zero-shot} atingem
+77--83\% de acurácia a US\$~0,035--0,92 por mil rótulos. O Macro F1 desses
+oráculos supera o de um classificador supervisionado leve treinado com a base
+completa. Sem restrição de saída ao espaço de classes, $6{,}8\%$ das
+respostas são contadas como falsos erros, e o mesmo modelo diverge de si
+mesmo entre provedores de \textit{serving} ($p<0{,}001$). A seleção por
+incerteza supera a aleatória ($p=0{,}0078$) e mantém a vantagem sob ruído de
+oráculo até $\varepsilon=0{,}4$. Como nenhum oráculo alcança o critério
 pré-registrado de $85\%$ de acurácia, o aprendizado com rótulos ruidosos
-tornou-se o cenário central. Na hipótese central, obter ao menos $95\%$ da
-acurácia da supervisão completa com no máximo 34.724 rótulos, o veredito foi
-duplo: o critério mostrou-se atingível e foi cruzado com 20 mil rótulos
+torna-se o cenário central. A hipótese central é obter ao menos $95\%$ da
+acurácia da supervisão completa com no máximo 34.724 rótulos. O veredito é
+duplo: o critério mostra-se atingível e é cruzado com 20 mil rótulos
 ($8{,}6\%$ da população) nas três sementes, em varredura \textit{post hoc}
-com rótulos de gabarito; a configuração executada, porém, parou por
-estagnação com 11.936 rótulos ($5{,}2\%$), e a decomposição pareada atribuiu
-a perda ao critério de parada, inocentando o ruído do oráculo e a seleção.
-Os resultados mostram que a redução de custo pretendida está ao alcance do
-processo e que o obstáculo remanescente é o critério de parada, não a
-qualidade do oráculo nem a seleção. A tese entrega ainda a métrica LCE
+com rótulos de gabarito. A configuração executada, porém, para por estagnação
+com 11.936 rótulos ($5{,}2\%$). A decomposição pareada atribui a perda ao
+critério de parada, e não ao ruído do oráculo nem à seleção. A redução de
+custo pretendida está, portanto, ao alcance do processo, e o obstáculo
+remanescente é o critério de parada. A tese entrega ainda a métrica LCE
 (\textit{Learning Curve Efficiency}), a biblioteca aberta
 \texttt{activelearning} e a ferramenta FlowBuilder, que tornam o protocolo
 reutilizável em outros domínios.
