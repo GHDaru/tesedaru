@@ -1,11 +1,11 @@
 \chapter{Resultados: Oráculos LLM e o Framework FALCO}
 \label{ch:resultados-falco}
 
-Este capítulo apresenta os resultados de dois pilares. O do oráculo LLM traz a
-avaliação instrumentada de modelos de linguagem de grande porte (LLMs) como
-oráculos de rotulagem
+Este capítulo apresenta os resultados da avaliação de oráculos e do framework
+proposto. A avaliação de oráculos traz a instrumentação de modelos de
+linguagem de grande porte (LLMs) como oráculos de rotulagem
 (Seção~\ref{sec:res-e0}) e a ablação de prompt no modelo de menor custo
-(Seção~\ref{sec:res-e0p}). O do framework traz quatro resultados: a varredura de estratégias com oráculo
+(Seção~\ref{sec:res-e0p}). O framework traz quatro resultados: a varredura de estratégias com oráculo
 simulado (Seção~\ref{sec:res-e1}), a robustez do aprendizado a ruído controlado
 de oráculo (Seção~\ref{sec:res-e4}), os seletores em escala populacional
 (Seção~\ref{sec:res-e6}) e a validação com o classificador forte fora do laço
@@ -56,8 +56,8 @@ gpt-4o-mini       & S-strat & 45,7\% & [43,4; 48,0] & 0,427 & 0,0\% \\
 \end{tabular}
 \end{table}
 
-Quatro leituras principais. \textbf{(i)} Os quatro melhores oráculos formam um platô entre 77\% e 83\% nas
-duas amostras, com diferenças internas pequenas. O teste pareado (RQ1, McNemar)
+A tabela comporta quatro leituras. \textbf{(i)} Os quatro melhores oráculos formam um platô entre 77\% e 83\% nas
+duas amostras, com diferenças internas pequenas. O teste pareado de McNemar
 na S-strat mostra o deepseek-v4-pro significativamente superior ao v4-flash
 ($b=43$, $c=16$, $p<0{,}001$) e estatisticamente empatado com o gpt-4o
 ($p=0{,}061$). \textbf{(ii)} O gpt-4o-mini colapsa na amostra estratificada
@@ -117,11 +117,12 @@ ciclo de rotulagem tanto quanto o preço: um oráculo barato e lento pode ser
 dominado por um caro e paralelo quando o gargalo é o prazo.
 
 O regime de custo monetário zero traz duas ressalvas operacionais, e ambas
-são achados. A
-primeira: grátis não é custo operacional zero. A tentativa inicial, via
+são achados. A primeira é que o acesso gratuito não significa custo
+operacional zero. A tentativa inicial, via
 agregador com cota de 50 requisições/dia, projetava seis dias de execução, o
-que motivou a troca do caminho de acesso, registrada com a tese. A segunda: \emph{o provedor de
-\textit{serving} é parte do instrumento}. O MESMO modelo servido pelo agregador
+que motivou a troca do caminho de acesso, registrada com a tese. A segunda é
+que \emph{o provedor de
+\textit{serving} é parte do instrumento}. O mesmo modelo servido pelo agregador
 diverge significativamente de si mesmo servido pela NVIDIA nas mesmas
 instâncias ($p<0{,}001$ no subconjunto pareado de 850 itens). Medições de oráculo LLM devem registrar, portanto, não só o modelo, mas
 quem o serve e como.
@@ -134,8 +135,8 @@ não ruído difuso. \textbf{31\%} são confusões entre \emph{categorias-irmãs}
 compartilham palavra (\textit{antisseptico bucal} $\to$ \textit{enxaguante
 bucal}; \textit{ervilha} $\to$ \textit{ervilha em conserva}). Em \textbf{17\%} o
 gabarito é uma classe guarda-chuva \textit{outro~\ldots}: o modelo escolhe a
-específica e o catálogo arquiva na agregadora; 7\% são o caso inverso. Cerca de
-$\approx 2\%$ envolvem \texttt{\_rare\_} ou rótulo inválido, e o restante são
+específica e o catálogo arquiva na agregadora; 7\% são o caso inverso. Cerca
+de 2\% envolvem \texttt{\_rare\_} ou rótulo inválido, e o restante são
 erros semânticos genuínos. Ou seja: quase metade do erro do
 oráculo não é ignorância sobre o produto, e sim desconhecimento das
 \emph{convenções deste catálogo}: fronteiras entre classes vizinhas e
@@ -182,7 +183,7 @@ A comparação isola o instrumento: mesmo modelo (gpt-4o-mini), mesmas 1.000
 instâncias da S-rand e mesmo \textit{prompt}, trocando apenas saída estruturada
 com \texttt{enum} por saída livre, que replica o instrumento do legado. A
 acurácia fica em $61{,}3\%$ (enum) contra $60{,}5\%$ (free), mas a taxa de
-rótulos inválidos vai de \textbf{0,0\% contra 6,8\%}. O efeito do instrumento aparece menos na acurácia pontual e mais na
+rótulos inválidos \textbf{passa de 0,0\% para 6,8\%}. O efeito do instrumento aparece menos na acurácia pontual e mais na
 \emph{contabilidade do erro}. Sem restrição de saída, quase 7\% das respostas
 são variações de fraseado fora do espaço de rótulos, que um protocolo ingênuo
 computa como erro do modelo. Isso deflaciona a medição e contamina qualquer
@@ -210,13 +211,12 @@ anotação humana.
 \label{sec:res-e0p}
 
 A anatomia de erros (RQ3) indica que $\approx 48\%$ dos erros do oráculo são
-de convenção de catálogo, ou seja, atacáveis por \textit{prompt}. Esta seção mede esse potencial no modelo de MENOR custo com cache
+de convenção de catálogo, ou seja, corrigíveis por \textit{prompt}. Esta seção mede esse potencial no modelo de menor custo com \textit{cache}
 (gpt-4o-mini), em duas variantes pareadas com o v3 oficial nos mesmos 500
 primeiros itens de cada amostra. A \textbf{v4a} traz dez regras de fronteira
 explícitas, derivadas do perfil de erro da S-strat. A \textbf{v4b} acrescenta
 dez exemplos \emph{inventados} de fronteiras difíceis, nunca instâncias das
-amostras, num desenho anti-vazamento registrado na decisão D-004 do mesmo
-registro. Esse subconjunto-prefixo é aleatório por construção, já que as amostras vêm
+amostras, num desenho anti-vazamento registrado com a tese. Esse subconjunto-prefixo é aleatório por construção, já que as amostras vêm
 embaralhadas. Ele foi dimensionado para detectar, via McNemar, deslocamentos da
 ordem de 4--5 p.p.\ com o volume de discordâncias esperado ($\approx 60$--$80$
 pares), a um quinto do custo da amostra completa por variante.
@@ -243,7 +243,7 @@ S-strat & v4b (regras+ex.)   & $41{,}0\%$ & $14/68$ & $<0{,}001$ \\
 \end{tabular}
 \end{table}
 
-O resultado é uma faca de dois gumes, e por isso mesmo informativo. Na S-rand, que espelha a distribuição de produção, as regras de fronteira
+O resultado é ambivalente, e por isso informativo. Na S-rand, que espelha a distribuição de produção, as regras de fronteira
 recuperam parte do erro de convenção: $+3{,}8$ p.p.\ com v4a ($p=0{,}045$) e
 $+4{,}6$ p.p.\ com v4b ($p=0{,}012$). Uma fração do déficit do modelo fraco é,
 portanto, atacável por \textit{prompt} sem nenhum rótulo adicional.
@@ -252,11 +252,12 @@ $-10{,}8$ p.p.\ ($p<0{,}001$), com os exemplos inventados piorando
 significativamente sobre as regras puras ($p=0{,}0013$). A leitura é direta. Regras derivadas do perfil de erro agregado empurram o
 modelo para as convenções das classes \emph{frequentes}, exatamente o
 comportamento que penaliza a amostra estratificada, dominada por classes
-raras. Daí decorrem duas implicações para o FALCO. A primeira: otimização de
+raras. Daí decorrem duas implicações para o FALCO. A primeira é que a
+otimização de
 \textit{prompt} deve ser validada nas \emph{duas} distribuições antes da
 adoção, pois um ganho medido só na amostra natural pode mascarar regressão
-severa nas caudas. A segunda: o ganho barato na distribuição de produção
-existe, e justifica a direção de trabalho futuro de gerar regras
+severa nas classes raras. A segunda é que o ganho barato na distribuição de
+produção existe, e justifica a direção de trabalho futuro de gerar regras
 automaticamente a partir da matriz de confusão (Seção~\ref{sec:conc-futuro}),
 desde que com salvaguarda estratificada.
 
@@ -304,11 +305,11 @@ significância que 8 sementes permitem: $p=0{,}0078$ em LCE, a \textit{Learning
 Curve Efficiency} do Capítulo~\ref{ch:metodo}, e em F1 final, em todas as
 comparações. Com 15\% do orçamento de rótulos, a melhor célula recupera $78\%$
 do Macro F1 do teto supervisionado.
-\textbf{(ii)~As margens vencem a entropia} no regime de 621 classes. A menor
+\textbf{(ii)~As margens superam a entropia} no regime de 621 classes. A menor
 margem lidera em LCE ($0{,}528$) e a menor confiança em F1 final ($0{,}421$),
 enquanto a entropia fica $\approx 2$--$3$ p.p.\ atrás, diluída pela cauda longa
-de probabilidades em espaços de classe muito grandes. A híbrida herda o pior dos
-dois mundos. \textbf{(iii)~O lote é barato até certo ponto}: na
+de probabilidades em espaços de classe muito grandes. A híbrida fica atrás das
+duas estratégias que combina. \textbf{(iii)~O ganho do lote tem limite}: na
 ablação com entropia, $b=50$ (LCE $0{,}492 \pm 0{,}009$) e $b=100$
 ($0{,}493 \pm 0{,}006$) são indistinguíveis, mas $b=200$ degrada para
 $0{,}481 \pm 0{,}012$; uma explicação compatível, não medida diretamente, é
@@ -358,12 +359,12 @@ $0{,}4$ & Entropia  & $0{,}215 \pm 0{,}010$ & $54{,}1\%$ & \multirow{2}{*}{$0{,}
 \end{tabular}
 \end{table}
 
-Os resultados trazem dois achados. \textbf{Primeiro, o ruído custa caro, mas não destrói o aprendizado ativo}. A
+Os resultados trazem dois achados. \textbf{Primeiro, o ruído reduz o desempenho, mas não anula o ganho da seleção ativa}. A
 vantagem da entropia sobre a aleatória sobrevive \emph{intacta e no teto de
 significância} em todos os níveis de ruído ($p=0{,}0078$ em LCE e F1 final para
 todo $\varepsilon$), e a retenção relativa das duas estratégias é praticamente
 idêntica: $87\%$, $74\%$ e $54\%$ em $\varepsilon=0{,}1$, $0{,}2$ e $0{,}4$. O
-ruído uniforme deprime a curva inteira sem corroer o \emph{valor da seleção}. Não
+ruído uniforme deprime a curva inteira sem reduzir o \emph{valor da seleção}. Não
 se observa aqui o colapso em que a incerteza passa a selecionar
 preferencialmente instâncias mal rotuladas. \textbf{Segundo, a taxa de erro dos oráculos
 reais está na faixa tolerável}: os LLMs avaliados na Seção~\ref{sec:res-e0} erram
@@ -372,7 +373,7 @@ varredura mede retenção de $\approx 74$--$87\%$ do F1 final. E o desenho é de
 A anatomia do RQ3 mostrou que quase metade do erro real dos oráculos é
 estruturado, em categorias-irmãs e guarda-chuva semanticamente próximas, cujo
 dano esperado ao classificador é menor que o do erro aleatório de mesma taxa
-\citep{Frenay2014,Song2023NoisyLabels}. Registre-se a nuance: essa leitura não é unânime. Em reconhecimento de
+\citep{Frenay2014,Song2023NoisyLabels}. Essa leitura, porém, não é unânime. Em reconhecimento de
 entidades, o ruído \emph{real} de anotação mostrou-se mais nocivo que a
 corrupção artificial de mesma taxa \citep{Merdjanovska2024NoiseBench}. A
 extrapolação aqui é condicionada à anatomia específica medida no RQ3, de
@@ -409,7 +410,7 @@ particionamento é feito por posição \emph{depois} do embaralhamento, os dois
 recortes são intercambiáveis. A cada lote de 500, o conjunto rotulado acumulado sofre uma divisão
 convencional 80/20, e o modelo treinado é medido em dois lugares. Um é o
 \emph{teste de autoavaliação}, os 20\% do que o processo rotulou, isto é, o que
-um praticante sem conjunto reservado conseguiria medir. O outro é a
+se conseguiria medir sem um conjunto reservado. O outro é a
 \emph{população}, o desempenho real de implantação.
 Cinco seletores são comparados com PVBin e SGD logístico: entropia,
 aleatório, DRI-SL como política contínua, a variante \textbf{DRI-SL-C} e um
@@ -469,15 +470,15 @@ PVBin & DRI-SL    & 0,527 & 45.500 & 0,284 & 0,356 \\
 \end{tabular}
 \end{table}
 
-Cinco achados (Tabela~\ref{tab:e6}). \textbf{(i)~A entropia domina em escala}. Ela satura a 95\% do teto com 8.000
+A Tabela~\ref{tab:e6} sustenta cinco achados. \textbf{(i)~A entropia mantém a vantagem em escala}. Ela satura a 95\% do teto com 8.000
 rótulos no SGD (19.000 no PVBin), cerca de metade do que a seleção aleatória
 exige nos dois classificadores. Isso confirma a varredura com oráculo perfeito
 (Seção~\ref{sec:res-e1}) fora do regime de orçamento pequeno. \textbf{(ii)~Rotular tudo pode piorar}: no
 SGD, o Macro F1 populacional atinge $0{,}59$ com $\approx 15$ mil rótulos
 selecionados por entropia e \emph{cai} para $0{,}44$ quando o \textit{pool}
-inteiro é rotulado, porque a amostra ativa é mais balanceada por classe que a
-distribuição natural, que domina o treino do modelo de perda logística quando
-tudo entra. A composição foi medida a partir dos índices rotulados salvos por execução, em
+inteiro é rotulado. A causa é a composição: a amostra ativa é mais balanceada
+por classe que a distribuição natural, que domina o treino do modelo de perda
+logística quando todos os rótulos entram. A composição foi medida a partir dos índices rotulados salvos por execução, em
 número efetivo de classes: o exponencial da entropia de Shannon da
 distribuição, isto é, quantas classes equiprováveis dariam a mesma dispersão.
 A amostra da entropia com 15 mil rótulos alcança $331{,}7$ contra $172{,}6$ do
@@ -488,21 +489,21 @@ tamanho da amostra. O PVBin,
 que constrói um protótipo por classe, é imune ao efeito na métrica, embora
 sua amostra ativa também seja rebalanceada ($261{,}1$). Para o
 custo de rotulagem, a implicação é forte: além do desperdício, o rótulo
-adicional pode ser \emph{nocivo} à métrica macro. \textbf{(iii)~O DRI-SL contínuo se corrige quando guiado pelo classificador}.
+adicional pode ser \emph{nocivo} à métrica macro. \textbf{(iii)~O DRI-SL contínuo melhora quando guiado pelo classificador}.
 A variante DRI-SL-C eleva o teto do SGD de $0{,}441$ para $0{,}491$, adianta a
 saturação em $2{,}7\times$ (de 41.500 para 15.500) e supera o aleatório em toda
 a região útil. O DRI-SL clássico, cego ao classificador, fica abaixo do
 aleatório como política contínua. \textbf{(iv)~A ablação atribui o ganho ao
 agrupamento, não à novidade lexical}: o braço estratificado por predição, que
 é a DRI-SL-C \emph{sem} o termo de novidade, supera a DRI-SL-C completa nos
-dois classificadores (SGD: teto $0{,}555$ e saturação em 9.500 contra
-$0{,}491$ e 15.500; PVBin: saturação em 18.000 contra 39.500, empatando com
-a entropia) e em toda a região média da curva. A seleção lexical
+dois classificadores e em toda a região média da curva. No SGD o teto vai de
+$0{,}491$ para $0{,}555$ e a saturação, de 15.500 para 9.500; no PVBin a
+saturação cai de 39.500 para 18.000, empatando com a entropia. A seleção lexical
 intra-grupo, valiosa na partida a frio sem nenhum rótulo, é
 \emph{contraproducente} no regime contínuo: privilegia exemplares
-lexicalmente atípicos quando o que a métrica macro paga é cobertura
+lexicalmente atípicos quando a métrica macro depende de cobertura
 balanceada de classes. A leitura consolidada da tese passa a ser esta: DRI-SL para o \textit{cold
-start} (Fase~1, onde venceu o envelope evolutivo) e entropia como padrão na
+start} (Fase~1, em que superou o envelope evolutivo) e entropia como padrão na
 Fase~2. A estratificação pelas classes previstas, política trivial de
 implementar, fica como alternativa representativa que captura quase todo o
 ganho.
@@ -534,7 +535,7 @@ Cada número vem como média e desvio-padrão entre sementes, e as comparações
 usam McNemar e \textit{bootstrap} pareados na mesma população (artefatos do
 E3). Configuração
 uniforme entre braços: 3 épocas, lote de treinamento 16 com limitação da
-norma do gradiente, comprimento máximo de 32 \textit{tokens}. O tamanho do lote é ele próprio um achado metodológico, não um detalhe. A
+norma do gradiente, comprimento máximo de 32 \textit{tokens}. O tamanho do lote é ele próprio um achado metodológico. A
 configuração inicial, com lote 128, sub-treinava todos os braços: no
 braço-régua D, a correção elevou o Macro F1 de $0{,}3684$ para $0{,}459$. Um
 teste de controle na mesma semente isolou o efeito, o que motivou reexecutar a
@@ -586,7 +587,7 @@ avaliação de robustez com ruído controlado (Seção~\ref{sec:res-e4}). O que 
 comparação mostra é que o custo do oráculo concentra-se na acurácia, sem perda
 correspondente em Macro F1: o gargalo do braço A é orçamento, não rótulo.
 
-\textbf{(ii) A seleção ativa compra Macro F1 e cobertura, não acurácia.}
+\textbf{(ii) A seleção ativa acrescenta Macro F1 e cobertura, não acurácia.}
 Com o mesmo orçamento e gabarito, a diferença de acurácia entre o braço
 aleatório e o selecionado é pequena (C~vs.~B: $0{,}788$ vs.\ $0{,}777$,
 dentro da dispersão entre sementes), mas em Macro F1 a seleção é superior com
@@ -597,7 +598,7 @@ populacional (Seção~\ref{sec:res-e6}), reproduzido no
 \textit{transformer}.
 
 \textbf{(iii) O fator dominante é orçamento, e o critério de parada do laço
-leve subserve o modelo forte.} O braço E usa 15 mil rótulos perfeitos selecionados por entropia, um quarto a
+leve é inadequado ao modelo forte.} O braço E usa 15 mil rótulos perfeitos selecionados por entropia, um quarto a
 mais do que o ciclo real coletou. Ele sobe para $0{,}822$ de acurácia
 ($92{,}7\%$ da régua) e $0{,}351$ de Macro F1, ainda aquém do critério. Este
 braço é média de duas sementes (7 e 42), pois a terceira não foi executada no
@@ -656,7 +657,7 @@ D (régua)         & 50.000 & 100\%  & 21,6\% & 0,887 & 0,459 & --- & --- \\
 \end{tabular}
 \end{table}
 
-Três leituras fecham o pilar. \textbf{(i)~A hipótese é atingível dentro
+Três leituras fecham a avaliação da hipótese. \textbf{(i)~A hipótese é atingível dentro
 do teto.} Na métrica do critério, a acurácia, o cruzamento ocorre em 20 mil
 rótulos ($8{,}6\%$ da população), nas três sementes e com folga (a menor
 semente do braço fica em $0{,}850$, acima do critério de $0{,}843$), bem
@@ -667,15 +668,15 @@ população), \emph{na média e nas três sementes}, dentro do teto e com 4.724
 rótulos de folga (Tabela~\ref{tab:e3p-sweep}). A bifurcação entre a leitura pela
 média e a leitura pela unanimidade, que a varredura anterior impunha,
 desapareceu com a homogeneização do regime de treino.
-\textbf{(iii)~Menos é mais, como afirmação de média e com heterogeneidade
-declarada}. Na média das três sementes, o braço de 35 mil rótulos ativamente
+\textbf{(iii)~Mais rótulo não é sempre melhor, como afirmação de média e com
+heterogeneidade declarada}. Na média das três sementes, o braço de 35 mil rótulos ativamente
 selecionados fica à frente da régua de supervisão completa do \textit{pool} nas
 duas métricas: $0{,}889$ contra $0{,}887$ em acurácia e $0{,}463$ contra
 $0{,}459$ em Macro F1. O efeito, porém, não é unânime. Duas sementes mantêm
 vantagem significativa (McNemar e \textit{bootstrap} pareados), enquanto uma
 inverte em Macro F1 ($-0{,}0050$, IC 95\% $[-0{,}0084;-0{,}0017]$) e empata em
 acurácia ($p=0{,}67$). O sinal
-qualitativo (a fração final dos rótulos do \textit{pool} não compra
+qualitativo (a fração final dos rótulos do \textit{pool} não acrescenta
 desempenho) reproduz no BERTimbau o efeito medido em escala populacional
 (Seção~\ref{sec:res-e6}), e a tese o reporta como efeito de média com
 dispersão declarada, não como unanimidade. A conclusão consolidada é esta: com uma política de parada ancorada no modelo
@@ -693,15 +694,16 @@ oráculo atinge acurácia $\ge 85\%$ na S-rand. Seguem-se duas consequências.
 Primeira, a \textbf{avaliação de robustez ao ruído torna-se obrigatória},
 executada nesta tese com o classificador leve (Seção~\ref{sec:res-e4}) e pronta
 para reexecução com BERTimbau. Segunda, a discussão passa a tratar o
-aprendizado com oráculo ruidoso como cenário central, não excepcional. Uma divergência deve ser declarada aqui, na primeira menção do resultado
-afetado. O critério fixado de antemão, registrado na
+aprendizado com oráculo ruidoso como cenário central, não excepcional. A
+divergência entre o critério fixado de antemão e o executado é declarada aqui,
+na primeira menção do resultado afetado. Esse critério, registrado na
 Seção~\ref{sec:metodo-oraculo-decisao}, previa o ramo de falha, isto é, as duas
 consequências acima, ambas executadas. Mas ele definia o papel de LLM Inicial
 \emph{sujeito} à acurácia mínima de $85\%$ na S-rand, sem dizer como atribuí-lo
 se nenhum candidato a atingisse. A atribuição a seguir relaxa essa restrição e
 mantém o critério de melhor razão acurácia/custo, decisão desta tese registrada
 como tal.
-Registre-se também a regra de amostras das decisões. O limiar do gate e a
+As decisões seguem também uma regra de amostras. O limiar do gate e a
 equivalência do nemotron são medidos na S-rand, que preserva a distribuição de
 produção sob a qual o oráculo operará. Já a superioridade do LLM Avançado, cuja
 amostra o critério original não fixa, é medida na S-strat, que expõe as classes
