@@ -818,17 +818,27 @@ contínuos de baixa dimensão: os \textit{embeddings} estáticos (Word2Vec
 \cite{Mikolov2013}, GloVe \cite{Pennington2014}, FastText
 \cite{Bojanowski2017}) atribuem um vetor por palavra, sem tratar polissemia
 \cite{Birunda2021, Goldberg2017}; os \textbf{contextuais} condicionam a
-representação de cada token à sequência inteira (ELMo \cite{Peters2018}, a
+representação de cada token à sequência inteira (o ELMo, de
+\textit{Embeddings from Language Models} \cite{Peters2018}, a
 família GPT \cite{Radford2018, Radford2019} e o BERT \cite{Devlin2019}),
 resolvendo a polissemia e sustentando o estado da arte em texto curto
-\cite{Ahmed2022, Li2020, Karl2023}. É dessa família o SBERT \citep{Reimers2019SBERT}, que produz representações
-de sentença comparáveis por cosseno, usado pelo DRI-SL, e o BERTimbau \cite{Souza2020BERTimbau} usado como classificador forte.
+\cite{Ahmed2022, Li2020, Karl2023}. São dessa família o SBERT
+(\textit{Sentence-BERT}) \citep{Reimers2019SBERT}, que produz representações
+de sentença comparáveis por cosseno, usado pelo DRI-SL, e o BERTimbau
+\cite{Souza2020BERTimbau}, usado como classificador forte.
 
 Quanto aos \textbf{classificadores}, os algoritmos clássicos seguem
 relevantes como linhas de base eficientes sobre representações esparsas
-\cite{Kowsari2019, Aliero2023}: máquinas de vetores de
-suporte (SVM) \cite{Cortes1995}, Naive Bayes e regressão logística
-\cite{Murphy2012}, $k$ vizinhos mais próximos (KNN) \cite{Cover1967}, árvores e \textit{ensembles} \cite{Quinlan1993,
+\cite{Kowsari2019, Aliero2023}: as máquinas de vetores de
+suporte (SVM), da família dos classificadores de margem, que separam as
+classes pelo hiperplano de maior margem \cite{Cortes1995}; o Naive Bayes,
+probabilístico gerativo, que assume independência entre os termos, e a
+regressão logística, sua contraparte discriminativa, que modela diretamente a
+probabilidade da classe \cite{Murphy2012}; os $k$ vizinhos mais próximos
+(KNN), baseados em instâncias, que classificam pela maioria entre os exemplos
+mais próximos \cite{Cover1967}; e as árvores de decisão, que particionam o
+espaço por regras sucessivas, com seus \textit{ensembles}, que combinam
+muitas árvores para reduzir a variância \cite{Quinlan1993,
 Breiman2001, Dietterich2000}.
 Arquiteturas profundas convolucionais e recorrentes capturam padrões locais e
 sequenciais \cite{Goodfellow2016, Xu2017}, com benefício limitado em textos
