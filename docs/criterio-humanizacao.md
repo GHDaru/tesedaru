@@ -92,3 +92,25 @@ Teste operacional, nesta ordem: (a) a frase sai sem perda de conteúdo
 técnico? Então sai. (b) Ela anuncia conteúdo? Então vira "Esta seção
 <verbo descritivo> <conteúdo>". Verificador executável:
 `python3 scripts/checa-metadiscurso.py <arquivos.tex>` (saída vazia = passa).
+
+## O passe é leitura, não script (regra do autor, 2026-08-25)
+
+Ordem do autor: *"passe o humanize e a avaliação destes metadiscurso, mas
+lendo, não passando script. Este será o padrão."*
+
+`scripts/checa-metadiscurso.py` é **piso, não passe**. Ele só encontra frases
+fixas; tudo o que a regra proíbe de fato — encenação, registro, personificação,
+conclusão genérica, staccato — muda de roupa a cada texto e só aparece na
+leitura. Quem entrega um passe declara o que **leu**, não o que o script disse.
+
+Consequências operacionais:
+
+1. Relatar "o checker passou" nunca é relatar um passe. O episódio que originou
+   esta regra: o Cap.2 foi declarado limpo de metadiscurso com base no exit 0, e
+   a releitura seguinte achou sete casos, dois deles variações de padrões que o
+   próprio checker já perseguia com outro verbo.
+2. Todo caso novo encontrado na leitura vira padrão do checker **depois**,
+   medido nos arquivos da tese com zero falso positivo. O script cresce por
+   trás da leitura, nunca à frente dela.
+3. Vale para os dois passes, humanize e metadiscurso, e vale para texto de
+   qualquer origem: meu, dos agentes ou do autor.

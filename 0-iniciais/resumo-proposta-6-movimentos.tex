@@ -35,7 +35,7 @@
 \begin{resumo}
 
 A classificação de textos curtos em português enfrenta vocabulário abreviado
-e ruidoso e centenas de categorias desbalanceadas, como no caso das
+e ruidoso, além de centenas de categorias desbalanceadas, como no caso das
 descrições de produtos de notas fiscais eletrônicas. Os métodos
 supervisionados dependem de grandes volumes de rótulos, e a rotulagem é o
 principal custo desses sistemas. Falta um caminho que reduza esse custo sem
@@ -50,7 +50,7 @@ auditada de 250.365 descrições em 621 categorias. O protocolo é
 pré-registrado, com partições imutáveis, testes pareados (McNemar, Wilcoxon)
 e artefato rastreável para cada número reportado. A validação final executa o
 framework ponta a ponta, com oráculo LLM gratuito e o classificador
-BERTimbau, em três sementes, avaliadas na população reservada de 177.490
+BERTimbau, em três sementes, com avaliação na população reservada de 177.490
 instâncias. O DRI-SL supera o melhor indivíduo de um algoritmo genético
 supervisionado sem usar nenhum rótulo, e a vantagem vale em todos os tamanhos
 de conjunto inicial de 100 a 5.000. Oráculos LLM \textit{zero-shot} atingem
@@ -64,9 +64,9 @@ oráculo até $\varepsilon=0{,}4$. Como nenhum oráculo alcança o critério
 pré-registrado de $85\%$ de acurácia, o aprendizado com rótulos ruidosos
 torna-se o cenário central. A hipótese central é obter ao menos $95\%$ da
 acurácia da supervisão completa com no máximo 34.724 rótulos. O veredito é
-duplo: o critério é atingível e é cruzado com 20 mil rótulos
+duplo: o critério é atingível, e o cruzamento ocorre com 20 mil rótulos
 ($8{,}6\%$ da população) nas três sementes, em varredura \textit{post hoc}
-com rótulos de gabarito. A configuração executada, porém, para por estagnação
+com rótulos de gabarito. A configuração executada, porém, interrompe-se por estagnação
 com 11.936 rótulos ($5{,}2\%$). A decomposição pareada atribui a perda ao
 critério de parada, e não ao ruído do oráculo nem à seleção. A tese entrega
 ainda a métrica LCE
