@@ -14,12 +14,11 @@ No contexto da língua portuguesa, essas dificuldades se intensificam. Em aplica
 como comércio eletrônico e cadastros operacionais, descrições curtas costumam
 apresentar abreviações, variações morfológicas, ruídos ortográficos e grande
 heterogeneidade lexical. Em trabalho anterior, voltado à classificação de descrições
-curtas de produtos em português, observou-se que métodos clássicos de recuperação da
-informação, como \textit{bag-of-words}, a frequência de termos (TF) e sua
-ponderação TF--IDF (\textit{term frequency--inverse document frequency}), podem
-alcançar desempenho
-relevante quando combinados com pré-processamento e parametrização adequados
-\citep{Daru2024Dissertacao}. Esse resultado ancora empiricamente o problema e é a
+curtas de produtos em português, observou-se que métodos clássicos de recuperação
+da informação alcançam desempenho relevante quando combinados com
+pré-processamento e parametrização adequados \citep{Daru2024Dissertacao}. São eles
+o \textit{bag-of-words}, a frequência de termos (TF) e sua ponderação TF--IDF
+(\textit{term frequency--inverse document frequency}). Esse resultado ancora empiricamente o problema e é a
 base da qual esta tese parte.
 
 Ao mesmo tempo, o avanço dos modelos de linguagem pré-treinados alterou
@@ -54,8 +53,9 @@ informação suficiente para selecionar instâncias realmente informativas. Alé
 o treinamento iterativo do modelo ao longo do ciclo de seleção pode ser caro e pouco
 prático. Assim, o problema central desta tese não é apenas classificar textos curtos
 em português com boa acurácia, mas \textbf{como reduzir o custo de rotulagem nesse
-contexto sem comprometer o desempenho final}, superando as limitações do aprendizado
-ativo tradicional nas fases iniciais do processo \citep{zhang-etal-2022-survey}.
+contexto sem comprometer o desempenho final}. Trata-se de superar as limitações do
+aprendizado ativo tradicional nas fases iniciais do processo
+\citep{zhang-etal-2022-survey}.
 
 \section{Lacuna de pesquisa}
 \label{sec:intro-lacuna}
@@ -66,12 +66,13 @@ modelos pré-treinados em cenários com poucos dados anotados
 ActiveLLM, indicaram que modelos de linguagem de grande porte (LLMs, de
 \textit{large language models}) podem apoiar a seleção
 de instâncias em cenários com poucos exemplos, mitigando o \textit{cold start}
-\citep{Bayer2024ActiveLLM}, e que LLMs podem atuar como rotuladores de baixo custo em
-ciclos de aprendizado ativo \citep{Zhang2025}. Ainda assim, permanece uma lacuna
+\citep{Bayer2024ActiveLLM}. Outro trabalho mostra LLMs atuando como rotuladores de
+baixo custo em ciclos de aprendizado ativo \citep{Zhang2025}. Ainda assim, permanece uma lacuna
 específica: \textbf{falta uma formulação metodológica voltada ao português e ao
-problema de textos curtos que articule, de forma explícita e com validação empírica
-em cada componente, aprendizado ativo, classificação em baixo regime de supervisão e
-uso de modelos de linguagem para apoiar a fase inicial de seleção e rotulagem}. O
+problema de textos curtos}. Essa formulação precisa articular, de forma explícita e
+com validação empírica em cada componente, aprendizado ativo, classificação em baixo
+regime de supervisão e uso de modelos de linguagem para apoiar a fase inicial de
+seleção e rotulagem. O
 confronto com os trabalhos mais próximos, dimensão a dimensão, está na
 Tabela~\ref{tab:lacunas}; é nesse espaço que esta tese se posiciona.
 
@@ -92,11 +93,11 @@ modelos de linguagem nas etapas iniciais pode reduzir a necessidade de rótulos 
 perda relevante de desempenho final}.
 
 Para torná-la falseável, adota-se um critério quantitativo de aceitação, fixado
-de antemão: rotulando no máximo $15\%$ da população deduplicada de textos
-únicos, o framework deve alcançar pelo menos $95\%$ da acurácia que o mesmo classificador obtém com o
-\textit{pool} de referência inteiramente rotulado, superando com significância
-estatística a seleção aleatória e a seleção por incerteza sob o mesmo
-orçamento. A acurácia é a métrica do critério por ser a do pré-registro; o
+de antemão. Rotulando no máximo $15\%$ da população deduplicada de textos únicos,
+o framework deve alcançar pelo menos $95\%$ da acurácia que o mesmo classificador
+obtém com o \textit{pool} de referência inteiramente rotulado. Deve ainda superar,
+com significância estatística, a seleção aleatória e a seleção por incerteza sob o
+mesmo orçamento. A acurácia é a métrica do critério por ser a do pré-registro; o
 Macro F1 acompanha a avaliação como análise de robustez, para o espaço de
 centenas de classes desbalanceadas. O teto de $15\%$ vem do pré-registro do
 estudo.\footnote{A ordem de grandeza é compatível com a literatura, que reporta
@@ -113,9 +114,9 @@ e~\ref{sec:metodo-falco-baselines}).
 \label{sec:intro-objetivos}
 
 O objetivo geral é propor e avaliar o \textbf{FALCO} (\textit{Framework} de
-Aprendizado Ativo com LLM para texto CurtO): um framework de aprendizado
-ativo para classificação de textos curtos em português, com uso de modelos de
-linguagem como oráculo de rotulagem e apoio à fase inicial de seleção, visando
+Aprendizado Ativo com LLM para texto CurtO), um framework de aprendizado
+ativo para classificação de textos curtos em português. Ele emprega modelos de
+linguagem como oráculo de rotulagem e como apoio à fase inicial de seleção, para
 reduzir o custo de anotação e manter desempenho competitivo. A investigação é
 organizada em quatro pilares empíricos, que estruturam também os capítulos de
 resultados:
@@ -147,7 +148,7 @@ Esta tese não propõe um novo modelo fundacional para o português nem um novo
 classificador de texto: sua contribuição está delimitada à \textbf{eficiência do
 processo de rotulagem}. Dois níveis de modelagem são usados de forma complementar:
 um classificador leve, derivado da linha investigada na dissertação de mestrado do
-autor \citep{Daru2024Dissertacao}, em análises exploratórias massivas, e um
+autor \citep{Daru2024Dissertacao}, em análises exploratórias de larga escala, e um
 classificador baseado em BERTimbau na validação principal. Essa distinção isola a
 contribuição metodológica: a originalidade reside no processo de seleção e
 rotulagem, não no modelo de classificação. A tese também se distingue do trabalho
@@ -161,11 +162,11 @@ Além desta introdução, o trabalho está organizado da seguinte forma. O
 Capítulo~\ref{ch:fundam} apresenta os fundamentos de aprendizado
 supervisionado, de classificação de textos curtos, de aprendizado ativo e de
 modelos de linguagem, e a revisão narrativa focada da literatura recente. O
-Capítulo~\ref{ch:metodo} descreve a metodologia: o desenho da pesquisa e o
-programa experimental; os dados e sua auditoria; os classificadores e as
-métricas de avaliação; a composição do conjunto inicial e o algoritmo de
-partida a frio proposto; a avaliação de modelos de linguagem como oráculos de
-rotulagem; e o framework proposto com os métodos de referência. O
+Capítulo~\ref{ch:metodo} descreve a metodologia. Ela cobre o desenho da pesquisa e
+o programa experimental; os dados e sua auditoria; os classificadores e as
+métricas de avaliação. Cobre ainda a composição do conjunto inicial e o
+algoritmo de partida a frio proposto; a avaliação de modelos de linguagem como
+oráculos de rotulagem; e o framework proposto com os métodos de referência. O
 Capítulo~\ref{ch:resultados-l0} apresenta os resultados sobre a composição e a
 construção do conjunto inicial. O Capítulo~\ref{ch:resultados-falco} apresenta
 a avaliação dos oráculos de modelo de linguagem e do framework proposto. O
