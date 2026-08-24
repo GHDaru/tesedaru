@@ -43,6 +43,27 @@ estão disponíveis, o processo é simulado com fidelidade: o oráculo LLM pode 
 avaliado contra o padrão-ouro, e um modelo treinado com supervisão completa fornece o
 limite superior de desempenho.
 
+Antes do detalhamento, vale a visão de conjunto: como as peças deste capítulo
+se encaixam no processo da tese. A base auditada (Seção~\ref{sec:metodo-dados})
+fornece duas visões de trabalho: as linhas cruas, sobre as quais os oráculos
+são medidos, e a visão deduplicada e particionada, sobre a qual os
+classificadores treinam sem vazamento entre treino e teste. Os classificadores
+(Seção~\ref{sec:metodo-classificadores}) dividem o trabalho por custo: os dois
+leves executam as análises que exigem milhares de reexecuções, isto é, a
+sensibilidade da composição de $L_0$, a otimização por algoritmo genético e a
+varredura de estratégias de seleção; o forte, baseado em BERTimbau, treina
+poucas vezes e valida o framework de ponta a ponta. As métricas e os testes
+estatísticos (Seção~\ref{sec:metodo-metricas}) acompanham todas as
+comparações. O processo de rotulagem propriamente dito é montado nas seções
+seguintes, na ordem do próprio laço: a composição do conjunto inicial $L_0$
+(Seção~\ref{sec:metodo-l0}) e sua construção sem rótulos pelo DRI-SL
+(Seção~\ref{sec:metodo-drisl}); depois, os oráculos LLM que fornecem os
+rótulos, com sua instrumentação e critério de decisão
+(Seção~\ref{sec:metodo-oraculo}). O FALCO (Seção~\ref{sec:metodo-falco})
+integra as peças, partida a frio, seleção em lote e progressão de oráculos, e
+é avaliado contra métodos de referência sob o mesmo orçamento. Ameaças à
+validade e reprodutibilidade fecham o capítulo.
+
 O desenho desta pesquisa tem proveniência documentada, isto é, registro
 datado de onde e quando cada elemento do desenho foi definido: o laço de aprendizado
 ativo com oráculo, a meta de redução do esforço de rotulagem e a avaliação da
