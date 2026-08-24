@@ -38,8 +38,7 @@ sequência.
 \end{figure}
 
 Todos os experimentos são implementados na biblioteca \texttt{activelearning}
-(Apêndice~\ref{ap:biblioteca}), desenvolvida nesta pesquisa sob arquitetura
-hexagonal com domínio isolado. Cada número reportado nos capítulos de resultados
+(Apêndice~\ref{ap:biblioteca}), desenvolvida nesta pesquisa. Cada número reportado nos capítulos de resultados
 é rastreável a um artefato de execução versionado, com configuração, sementes,
 revisão do código e registros por iteração, conforme a
 Seção~\ref{sec:metodo-reprodutibilidade}.
@@ -889,10 +888,14 @@ referência.
 O fecho do caminho é a garantia de que ele pode ser percorrido de novo por
 quem quiser conferir cada passo. Toda a instrumentação é implementada na
 biblioteca \texttt{activelearning}
-\cite{DaruActiveLearning} (Apêndice~\ref{ap:biblioteca}), sob arquitetura hexagonal: o núcleo de domínio
-(instâncias, esquema de categorias, estratégias, métricas, políticas de fase) é puro
-e testado isoladamente; LLMs, classificadores e armazenamento são adaptadores
-intercambiáveis. Cada experimento tem um ponto de entrada único parametrizado por
+\cite{DaruActiveLearning} (Apêndice~\ref{ap:biblioteca}), organizada segundo
+o padrão de engenharia de software conhecido como arquitetura hexagonal.
+Desse padrão, o que importa a esta tese é uma garantia: a lógica científica
+dos experimentos (instâncias, esquema de categorias, estratégias, métricas,
+políticas de fase) vive em um núcleo isolado e testado por si. Tudo o que é
+externo, como LLMs, classificadores e armazenamento, conecta-se a esse
+núcleo por adaptadores intercambiáveis. Trocar o provedor de LLM, por
+exemplo, não altera uma linha do núcleo experimental. Cada experimento tem um ponto de entrada único parametrizado por
 arquivo de configuração versionado. As execuções registram sementes, revisão do
 código e anotações linha a linha (JSONL), e são retomáveis após interrupção; as
 chamadas a oráculos registram tokens, tokens em \textit{cache}, latência e custo
