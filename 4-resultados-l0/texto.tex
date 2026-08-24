@@ -1,13 +1,13 @@
 \chapter{Resultados: Composição e Construção do Conjunto Inicial}
 \label{ch:resultados-l0}
 
-Este capítulo apresenta os resultados dos dois primeiros pilares: a sensibilidade da
-generalização à composição do conjunto inicial $L_0$ (Seção~\ref{sec:res-l0-sens}),
+Este capítulo apresenta os resultados sobre o conjunto inicial de rotulagem: a
+sensibilidade da
+generalização à sua composição (Seção~\ref{sec:res-l0-sens}),
 os limites estimados por otimização evolutiva (Seção~\ref{sec:res-l0-ag}) e a
 avaliação do DRI-SL como estratégia de partida a frio (\textit{cold start})
 (Seção~\ref{sec:res-l0-drisl}). Todos os experimentos usam o classificador leve
-PVBin (Capítulo~\ref{ch:metodo}). Os resultados originais vêm do programa
-experimental da pesquisa. Como verificação de robustez, o estudo de
+PVBin (Capítulo~\ref{ch:metodo}). Como verificação de robustez, o estudo de
 sensibilidade e o mecanismo do algoritmo genético (AG) foram
 \textbf{reexecutados de forma independente} na biblioteca de aprendizado ativo
 da tese \citep{DaruActiveLearning}, sob protocolo mais rigoroso: deduplicação
@@ -23,7 +23,7 @@ como restrição \citep{Karl2023}.
 \label{sec:res-l0-sens}
 
 A composição do sorteio inicial muda o desempenho do classificador, e o
-efeito é tanto maior quanto menor o $L_0$. Esta seção mede esse efeito.
+efeito é tanto maior quanto menor o $L_0$.
 
 O experimento avaliou 47 tamanhos de $L_0$ (10 a 200.000), com 30 repetições
 aleatórias por tamanho, medindo Acurácia Global e Macro F1 no conjunto de teste
@@ -39,7 +39,7 @@ Classificador PVBin.}
 \label{fig:tendencia-l0-log}
 \end{figure}
 
-Três padrões estruturam a leitura:
+Os resultados mostram três padrões:
 
 \begin{enumerate}
   \item \textbf{Crescimento com saturação}: a acurácia média sobe de $6{,}7\%$
@@ -55,12 +55,12 @@ Três padrões estruturam a leitura:
   sorteio. É a evidência direta da hipótese de variabilidade: \emph{existem}
   $L_0$ bons e ruins de mesmo tamanho.
   \item \textbf{Cobertura de classes como mecanismo}: em $I=10$ o $L_0$ típico
-  cobre 9 das 621 classes; em $I=1.000$, cerca de 255; a curva de Macro F1
-  segue de perto a curva de cobertura, indicando que, no regime pequeno, o
+  cobre 9 das 621 classes e, em $I=1.000$, cerca de 255. A curva de Macro F1
+  segue de perto a curva de cobertura, o que indica que, no regime pequeno, o
   fator dominante é \emph{quais classes} entram no sorteio.
 \end{enumerate}
 
-Lidos contra a literatura, esses padrões ganham referência externa. O patamar
+Esses padrões podem ser lidos contra a literatura. O patamar
 de saturação coincide com o teto conhecido do classificador sobre esta base. A
 melhor configuração leve da dissertação que origina o PVBin mede $89{,}56\%$
 de acurácia e $70{,}09\%$ de Macro F1 com supervisão completa
@@ -82,8 +82,8 @@ esta seção mede é o custo dessa arbitrariedade.
 
 Esses resultados fundamentam a partida a frio. A composição importa muito no
 regime pequeno, que é exatamente o regime da partida a frio do aprendizado
-ativo. Construir $L_0$ deliberadamente, em vez de sorteá-lo, é portanto a
-alavanca disponível antes de existir qualquer rótulo.
+ativo. Construir $L_0$ deliberadamente, em vez de sorteá-lo, é portanto o recurso
+disponível antes de existir qualquer rótulo.
 
 \section{Limites por otimização evolutiva}
 \label{sec:res-l0-ag}
@@ -91,8 +91,8 @@ alavanca disponível antes de existir qualquer rótulo.
 Para estimar o quanto a composição pode render além do sorteio, um algoritmo
 genético (Seção~\ref{sec:metodo-l0-ag}) otimizou a composição de $L_0$ em
 quatro cenários, a maximização e a minimização de Acurácia e de Macro F1,
-para dez tamanhos. Cada cenário rodou com população de 20 indivíduos e 100
-gerações, ou 200 gerações no caso $|L_0|=10$. São 2.000 avaliações
+para dez tamanhos. Cada cenário foi executado com população de 20 indivíduos e
+100 gerações, ou 200 gerações no caso $|L_0|=10$. São 2.000 avaliações
 supervisionadas por cenário, e 4.000 no caso $|L_0|=10$, pelas 200 gerações.
 
 A Tabela~\ref{tab:ag-evolucao} resume a evolução do melhor (pior) indivíduo
@@ -137,8 +137,7 @@ orçamento, que não foi executado.
 \section{DRI-SL \textit{versus} aleatório e envelope do AG}
 \label{sec:res-l0-drisl}
 
-Uma heurística que não consulta rótulo algum vence o otimizador que os
-consulta. A Tabela~\ref{tab:drisl-vs-ag} compara o DRI-SL (heurística
+A Tabela~\ref{tab:drisl-vs-ag} compara o DRI-SL (heurística
 determinística sem rótulos, Seção~\ref{sec:metodo-drisl}) com o envelope do
 AG.
 
@@ -168,15 +167,15 @@ AG}, em todos os tamanhos de 100 a 5.000. Em $I=1.000$, por exemplo, são
 $67{,}4\%$ contra $62{,}2\%$ de acurácia.
 
 Uma heurística construtiva de custo linear e sem acesso a rótulos supera um
-otimizador evolutivo com 2.000 avaliações supervisionadas por cenário. É forte
-indício de que densidade semântica e variedade lexical capturam a estrutura
-que torna um $L_0$ informativo.
+otimizador evolutivo com 2.000 avaliações supervisionadas por cenário. Esse
+contraste é indício de que densidade semântica e variedade lexical capturam a
+estrutura que torna um $L_0$ informativo.
 
 Há uma ressalva metodológica. Os valores do AG aqui reportados herdam o
-protocolo original, com aptidão e relato na mesma partição, inflacionado por
-construção. A quantificação está na seção seguinte, e reforça a conclusão.
+protocolo original, com aptidão e relato na mesma partição, e são
+inflacionados por construção. A quantificação está na seção seguinte, e reforça a conclusão.
 
-Esse desfecho confirma a expectativa mais bem estabelecida da literatura de
+Esse resultado confirma a expectativa mais bem estabelecida da literatura de
 partida a frio: em orçamento baixo, representatividade supera incerteza.
 \citet{Hacohen2022TypiClust} formalizam a transição de regime já apresentada
 no Capítulo~\ref{ch:fundam} e mostram que, abaixo dela, as estratégias
@@ -187,29 +186,30 @@ simples superando alternativas mais elaboradas justamente nos conjuntos com
 mais classes.
 
 O DRI-SL combina representatividade (densidade semântica) e cobertura
-(variedade lexical), e vence no espaço de 621 classes. O resultado replica,
+(variedade lexical), e é superior no espaço de 621 classes. O resultado replica,
 em português e numa escala de classes maior do que a testada por esses
 trabalhos, o que essa literatura leva a esperar.
 
-A surpresa está no adversário que a heurística supera. O AG não é um competidor
-fraco: otimiza a composição com acesso direto aos rótulos e à aptidão final,
+O AG otimiza a composição com acesso direto aos rótulos e à aptidão final,
 ao custo das 2.000 avaliações supervisionadas por cenário, e ainda assim
-perde para uma heurística que não consulta rótulo algum. A literatura sugere
+fica atrás de uma heurística que não consulta rótulo algum. A literatura sugere
 a explicação: mesmo a incerteza calculada por um modelo treinado no conjunto
-inteiro perde da aleatória no orçamento baixo \citep{Hacohen2022TypiClust}. É
-indício de que o gargalo da partida a frio não é falta de informação
+inteiro fica abaixo da aleatória no orçamento baixo
+\citep{Hacohen2022TypiClust}. A convergência com a literatura é indício de que
+o gargalo da partida a frio não é falta de informação
 supervisionada, e sim a cobertura da estrutura do espaço de entrada, que
 densidade e variedade capturam sem rótulo.
 
 O contraste com \citet{Zhang2023LLMaAA} delimita o alcance. Em tarefas de
 extração com poucos tipos de saída, a diversidade pura por $k$-médias só
-supera a aleatória em um de três conjuntos, e a incerteza domina; aqui, com
+supera a aleatória em um de três conjuntos, e a incerteza é superior; aqui, com
 centenas de classes desbalanceadas em texto curto, a relação se inverte. A divergência é coerente
 com a leitura de regime: o valor da representatividade cresce com o número de
 classes a cobrir e diminui quando poucas classes já são cobertas por
 qualquer amostra.
 
-Há, por fim, um efeito de variância que as tabelas de média não mostram. A
+A reexecução mede também um efeito de variância que as tabelas de média não
+registram. A
 literatura reporta que a seleção estratégica reduz também a dispersão entre
 execuções, não só a média \citep{Griesshaber2020, Yu2023Patron}. O DRI-SL,
 determinístico, leva esse efeito ao limite: elimina por construção a
@@ -221,8 +221,8 @@ construído uma única vez.
 \label{sec:res-l0-replay}
 
 Os achados anteriores sobrevivem a uma reexecução independente, e o protocolo
-original mostra-se otimista quanto ao envelope do AG. Esta seção documenta as
-duas coisas.
+original mostra-se otimista quanto ao envelope do AG. Esta seção documenta os
+dois resultados.
 
 A reexecução na biblioteca de aprendizado ativo da tese
 \citep{DaruActiveLearning} usa grade reduzida de
@@ -230,9 +230,9 @@ A reexecução na biblioteca de aprendizado ativo da tese
 Os 15 tamanhos são log-espaçados e cobrem todo o intervalo original ($10$ a
 $2 \times 10^5$), porque o objeto da validação é a forma da curva, não a sua
 densidade. As 10 repetições estimam a média com erro-padrão inferior à
-divergência que se pretende detectar, a amplitude entre repetições do
-original, a um nono do custo computacional das $47 \times 30$ células
-originais. A reexecução reproduz a estrutura completa do
+divergência que se pretende detectar, que é a amplitude entre repetições do
+estudo original. O custo computacional é um nono do exigido pelas
+$47 \times 30$ células originais. A reexecução reproduz a estrutura completa do
 estudo original com protocolo mais rigoroso: deduplicação por texto
 normalizado \emph{antes} do particionamento e teste fixo de 20.000 instâncias.
 
@@ -257,12 +257,13 @@ independente (10 rep., protocolo com deduplicação). Acurácia média.}
 \end{table}
 
 A concordância entre as duas execuções (Tabela~\ref{tab:replay-vs-original})
-valida de forma independente o estudo original e o porte do classificador
-para a biblioteca nova. A diferença fica em $\le 0{,}7$ p.p.\ em todos os
+valida de forma independente o estudo original e a reimplementação do
+classificador na biblioteca nova. A diferença fica em $\le 0{,}7$ p.p.\ em todos os
 tamanhos, sempre no sentido esperado: a deduplicação remove quase-duplicatas
 que inflavam a concordância entre treino e teste, e o protocolo com
-deduplicação é ligeiramente mais difícil. A fidelidade do porte foi adicionalmente
-verificada por igualdade exata das matrizes de escore entre implementações.
+deduplicação é ligeiramente mais difícil. A fidelidade da reimplementação foi
+também verificada por igualdade exata das matrizes de escore entre
+implementações.
 
 A reexecução do AG usou 2 tamanhos $\times$ 2 cenários com $N_{pop}=30$ e 40
 gerações. É a menor configuração que reproduz o \emph{mecanismo}, pois a
@@ -277,7 +278,7 @@ reexecução aplicou ainda o protocolo anticircularidade da Seção~\ref{sec:met
 medida em partição de aferição, indivíduo final \emph{reavaliado} no teste
 intocado. O mecanismo se reproduz: o melhor indivíduo evolui $+5{,}2$ p.p.\ de acurácia
 em $I=50$, e o envelope fica acima da média aleatória em todos os casos. A
-reavaliação honesta, porém, revela a inflação da circularidade. Para
+reavaliação em partição intocada quantifica a inflação da circularidade. Para
 maximização de Macro F1 com $I=500$, a aptidão final é $19{,}4\%$, enquanto o
 mesmo indivíduo mede $13{,}1\%$ no teste intocado, isto é, $6{,}3$ pontos
 percentuais de superajuste à partição de aferição. Para acurácia a inflação é menor ($\approx 1$ p.p.).
@@ -302,6 +303,6 @@ anteriores e quantifica o viés de circularidade do protocolo original de AG,
 corrigido nesta tese.
 
 Lidos em conjunto contra a literatura, os achados confirmam que a
-representatividade domina o regime de orçamento baixo. Eles a estendem em um
-ponto: nesse regime, nem um otimizador com acesso aos rótulos supera uma
-heurística estrutural que não os consulta.
+representatividade prevalece no regime de orçamento baixo. Os achados estendem
+essa leitura em um ponto: nesse regime, nem um otimizador com acesso aos
+rótulos supera uma heurística estrutural que não os consulta.

@@ -1,13 +1,11 @@
 % ============================================================================
-% ESQUEMA (banca): a SEQUÊNCIA da metodologia como fluxo de decisões — a
-% mesma história, na mesma ordem, da abertura do Cap. 3 (main @74c1fad):
-% problema -> terreno comum -> quatro pilares na ordem em que o custo
-% aparece -> LCE transversal -> validade e reprodutibilidade.
-% Encomenda do autor (tarefa 0138 do principal). O que cada seta carrega é
-% a LÓGICA DE PRECEDÊNCIA (o que precisa estar resolvido antes do quê),
-% não um inventário.
-% Uso previsto (o principal gateia; a banca NÃO edita o Cap. 3):
-%   na abertura do capítulo, após o 1º parágrafo, dentro de figure:
+% ESQUEMA: a sequência da metodologia como fluxo de decisões (HORIZONTAL v2).
+% Encomenda do autor (tarefa 0138; reorientada na auditoria de 2026-08-24:
+% "prefiro que fique na horizontal e menor, está ocupando uma página inteira").
+% Conta a história da abertura do Cap. 3 na mesma ordem: problema -> terreno
+% comum -> pilares 1-4 (setas com a lógica de precedência) -> LCE transversal
+% -> fecho (validade e reprodutibilidade).
+% Uso: abertura do Cap. 3, dentro de figure:
 %   \input{3-metodo/esquemas-propostos/esq-sequencia-metodologia}
 % SEM números medidos, SEM códigos internos, SEM caminhos, SEM travessões.
 % Uso standalone (pré-visualização):
@@ -15,62 +13,48 @@
 %   \usetikzlibrary{arrows.meta, positioning}
 %   \begin{document}\input{esq-sequencia-metodologia.tex}\end{document}
 %   (no modo standalone, troque a \ref{ch:intro} por texto fixo)
-% GEOMETRIA CALIBRADA PARA CORPO 12 (ppginf/book 12pt, textwidth 16cm).
-% Requer apenas arrows.meta e positioning (já em packages.tex). Legível em
-% P&B: problema/terreno = cinza claro; pilares = branco; síntese = cinza
-% médio; transversal = tracejado.
+% GEOMETRIA CALIBRADA PARA CORPO 12 (ppginf/book 12pt, textwidth 16cm):
+% largura total ~15,6 cm, altura ~5 cm (fração de página, não página inteira).
+% Legível em P&B: etapas = cinza claro; destino = cinza médio; LCE tracejada.
 % ============================================================================
 \begin{tikzpicture}[
     x=1cm, y=1cm,
-    caixa/.style={draw, rounded corners=2pt, align=center, text width=96mm,
-                  minimum height=12mm, inner sep=4pt, font=\footnotesize},
-    dado/.style={caixa, fill=gray!8},
-    sintese/.style={caixa, fill=gray!14},
-    lateral/.style={draw, rounded corners=2pt, align=center, text width=26mm,
-                    inner sep=3pt, font=\footnotesize, fill=gray!8},
-    seta/.style={-{Stealth[length=2.6mm]}, thick},
-    rot/.style={font=\scriptsize, align=center, inner sep=2pt}
+    etapa/.style={draw, rounded corners=2pt, align=center, inner sep=2.5pt,
+                  font=\scriptsize, fill=gray!8, minimum height=17mm},
+    destino/.style={etapa, fill=gray!16},
+    seta/.style={-{Stealth[length=2.2mm]}, semithick},
+    rot/.style={font=\tiny, align=center, inner sep=1pt}
 ]
-    \node[dado] (prob) at (4.8,0)
-        {\textbf{problema} (Capítulo~\ref{ch:intro}): reduzir o custo de\\
-         rotulagem sem perda relevante de desempenho final};
-    \node[dado] (terreno) at (4.8,-2.3)
-        {\textbf{terreno comum} a todos os experimentos:\\
-         desenho da pesquisa e registro $\cdot$ dados e auditoria\\
-         $\cdot$ classificadores $\cdot$ métricas};
-    \node[caixa] (p1) at (4.8,-4.7)
-        {\textbf{pilar 1}: quanto a composição do conjunto inicial $L_0$
-         importa (sensibilidade e envelope de desempenho)};
-    \node[caixa] (p2) at (4.8,-7.1)
-        {\textbf{pilar 2}: construir um $L_0$ informativo sem acesso a
-         rótulos (algoritmo DRI-SL)};
-    \node[caixa] (p3) at (4.8,-9.5)
-        {\textbf{pilar 3}: quem fornece os rótulos: LLMs como oráculos
-         (viabilidade, custo e perfil de erro)};
-    \node[sintese] (p4) at (4.8,-11.9)
-        {\textbf{pilar 4}: as peças integradas no FALCO, avaliado contra
-         métodos de referência sob o mesmo orçamento de rotulagem};
+    % ------------------ a linha do processo, da esquerda para a direita ----
+    \node[etapa, text width=20mm] (prob) at (0,0)
+        {\textbf{problema}\\(Cap.~\ref{ch:intro}):\\reduzir o custo de\\rotulagem sem perda\\de desempenho};
+    \node[etapa, text width=21mm] (terr) at (2.68,0)
+        {\textbf{terreno}\\\textbf{comum}:\\desenho e registro;\\dados e auditoria;\\classificadores;\\métricas};
+    \node[etapa, text width=20mm] (p1) at (5.36,0)
+        {\textbf{pilar 1}:\\quanto importa a\\composição do\\conjunto inicial $L_0$};
+    \node[etapa, text width=20mm] (p2) at (8.02,0)
+        {\textbf{pilar 2}:\\construir $L_0$\\sem rótulos\\(DRI-SL)};
+    \node[etapa, text width=20mm] (p3) at (10.66,0)
+        {\textbf{pilar 3}:\\quem rotula:\\LLM como oráculo\\(acerto, custo, erro)};
+    \node[destino, text width=21mm] (p4) at (13.42,0)
+        {\textbf{pilar 4}:\\integração no\\FALCO e avaliação\\sob o mesmo\\orçamento};
 
-    % ---------------- a lógica de precedência nas setas --------------------
-    \draw[seta] (prob) -- (terreno);
-    \draw[seta] (terreno) -- node[rot, anchor=west, xshift=2mm]
-        {o processo começa sem rótulo algum} (p1);
-    \draw[seta] (p1) -- node[rot, anchor=west, xshift=2mm]
-        {medida a importância, constrói-se o começo} (p2);
-    \draw[seta] (p2) -- node[rot, anchor=west, xshift=2mm]
-        {definido o começo: quem rotula?} (p3);
-    \draw[seta] (p3) -- node[rot, anchor=west, xshift=2mm, align=left]
-        {resolvidos início e oráculo,\\integra-se e avalia-se} (p4);
+    % ------------------ setas com a lógica de precedência ------------------
+    \draw[seta] (prob) -- (terr);
+    \draw[seta] (terr) -- (p1);
+    \draw[seta] (p1) -- (p2);
+    \draw[seta] (p2) -- (p3);
+    \draw[seta] (p3) -- (p4);
+    \node[rot, anchor=south] at (4.02,1.3) {o processo começa\\sem rótulo algum};
+    \node[rot, anchor=south] at (6.69,1.3)  {medida a importância,\\constrói-se o começo};
+    \node[rot, anchor=south] at (9.34,1.3)  {definido o começo:\\quem rotula?};
+    \node[rot, anchor=south] at (12.04,1.3)  {resolvidos início\\e oráculo};
 
-    % ---------------- a métrica transversal --------------------------------
-    \node[lateral] (lce) at (13.2,-8.3)
-        {\textbf{transversal}:\\a LCE resume\\as curvas de\\aprendizado\\
-         em todos\\os pilares};
-    \draw[dashed] (11.4,-4.1) -- (11.4,-12.5);
-    \draw[dashed] (11.4,-8.3) -- (lce.west);
-
-    % ---------------- o fecho do capítulo ----------------------------------
-    \node[rot, anchor=west] at (0,-13.6)
-        {o capítulo encerra com as ameaças à validade e o instrumental de
-         reprodutibilidade.};
+    % ------------------ LCE transversal + fecho, abaixo da linha -----------
+    \draw[dashed, rounded corners=2pt]
+        (4.2,-1.55) rectangle (14.55,-2.35);
+    \node[font=\scriptsize, align=center] at (9.37,-1.95)
+        {\textbf{transversal}: a LCE resume as curvas de aprendizado dos quatro pilares};
+    \node[font=\tiny, align=center, anchor=north] at (7.25,-2.6)
+        {o capítulo encerra com a síntese do desenho experimental};
 \end{tikzpicture}

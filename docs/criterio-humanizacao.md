@@ -73,3 +73,22 @@ maiusculizam, e os builds com legendas contendo `—` compilam verdes (o
 histórico de 2026-08-17 comprova). Consequência operacional: o
 `check-travessao-titulo.py` trata legenda como AVISO, nunca como reprovação —
 DoD de fatia não pode ser bloqueado por ela.
+
+## Metadiscurso: sóbrio sim, encenado não (regra do autor, 2026-08-24)
+
+Frases sobre o próprio texto são permitidas apenas na forma sóbria: sujeito
+explícito (esta seção, o capítulo, a tese) + verbo descritivo (apresenta,
+define, descreve, registra, discute, completa). É vetado o **metadiscurso
+encenado**, em três formas:
+
+1. **Drama de falta ou necessidade**: "falta a última peça", "não cabe na
+   tabela e precisa ser dita", "é preciso dizer".
+2. **Apelo ao leitor**: "quem quiser", "note-se", "vale lembrar/mapear/a
+   pena", "não custa dizer", "convém fixá-las desde já".
+3. **Palco e suspense**: "como veremos", "chegou a hora de", "a história
+   continua".
+
+Teste operacional, nesta ordem: (a) a frase sai sem perda de conteúdo
+técnico? Então sai. (b) Ela anuncia conteúdo? Então vira "Esta seção
+<verbo descritivo> <conteúdo>". Verificador executável:
+`python3 scripts/checa-metadiscurso.py <arquivos.tex>` (saída vazia = passa).
