@@ -51,9 +51,9 @@ formalizado na Seção~\ref{sec:fund-al}, trata o mesmo gargalo do
 semi-supervisionado (o custo do rótulo) por via oposta: o próprio algoritmo
 escolhe, de forma interativa, quais instâncias submeter a um oráculo,
 priorizando as de maior benefício esperado \cite{Settles2009}. A distinção
-importa porque o desempenho passa a depender de duas políticas acopladas: a
-de seleção de instâncias e a de obtenção de rótulos, exatamente os dois
-eixos que o FALCO instrumenta.
+importa porque o desempenho passa a depender de duas políticas acopladas, a
+de seleção de instâncias e a de obtenção de rótulos; o FALCO instrumenta
+esses dois eixos.
 
 A tarefa-alvo é a \textbf{classificação}: aprender $f: X \to Y$ com $Y$
 discreto \cite{Duda2001}, o que aqui significa atribuir a cada descrição de
@@ -66,15 +66,21 @@ função \textit{softmax},
 p_i = \frac{\exp(z_i)}{\sum_{j=1}^{K} \exp(z_j)}, \quad i = 1, \dots, K,
 \label{eq:softmax_ml}
 \end{equation}
-treinados com perda de entropia cruzada \cite{Bishop2006, Murphy2012}. Essa
+treinados com a perda de entropia cruzada, função de custo que penaliza cada
+exemplo com o negativo do logaritmo da probabilidade atribuída à classe
+correta: quanto menor essa probabilidade, maior a penalização
+\cite{Bishop2006, Murphy2012}. Essa
 distribuição $p$ é duplamente essencial no aprendizado ativo: além de fornecer
 a predição ($\arg\max_i p_i$), é dela que as estratégias de seleção por
 incerteza (Seção~\ref{sec:estrategias_selecao}) derivam seus escores. Os
 classificadores empregados nos experimentos são detalhados no
-Capítulo~\ref{ch:metodo}: dois modelos vetoriais leves (um baseado em
-protótipos de classe e uma regressão logística multinomial, ambos sobre
-representação \textit{bag-of-words}) e o BERTimbau ajustado com uma camada de
-classificação \cite{Souza2020BERTimbau}.
+Capítulo~\ref{ch:metodo}: dois modelos vetoriais leves e o BERTimbau ajustado
+com uma camada de classificação \cite{Souza2020BERTimbau}. Os dois primeiros
+operam sobre a representação \textit{bag-of-words}, que descreve cada texto
+pela contagem das palavras que o compõem, sem considerar a ordem. Um deles
+classifica pela semelhança entre o texto e um vetor-resumo de cada classe,
+construído a partir dos textos dessa classe; o outro é uma regressão
+logística multinomial.
 
 \subsection{Métricas para classes desbalanceadas}
 \label{subsec:ml_evaluation}
@@ -107,13 +113,15 @@ fórmula, refletindo sobretudo as classes majoritárias \cite{Sokolova2009}. Em
 bases com forte desbalanceamento (caso do conjunto de dados desta tese), o
 \textbf{Macro F1-Score} é a métrica principal, por expor o desempenho nas
 classes raras. Alternativas com propósito semelhante (acurácia balanceada,
-coeficiente de correlação de Matthews e Kappa de Cohen) são discutidas por
-\citet{Grandini2020} e \citet{Riyanto2023Comparative}; esta tese as dispensa
-porque o par Macro F1 + acurácia global já separa os dois fenômenos de
-interesse (desempenho nas caudas \textit{versus} desempenho agregado) —
-separação que é operacional, não estética: nos experimentos desta tese as
-duas métricas chegam a divergir em sinal, e uma métrica única mascararia
-precisamente esse contraste (Capítulo~\ref{ch:resultados-falco}). A
+coeficiente de correlação de Matthews e Kappa de Cohen) são apresentadas na
+revisão de \citet{Grandini2020}; para dados desbalanceados de classificação
+de texto multiclasse, o estudo comparativo de \citet{Riyanto2023Comparative}
+conclui que o F1 é a métrica que importa nesse regime. Esta tese dispensa as
+alternativas porque o par Macro F1 + acurácia global já separa os dois
+fenômenos de interesse, o desempenho nas caudas e o desempenho agregado. A
+separação tem consequência prática: nos experimentos desta tese as duas
+métricas chegam a divergir em sinal, contraste que uma métrica única
+mascararia (Capítulo~\ref{ch:resultados-falco}). A
 \textbf{matriz de confusão} $K \times K$, cuja entrada $[i,j]$ conta exemplos
 da classe real $i$ preditos como $j$, complementa as métricas agregadas ao
 revelar confusões sistemáticas entre pares de classes \cite{Han2012}; é o
@@ -128,7 +136,7 @@ Avaliar um modelo nos mesmos dados de treino superestima seu desempenho
 \cite{Kohavi1995}. As práticas empregadas nesta tese são: (i)
 \textbf{hold-out}, separação treino/teste, adequada a bases grandes como a
 desta tese; (ii) \textbf{validação cruzada $k$-fold estratificada}, que
-particiona os dados em $k$ dobras preservando as proporções de classe, o que é
+particiona os dados em $k$ partições preservando as proporções de classe, o que é
 essencial sob desbalanceamento \cite{Kohavi1995, Forman2010, James2013,
 Widodo2022}, com $k$ tipicamente 5 ou 10, equilíbrio entre viés, variância e
 custo \cite{Nti2021, Reusens2024}; (iii) um conjunto de \textbf{validação}
@@ -249,9 +257,9 @@ A Tabela~\ref{tab:inferencia-mapa} resume o mapeamento situação--teste--uso.
 \textbf{Situação} & \textbf{Instrumento} & \textbf{Uso na tese} \\
 \midrule
 Precisão de uma proporção estimada & IC de Wilson 95\% \cite{Wilson1927, Brown2001} & toda acurácia de oráculo (Cap.~\ref{ch:resultados-falco}) \\
-Dois oráculos, mesmas instâncias & McNemar; binomial exato se $b{+}c{<}25$ \cite{McNemar1947, Dietterich1998} & pareamentos de oráculos e de variantes de \textit{prompt} (Cap.~\ref{ch:resultados-falco}) \\
-Duas estratégias, mesmas sementes & Wilcoxon de postos sinalizados \cite{Wilcoxon1945, Demsar2006} & duas estratégias sob as mesmas sementes (Cap.~\ref{ch:resultados-falco}) \\
-Estatística de resumo sem distribuição conhecida & IC \textit{bootstrap} percentil \cite{EfronTibshirani1993} & comparação de curvas de aprendizado (Cap.~\ref{ch:metodo}) \\
+Dois oráculos, mesmas instâncias & McNemar; binomial exato se $b{+}c{<}25$ \cite{McNemar1947, Dietterich1998} & pareamentos de oráculos e de variantes de \textit{prompt}; braços do framework na mesma população (Cap.~\ref{ch:resultados-falco}) \\
+Duas estratégias, mesmas sementes & Wilcoxon de postos sinalizados \cite{Wilcoxon1945, Demsar2006} & estratégias de seleção contra a aleatória, pareadas por semente (Cap.~\ref{ch:resultados-falco}) \\
+Estatística de resumo sem distribuição conhecida & IC \textit{bootstrap} percentil \cite{EfronTibshirani1993} & comparações pareadas de Macro F1 e LCE entre braços do framework (Cap.~\ref{ch:resultados-falco}) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -376,9 +384,11 @@ cenário básico são relevantes aqui: o modo em \textbf{lote}
 diversidade dentro do lote \cite{Hoi2006}; o aprendizado ativo \textbf{federado}, que executa a
 seleção localmente em múltiplos clientes preservando privacidade
 \cite{Deng2023fedal}; e o cenário com \textbf{múltiplos oráculos} de custos e
-competências distintos \cite{Yan2011}, formulado originalmente para anotadores humanos em \textit{crowdsourcing} e
-que hoje se repete na oferta de LLMs com preços e acurácias distintos, que é o
-cenário do FALCO. Essa oferta e
+competências distintos \cite{Yan2011}, formulado originalmente para anotadores
+humanos em \textit{crowdsourcing}, o recrutamento de muitos anotadores pela
+internet, cada um rotulando pequenos lotes com qualidade variável. A mesma
+estrutura se repete hoje na oferta de LLMs com preços e acurácias distintos,
+que é o cenário do FALCO. Essa oferta e
 seus preços são instrumentados no Capítulo~\ref{ch:metodo}.
 
 \subsection{Estratégias de seleção de instâncias}
@@ -396,14 +406,14 @@ seleciona as instâncias sobre as quais o modelo corrente está mais incerto,
 requerendo apenas as probabilidades preditas. Reúne custo baixo, aplicabilidade
 geral e relação teórica com a bissecção do espaço de versão em
 classificadores de margem \citep{Tong2000}, e permanece linha de base forte em
-\textit{deep learning} \citep{Gal2017}, com uma ressalva de regime que importa
-a esta tese: em classificação multirrótulo extrema (centenas de rótulos
-possíveis e vários rótulos por texto), nenhuma estratégia de seleção supera a
-aleatória de forma consistente \citep{Wertz2022}. O próprio estudo localiza o
-ganho de seleção nos conjuntos em que os rótulos pouco co-ocorrem, condição
-da qual a classificação de rótulo único, caso desta tese, é o extremo; e em
-tarefas de rótulo único com poucas classes a seleção supera a aleatória de
-forma consistente \citep{Rouzegar2024}. As três medidas canônicas da
+\textit{deep learning} \citep{Gal2017}. Uma ressalva de regime importa a esta
+tese. Em classificação multirrótulo extrema, com centenas de rótulos possíveis
+e vários rótulos por texto, nenhuma estratégia de seleção supera a aleatória
+de forma consistente \citep{Wertz2022}. O mesmo estudo mostra que o ganho da
+seleção aparece nos conjuntos em que os rótulos raramente ocorrem juntos. A
+classificação de rótulo único, caso desta tese, é o caso-limite dessa
+condição: cada texto tem um único rótulo. Nesse regime, com poucas classes, a
+seleção supera a aleatória de forma consistente \citep{Rouzegar2024}. As três medidas canônicas da
 amostragem por incerteza são usadas nos experimentos desta tese:
 \begin{equation}
 x^*_{LC} = \arg\max_x \left[ 1 - P_\theta(\hat{y}|x) \right]
