@@ -193,24 +193,27 @@ com $\ge 5$ instâncias mais a sentinela), governa os experimentos de oráculo. 
 filtro brando de $\ge 2$ instâncias, na qual 231.490 textos únicos distribuem-se
 por \textbf{714 classes presentes}. Essa segunda visão dispensa a sentinela
 \texttt{\_rare\_} de propósito: agrupar a cauda longa mascararia justamente o
-comportamento que o aprendizado ativo é chamado a testar.\footnote{Duas
-convenções de contagem explicam a diferença entre as classes que sobrevivem ao
-filtro e as 714 presentes na visão deduplicada, e ambas são necessárias para
-refazer os números desta seção. Primeira: duas chaves de texto distintas
-convivem no processamento. O censo de conflitos e a contagem de duplicatas
-(Seção~\ref{sec:metodo-dados-auditoria}) comparam descrições com os espaços
-internos colapsados, ao passo que a deduplicação que precede o particionamento
-usa a descrição apenas aparada e convertida a minúsculas. Nesta base a remoção
-de acentos não altera contagem alguma, pois não há um único caractere acentuado
-nas descrições ou nos rótulos, de modo que a diferença entre as chaves está no
-tratamento de espaços. Segunda: o filtro de $\ge 2$ instâncias conta linhas, e
-não textos já deduplicados. São 715 as classes com pelo menos duas linhas na
-base corrigida, contra 710 pela contagem sobre textos únicos. Dessas 715, uma
-(\textit{pomada massageadora}) ainda desaparece na deduplicação, cuja regra é
-manter a primeira ocorrência de cada texto: os dois textos dessa classe já
-haviam aparecido sob outro rótulo. A receita completa é executável e reproduz
-todas as contagens desta seção; ela acompanha a biblioteca
-\texttt{activelearning} \cite{DaruActiveLearning}.}
+comportamento que o aprendizado ativo é chamado a testar.
+
+Ao transitar entre essas visões, as contagens de classes mudam, e a mudança
+tem explicação em duas convenções de contagem. Quem quiser reproduzir os
+números desta seção precisa conhecer as duas. A primeira convenção é a chave
+de texto usada para comparar descrições. O censo de conflitos e a contagem de
+duplicatas (Seção~\ref{sec:metodo-dados-auditoria}) comparam descrições com
+os espaços internos colapsados; a deduplicação que precede o particionamento
+usa a descrição apenas aparada e convertida a minúsculas. A remoção de
+acentos não altera contagem alguma nesta base, pois não há um único caractere
+acentuado nas descrições ou nos rótulos; a diferença entre as chaves está,
+portanto, no tratamento dos espaços. A segunda convenção é o que se conta ao
+aplicar o filtro de $\ge 2$ instâncias: linhas ou textos únicos. Contando
+linhas da base corrigida, 715 classes atingem o mínimo; contando textos
+únicos, 710. Dessas 715, uma (\textit{pomada massageadora}) ainda desaparece
+na deduplicação, cuja regra é manter a primeira ocorrência de cada texto: os
+dois textos dessa classe já haviam aparecido sob outro rótulo, e a classe
+fica sem representante na visão deduplicada. É assim que se chega às 714
+classes presentes. A receita completa é executável e reproduz todas as
+contagens desta seção; ela acompanha a biblioteca \texttt{activelearning}
+\cite{DaruActiveLearning}.
 
 \subsection{Particionamento}
 \label{sec:metodo-dados-particionamento}
