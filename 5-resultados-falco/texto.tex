@@ -394,7 +394,9 @@ que mede nos próprios dados que o processo coletou, e a avaliação
 O viés estatístico de avaliar em dados coletados ativamente é conhecido da
 literatura \citep{Farquhar2021Bias,Kossen2021ActiveTesting}; a contribuição
 aqui é quantificá-lo em espaço de classes amplo, onde o sinal se revela
-dependente da métrica. A base deduplicada é dividida em um
+dependente da métrica.
+
+A base deduplicada é dividida em um
 \textit{pool} rotulável de 50.000 instâncias (oráculo perfeito, isto é, o
 próprio gabarito) e uma \textbf{população reservada} com todo o restante
 (181.490 instâncias), jamais tocada pela seleção. Registre-se a diferença de denominador em relação ao
@@ -407,11 +409,14 @@ parada do ciclo real. O desconto é feito na avaliação com o classificador for
 varredura \textbf{não tem critério de parada}: ela percorre o orçamento inteiro
 e nunca consulta aquelas instâncias para decidir coisa alguma. A diferença é de 2,2\% da amostra de avaliação e, como o
 particionamento é feito por posição \emph{depois} do embaralhamento, os dois
-recortes são intercambiáveis. A cada lote de 500, o conjunto rotulado acumulado sofre uma divisão
+recortes são intercambiáveis.
+
+A cada lote de 500, o conjunto rotulado acumulado sofre uma divisão
 convencional 80/20, e o modelo treinado é medido em dois lugares. Um é o
 \emph{teste de autoavaliação}, os 20\% do que o processo rotulou, isto é, o que
 se conseguiria medir sem um conjunto reservado. O outro é a
 \emph{população}, o desempenho real de implantação.
+
 Cinco seletores são comparados com PVBin e SGD logístico: entropia,
 aleatório, DRI-SL como política contínua, a variante \textbf{DRI-SL-C} e um
 braço de \textbf{ablação} da própria DRI-SL-C. Na DRI-SL-C, depois do \textit{cold start}, os grupos do DRI-SL deixam de vir
@@ -427,14 +432,16 @@ descritivos. Os dois braços centrais (entropia e aleatório, ambos
 classificadores) foram, contudo, reexecutados em \textbf{oito sementes}
 que variam o sorteio inicial, os desempates e a divisão interna mantendo o
 \textit{pool} fixo, permitindo inferência sobre a comparação principal
-(artefato de análise multissemente). A robustez confirma o quadro. A saturação
-da entropia no SGD é $9{,}1\text{k}\pm0{,}6\text{k}$ rótulos (faixa 8,5--10k)
-contra $15{,}5\text{k}\pm1{,}1\text{k}$ do aleatório, e o teto da entropia
+(artefato de análise multissemente).
+
+A robustez confirma o quadro. A saturação
+da entropia no SGD é $9.100 \pm 600$ rótulos (faixa 8.500--10.000)
+contra $15.500 \pm 1.100$ do aleatório, e o teto da entropia
 supera o do aleatório em \textbf{8 das 8 sementes} (Wilcoxon pareado,
 $p=0{,}0078$, a significância máxima alcançável com oito pares). No PVBin a vantagem de teto é pequena e não significativa
-(6/8), mas a saturação ($19{,}3\text{k}\pm0{,}7\text{k}$) permanece menos
-da metade da do aleatório ($40{,}6\text{k}\pm1{,}4\text{k}$). O viés de
-autoavaliação da acurácia é igualmente estável: em $|L|=10\text{k}$ o
+(6/8), mas a saturação ($19.300 \pm 700$) permanece menos
+da metade da do aleatório ($40.600 \pm 1.400$). O viés de
+autoavaliação da acurácia é igualmente estável: em $|L|=10.000$ o
 teste de autoavaliação subestima a população em $17{,}1\pm1{,}0$ p.p.\ entre as
 sementes. O valor de saturação de 8.000 reportado na
 Tabela~\ref{tab:e6} (semente original) situa-se na borda otimista da faixa
@@ -473,7 +480,9 @@ PVBin & DRI-SL    & 0,527 & 45.500 & 0,284 & 0,356 \\
 A Tabela~\ref{tab:e6} sustenta cinco achados. \textbf{(i)~A entropia mantém a vantagem em escala}. Ela satura a 95\% do teto com 8.000
 rótulos no SGD (19.000 no PVBin), cerca de metade do que a seleção aleatória
 exige nos dois classificadores. Isso confirma a varredura com oráculo perfeito
-(Seção~\ref{sec:res-e1}) fora do regime de orçamento pequeno. \textbf{(ii)~Rotular tudo pode piorar}: no
+(Seção~\ref{sec:res-e1}) fora do regime de orçamento pequeno.
+
+\textbf{(ii)~Rotular tudo pode piorar}: no
 SGD, o Macro F1 populacional atinge $0{,}59$ com $\approx 15$ mil rótulos
 selecionados por entropia e \emph{cai} para $0{,}44$ quando o \textit{pool}
 inteiro é rotulado. A causa é a composição: a amostra ativa é mais balanceada
@@ -489,11 +498,15 @@ tamanho da amostra. O PVBin,
 que constrói um protótipo por classe, é imune ao efeito na métrica, embora
 sua amostra ativa também seja rebalanceada ($261{,}1$). Para o
 custo de rotulagem, a implicação é forte: além do desperdício, o rótulo
-adicional pode ser \emph{nocivo} à métrica macro. \textbf{(iii)~O DRI-SL contínuo melhora quando guiado pelo classificador}.
+adicional pode ser \emph{nocivo} à métrica macro.
+
+\textbf{(iii)~O DRI-SL contínuo melhora quando guiado pelo classificador}.
 A variante DRI-SL-C eleva o teto do SGD de $0{,}441$ para $0{,}491$, adianta a
 saturação em $2{,}7\times$ (de 41.500 para 15.500) e supera o aleatório em toda
 a região útil. O DRI-SL clássico, cego ao classificador, fica abaixo do
-aleatório como política contínua. \textbf{(iv)~A ablação atribui o ganho ao
+aleatório como política contínua.
+
+\textbf{(iv)~A ablação atribui o ganho ao
 agrupamento, não à novidade lexical}: o braço estratificado por predição, que
 é a DRI-SL-C \emph{sem} o termo de novidade, supera a DRI-SL-C completa nos
 dois classificadores e em toda a região média da curva. No SGD o teto vai de
@@ -502,11 +515,14 @@ saturação cai de 39.500 para 18.000, empatando com a entropia. A seleção lex
 intra-grupo, valiosa na partida a frio sem nenhum rótulo, é
 \emph{contraproducente} no regime contínuo: privilegia exemplares
 lexicalmente atípicos quando a métrica macro depende de cobertura
-balanceada de classes. A leitura consolidada da tese passa a ser esta: DRI-SL para o \textit{cold
+balanceada de classes.
+
+A leitura consolidada da tese passa a ser esta: DRI-SL para o \textit{cold
 start} (Fase~1, em que superou o envelope evolutivo) e entropia como padrão na
 Fase~2. A estratificação pelas classes previstas, política trivial de
 implementar, fica como alternativa representativa que captura quase todo o
 ganho.
+
 \textbf{(v)~A autoavaliação em dados coletados ativamente é enviesada, com
 sinal dependente da métrica}. No braço aleatório, que serve de controle, a
 acurácia da autoavaliação e a externa coincidem ($\Delta \approx 0$), o que valida
