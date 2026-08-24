@@ -1,5 +1,67 @@
+% ============================================================================
+% RESUMO OFICIAL da tese (decisao do autor, 2026-08-25).
+%
+% Origem: proposta da banca em seis movimentos (contexto -> lacuna -> objetivo
+% -> metodo -> resultados -> conclusao), gateada pelo principal em tres
+% passes: regua, humanize e leitura de metadiscurso.
+%
+% A versao anterior, de 862 palavras, esta preservada em resumo-estendido.tex
+% (espelho em abstract-estendido.tex). Ela nao entra no PDF.
+%
+% NORMA: SiBi/UFPR limita resumo e abstract a 500 palavras. Este cumpre; o
+% estendido nao cumpria, e era a pendencia P-09.
+%
+% ESPELHO: abstract.tex e a traducao simetrica deste arquivo. Toda edicao aqui
+% precisa ser espelhada la, e vice-versa: mesmos numeros, mesma estrutura,
+% mesmos cortes.
+%
+% NUMEROS: subconjunto verificado dos numeros do resumo estendido; nenhum
+% numero novo, nenhuma alegacao nova. O marco de 20 mil rotulos (8,6%) traz
+% sempre o qualificador de varredura POST HOC com rotulos de GABARITO.
+% ============================================================================
 \begin{resumo}
 
-A classificação de textos curtos em português enfrenta três obstáculos ao mesmo tempo. O vocabulário é abreviado e ruidoso, como nas descrições de produtos de notas fiscais eletrônicas. As categorias são centenas, e desbalanceadas. E o método depende de grandes volumes de rótulos, cuja obtenção é o principal custo desses sistemas. Esta tese propõe e avalia o FALCO (\textit{Framework} de Aprendizado Ativo com LLM para texto CurtO), que reduz esse custo em três etapas. A primeira é a composição informada do conjunto inicial de treinamento. A segunda é a seleção ativa de instâncias por incerteza. A terceira é a substituição parcial do anotador humano por oráculos baseados em modelos de linguagem de grande porte (LLMs), organizados em fases de custo crescente. A investigação usa um conjunto público auditado de 250.365 descrições de produtos em 621 categorias, das quais 250.221 na versão corrigida empregada nos experimentos. O protocolo é pré-registrado, com partições imutáveis, análise pareada (McNemar, Wilcoxon) e artefato rastreável para cada número reportado. Cinco resultados sustentam a tese. (i) A composição do conjunto inicial importa mais quanto menor o orçamento: só o sorteio produz amplitude de $6{,}4$ pontos percentuais de acurácia com $|L_0|=100$. A heurística determinística proposta, o DRI-SL, combina densidade semântica e diversidade lexical sem usar nenhum rótulo. Ela supera o melhor indivíduo de um algoritmo genético supervisionado em todos os tamanhos de 100 a 5.000. A comparação é conservadora, pois a correção de circularidade introduzida na tese reduziu o envelope evolutivo em até $6{,}3$ pontos percentuais. (ii) Oráculos LLM \textit{zero-shot} atingem $77$--$83\%$ de acurácia no espaço fechado de 621 categorias, a custos de US\$~0,035 a US\$~0,92 por mil rótulos. O Macro F1 deles supera o de um classificador supervisionado leve treinado com a base completa de 250 mil descrições rotuladas. Quase metade dos seus erros concentra-se em convenções de catálogo: categorias-irmãs e classes guarda-chuva. (iii) O instrumento de medição é parte do resultado. Sem restrição de saída ao espaço de classes, $6{,}8\%$ das respostas são contadas como falsos erros. Regras de fronteira no \textit{prompt} melhoram o modelo fraco na distribuição de produção ($+4{,}6$ p.p., $p=0{,}012$), ao custo de degradação severa nas classes raras ($p<0{,}001$). O provedor de \textit{serving} também é instrumento: o mesmo modelo gratuito diverge significativamente de si mesmo entre dois serviços ($p<0{,}001$). Servido adequadamente, porém, ele empata com oráculos pagos na amostra de produção. (iv) As estratégias de incerteza superam a seleção aleatória na significância máxima que 8 sementes permitem ($p=0{,}0078$), e recuperam $78\%$ do Macro F1 do teto supervisionado com $15\%$ do \textit{pool} daquele experimento. A vantagem sobrevive intacta a ruído uniforme de oráculo até $\varepsilon=0{,}4$, faixa que cobre o erro observado nos LLMs reais. Nenhum oráculo alcançou o critério pré-registrado de $85\%$ de acurácia. O gate metodológico definiu então a configuração final: oráculo econômico na fase inicial e oráculo de maior acurácia na fase avançada. Ele também tornou o aprendizado com rótulos ruidosos o cenário central. (v) O framework foi executado ponta a ponta com oráculo LLM gratuito, a custo monetário zero. A validação usou o classificador forte, o BERTimbau, com três sementes e avaliação na população reservada de 177.490 instâncias. Ela respondeu à hipótese central: obter pelo menos $95\%$ da acurácia da supervisão completa do \textit{pool} de referência, a métrica do pré-registro, com no máximo 34.724 rótulos ($15\%$ da população deduplicada). O veredito é duplo. \textbf{O critério é atingível dentro do teto, e é cruzado com 20 mil rótulos ($8{,}6\%$ da população) nas três sementes, em varredura \textit{post hoc} com rótulos de gabarito. A configuração executada, porém, parou por estagnação aquém do piso, com 11.936 rótulos ($5{,}2\%$)}. A decomposição pareada não atribui a perda ao ruído do oráculo, que, por ser estruturado, até beneficia as classes raras. Também não a atribui à seleção: a perda vem do critério de parada herdado do classificador leve. Em Macro F1, análise de robustez introduzida nesta tese, o critério é atingido com 30 mil rótulos ($13{,}0\%$ da população), também nas três sementes e dentro do teto. E, na média das três sementes, 35 mil rótulos ativamente selecionados superam a supervisão completa do \textit{pool} nas duas métricas, com heterogeneidade declarada: duas sementes mantêm vantagem significativa, uma inverte em Macro F1 e empata em acurácia. Os experimentos em escala populacional mostram ainda que a autoavaliação em dados coletados ativamente é enviesada, em direção que depende da métrica: a acurácia da autoavaliação subestima o desempenho real, e o Macro F1 da autoavaliação o superestima. Isso fundamenta o conjunto reservado de avaliação e o critério de liberação que o framework adota. As limitações de primeira ordem são declaradas. Os resultados provêm de uma única base, do próprio domínio de estudo. A superação da supervisão completa pelo braço de 35 mil rótulos vale na média das sementes, com uma semente divergente em Macro F1. E a análise de custo apoia-se em razões entre oráculos, como a diferença de 26 vezes sob empate estatístico de acurácia, não em preços absolutos, que datam. A tese entrega ainda a métrica LCE (\textit{Learning Curve Efficiency}), para comparação de curvas de aprendizado, a biblioteca aberta \texttt{activelearning} e a ferramenta FlowBuilder. Com ingestão saneada de dados, execução parametrizada e curvas de aprendizado, elas tornam o protocolo reutilizável em outros domínios.
+A classificação de textos curtos em português enfrenta vocabulário abreviado
+e ruidoso, além de centenas de categorias desbalanceadas, como no caso das
+descrições de produtos de notas fiscais eletrônicas. Os métodos
+supervisionados dependem de grandes volumes de rótulos, e a rotulagem é o
+principal custo desses sistemas. Falta um caminho que reduza esse custo sem
+perda relevante de desempenho final. Esta tese propõe e avalia o FALCO
+(\textit{Framework} de Aprendizado Ativo com LLM para texto CurtO), que reduz
+o custo de rotulagem em três etapas. A primeira é a composição informada do
+conjunto inicial sem uso de rótulos, pela heurística DRI-SL; a segunda é a
+seleção ativa por incerteza. A terceira é a substituição parcial do anotador
+humano por oráculos baseados em modelos de linguagem de grande porte (LLMs),
+organizados em fases de custo crescente. A avaliação usa uma base pública
+auditada de 250.365 descrições em 621 categorias, das quais 250.221 na versão
+corrigida empregada nos experimentos. O protocolo é pré-registrado, com
+partições imutáveis, testes pareados (McNemar, Wilcoxon) e artefato
+rastreável para cada número reportado. A validação final executa o framework
+ponta a ponta, com oráculo LLM gratuito e o classificador BERTimbau, em três
+sementes, com avaliação na população reservada de 177.490 instâncias. O
+DRI-SL supera o melhor indivíduo de um algoritmo genético supervisionado sem
+usar nenhum rótulo, e a vantagem vale em todos os tamanhos de conjunto
+inicial de 100 a 5.000. Oráculos LLM \textit{zero-shot} atingem 77--83\% de
+acurácia a US\$~0,035--0,92 por mil rótulos. O Macro F1 desses oráculos
+supera o de um classificador supervisionado leve treinado com a base
+completa. Sem restrição de saída ao espaço de classes, $6{,}8\%$ das
+respostas são contadas como falsos erros, e o mesmo modelo diverge de si
+mesmo entre provedores de \textit{serving} ($p<0{,}001$). A seleção por
+incerteza supera a aleatória ($p=0{,}0078$) e mantém a vantagem sob ruído de
+oráculo até $\varepsilon=0{,}4$. Como nenhum oráculo alcança o critério
+pré-registrado de $85\%$ de acurácia, o aprendizado com rótulos ruidosos
+torna-se o cenário central. A hipótese central é obter ao menos $95\%$ da
+acurácia da supervisão completa com no máximo 34.724 rótulos. O veredito é
+duplo: o critério é atingível, e o cruzamento ocorre com 20 mil rótulos
+($8{,}6\%$ da população) nas três sementes, em varredura \textit{post hoc}
+com rótulos de gabarito. A configuração executada, porém, interrompe-se por
+estagnação com 11.936 rótulos ($5{,}2\%$). A decomposição pareada atribui a
+perda ao critério de parada, e não ao ruído do oráculo nem à seleção. Duas
+limitações delimitam o alcance: os resultados provêm de uma única base, do
+próprio domínio de estudo, e a análise de custo apoia-se em razões entre
+oráculos, não em preços absolutos. A tese entrega ainda a métrica LCE
+(\textit{Learning Curve Efficiency}), a biblioteca aberta
+\texttt{activelearning} e a ferramenta FlowBuilder, que tornam o protocolo
+reutilizável.
 
 \end{resumo}
