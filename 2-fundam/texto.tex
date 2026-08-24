@@ -369,7 +369,22 @@ orçamento.
   \end{algorithmic}
 \end{algorithm}
 
-O laço admite três cenários clássicos, que diferem em como as instâncias
+\begin{figure}[htbp]
+    \centering
+    \input{3-metodo/esquemas-propostos/esq-laco-aprendizado-ativo}
+    \caption{O laço do aprendizado ativo com acervo fixo
+    (\textit{pool-based}), no arcabouço
+    $\mathcal{A}=\langle L, U, \theta, S, O, B\rangle$ adotado na tese: a
+    cada iteração, o classificador é treinado no conjunto rotulado, a
+    estratégia $S$ seleciona um lote $Q_t$ do acervo $U$ (modo em lote), o
+    oráculo $O$ rotula o lote e os pares rotulados retornam a $L$; o
+    processo repete até esgotar o orçamento $B$ ou o acervo, devolvendo o
+    modelo final.}
+    \label{fig:fund-laco-al}
+\end{figure}
+
+O laço, que a Figura~\ref{fig:fund-laco-al} ilustra, admite três cenários
+clássicos, que diferem em como as instâncias
 chegam ao seletor \cite{Settles2012}: na \textbf{síntese de consultas}, o
 algoritmo gera instâncias artificiais, o que funciona quando o espaço de entrada tem estrutura conhecida, mas pode
 produzir exemplos ininteligíveis para anotadores humanos \cite{Baum1992}; na
@@ -406,14 +421,18 @@ seleciona as instâncias sobre as quais o modelo corrente está mais incerto,
 requerendo apenas as probabilidades preditas. Reúne custo baixo, aplicabilidade
 geral e relação teórica com a bissecção do espaço de versão em
 classificadores de margem \citep{Tong2000}, e permanece linha de base forte em
-\textit{deep learning} \citep{Gal2017}. Uma ressalva de regime importa a esta
-tese. Em classificação multirrótulo extrema, com centenas de rótulos possíveis
-e vários rótulos por texto, nenhuma estratégia de seleção supera a aleatória
-de forma consistente \citep{Wertz2022}. O mesmo estudo mostra que o ganho da
-seleção aparece nos conjuntos em que os rótulos raramente ocorrem juntos. A
-classificação de rótulo único, caso desta tese, é o caso-limite dessa
-condição: cada texto tem um único rótulo. Nesse regime, com poucas classes, a
-seleção supera a aleatória de forma consistente \citep{Rouzegar2024}. As três medidas canônicas da
+\textit{deep learning} \citep{Gal2017}. Essa vantagem, porém, não está
+garantida em todo formato de problema, e dois resultados delimitam o caso
+desta tese. \citet{Wertz2022} avaliaram a classificação multirrótulo, em que
+um mesmo texto pode receber vários rótulos ao mesmo tempo: nesse formato,
+nenhuma estratégia de seleção foi consistentemente melhor do que sortear as
+instâncias ao acaso. O caso desta tese é outro: aqui cada texto recebe uma
+única categoria, e esse é o formato em que \citet{Rouzegar2024} observam a
+seleção vencendo o sorteio de forma consistente, embora em tarefas com poucas
+classes. Nenhum dos dois estudos cobre, portanto, o regime exato desta tese,
+rótulo único com centenas de categorias; se a vantagem da seleção se mantém
+nele é uma pergunta que os experimentos respondem empiricamente
+(Capítulo~\ref{ch:resultados-falco}). As três medidas canônicas da
 amostragem por incerteza são usadas nos experimentos desta tese:
 \begin{equation}
 x^*_{LC} = \arg\max_x \left[ 1 - P_\theta(\hat{y}|x) \right]
@@ -799,17 +818,27 @@ contínuos de baixa dimensão: os \textit{embeddings} estáticos (Word2Vec
 \cite{Mikolov2013}, GloVe \cite{Pennington2014}, FastText
 \cite{Bojanowski2017}) atribuem um vetor por palavra, sem tratar polissemia
 \cite{Birunda2021, Goldberg2017}; os \textbf{contextuais} condicionam a
-representação de cada token à sequência inteira (ELMo \cite{Peters2018}, a
+representação de cada token à sequência inteira (o ELMo, de
+\textit{Embeddings from Language Models} \cite{Peters2018}, a
 família GPT \cite{Radford2018, Radford2019} e o BERT \cite{Devlin2019}),
 resolvendo a polissemia e sustentando o estado da arte em texto curto
-\cite{Ahmed2022, Li2020, Karl2023}. É dessa família o SBERT \citep{Reimers2019SBERT}, que produz representações
-de sentença comparáveis por cosseno, usado pelo DRI-SL, e o BERTimbau \cite{Souza2020BERTimbau} usado como classificador forte.
+\cite{Ahmed2022, Li2020, Karl2023}. São dessa família o SBERT
+(\textit{Sentence-BERT}) \citep{Reimers2019SBERT}, que produz representações
+de sentença comparáveis por cosseno, usado pelo DRI-SL, e o BERTimbau
+\cite{Souza2020BERTimbau}, usado como classificador forte.
 
 Quanto aos \textbf{classificadores}, os algoritmos clássicos seguem
 relevantes como linhas de base eficientes sobre representações esparsas
-\cite{Kowsari2019, Aliero2023}: máquinas de vetores de
-suporte (SVM) \cite{Cortes1995}, Naive Bayes e regressão logística
-\cite{Murphy2012}, $k$ vizinhos mais próximos (KNN) \cite{Cover1967}, árvores e \textit{ensembles} \cite{Quinlan1993,
+\cite{Kowsari2019, Aliero2023}: as máquinas de vetores de
+suporte (SVM), da família dos classificadores de margem, que separam as
+classes pelo hiperplano de maior margem \cite{Cortes1995}; o Naive Bayes,
+probabilístico gerativo, que assume independência entre os termos, e a
+regressão logística, sua contraparte discriminativa, que modela diretamente a
+probabilidade da classe \cite{Murphy2012}; os $k$ vizinhos mais próximos
+(KNN), baseados em instâncias, que classificam pela maioria entre os exemplos
+mais próximos \cite{Cover1967}; e as árvores de decisão, que particionam o
+espaço por regras sucessivas, com seus \textit{ensembles}, que combinam
+muitas árvores para reduzir a variância \cite{Quinlan1993,
 Breiman2001, Dietterich2000}.
 Arquiteturas profundas convolucionais e recorrentes capturam padrões locais e
 sequenciais \cite{Goodfellow2016, Xu2017}, com benefício limitado em textos
@@ -850,15 +879,17 @@ delimita a lacuna que o restante da tese ocupa.
 \subsection{Escopo e método da revisão}
 \label{sec:revisao_sistematica_focada}
 
-Esta é uma \emph{revisão narrativa focada} na interseção das frentes, e não
-uma revisão sistemática completa com protocolo registrado e fluxo de seleção
-documentado \citep{Kitchenham2004}: o papel do capítulo é fundamentar a
-lacuna, não inventariar um campo, e a contrapartida do formato é a tabela de
-lacunas (Tabela~\ref{tab:lacunas}) explicitar os critérios pelos quais os
-trabalhos mais próximos são confrontados. A revisão concentrou-se em
-publicações revisadas por pares e em pré-prints (ACL Anthology, arXiv e
-periódicos da área) de 2020 até o primeiro semestre de 2026, com uma
-atualização dedicada ao último ano (meados de 2025 a meados de 2026). A busca
+Esta é uma \emph{revisão narrativa focada}: narrativa porque seleciona e
+discute criticamente os trabalhos mais relevantes, sem o protocolo
+registrado e o fluxo de seleção documentado de uma revisão sistemática
+\citep{Kitchenham2004}; focada porque se restringe à interseção das três
+frentes. O formato é adequado ao objetivo do capítulo, que é fundamentar a
+lacuna de pesquisa. Como salvaguarda do formato, a tabela de lacunas
+(Tabela~\ref{tab:lacunas}) explicita os critérios pelos quais os trabalhos
+mais próximos são confrontados. A revisão concentrou-se em publicações
+revisadas por pares e em pré-prints, de 2020 até o primeiro semestre de
+2026, com uma atualização dedicada ao último ano (meados de 2025 a meados
+de 2026). A busca
 utilizou combinações de termos como \textit{active learning}, \textit{text
 classification}, \textit{short text}, \textit{LLM}, \textit{large language
 model}, \textit{cold start}, \textit{few-shot learning} e \textit{oracle},
