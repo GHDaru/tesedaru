@@ -1,6 +1,6 @@
 {
  "schema": "referencias.v1",
- "computado_em": "2026-08-23 23:45 UTC",
+ "computado_em": "2026-08-24 12:06 UTC",
  "total": 339,
  "citadas": 156,
  "com_link_direto": 155,
@@ -4534,35 +4534,6 @@
    "ordem": 126
   },
   {
-   "chave": "Breiman2001",
-   "titulo": "Random Forests",
-   "autores": [
-    "Breiman"
-   ],
-   "ano": "2001",
-   "venue": "Machine Learning",
-   "link": "https://scholar.google.com/scholar?q=%22Random%20Forests%22%20Breiman",
-   "link_tipo": "busca",
-   "link_s2": "https://www.semanticscholar.org/search?q=Random%20Forests&sort=relevance",
-   "link_s2_tipo": "busca",
-   "sem_entrada_bib": false,
-   "primeira_aparicao": {
-    "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
-    "secao": "Representação e classificadores"
-   },
-   "ocorrencias": [
-    {
-     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
-     "secao": "Representação e classificadores"
-    }
-   ],
-   "total_ocorrencias": 1,
-   "pdf": false,
-   "fichado": false,
-   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Random Forests</p>\n<p><strong>Autores</strong>: Leo Breiman</p>\n<p><strong>Veículo</strong>: Machine Learning</p>\n<p><strong>Ano</strong>: 2001</p>\n<p><strong>Volume/Páginas</strong>: vol. 45, n. 1, p. 5–32</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Representação e classificadores</p>",
-   "ordem": 127
-  },
-  {
    "chave": "Cover1967",
    "titulo": "Nearest neighbor pattern classification",
    "autores": [
@@ -4590,6 +4561,35 @@
    "pdf": false,
    "fichado": false,
    "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Nearest neighbor pattern classification</p>\n<p><strong>Autores</strong>: Thomas Cover, Peter Hart</p>\n<p><strong>Veículo</strong>: IEEE transactions on information theory</p>\n<p><strong>Ano</strong>: 1967</p>\n<p><strong>Volume/Páginas</strong>: vol. 13, n. 1, p. 21–27</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Representação e classificadores</p>",
+   "ordem": 127
+  },
+  {
+   "chave": "Breiman2001",
+   "titulo": "Random Forests",
+   "autores": [
+    "Breiman"
+   ],
+   "ano": "2001",
+   "venue": "Machine Learning",
+   "link": "https://scholar.google.com/scholar?q=%22Random%20Forests%22%20Breiman",
+   "link_tipo": "busca",
+   "link_s2": "https://www.semanticscholar.org/search?q=Random%20Forests&sort=relevance",
+   "link_s2_tipo": "busca",
+   "sem_entrada_bib": false,
+   "primeira_aparicao": {
+    "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
+    "secao": "Representação e classificadores"
+   },
+   "ocorrencias": [
+    {
+     "capitulo": "Cap. 2 — Fundamentação Teórica e Revisão da Literatura",
+     "secao": "Representação e classificadores"
+    }
+   ],
+   "total_ocorrencias": 1,
+   "pdf": false,
+   "fichado": false,
+   "detalhes_html": "<p class=\"vazia\">📄 Ficha básica gerada a partir dos metadados da bibliografia — esta obra ainda não foi fichada academicamente.</p>\n<p><strong>Título</strong>: Random Forests</p>\n<p><strong>Autores</strong>: Leo Breiman</p>\n<p><strong>Veículo</strong>: Machine Learning</p>\n<p><strong>Ano</strong>: 2001</p>\n<p><strong>Volume/Páginas</strong>: vol. 45, n. 1, p. 5–32</p>\n<p><strong>Citada em</strong>: Cap. 2 — Fundamentação Teórica e Revisão da Literatura § Representação e classificadores</p>",
    "ordem": 128
   },
   {
