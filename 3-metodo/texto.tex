@@ -742,34 +742,41 @@ executa o laço é o classificador leve, re-treinado a cada lote, enquanto o
 BERTimbau é treinado \emph{uma única vez por braço}, sobre o conjunto que o
 processo coletou. Manter o classificador forte \emph{fora do laço} reduz o
 custo computacional sem alterar o objeto medido: cada braço custa \emph{um}
-ajuste fino do BERTimbau, e não um ajuste por iteração do ciclo, que é
-exatamente como o framework opera em produção.
+ajuste fino do BERTimbau, e não um ajuste por iteração do ciclo, e é assim
+que o framework opera em produção.
 
-Duas escolhas de régua completam o desenho, ambas registradas como decisão
-metodológica. A primeira é que a ``supervisão completa'' de referência é o
+Duas escolhas de régua, isto é, do padrão contra o qual os braços são
+medidos, completam o desenho; ambas são registradas como decisão
+metodológica. A primeira: a ``supervisão completa'' de referência é o
 \emph{pool} de 50.000 instâncias (o mesmo dos experimentos em escala
 populacional e do ciclo real, com semente e embaralhamento idênticos), e não a
-base inteira. O aprendizado ativo só enxerga o pool; compará-lo com um braço
+base inteira. O aprendizado ativo só enxerga o pool. Compará-lo com um braço
 treinado na base deduplicada inteira (231.490 textos, cerca de $4{,}6\times$ o
 pool) confundiria o valor da \emph{seleção} com o valor de \emph{ter mais
-dados}. A segunda é que todos os braços são avaliados na \textbf{população
+dados}. A segunda: todos os braços são avaliados na \textbf{população
 reservada} ($\approx 177$ mil instâncias fora do pool e fora dos conjuntos de
 validação e teste usados pelo ciclo real nas decisões de parada). A avaliação
 usa amostra estratificada fixa entre braços, acurácia com intervalo de Wilson e
 Macro F1, e predições persistidas por braço para os pareamentos de McNemar.
 
 O experimento executado compara cinco braços, cada qual um ajuste fino do
-BERTimbau sobre um conjunto diferente:
+BERTimbau sobre um conjunto de treinamento diferente. De (A) a (D), a lógica da
+comparação é de escada: de um braço ao vizinho muda um único ingrediente, de
+modo que cada diferença isole um único efeito; (E) acrescenta a pergunta do
+orçamento. As letras a seguir são os nomes pelos quais o
+Capítulo~\ref{ch:resultados-falco} se refere a cada braço:
 
 \begin{itemize}
   \item \textbf{(A) \emph{pipeline} real, rótulos do oráculo}: os itens
   selecionados e anotados pelos ciclos ponta a ponta com oráculo LLM gratuito
-  (Apêndice~\ref{ap:parada-laco}), cujo cache de anotações define o conjunto;
+  (Apêndice~\ref{ap:parada-laco}); as anotações persistidas desses ciclos
+  definem o conjunto;
   \item \textbf{(B) os mesmos itens de (A), com rótulos do gabarito}: a
   diferença $A{-}B$ isola o custo do \emph{ruído do oráculo} no modelo forte;
-  \item \textbf{(C) igual cardinalidade de itens sorteados uniformemente do
+  \item \textbf{(C) o mesmo número de itens de (A), sorteados uniformemente do
   pool, com gabarito}: a diferença $B{-}C$ isola o valor da \emph{seleção};
-  \item \textbf{(D) o pool inteiro, com gabarito}: a régua;
+  \item \textbf{(D) o pool inteiro, com gabarito}: a régua de supervisão
+  completa;
   \item \textbf{(E) o prefixo de 15 mil da trajetória de entropia} em escala
   populacional: mede se orçamento adicional ajudaria.
 \end{itemize}
@@ -786,7 +793,7 @@ O desenho completo original permanece registrado como extensão para hardware
 dedicado: FALCO, seleção aleatória e seleção por incerteza com re-treino do
 BERTimbau no laço, ablações de $L_0$ e de progressão de oráculo, 8 sementes com
 Wilcoxon pareado e \textit{bootstrap} sobre LCE. A comparação executada tem
-semente única e estatuto descritivo, como os experimentos em escala
+semente única e caráter descritivo, como os experimentos em escala
 populacional.
 
 A avaliação de robustez, executada se o critério do oráculo indicar ruído
