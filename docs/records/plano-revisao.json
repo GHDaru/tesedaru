@@ -1,7 +1,7 @@
 {
  "schema": "plano-revisao/v1",
- "versao": 96,
- "atualizado_em": "2026-08-24T01:19:43Z",
+ "versao": 97,
+ "atualizado_em": "2026-08-24T12:05:26Z",
  "atualizado_por": "principal",
  "proposito": "Fonte de verdade do plano de revisão da tese FALCO. Qualquer sessão lê este arquivo para saber o próximo passo, atualiza status ao fechar um ciclo e republica o painel.",
  "ritual": [
@@ -331,8 +331,8 @@
      "nota": "banca 9470c1f: gate e régua definidos antes do uso, E3' explicado na tabela-mapa, Fase 1 com referência cruzada"
     },
     "R7": {
-     "status": "pendente",
-     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
+     "status": "andamento",
+     "nota": "Auditoria do autor EM CURSO (2026-08-24): 10 lotes de marcações aplicados @74c1fad..@be82f10 (proveniência glosada; abertura narrada; visão de conjunto; jornada das métricas; fio condutor nas seções; braço/RQ/B definidos; temperatura qualificada; §3.8.2 R-pass + escada A-D; convenções de contagem em prosa; figuras sequência + classes gateadas). Autor relê o capítulo inteiro na sequência. Pendente do local: mapeamento de ambientes (§3.10)."
     }
    },
    "abertura": [
@@ -483,8 +483,8 @@
      "nota": "banca R2/R6 mergeado (gate autor @2dbc3d4)"
     },
     "R7": {
-     "status": "pendente",
-     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
+     "status": "andamento",
+     "nota": "Auditoria do autor iniciada: §4.5 síntese convertida de enumeração para prosa (@64c16e2), régua conferida (22,7 p/f, máx 34). Releitura completa do autor pendente."
     }
    },
    "abertura": [
@@ -704,8 +704,8 @@
      "nota": "banca R2/R6 mergeado (gate autor @2dbc3d4)"
     },
     "R7": {
-     "status": "pendente",
-     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
+     "status": "andamento",
+     "nota": "Auditoria do autor iniciada: §6.3-6.5 convertidos de enumeração para prosa (@64c16e2 + autoexame @be82f10: 2 frases acima da régua máxima quebradas; final 21,6/20,8 p/f). Releitura completa do autor pendente. §6.4 item CPU aguarda mapeamento de ambientes (local)."
     }
    },
    "abertura": [
@@ -815,8 +815,8 @@
      "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R7": {
-     "status": "pendente",
-     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
+     "status": "feito",
+     "nota": "Auditoria do autor: propriedades da LCE em prosa (@64c16e2 + quebra da frase de 49 palavras @be82f10; final 23,7 p/f, máx 34)."
     }
    },
    "dimensoes": {
@@ -859,8 +859,8 @@
      "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R7": {
-     "status": "pendente",
-     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
+     "status": "feito",
+     "nota": "Auditoria do autor: operadores/parâmetros em tabela (tab:ap-ag-params) e pseudocódigo no ambiente algorithm (alg:ap-ag), padrão do Algoritmo 1 do Cap.2 (@64c16e2)."
     }
    },
    "dimensoes": {
@@ -949,8 +949,8 @@
      "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R7": {
-     "status": "pendente",
-     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
+     "status": "feito",
+     "nota": "APROVADO pelo autor na auditoria (2026-08-24, \"Apêndices D, E e F. Aprovados.\")."
     }
    },
    "dimensoes": {
@@ -993,8 +993,8 @@
      "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R7": {
-     "status": "pendente",
-     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
+     "status": "feito",
+     "nota": "APROVADO pelo autor na auditoria (2026-08-24, \"Apêndices D, E e F. Aprovados.\")."
     }
    },
    "dimensoes": {
@@ -1037,8 +1037,8 @@
      "nota": "Coberto pelo passe de excelência da banca (com o autor), com todos os R's no pacote, gateado na main @c65c6ee (A-E) e @b3191fa (F-G); prova de freeze no gate do principal."
     },
     "R7": {
-     "status": "pendente",
-     "nota": "Auditoria pessoal do autor EM CURSO (2026-08-23, capítulo a capítulo, marcações visuais -> principal aplica -> aprovação no chat). Este capítulo aguarda as marcações do autor."
+     "status": "feito",
+     "nota": "APROVADO pelo autor na auditoria (2026-08-24, \"Apêndices D, E e F. Aprovados.\")."
     }
    },
    "dimensoes": {
@@ -1408,14 +1408,14 @@
   }
  ],
  "proximo": {
-  "descricao": "TESE CONGELADA: v1.0-régua na main @70874db (ponteiro: branch congelada/v1.0-regua; tag local v1.0-regua-congelada aguarda push do autor). Campanha de excelência COMPLETA: Caps.1-5 + apêndices A-G na régua padrão; Cap.6 + resumo/abstract na régua MÁXIMA com cruzadas obrigatórias; tudo com prova de freeze (multiconjunto de dígitos, labels/refs/cites). FASE ATUAL: auditoria pessoal do autor, capítulo a capítulo — o autor faz marcações visuais, o principal aplica e commita, o autor aprova no chat (o principal pode criticar observações quando couber). CAP.1 CONCLUÍDO @0e4749a e CAP.2 CONCLUÍDO (auditoria do autor completa nos dois): critério relativo sem número absoluto, nota de rodapé enxuta, biblioteca activelearning citada só na 1ª menção, organização do trabalho completa e sem siglas (opção a do autor). Pendências pós-freeze na matriz (docs/records/MATRIZ-DE-PENDENCIAS.md): P-01 e P-12 são as vermelhas.",
+  "descricao": "TESE CONGELADA (v1.0-régua @70874db; ponteiro congelada/v1.0-regua). FASE ATUAL: auditoria pessoal do autor. CAP.1 e CAP.2 CONCLUÍDOS (Cap.2 @16bfa4c: 8 marcações §2.1-2.2 + figura do laço de AA da banca + ELMo/SBERT/famílias §2.4 + revisão narrativa §2.5.1). CAP.3 EM CURSO (@74c1fad..@be82f10): glosa de proveniência; abertura narrada; visão de conjunto §3.1; jornada das métricas §3.4; fio condutor em todas as seções; braço/RQ/B definidos na 1ª ocorrência; temperatura qualificada (espelho Cap.5); §3.8.2 com R-pass e escada A-D; rodapé das convenções virou prosa §3.2.3; 2 figuras da banca gateadas (fig:metodo-sequencia, fig:metodo-preproc-classes). FORMATO alinhado por ordem do autor: listas viram prosa (Cap.4 §4.5; Cap.6 §6.3-6.5; Ap.A propriedades) e Ap.B ganhou tabela de parâmetros + ambiente algorithm; autoexame de R/humanize aplicado (@be82f10). Ap.D/E/F aprovados. AUTOR RELÊ do Cap.3 em diante. Aguarda-se: agente local (mapeamento de ambientes, caixa 0226).",
   "fila": [
-   "autor: marcações da auditoria — próximo capítulo (Cap.3 em diante)",
-   "principal: aplicar marcações do autor + gate hunk a hunk; sem tocar números (congelamento)",
-   "autor (fila editorial): P-09 — adotar ou não resumo-500/abstract-500 (0-iniciais/resumo-500.tex, abstract-500.tex; decidir frase de robustez Macro F1: fora=500, dentro=516, ou troca pela 3ª descoberta)",
-   "autor (fila editorial): 5 sugestões de esquemas TikZ da banca para o Cap.3 (branch da banca) — escolher quais entram",
-   "autor (fila editorial): matriz P-01..P-12 — priorizar as vermelhas (P-01 p-valor Fase 3; P-12 conjunção 3 do veredito)",
-   "agentes: em repouso — reativação sob demanda do autor"
+   "autor: releitura do Cap.3 em diante (PDF @be82f10) e novas marcações",
+   "local (fork): tarefa 0226 na caixa — mapeamento execução->ambiente com evidência (bloqueia §3.10 e coerência do §6.4)",
+   "autor (decisão): §3.9 — citar taxonomia de validade (Cook&Campbell/Wohlin) e/ou frase-ponte para o §6.4",
+   "autor (decisão): manter parágrafo da proveniência dupla no §3.10 (recomendação do principal: manter)",
+   "autor (fila editorial): P-09 resumo-500/abstract-500; matriz P-01..P-12 (vermelhas P-01, P-12)",
+   "principal: gate hunk a hunk de tudo que chegar; sem tocar números (congelamento)"
   ]
  },
  "execucoes": {
@@ -1514,6 +1514,24 @@
    "id": "matriz-pos-freeze",
    "titulo": "Matriz de pendências P-01..P-12 (pós-congelamento)",
    "contexto": "Vermelhas: P-01 (p-valor da Fase 3 sem lastro, não cruzado) e P-12 (conjunção 3 do veredito do Cap.6). Demais: médias/baixas na matriz.",
+   "dono": "autor"
+  },
+  {
+   "id": "ambientes-execucao",
+   "titulo": "Mapeamento execução->ambiente (§3.10) + coerência do CPU no §6.4",
+   "contexto": "Tarefa 0226 na caixa para o agente local (fork): tabela ambiente|experimentos|evidência, somente leitura de artefatos. Proposta de texto do principal pronta, aguarda fatos.",
+   "dono": "local + autor"
+  },
+  {
+   "id": "validade-taxonomia-e-ponte",
+   "titulo": "§3.9: citar taxonomia de validade e/ou frase-ponte para o §6.4",
+   "contexto": "Recomendação do principal: manter §3.9 no método (par com §6.4 já existe). Opções oferecidas: (1) citar Cook&Campbell/Wohlin (nova entrada no bib); (2) frase-ponte no fim do §3.9.",
+   "dono": "autor"
+  },
+  {
+   "id": "proveniencia-dupla",
+   "titulo": "§3.10: manter parágrafo da proveniência dupla",
+   "contexto": "Recomendação do principal: manter (rastreabilidade dos números dos pilares 1-2 e defesa contra leitura de cherry-picking).",
    "dono": "autor"
   }
  ],

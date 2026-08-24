@@ -22,7 +22,20 @@ peças no FALCO e o avalia contra métodos de referência, sob o mesmo orçament
 de rotulagem. Uma métrica transversal, a \textit{Learning Curve Efficiency}
 (LCE), sumariza a eficiência das curvas de aprendizado em todos os pilares; o
 capítulo encerra com as ameaças à validade e o instrumental de
-reprodutibilidade.
+reprodutibilidade. A Figura~\ref{fig:metodo-sequencia} ilustra essa
+sequência.
+
+\begin{figure}[htbp]
+    \centering
+    \input{3-metodo/esquemas-propostos/esq-sequencia-metodologia}
+    \caption{A sequência da metodologia como fluxo de decisões: do problema,
+    sobre o terreno comum, aos quatro pilares na ordem em que o custo de
+    rotulagem aparece; cada seta indica o que precisa estar resolvido antes
+    do passo seguinte. A \textit{Learning Curve Efficiency} (LCE) atravessa
+    os quatro pilares, e o capítulo encerra com as ameaças à validade e o
+    instrumental de reprodutibilidade.}
+    \label{fig:metodo-sequencia}
+\end{figure}
 
 Todos os experimentos são implementados na biblioteca \texttt{activelearning}
 (Apêndice~\ref{ap:biblioteca}), desenvolvida nesta pesquisa sob arquitetura
@@ -42,6 +55,27 @@ orçamento $B$ de consultas. Como os rótulos verdadeiros de todo o conjunto de 
 estão disponíveis, o processo é simulado com fidelidade: o oráculo LLM pode ser
 avaliado contra o padrão-ouro, e um modelo treinado com supervisão completa fornece o
 limite superior de desempenho.
+
+Antes do detalhamento, vale a visão de conjunto: como as peças deste capítulo
+se encaixam no processo da tese. A base auditada (Seção~\ref{sec:metodo-dados})
+fornece duas visões de trabalho: as linhas cruas, sobre as quais os oráculos
+são medidos, e a visão deduplicada e particionada, sobre a qual os
+classificadores treinam sem vazamento entre treino e teste. Os classificadores
+(Seção~\ref{sec:metodo-classificadores}) dividem o trabalho por custo: os dois
+leves executam as análises que exigem milhares de reexecuções, isto é, a
+sensibilidade da composição de $L_0$, a otimização por algoritmo genético e a
+varredura de estratégias de seleção; o forte, baseado em BERTimbau, treina
+poucas vezes e valida o framework de ponta a ponta. As métricas e os testes
+estatísticos (Seção~\ref{sec:metodo-metricas}) acompanham todas as
+comparações. O processo de rotulagem propriamente dito é montado nas seções
+seguintes, na ordem do próprio laço: a composição do conjunto inicial $L_0$
+(Seção~\ref{sec:metodo-l0}) e sua construção sem rótulos pelo DRI-SL
+(Seção~\ref{sec:metodo-drisl}); depois, os oráculos LLM que fornecem os
+rótulos, com sua instrumentação e critério de decisão
+(Seção~\ref{sec:metodo-oraculo}). O FALCO (Seção~\ref{sec:metodo-falco})
+integra as peças, partida a frio, seleção em lote e progressão de oráculos, e
+é avaliado contra métodos de referência sob o mesmo orçamento. Ameaças à
+validade e reprodutibilidade fecham o capítulo.
 
 O desenho desta pesquisa tem proveniência documentada, isto é, registro
 datado de onde e quando cada elemento do desenho foi definido: o laço de aprendizado
@@ -109,8 +143,9 @@ Apêndice~\ref{ap:parada-laco}.}
 \section{Conjunto de dados}
 \label{sec:metodo-dados}
 
-Esta seção documenta o material empírico da tese em quatro decisões
-encadeadas. De onde vêm os dados e o que os caracteriza; quanto se pode confiar
+O caminho descrito na visão de conjunto começa pelos dados: tudo o que os
+experimentos consomem nasce aqui. Esta seção documenta o material empírico da
+tese em quatro decisões encadeadas. De onde vêm os dados e o que os caracteriza; quanto se pode confiar
 nos rótulos de referência; como textos e espaço de classes foram normalizados; e
 como o conjunto foi particionado para os experimentos.
 
@@ -213,7 +248,24 @@ dois textos dessa classe já haviam aparecido sob outro rótulo, e a classe
 fica sem representante na visão deduplicada. É assim que se chega às 714
 classes presentes. A receita completa é executável e reproduz todas as
 contagens desta seção; ela acompanha a biblioteca \texttt{activelearning}
-\cite{DaruActiveLearning}.
+\cite{DaruActiveLearning}. A Figura~\ref{fig:metodo-preproc-classes} percorre
+esse caminho de contagens de ponta a ponta.
+
+\begin{figure}[htbp]
+    \centering
+    \input{3-metodo/esquemas-propostos/esq-preproc-espacos-rotulos}
+    \caption{O pré-processamento e os dois espaços de rótulos, com o caminho
+    das contagens: da mesma base corrigida e normalizada (250.221 linhas), o
+    filtro de cinco ou mais instâncias sobre as linhas cruas produz o
+    \textit{CategorySchema} fechado de 621 categorias (620 frequentes mais a
+    sentinela), que governa os oráculos; o filtro brando de duas ou mais
+    instâncias (715 classes em linhas; 710 em textos únicos), seguido da
+    deduplicação, produz a visão populacional de 231.490 textos únicos com
+    714 classes presentes. As contagens diferem porque mudam o espaço
+    (fechado com sentinela ou aberto na cauda) e as convenções de contagem (a
+    chave de texto e o que se conta: linhas ou textos únicos).}
+    \label{fig:metodo-preproc-classes}
+\end{figure}
 
 \subsection{Particionamento}
 \label{sec:metodo-dados-particionamento}
@@ -241,7 +293,11 @@ das 714 classes ($90{,}9\%$) estão presentes no \textit{pool}, 65 estão ausent
 179 têm menos de cinco exemplos. É limitação declarada, e relevante para métricas
 macro (Seção~\ref{sec:metodo-validade}).
 
-O tamanho de 50 mil resulta de viabilidade computacional. Cada braço da avaliação
+O tamanho de 50 mil resulta de viabilidade computacional. A avaliação final
+compara \emph{braços} experimentais: cada braço é uma condição completa do
+experimento (uma forma de coletar o conjunto de treinamento), avaliada sob as
+mesmas regras que as demais, à maneira dos braços de um ensaio controlado.
+Cada braço da avaliação
 com o classificador forte é um ajuste fino completo do BERTimbau, e o programa
 executa cinco braços mais a varredura de orçamento em uma única GPU, e ainda
 mantém uma média de 70 exemplos por classe no \textit{pool}. Uma consequência
@@ -301,7 +357,8 @@ discutidas nas limitações (Seção~\ref{sec:metodo-validade}).
 \section{Classificadores da tarefa}
 \label{sec:metodo-classificadores}
 
-Três classificadores $\theta$ são empregados, com papéis distintos e explícitos:
+Definido o material, a peça seguinte é quem aprende com ele. Três
+classificadores $\theta$ são empregados, com papéis distintos e explícitos:
 
 \begin{itemize}
   \item \textbf{BERTimbau Base} (\texttt{neuralmind/bert-base-portuguese-cased})
@@ -382,10 +439,28 @@ aprendizado ativo executadas com múltiplas sementes usam o \textbf{teste de
 postos sinalizados de Wilcoxon} \citep{Wilcoxon1945} sobre as métricas finais e a
 LCE.
 
+\textbf{Em que fase cada métrica entra.} Vale mapear o caminho. Nos estudos
+de composição do conjunto inicial e de estratégias de seleção (pilares um e
+dois, e a varredura de seletores em escala populacional), a régua é o Macro
+F1 medido no teste ao longo das iterações; as curvas resultantes são
+resumidas pela LCE, e as diferenças entre estratégias sob as mesmas sementes
+passam pelo Wilcoxon. Na avaliação de oráculos (pilar três), a régua muda de
+natureza: o que se mede é acurácia de rotulagem contra o padrão-ouro, sempre
+com IC de Wilson; os pareamentos entre oráculos e entre variantes de
+\textit{prompt} passam pelo McNemar; e a matriz de confusão caracteriza o
+perfil de erro. Na validação final do framework (pilar quatro), as duas
+famílias se encontram: Macro F1 e acurácia global avaliam os braços na
+população reservada, com comparações pareadas por McNemar e
+\textit{bootstrap}, e a cobertura de classes complementa a leitura sob cauda
+longa. Ao longo do ciclo real, as decisões de parada usam as métricas
+medidas no conjunto de validação, nunca no teste.
+
 \section{Composição do conjunto inicial \texorpdfstring{$L_0$}{L0}}
 \label{sec:metodo-l0}
 
-O primeiro pilar responde a duas perguntas em sequência: quanto a composição
+Com dados, classificadores e métricas estabelecidos, começa o processo de
+rotulagem, e ele começa pelo seu primeiro custo: o conjunto inicial. O
+primeiro pilar responde a duas perguntas em sequência: quanto a composição
 do conjunto inicial importa (medição de sensibilidade) e qual o teto de
 desempenho que uma composição otimizada alcança (busca evolutiva). A segunda
 só faz sentido se a primeira acusar efeito relevante.
@@ -440,7 +515,10 @@ inferior ao de aptidão, que os capítulos de resultados reportam como envelope.
 \section{Partida a frio sem rótulos: o algoritmo DRI-SL}
 \label{sec:metodo-drisl}
 
-O DRI-SL (\textit{Diversidade Representativa Inicial via densidade Semântica e
+A seção anterior mede quanto a composição de $L_0$ importa e que teto uma
+composição otimizada alcança; esta responde como construir um bom $L_0$ na
+prática, quando não há rótulo algum. O DRI-SL (\textit{Diversidade
+Representativa Inicial via densidade Semântica e
 variedade Lexical}) constrói um $L_0$ de tamanho alvo $I$ a partir de $U_0$ sem
 acesso a rótulo algum. Ele combina dois espaços de representação, um semântico
 e outro lexical, porque nenhum dos dois isolado dá conta: cobrir os temas do
@@ -463,7 +541,8 @@ limite empírico de referência.
 \section{LLMs como oráculo de rotulagem}
 \label{sec:metodo-oraculo}
 
-A avaliação de oráculos exige, antes de qualquer comparação, um instrumento
+Resolvido o início do laço, falta a peça que o alimenta a cada iteração: quem
+fornece os rótulos. A avaliação de oráculos exige, antes de qualquer comparação, um instrumento
 de medição confiável. Por isso esta seção define primeiro a instrumentação
 (contrato de saída, custo e proveniência), depois o desenho fatorial da
 avaliação e, por fim, o critério fixado de antemão que converte as medições em decisão
@@ -488,7 +567,8 @@ fica registrado em cada anotação:
   validação posterior exata e contabilização explícita de rótulos inválidos;
   \item \textbf{free}: saída estruturada \emph{sem} restrição de rótulo, réplica
   controlada do instrumento defeituoso, usada exclusivamente para quantificar o
-  efeito do instrumento (RQ4 abaixo).
+  efeito do instrumento (pergunta RQ4, definida na
+  Seção~\ref{sec:metodo-oraculo-desenho}).
 \end{itemize}
 
 O \textit{prompt} (Apêndice~\ref{ap:prompts}) contextualiza o domínio (cupons
@@ -506,7 +586,9 @@ e é reproduzível pelo artefato de calibração que acompanha a biblioteca \cit
 \subsection{Desenho fatorial da avaliação de oráculos}
 \label{sec:metodo-oraculo-desenho}
 
-A avaliação responde a quatro perguntas: (RQ1) a acurácia e o Macro F1 de cada
+A avaliação responde a quatro perguntas, numeradas RQ1 a RQ4 (RQ, de
+\textit{research question}, é a convenção da tese para as questões que um
+experimento responde): (RQ1) a acurácia e o Macro F1 de cada
 LLM candidato, com intervalos de confiança e comparações pareadas; (RQ2) o
 custo por mil rótulos e a latência; (RQ3) o perfil de erro por classe (matriz
 de confusão, taxa de rótulos inválidos); e (RQ4) o efeito do instrumento de
@@ -539,7 +621,10 @@ pareado de \emph{todos} os oráculos sem alterar as decisões, até porque a
 sensibilidade do gabarito (Seção~\ref{sec:metodo-dados-auditoria}) limita o
 ganho de precisão adicional.
 
-A temperatura é fixada em 0 em todos os modelos.
+Nos modelos que expõem o parâmetro de temperatura, ela é fixada em 0, o que
+torna a rotulagem determinística no que depende do amostrador; modelos de
+raciocínio encadeado não expõem esse controle e operam na configuração padrão
+do provedor.
 
 \subsection{Critério de decisão para o FALCO}
 \label{sec:metodo-oraculo-decisao}
@@ -576,7 +661,10 @@ amadurecimento do classificador (Figura~\ref{fig:falco-arquitetura}):
 
 \begin{enumerate}
   \item \textbf{Fase 1} (\textit{cold start} informado): o lote inicial
-  ($b_0 = \lceil 0{,}01 \cdot B \rceil$) é selecionado pelo DRI-SL
+  ($b_0 = \lceil 0{,}01 \cdot B \rceil$, em que $B$ é o orçamento total de
+  consultas de rotulagem do arcabouço da Seção~\ref{sec:metodo-desenho}; o
+  lote corresponde, portanto, a um centésimo do orçamento, arredondado para
+  cima) é selecionado pelo DRI-SL
   (Seção~\ref{sec:metodo-drisl}) e rotulado pelo LLM Inicial, formando $L_0$;
   \item \textbf{Fase 2} (seleção por incerteza com LLM Inicial): a cada iteração,
   as $b$ instâncias de maior entropia preditiva de $\theta$
@@ -684,34 +772,41 @@ executa o laço é o classificador leve, re-treinado a cada lote, enquanto o
 BERTimbau é treinado \emph{uma única vez por braço}, sobre o conjunto que o
 processo coletou. Manter o classificador forte \emph{fora do laço} reduz o
 custo computacional sem alterar o objeto medido: cada braço custa \emph{um}
-ajuste fino do BERTimbau, e não um ajuste por iteração do ciclo, que é
-exatamente como o framework opera em produção.
+ajuste fino do BERTimbau, e não um ajuste por iteração do ciclo, e é assim
+que o framework opera em produção.
 
-Duas escolhas de régua completam o desenho, ambas registradas como decisão
-metodológica. A primeira é que a ``supervisão completa'' de referência é o
+Duas escolhas de régua, isto é, do padrão contra o qual os braços são
+medidos, completam o desenho; ambas são registradas como decisão
+metodológica. A primeira: a ``supervisão completa'' de referência é o
 \emph{pool} de 50.000 instâncias (o mesmo dos experimentos em escala
 populacional e do ciclo real, com semente e embaralhamento idênticos), e não a
-base inteira. O aprendizado ativo só enxerga o pool; compará-lo com um braço
+base inteira. O aprendizado ativo só enxerga o pool. Compará-lo com um braço
 treinado na base deduplicada inteira (231.490 textos, cerca de $4{,}6\times$ o
 pool) confundiria o valor da \emph{seleção} com o valor de \emph{ter mais
-dados}. A segunda é que todos os braços são avaliados na \textbf{população
+dados}. A segunda: todos os braços são avaliados na \textbf{população
 reservada} ($\approx 177$ mil instâncias fora do pool e fora dos conjuntos de
 validação e teste usados pelo ciclo real nas decisões de parada). A avaliação
 usa amostra estratificada fixa entre braços, acurácia com intervalo de Wilson e
 Macro F1, e predições persistidas por braço para os pareamentos de McNemar.
 
 O experimento executado compara cinco braços, cada qual um ajuste fino do
-BERTimbau sobre um conjunto diferente:
+BERTimbau sobre um conjunto de treinamento diferente. De (A) a (D), a lógica da
+comparação é de escada: de um braço ao vizinho muda um único ingrediente, de
+modo que cada diferença isole um único efeito; (E) acrescenta a pergunta do
+orçamento. As letras a seguir são os nomes pelos quais o
+Capítulo~\ref{ch:resultados-falco} se refere a cada braço:
 
 \begin{itemize}
   \item \textbf{(A) \emph{pipeline} real, rótulos do oráculo}: os itens
   selecionados e anotados pelos ciclos ponta a ponta com oráculo LLM gratuito
-  (Apêndice~\ref{ap:parada-laco}), cujo cache de anotações define o conjunto;
+  (Apêndice~\ref{ap:parada-laco}); as anotações persistidas desses ciclos
+  definem o conjunto;
   \item \textbf{(B) os mesmos itens de (A), com rótulos do gabarito}: a
   diferença $A{-}B$ isola o custo do \emph{ruído do oráculo} no modelo forte;
-  \item \textbf{(C) igual cardinalidade de itens sorteados uniformemente do
+  \item \textbf{(C) o mesmo número de itens de (A), sorteados uniformemente do
   pool, com gabarito}: a diferença $B{-}C$ isola o valor da \emph{seleção};
-  \item \textbf{(D) o pool inteiro, com gabarito}: a régua;
+  \item \textbf{(D) o pool inteiro, com gabarito}: a régua de supervisão
+  completa;
   \item \textbf{(E) o prefixo de 15 mil da trajetória de entropia} em escala
   populacional: mede se orçamento adicional ajudaria.
 \end{itemize}
@@ -728,7 +823,7 @@ O desenho completo original permanece registrado como extensão para hardware
 dedicado: FALCO, seleção aleatória e seleção por incerteza com re-treino do
 BERTimbau no laço, ablações de $L_0$ e de progressão de oráculo, 8 sementes com
 Wilcoxon pareado e \textit{bootstrap} sobre LCE. A comparação executada tem
-semente única e estatuto descritivo, como os experimentos em escala
+semente única e caráter descritivo, como os experimentos em escala
 populacional.
 
 A avaliação de robustez, executada se o critério do oráculo indicar ruído
@@ -737,6 +832,9 @@ paramétrico $\varepsilon \in \{0; 0{,}1; 0{,}2; 0{,}4\}$, quantificando a
 degradação do aprendizado em função da qualidade do oráculo.
 \section{Ameaças à validade}
 \label{sec:metodo-validade}
+
+Montado o processo inteiro, do dado ao veredito, resta declarar onde ele pode
+falhar e o que foi feito a respeito de cada risco.
 
 \textbf{Validade externa.} Todo o programa empírico usa um único conjunto de
 dados, construído pelo próprio autor \citep{Daru2022}. Isso maximiza o realismo
@@ -788,7 +886,9 @@ referência.
 \section{Reprodutibilidade e ambiente}
 \label{sec:metodo-reprodutibilidade}
 
-Toda a instrumentação é implementada na biblioteca \texttt{activelearning}
+O fecho do caminho é a garantia de que ele pode ser percorrido de novo por
+quem quiser conferir cada passo. Toda a instrumentação é implementada na
+biblioteca \texttt{activelearning}
 \cite{DaruActiveLearning} (Apêndice~\ref{ap:biblioteca}), sob arquitetura hexagonal: o núcleo de domínio
 (instâncias, esquema de categorias, estratégias, métricas, políticas de fase) é puro
 e testado isoladamente; LLMs, classificadores e armazenamento são adaptadores

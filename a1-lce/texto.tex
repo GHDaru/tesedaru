@@ -41,22 +41,20 @@ ilustra essa geometria.
 
 \section{Propriedades}
 
-\begin{itemize}
-  \item \textbf{Imagem}: $\mathrm{LCE} \in (0, 1]$ quando
-  $m_k \le \mathrm{Perf}_{\mathrm{baseline}}$ para todo $k$; valores
-  maiores indicam aproximação mais rápida do teto.
-  \item \textbf{Invariância de escala}: transformações afins do eixo $n$
-  (mudança de unidade do orçamento) não alteram a LCE, porque numerador e
-  denominador escalam pelo mesmo fator.
-  \item \textbf{Comparabilidade entre tetos distintos}: ao normalizar pelo
-  teto do próprio par (classificador, conjunto), e não pelo máximo teórico
-  da métrica, a LCE permite comparar estratégias entre classificadores de
-  tetos distintos: um classificador fraco bem servido pela estratégia pode
-  ter LCE maior que um classificador forte mal servido.
-  \item \textbf{Dependência do intervalo}: a LCE depende de $[n_1, n_K]$;
-  comparações exigem execuções com o mesmo orçamento e o mesmo $L_0$,
-  condição imposta em todos os desenhos desta tese.
-\end{itemize}
+Quatro propriedades sustentam o uso que a tese faz da métrica. A
+\textbf{imagem} é $\mathrm{LCE} \in (0, 1]$ quando
+$m_k \le \mathrm{Perf}_{\mathrm{baseline}}$ para todo $k$, e valores maiores
+indicam aproximação mais rápida do teto. Há \textbf{invariância de escala}:
+transformações afins do eixo $n$ (mudança de unidade do orçamento) não
+alteram a LCE, porque numerador e denominador escalam pelo mesmo fator. Há
+\textbf{comparabilidade entre tetos distintos}: ao normalizar pelo teto do
+próprio par (classificador, conjunto), e não pelo máximo teórico da métrica,
+a LCE permite comparar estratégias entre classificadores de tetos distintos.
+Um classificador fraco bem servido pela estratégia pode ter LCE maior que
+um classificador forte mal servido. Por fim, há \textbf{dependência do
+intervalo}: a LCE depende de $[n_1, n_K]$, de modo que comparações exigem
+execuções com o mesmo orçamento e o mesmo $L_0$, condição imposta em todos
+os desenhos desta tese.
 
 \section{Relação com a ALC}
 

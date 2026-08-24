@@ -34,38 +34,56 @@ População e gerações foram, além disso, conferidas contra os artefatos das
 corridas; a população é o único parâmetro sem fonte de configuração, e o
 valor reportado é o lido do artefato.
 
-\begin{itemize}
-  \item \textbf{população e gerações}: $N_{pop}=20$ indivíduos por 100
-  gerações em cada cenário, o que dá 2.000 avaliações supervisionadas por
-  cenário. O caso $|L_0|=10$ é o único que difere: corre por 200 gerações
-  (4.000 avaliações). Nos resultados, esse caso é reportado, como os
-  demais, na 100\textsuperscript{a} geração ($18{,}82\%$); a corrida segue
-  até a 200\textsuperscript{a}, em que o melhor indivíduo alcança
-  $19{,}20\%$;
-  \item \textbf{seleção}: torneio de tamanho $k_t=3$;
-  \item \textbf{cruzamento}: de um ponto sobre a lista de índices, com
-  probabilidade $p_c=0{,}8$ (o valor padrão da implementação é $0{,}7$,
-  sempre sobrescrito na execução), seguido de \emph{reparo de unicidade}:
-  índices repetidos são substituídos por sorteio até restaurar $|L_0|=I$;
-  \item \textbf{mutação}: com probabilidade $p_m=0{,}1$, substitui
-  $m_s=\max(1,\lceil 0{,}01 \cdot I\rceil)$ genes por índices inéditos;
-  \item \textbf{elitismo}: $10\%$ da população ($N_{elite}=2$).
-\end{itemize}
+A Tabela~\ref{tab:ap-ag-params} resume os operadores e seus parâmetros.
 
-A reexecução independente do envelope, feita para checar a sensibilidade do
-resultado à própria busca, usa configuração reduzida: $N_{pop}=30$ por 40
-gerações.
+\begin{table}[htb]
+\centering
+\caption{Operadores e parâmetros do algoritmo genético.}
+\label{tab:ap-ag-params}
+\small
+\begin{tabular}{p{0.2\textwidth} p{0.24\textwidth} p{0.44\textwidth}}
+\toprule
+\textbf{Componente} & \textbf{Valor} & \textbf{Observação} \\
+\midrule
+População e gerações & $N_{pop}=20$; 100 gerações & 2.000 avaliações
+supervisionadas por cenário \\
+Seleção & torneio, $k_t=3$ & \\
+Cruzamento & um ponto, $p_c=0{,}8$ & padrão da implementação é $0{,}7$,
+sempre sobrescrito na execução; segue \emph{reparo de unicidade}: índices
+repetidos substituídos por sorteio até restaurar $|L_0|=I$ \\
+Mutação & $p_m=0{,}1$ & substitui $m_s=\max(1,\lceil 0{,}01 \cdot I\rceil)$
+genes por índices inéditos \\
+Elitismo & $N_{elite}=2$ & $10\%$ da população \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+O caso $|L_0|=10$ é o único que difere da configuração da tabela: corre por
+200 gerações (4.000 avaliações). Nos resultados, esse caso é reportado, como
+os demais, na 100\textsuperscript{a} geração ($18{,}82\%$); a corrida segue
+até a 200\textsuperscript{a}, em que o melhor indivíduo alcança
+$19{,}20\%$. A reexecução independente do envelope, feita para checar a
+sensibilidade do resultado à própria busca, usa configuração reduzida:
+$N_{pop}=30$ por 40 gerações.
 
 \section{Pseudocódigo}
 
-\begin{enumerate}
-  \item Inicializar $N_{pop}$ indivíduos por amostragem uniforme sem reposição.
-  \item Avaliar a aptidão de todos na partição de aferição.
-  \item Por geração: copiar a elite; completar a população por
-  torneio $\to$ cruzamento $\to$ reparo $\to$ mutação; reavaliar.
-  \item Ao final, \textbf{reavaliar o melhor indivíduo no conjunto de teste
-  intocado}; o valor reportado como envelope é este, não a aptidão.
-\end{enumerate}
+\begin{algorithm}[H]
+  \caption{Estimação do envelope de $L_0$ por algoritmo genético}
+  \label{alg:ap-ag}
+  \begin{algorithmic}[1]
+    \State \textbf{Inicialização:} gerar $N_{pop}$ indivíduos por amostragem
+    uniforme sem reposição
+    \State Avaliar a aptidão de todos na partição de aferição
+    \State \textbf{Laço principal:} por geração, repetir:
+    \State \quad copiar a elite ($N_{elite}$ indivíduos)
+    \State \quad completar a população: torneio $\to$ cruzamento $\to$
+    reparo $\to$ mutação
+    \State \quad reavaliar a aptidão na partição de aferição
+    \State \textbf{Finalização:} reavaliar o melhor indivíduo no conjunto de
+    teste intocado; o valor reportado como envelope é este, não a aptidão
+  \end{algorithmic}
+\end{algorithm}
 
 \begin{figure}[htbp]
     \centering

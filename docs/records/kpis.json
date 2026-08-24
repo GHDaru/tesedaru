@@ -1,13 +1,13 @@
 {
  "schema": "kpis/v1",
  "computado_em": "2026-08-24",
- "git_sha": "16bfa4c",
+ "git_sha": "be82f10",
  "prontidao": {
-  "global_pct": 74.5,
-  "texto_pct": 87.7,
+  "global_pct": 80.2,
+  "texto_pct": 94.4,
   "artefatos_pct": 0.0,
   "pontos_totais": 1952,
-  "pontos_feitos": 1712,
+  "pontos_feitos": 1842,
   "por_rodada": [
    {
     "id": "R1",
@@ -42,7 +42,7 @@
    {
     "id": "R7",
     "pontos": 280,
-    "feitos": 40
+    "feitos": 170
    }
   ],
   "por_capitulo": [
@@ -69,12 +69,12 @@
    {
     "id": "cap3",
     "pontos": 157,
-    "feitos": 137
+    "feitos": 147
    },
    {
     "id": "cap4",
     "pontos": 172,
-    "feitos": 152
+    "feitos": 162
    },
    {
     "id": "cap5",
@@ -84,17 +84,17 @@
    {
     "id": "cap6",
     "pontos": 135,
-    "feitos": 115
+    "feitos": 125
    },
    {
     "id": "ap-a1",
     "pontos": 91,
-    "feitos": 71
+    "feitos": 91
    },
    {
     "id": "ap-a2",
     "pontos": 86,
-    "feitos": 66
+    "feitos": 86
    },
    {
     "id": "ap-a3",
@@ -104,17 +104,17 @@
    {
     "id": "ap-a4",
     "pontos": 91,
-    "feitos": 71
+    "feitos": 91
    },
    {
     "id": "ap-a5",
     "pontos": 46,
-    "feitos": 26
+    "feitos": 46
    },
    {
     "id": "ap-a6",
     "pontos": 86,
-    "feitos": 66
+    "feitos": 86
    },
    {
     "id": "ap-a7",
@@ -124,10 +124,10 @@
   ]
  },
  "ritmo": {
-  "velocidade_pontos_semana": 1374.0,
-  "janela_dias": 7,
+  "velocidade_pontos_semana": 1219.8,
+  "janela_dias": 8,
   "eta_semanas": 0.2,
-  "eta_data": "2026-08-24",
+  "eta_data": "2026-08-25",
   "eta_confiavel": true,
   "serie": [
    {
@@ -186,11 +186,18 @@
     "pontos": 1692,
     "pct": 86.7,
     "evento": null
+   },
+   {
+    "data": "2026-08-24",
+    "commit": "f8c8009",
+    "pontos": 1712,
+    "pct": 87.7,
+    "evento": null
    }
   ]
  },
  "fila_autor": {
-  "total": 11,
+  "total": 14,
   "itens": [
    {
     "id": "seed7",
@@ -267,6 +274,27 @@
     "tipo": "decisao",
     "trilha": null,
     "titulo": "Matriz de pendências P-01..P-12 (pós-congelamento)",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "ambientes-execucao",
+    "tipo": "decisao",
+    "trilha": null,
+    "titulo": "Mapeamento execução->ambiente (§3.10) + coerência do CPU no §6.4",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "validade-taxonomia-e-ponte",
+    "tipo": "decisao",
+    "trilha": null,
+    "titulo": "§3.9: citar taxonomia de validade e/ou frase-ponte para o §6.4",
+    "pontos_destravados": 0
+   },
+   {
+    "id": "proveniencia-dupla",
+    "tipo": "decisao",
+    "trilha": null,
+    "titulo": "§3.10: manter parágrafo da proveniência dupla",
     "pontos_destravados": 0
    }
   ]
