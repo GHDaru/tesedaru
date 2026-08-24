@@ -64,20 +64,26 @@ conforme a Seção~\ref{sec:metodo-reprodutibilidade}.
 \section{Desenho da pesquisa}
 \label{sec:metodo-desenho}
 
-A pesquisa adota um desenho experimental quantitativo, no modo \textit{pool-based} de
-aprendizado ativo \citep{Lewis1994,Settles2012}: há um acervo finito de instâncias não
-rotuladas $U$, um classificador da tarefa $\theta$, uma estratégia de seleção $S$ que
+A pesquisa adota um desenho experimental quantitativo: cada pergunta é
+respondida por um experimento com condições fixadas de antemão e efeitos
+medidos em métricas numéricas, e não por observação ou análise qualitativa.
+O cenário é o de aprendizado ativo com acervo fixo (\textit{pool-based}),
+formalizado na Seção~\ref{sec:fund-al}: um conjunto finito de textos não
+rotulados está disponível desde o início, e o algoritmo escolhe dele o que
+submeter à rotulagem. Na notação do arcabouço, há um acervo $U$, um
+classificador da tarefa $\theta$, uma estratégia de seleção $S$ que
 escolhe lotes de consulta $Q_t \subset U_t$, um oráculo $O$ que fornece rótulos e um
-orçamento $B$ de consultas. Como os rótulos verdadeiros de todo o conjunto de dados
-estão disponíveis, o processo é simulado com fidelidade: o oráculo LLM pode ser
-avaliado contra o padrão-ouro, e um modelo treinado com supervisão completa fornece o
-limite superior de desempenho.
+orçamento $B$ de consultas \citep{Lewis1994,Settles2012}. Como os rótulos verdadeiros de todo o conjunto de dados
+estão disponíveis, o processo é simulado com fidelidade. A acurácia do
+oráculo LLM pode ser medida contra os rótulos de referência da própria
+base, conjunto adiante chamado de padrão-ouro, e um modelo treinado com
+supervisão completa fornece o limite superior de desempenho.
 
-Duas escolhas de engenharia atravessam todos os experimentos e convém
-fixá-las desde já. A base auditada fornece duas visões de trabalho: as
-linhas cruas, sobre as quais os oráculos são medidos, e a visão deduplicada
-e particionada, sobre a qual os classificadores treinam sem vazamento entre
-treino e teste (Seção~\ref{sec:metodo-dados}). Os três classificadores da
+Duas decisões valem para todos os experimentos. A base auditada fornece
+duas visões de trabalho. Os oráculos são medidos sobre os registros
+originais da base, linha a linha; os classificadores treinam sobre a visão
+deduplicada e particionada, na qual a mesma descrição nunca aparece
+simultaneamente no treino e no teste (Seção~\ref{sec:metodo-dados}). Os três classificadores da
 tarefa dividem o trabalho por custo computacional: os dois leves executam
 as análises que exigem milhares de reexecuções, como a sensibilidade da
 composição de $L_0$ e a varredura de estratégias de seleção. O forte treina
@@ -85,23 +91,18 @@ poucas vezes e valida o framework de ponta a ponta; é baseado no BERTimbau,
 um modelo BERT pré-treinado para o português
 (Seção~\ref{sec:metodo-classificadores}).
 
-O desenho desta pesquisa tem proveniência documentada, isto é, registro
-datado de onde e quando cada elemento do desenho foi definido: o laço de aprendizado
-ativo com oráculo, a meta de redução do esforço de rotulagem e a avaliação da
-generalização contra um conjunto externo foram apresentados no exame de
-qualificação do autor (PPGMNE/UFPR, junho de 2023) e constam de material
-datado de maio de 2022, na versão de maio de 2023, preservado com a tese. É a
-esse desenho que o termo \emph{pré-registrado} se refere neste documento;
-números e partições fixados depois desse marco são decisões da tese,
-registradas como tal.
+O desenho desta pesquisa tem origem documentada e datada. O laço de
+aprendizado ativo com oráculo, a meta de redução do esforço de rotulagem e
+a avaliação da generalização contra um conjunto externo foram apresentados
+no exame de qualificação do autor \citep{Daru2023Qualificacao}. Esses
+elementos constam de material datado de maio de 2022, na versão de maio de
+2023, preservado com a tese. É a esse desenho que o termo \emph{pré-registrado} se refere neste
+documento; números e partições fixados depois desse marco são decisões da
+tese, registradas como tal.
 
-A Tabela~\ref{tab:metodo-experimentos} resume o programa experimental e serve de
-\textbf{mapa de rastreabilidade}: para cada experimento, o pilar que ele
-sustenta e a seção em que o resultado é discutido; os artefatos que permitem
-reexecutá-lo acompanham o repositório de código da tese
-(Seção~\ref{sec:metodo-reprodutibilidade}). Os identificadores da primeira coluna localizam código e
-dados; os achados, nos capítulos de resultados, são nomeados pelo que foi
-descoberto. O E3 designa, em toda a tese, a avaliação da hipótese central
+A Tabela~\ref{tab:metodo-experimentos} resume o programa experimental. Os
+identificadores da primeira coluna localizam código e dados; os achados,
+nos capítulos de resultados, são nomeados pelo que foi descoberto. O E3 designa, em toda a tese, a avaliação da hipótese central
 efetivamente executada. Houve um desenho planejado mais amplo do que o
 executado; o que ficou fora está registrado como extensão na
 Seção~\ref{sec:metodo-falco-baselines}, e a divergência entre planejado e
@@ -147,7 +148,7 @@ versionada da biblioteca \texttt{activelearning} \cite{DaruActiveLearning}, e é
 por ele que se recupera a execução correspondente; a
 Seção~\ref{sec:metodo-reprodutibilidade} descreve o ambiente. As linhas sem
 identificador pertencem ao estudo do conjunto inicial, produzido no
-repositório anterior da pesquisa; sua proveniência e verificação estão na
+repositório anterior da pesquisa; sua origem e verificação estão na
 Seção~\ref{sec:metodo-reprodutibilidade}. E1 e E2 apoiam decisões de desenho
 do framework (estratégia da Fase~2 e épocas de ajuste fino), sem constituir
 um pilar próprio.\\[2pt]
@@ -159,11 +160,10 @@ Apêndice~\ref{ap:parada-laco}.}
 \section{Conjunto de dados}
 \label{sec:metodo-dados}
 
-O caminho traçado na abertura do capítulo começa pelos dados: tudo o que os
-experimentos consomem nasce aqui. Esta seção documenta o material empírico da
-tese em quatro decisões encadeadas. De onde vêm os dados e o que os caracteriza; quanto se pode confiar
-nos rótulos de referência; como textos e espaço de classes foram normalizados; e
-como o conjunto foi particionado para os experimentos.
+Esta seção documenta o material empírico da tese em quatro decisões
+encadeadas: a origem e as características dos dados; a confiabilidade dos
+rótulos de referência; a normalização dos textos e do espaço de classes; e
+o particionamento para os experimentos.
 
 \subsection{Fonte e características}
 \label{sec:metodo-dados-fonte}
@@ -224,9 +224,10 @@ desenho experimental e a interpretação dos resultados:
 \subsection{Pré-processamento e espaço de rótulos}
 \label{sec:metodo-dados-preproc}
 
-O pré-processamento textual é mínimo: conversão para minúsculas e remoção de
-acentos, delegando ao tokenizador de subpalavras do classificador o tratamento de
-variações lexicais. Rótulos passam pela mesma normalização.
+O pré-processamento textual restringe-se à conversão para minúsculas e à
+remoção de acentos; o tratamento das variações lexicais é delegado ao
+tokenizador de subpalavras do classificador. Os rótulos passam pela mesma
+normalização.
 
 Sobre essa normalização, um espaço fechado de rótulos é construído para os
 experimentos de oráculo. Classes com menos de cinco instâncias são agrupadas na
@@ -246,9 +247,9 @@ por \textbf{714 classes presentes}. Essa segunda visão dispensa a sentinela
 \texttt{\_rare\_} de propósito: agrupar a cauda longa mascararia justamente o
 comportamento que o aprendizado ativo é chamado a testar.
 
-Ao transitar entre essas visões, as contagens de classes mudam, e a mudança
-tem explicação em duas convenções de contagem. Quem quiser reproduzir os
-números desta seção precisa conhecer as duas. A primeira convenção é a chave
+As contagens de classes diferem entre essas visões em razão de duas
+convenções de contagem, e a reprodução dos números desta seção requer o
+conhecimento de ambas. A primeira convenção é a chave
 de texto usada para comparar descrições. O censo de conflitos e a contagem de
 duplicatas (Seção~\ref{sec:metodo-dados-auditoria}) comparam descrições com
 os espaços internos colapsados; a deduplicação que precede o particionamento
@@ -264,8 +265,8 @@ dois textos dessa classe já haviam aparecido sob outro rótulo, e a classe
 fica sem representante na visão deduplicada. É assim que se chega às 714
 classes presentes. A receita completa é executável e reproduz todas as
 contagens desta seção; ela acompanha a biblioteca \texttt{activelearning}
-\cite{DaruActiveLearning}. A Figura~\ref{fig:metodo-preproc-classes} percorre
-esse caminho de contagens de ponta a ponta.
+\cite{DaruActiveLearning}. A Figura~\ref{fig:metodo-preproc-classes} resume
+as duas convenções e o caminho das contagens.
 
 \begin{figure}[htbp]
     \centering
@@ -316,12 +317,14 @@ mesmas regras que as demais, à maneira dos braços de um ensaio controlado.
 Cada braço da avaliação
 com o classificador forte é um ajuste fino completo do BERTimbau, e o programa
 executa cinco braços mais a varredura de orçamento em uma única GPU, e ainda
-mantém uma média de 70 exemplos por classe no \textit{pool}. Uma consequência
-precisa ser registrada: com a mudança da régua contra a qual os braços são
-medidos (Seção~\ref{sec:metodo-falco-baselines}), os orçamentos passam a ser
-medidos como fração do \textit{pool} de 50 mil ($30\% = 15$ mil rótulos), e não de
-$|U_0|$. Essa re-baseação do denominador é declarada, e suas consequências são
-discutidas nas limitações (Seção~\ref{sec:metodo-validade}).
+mantém uma média de 70 exemplos por classe no \textit{pool}. Uma
+consequência dessa escolha deve ser registrada: com a mudança da régua
+contra a qual os braços são medidos
+(Seção~\ref{sec:metodo-falco-baselines}), os orçamentos passam a ser
+expressos como fração do \textit{pool} de 50 mil ($30\% = 15$ mil rótulos),
+e não de $|U_0|$. Essa mudança de denominador é declarada aqui, e suas
+consequências são discutidas nas ameaças à validade
+(Seção~\ref{sec:metodo-validade}).
 
 \begin{figure}[htbp]
     \centering
@@ -562,7 +565,7 @@ limite empírico de referência.
 Resolvido o custo de começar, aparece o custo de continuar: a cada iteração,
 alguém precisa fornecer os rótulos, a um preço. É o terceiro pilar. A avaliação de oráculos exige, antes de qualquer comparação, um instrumento
 de medição confiável. Por isso esta seção define primeiro a instrumentação
-(contrato de saída, custo e proveniência), depois o desenho fatorial da
+(contrato de saída, custo e registro de origem de cada resposta), depois o desenho fatorial da
 avaliação e, por fim, o critério fixado de antemão que converte as medições em decisão
 de arquitetura para o FALCO.
 
@@ -899,7 +902,7 @@ determinismo entre versões de modelo nem entre serviços de \textit{serving}, e
 própria avaliação de oráculos mostra o mesmo modelo divergindo
 significativamente de si mesmo entre dois provedores
 (Seção~\ref{sec:res-e0-rq2}). Por isso cada anotação é arquivada com
-proveniência completa, o que permite re-medição futura contra a mesma
+registro completo de origem (modelo, provedor e data), o que permite re-medição futura contra a mesma
 referência.
 
 \section{Reprodutibilidade e ambiente}
@@ -925,7 +928,7 @@ O ambiente de treinamento é uma estação com GPU NVIDIA RTX 3090 (24~GB), 64~G
 de RAM e Linux, com as versões das dependências fixadas pelo gerenciador de
 pacotes do repositório.
 
-\textbf{Proveniência dupla dos resultados.} Por razões históricas, o programa
+\textbf{Origem dupla dos resultados.} Por razões históricas, o programa
 experimental distribui-se em dois repositórios versionados, e a distinção é
 mantida explícita em toda a tese. Os resultados \emph{originais} dos pilares do conjunto inicial e da partida a
 frio foram produzidos no repositório \texttt{activetextclassification}
