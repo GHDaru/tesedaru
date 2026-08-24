@@ -1,0 +1,68 @@
+% ============================================================================
+% PROPOSTA (banca, 2026-08-24, encomenda do autor): resumo/abstract em
+% SEIS MOVIMENTOS (contexto -> lacuna -> objetivo -> método -> resultados ->
+% conclusão), ~380 palavras, gerado pela skill de abstract fornecida pelo
+% autor e verificado contra o resumo oficial da main.
+%
+% NAO substitui 0-iniciais/resumo.tex nem resumo-500.tex sem gate do autor.
+% Uso natural: artigo derivado ou condensação mais agressiva do resumo.
+%
+% GARANTIA DE ESPELHO (princípio VIII), medida e não alegada: TODO número
+% desta proposta é SUBCONJUNTO dos números do resumo oficial (nenhum número
+% novo, nenhuma alegação nova). Qualificador inegociável: o marco de 20 mil
+% rótulos (8,6%) vale em varredura POST HOC com rótulos de GABARITO.
+%
+% DUAS DECISÕES PENDENTES DO AUTOR (apontadas pela banca):
+% (1) TEMPO VERBAL: a skill manda passado ("propôs e avaliou"); o resumo
+%     oficial usa presente ("propõe e avalia"). Adotar exige espelhar a
+%     escolha em resumo, abstract EN e corpo.
+% (2) ALVO: se o alvo for a norma SiBi/UFPR de 500 palavras, o resumo-500
+%     já cumpre; esta versão serve a artigo/condensação de ~380 palavras.
+% Cortes deliberados (disponíveis no resumo oficial, fora por concisão):
+% Macro F1 do critério (30 mil/13,0%), braço de 35 mil vs supervisão
+% completa, viés de autoavaliação, amplitude 6,4 p.p. da sensibilidade.
+% ============================================================================
+\begin{resumo}
+
+A classificação de textos curtos em português, como as descrições de produtos
+de notas fiscais eletrônicas, enfrenta vocabulário abreviado e ruidoso e
+centenas de categorias desbalanceadas. Os métodos supervisionados dependem de
+grandes volumes de rótulos, e a rotulagem é o principal custo desses
+sistemas; faltava um caminho que reduzisse esse custo sem perda relevante de
+desempenho final. Esta tese propôs e avaliou o FALCO (\textit{Framework} de
+Aprendizado Ativo com LLM para texto CurtO), que ataca o custo de rotulagem
+em três frentes: composição informada do conjunto inicial sem uso de
+rótulos, pela heurística DRI-SL; seleção ativa por incerteza; e substituição
+parcial do anotador humano por oráculos baseados em modelos de linguagem de
+grande porte (LLMs), organizados em fases de custo crescente. A avaliação
+usou uma base pública auditada de 250.365 descrições em 621 categorias, sob
+protocolo pré-registrado com partições imutáveis, testes pareados (McNemar,
+Wilcoxon) e artefato rastreável para cada número reportado; a validação
+final executou o framework ponta a ponta com oráculo LLM gratuito e o
+classificador BERTimbau, em três sementes, avaliado na população reservada
+de 177.490 instâncias. O DRI-SL superou, sem usar nenhum rótulo, o melhor
+indivíduo de um algoritmo genético supervisionado em todos os tamanhos de
+conjunto inicial de 100 a 5.000. Oráculos LLM \textit{zero-shot} atingiram
+77--83\% de acurácia a US\$~0,035--0,92 por mil rótulos, com Macro F1
+superior ao de um classificador supervisionado leve treinado com a base
+completa; sem restrição de saída ao espaço de classes, $6{,}8\%$ das
+respostas viraram falsos erros, e o mesmo modelo divergiu de si mesmo entre
+provedores de \textit{serving} ($p<0{,}001$). A seleção por incerteza
+superou a aleatória ($p=0{,}0078$) e manteve a vantagem sob ruído de oráculo
+até $\varepsilon=0{,}4$. Como nenhum oráculo alcançou o critério
+pré-registrado de $85\%$ de acurácia, o aprendizado com rótulos ruidosos
+tornou-se o cenário central. Na hipótese central, obter ao menos $95\%$ da
+acurácia da supervisão completa com no máximo 34.724 rótulos, o veredito foi
+duplo: o critério mostrou-se atingível e foi cruzado com 20 mil rótulos
+($8{,}6\%$ da população) nas três sementes, em varredura \textit{post hoc}
+com rótulos de gabarito; a configuração executada, porém, parou por
+estagnação com 11.936 rótulos ($5{,}2\%$), e a decomposição pareada atribuiu
+a perda ao critério de parada, inocentando o ruído do oráculo e a seleção.
+Os resultados mostram que a redução de custo pretendida está ao alcance do
+processo e que o obstáculo remanescente é o critério de parada, não a
+qualidade do oráculo nem a seleção. A tese entrega ainda a métrica LCE
+(\textit{Learning Curve Efficiency}), a biblioteca aberta
+\texttt{activelearning} e a ferramenta FlowBuilder, que tornam o protocolo
+reutilizável em outros domínios.
+
+\end{resumo}
