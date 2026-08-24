@@ -1,0 +1,69 @@
+% ============================================================================
+% ESQUEMA (banca): o laço do aprendizado ativo com acervo fixo (pool-based),
+% na formulação de Settles e no arcabouço da tese (sêxtupla
+% A = <L, U, theta, S, O, B>), com a seleção EM LOTE destacada.
+% Encomenda do autor (tarefa 0036 do principal) para o §2.2
+% (2-fundam, sec:formalismo) — FUNDAMENTO: oráculo genérico, sem
+% antecipar a maquinaria do Cap. 3.
+% Uso previsto (o principal gateia a inserção; a banca NÃO edita o Cap. 2):
+%   após o Algoritmo alg:active_learning, dentro de figure:
+%   \input{3-metodo/esquemas-propostos/esq-laco-aprendizado-ativo}
+% Notação idêntica à Tabela tab:active-learning-components e ao Algoritmo 1.
+% SEM números medidos, SEM códigos internos, SEM caminhos, SEM travessões.
+% Uso standalone (pré-visualização):
+%   \documentclass[tikz,border=6pt,12pt]{standalone}
+%   \usetikzlibrary{arrows.meta, positioning}
+%   \begin{document}\input{esq-laco-aprendizado-ativo.tex}\end{document}
+% GEOMETRIA CALIBRADA PARA CORPO 12 (ppginf/book 12pt, textwidth 16cm).
+% Requer apenas arrows.meta e positioning (já em packages.tex). Legível em
+% P&B: estado/dados = cinza claro; oráculo e saída = cinza médio;
+% operações = branco; saída do laço = tracejado.
+% ============================================================================
+\begin{tikzpicture}[
+    x=1cm, y=1cm,
+    caixa/.style={draw, rounded corners=2pt, align=center, text width=42mm,
+                  minimum height=13mm, inner sep=3pt, font=\footnotesize},
+    dado/.style={caixa, fill=gray!8},
+    oraculo/.style={caixa, fill=gray!14},
+    saida/.style={caixa, fill=gray!14},
+    seta/.style={-{Stealth[length=2.6mm]}, thick},
+    rot/.style={font=\scriptsize, align=center, inner sep=2pt}
+]
+    % ------------------ o acervo, fora do laço -----------------------------
+    \node[dado] (U) at (10.8,2.8)
+        {acervo não rotulado $U$\\(\textit{pool} fixo, disponível\\desde o início)};
+
+    % ------------------ o laço (anel de cinco nós) -------------------------
+    \node[dado] (L) at (0,0)
+        {conjunto rotulado $L_t$\\(inicia como $L_0$)};
+    \node[caixa] (treino) at (5.4,0)
+        {treinamento do classificador:\\$\theta_t \leftarrow \mathrm{Learn}(L_t)$};
+    \node[caixa] (selecao) at (10.8,0)
+        {seleção de um \textbf{lote}:\\$Q_t \leftarrow S(U_t,\theta_t,L_t)$\\
+         (modo em lote, \textit{batch-mode})};
+    \node[oraculo] (orac) at (10.8,-3.4)
+        {\textbf{oráculo} $O$ rotula\\cada instância do lote:\\$y \leftarrow O(x)$};
+    \node[caixa, text width=46mm] (atualiza) at (5.4,-3.4)
+        {atualização:\\
+         $L_{t+1} \leftarrow L_t \cup \{(x,y)\}$\\
+         $U_{t+1} \leftarrow U_t \setminus Q_t$;\;
+         \mbox{$B_{t+1} \leftarrow B_t - |Q_t|$}};
+
+    % ------------------ saída do laço (abaixo do anel) ---------------------
+    \node[saida, text width=46mm] (fim) at (5.4,-6.3)
+        {\textbf{parada}: orçamento $B$\\esgotado ou acervo exausto;\\
+         devolve $\theta_{\mathrm{final}}$ treinado em $L_T$};
+
+    % ------------------ setas ----------------------------------------------
+    \draw[seta] (U) -- (selecao);
+    \draw[seta] (L) -- (treino);
+    \draw[seta] (treino) -- (selecao);
+    \draw[seta] (selecao) -- (orac);
+    \draw[seta] (orac) -- (atualiza);
+    % o retorno fecha o anel por caminho reto: a atualização devolve os
+    % pares rotulados a L (a saída de parada fica abaixo, fora do corredor)
+    \draw[seta] (atualiza.west) -| (L.south);
+    \node[rot, anchor=south] at (1.55,-3.3)
+        {repete enquanto\\houver orçamento};
+    \draw[seta, dashed] (atualiza) -- (fim);
+\end{tikzpicture}
