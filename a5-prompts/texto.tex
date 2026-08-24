@@ -58,17 +58,17 @@ anatomia de uma chamada.
 
 Na rotulagem em lote, os itens são numerados e a resposta é um vetor
 indexado; o esquema do lote não fixa \texttt{minItems}/\texttt{maxItems}
-para preservar a cacheabilidade do prefixo; o uso (tokens e custo) é
+para que o prefixo permaneça reaproveitável pelo \textit{cache}; o uso (tokens e custo) é
 rateado igualmente entre os itens da chamada.
 
 \section{Variantes do prompt}
 
 Duas variantes foram avaliadas no estudo do prompt como variável do
-instrumento: \textbf{v4a} acrescenta dez regras de fronteira do catálogo
+instrumento. A \textbf{v4a} acrescenta dez regras de fronteira do catálogo
 derivadas da anatomia de erros (ex.: medicamentos $\to$ \textit{outro
 farma}; produto bucal líquido $\to$ \textit{antisseptico bucal}; pó para
 suco $\to$ \textit{preparo para suco}; fones com fio $\to$
-\textit{acessorio de audio}); \textbf{v4b} soma dez exemplos
+\textit{acessorio de audio}). A \textbf{v4b} soma dez exemplos
 \emph{inventados} de fronteiras difíceis, nunca instâncias das amostras de
 avaliação, para não contaminar a medição. O texto integral das variantes
 está no mesmo módulo versionado.

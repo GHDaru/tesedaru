@@ -16,9 +16,9 @@ classificador leve PVBin treinado nesse candidato. A aptidão é medida em
 uma partição de \textbf{aferição}, reservada para este fim e disjunta do
 conjunto de teste, porque
 otimizar e reportar na mesma partição superajustaria o envelope ao conjunto
-de avaliação; por isso, ao final de cada cenário, o melhor indivíduo é
-\textbf{reavaliado no conjunto de teste intocado}, e é esse valor,
-tipicamente inferior ao de aptidão, que se reporta como envelope.
+de avaliação. Por isso, ao final de cada cenário, o melhor
+indivíduo é \textbf{reavaliado no conjunto de teste intocado}, e esse valor,
+tipicamente inferior ao de aptidão, é o que se reporta como envelope.
 
 São otimizados \textbf{quatro cenários} por tamanho (maximização e
 minimização de cada uma das duas métricas), para dez tamanhos de $L_0$

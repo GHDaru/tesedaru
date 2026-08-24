@@ -55,9 +55,9 @@ cobre domínio, \textit{adapters} e casos de uso sem acesso à rede.
 \section{FlowBuilder}
 
 O FlowBuilder é a interface web (FastAPI + React) construída sobre a
-biblioteca: envio de CSV com saneamento automático (remoção de rótulos
+biblioteca. Ela recebe CSV com saneamento automático (remoção de rótulos
 operacionais; censo de conflitos e duplicatas; \textit{download} da base
-saneada), execução parametrizada de fluxos (semente, orçamento, lote,
-$L_0$, estratégia, oráculo, incluindo modelos de custo zero) e
-acompanhamento de curvas de aprendizado. O banco guarda o índice das
+saneada) e executa fluxos parametrizados por semente, orçamento, lote,
+$L_0$, estratégia e oráculo, incluindo modelos de custo zero, com
+acompanhamento das curvas de aprendizado. O banco guarda o índice das
 execuções; os artefatos brutos permanecem em disco, versionáveis.

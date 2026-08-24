@@ -44,24 +44,24 @@ ilustra essa geometria.
 Quatro propriedades sustentam o uso que a tese faz da métrica. A
 \textbf{imagem} é $\mathrm{LCE} \in (0, 1]$ quando
 $m_k \le \mathrm{Perf}_{\mathrm{baseline}}$ para todo $k$, e valores maiores
-indicam aproximação mais rápida do teto. Há \textbf{invariância de escala}:
-transformações afins do eixo $n$ (mudança de unidade do orçamento) não
-alteram a LCE, porque numerador e denominador escalam pelo mesmo fator. Há
-\textbf{comparabilidade entre tetos distintos}: ao normalizar pelo teto do
-próprio par (classificador, conjunto), e não pelo máximo teórico da métrica,
-a LCE permite comparar estratégias entre classificadores de tetos distintos.
-Um classificador fraco bem servido pela estratégia pode ter LCE maior que
-um classificador forte mal servido. Por fim, há \textbf{dependência do
-intervalo}: a LCE depende de $[n_1, n_K]$, de modo que comparações exigem
-execuções com o mesmo orçamento e o mesmo $L_0$, condição imposta em todos
-os desenhos desta tese.
+indicam aproximação mais rápida do teto. A \textbf{invariância de escala}
+garante que transformações afins do eixo $n$ (mudança de unidade do
+orçamento) não alterem a LCE, porque numerador e denominador escalam pelo
+mesmo fator. A \textbf{comparabilidade entre tetos distintos} vem de
+normalizar pelo teto do próprio par (classificador, conjunto), e não pelo
+máximo teórico da métrica, o que permite comparar estratégias entre
+classificadores de tetos distintos. Um classificador fraco bem servido pela
+estratégia pode ter LCE maior que um classificador forte mal servido. A
+\textbf{dependência do intervalo}, por fim, decorre de a LCE ser função de
+$[n_1, n_K]$: comparações exigem execuções com o mesmo orçamento e o mesmo
+$L_0$, condição imposta em todos os desenhos desta tese.
 
 \section{Relação com a ALC}
 
 A \textit{Area under the Learning Curve} do \textit{Active Learning
 Challenge} \citep{Guyon2011ALC} também sumariza a curva por área normalizada.
-As diferenças da LCE: normalização pelo baseline de supervisão completa do
-próprio par (a ALC normaliza pelo máximo global da métrica) e integração de
+As diferenças da LCE são duas: a normalização pelo baseline de supervisão
+completa do próprio par (a ALC normaliza pelo máximo global da métrica) e integração de
 Simpson na grade observada (a ALC interpola em escala logarítmica de
 consultas). A implementação de referência acompanha o repositório de código
 da tese, com testes unitários de propriedades.
