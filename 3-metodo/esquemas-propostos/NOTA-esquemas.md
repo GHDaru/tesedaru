@@ -441,3 +441,27 @@ com o texto, sem poluição visual, legível em P&B.
 gerados por `pdflatex` + `pdftoppm` com as `\ref{...}` simuladas pelos
 números reais das seções (invólucro standalone descrito no cabeçalho de cada
 `.tex`). Ambas as compilações: 0 erros, 0 overfull.
+
+## Adendo 0143 (2026-08-24) — esq-preproc-espacos-rotulos v3 "explica as classes"
+
+A figura 2 da tarefa 0138 foi refeita por adendo do principal (encomenda do
+autor): ela deve EXPLICAR AS CLASSES — o caminho das contagens pelas visões
+da base, respondendo "por que 621 num experimento e 714 no outro?" — com
+EXCEÇÃO CONTROLADA à regra "zero números": entram somente os números já
+impressos no §3.2 (250.221, ≥5, 621, 620, ≥2, 715, 710, 231.490, 714), nada
+recomputado; qualquer mudança na prosa deve refletir aqui (checagem de
+espelho manual no gate).
+
+- **v3, iteração 1**: duas vias a partir da base corrigida (linhas cruas →
+  CategorySchema fechado; filtro brando → deduplicação → visão populacional),
+  nota da "pomada massageadora" no vão entre as vias, seta anotada
+  "715 − 1 = 714", e nota-resposta didática ao pé. Compilou 0/0, mas o render
+  achou: rewraps no meio de palavra na caixa do filtro ≥2 ("li-nhas",
+  "tex-tos") e a nota da pomada colidindo com a caixa do CategorySchema.
+- **Iterações 2–4**: quebras da caixa ≥2 redistribuídas em 4 linhas curtas
+  (paralela à caixa ≥5); hífen manual "popu-lacional" removido (linhas
+  naturais); nota da pomada estreitada (28 mm) e movida para o corredor livre
+  entre as vias (x≈5,55), seta tracejada até dedup.west sem cruzar nada.
+  Render final: nenhuma quebra intra-palavra, nenhuma colisão, rótulo da
+  aritmética com folga. 0 erros, 0 overfull (corpo 12, textwidth 16 cm).
+  Prévia regenerada (`preview-esq-preproc-espacos-rotulos.png`).
