@@ -369,7 +369,22 @@ orçamento.
   \end{algorithmic}
 \end{algorithm}
 
-O laço admite três cenários clássicos, que diferem em como as instâncias
+\begin{figure}[htbp]
+    \centering
+    \input{3-metodo/esquemas-propostos/esq-laco-aprendizado-ativo}
+    \caption{O laço do aprendizado ativo com acervo fixo
+    (\textit{pool-based}), no arcabouço
+    $\mathcal{A}=\langle L, U, \theta, S, O, B\rangle$ adotado na tese: a
+    cada iteração, o classificador é treinado no conjunto rotulado, a
+    estratégia $S$ seleciona um lote $Q_t$ do acervo $U$ (modo em lote), o
+    oráculo $O$ rotula o lote e os pares rotulados retornam a $L$; o
+    processo repete até esgotar o orçamento $B$ ou o acervo, devolvendo o
+    modelo final.}
+    \label{fig:fund-laco-al}
+\end{figure}
+
+O laço, que a Figura~\ref{fig:fund-laco-al} ilustra, admite três cenários
+clássicos, que diferem em como as instâncias
 chegam ao seletor \cite{Settles2012}: na \textbf{síntese de consultas}, o
 algoritmo gera instâncias artificiais, o que funciona quando o espaço de entrada tem estrutura conhecida, mas pode
 produzir exemplos ininteligíveis para anotadores humanos \cite{Baum1992}; na
@@ -406,14 +421,18 @@ seleciona as instâncias sobre as quais o modelo corrente está mais incerto,
 requerendo apenas as probabilidades preditas. Reúne custo baixo, aplicabilidade
 geral e relação teórica com a bissecção do espaço de versão em
 classificadores de margem \citep{Tong2000}, e permanece linha de base forte em
-\textit{deep learning} \citep{Gal2017}. Uma ressalva de regime importa a esta
-tese. Em classificação multirrótulo extrema, com centenas de rótulos possíveis
-e vários rótulos por texto, nenhuma estratégia de seleção supera a aleatória
-de forma consistente \citep{Wertz2022}. O mesmo estudo mostra que o ganho da
-seleção aparece nos conjuntos em que os rótulos raramente ocorrem juntos. A
-classificação de rótulo único, caso desta tese, é o caso-limite dessa
-condição: cada texto tem um único rótulo. Nesse regime, com poucas classes, a
-seleção supera a aleatória de forma consistente \citep{Rouzegar2024}. As três medidas canônicas da
+\textit{deep learning} \citep{Gal2017}. Essa vantagem, porém, não está
+garantida em todo formato de problema, e dois resultados delimitam o caso
+desta tese. \citet{Wertz2022} avaliaram a classificação multirrótulo, em que
+um mesmo texto pode receber vários rótulos ao mesmo tempo: nesse formato,
+nenhuma estratégia de seleção foi consistentemente melhor do que sortear as
+instâncias ao acaso. O caso desta tese é outro: aqui cada texto recebe uma
+única categoria, e esse é o formato em que \citet{Rouzegar2024} observam a
+seleção vencendo o sorteio de forma consistente, embora em tarefas com poucas
+classes. Nenhum dos dois estudos cobre, portanto, o regime exato desta tese,
+rótulo único com centenas de categorias; se a vantagem da seleção se mantém
+nele é uma pergunta que os experimentos respondem empiricamente
+(Capítulo~\ref{ch:resultados-falco}). As três medidas canônicas da
 amostragem por incerteza são usadas nos experimentos desta tese:
 \begin{equation}
 x^*_{LC} = \arg\max_x \left[ 1 - P_\theta(\hat{y}|x) \right]
